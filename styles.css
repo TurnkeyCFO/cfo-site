@@ -49,7 +49,7 @@ h1, h2, h3, p, ul { margin: 0; }
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.26)),
-    url("./assets/energy-bg.png") center 58% / cover no-repeat;
+    url("./assets/energy-bg.webp") center 58% / cover no-repeat;
   opacity: 0.14;
   transform: scale(1.04);
 }
