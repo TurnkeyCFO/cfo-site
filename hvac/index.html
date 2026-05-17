@@ -3,13 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HVAC Bookkeeping Services | Turnkey CFO</title>
+  <meta name="description" content="HVAC bookkeeping services in Austin, TX and nationwide — seasonal cash flow, service agreement revenue, job costing, and subcontractor compliance. Get your instant estimate today.">
   <link rel="canonical" href="https://turnkeycfo.com/hvac/">
   <meta name="robots" content="index, follow">
-  <title>Bookkeeping for HVAC Contractors | TurnkeyCFO</title>
-  <meta name="description" content="Bookkeeping built for HVAC contractors. Seasonal cash flow planning, service agreement revenue recognition, parts inventory, subcontractor 1099s, equipment tracking, and a live dashboard — clean books year-round, not just in summer.">
-  <meta property="og:title" content="Bookkeeping Built for HVAC Contractors | TurnkeyCFO">
-  <meta property="og:description" content="Seasonal cash flow, service contracts, job costing, and subcontractor compliance — bookkeeping that works as hard as your techs do.">
+  <meta property="og:title" content="HVAC Bookkeeping Services | Turnkey CFO">
+  <meta property="og:description" content="HVAC bookkeeping services in Austin, TX and nationwide — seasonal cash flow, service agreement revenue, job costing, and subcontractor compliance. Get your instant estimate today.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://turnkeycfo.com/hvac/">
+  <meta property="og:site_name" content="Turnkey CFO">
+  <meta property="og:image" content="https://turnkeycfo.com/assets/tk-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HVAC Bookkeeping Services | Turnkey CFO">
+  <meta name="twitter:description" content="HVAC bookkeeping services in Austin, TX and nationwide — seasonal cash flow, service agreement revenue, job costing, and subcontractor compliance.">
+  <meta name="twitter:image" content="https://turnkeycfo.com/assets/tk-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,15 +26,55 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "AccountingService",
-    "name": "TurnkeyCFO — HVAC Contractor Bookkeeping",
-    "description": "Bookkeeping built for HVAC contractors: seasonal cash flow planning, service agreement deferred revenue, job costing, subcontractor 1099 compliance, refrigerant and parts inventory, vehicle and equipment tracking.",
-    "url": "https://turnkeycfo.com/hvac/",
-    "email": "Ricky@turnkeycfo.com",
-    "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
-    "areaServed": "United States",
-    "priceRange": "$$",
-    "knowsAbout": ["HVAC contractor bookkeeping", "Seasonal cash flow planning", "Service agreement deferred revenue", "Job costing", "Subcontractor 1099-NEC", "Equipment depreciation"]
+    "@graph": [
+      {
+        "@type": "AccountingService",
+        "@id": "https://turnkeycfo.com/hvac/#service",
+        "name": "Turnkey CFO — HVAC Contractor Bookkeeping",
+        "description": "Bookkeeping built for HVAC contractors: seasonal cash flow planning, service agreement deferred revenue, job costing, subcontractor 1099 compliance, refrigerant and parts inventory, vehicle and equipment tracking.",
+        "url": "https://turnkeycfo.com/hvac/",
+        "telephone": "+1-682-433-1852",
+        "email": "Ricky@turnkeycfo.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
+        "areaServed": [
+          { "@type": "City", "name": "Austin" },
+          { "@type": "State", "name": "Texas" },
+          { "@type": "Country", "name": "United States" }
+        ],
+        "openingHours": "Mo-Fr 09:00-17:00",
+        "priceRange": "$$",
+        "parentOrganization": { "@type": "Organization", "name": "Turnkey CFO", "url": "https://turnkeycfo.com" },
+        "knowsAbout": ["HVAC contractor bookkeeping", "Seasonal cash flow planning", "Service agreement deferred revenue", "Job costing", "Subcontractor 1099-NEC", "Equipment depreciation"]
+      },
+      {
+        "@type": "Service",
+        "name": "HVAC Bookkeeping Services",
+        "serviceType": "HVAC contractor bookkeeping",
+        "provider": { "@id": "https://turnkeycfo.com/hvac/#service" },
+        "areaServed": { "@type": "Country", "name": "United States" },
+        "description": "Seasonal cash flow planning, service agreement deferred revenue, job costing, subcontractor 1099 compliance, and live dashboards for HVAC contractors."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://turnkeycfo.com/" },
+          { "@type": "ListItem", "position": 2, "name": "HVAC Contractors", "item": "https://turnkeycfo.com/hvac/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Do you replace our CPA?", "acceptedAnswer": { "@type": "Answer", "text": "No — we work alongside your CPA. We keep books clean and filing-ready year-round so your CPA can file your return without a month of cleanup. If you need a CPA who understands contractors, we can refer one." } },
+          { "@type": "Question", "name": "How do you handle service agreement revenue recognition?", "acceptedAnswer": { "@type": "Answer", "text": "Annual maintenance agreements are booked as deferred revenue when the customer pays, then recognized as revenue monthly as service is performed. This keeps your income statement accurate and matches revenue to the period when you earned it — not when you collected cash." } },
+          { "@type": "Question", "name": "Can you help with seasonal cash flow planning?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We map your historical revenue curve against fixed costs to identify the slow-season cash gap, then help you build a plan — whether that's a line of credit, adjusted payroll, or a pricing strategy for off-season service agreements. The numbers come from us; the decisions come from you and your CPA." } },
+          { "@type": "Question", "name": "Do you work with ServiceTitan, Jobber, or Housecall Pro?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We integrate your field service software with QuickBooks so revenue, job costs, and receivables sync correctly. We work with ServiceTitan, Jobber, Housecall Pro, and most other platforms used by HVAC contractors." } },
+          { "@type": "Question", "name": "How do you handle subcontractor compliance for seasonal subs?", "acceptedAnswer": { "@type": "Answer", "text": "We track every sub from the first payment. W-9 at hire, payments tracked against the $600 threshold, 1099-NEC filed by January 31. Seasonal subs during summer peak are the most common source of 1099 misses — we close that gap from day one." } },
+          { "@type": "Question", "name": "Is our data secure?", "acceptedAnswer": { "@type": "Answer", "text": "Everything lives in QuickBooks Online, Gusto, and Ramp — enterprise-grade platforms with role-scoped access per team member. Credentials are never shared by email and we maintain professional liability insurance." } },
+          { "@type": "Question", "name": "Can we cancel?", "acceptedAnswer": { "@type": "Answer", "text": "Month-to-month, 30-day notice. No multi-year contracts. We keep clients because the work is good, not because the paperwork traps them." } },
+          { "@type": "Question", "name": "How much does this cost?", "acceptedAnswer": { "@type": "Answer", "text": "Our instant estimate takes about 60 seconds and gives you a real price range based on your van count, tech count, and service agreement volume. Tap any \"Instant Estimate\" button on the page." } }
+        ]
+      }
+    ]
   }
   </script>
 </head>

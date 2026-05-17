@@ -1,0 +1,16 @@
+{
+  "name": "TurnkeyCFO",
+  "short_name": "TurnkeyCFO",
+  "description": "Austin bookkeeping services for small business.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f8fb",
+  "theme_color": "#00263a",
+  "icons": [
+    {
+      "src": "/assets/tk-logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

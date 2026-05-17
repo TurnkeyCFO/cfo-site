@@ -3,13 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookkeeping for Electrical Contractors | Turnkey CFO</title>
+  <meta name="description" content="Bookkeeping for electrical contractors in Austin, TX and nationwide — job costing, subcontractor 1099s, electrician payroll, and profit dashboards. Get an estimate.">
   <link rel="canonical" href="https://turnkeycfo.com/electricians/">
   <meta name="robots" content="index, follow">
-  <title>Bookkeeping for Electrical Contractors | TurnkeyCFO</title>
-  <meta name="description" content="Bookkeeping built for electrical contractors. Job costing per job, subcontractor 1099s, journeyman and apprentice payroll, materials vs labor tax treatment, vehicle tracking, and a live dashboard — clean books so you know which jobs are profitable.">
-  <meta property="og:title" content="Bookkeeping Built for Electrical Contractors | TurnkeyCFO">
-  <meta property="og:description" content="Job costing, subcontractor compliance, licensed electrician payroll, and live dashboards — bookkeeping built for how electrical contractors run.">
+  <meta property="og:title" content="Bookkeeping for Electrical Contractors | Turnkey CFO">
+  <meta property="og:description" content="Bookkeeping for electrical contractors in Austin, TX and nationwide — job costing, subcontractor 1099s, electrician payroll, materials vs labor tax treatment, and live profitability dashboards. Get your instant estimate today.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://turnkeycfo.com/electricians/">
+  <meta property="og:site_name" content="Turnkey CFO">
+  <meta property="og:image" content="https://turnkeycfo.com/assets/tk-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bookkeeping for Electrical Contractors | Turnkey CFO">
+  <meta name="twitter:description" content="Bookkeeping for electrical contractors in Austin, TX and nationwide — job costing, subcontractor 1099s, electrician payroll, materials vs labor tax treatment, and live profitability dashboards.">
+  <meta name="twitter:image" content="https://turnkeycfo.com/assets/tk-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,15 +26,55 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "AccountingService",
-    "name": "TurnkeyCFO — Electrical Contractor Bookkeeping",
-    "description": "Bookkeeping built for electrical contractors: job costing per project, subcontractor 1099 compliance, licensed electrician payroll with correct workers' comp classification, materials vs labor tax treatment, and live profitability dashboards.",
-    "url": "https://turnkeycfo.com/electricians/",
-    "email": "Ricky@turnkeycfo.com",
-    "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
-    "areaServed": "United States",
-    "priceRange": "$$",
-    "knowsAbout": ["Electrical contractor bookkeeping", "Job costing", "Subcontractor 1099-NEC", "Electrician payroll", "Workers comp classification", "Materials vs labor tax treatment"]
+    "@graph": [
+      {
+        "@type": "AccountingService",
+        "@id": "https://turnkeycfo.com/electricians/#service",
+        "name": "Turnkey CFO — Electrical Contractor Bookkeeping",
+        "description": "Bookkeeping built for electrical contractors: job costing per project, subcontractor 1099 compliance, licensed electrician payroll with correct workers' comp classification, materials vs labor tax treatment, and live profitability dashboards.",
+        "url": "https://turnkeycfo.com/electricians/",
+        "telephone": "+1-682-433-1852",
+        "email": "Ricky@turnkeycfo.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
+        "areaServed": [
+          { "@type": "City", "name": "Austin" },
+          { "@type": "State", "name": "Texas" },
+          { "@type": "Country", "name": "United States" }
+        ],
+        "openingHours": "Mo-Fr 09:00-17:00",
+        "priceRange": "$$",
+        "parentOrganization": { "@type": "Organization", "name": "Turnkey CFO", "url": "https://turnkeycfo.com" },
+        "knowsAbout": ["Electrical contractor bookkeeping", "Job costing", "Subcontractor 1099-NEC", "Electrician payroll", "Workers comp classification", "Materials vs labor tax treatment"]
+      },
+      {
+        "@type": "Service",
+        "name": "Bookkeeping for Electrical Contractors",
+        "serviceType": "Electrical contractor bookkeeping",
+        "provider": { "@id": "https://turnkeycfo.com/electricians/#service" },
+        "areaServed": { "@type": "Country", "name": "United States" },
+        "description": "Job costing per project, subcontractor 1099 compliance, licensed electrician payroll with correct workers' comp classification, materials vs labor tax treatment, and live profitability dashboards for electrical contractors."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://turnkeycfo.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Electrical Contractors", "item": "https://turnkeycfo.com/electricians/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Do you replace our CPA?", "acceptedAnswer": { "@type": "Answer", "text": "No — we work alongside your CPA. We keep books clean and filing-ready year-round. If you need a CPA who understands contractors, we can refer one." } },
+          { "@type": "Question", "name": "Can you set up job costing in QuickBooks?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We set up QuickBooks job costing around your project types — service calls, new construction, commercial TIs, remodels — and allocate materials, labor, and subcontract costs per job so you see margin by project type, not just totals." } },
+          { "@type": "Question", "name": "How do you handle different workers' comp rates for my crew?", "acceptedAnswer": { "@type": "Answer", "text": "We set up payroll with the correct workers' comp classification code for each role — master electrician, journeyman, apprentice, office staff. Premium is calculated at the correct rate per class. Correct from day one, reconciled at policy renewal." } },
+          { "@type": "Question", "name": "What if I use a specialty sub for one job?", "acceptedAnswer": { "@type": "Answer", "text": "We track every sub from first payment, even single-job subs. W-9 before the first check, payments tracked against the $600 threshold, 1099-NEC filed by January 31. Single-project subs are the most common source of missed 1099s." } },
+          { "@type": "Question", "name": "Do you work with ServiceTitan, Jobber, or other field service platforms?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We integrate your field service software with QuickBooks so revenue, job costs, and receivables sync correctly — no double entry." } },
+          { "@type": "Question", "name": "Is our data secure?", "acceptedAnswer": { "@type": "Answer", "text": "Everything lives in QuickBooks Online, Gusto, and Ramp — enterprise-grade platforms with role-scoped access. We maintain professional liability insurance." } },
+          { "@type": "Question", "name": "Can we cancel?", "acceptedAnswer": { "@type": "Answer", "text": "Month-to-month, 30-day notice. No multi-year contracts." } },
+          { "@type": "Question", "name": "How much does this cost?", "acceptedAnswer": { "@type": "Answer", "text": "Our instant estimate takes about 60 seconds and gives you a real price range based on crew size and job volume. Tap any \"Instant Estimate\" button on the page." } }
+        ]
+      }
+    ]
   }
   </script>
 </head>

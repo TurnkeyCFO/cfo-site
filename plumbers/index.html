@@ -3,13 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookkeeping for Plumbing Contractors | Turnkey CFO</title>
+  <meta name="description" content="Bookkeeping for plumbing contractors in Austin, TX and nationwide — job costing, subcontractor 1099s, crew payroll, and live profitability dashboards. Get your instant estimate today.">
   <link rel="canonical" href="https://turnkeycfo.com/plumbers/">
   <meta name="robots" content="index, follow">
-  <title>Bookkeeping for Plumbing Contractors | TurnkeyCFO</title>
-  <meta name="description" content="Bookkeeping built for plumbing contractors. Job costing per job, subcontractor 1099s, payroll for your crews, sales tax on parts vs labor, vehicle deductions, and a live dashboard — clean books so you know which jobs make money.">
-  <meta property="og:title" content="Bookkeeping Built for Plumbing Contractors | TurnkeyCFO">
-  <meta property="og:description" content="Job costing, subcontractor 1099s, payroll, and a live dashboard so you know which jobs are profitable — not just your bank balance.">
+  <meta property="og:title" content="Bookkeeping for Plumbing Contractors | Turnkey CFO">
+  <meta property="og:description" content="Bookkeeping for plumbing contractors in Austin, TX and nationwide — job costing, subcontractor 1099s, crew payroll, and live profitability dashboards. Get your instant estimate today.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://turnkeycfo.com/plumbers/">
+  <meta property="og:site_name" content="Turnkey CFO">
+  <meta property="og:image" content="https://turnkeycfo.com/assets/tk-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bookkeeping for Plumbing Contractors | Turnkey CFO">
+  <meta name="twitter:description" content="Bookkeeping for plumbing contractors in Austin, TX and nationwide — job costing, subcontractor 1099s, crew payroll, and live profitability dashboards.">
+  <meta name="twitter:image" content="https://turnkeycfo.com/assets/tk-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,15 +26,56 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "AccountingService",
-    "name": "TurnkeyCFO — Plumbing Contractor Bookkeeping",
-    "description": "Bookkeeping built for plumbing contractors: job costing per job, subcontractor 1099 compliance, payroll for field crews, vehicle and equipment tracking, sales tax on parts vs labor, and live profitability dashboards.",
-    "url": "https://turnkeycfo.com/plumbers/",
-    "email": "Ricky@turnkeycfo.com",
-    "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
-    "areaServed": "United States",
-    "priceRange": "$$",
-    "knowsAbout": ["Plumbing contractor bookkeeping", "Job costing", "Subcontractor 1099-NEC", "Sales tax on parts vs labor", "Vehicle and equipment depreciation", "Crew payroll"]
+    "@graph": [
+      {
+        "@type": "AccountingService",
+        "@id": "https://turnkeycfo.com/plumbers/#service",
+        "name": "Turnkey CFO — Plumbing Contractor Bookkeeping",
+        "description": "Bookkeeping built for plumbing contractors: job costing per job, subcontractor 1099 compliance, payroll for field crews, vehicle and equipment tracking, sales tax on parts vs labor, and live profitability dashboards.",
+        "url": "https://turnkeycfo.com/plumbers/",
+        "telephone": "+1-682-433-1852",
+        "email": "Ricky@turnkeycfo.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
+        "areaServed": [
+          { "@type": "City", "name": "Austin" },
+          { "@type": "State", "name": "Texas" },
+          { "@type": "Country", "name": "United States" }
+        ],
+        "openingHours": "Mo-Fr 09:00-17:00",
+        "priceRange": "$$",
+        "parentOrganization": { "@type": "Organization", "name": "Turnkey CFO", "url": "https://turnkeycfo.com" },
+        "knowsAbout": ["Plumbing contractor bookkeeping", "Job costing", "Subcontractor 1099-NEC", "Sales tax on parts vs labor", "Vehicle and equipment depreciation", "Crew payroll"]
+      },
+      {
+        "@type": "Service",
+        "name": "Bookkeeping for Plumbing Contractors",
+        "serviceType": "Plumbing contractor bookkeeping",
+        "provider": { "@id": "https://turnkeycfo.com/plumbers/#service" },
+        "areaServed": { "@type": "Country", "name": "United States" },
+        "description": "Job costing per job, subcontractor 1099 tracking, crew payroll, sales tax on parts vs labor, vehicle and equipment depreciation, and live profitability dashboards for plumbing contractors."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://turnkeycfo.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Plumbing Contractors", "item": "https://turnkeycfo.com/plumbers/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Do you replace our CPA?", "acceptedAnswer": { "@type": "Answer", "text": "No — we work alongside your CPA. We keep books clean and filing-ready year-round so your CPA can file your return without a month of cleanup. If you don't have a CPA who understands contractors, we can refer one." } },
+          { "@type": "Question", "name": "Can you handle job costing in QuickBooks?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We set up QuickBooks job costing around your service types — service calls, new construction, remodels, commercial — and allocate materials, labor, and subcontract costs to each job so you see margin by job, not just totals." } },
+          { "@type": "Question", "name": "What if I use subcontractors seasonally?", "acceptedAnswer": { "@type": "Answer", "text": "We track every sub from the first payment. W-9 at hire, payments tracked against the $600 threshold, 1099-NEC filed by January 31. Seasonal subs are the most common source of 1099 misses — we close that gap from day one." } },
+          { "@type": "Question", "name": "How do you handle the sales tax on parts vs labor question?", "acceptedAnswer": { "@type": "Answer", "text": "We separate taxable material sales from labor on every invoice category. The specific rules vary by state (and sometimes by job type), so we coordinate with your CPA on the right treatment — but the books are always separated correctly so you're remitting the right amount." } },
+          { "@type": "Question", "name": "Can you help with vehicle and equipment tracking?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Work trucks, vans, and major tools are tracked as fixed assets with depreciation schedules reconciled to your tax return. We document purchase dates, costs, and business-use percentages so your CPA has everything needed to maximize depreciation deductions." } },
+          { "@type": "Question", "name": "Do you work with Jobber, ServiceTitan, or other field service software?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We integrate your field service software with QuickBooks so revenue, job costs, and receivables sync correctly — no double entry. We work with Jobber, ServiceTitan, Housecall Pro, and most other platforms." } },
+          { "@type": "Question", "name": "Is our data secure?", "acceptedAnswer": { "@type": "Answer", "text": "Everything lives in QuickBooks Online, Gusto, and Ramp — enterprise-grade platforms with role-scoped access per team member. Credentials are never shared by email and we maintain professional liability insurance." } },
+          { "@type": "Question", "name": "Can we cancel?", "acceptedAnswer": { "@type": "Answer", "text": "Month-to-month, 30-day notice. No multi-year contracts. We keep clients because the work is good, not because the paperwork traps them." } },
+          { "@type": "Question", "name": "How much does this cost?", "acceptedAnswer": { "@type": "Answer", "text": "Our instant estimate takes about 60 seconds and gives you a real price range based on your crew size, truck count, and job volume — not a generic number. Tap any \"Instant Estimate\" button on the page." } }
+        ]
+      }
+    ]
   }
   </script>
 </head>

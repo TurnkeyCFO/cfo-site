@@ -3,13 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookkeeping for General Contractors | Turnkey CFO</title>
+  <meta name="description" content="Bookkeeping for general contractors in Austin, TX and nationwide — job costing, WIP schedules, retainage, and job profitability dashboards. Get an instant estimate.">
   <link rel="canonical" href="https://turnkeycfo.com/construction/">
   <meta name="robots" content="index, follow">
-  <title>Bookkeeping for General Contractors | TurnkeyCFO</title>
-  <meta name="description" content="Bookkeeping built for general contractors. Job costing, WIP schedules, retainage tracking, subcontractor compliance, AIA billing, and live dashboards — so you know your true position on every job, not just your bank balance.">
-  <meta property="og:title" content="Bookkeeping Built for General Contractors | TurnkeyCFO">
-  <meta property="og:description" content="Job costing, WIP schedules, retainage, subcontractor lien compliance, and live dashboards — bookkeeping built for how GCs actually run jobs.">
+  <meta property="og:title" content="Bookkeeping for General Contractors | Turnkey CFO">
+  <meta property="og:description" content="Bookkeeping for general contractors in Austin, TX and nationwide — job costing, WIP schedules, retainage tracking, subcontractor 1099s, and live job profitability dashboards. Get your instant estimate today.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://turnkeycfo.com/construction/">
+  <meta property="og:site_name" content="Turnkey CFO">
+  <meta property="og:image" content="https://turnkeycfo.com/assets/tk-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bookkeeping for General Contractors | Turnkey CFO">
+  <meta name="twitter:description" content="Bookkeeping for general contractors in Austin, TX and nationwide — job costing, WIP schedules, retainage tracking, subcontractor 1099s, and live job profitability dashboards.">
+  <meta name="twitter:image" content="https://turnkeycfo.com/assets/tk-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,15 +26,55 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "AccountingService",
-    "name": "TurnkeyCFO — General Contractor Bookkeeping",
-    "description": "Bookkeeping built for general contractors: job costing, WIP overbilling/underbilling schedules, retainage tracking, subcontractor 1099 compliance, AIA billing support, and live job profitability dashboards.",
-    "url": "https://turnkeycfo.com/construction/",
-    "email": "Ricky@turnkeycfo.com",
-    "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
-    "areaServed": "United States",
-    "priceRange": "$$",
-    "knowsAbout": ["General contractor bookkeeping", "Construction job costing", "WIP schedule", "Retainage tracking", "Subcontractor 1099-NEC", "AIA billing"]
+    "@graph": [
+      {
+        "@type": "AccountingService",
+        "@id": "https://turnkeycfo.com/construction/#service",
+        "name": "Turnkey CFO — General Contractor Bookkeeping",
+        "description": "Bookkeeping built for general contractors: job costing, WIP overbilling/underbilling schedules, retainage tracking, subcontractor 1099 compliance, AIA billing support, and live job profitability dashboards.",
+        "url": "https://turnkeycfo.com/construction/",
+        "telephone": "+1-682-433-1852",
+        "email": "Ricky@turnkeycfo.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
+        "areaServed": [
+          { "@type": "City", "name": "Austin" },
+          { "@type": "State", "name": "Texas" },
+          { "@type": "Country", "name": "United States" }
+        ],
+        "openingHours": "Mo-Fr 09:00-17:00",
+        "priceRange": "$$",
+        "parentOrganization": { "@type": "Organization", "name": "Turnkey CFO", "url": "https://turnkeycfo.com" },
+        "knowsAbout": ["General contractor bookkeeping", "Construction job costing", "WIP schedule", "Retainage tracking", "Subcontractor 1099-NEC", "AIA billing"]
+      },
+      {
+        "@type": "Service",
+        "name": "Bookkeeping for General Contractors",
+        "serviceType": "General contractor bookkeeping",
+        "provider": { "@id": "https://turnkeycfo.com/construction/#service" },
+        "areaServed": { "@type": "Country", "name": "United States" },
+        "description": "Job costing, WIP overbilling/underbilling schedules, retainage tracking, subcontractor 1099 compliance, AIA billing support, and live job profitability dashboards for general contractors."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://turnkeycfo.com/" },
+          { "@type": "ListItem", "position": 2, "name": "General Contractors", "item": "https://turnkeycfo.com/construction/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Do you replace our CPA?", "acceptedAnswer": { "@type": "Answer", "text": "No — we work alongside your CPA. We keep books clean and filing-ready year-round so your CPA can file your return without a month of cleanup. We keep WIP schedules and retainage in the format your CPA and bonding company expect." } },
+          { "@type": "Question", "name": "Do you produce WIP schedules?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Monthly WIP schedule showing contract value, billed to date, costs incurred, estimated cost to complete, percentage complete, and over/underbilling position for each active job. This is the most requested output from GC clients and something most bookkeepers can't produce." } },
+          { "@type": "Question", "name": "How do you handle retainage?", "acceptedAnswer": { "@type": "Answer", "text": "Retainage receivable and retainage payable are tracked in separate accounts from regular AR/AP — so your collection metrics and lien exposure are clear. We track lien waiver receipt from subs against retainage payable release so you're protected before releasing final payment." } },
+          { "@type": "Question", "name": "Can you support AIA billing or draw requests?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We work with your project management or AIA billing process to reconcile draw requests to job costs and ensure your billings match your WIP position each month." } },
+          { "@type": "Question", "name": "How do you handle subcontractor compliance across multiple jobs?", "acceptedAnswer": { "@type": "Answer", "text": "Every sub tracked from first payment regardless of which job they're on. W-9 before first check, payments aggregated across all jobs for 1099 threshold tracking, 1099-NEC filed by January 31. Mid-job additions tracked from hire date — no end-of-year scrambles." } },
+          { "@type": "Question", "name": "Do you work with Buildertrend, Procore, or CoConstruct?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We integrate your project management software with QuickBooks so job costs sync correctly without double entry. We work with Buildertrend, Procore, CoConstruct, and most other construction management platforms." } },
+          { "@type": "Question", "name": "Can we cancel?", "acceptedAnswer": { "@type": "Answer", "text": "Month-to-month, 30-day notice. No multi-year contracts. We keep clients because the work is good, not because the paperwork traps them." } },
+          { "@type": "Question", "name": "How much does this cost?", "acceptedAnswer": { "@type": "Answer", "text": "Our instant estimate takes about 60 seconds and gives you a real price range based on your active job count, crew size, and sub volume. Tap any \"Instant Estimate\" button on the page." } }
+        ]
+      }
+    ]
   }
   </script>
 </head>

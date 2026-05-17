@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Restaurant Bookkeeping Services | TurnkeyCFO</title>
-  <meta name="description" content="Bookkeeping built for restaurants and food service businesses. Daily POS reconciliation, tip payroll, Texas sales tax, delivery app income netting, and a live prime cost dashboard — clean books so you know your margins.">
+  <title>Restaurant Bookkeeping Services | Turnkey CFO</title>
+  <meta name="description" content="Restaurant bookkeeping services in Austin, TX and nationwide — daily POS reconciliation, tip payroll, sales tax, and a live prime cost dashboard. Get your instant estimate today.">
   <link rel="canonical" href="https://turnkeycfo.com/restaurants/">
   <meta name="robots" content="index, follow">
   <meta name="keywords" content="restaurant bookkeeping services, restaurant bookkeeper near me, bookkeeping for restaurants, food service bookkeeping, restaurant accounting services">
-  <meta property="og:title" content="Restaurant Bookkeeping Services | TurnkeyCFO">
-  <meta property="og:description" content="Daily POS reconciliation, tip payroll, Texas sales tax, delivery app income netting, and a live prime cost dashboard — so you know your margins, not just your bank balance.">
+  <meta property="og:title" content="Restaurant Bookkeeping Services | Turnkey CFO">
+  <meta property="og:description" content="Restaurant bookkeeping services in Austin, TX and nationwide — daily POS reconciliation, tip payroll, sales tax, and a live prime cost dashboard. Get your instant estimate today.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://turnkeycfo.com/restaurants/">
+  <meta property="og:site_name" content="Turnkey CFO">
+  <meta property="og:image" content="https://turnkeycfo.com/assets/tk-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Restaurant Bookkeeping Services | Turnkey CFO">
+  <meta name="twitter:description" content="Restaurant bookkeeping services in Austin, TX and nationwide — daily POS reconciliation, tip payroll, sales tax, and a live prime cost dashboard.">
+  <meta name="twitter:image" content="https://turnkeycfo.com/assets/tk-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,33 +27,55 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "AccountingService",
-    "name": "TurnkeyCFO — Restaurant Bookkeeping",
-    "description": "Bookkeeping built for restaurants and food service businesses: daily POS reconciliation, tip payroll and FLSA compliance, Texas sales tax on food and beverage, delivery app commission netting, COGS by menu category, and live prime cost dashboards.",
-    "url": "https://turnkeycfo.com/restaurants/",
-    "email": "Ricky@turnkeycfo.com",
-    "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
-    "areaServed": "United States",
-    "priceRange": "$$",
-    "founder": { "@type": "Person", "name": "Ricky West" },
-    "serviceType": ["Restaurant bookkeeping", "Tip payroll", "POS reconciliation", "Delivery app income reconciliation", "Sales tax filing", "COGS tracking"],
-    "knowsAbout": ["Restaurant bookkeeping", "Tip credit payroll", "Texas mixed-beverage tax", "Delivery app commission netting", "Prime cost ratio", "Gift card deferred revenue"],
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "ratingCount": "3" }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "Do you replace our CPA?", "acceptedAnswer": { "@type": "Answer", "text": "No — we work alongside your CPA. We keep books clean and filing-ready year-round so your CPA can file without a month of cleanup. If you need a CPA who understands food service, we can refer one." } },
-      { "@type": "Question", "name": "Can you handle tip payroll for servers and bartenders?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We handle tip credit payroll under FLSA — tracking declared tips, verifying servers always clear minimum wage, documenting tip pooling arrangements, and reconciling tip income to POS reports monthly." } },
-      { "@type": "Question", "name": "How do you handle Texas mixed-beverage sales tax?", "acceptedAnswer": { "@type": "Answer", "text": "Texas imposes a 6.7% mixed-beverage gross receipts tax on top of regular sales tax for alcohol sales. We separate food, non-alcoholic beverage, and alcohol sales in your chart of accounts and ensure you're collecting and remitting all applicable taxes correctly." } },
-      { "@type": "Question", "name": "Can you reconcile DoorDash, Uber Eats, and Grubhub payouts?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Delivery platforms pay net — after commissions, service fees, and promotions are deducted. We record gross revenue, then separately record platform commission expense so your P&L shows true revenue and true cost of those sales, not just what hit your bank account." } },
-      { "@type": "Question", "name": "What is prime cost and why does it matter?", "acceptedAnswer": { "@type": "Answer", "text": "Prime cost is your total food and beverage cost (COGS) plus total labor cost, expressed as a percentage of revenue. It's the single most important metric in restaurant finance — most profitable independent restaurants run prime cost between 55% and 65%. We track it monthly so you can spot drift before it becomes a crisis." } },
-      { "@type": "Question", "name": "How do you handle gift card revenue?", "acceptedAnswer": { "@type": "Answer", "text": "Gift cards sold are a liability, not revenue — revenue is recognized only when the card is redeemed. We record gift card sales as deferred revenue and reduce the liability at redemption, so your P&L reflects actual meals served, not cash collected." } },
-      { "@type": "Question", "name": "Is our data secure?", "acceptedAnswer": { "@type": "Answer", "text": "Everything lives in QuickBooks Online, Gusto, and Ramp — enterprise-grade platforms with role-scoped access. Credentials are never shared by email and we maintain professional liability insurance." } },
-      { "@type": "Question", "name": "Can we cancel?", "acceptedAnswer": { "@type": "Answer", "text": "Month-to-month, 30-day notice. No multi-year contracts. We keep clients because the work is good, not because the paperwork traps them." } }
+    "@graph": [
+      {
+        "@type": "AccountingService",
+        "@id": "https://turnkeycfo.com/restaurants/#service",
+        "name": "Turnkey CFO — Restaurant Bookkeeping",
+        "description": "Bookkeeping built for restaurants and food service businesses: daily POS reconciliation, tip payroll and FLSA compliance, Texas sales tax on food and beverage, delivery app commission netting, COGS by menu category, and live prime cost dashboards.",
+        "url": "https://turnkeycfo.com/restaurants/",
+        "telephone": "+1-682-433-1852",
+        "email": "Ricky@turnkeycfo.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
+        "areaServed": [
+          { "@type": "City", "name": "Austin" },
+          { "@type": "State", "name": "Texas" },
+          { "@type": "Country", "name": "United States" }
+        ],
+        "openingHours": "Mo-Fr 09:00-17:00",
+        "priceRange": "$$",
+        "founder": { "@type": "Person", "name": "Ricky West" },
+        "parentOrganization": { "@type": "Organization", "name": "Turnkey CFO", "url": "https://turnkeycfo.com" },
+        "knowsAbout": ["Restaurant bookkeeping", "Tip credit payroll", "Texas mixed-beverage tax", "Delivery app commission netting", "Prime cost ratio", "Gift card deferred revenue"]
+      },
+      {
+        "@type": "Service",
+        "name": "Restaurant Bookkeeping Services",
+        "serviceType": "Restaurant bookkeeping",
+        "provider": { "@id": "https://turnkeycfo.com/restaurants/#service" },
+        "areaServed": { "@type": "Country", "name": "United States" },
+        "description": "Daily POS reconciliation, tip payroll, Texas sales tax, delivery app income netting, COGS by menu category, and live prime cost dashboards for restaurants and food service businesses."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://turnkeycfo.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Restaurants", "item": "https://turnkeycfo.com/restaurants/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Do you replace our CPA?", "acceptedAnswer": { "@type": "Answer", "text": "No — we work alongside your CPA. We keep books clean and filing-ready year-round so your CPA can file without a month of cleanup. If you need a CPA who understands food service, we can refer one." } },
+          { "@type": "Question", "name": "Can you handle tip payroll for servers and bartenders?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We handle tip credit payroll under FLSA — tracking declared tips, verifying servers always clear minimum wage, documenting tip pooling arrangements, and reconciling tip income to POS reports monthly." } },
+          { "@type": "Question", "name": "How do you handle Texas mixed-beverage sales tax?", "acceptedAnswer": { "@type": "Answer", "text": "Texas imposes a 6.7% mixed-beverage gross receipts tax on top of regular sales tax for alcohol sales. We separate food, non-alcoholic beverage, and alcohol sales in your chart of accounts and prepare the data for correct remittance every month." } },
+          { "@type": "Question", "name": "Can you reconcile DoorDash, Uber Eats, and Grubhub payouts?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Delivery platforms pay net — after commissions, service fees, and promotions are deducted. We record gross revenue, then separately record platform commission expense so your P&L shows true revenue and true cost of delivery sales, not just what hit your bank account." } },
+          { "@type": "Question", "name": "What is prime cost and why does it matter?", "acceptedAnswer": { "@type": "Answer", "text": "Prime cost is your total food and beverage COGS plus total labor cost as a percentage of revenue. Most profitable independent restaurants run between 55–65%. We track it monthly so you can spot drift before it becomes a crisis." } },
+          { "@type": "Question", "name": "How do you handle gift card revenue?", "acceptedAnswer": { "@type": "Answer", "text": "Gift cards sold are a liability, not revenue — revenue is recognized only when the card is redeemed. We record gift card sales as deferred revenue and reduce the liability at redemption, so your P&L reflects actual meals served, not cash collected for future meals." } },
+          { "@type": "Question", "name": "Is our data secure?", "acceptedAnswer": { "@type": "Answer", "text": "Everything lives in QuickBooks Online, Gusto, and Ramp — enterprise-grade platforms with role-scoped access. Credentials are never shared by email and we maintain professional liability insurance." } },
+          { "@type": "Question", "name": "Can we cancel?", "acceptedAnswer": { "@type": "Answer", "text": "Month-to-month, 30-day notice. No multi-year contracts. We keep clients because the work is good, not because the paperwork traps them." } }
+        ]
+      }
     ]
   }
   </script>
