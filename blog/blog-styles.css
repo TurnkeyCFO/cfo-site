@@ -45,9 +45,15 @@ a:hover { text-decoration: underline; }
 .tk-logo { display: flex; align-items: center; gap: 10px; }
 .tk-logo img { height: 26px; width: auto; }
 .tk-logo span { font-weight: 700; font-size: 17px; color: var(--tk-heading); }
-.tk-nav { display: flex; gap: 22px; flex-wrap: wrap; }
-.tk-nav a { color: var(--tk-muted); font-size: 15px; font-weight: 500; }
-.tk-nav a:hover { color: var(--tk-link); text-decoration: none; }
+.tk-nav { display: flex; align-items: center; }
+/* Single "Book a Call" CTA — the only header link. Service/money-page links
+   were removed: they crowded the header and wrapped badly on mobile. */
+.tk-nav-cta {
+  display: inline-block; background: var(--tk-emerald); color: #07210f;
+  font-size: 14px; font-weight: 700; padding: 9px 18px; border-radius: 8px;
+  white-space: nowrap;
+}
+.tk-nav-cta:hover { background: #00c766; color: #07210f; text-decoration: none; }
 
 /* ── Article ──────────────────────────────────────────────────────────── */
 .tk-article { max-width: var(--tk-max); margin: 0 auto; padding: 60px 24px 88px; }
