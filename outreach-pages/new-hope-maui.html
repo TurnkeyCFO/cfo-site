@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>New Hope Maui — Financial Foundation Proposal | Turnkey CFO</title>
+<meta name="description" content="A financial foundation built to serve New Hope Maui long after the build is done. Prepared for Pastor Zach Mathers by Turnkey CFO." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:        #FFFFFF;
+    --bg-soft:   #FBFBFA;
+    --surface:   #F4F5F4;
+    --mint:      #E8FBF1;
+    --mint-2:    #D5F7E5;
+    --ink:       #0A0A0A;
+    --body:      #3D3D3D;
+    --muted:     #7A7A7A;
+    --divider:   #E6E8E6;
+    --emerald:       #00B050;  /* legible emerald on light */
+    --emerald-bright:#00E676;  /* brand fill / accent */
+    --emerald-deep:  #007A33;
+    --shadow-sm: 0 1px 2px rgba(10,10,10,.04), 0 2px 8px rgba(10,10,10,.04);
+    --shadow-md: 0 4px 14px rgba(10,10,10,.06), 0 12px 34px rgba(10,10,10,.07);
+    --radius:    16px;
+    --maxw:      1140px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 { color: var(--ink); line-height: 1.18; letter-spacing: -0.02em; }
+  p { margin: 0; }
+  a { color: inherit; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- top nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--divider);
+  }
+  .nav-inner {
+    max-width: var(--maxw); margin: 0 auto; padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--ink); font-size: 16px; letter-spacing: -0.03em; }
+  .brand .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--emerald-bright); box-shadow: 0 0 0 4px var(--mint); }
+  .nav-links { display: flex; gap: 26px; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted); font-size: 13.5px; font-weight: 600;
+    transition: color .15s ease; white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--emerald-deep); }
+  @media (max-width: 880px) { .nav-links { display: none; } }
+
+  /* ---------- shared ---------- */
+  .kicker {
+    color: var(--emerald-deep); font-weight: 800; font-size: 12px;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  section { padding: 84px 0; border-bottom: 1px solid var(--divider); }
+  section.tight { padding: 64px 0; }
+  .sec-head { max-width: 720px; margin-bottom: 44px; }
+  .sec-head h2 { font-size: clamp(28px, 3.6vw, 40px); margin: 14px 0 16px; }
+  .sec-head p { font-size: 17px; color: var(--body); }
+
+  .lead { font-size: 18px; color: var(--body); }
+
+  /* reveal-on-scroll */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 70px 0 90px; border-bottom: 1px solid var(--divider); background:
+    radial-gradient(900px 420px at 88% -10%, var(--mint) 0%, rgba(232,251,241,0) 62%); }
+  .hero-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 52px; align-items: center; }
+  .hero h1 { font-size: clamp(38px, 5.4vw, 62px); letter-spacing: -0.035em; margin: 18px 0 20px; }
+  .hero h1 .accent { color: var(--emerald-deep); }
+  .hero .sub { font-size: 20px; color: var(--body); max-width: 540px; }
+  .hero-meta { display: flex; gap: 30px; margin-top: 34px; flex-wrap: wrap; }
+  .hero-meta .item .lbl { font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--emerald-deep); }
+  .hero-meta .item .val { font-size: 15px; font-weight: 700; color: var(--ink); margin-top: 3px; }
+
+  .card-prepared {
+    background: #fff; border: 1.5px solid var(--emerald-bright);
+    border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow-md);
+  }
+  .card-prepared .row + .row { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--divider); }
+  .card-prepared .mini { font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--emerald-deep); }
+  .card-prepared .name { font-size: 22px; font-weight: 800; color: var(--ink); margin-top: 6px; }
+  .card-prepared .role { font-size: 14px; color: var(--muted); margin-top: 2px; }
+  @media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; gap: 36px; } }
+
+  /* ---------- principle pull-quote ---------- */
+  .principle {
+    margin: 8px 0; padding: 30px 34px;
+    background: var(--mint); border-left: 5px solid var(--emerald-bright);
+    border-radius: 12px;
+  }
+  .principle p { font-size: clamp(19px, 2.2vw, 23px); font-weight: 700; color: var(--ink); letter-spacing: -0.02em; line-height: 1.32; }
+  .principle .src { display: block; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--emerald-deep); }
+
+  /* ---------- generic cards ---------- */
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  @media (max-width: 820px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--bg); border: 1px solid var(--divider);
+    border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow-sm);
+  }
+  .card.soft { background: var(--surface); border-color: var(--surface); }
+  .card .num { font-size: 13px; font-weight: 800; color: var(--emerald-deep); }
+  .card h3 { font-size: 19px; margin: 10px 0 8px; }
+  .card p { font-size: 14.5px; color: var(--body); }
+
+  .stat { font-size: 38px; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; }
+  .stat-lbl { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--emerald-deep); }
+
+  /* ---------- comparison table ---------- */
+  table.cmp { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  table.cmp th, table.cmp td { text-align: left; padding: 13px 16px; font-size: 14.5px; }
+  table.cmp thead th {
+    font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--emerald-deep); border-bottom: 2px solid var(--emerald-bright);
+  }
+  table.cmp tbody tr { border-bottom: 1px solid var(--divider); }
+  table.cmp tbody td:first-child { font-weight: 600; color: var(--ink); }
+  table.cmp .pos { color: var(--emerald-deep); font-weight: 700; }
+
+  /* ---------- tier strip ---------- */
+  .tier-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+  @media (max-width: 820px) { .tier-strip { grid-template-columns: 1fr; } }
+  .tier-mini {
+    border: 1px solid var(--divider); border-radius: var(--radius);
+    padding: 24px; background: var(--bg); position: relative; box-shadow: var(--shadow-sm);
+  }
+  .tier-mini.rec { border: 2px solid var(--emerald-bright); background: var(--mint); box-shadow: var(--shadow-md); }
+  .tier-mini .tag { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .tier-mini.rec .tag { color: var(--emerald-deep); }
+  .tier-mini h3 { font-size: 20px; margin: 8px 0 14px; }
+  .tier-mini .price { font-size: 32px; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; }
+  .tier-mini .price small { display: block; font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: 0; margin-top: 4px; }
+  .tier-mini .note { font-size: 13.5px; color: var(--body); margin-top: 14px; }
+  .badge {
+    position: absolute; top: -12px; right: 20px;
+    background: var(--emerald-bright); color: var(--ink);
+    font-size: 11px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px;
+  }
+
+  /* ---------- tier detail ---------- */
+  .tier {
+    border: 1px solid var(--divider); border-radius: 20px;
+    padding: 38px; margin-bottom: 28px; background: var(--bg); box-shadow: var(--shadow-sm);
+  }
+  .tier.rec { border: 2px solid var(--emerald-bright); box-shadow: var(--shadow-md); }
+  .tier-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+  .tier-top h3 { font-size: 27px; }
+  .tier-top .tier-label { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--emerald-deep); margin-bottom: 6px; }
+  .tier-price { text-align: right; }
+  .tier-price .big { font-size: 34px; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; }
+  .tier-price .small { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .tier-price .rec-pill { display: inline-block; margin-bottom: 8px; background: var(--emerald-bright); color: var(--ink); font-size: 11px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; }
+  .tier-summary { font-size: 16px; color: var(--body); margin: 18px 0 26px; max-width: 760px; }
+
+  .tier-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  @media (max-width: 760px) { .tier-cols { grid-template-columns: 1fr; gap: 24px; } }
+  .col-label { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--emerald-deep); margin-bottom: 14px; }
+
+  ul.checks { list-style: none; }
+  ul.checks li {
+    position: relative; padding-left: 30px; margin-bottom: 11px;
+    font-size: 14.5px; color: var(--ink); font-weight: 500;
+  }
+  ul.checks li::before {
+    content: ""; position: absolute; left: 0; top: 3px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--emerald-bright);
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M9 16.2l-3.5-3.5L4 14.2 9 19.2 20 8.2l-1.5-1.5z'/></svg>") center / 13px no-repeat;
+            mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M9 16.2l-3.5-3.5L4 14.2 9 19.2 20 8.2l-1.5-1.5z'/></svg>") center / 13px no-repeat;
+    box-shadow: 0 0 0 4px var(--mint);
+  }
+  ul.checks li.inherit { color: var(--muted); font-style: italic; font-weight: 500; }
+  ul.checks li.inherit::before { background: var(--muted); box-shadow: none; }
+
+  .value-block { margin-bottom: 18px; }
+  .value-block:last-child { margin-bottom: 0; }
+  .value-block h4 { font-size: 15.5px; color: var(--ink); margin-bottom: 3px; }
+  .value-block p { font-size: 14px; color: var(--body); }
+  .value-wrap { background: var(--mint); border-radius: 14px; padding: 24px 26px; }
+
+  /* ---------- math ---------- */
+  .math-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  @media (max-width: 820px) { .math-grid { grid-template-columns: 1fr; } }
+  .math-card { border-radius: var(--radius); padding: 30px; }
+  .math-card.cost { background: var(--surface); }
+  .math-card.ret  { background: var(--mint); border: 1.5px solid var(--emerald-bright); }
+  .math-card h3 { font-size: 15px; letter-spacing: .04em; text-transform: uppercase; color: var(--emerald-deep); margin-bottom: 18px; }
+  .math-row { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--divider); font-size: 14.5px; }
+  .math-row:last-child { border-bottom: 0; }
+  .math-row .k { color: var(--body); }
+  .math-row .v { font-weight: 700; color: var(--ink); }
+  .math-row.total { margin-top: 6px; padding-top: 16px; border-top: 2px solid var(--emerald-bright); border-bottom: 0; }
+  .math-row.total .k { font-weight: 800; color: var(--ink); font-size: 15.5px; }
+  .math-row.total .v { color: var(--emerald-deep); font-size: 19px; font-weight: 800; }
+
+  /* ---------- after build ---------- */
+  .steps { display: grid; gap: 14px; }
+  .step {
+    display: flex; gap: 18px; align-items: flex-start;
+    background: var(--bg); border: 1px solid var(--divider);
+    border-radius: 14px; padding: 22px 24px;
+  }
+  .step .arrow { color: var(--emerald-bright); font-size: 22px; font-weight: 800; line-height: 1.1; flex-shrink: 0; }
+  .step h4 { font-size: 16.5px; margin-bottom: 3px; }
+  .step p { font-size: 14px; color: var(--body); }
+
+  /* ---------- closing ---------- */
+  .closing {
+    background: var(--ink); color: #fff; border-radius: 22px;
+    padding: 52px; text-align: center; position: relative; overflow: hidden;
+  }
+  .closing::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(620px 280px at 78% 8%, rgba(0,230,118,.20) 0%, rgba(0,230,118,0) 70%);
+  }
+  .closing > * { position: relative; }
+  .closing .kicker { color: var(--emerald-bright); }
+  .closing h2 { color: #fff; font-size: clamp(26px, 3.4vw, 36px); margin: 14px auto 16px; max-width: 760px; }
+  .closing p { color: #D6D8D6; font-size: 16px; max-width: 660px; margin: 0 auto; }
+  .contact {
+    margin-top: 34px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,.14);
+    display: flex; gap: 14px 36px; justify-content: center; flex-wrap: wrap;
+  }
+  .contact .ci { text-align: left; }
+  .contact .ci .l { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--emerald-bright); }
+  .contact .ci .v { font-size: 15px; font-weight: 700; color: #fff; margin-top: 3px; }
+  .closing .grateful { margin-top: 26px; font-style: italic; color: var(--emerald-bright); font-size: 15px; }
+
+  footer { padding: 36px 0 48px; text-align: center; }
+  footer p { font-size: 13px; color: var(--muted); }
+
+  /* ---------- print ---------- */
+  @media print {
+    .nav, .reveal { position: static; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    section { padding: 30px 0; page-break-inside: avoid; }
+    .tier, .closing, .card-prepared { box-shadow: none; }
+    .hero { background: none; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span> Turnkey CFO</div>
+    <div class="nav-links">
+      <a href="#context">Maui Context</a>
+      <a href="#investment">The Investment</a>
+      <a href="#packages">The Packages</a>
+      <a href="#returns">The Returns</a>
+      <a href="#after">After the Build</a>
+      <a href="#next">Next Step</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="kicker">Financial Foundation Proposal</span>
+        <h1>A financial system built to serve <span class="accent">New Hope Maui</span> for the long term.</h1>
+        <p class="sub">Not a service the church rents indefinitely — a foundation the church builds once, owns, and runs on its own.</p>
+        <div class="hero-meta">
+          <div class="item"><div class="lbl">Prepared For</div><div class="val">New Hope Maui</div></div>
+          <div class="item"><div class="lbl">Engagement</div><div class="val">6-Month Build</div></div>
+          <div class="item"><div class="lbl">Date</div><div class="val">May 2026</div></div>
+        </div>
+      </div>
+      <aside class="card-prepared">
+        <div class="row">
+          <div class="mini">Prepared For</div>
+          <div class="name">Pastor Zach Mathers</div>
+          <div class="role">Lead Pastor, New Hope Maui</div>
+        </div>
+        <div class="row">
+          <div class="mini">Prepared By</div>
+          <div class="name">Ricky West</div>
+          <div class="role">Founder, Turnkey CFO</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<!-- ================= OPENING NOTE ================= -->
+<section class="tight" id="open">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">A note before the numbers</span>
+      <h2>This is a stewardship decision, not a purchase.</h2>
+    </div>
+    <p class="lead reveal" style="max-width:820px;">
+      Every dollar that comes through New Hope Maui was given in trust — and the people who gave it
+      expect it to be handled with care. The question this proposal answers is not <em>"should the church
+      spend money on financial help?"</em> It is <em>"what does faithful stewardship of a half-million-dollar
+      ministry actually require?"</em> Healthy churches answer that question the same way: they build the
+      financial systems that protect the mission, and they treat that build as part of the ministry — not
+      an expense apart from it.
+    </p>
+    <div class="principle reveal" style="margin-top:30px;">
+      <p>Financial infrastructure is stewardship, not overhead. A church that builds it well protects
+        the generosity of everyone who gives.</p>
+      <span class="src">— The principle this proposal is built on</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MAUI CONTEXT ================= -->
+<section id="context">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">The Maui Context</span>
+      <h2>Why a strong financial system matters more here — not less.</h2>
+      <p>Kahului looks affluent on paper. Once you adjust for what it costs to live on Maui, the picture
+        changes — and so does what the church can rely on.</p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:30px;">
+      <div class="card reveal">
+        <div class="col-label">Kahului vs. Mainland Suburban</div>
+        <table class="cmp">
+          <thead><tr><th>Metric</th><th>Kahului</th><th>Mainland</th></tr></thead>
+          <tbody>
+            <tr><td>Median household income</td><td class="pos">~$98K</td><td>~$90K</td></tr>
+            <tr><td>Cost of living</td><td class="pos">Extremely high</td><td>Moderate</td></tr>
+            <tr><td>Discretionary income</td><td>Compressed</td><td>Higher</td></tr>
+            <tr><td>Typical giving rate</td><td>1.5–3%</td><td>1.5–3%</td></tr>
+            <tr><td>Practical giving capacity</td><td>Lower</td><td>Higher</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card reveal" style="background:var(--mint);border-color:var(--emerald-bright);">
+        <div class="col-label">What this means for New Hope</div>
+        <h3 style="font-size:21px;margin-bottom:12px;">In a high-cost community, giving follows trust — not income.</h3>
+        <p style="font-size:15px;">
+          Families on Maui give out of compressed margins. When that is true, generosity is driven by
+          confidence: confidence that the church is led well, that the mission is clear, and that every
+          gift is handled with integrity. The churches that consistently outperform their demographics
+          here are the ones that <strong>feel trustworthy</strong> — and trust is built, in large part,
+          on visible financial discipline.
+        </p>
+      </div>
+    </div>
+
+    <div class="card soft reveal">
+      <div class="col-label">What ~$500K in annual giving represents</div>
+      <p style="font-size:16px;color:var(--ink);font-weight:600;">
+        Roughly 100–150 committed adults giving $3K–$5K each year — most of them dual-income families
+        carrying a real cost of living.
+      </p>
+      <p style="font-size:14.5px;margin-top:8px;">
+        A 1% improvement in how that giving is gathered and stewarded is harder-won here than on the
+        mainland — which is exactly why the system that produces it is worth building properly.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE INVESTMENT ================= -->
+<section id="investment">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">The Investment Framework</span>
+      <h2>What healthy organizations invest in their financial backbone.</h2>
+      <p>This is the benchmark that turns a budget conversation into a stewardship one — a defensible
+        number, not a guess.</p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:30px;">
+      <div class="card soft reveal">
+        <div class="stat-lbl">Annual Income</div>
+        <div class="stat">~$500K</div>
+        <p>Estimated — to be confirmed once QuickBooks data is shared.</p>
+      </div>
+      <div class="card soft reveal">
+        <div class="stat-lbl">Healthy Range</div>
+        <div class="stat">1%–5%</div>
+        <p>What well-run organizations reinvest into bookkeeping, systems, reporting, and governance.</p>
+      </div>
+      <div class="card reveal" style="background:var(--mint);border-color:var(--emerald-bright);">
+        <span class="badge" style="position:static;display:inline-block;margin-bottom:10px;">Recommended</span>
+        <div class="stat-lbl">The Build</div>
+        <div class="stat">3%</div>
+        <p>A 6-month Tier 3 engagement — the middle of the healthy range, not the top of it.</p>
+      </div>
+    </div>
+
+    <div class="principle reveal">
+      <p>Every organization New Hope's size reinvests 1%–5% of revenue into the systems that protect it.
+        Choosing 3% is not aggressive — it is responsible, and it is the floor of doing this well.</p>
+      <span class="src">— Why the number is defensible</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PACKAGES ================= -->
+<section id="packages">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">The Packages</span>
+      <h2>Three paths forward — each one a complete answer.</h2>
+      <p>Every tier leaves the church better than it found it. They differ in how much of the financial
+        foundation gets built, and how much the church has to carry alone afterward.</p>
+    </div>
+
+    <div class="tier-strip reveal" style="margin-bottom:54px;">
+      <div class="tier-mini">
+        <div class="tag">Tier 1 — Foundational</div>
+        <h3>Foundational Bookkeeping</h3>
+        <div class="price">$500<small>per month · ongoing</small></div>
+        <p class="note">Clean books, kept current. The stewardship floor every church should run.</p>
+      </div>
+      <div class="tier-mini">
+        <div class="tag">Tier 2 — Core Systems</div>
+        <h3>Financial Clarity &amp; Core Systems</h3>
+        <div class="price">$1,667<small>per month · $10,000 over 6 months</small></div>
+        <p class="note">Adds the reporting, budgeting, and payroll muscle to actually lead with the numbers.</p>
+      </div>
+      <div class="tier-mini rec">
+        <span class="badge">★ Recommended</span>
+        <div class="tag">Tier 3 — Full Build</div>
+        <h3>Full Stewardship Infrastructure</h3>
+        <div class="price">$2,500<small>per month · $15,000 over 6 months</small></div>
+        <p class="note">The complete foundation — systems, governance, controls, and oversight.</p>
+      </div>
+    </div>
+
+    <!-- TIER 1 -->
+    <article class="tier reveal">
+      <div class="tier-top">
+        <div>
+          <div class="tier-label">Tier 1 — Foundational</div>
+          <h3>Foundational Bookkeeping</h3>
+        </div>
+        <div class="tier-price">
+          <div class="big">$500 / mo</div>
+          <div class="small">Ongoing — no fixed-term engagement</div>
+        </div>
+      </div>
+      <p class="tier-summary">
+        The books stay clean, reconciled, and current — month after month. This is the minimum every
+        church carrying real money should run. It does not build new systems; it makes sure the
+        existing ones are never a liability.
+      </p>
+      <div class="tier-cols">
+        <div>
+          <div class="col-label">What's included</div>
+          <ul class="checks">
+            <li>Monthly bookkeeping &amp; account reconciliations</li>
+            <li>Clean, current financial statements</li>
+            <li>Basic financial visibility for leadership</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Why it matters for New Hope</div>
+          <div class="value-wrap">
+            <div class="value-block">
+              <h4>Audit-ready at all times</h4>
+              <p>Every account reconciled monthly — no year-end scramble, no costly reconstruction,
+                nothing the board has to apologize for.</p>
+            </div>
+            <div class="value-block">
+              <h4>Hours returned to ministry</h4>
+              <p>Removes roughly 4 hours a month of financial admin from staff and leadership.</p>
+            </div>
+            <div class="value-block">
+              <h4>The lowest-cost form of protection</h4>
+              <p>At ~1.2% of annual revenue, this sits well under the 1%–5% healthy benchmark.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- TIER 2 -->
+    <article class="tier reveal">
+      <div class="tier-top">
+        <div>
+          <div class="tier-label">Tier 2 — Core Systems</div>
+          <h3>Financial Clarity &amp; Core Systems</h3>
+        </div>
+        <div class="tier-price">
+          <div class="big">$1,667 / mo</div>
+          <div class="small">6-month engagement · $10,000 total · then $500/mo</div>
+        </div>
+      </div>
+      <p class="tier-summary">
+        Clean books tell you where the money <em>went</em>. Tier 2 adds the reporting, budgeting, and
+        payroll systems that tell leadership where the money <em>should go</em> — and the training to use
+        them. After month 6, bookkeeping continues at $500/mo.
+      </p>
+      <div class="tier-cols">
+        <div>
+          <div class="col-label">What's included</div>
+          <ul class="checks">
+            <li class="inherit">Everything in Foundational Bookkeeping</li>
+            <li>Payroll automation with direct deposit</li>
+            <li>Annual budget &amp; Budget-vs-Actual reporting</li>
+            <li>Monthly management reporting for leadership</li>
+            <li>Initial admin &amp; staff training</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Why it matters for New Hope</div>
+          <div class="value-wrap">
+            <div class="value-block">
+              <h4>Leadership-grade visibility</h4>
+              <p>Monthly reports the pastor and the board can actually act on and discuss with
+                confidence — not just account balances.</p>
+            </div>
+            <div class="value-block">
+              <h4>Budget discipline that catches drift early</h4>
+              <p>A 2% reduction in unplanned spending on a $500K budget recovers about $10,000 a year.</p>
+            </div>
+            <div class="value-block">
+              <h4>Payroll hours back to the mission</h4>
+              <p>Direct deposit ends manual check runs — 2–3 hours a month returned to ministry.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- TIER 3 -->
+    <article class="tier rec reveal">
+      <div class="tier-top">
+        <div>
+          <div class="tier-label">Tier 3 — Full Build</div>
+          <h3>Full Stewardship Infrastructure</h3>
+        </div>
+        <div class="tier-price">
+          <div class="rec-pill">★ Recommended</div>
+          <div class="big">$2,500 / mo</div>
+          <div class="small">6-month engagement · $15,000 total · then $500/mo</div>
+        </div>
+      </div>
+      <p class="tier-summary">
+        The complete foundation: systems, governance, internal controls, giving optimization, training,
+        and CFO-level oversight. It is designed to a single standard — that after month 6, New Hope runs
+        sustainably on its own, with only $500/mo bookkeeping. This is the tier built so the church never
+        has to have this conversation again.
+      </p>
+      <div class="tier-cols">
+        <div>
+          <div class="col-label">What's included</div>
+          <ul class="checks">
+            <li class="inherit">Everything in Tiers 1 &amp; 2</li>
+            <li>Ramp expense management &amp; spending controls</li>
+            <li>Giving platform migration &amp; optimization</li>
+            <li>Internal controls &amp; written documentation</li>
+            <li>Governance &amp; financial structure</li>
+            <li>Benevolence &amp; stewardship framework</li>
+            <li>Donor development &amp; giving optimization</li>
+            <li>Expanded staff training + CFO-level advisory oversight</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Why it matters for New Hope</div>
+          <div class="value-wrap">
+            <div class="value-block">
+              <h4>Giving lift where it's hardest to win</h4>
+              <p>$5K–$10K a year from optimized digital giving and a clear stewardship framework —
+                disproportionately valuable in Maui's high-cost market, where trust and clarity move
+                generosity more than income does.</p>
+            </div>
+            <div class="value-block">
+              <h4>Fee &amp; friction efficiency</h4>
+              <p>Roughly $2K recovered immediately, and up to $16K+ a year as processing costs and
+                financial friction are reduced.</p>
+            </div>
+            <div class="value-block">
+              <h4>Risk reduction that protects leadership</h4>
+              <p>Internal controls guard against the operational and governance risk every growing
+                church faces — and they protect the board and pastor who are accountable for it,
+                especially in a tourism-volatile income environment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="principle reveal" style="margin-top:32px;">
+      <p>Internal controls don't only protect the church's money — they protect the leaders and the
+        board who are accountable for it. That protection is the quiet heart of good governance.</p>
+      <span class="src">— Why Tier 3 is the responsible recommendation</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE RETURNS ================= -->
+<section id="returns">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">The Returns — The 1% Lens</span>
+      <h2>What small improvements are actually worth.</h2>
+      <p>On ~$500K of annual income, every 1% of improvement is $5,000. The build pays for itself from
+        gains that are already on the table — it simply makes them reachable.</p>
+    </div>
+
+    <div class="card reveal" style="padding:8px 8px;margin-bottom:30px;">
+      <table class="cmp">
+        <thead><tr><th>Improvement</th><th>Annual Value</th><th>Where it comes from</th></tr></thead>
+        <tbody>
+          <tr><td>1% giving lift</td><td class="pos">$5,000 / yr</td><td>Better, simpler digital giving experience</td></tr>
+          <tr><td>2% giving lift</td><td class="pos">$10,000 / yr</td><td>Realistic mid-case from a platform migration</td></tr>
+          <tr><td>1% expense reduction</td><td class="pos">$5,000 / yr</td><td>Spending controls + Ramp visibility</td></tr>
+          <tr><td>Fee efficiency</td><td class="pos">$2K – $16K / yr</td><td>Lower processor &amp; financial-friction costs</td></tr>
+          <tr><td>Pastor time returned</td><td class="pos">50+ hrs / yr</td><td>4–6 hrs/month redirected from admin to ministry</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- The math -->
+    <div class="sec-head reveal" style="margin-bottom:26px;">
+      <h2 style="font-size:26px;">How the math works on Tier 3</h2>
+    </div>
+    <div class="math-grid reveal">
+      <div class="math-card cost">
+        <h3>What it costs</h3>
+        <div class="math-row"><span class="k">Monthly during engagement</span><span class="v">$2,500 / mo</span></div>
+        <div class="math-row"><span class="k">Engagement length</span><span class="v">6 months</span></div>
+        <div class="math-row total"><span class="k">Total 6-month build</span><span class="v">$15,000</span></div>
+        <div class="math-row" style="margin-top:8px;"><span class="k">Month 7 onward</span><span class="v">$500 / mo</span></div>
+        <div class="math-row"><span class="k">Share of annual revenue</span><span class="v">~3%</span></div>
+      </div>
+      <div class="math-card ret">
+        <h3>What it returns — year one</h3>
+        <div class="math-row"><span class="k">Giving lift (mid-case)</span><span class="v">$7,500</span></div>
+        <div class="math-row"><span class="k">Fee efficiency</span><span class="v">$8,000</span></div>
+        <div class="math-row"><span class="k">Expense control (1% of OpEx)</span><span class="v">$5,000</span></div>
+        <div class="math-row"><span class="k">Time returned to ministry</span><span class="v">50+ hrs</span></div>
+        <div class="math-row total"><span class="k">Year-1 financial value</span><span class="v">≈ $20,500</span></div>
+      </div>
+    </div>
+
+    <div class="principle reveal" style="margin-top:30px;">
+      <p>A single 1% giving lift covers about $5,000. A 3% combined improvement covers the entire
+        Tier 3 engagement — inside year one. Every year after, the church runs on a system that has
+        already paid for itself.</p>
+      <span class="src">— The bottom line</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AFTER THE BUILD ================= -->
+<section id="after">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">After the Build</span>
+      <h2>The engagement ends. The system stays. The church owns it.</h2>
+      <p>The most common — and most reasonable — concern about outside financial help is the fear of
+        permanent dependence. This build is designed specifically to remove that fear.</p>
+    </div>
+
+    <div class="steps reveal">
+      <div class="step">
+        <span class="arrow">&rarr;</span>
+        <div>
+          <h4>Bookkeeping continues at $500/mo</h4>
+          <p>No surprise increases. No long-term contract. A predictable, modest line item the board
+            can plan around for years.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="arrow">&rarr;</span>
+        <div>
+          <h4>Every system, report, and process remains in place</h4>
+          <p>The build is engineered to keep running without us — it belongs to New Hope.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="arrow">&rarr;</span>
+        <div>
+          <h4>Staff is trained to operate it internally</h4>
+          <p>The goal is sustainability, not dependency. The church's own people run the day-to-day.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="arrow">&rarr;</span>
+        <div>
+          <h4>Optional advisory continues only if it's genuinely helpful</h4>
+          <p>Beyond the build, we earn the right to stay each month — never assume it.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="principle reveal" style="margin-top:32px;">
+      <p>This is a one-time foundation, not a permanent expense. New Hope pays to build the system once
+        — and then owns it. That is the difference between a cost and an investment.</p>
+      <span class="src">— What the engagement is, and is not</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEXT STEP ================= -->
+<section id="next" style="border-bottom:0;">
+  <div class="wrap">
+    <div class="closing reveal">
+      <span class="kicker">Next Step</span>
+      <h2>Confirm the preferred tier — and we finalize scope, timeline, and begin the build.</h2>
+      <p>
+        In Maui, the strongest predictor of giving isn't income — it's the depth of discipleship,
+        the relational trust, and the clarity of mission inside the church. Tier 3 builds the financial
+        foundation that frees New Hope's leadership to pour themselves into exactly those things.
+      </p>
+      <div class="contact">
+        <div class="ci"><div class="l">Prepared By</div><div class="v">Ricky West · Founder, Turnkey CFO</div></div>
+        <div class="ci"><div class="l">Email</div><div class="v">Ricky@TurnkeyCFO.com</div></div>
+        <div class="ci"><div class="l">Phone</div><div class="v">(682) 433-1852</div></div>
+      </div>
+      <p class="grateful">Grateful for the opportunity to serve New Hope Maui.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Turnkey CFO &nbsp;·&nbsp; Financial Foundation Proposal for New Hope Maui &nbsp;·&nbsp; May 2026</p>
+  </div>
+</footer>
+
+<script>
+  // reveal-on-scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
