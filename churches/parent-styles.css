@@ -76,8 +76,21 @@ h1, h2, h3, p, ul { margin: 0; }
   min-height: 78px;
 }
 
-.brand-logo,
-.footer-logo { width: 376px; }
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  height: 46px;
+  width: auto;
+}
+
+.footer-logo {
+  height: 60px;
+  width: auto;
+}
 
 .desktop-nav {
   display: flex;
@@ -326,6 +339,7 @@ h3 {
   position: absolute;
   inset: 50% auto auto 50%;
   width: min(540px, 100%);
+  height: auto;
   transform: translate(-50%, -50%);
   opacity: 0.13;
   pointer-events: none;
@@ -582,11 +596,13 @@ h3 {
 @media (max-width: 760px) {
   .container { width: min(100% - 24px, 100%); }
 
-  .desktop-nav { display: flex; gap: 10px; }
+  .desktop-nav { display: flex; gap: 6px; flex-wrap: nowrap; }
   .desktop-nav .is-active { display: none; }
-  .desktop-nav a:not(.button) { padding: 0; }
+  .desktop-nav a:not(.button) { display: none; }
 
-  .brand-logo { width: 220px; }
+  .topbar-inner { gap: 8px; min-height: 60px; }
+  .brand-logo { height: 28px; }
+  .button-liquid { min-height: 38px; padding: 8px 11px; font-size: 0.78rem; }
 
   .hero { padding-top: 36px; }
 
@@ -599,6 +615,7 @@ h3 {
   .hero-actions,
   .booking-actions { flex-direction: column; }
   .button { width: 100%; }
+  .desktop-nav .button { width: auto; }
 
   .fact-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
@@ -629,6 +646,7 @@ h3 {
 .button-liquid {
   position: relative;
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   min-height: 48px;
@@ -694,4 +712,5 @@ h3 {
   position: relative;
   z-index: 10;
   pointer-events: none;
+  white-space: nowrap;
 }
