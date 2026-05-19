@@ -283,6 +283,46 @@
   footer { padding: 36px 0 48px; text-align: center; }
   footer p { font-size: 13px; color: var(--muted); }
 
+  /* ---------- live dashboard embed ---------- */
+  .dash-frame {
+    background: #fff; border: 1px solid var(--divider);
+    border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);
+  }
+  .dash-bar {
+    display: flex; align-items: center; gap: 7px;
+    padding: 11px 16px; background: var(--surface);
+    border-bottom: 1px solid var(--divider);
+  }
+  .dash-dot { width: 11px; height: 11px; border-radius: 50%; background: #D3D6D3; flex-shrink: 0; }
+  .dash-url {
+    margin-left: 9px; flex: 1; min-width: 0;
+    font-size: 12.5px; font-weight: 600; color: var(--muted);
+    background: #fff; border: 1px solid var(--divider); border-radius: 999px;
+    padding: 6px 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .dash-open {
+    flex-shrink: 0; text-decoration: none; white-space: nowrap;
+    font-size: 12.5px; font-weight: 700; color: var(--emerald-deep);
+  }
+  .dash-open:hover { color: var(--emerald-bright); }
+  .dash-viewport { width: 100%; height: 768px; background: var(--bg-soft); }
+  .dash-viewport iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .dash-note { font-size: 13px; color: var(--muted); text-align: center; margin-top: 16px; }
+  .live-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--emerald-bright); margin-right: 8px; vertical-align: middle;
+    animation: livePulse 2.4s infinite;
+  }
+  @keyframes livePulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0,230,118,.55); }
+    70%  { box-shadow: 0 0 0 9px rgba(0,230,118,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,230,118,0); }
+  }
+  @media (max-width: 880px) {
+    .dash-viewport { height: 600px; }
+    .dash-url { display: none; }
+  }
+
   /* ---------- print ---------- */
   @media print {
     .nav, .reveal { position: static; }
@@ -290,6 +330,7 @@
     section { padding: 30px 0; page-break-inside: avoid; }
     .tier, .closing, .card-prepared { box-shadow: none; }
     .hero { background: none; }
+    .dash-viewport { height: 420px; }
     body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
@@ -302,6 +343,7 @@
     <div class="brand"><span class="dot"></span> Turnkey CFO</div>
     <div class="nav-links">
       <a href="#summary">Summary</a>
+      <a href="#dashboard">Live Dashboard</a>
       <a href="#context">Maui Context</a>
       <a href="#investment">The Investment</a>
       <a href="#packages">The Packages</a>
@@ -399,6 +441,34 @@
         the generosity of everyone who gives.</p>
       <span class="src">— The principle this proposal is built on</span>
     </div>
+  </div>
+</section>
+
+<!-- ================= LIVE DASHBOARD ================= -->
+<section id="dashboard">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker"><span class="live-dot"></span>Live Example</span>
+      <h2>This isn't a concept. Here is the system, working.</h2>
+      <p>Below is a live financial dashboard built on the exact system this proposal describes. It is
+        fully interactive — explore it the way New Hope's leadership would: the whole financial picture,
+        clear at a glance, on any day of the week.</p>
+    </div>
+
+    <div class="dash-frame reveal">
+      <div class="dash-bar">
+        <span class="dash-dot"></span><span class="dash-dot"></span><span class="dash-dot"></span>
+        <span class="dash-url">ricky11west.github.io/ABC-Church</span>
+        <a class="dash-open" href="https://ricky11west.github.io/ABC-Church/" target="_blank" rel="noopener">Open full screen &#8599;</a>
+      </div>
+      <div class="dash-viewport">
+        <iframe src="https://ricky11west.github.io/ABC-Church/"
+                title="Live church financial analytics dashboard"
+                loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <p class="dash-note reveal">Sample dashboard shown for illustration — New Hope's would reflect its own giving, budgets, and accounts.</p>
   </div>
 </section>
 
