@@ -102,7 +102,7 @@ footer{text-align:center;margin-top:16px;
 </style>
 </head>
 <body>
-<!-- generated 2026-05-18 21:59 | shoot 2026-05-18__profitable-but-broke -->
+<!-- generated 2026-05-18 22:30 | shoot 2026-05-18__profitable-but-broke -->
 <div class="board">
   <header>
     <h1>PROFIT ≠ CASH IN BANK</h1>
@@ -124,7 +124,7 @@ footer{text-align:center;margin-top:16px;
   <div class="band blue" data-step="10"><span>What to do this week</span></div>
   <section class="grid fixes"><div class="gcard" data-step="11" style="transform:rotate(1.3deg)"><div class="num">1</div><div class="t">Run Cash Flow Report</div><div class="line">Pull Statement of Cash Flows</div><div class="line">QBO: Reports section</div></div><div class="gcard" data-step="12" style="transform:rotate(-1.1deg)"><div class="num">2</div><div class="t">Set a Cash Floor</div><div class="line">Minimum: two weeks expenses</div><div class="line">Act when you approach it</div></div><div class="gcard" data-step="13" style="transform:rotate(0.9deg)"><div class="num">3</div><div class="t">Tighten AR Follow-Up</div><div class="line">Remind customers on day 28</div><div class="line">Automate in QBO settings</div></div></section>
 
-  <footer data-step="14">Turnkey CFO — bookkeeping and financial clarity for small business.</footer>
+  <footer data-step="14">Turnkey CFO -- bookkeeping and financial clarity for small business.</footer>
 </div>
 <div class="hud" id="hud"></div>
 <script>
@@ -160,6 +160,19 @@ footer{text-align:center;margin-top:16px;
     else if(k==='a'||k==='A'){shown=maxStep;apply();}
     else if(k==='r'||k==='R'){shown=0;apply();}
   });
+  // scale-to-fit: the diagram always fits the window, whatever the card count
+  function fit(){
+    var b=document.querySelector('.board');
+    if(!b) return;
+    b.style.transform='none';
+    var s=Math.min(1,(window.innerHeight-48)/b.offsetHeight);
+    b.style.transformOrigin='top center';
+    b.style.transform='scale('+s+')';
+  }
+  window.addEventListener('resize',fit);
+  window.addEventListener('load',fit);
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
+  fit();
 })();
 </script>
 </body>
