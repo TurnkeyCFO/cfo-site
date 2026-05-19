@@ -16,107 +16,93 @@
   --amber-bg:#fff4d6;--amber-ln:#e8920c;
   --blue-bg:#e7f1fd; --blue-ln:#1971c2;
 }
+html,body{height:100%}
 body{
-  background:var(--bg); color:var(--ink);
+  background:var(--bg); color:var(--ink); cursor:pointer;
   font-family:'Patrick Hand','Comic Sans MS',system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased; line-height:1.4;
-  padding:clamp(20px,4vw,52px) clamp(14px,4vw,40px) 64px;
+  -webkit-font-smoothing:antialiased; line-height:1.36;
+  display:flex; align-items:flex-start; justify-content:center;
+  padding:26px 30px; overflow:hidden;
 }
-.board{max-width:1080px;margin:0 auto}
-header{text-align:center;margin-bottom:clamp(22px,4vw,40px)}
-h1{
-  font-size:clamp(30px,6.4vw,58px); line-height:1.08; letter-spacing:.4px;
-  max-width:18ch; margin:0 auto;
-}
-.squiggle{display:block;margin:10px auto 0}
-.sub{
-  font-size:clamp(15px,2.4vw,21px); color:var(--soft);
-  margin-top:10px; max-width:30ch; margin-left:auto; margin-right:auto;
-}
+.board{width:100%;max-width:1080px;margin:0 auto}
+header{text-align:center;margin-bottom:18px}
+h1{font-size:clamp(30px,4.4vw,50px);line-height:1.06;letter-spacing:.4px;
+  max-width:28ch;margin:0 auto}
+.squiggle{display:block;margin:7px auto 0}
+.sub{font-size:clamp(15px,1.7vw,20px);color:var(--soft);margin-top:7px;
+  max-width:34ch;margin-left:auto;margin-right:auto}
 /* contrast row */
-.contrast{
-  display:flex; align-items:stretch; justify-content:center;
-  gap:clamp(10px,2.5vw,26px); flex-wrap:wrap;
-}
-.vs{
-  display:flex; align-items:center; justify-content:center;
-  font-size:clamp(38px,7vw,62px); color:var(--bad-ln); font-weight:700;
-}
-.card{
-  background:var(--paper);
-  border:2.5px solid var(--ink);
+.contrast{display:flex;align-items:stretch;justify-content:center;gap:18px;
+  flex-wrap:wrap}
+.vs{display:flex;align-items:center;justify-content:center;
+  font-size:clamp(34px,4vw,52px);color:var(--bad-ln);font-weight:700}
+.card{background:var(--paper);border:2.5px solid var(--ink);
   border-radius:14px 30px 16px 26px/26px 16px 30px 14px;
-  box-shadow:4px 5px 0 0 rgba(31,29,26,.13);
-  padding:clamp(15px,2.6vw,24px);
-}
-.contrast .card{flex:1 1 280px; max-width:430px}
-.card .tag{
-  display:inline-block; font-size:clamp(15px,2vw,19px); font-weight:700;
-  letter-spacing:.6px; text-transform:uppercase;
-  padding:2px 10px; border-radius:6px 12px 7px 11px/11px 7px 12px 6px;
-  margin-bottom:10px;
-}
+  box-shadow:4px 5px 0 0 rgba(31,29,26,.13);padding:14px 20px}
+.contrast .card{flex:1 1 300px;max-width:430px}
+.card .tag{display:inline-block;font-size:clamp(14px,1.5vw,18px);font-weight:700;
+  letter-spacing:.6px;text-transform:uppercase;padding:2px 10px;
+  border-radius:6px 12px 7px 11px/11px 7px 12px 6px;margin-bottom:7px}
 .card.good{background:var(--good-bg);border-color:var(--good-ln)}
 .card.good .tag{background:var(--good-ln);color:#fff}
 .card.bad{background:var(--bad-bg);border-color:var(--bad-ln)}
 .card.bad .tag{background:var(--bad-ln);color:#fff}
-.line{font-size:clamp(15px,2.3vw,20px); color:var(--ink); margin-top:4px}
-.contrast .line{font-size:clamp(16px,2.5vw,22px)}
+.line{font-size:clamp(15px,1.6vw,19px);color:var(--ink);margin-top:3px}
+.contrast .line{font-size:clamp(16px,1.7vw,21px)}
 /* flow arrow */
-.flow{text-align:center; font-size:clamp(26px,5vw,40px); color:var(--soft);
-  line-height:1; margin:clamp(8px,1.8vw,16px) 0}
+.flow{text-align:center;font-size:clamp(22px,2.6vw,32px);color:var(--soft);
+  line-height:1;margin:7px 0}
 /* band header */
-.band{text-align:center; margin:clamp(6px,1.4vw,12px) 0 clamp(14px,2.6vw,22px)}
-.band span{
-  display:inline-block; font-size:clamp(20px,3.4vw,30px); font-weight:700;
-  padding:5px 16px; border-radius:10px 22px 11px 19px/19px 11px 22px 10px;
-  border:2.5px solid var(--ink);
-}
+.band{text-align:center;margin:3px 0 13px}
+.band span{display:inline-block;font-size:clamp(19px,2.4vw,27px);font-weight:700;
+  padding:4px 16px;border-radius:10px 22px 11px 19px/19px 11px 22px 10px;
+  border:2.5px solid var(--ink)}
 .band.amber span{background:var(--amber-bg);border-color:var(--amber-ln)}
 .band.blue span{background:var(--blue-bg);border-color:var(--blue-ln)}
 /* grids */
-.grid{display:grid; gap:clamp(12px,2.4vw,20px)}
+.grid{display:grid;gap:15px}
 .grid.causes{grid-template-columns:repeat(3,1fr)}
 .grid.fixes{grid-template-columns:repeat(3,1fr)}
-.gcard{
-  position:relative; background:var(--paper); border:2.5px solid var(--ink);
+.gcard{position:relative;background:var(--paper);border:2.5px solid var(--ink);
   border-radius:14px 26px 15px 24px/24px 15px 26px 14px;
-  box-shadow:4px 5px 0 0 rgba(31,29,26,.13);
-  padding:clamp(15px,2.4vw,22px) clamp(14px,2.2vw,20px) clamp(15px,2.4vw,20px);
-}
+  box-shadow:4px 5px 0 0 rgba(31,29,26,.13);padding:14px 18px 13px}
 .grid.causes .gcard{background:var(--amber-bg);border-color:var(--amber-ln)}
 .grid.fixes .gcard{background:var(--blue-bg);border-color:var(--blue-ln)}
-.num{
-  position:absolute; top:-16px; left:-12px;
-  width:36px; height:36px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:19px; font-weight:700; color:#fff; border:2.5px solid var(--ink);
-}
+.num{position:absolute;top:-15px;left:-12px;width:34px;height:34px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:700;color:#fff;border:2.5px solid var(--ink)}
 .grid.causes .num{background:var(--amber-ln)}
 .grid.fixes .num{background:var(--blue-ln)}
-.gcard .t{
-  font-size:clamp(18px,2.5vw,23px); font-weight:700; line-height:1.15;
-  margin-bottom:7px;
-}
-.gcard .line{font-size:clamp(14.5px,2vw,18px); color:#403c35}
-footer{
-  text-align:center; margin-top:clamp(26px,4vw,42px);
-  font-size:clamp(13px,1.9vw,16px); color:var(--soft);
-}
+.gcard .t{font-size:clamp(17px,1.9vw,22px);font-weight:700;line-height:1.13;
+  margin-bottom:5px}
+.gcard .line{font-size:clamp(14px,1.5vw,17.5px);color:#403c35}
+footer{text-align:center;margin-top:16px;
+  font-size:clamp(13px,1.5vw,16px);color:var(--soft)}
+/* reveal */
+[data-step]{opacity:0;transform:translateY(16px);
+  transition:opacity .5s cubic-bezier(.2,.7,.3,1),
+             transform .5s cubic-bezier(.2,.7,.3,1)}
+[data-step].in{opacity:1;transform:none}
+.hud{position:fixed;right:16px;bottom:14px;font-family:'Patrick Hand',sans-serif;
+  font-size:16px;color:var(--soft);background:var(--paper);
+  border:2px solid var(--ink);
+  border-radius:9px 15px 10px 14px/14px 10px 15px 9px;
+  padding:3px 13px;box-shadow:3px 3px 0 rgba(31,29,26,.12);
+  user-select:none;cursor:default}
 @media(max-width:880px){
+  body{overflow:auto}
   .grid.causes{grid-template-columns:repeat(2,1fr)}
   .grid.fixes{grid-template-columns:1fr}
 }
 @media(max-width:560px){
   .grid.causes{grid-template-columns:1fr}
-  .contrast{flex-direction:column; align-items:center}
-  .contrast .card{width:100%; max-width:none; flex:0 0 auto}
-  .vs{padding:2px 0}
+  .contrast{flex-direction:column;align-items:center}
+  .contrast .card{width:100%;max-width:none;flex:0 0 auto}
 }
 </style>
 </head>
 <body>
-<!-- generated 2026-05-18 21:49 | shoot 2026-05-18__profitable-but-broke -->
+<!-- generated 2026-05-18 21:59 | shoot 2026-05-18__profitable-but-broke -->
 <div class="board">
   <header>
     <h1>PROFIT ≠ CASH IN BANK</h1>
@@ -125,20 +111,56 @@ footer{
   </header>
 
   <section class="contrast">
-    <div class="card good"><span class="tag">P&amp;L View</span><div class="line">Shows $8,000 net profit</div><div class="line">Revenue booked at invoice</div></div>
-    <div class="vs">≠</div>
-    <div class="card bad"><span class="tag">Bank Reality</span><div class="line">Account looks thin</div><div class="line">Cash not actually received</div></div>
+    <div class="card good" data-step="1"><span class="tag">P&amp;L View</span><div class="line">Shows $8,000 net profit</div><div class="line">Revenue booked at invoice</div></div>
+    <div class="vs" data-step="2">≠</div>
+    <div class="card bad" data-step="2"><span class="tag">Bank Reality</span><div class="line">Account looks thin</div><div class="line">Cash not actually received</div></div>
   </section>
 
-  <div class="flow">&#8595;</div>
-  <div class="band amber"><span>Why the gap exists</span></div>
-  <section class="grid causes"><div class="gcard" style="transform:rotate(-1.4deg)"><div class="num">1</div><div class="t">Accrual Reporting</div><div class="line">Revenue posts when invoiced</div><div class="line">Not when customer pays</div></div><div class="gcard" style="transform:rotate(1.1deg)"><div class="num">2</div><div class="t">Unpaid Invoices</div><div class="line">$30K sitting in AR</div><div class="line">60–90 days outstanding</div></div><div class="gcard" style="transform:rotate(-0.8deg)"><div class="num">3</div><div class="t">Loan Repayments</div><div class="line">Payments hit balance sheet</div><div class="line">Never appear on P&amp;L</div></div><div class="gcard" style="transform:rotate(1.3deg)"><div class="num">4</div><div class="t">Prepaid Expenses</div><div class="line">Cash paid upfront</div><div class="line">P&amp;L expense comes later</div></div><div class="gcard" style="transform:rotate(-1.1deg)"><div class="num">5</div><div class="t">Inventory Purchases</div><div class="line">Cash leaves immediately</div><div class="line">Cost recognized at sale</div></div><div class="gcard" style="transform:rotate(0.9deg)"><div class="num">6</div><div class="t">Tighter Credit</div><div class="line">Lines of credit harder</div><div class="line">No buffer for shortfalls</div></div></section>
+  <div class="flow" data-step="3">&#8595;</div>
+  <div class="band amber" data-step="3"><span>Why the gap exists</span></div>
+  <section class="grid causes"><div class="gcard" data-step="4" style="transform:rotate(-1.4deg)"><div class="num">1</div><div class="t">Accrual Reporting</div><div class="line">Revenue posts when invoiced</div><div class="line">Not when customer pays</div></div><div class="gcard" data-step="5" style="transform:rotate(1.1deg)"><div class="num">2</div><div class="t">Unpaid Invoices</div><div class="line">$30K sitting in AR</div><div class="line">60–90 days outstanding</div></div><div class="gcard" data-step="6" style="transform:rotate(-0.8deg)"><div class="num">3</div><div class="t">Loan Repayments</div><div class="line">Payments hit balance sheet</div><div class="line">Never appear on P&amp;L</div></div><div class="gcard" data-step="7" style="transform:rotate(1.3deg)"><div class="num">4</div><div class="t">Prepaid Expenses</div><div class="line">Cash paid upfront</div><div class="line">P&amp;L expense comes later</div></div><div class="gcard" data-step="8" style="transform:rotate(-1.1deg)"><div class="num">5</div><div class="t">Inventory Purchases</div><div class="line">Cash leaves immediately</div><div class="line">Cost recognized at sale</div></div><div class="gcard" data-step="9" style="transform:rotate(0.9deg)"><div class="num">6</div><div class="t">Tighter Credit</div><div class="line">Lines of credit harder</div><div class="line">No buffer for shortfalls</div></div></section>
 
-  <div class="flow">&#8595;</div>
-  <div class="band blue"><span>What to do this week</span></div>
-  <section class="grid fixes"><div class="gcard" style="transform:rotate(1.3deg)"><div class="num">1</div><div class="t">Run Cash Flow Report</div><div class="line">Pull Statement of Cash Flows</div><div class="line">QBO: Reports section</div></div><div class="gcard" style="transform:rotate(-1.1deg)"><div class="num">2</div><div class="t">Set a Cash Floor</div><div class="line">Minimum: two weeks expenses</div><div class="line">Act when you approach it</div></div><div class="gcard" style="transform:rotate(0.9deg)"><div class="num">3</div><div class="t">Tighten AR Follow-Up</div><div class="line">Remind customers on day 28</div><div class="line">Automate in QBO settings</div></div></section>
+  <div class="flow" data-step="10">&#8595;</div>
+  <div class="band blue" data-step="10"><span>What to do this week</span></div>
+  <section class="grid fixes"><div class="gcard" data-step="11" style="transform:rotate(1.3deg)"><div class="num">1</div><div class="t">Run Cash Flow Report</div><div class="line">Pull Statement of Cash Flows</div><div class="line">QBO: Reports section</div></div><div class="gcard" data-step="12" style="transform:rotate(-1.1deg)"><div class="num">2</div><div class="t">Set a Cash Floor</div><div class="line">Minimum: two weeks expenses</div><div class="line">Act when you approach it</div></div><div class="gcard" data-step="13" style="transform:rotate(0.9deg)"><div class="num">3</div><div class="t">Tighten AR Follow-Up</div><div class="line">Remind customers on day 28</div><div class="line">Automate in QBO settings</div></div></section>
 
-  <footer>Turnkey CFO — bookkeeping and financial clarity for small business.</footer>
+  <footer data-step="14">Turnkey CFO — bookkeeping and financial clarity for small business.</footer>
 </div>
+<div class="hud" id="hud"></div>
+<script>
+(function(){
+  var steps=[].slice.call(document.querySelectorAll('[data-step]'));
+  var maxStep=steps.reduce(function(m,e){
+    return Math.max(m,parseInt(e.getAttribute('data-step'),10));},0);
+  var hud=document.getElementById('hud');
+  var shown=0;
+  function apply(){
+    steps.forEach(function(e){
+      var s=parseInt(e.getAttribute('data-step'),10);
+      if(s<=shown) e.classList.add('in'); else e.classList.remove('in');
+    });
+    hud.textContent = shown===0 ? 'click to reveal \u2192'
+      : (shown>=maxStep ? 'done \u00b7 '+maxStep+'/'+maxStep
+                        : shown+' / '+maxStep);
+  }
+  function fwd(){ if(shown<maxStep){shown++;apply();} }
+  function back(){ if(shown>0){shown--;apply();} }
+  var h=(location.hash||'').slice(1).toLowerCase();
+  if(h==='all') shown=maxStep;
+  else if(h==='half') shown=Math.ceil(maxStep/2);
+  else if(/^[0-9]+$/.test(h)) shown=Math.min(maxStep,parseInt(h,10));
+  apply();
+  document.addEventListener('click',function(){fwd();});
+  document.addEventListener('keydown',function(e){
+    var k=e.key;
+    if(k==='ArrowRight'||k===' '||k==='ArrowDown'||k==='PageDown'){
+      e.preventDefault();fwd();}
+    else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'){
+      e.preventDefault();back();}
+    else if(k==='a'||k==='A'){shown=maxStep;apply();}
+    else if(k==='r'||k==='R'){shown=0;apply();}
+  });
+})();
+</script>
 </body>
 </html>
