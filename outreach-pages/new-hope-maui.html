@@ -113,6 +113,35 @@
   .principle p { font-size: clamp(19px, 2.2vw, 23px); font-weight: 700; color: var(--ink); letter-spacing: -0.02em; line-height: 1.32; }
   .principle .src { display: block; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--emerald-deep); }
 
+  /* ---------- exec summary panel ---------- */
+  .summary-panel {
+    margin-top: 34px; background: var(--surface);
+    border-radius: var(--radius); padding: 32px;
+  }
+  .sp-head {
+    font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--emerald-deep); margin-bottom: 24px;
+  }
+  .sp-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; }
+  @media (max-width: 820px) { .sp-grid { grid-template-columns: 1fr; gap: 26px; } }
+  .sp-num { font-size: clamp(34px,4vw,42px); font-weight: 800; color: var(--emerald-deep); letter-spacing: -0.035em; line-height: 1; }
+  .sp-lbl { font-size: 14.5px; font-weight: 700; color: var(--ink); margin-top: 9px; }
+  .sp-sub { font-size: 13px; color: var(--body); margin-top: 6px; }
+
+  /* ---------- guarantee ---------- */
+  .guarantee {
+    margin-top: 26px; background: var(--mint);
+    border: 1.5px solid var(--emerald-bright);
+    border-radius: var(--radius); padding: 32px 34px;
+  }
+  .g-badge {
+    display: inline-block; background: var(--emerald-bright); color: var(--ink);
+    font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .guarantee h3 { font-size: clamp(19px,2.3vw,23px); margin-bottom: 10px; }
+  .guarantee p { font-size: 15px; color: var(--body); max-width: 780px; }
+
   /* ---------- generic cards ---------- */
   .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
@@ -272,6 +301,7 @@
   <div class="nav-inner">
     <div class="brand"><span class="dot"></span> Turnkey CFO</div>
     <div class="nav-links">
+      <a href="#summary">Summary</a>
       <a href="#context">Maui Context</a>
       <a href="#investment">The Investment</a>
       <a href="#packages">The Packages</a>
@@ -312,21 +342,58 @@
   </div>
 </header>
 
-<!-- ================= OPENING NOTE ================= -->
-<section class="tight" id="open">
+<!-- ================= EXECUTIVE SUMMARY ================= -->
+<section id="summary">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="kicker">A note before the numbers</span>
-      <h2>This is a stewardship decision, not a purchase.</h2>
+      <span class="kicker">Executive Summary</span>
+      <h2>The short version — before the detail.</h2>
     </div>
-    <p class="lead reveal" style="max-width:820px;">
-      Every dollar that comes through New Hope Maui was given in trust — and the people who gave it
-      expect it to be handled with care. The question this proposal answers is not <em>"should the church
-      spend money on financial help?"</em> It is <em>"what does faithful stewardship of a half-million-dollar
-      ministry actually require?"</em> Healthy churches answer that question the same way: they build the
-      financial systems that protect the mission, and they treat that build as part of the ministry — not
-      an expense apart from it.
+    <p class="lead reveal" style="max-width:850px;">
+      New Hope Maui is a ministry of roughly $500,000 in annual giving, operating in one of the
+      highest cost-of-living communities in the country. This proposal lays out three ways to build
+      the financial foundation that protects that giving. It recommends the full six-month build —
+      though every option leaves the church stronger and better-stewarded than it found it.
     </p>
+    <p class="lead reveal" style="max-width:850px; margin-top:14px;">
+      The build is not an expense the church carries indefinitely. It is a one-time foundation —
+      paid for over six months, then owned and run by New Hope's own team at a modest $500/month.
+      And on conservative assumptions, it is anticipated to return more than it costs inside the
+      first year.
+    </p>
+
+    <div class="summary-panel reveal">
+      <div class="sp-head">What the build is anticipated to return</div>
+      <div class="sp-grid">
+        <div class="sp-item">
+          <div class="sp-num">$15,000+</div>
+          <div class="sp-lbl">Minimum anticipated year-one financial gain</div>
+          <div class="sp-sub">A deliberately conservative floor — enough on its own to cover the entire six-month build.</div>
+        </div>
+        <div class="sp-item">
+          <div class="sp-num">≈ $20,500</div>
+          <div class="sp-lbl">Realistic mid-case year-one value</div>
+          <div class="sp-sub">Recovered fees, reduced costs, and measurable giving lift, combined.</div>
+        </div>
+        <div class="sp-item">
+          <div class="sp-num">$500 / mo</div>
+          <div class="sp-lbl">Ongoing cost once the build is complete</div>
+          <div class="sp-sub">Month-to-month bookkeeping. No long-term contract, ever.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="guarantee reveal">
+      <span class="g-badge">Our Commitment to New Hope</span>
+      <h3>New Hope does not have to take the return on faith.</h3>
+      <p>
+        The six-month build is the only fixed term — after it, every month is month-to-month, with
+        no long-term contract. And if, twelve months after the build is complete, the engagement has
+        not produced documented financial value at least equal to its cost, we keep advising
+        New Hope at no additional charge until it has.
+      </p>
+    </div>
+
     <div class="principle reveal" style="margin-top:30px;">
       <p>Financial infrastructure is stewardship, not overhead. A church that builds it well protects
         the generosity of everyone who gives.</p>
@@ -345,31 +412,18 @@
         changes — and so does what the church can rely on.</p>
     </div>
 
-    <div class="grid-2" style="margin-bottom:30px;">
-      <div class="card reveal">
-        <div class="col-label">Kahului vs. Mainland Suburban</div>
-        <table class="cmp">
-          <thead><tr><th>Metric</th><th>Kahului</th><th>Mainland</th></tr></thead>
-          <tbody>
-            <tr><td>Median household income</td><td class="pos">~$98K</td><td>~$90K</td></tr>
-            <tr><td>Cost of living</td><td class="pos">Extremely high</td><td>Moderate</td></tr>
-            <tr><td>Discretionary income</td><td>Compressed</td><td>Higher</td></tr>
-            <tr><td>Typical giving rate</td><td>1.5–3%</td><td>1.5–3%</td></tr>
-            <tr><td>Practical giving capacity</td><td>Lower</td><td>Higher</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="card reveal" style="background:var(--mint);border-color:var(--emerald-bright);">
-        <div class="col-label">What this means for New Hope</div>
-        <h3 style="font-size:21px;margin-bottom:12px;">In a high-cost community, giving follows trust — not income.</h3>
-        <p style="font-size:15px;">
-          Families on Maui give out of compressed margins. When that is true, generosity is driven by
-          confidence: confidence that the church is led well, that the mission is clear, and that every
-          gift is handled with integrity. The churches that consistently outperform their demographics
-          here are the ones that <strong>feel trustworthy</strong> — and trust is built, in large part,
-          on visible financial discipline.
-        </p>
-      </div>
+    <div class="card reveal" style="margin-bottom:30px;">
+      <div class="col-label">Kahului vs. Mainland Suburban</div>
+      <table class="cmp">
+        <thead><tr><th>Metric</th><th>Kahului</th><th>Mainland</th></tr></thead>
+        <tbody>
+          <tr><td>Median household income</td><td class="pos">~$98K</td><td>~$90K</td></tr>
+          <tr><td>Cost of living</td><td class="pos">Extremely high</td><td>Moderate</td></tr>
+          <tr><td>Discretionary income</td><td>Compressed</td><td>Higher</td></tr>
+          <tr><td>Typical giving rate</td><td>1.5–3%</td><td>1.5–3%</td></tr>
+          <tr><td>Practical giving capacity</td><td>Lower</td><td>Higher</td></tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="card soft reveal">
@@ -407,18 +461,17 @@
         <div class="stat">1%–5%</div>
         <p>What well-run organizations reinvest into bookkeeping, systems, reporting, and governance.</p>
       </div>
-      <div class="card reveal" style="background:var(--mint);border-color:var(--emerald-bright);">
-        <span class="badge" style="position:static;display:inline-block;margin-bottom:10px;">Recommended</span>
-        <div class="stat-lbl">The Build</div>
+      <div class="card soft reveal">
+        <div class="stat-lbl">The Full Build</div>
         <div class="stat">3%</div>
-        <p>A 6-month Tier 3 engagement — the middle of the healthy range, not the top of it.</p>
+        <p>A six-month Tier 3 engagement sits in the middle of that range — not the top of it.</p>
       </div>
     </div>
 
     <div class="principle reveal">
-      <p>Every organization New Hope's size reinvests 1%–5% of revenue into the systems that protect it.
-        Choosing 3% is not aggressive — it is responsible, and it is the floor of doing this well.</p>
-      <span class="src">— Why the number is defensible</span>
+      <p>Reinvesting a defined share of revenue into financial systems is simply what well-run
+        organizations do — and it is paid once to build, not carried forever.</p>
+      <span class="src">— Why this is an investment, not an expense</span>
     </div>
   </div>
 </section>
@@ -447,7 +500,7 @@
         <p class="note">Adds the reporting, budgeting, and payroll muscle to actually lead with the numbers.</p>
       </div>
       <div class="tier-mini rec">
-        <span class="badge">★ Recommended</span>
+        <span class="badge">Recommended</span>
         <div class="tag">Tier 3 — Full Build</div>
         <h3>Full Stewardship Infrastructure</h3>
         <div class="price">$2,500<small>per month · $15,000 over 6 months</small></div>
@@ -495,7 +548,8 @@
             </div>
             <div class="value-block">
               <h4>The lowest-cost form of protection</h4>
-              <p>At ~1.2% of annual revenue, this sits well under the 1%–5% healthy benchmark.</p>
+              <p>At roughly 1.2% of annual revenue, clean books are the most affordable safeguard
+                a church its size can put in place.</p>
             </div>
           </div>
         </div>
@@ -559,7 +613,7 @@
           <h3>Full Stewardship Infrastructure</h3>
         </div>
         <div class="tier-price">
-          <div class="rec-pill">★ Recommended</div>
+          <div class="rec-pill">Recommended</div>
           <div class="big">$2,500 / mo</div>
           <div class="small">6-month engagement · $15,000 total · then $500/mo</div>
         </div>
@@ -612,7 +666,7 @@
     <div class="principle reveal" style="margin-top:32px;">
       <p>Internal controls don't only protect the church's money — they protect the leaders and the
         board who are accountable for it. That protection is the quiet heart of good governance.</p>
-      <span class="src">— Why Tier 3 is the responsible recommendation</span>
+      <span class="src">— On controls and good governance</span>
     </div>
   </div>
 </section>
@@ -665,7 +719,7 @@
 
     <div class="principle reveal" style="margin-top:30px;">
       <p>A single 1% giving lift covers about $5,000. A 3% combined improvement covers the entire
-        Tier 3 engagement — inside year one. Every year after, the church runs on a system that has
+        six-month build — inside year one. Every year after, the church runs on a system that has
         already paid for itself.</p>
       <span class="src">— The bottom line</span>
     </div>
@@ -730,8 +784,8 @@
       <h2>Confirm the preferred tier — and we finalize scope, timeline, and begin the build.</h2>
       <p>
         In Maui, the strongest predictor of giving isn't income — it's the depth of discipleship,
-        the relational trust, and the clarity of mission inside the church. Tier 3 builds the financial
-        foundation that frees New Hope's leadership to pour themselves into exactly those things.
+        the relational trust, and the clarity of mission inside the church. The financial foundation
+        in this proposal exists to free New Hope's leadership to pour themselves into exactly those things.
       </p>
       <div class="contact">
         <div class="ci"><div class="l">Prepared By</div><div class="v">Ricky West · Founder, Turnkey CFO</div></div>
