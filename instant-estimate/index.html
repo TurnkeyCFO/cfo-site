@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NPBL5MRZ');</script>
+<!-- End Google Tag Manager -->
 <title>Turnkey CFO - Instant Estimate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -267,6 +274,10 @@ h1 { margin:0 auto 10px; max-width:740px; font-size:clamp(34px, 5vw, 56px); line
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPBL5MRZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
   <div class="shell">
     <section class="hero">
@@ -1029,6 +1040,14 @@ form.addEventListener('submit', (e) => {
   formTopbar.classList.add('hidden');
   resultWrap.classList.add('active');
   resultWrap.scrollIntoView({ behavior:'smooth', block:'start' });
+
+  // GTM virtual pageview — fires when the estimate result is revealed
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'instant_estimate_revealed',
+    page_path: '/instant-estimate/result',
+    page_title: 'Instant Estimate - Result'
+  });
 
   submitLead(submissionPayload).catch((error) => {
     console.error('Instant Estimate webhook submission failed.', error);
