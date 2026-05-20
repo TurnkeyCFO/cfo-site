@@ -731,14 +731,15 @@ h3 {
       0 6px 18px rgba(4, 120, 87, 0.22);
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .mobile-sticky-cta {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 50;
-    display: grid;
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    z-index: 9999 !important;
+    display: grid !important;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
@@ -747,6 +748,8 @@ h3 {
     -webkit-backdrop-filter: blur(14px);
     border-top: 1px solid rgba(0, 38, 58, 0.08);
     box-shadow: 0 -8px 24px rgba(7, 47, 69, 0.08);
+    transform: none !important;
+    will-change: auto !important;
   }
   .mobile-sticky-cta a {
     display: inline-flex;
@@ -775,3 +778,7 @@ h3 {
 @media (prefers-reduced-motion: reduce) {
   .mobile-sticky-cta-secondary { animation: none; }
 }
+
+
+/* Homepage .hero H1->lede spacing fix */
+.hero-copy h1{margin-bottom:14px !important;}
