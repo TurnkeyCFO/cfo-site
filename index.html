@@ -340,16 +340,23 @@
         .video-hero-scrollcue-line{width:1px;height:36px;background:#0a0a0a;opacity:.55;animation:vh-cue 1.8s ease-in-out infinite;}
         @keyframes vh-cue{0%,100%{transform:scaleY(.4);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}}
         @media (max-width:768px){
-          .video-hero{height:auto;min-height:0;padding:0;background:linear-gradient(160deg,#f6fbf7 0%,#eaf6ee 55%,#dff0e3 100%);display:block;}
-          .video-hero-media{position:relative;width:100%;height:auto;max-height:60vh;object-fit:contain;display:block;background:#000;}
-          .video-hero-white,.video-hero-backdrop{display:none;}
-          .video-hero-overlay{position:relative;padding:32px 22px 40px;transform:scale(.92);}
-          .video-hero-overlay.is-revealed{transform:scale(1);}
-          .video-hero-title{font-size:clamp(2rem,9vw,3rem);margin-bottom:14px !important;}
-          .video-hero-sub{font-size:1rem;margin-bottom:22px;}
+          /* Mobile: hide the video entirely, show the reveal hero text immediately (no animation).
+             Section becomes a normal centered hero panel with the brand gradient background. */
+          .video-hero{height:auto !important;min-height:0 !important;padding:48px 20px 56px;display:block;background:linear-gradient(160deg,#f6fbf7 0%,#eaf6ee 55%,#dff0e3 100%);overflow:hidden;}
+          .video-hero-media,.video-hero-white,.video-hero-backdrop,.video-hero-scrollcue{display:none !important;}
+          /* Force the overlay into its revealed state — no opacity/transform/blur transitions on mobile */
+          .video-hero-overlay{position:relative;padding:0;max-width:100%;margin:0 auto;opacity:1 !important;transform:none !important;filter:none !important;transition:none !important;}
+          .video-hero-overlay .vh-strike::after{transform:scaleX(1) !important;transition:none !important;}
+          .video-hero-title{font-size:clamp(2rem,8vw,2.75rem) !important;margin-bottom:14px !important;line-height:1.08;}
+          .vh-line2{font-size:1.1em;}
+          .video-hero-sub{font-size:clamp(.98rem,3.6vw,1.08rem);line-height:1.5;margin-bottom:22px;max-width:92vw;}
           .video-hero-cta{flex-direction:column;align-items:stretch;gap:10px;}
           .video-hero-cta .button{width:100%;text-align:center;}
-          .video-hero-scrollcue{display:none;}
+        }
+        @media (max-width:480px){
+          .video-hero{padding:40px 18px 48px;}
+          .video-hero-title{font-size:clamp(1.85rem,7.6vw,2.5rem) !important;}
+          .video-hero-sub{font-size:.96rem;margin-bottom:18px;}
         }
       </style>
       <script>
