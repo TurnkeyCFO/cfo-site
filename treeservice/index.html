@@ -180,17 +180,9 @@
         @keyframes vh-cue{0%,100%{transform:scaleY(.4);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}}
         /* Spacing between niche H1 and lede paragraph */
         .hero-copy h1{margin-bottom:14px !important;}
+        /* Mobile: hide the entire video-hero section. Desktop untouched. */
         @media (max-width:768px){
-          .video-hero{height:auto;min-height:0;padding:0;background:linear-gradient(160deg,#f6fbf7 0%,#eaf6ee 55%,#dff0e3 100%);display:block;}
-          .video-hero-media{position:relative;width:100%;height:auto;max-height:60vh;object-fit:contain;display:block;background:#000;}
-          .video-hero-white,.video-hero-backdrop{display:none;}
-          .video-hero-overlay{position:relative;padding:32px 22px 40px;transform:scale(.92);}
-          .video-hero-overlay.is-revealed{transform:scale(1);}
-          .video-hero-title{font-size:clamp(2rem,9vw,3rem);margin-bottom:14px !important;}
-          .video-hero-sub{font-size:1rem;margin-bottom:22px;}
-          .video-hero-cta{flex-direction:column;align-items:stretch;gap:10px;}
-          .video-hero-cta .button{width:100%;text-align:center;}
-          .video-hero-scrollcue{display:none;}
+          .video-hero{display:none !important;}
         }
       </style>
       <script>
