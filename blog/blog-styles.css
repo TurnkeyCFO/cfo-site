@@ -43,7 +43,7 @@ a:hover { text-decoration: underline; }
   padding: 18px 24px;
 }
 .tk-logo { display: flex; align-items: center; gap: 10px; }
-.tk-logo img { height: 26px; width: auto; }
+.tk-logo img { height: 52px; width: auto; }
 .tk-logo span { font-weight: 700; font-size: 17px; color: var(--tk-heading); }
 .tk-nav { display: flex; align-items: center; }
 /* Single "Book a Call" CTA — the only header link. Service/money-page links
