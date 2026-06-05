@@ -10,9 +10,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-NPBL5MRZ');</script>
 <!-- End Google Tag Manager -->
-<title>Turnkey CFO - Instant Estimate (TEST)</title>
+<title>Turnkey CFO - Instant Estimate</title>
   <meta name="robots" content="noindex, nofollow">
-  <link rel="canonical" href="https://turnkeycfo.com/instant-estimate-test/">
+  <link rel="canonical" href="https://turnkeycfo.com/instant-estimate2/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -284,7 +284,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="shell">
     <section class="hero">
       <div class="logo-wrap"><img alt="Turnkey CFO" src="./assets/tk-logo.png" /></div>
-      <div class="eyebrow" style="background:#fde68a;color:#7c2d12;border:1px solid #f59e0b;font-weight:700;">TEST VERSION &mdash; no Industry / Job Costing</div>
+      <div class="eyebrow">Instant Estimate Experience</div>
       <h1>See what your monthly finance support could look like.</h1>
       <p class="sub">A free and quick way to have a custom quote tailored for your business needs.</p>
     </section>
@@ -304,8 +304,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="form-step active" data-step="1">
               <h2>Start with the shape of the business.</h2>
               <div class="field">
-                <label class="title" for="companyName">Company name</label>
-                <input class="input" id="companyName" name="companyName" type="text" placeholder="Your company name" required />
+                <label class="title" for="companyName">Organization name</label>
+                <input class="input" id="companyName" name="companyName" type="text" placeholder="Your organization name" required />
               </div>
               <div class="row-2">
                 <div class="field">
@@ -341,8 +341,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
 
             <div class="form-step" data-step="2">
-              <h2>Next, tell us about complexity.</h2>
-              <p class="lead">A few simple inputs help us estimate how much hands-on management your books will need each month.</p>
+              <h2>Tell us about complexity and the support you want.</h2>
+              <p class="lead">A few simple inputs help us estimate how much hands-on management your books will need each month. Your estimate starts at a base fee, then builds only where extra service is needed.</p>
               <div class="row-2">
                 <div class="field">
                   <label class="title" for="accountCount">Total bank + credit card accounts</label>
@@ -353,20 +353,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   </select>
                 </div>
               </div>
-              <div class="row-2">
-                <div class="field">
-                  <label class="title" for="inventory">Inventory tracking?</label>
-                  <select id="inventory" name="inventory" required>
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-step" data-step="3">
-              <h2>Choose the support you want each month.</h2>
-              <p class="lead">Your bookkeeping estimate starts at a base fee, then builds only where extra service is needed.</p>
               <div class="field">
                 <label class="title">Payroll support</label>
                 <div class="options three">
@@ -649,7 +635,7 @@ function buildSubmissionPayload(data, result) {
   const attachedAddOns = getAttachedAddOns(data);
   return {
     timestamp: new Date().toISOString(),
-    formVariant: 'instant-estimate-test',
+    formVariant: 'instant-estimate2',
     email: data.email || '',
     companyName: data.companyName || '',
     revenue: data.revenue || '',
@@ -659,7 +645,6 @@ function buildSubmissionPayload(data, result) {
     otherSoftwareName: data.otherSoftwareName?.trim() || '',
     accountCount: data.accountCount || '',
     accountCountLabel: getAccountLabel(data.accountCount),
-    inventory: data.inventory || '',
     payroll: data.payroll || '',
     payrollLabel: getPayrollLabel(data.payroll),
     billpay: data.billpay || '',
@@ -859,8 +844,7 @@ function calculateEstimate(data) {
     data.accountCount === 'le5' &&
     data.payroll === 'none' &&
     data.billpay === 'none' &&
-    data.needs1099 !== 'yes' &&
-    data.inventory !== 'yes'
+    data.needs1099 !== 'yes'
   );
   const floor = Math.max(ABS_MIN, isMinimalClient ? ABS_MIN : 350);
 
@@ -893,7 +877,6 @@ function calculateEstimate(data) {
   }
 
   if (data.software === 'other') flags.push('non-standard accounting software');
-  if (data.inventory === 'yes') flags.push('inventory tracking');
   if (monthsBehind >= 6) flags.push('6+ months of cleanup');
 
   // Recommendation logic
@@ -904,7 +887,7 @@ function calculateEstimate(data) {
   } else {
     const hasAddOn = data.payroll !== 'none' || data.billpay !== 'none' || data.needs1099 === 'yes';
     const bigRev = data.revenue === '1to3m' || data.revenue === 'gt3m';
-    if (hasAddOn || bigRev || data.inventory === 'yes') {
+    if (hasAddOn || bigRev) {
       recommended = 'reporting';
     } else {
       recommended = 'books';
@@ -971,11 +954,10 @@ form.addEventListener('submit', (e) => {
 
   const estimateSummary = document.getElementById('estimateSummary');
   const summaryItems = [
-    `Company name: ${data.companyName}`,
+    `Organization name: ${data.companyName}`,
     `Annual revenue: ${submissionPayload.revenueLabel}`,
     `Accounting software: ${submissionPayload.softwareLabel}`,
     `Complexity: ${submissionPayload.accountCountLabel}`,
-    `Inventory tracking: ${data.inventory === 'yes' ? 'Yes' : 'No'}`,
     `Payroll support: ${payrollLabel}`,
     `Bill pay / AP: ${billLabel}`,
     `1099 contractors: ${data.needs1099 === 'yes' ? 'Yes' : 'No'}`,
