@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Kingdom City Church — Financial Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root{
+    --slate:#3a443a; --slate-dark:#272d27; --slate-light:#5a655a;
+    --orange:#db6839; --orange-dark:#b0542e; --orange-light:#e38761;
+    --gold:#c1a56c; --gold-dark:#9b8457;
+    --cream:#d8cfbf; --cream-light:#f5f0e7; --white:#fff;
+    --text-dark:#23291f; --text-mid:#3a443a; --text-light:#8a8472;
+    --good:#5a7d4f; --bad:#b0542e; --warn:#b88a3a;
+    --good-bg:#eef2e9; --bad-bg:#f7e9e2; --warn-bg:#f3ecdd;
+    --radius:12px; --shadow:0 2px 12px rgba(39,45,39,.13);
+    --shadow-lg:0 8px 32px rgba(39,45,39,.18);
+  }
+  html,body{background:var(--cream-light);font-family:'Lato','Open Sans',sans-serif;color:var(--text-dark);line-height:1.5;}
+  body{padding-bottom:60px;}
+
+  header.report-header{
+    background:var(--slate-dark);color:var(--white);
+    padding:30px 24px 26px;text-align:center;position:relative;overflow:hidden;
+    box-shadow:0 4px 24px rgba(0,0,0,.22);
+  }
+  header.report-header::after{content:'';position:absolute;left:0;right:0;bottom:0;height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%,var(--gold) 100%);}
+  .header-mark{width:70px;height:70px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;
+    background:var(--orange);color:var(--white);font-weight:900;font-size:21px;letter-spacing:1px;box-shadow:0 4px 14px rgba(219,104,57,.4);}
+  header.report-header h1{font-size:13px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:8px;}
+  header.report-header h1 span{color:var(--gold);}
+  header.report-header .report-title{font-size:28px;font-weight:900;color:var(--white);letter-spacing:.5px;margin-bottom:6px;line-height:1.2;}
+  header.report-header .report-sub{font-size:12px;color:var(--cream);letter-spacing:2px;text-transform:uppercase;opacity:.85;}
+
+  /* TAB NAV */
+  .tabbar{position:sticky;top:0;z-index:30;background:var(--slate);box-shadow:0 2px 10px rgba(0,0,0,.18);}
+  .tabbar-inner{max-width:1180px;margin:0 auto;display:flex;gap:4px;padding:0 12px;}
+  .tabbtn{flex:1;background:none;border:none;cursor:pointer;color:var(--cream);
+    font-family:inherit;font-size:13px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;
+    padding:15px 10px 13px;border-bottom:3px solid transparent;transition:.18s;}
+  .tabbtn .sub{display:block;font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:none;color:rgba(255,255,255,.45);margin-top:2px;}
+  .tabbtn:hover{color:var(--white);background:rgba(255,255,255,.04);}
+  .tabbtn.active{color:var(--white);border-bottom-color:var(--orange);background:rgba(219,104,57,.12);}
+  .tabbtn.active .sub{color:var(--gold);}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 20px;}
+  .tabpane{display:none;}
+  .tabpane.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  .section{margin-bottom:32px;}
+  .section-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--cream);}
+  .section-head .num{background:var(--orange);color:var(--white);width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;}
+  .section-head h2{font-size:20px;font-weight:900;color:var(--slate-dark);letter-spacing:.5px;}
+  .section-head .meta{margin-left:auto;font-size:11px;color:var(--text-light);text-transform:uppercase;letter-spacing:1px;font-weight:700;}
+
+  .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden;}
+  .card-header{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--slate-dark);}
+  .card-header .icon-bar{width:4px;height:22px;border-radius:2px;background:var(--orange);}
+  .card-header h3{font-size:13px;font-weight:900;letter-spacing:1.5px;color:var(--white);text-transform:uppercase;}
+  .card-header .right{margin-left:auto;font-size:11px;color:var(--cream);letter-spacing:1px;text-transform:uppercase;}
+  .card-body{padding:18px;}
+
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px;}
+  .kpi{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;border-left:4px solid var(--orange);}
+  .kpi .label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;}
+  .kpi .value{font-size:24px;font-weight:900;color:var(--slate-dark);line-height:1.1;}
+  .kpi .delta{font-size:11px;font-weight:700;margin-top:4px;color:var(--text-light);}
+  .kpi .delta.up{color:var(--good);} .kpi .delta.down{color:var(--bad);}
+  .kpi.warn{border-left-color:var(--warn);} .kpi.bad{border-left-color:var(--bad);}
+  .kpi.good{border-left-color:var(--good);} .kpi.gold{border-left-color:var(--gold);}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--cream);}
+  th{background:var(--cream-light);font-weight:900;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-mid);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tr:last-child td{border-bottom:none;}
+  tr.total td{background:var(--cream-light);font-weight:900;color:var(--slate-dark);}
+  tr.spacer td{background:var(--white);height:6px;padding:0;border:none;}
+  .pill{display:inline-block;padding:3px 8px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+  .pill.good{background:var(--good-bg);color:var(--good);} .pill.bad{background:var(--bad-bg);color:var(--bad);}
+  .pill.warn{background:var(--warn-bg);color:var(--warn);} .pill.neutral{background:var(--cream);color:var(--text-mid);}
+
+  .chart-wrap{position:relative;height:300px;} .chart-wrap.tall{height:360px;}
+
+  .callout{background:var(--cream-light);border-left:4px solid var(--orange);padding:14px 18px;border-radius:8px;margin:12px 0;font-size:13.5px;}
+  .callout strong{color:var(--slate-dark);}
+  .callout.warn{border-left-color:var(--warn);background:var(--warn-bg);}
+  .callout.good{border-left-color:var(--good);background:var(--good-bg);}
+  .callout.bad{border-left-color:var(--bad);background:var(--bad-bg);}
+
+  .scn-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .scn{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border-top:5px solid var(--warn);}
+  .scn.b{border-top-color:var(--good);}
+  .scn .scn-h{padding:14px 18px 10px;}
+  .scn .scn-tag{font-size:10px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--warn);}
+  .scn.b .scn-tag{color:var(--good);}
+  .scn .scn-title{font-size:15px;font-weight:900;color:var(--slate-dark);margin-top:2px;}
+  .scn .scn-body{padding:0 18px 16px;}
+  .scn .scn-big{font-size:40px;font-weight:900;color:var(--slate-dark);line-height:1;}
+  .scn .scn-big span{font-size:16px;color:var(--text-light);font-weight:700;}
+  .scn .scn-date{font-size:12px;font-weight:700;color:var(--text-mid);margin-top:6px;letter-spacing:.3px;}
+  .scn .scn-math{margin-top:12px;padding-top:12px;border-top:1px dashed var(--cream);font-size:12px;color:var(--text-mid);}
+  .scn .scn-math .ml{display:flex;justify-content:space-between;padding:3px 0;}
+  .scn .scn-math .ml .v{font-weight:700;color:var(--text-dark);font-variant-numeric:tabular-nums;}
+
+  .funds-box{background:var(--slate-dark);border-radius:var(--radius);padding:18px 20px;color:var(--white);box-shadow:var(--shadow);}
+  .funds-box h4{font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+  .funds-box .fl{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .funds-box .fl .v{font-weight:700;font-variant-numeric:tabular-nums;}
+  .funds-box .fl.sub{color:var(--cream);font-size:12px;}
+  .funds-box .fl.tot{border-bottom:none;border-top:2px solid var(--gold);margin-top:6px;padding-top:10px;font-weight:900;font-size:15px;}
+  .funds-box .fl.tot .v{color:var(--gold);} .funds-box .neg .v{color:#e3a07e;}
+
+  /* INTERACTIVE BUDGET CONTROLS */
+  .builder{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start;}
+  .controls{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:6px 0;position:sticky;top:64px;}
+  .controls .ctl-head{padding:14px 18px;background:var(--slate-dark);border-radius:var(--radius) var(--radius) 0 0;display:flex;align-items:center;gap:10px;}
+  .controls .ctl-head .icon-bar{width:4px;height:20px;border-radius:2px;background:var(--orange);}
+  .controls .ctl-head h3{font-size:12px;font-weight:900;letter-spacing:1.2px;color:#fff;text-transform:uppercase;}
+  .ctl-body{padding:14px 18px 18px;}
+  .ctl-group{margin-bottom:6px;font-size:10px;font-weight:900;letter-spacing:1.3px;text-transform:uppercase;color:var(--gold-dark);
+    border-bottom:1px solid var(--cream);padding:10px 0 5px;margin-top:8px;}
+  .ctl{margin:13px 0;}
+  .ctl .ctl-lbl{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;color:var(--text-mid);margin-bottom:5px;}
+  .ctl .ctl-lbl .val{font-weight:900;color:var(--orange-dark);font-variant-numeric:tabular-nums;font-size:14px;}
+  .ctl input[type=range]{width:100%;-webkit-appearance:none;height:6px;border-radius:4px;background:var(--cream);outline:none;}
+  .ctl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--orange);cursor:pointer;box-shadow:0 1px 4px rgba(176,84,46,.5);border:2px solid #fff;}
+  .ctl input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--orange);cursor:pointer;border:2px solid #fff;}
+  .ctl .hint{font-size:10.5px;color:var(--text-light);margin-top:3px;}
+  .ctl-btn{width:100%;margin-top:12px;background:var(--cream-light);border:1px solid var(--cream);color:var(--text-mid);
+    font-family:inherit;font-weight:900;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:10px;border-radius:8px;cursor:pointer;}
+  .ctl-btn:hover{background:var(--cream);}
+
+  .res-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;}
+  .live-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--good);}
+  .live-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px var(--good-bg);animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+  /* PLACEHOLDER DISCLAIMERS */
+  .placeholder-banner{background:repeating-linear-gradient(45deg,#7a1f1f,#7a1f1f 16px,#8c2626 16px,#8c2626 32px);
+    color:#fff;text-align:center;padding:13px 18px;font-size:12.5px;font-weight:700;letter-spacing:.3px;line-height:1.55;
+    border-bottom:3px solid var(--orange);}
+  .placeholder-banner strong{font-weight:900;letter-spacing:1px;text-transform:uppercase;}
+  .placeholder-banner u{text-underline-offset:2px;}
+  .ribbon{position:sticky;top:0;z-index:40;background:#8c2626;color:#fff;text-align:center;
+    font-size:10.5px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:5px 10px;}
+  .tab-disclaimer{background:var(--bad-bg);border:1.5px dashed var(--bad);color:#7a1f1f;border-radius:8px;
+    padding:11px 16px;font-size:12px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px;line-height:1.45;}
+  .tab-disclaimer .ic{font-size:16px;flex-shrink:0;}
+  .footer-disclaimer{max-width:760px;margin:0 auto 4px;color:var(--bad);font-weight:900;
+    font-size:11px;letter-spacing:1px;text-transform:uppercase;line-height:1.5;}
+
+  footer{text-align:center;padding:24px;color:var(--text-light);font-size:11px;letter-spacing:1px;text-transform:uppercase;}
+  footer .fmark{width:40px;height:40px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;background:var(--slate);color:var(--white);font-weight:900;font-size:13px;opacity:.85;}
+
+  @media (max-width:900px){
+    .kpi-grid{grid-template-columns:repeat(2,1fr);}
+    .two-col,.scn-grid{grid-template-columns:1fr;}
+    .builder{grid-template-columns:1fr;} .controls{position:static;}
+    .res-kpis{grid-template-columns:1fr;}
+    header.report-header .report-title{font-size:22px;}
+    .tabbtn{font-size:11px;} .tabbtn .sub{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="report-header">
+  <div class="header-mark">KCC</div>
+  <h1>KINGDOM CITY <span>CHURCH</span></h1>
+  <div class="report-title">Financial Dashboard</div>
+  <div class="report-sub">Prepared by Turnkey CFO &middot; Draft &middot; Placeholder Data</div>
+</header>
+
+<div class="placeholder-banner">
+  &#9888;&nbsp; <strong>Placeholder data &mdash; illustrative draft only.</strong> &nbsp;Every figure, chart, and forecast on this page is a <strong>placeholder value</strong> shown for layout and demonstration. The numbers below do <u>not</u> reflect Kingdom City Church&rsquo;s actual finances and <u>must not</u> be used for decisions. Verified QuickBooks &amp; Tithely data will replace these before this dashboard is finalized.
+</div>
+
+<nav class="tabbar">
+  <div class="tabbar-inner">
+    <button class="tabbtn active" data-tab="hist">Historicals<span class="sub">QBO actuals &amp; giving</span></button>
+    <button class="tabbtn" data-tab="bva">Budget vs. Actuals<span class="sub">Live &amp; adjustable</span></button>
+    <button class="tabbtn" data-tab="insights">Insights<span class="sub">Analysis &amp; commentary</span></button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- =========================== TAB 1: HISTORICALS =========================== -->
+<div class="tabpane active" id="tab-hist">
+
+  <div class="tab-disclaimer"><span class="ic">&#9888;</span><span><strong>Placeholder values &mdash; for demonstration only.</strong> The actuals and giving figures on this tab are sample numbers, not Kingdom City Church&rsquo;s real financials, and will be replaced with verified QuickBooks &amp; Tithely data.</span></div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">&#9733;</div><h2>At a Glance</h2><div class="meta">QBO + Tithely &middot; 2-Jun-2026</div></div>
+    <div class="kpi-grid">
+      <div class="kpi good"><div class="label">Operating Cash</div><div class="value">$106.5k</div><div class="delta">Checking acct (7772)</div></div>
+      <div class="kpi good"><div class="label">Total Available Funds</div><div class="value">$131.5k</div><div class="delta up">Incl. Ramp prepaid, less A/P</div></div>
+      <div class="kpi"><div class="label">Monthly Operating Burn</div><div class="value">$25.8k</div><div class="delta">Trailing 6-mo avg expense</div></div>
+      <div class="kpi gold"><div class="label">Congregational Giving</div><div class="value">~$26.6k<span style="font-size:13px;color:var(--text-light);">/mo</span></div><div class="delta up">&#9650; from ~$8k in early 2025 (Tithely)</div></div>
+      <div class="kpi good"><div class="label">Giving &divide; Operating Burn</div><div class="value">~103%</div><div class="delta up">Congregation now covers the budget</div></div>
+      <div class="kpi warn"><div class="label">Runway &mdash; If Giving Stops</div><div class="value">~5.0 mo</div><div class="delta down">Stress case &middot; depletes ~Nov 2026</div></div>
+      <div class="kpi good"><div class="label">Runway &mdash; On Current Giving</div><div class="value">Break-even</div><div class="delta up">Giving &asymp; burn (&plus;$825/mo)</div></div>
+      <div class="kpi gold"><div class="label">Active Givers (May &rsquo;26)</div><div class="value">52</div><div class="delta up">&#9650; from 20 in Jan 2025 &middot; 107 LTD</div></div>
+    </div>
+    <div class="callout good"><strong>Headline:</strong> Kingdom City has reached the <strong>break-even line on congregational giving</strong>. The plant launched heavily subsidized by sending-church and partner support; by 2026 that outside support has collapsed to near zero and <strong>congregational giving (~$26.6k/mo) now just covers the monthly operating burn (~$25.8k/mo)</strong> &mdash; a thin <strong>~+$825/mo</strong> margin, not a surplus. The cushion is the balance sheet: <strong>$131.5k in available funds</strong> and no debt. The real story is the funding flip &mdash; the congregation now carries essentially the whole budget. Remaining work: bookkeeping hygiene (a chunk of recent giving still needs categorizing in QuickBooks) and growing the giver count (20 &rarr; 52 active).</div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">1</div><h2>Income vs. Expenses by Quarter</h2><div class="meta">Calendar quarters &middot; QBO accrual</div></div>
+    <div class="card"><div class="card-header"><div class="icon-bar"></div><h3>Quarterly Cash Flow</h3><div class="right">Q3 2024 &ndash; Q2 2026</div></div>
+      <div class="card-body"><div class="chart-wrap tall"><canvas id="incomeChart"></canvas></div></div></div>
+    <div class="callout"><strong>The investment trough is behind them.</strong> Q3 2025 expenses spiked to <strong>$117k</strong> (and Q4 to $81k) as the church funded its portable-church buildout and brought on a worship leader &mdash; the quarters that created the full-year deficit. Since then the run-rate has normalized to roughly break-even, with income and expenses tracking close together. <span style="color:var(--text-light);">Q2 2026 is a partial quarter (through 2-Jun) &mdash; both income and bills are still posting, so its bars read low.</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">2</div><h2>Congregation vs. Outside Support</h2><div class="meta">By quarter &middot; dollars &amp; share</div></div>
+    <div class="card"><div class="card-header"><div class="icon-bar"></div><h3>Funding by Source &middot; Dollars</h3><div class="right">Congregation vs. network/partners</div></div>
+      <div class="card-body"><div class="chart-wrap tall"><canvas id="mixDollarChart"></canvas></div></div></div>
+    <div class="card"><div class="card-header"><div class="icon-bar"></div><h3>Funding by Source &middot; Share</h3><div class="right">Each bar = 100%</div></div>
+      <div class="card-body"><div class="chart-wrap tall"><canvas id="mixChart"></canvas></div></div></div>
+    <div class="two-col">
+      <div class="callout good"><strong>The flip is real.</strong> Outside support &mdash; sending-church + partner/network money, booked to QBO accounts <em>40002/40003</em> &mdash; ran <strong>$33k&ndash;$75k a quarter</strong> through the buildout, then collapsed: <strong>Q4&rsquo;25 $74.6k &rarr; Q1&rsquo;26 $42.6k &rarr; Q2&rsquo;26 ~$0</strong>. Over the same window congregational giving climbed past it. A church plant going financially independent.</div>
+      <div class="callout warn"><strong>How the split is measured.</strong> &ldquo;Congregation&rdquo; = actual Tithely online giving. &ldquo;Outside support&rdquo; = QBO network/partner accounts. We do <em>not</em> use QBO&rsquo;s <em>40001 Tithes</em> account &mdash; it only captured ~$6k/mo and stopped posting in 2026. ~$45k of Apr&ndash;May congregational giving still sits un-split in the parent <em>40000</em> account &mdash; a near-term Turnkey CFO cleanup. <span style="color:var(--text-light);">2024 shows 0% congregation because Tithely wasn&rsquo;t yet the giving rail; Q2&rsquo;26 is partial.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">3</div><h2>Shifts Over Time &mdash; QoQ &amp; YoY</h2><div class="meta">Quarter-over-quarter &amp; year-over-year</div></div>
+    <div class="card"><div class="card-header"><div class="icon-bar"></div><h3>Quarter-over-Quarter</h3><div class="right">% = change vs. prior quarter</div></div>
+      <div class="card-body" style="padding:0;overflow-x:auto;">
+        <table><thead><tr><th>Quarter</th><th class="num">Income</th><th class="num">QoQ</th><th class="num">Expenses</th><th class="num">QoQ</th><th class="num">Net</th><th class="num">Congregation</th><th class="num">Outside</th></tr></thead>
+          <tbody>
+            <tr><td>Q3 &rsquo;24</td><td class="num">$47,873</td><td class="num">&mdash;</td><td class="num">$22,530</td><td class="num">&mdash;</td><td class="num" style="color:var(--good);">+$25,343</td><td class="num">$0</td><td class="num">$40,805</td></tr>
+            <tr><td>Q4 &rsquo;24</td><td class="num">$51,758</td><td class="num" style="color:var(--good);">&#9650;8.1%</td><td class="num">$29,051</td><td class="num" style="color:var(--bad);">&#9650;28.9%</td><td class="num" style="color:var(--good);">+$22,707</td><td class="num">$0</td><td class="num">$41,197</td></tr>
+            <tr><td>Q1 &rsquo;25</td><td class="num">$55,526</td><td class="num" style="color:var(--good);">&#9650;7.3%</td><td class="num">$31,072</td><td class="num" style="color:var(--bad);">&#9650;7.0%</td><td class="num" style="color:var(--good);">+$24,455</td><td class="num">$50,098</td><td class="num">$47,804</td></tr>
+            <tr><td>Q2 &rsquo;25</td><td class="num">$50,853</td><td class="num" style="color:var(--bad);">&#9660;8.4%</td><td class="num">$63,212</td><td class="num" style="color:var(--bad);">&#9650;103%</td><td class="num" style="color:var(--bad);">&minus;$12,359</td><td class="num">$22,662</td><td class="num">$42,818</td></tr>
+            <tr><td>Q3 &rsquo;25</td><td class="num">$49,172</td><td class="num" style="color:var(--bad);">&#9660;3.3%</td><td class="num">$117,079</td><td class="num" style="color:var(--bad);">&#9650;85%</td><td class="num" style="color:var(--bad);">&minus;$67,907</td><td class="num">$42,872</td><td class="num">$33,689</td></tr>
+            <tr><td>Q4 &rsquo;25</td><td class="num">$94,447</td><td class="num" style="color:var(--good);">&#9650;92%</td><td class="num">$81,201</td><td class="num" style="color:var(--good);">&#9660;31%</td><td class="num" style="color:var(--good);">+$13,246</td><td class="num">$74,894</td><td class="num">$74,595</td></tr>
+            <tr><td>Q1 &rsquo;26</td><td class="num">$75,780</td><td class="num" style="color:var(--bad);">&#9660;20%</td><td class="num">$73,588</td><td class="num" style="color:var(--good);">&#9660;9%</td><td class="num" style="color:var(--good);">+$2,192</td><td class="num">$84,846</td><td class="num">$42,569</td></tr>
+            <tr><td>Q2 &rsquo;26 <span style="color:var(--text-light);font-size:10px;">partial</span></td><td class="num">$24,346</td><td class="num" style="color:var(--text-light);">&#9660;68%*</td><td class="num">$12,446</td><td class="num" style="color:var(--text-light);">&#9660;83%*</td><td class="num">+$11,900</td><td class="num">$53,387</td><td class="num">$125</td></tr>
+          </tbody></table></div></div>
+    <div class="callout"><strong>What the trends say.</strong> Year over year, <strong>congregational giving is the fastest-growing line</strong> while outside support is flat-to-down. Expenses jumped hard YoY purely because of the FY26 buildout &mdash; a one-time investment, not a new run-rate. Quarter to quarter since Q4&rsquo;25, income and expenses are converging near break-even. <span style="color:var(--text-light);">*Q2&rsquo;26 moves are distorted by the partial quarter.</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">4</div><h2>Congregational Giving &mdash; Tithely</h2><div class="meta">Online giving &middot; Jan 2025 &ndash; Jun 2026</div></div>
+    <div class="kpi-grid">
+      <div class="kpi gold"><div class="label">Total Received (LTD)</div><div class="value">$331.8k</div><div class="delta">Across 18 months</div></div>
+      <div class="kpi gold"><div class="label">Unique Givers (LTD)</div><div class="value">107</div><div class="delta up">52 active in May &rsquo;26</div></div>
+      <div class="kpi gold"><div class="label">Avg Gift</div><div class="value">~$305</div><div class="delta">~1,080 gifts processed</div></div>
+      <div class="kpi"><div class="label">Processing Fees</div><div class="value">$5.2k</div><div class="delta">1.6% of giving</div></div>
+    </div>
+    <div class="card"><div class="card-header"><div class="icon-bar"></div><h3>Monthly Giving &amp; Active Givers</h3><div class="right">Tithely</div></div>
+      <div class="card-body"><div class="chart-wrap tall"><canvas id="tithelyChart"></canvas></div></div></div>
+    <div class="callout good"><strong>Both lines are climbing.</strong> Monthly online giving has grown from ~$8k in early 2025 to a steady ~$26&ndash;28k through 2026, and active givers have more than doubled (20 &rarr; 52). The Dec 2025 and Mar 2025 peaks are year-end and special-gift months. Recent monthly giving closely matches total QBO income &mdash; confirming the congregation is now the church&rsquo;s primary funding source. <span style="color:var(--text-light);">Jun 2026 reflects only the first two days of the month.</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">5</div><h2>Where the Money Goes</h2><div class="meta">Expenses life-to-date</div></div>
+    <div class="two-col">
+      <div class="card"><div class="card-header"><div class="icon-bar"></div><h3>Expense Composition</h3><div class="right">Life-to-date</div></div>
+        <div class="card-body"><div class="chart-wrap"><canvas id="expenseChart"></canvas></div></div></div>
+      <div class="card"><div class="card-header"><div class="icon-bar"></div><h3>By Category</h3><div class="right">Jul 2024 &ndash; Jun 2026</div></div>
+        <div class="card-body" style="padding:0;">
+          <table><thead><tr><th>Category</th><th class="num">LTD Spend</th><th class="num">% of Total</th></tr></thead>
+            <tbody>
+              <tr><td>Personnel</td><td class="num">$177,255</td><td class="num">41%</td></tr>
+              <tr><td>Building / Office / Admin</td><td class="num">$108,296</td><td class="num">25%</td></tr>
+              <tr><td>Ministry</td><td class="num">$78,991</td><td class="num">18%</td></tr>
+              <tr><td>Outreach &amp; Marketing</td><td class="num">$60,925</td><td class="num">14%</td></tr>
+              <tr><td>Missions</td><td class="num">$4,264</td><td class="num">1%</td></tr>
+              <tr class="total"><td>Total Expenses</td><td class="num">$429,731</td><td class="num">100%</td></tr>
+            </tbody></table></div></div>
+    </div>
+    <div class="callout"><strong>Lean and people-first.</strong> Personnel (41%) plus the portable-church footprint (25%) are the two big rocks &mdash; typical for an early church plant. There is <strong>no mortgage and no long-term debt.</strong></div>
+  </div>
+
+</div><!-- /tab-hist -->
+
+<!-- =========================== TAB 2: BUDGET VS ACTUALS =========================== -->
+<div class="tabpane" id="tab-bva">
+
+  <div class="tab-disclaimer"><span class="ic">&#9888;</span><span><strong>Placeholder values &mdash; for demonstration only.</strong> The budget, actuals, and Forecast Builder defaults are sample numbers to demonstrate the model. They are not Kingdom City Church&rsquo;s real plan and will be replaced with verified figures.</span></div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">A</div><h2>This Year &mdash; FY26 Budget vs. Actual</h2><div class="meta">FY = Jul&ndash;Jun &middot; QBO accrual</div></div>
+    <div class="card"><div class="card-header"><div class="icon-bar"></div><h3>FY26 Plan vs. Reality</h3><div class="right">Through 2-Jun-2026</div></div>
+      <div class="card-body" style="padding:0;overflow-x:auto;">
+        <table><thead><tr><th>Line</th><th class="num">FY26 Budget</th><th class="num">FY26 Actual</th><th class="num">Variance</th><th class="num">vs Plan</th></tr></thead>
+          <tbody>
+            <tr><td>Total Revenue</td><td class="num">$221,188</td><td class="num">$243,745</td><td class="num" style="color:var(--good);">+$22,557</td><td class="num"><span class="pill good">+10%</span></td></tr>
+            <tr><td>Total Expenses</td><td class="num">$300,814</td><td class="num">$284,314</td><td class="num" style="color:var(--good);">&minus;$16,500</td><td class="num"><span class="pill good">Under 5%</span></td></tr>
+            <tr class="total"><td>Net Operating Income</td><td class="num" style="color:var(--bad);">&minus;$79,626</td><td class="num" style="color:var(--bad);">&minus;$40,569</td><td class="num" style="color:var(--good);">+$39,057</td><td class="num"><span class="pill good">Better</span></td></tr>
+          </tbody></table></div></div>
+    <div class="callout good"><strong>FY26 came in better than budgeted.</strong> Revenue beat plan by ~10% (congregational giving ran ahead of the model) and expenses landed ~5% under. The year still shows an operating deficit &mdash; expected, because FY26 carried the one-time portable-church buildout &mdash; but roughly <strong>$39k better than the plan called for.</strong> <span style="color:var(--text-light);">Actuals are QBO accrual, FY26 = Jul-2025 &rarr; 2-Jun-2026 (June partial). Budget is the FY26 column of the Long-Range Plan.</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">B</div><h2>Forecast Builder &mdash; Adjust the Plan</h2><div class="meta"><span class="live-tag"><span class="dot"></span>Live</span></div></div>
+    <div class="callout"><strong>Move the sliders.</strong> Every number, table, and chart below recalculates instantly. Start from the Long-Range Plan defaults, then test the levers that actually move Kingdom City&rsquo;s future: how fast attendance grows, what the average attender gives, and how disciplined the expense base stays. This is the live version of the FY27&ndash;FY29 plan.</div>
+
+    <div class="builder">
+      <div class="controls">
+        <div class="ctl-head"><div class="icon-bar"></div><h3>Assumptions</h3></div>
+        <div class="ctl-body">
+          <div class="ctl-group">Revenue drivers</div>
+          <div class="ctl">
+            <div class="ctl-lbl"><span>$ / attender / month</span><span class="val" id="v_giv">$160</span></div>
+            <input type="range" id="s_giv" min="80" max="260" step="5" value="160">
+            <div class="hint">Operating tithes &amp; offerings per attender, per month.</div>
+          </div>
+          <div class="ctl">
+            <div class="ctl-lbl"><span>FY27 avg Sunday attendance</span><span class="val" id="v_a27">145</span></div>
+            <input type="range" id="s_a27" min="100" max="260" step="5" value="145">
+          </div>
+          <div class="ctl">
+            <div class="ctl-lbl"><span>FY28 avg Sunday attendance</span><span class="val" id="v_a28">251</span></div>
+            <input type="range" id="s_a28" min="120" max="400" step="5" value="251">
+            <div class="hint">2nd service assumed to launch in FY28.</div>
+          </div>
+          <div class="ctl">
+            <div class="ctl-lbl"><span>FY29 avg Sunday attendance</span><span class="val" id="v_a29">300</span></div>
+            <input type="range" id="s_a29" min="150" max="500" step="5" value="300">
+          </div>
+          <div class="ctl">
+            <div class="ctl-lbl"><span>External / partner support (FY27)</span><span class="val" id="v_ext">$7,440</span></div>
+            <input type="range" id="s_ext" min="0" max="120000" step="1000" value="7440">
+            <div class="hint">Sending-church + partner money. Assumed $0 in FY28&ndash;FY29.</div>
+          </div>
+
+          <div class="ctl-group">Expense drivers</div>
+          <div class="ctl">
+            <div class="ctl-lbl"><span>FY27 operating expenses</span><span class="val" id="v_exp">$322,754</span></div>
+            <input type="range" id="s_exp" min="240000" max="1000000" step="5000" value="322754">
+            <div class="hint">Full-year operating spend. LRP default = $322,754 (~$26.9k/mo).</div>
+          </div>
+          <div class="ctl">
+            <div class="ctl-lbl"><span>Annual expense growth</span><span class="val" id="v_eg">12%</span></div>
+            <input type="range" id="s_eg" min="0" max="40" step="1" value="12">
+            <div class="hint">Compounds onto FY28 &amp; FY29 as you scale.</div>
+          </div>
+          <button class="ctl-btn" id="resetBtn">&#8635; Reset to Long-Range Plan</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="res-kpis">
+          <div class="kpi gold"><div class="label">FY27 Net Operating Income</div><div class="value" id="k_noi27">&mdash;</div><div class="delta" id="k_m27">&mdash;</div></div>
+          <div class="kpi"><div class="label">FY29 Net Operating Income</div><div class="value" id="k_noi29">&mdash;</div><div class="delta" id="k_m29">&mdash;</div></div>
+          <div class="kpi"><div class="label">First Surplus Year</div><div class="value" id="k_first">&mdash;</div><div class="delta">When NOI turns positive</div></div>
+        </div>
+        <div class="card"><div class="card-header"><div class="icon-bar"></div><h3>Revenue vs. Expenses &mdash; Live Forecast</h3><div class="right">FY26 actual &rarr; FY29</div></div>
+          <div class="card-body"><div class="chart-wrap tall"><canvas id="forecastChart"></canvas></div></div></div>
+        <div class="card"><div class="card-header"><div class="icon-bar"></div><h3>Five-Year Roll-Up</h3><div class="right">Actual &rarr; live forecast</div></div>
+          <div class="card-body" style="padding:0;overflow-x:auto;">
+            <table id="rollup"><thead>
+              <tr><th>Line</th><th class="num">FY25</th><th class="num">FY26</th><th class="num">FY27</th><th class="num">FY28</th><th class="num">FY29</th></tr></thead>
+              <tbody>
+                <tr><td style="color:var(--text-light);font-size:11px;text-transform:uppercase;letter-spacing:.5px;">Status</td>
+                  <td class="num"><span class="pill neutral">Actual</span></td><td class="num"><span class="pill neutral">Actual</span></td>
+                  <td class="num"><span class="pill warn">Forecast</span></td><td class="num"><span class="pill warn">Forecast</span></td><td class="num"><span class="pill warn">Forecast</span></td></tr>
+                <tr><td>Avg Sunday attendance</td><td class="num">&mdash;</td><td class="num">~110</td><td class="num" id="r_a27">145</td><td class="num" id="r_a28">251</td><td class="num" id="r_a29">300</td></tr>
+                <tr class="spacer"><td colspan="6"></td></tr>
+                <tr><td>Total Revenue</td><td class="num">$178,252</td><td class="num">$243,745</td><td class="num" id="r_rev27"></td><td class="num" id="r_rev28"></td><td class="num" id="r_rev29"></td></tr>
+                <tr><td>Total Expenses</td><td class="num">$112,191</td><td class="num">$284,314</td><td class="num" id="r_exp27"></td><td class="num" id="r_exp28"></td><td class="num" id="r_exp29"></td></tr>
+                <tr class="total"><td>Net Operating Income</td>
+                  <td class="num" style="color:var(--good);">+$66,061</td><td class="num" style="color:var(--bad);">&minus;$40,569</td>
+                  <td class="num" id="r_noi27"></td><td class="num" id="r_noi28"></td><td class="num" id="r_noi29"></td></tr>
+                <tr class="spacer"><td colspan="6"></td></tr>
+                <tr><td>Operating margin</td><td class="num">+37%</td><td class="num" style="color:var(--bad);">&minus;17%</td>
+                  <td class="num" id="r_mg27"></td><td class="num" id="r_mg28"></td><td class="num" id="r_mg29"></td></tr>
+              </tbody></table></div></div>
+        <div class="callout" id="bvaNarr"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-bva -->
+
+<!-- =========================== TAB 3: INSIGHTS =========================== -->
+<div class="tabpane" id="tab-insights">
+
+  <div class="tab-disclaimer"><span class="ic">&#9888;</span><span><strong>Placeholder values &mdash; for demonstration only.</strong> The scenarios, runway, and commentary are built on sample numbers, not Kingdom City Church&rsquo;s real financials. Treat all insights as illustrative until verified data is loaded.</span></div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">1</div><h2>Runway &amp; Burn Scenarios</h2><div class="meta">Operating reserve &divide; net monthly drain</div></div>
+    <div class="scn-grid">
+      <div class="scn a"><div class="scn-h"><div class="scn-tag">Scenario A &middot; Stress Case</div><div class="scn-title">If all giving stops tomorrow</div></div>
+        <div class="scn-body"><div class="scn-big">5.0 <span>months</span></div><div class="scn-date">Reserve depletes ~early November 2026</div>
+          <div class="scn-math"><div class="ml"><span>Unrestricted operating reserve</span><span class="v">$128,215</span></div>
+            <div class="ml"><span>Full monthly operating burn</span><span class="v">&minus;$25,798</span></div>
+            <div class="ml"><span>Net monthly drain</span><span class="v">&minus;$25,798</span></div></div></div></div>
+      <div class="scn b"><div class="scn-h"><div class="scn-tag">Scenario B &middot; Self-Support Case</div><div class="scn-title">If current giving continues</div></div>
+        <div class="scn-body"><div class="scn-big">Break-even <span>+$825/mo</span></div><div class="scn-date">Reserve holds &mdash; giving roughly equals burn</div>
+          <div class="scn-math"><div class="ml"><span>Unrestricted operating reserve</span><span class="v">$128,215</span></div>
+            <div class="ml"><span>Monthly operating burn</span><span class="v">&minus;$25,798</span></div>
+            <div class="ml"><span>Congregational giving (trailing 6-mo)</span><span class="v">+$26,623</span></div>
+            <div class="ml"><span>Net monthly position</span><span class="v" style="color:var(--good);">+$825</span></div></div></div></div>
+    </div>
+    <div class="funds-box"><h4>Funds Available &middot; What&rsquo;s Spendable</h4>
+      <div class="fl"><span>Kingdom City Checking (7772)</span><span class="v">$106,470</span></div>
+      <div class="fl"><span>Ramp Card prepaid balance</span><span class="v">+$29,919</span></div>
+      <div class="fl neg"><span>Less: Accounts Payable owed</span><span class="v">&minus;$4,921</span></div>
+      <div class="fl tot"><span>Total Available Funds</span><span class="v">$131,468</span></div>
+      <div class="fl sub neg"><span>Less: restricted Vision Fund</span><span class="v">&minus;$3,253</span></div>
+      <div class="fl tot"><span>Unrestricted Operating Reserve</span><span class="v">$128,215</span></div>
+      <p style="font-size:11px;color:var(--cream);margin-top:12px;line-height:1.5;opacity:.85;">The Ramp card carries a <strong style="color:#fff;">prepaid credit balance</strong> &mdash; money already loaded and spendable. The Vision Fund is designated giving and is excluded from operating runway.</p></div>
+    <div class="callout warn"><strong>How to read this:</strong> Burn is the trailing 6 complete months&rsquo; average expense ($25.8k/mo). Scenario B compares it to congregational giving over the same window ($26.6k/mo from Tithely) &mdash; a razor-thin <strong>+$825/mo</strong>. Because outside support has effectively stopped, this is now the realistic case: the church is self-carrying, but only just, and leans on the reserve to absorb soft months. Planning guardrails, not forecasts.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">2</div><h2>The Story in Four Movements</h2><div class="meta">What the numbers say</div></div>
+    <div class="two-col">
+      <div class="callout good"><strong>1 &middot; The funding flip.</strong> KCC launched on outside money (sending church + partners) and has crossed into congregation-funded. That is the single most important trend in the whole dataset &mdash; the difference between a subsidized plant and a self-sustaining church. Protect it: keep growing the giver base.</div>
+      <div class="callout warn"><strong>2 &middot; Razor-thin margin.</strong> &ldquo;Break-even&rdquo; is +$825/mo, not a cushion. One soft giving month or one staff add tips it negative. The balance sheet ($128k reserve, no debt) is what absorbs the wobble &mdash; treat it as the safety net it is, not spendable surplus.</div>
+      <div class="callout"><strong>3 &middot; The buildout was a one-time hit.</strong> The FY26 deficit was driven by the portable-church investment and the worship-leader hire, not a broken run-rate. Strip those out and the operating picture is near break-even. Don&rsquo;t budget FY27 off FY26&rsquo;s spike.</div>
+      <div class="callout"><strong>4 &middot; Bookkeeping hygiene unlocks clarity.</strong> ~$45k of recent congregational giving still sits un-split in the parent QBO 40000 account, and the 40001 Tithes line stopped posting. Categorizing it is the fastest way to make QBO match the Tithely reality &mdash; a near-term Turnkey CFO cleanup item.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">3</div><h2>Forecast Sensitivity &mdash; Read Before Trusting the Plan</h2><div class="meta">Assumption risk</div></div>
+    <div class="callout bad"><strong>The expense base is the swing factor.</strong> The future deficit or surplus is decided almost entirely by one number: how much the church spends per month. The Long-Range Plan&rsquo;s seeded &ldquo;starting monthly expense&rdquo; figures ran materially above the trailing-24-month average. We&rsquo;ve set the Forecast Builder&rsquo;s default to the disciplined case (~$26.9k/mo, ~$322k/yr). <strong>If KCC instead scales spend to ~$82k/mo, FY27 swings to a ~$700k deficit</strong> &mdash; not because giving collapses, but because the cost base outruns it. Use the slider to pressure-test both.</div>
+    <div class="callout"><strong>The revenue engine is simpler and more reliable.</strong> Revenue is mostly attendance &times; giving-per-attender. At $160/mo per attender, every +25 in average attendance is roughly <strong>+$48,000/yr</strong> in giving. Growth of the <em>giver base</em> &mdash; not the gift size &mdash; is the durable lever; KCC has already proven it can move that number (20 &rarr; 52 active givers).</div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><div class="num">4</div><h2>Recommended Next Moves</h2><div class="meta">Turnkey CFO</div></div>
+    <div class="card"><div class="card-body" style="padding:6px 4px;">
+      <table><tbody>
+        <tr><td style="width:40px;text-align:center;font-weight:900;color:var(--orange);font-size:18px;">1</td><td><strong>Categorize the ~$45k un-split giving</strong> in QBO so the books match Tithely and the funding-mix picture is exact. <span style="color:var(--text-light);">Near-term, Turnkey CFO.</span></td></tr>
+        <tr><td style="text-align:center;font-weight:900;color:var(--orange);font-size:18px;">2</td><td><strong>Set the FY27 budget off the disciplined expense base</strong> (~$27k/mo), not off the FY26 buildout spike. Use the Forecast Builder to lock the number leadership will hold to.</td></tr>
+        <tr><td style="text-align:center;font-weight:900;color:var(--orange);font-size:18px;">3</td><td><strong>Make giver-count growth the headline metric.</strong> Active givers (52) is the leading indicator of independence &mdash; track it monthly alongside dollars.</td></tr>
+        <tr><td style="text-align:center;font-weight:900;color:var(--orange);font-size:18px;">4</td><td><strong>Hold the reserve as the safety net.</strong> $128k / ~5 months is healthy for a plant &mdash; don&rsquo;t let &ldquo;break-even&rdquo; giving become a reason to draw it down.</td></tr>
+        <tr><td style="text-align:center;font-weight:900;color:var(--orange);font-size:18px;">5</td><td><strong>Reconfirm partner sunsets.</strong> Outside support is near $0; any re-up conversations should carry this dashboard&rsquo;s plan so the ask is backed by real numbers.</td></tr>
+      </tbody></table></div></div>
+  </div>
+
+</div><!-- /tab-insights -->
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="fmark">KCC</div>
+  <div class="footer-disclaimer">&#9888; All figures on this page are placeholder values for illustration only &mdash; not Kingdom City Church&rsquo;s actual financials. Do not rely on these numbers.</div>
+  <div style="margin-top:10px;">Kingdom City Church &middot; Financial Dashboard (Draft) &middot; Prepared by Turnkey CFO</div>
+  <div style="margin-top:6px;opacity:.7;">Sources &middot; Placeholder data pending verified QuickBooks Online &amp; Tithely figures &middot; Long-Range Plan Model FY25&ndash;FY29</div>
+</footer>
+
+<script>
+const slateDark='#272d27',slate='#3a443a',orange='#db6839',orangeDark='#b0542e',gold='#c1a56c',goldDark='#9b8457',good='#5a7d4f',bad='#b0542e',warn='#b88a3a',cream='#d8cfbf';
+Chart.defaults.font.family="'Lato','Open Sans',sans-serif";
+Chart.defaults.color=slate;
+Chart.defaults.plugins.legend.labels.font={size:11,weight:'700'};
+Chart.register(ChartDataLabels);
+Chart.defaults.plugins.datalabels = { display:false };
+const kshort = v => (v||v===0) ? (Math.abs(v) >= 1000 ? (v<0?'-$':'$')+Math.round(Math.abs(v)/1000)+'k' : '$'+Math.round(v)) : '';
+const usd = v => (v<0?'-$':'$')+Math.abs(Math.round(v)).toLocaleString();
+
+/* ---------- TABS ---------- */
+const charts={};
+document.querySelectorAll('.tabbtn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabbtn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tabpane').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById('tab-'+b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  // charts created in hidden panes need a resize nudge
+  setTimeout(()=>Object.values(charts).forEach(c=>c&&c.resize()),60);
+}));
+
+/* ---------- HISTORICALS CHARTS ---------- */
+charts.income=new Chart(document.getElementById('incomeChart'),{type:'bar',
+  data:{labels:["Q3 '24","Q4 '24","Q1 '25","Q2 '25","Q3 '25","Q4 '25","Q1 '26","Q2 '26*"],
+    datasets:[{label:'Total Income',data:[47873,51758,55526,50853,49172,94447,75780,24346],backgroundColor:orange,borderRadius:4},
+      {label:'Total Expenses',data:[22530,29051,31072,63212,117079,81201,73588,12446],backgroundColor:slate,borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:22}},
+    plugins:{legend:{position:'top',align:'end'},tooltip:{callbacks:{label:c=>c.dataset.label+': $'+(c.raw||0).toLocaleString()}},
+      datalabels:{display:true,anchor:'end',align:'end',offset:2,color:c=>c.dataset.label==='Total Expenses'?slateDark:orangeDark,font:{size:10,weight:'700'},formatter:v=>v?kshort(v):''}},
+    scales:{y:{beginAtZero:true,ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'k'},grid:{color:cream}},x:{grid:{display:false}}}}});
+
+const mixLabels=["Q3 '24","Q4 '24","Q1 '25","Q2 '25","Q3 '25","Q4 '25","Q1 '26","Q2 '26*"];
+const mixCong$=[0,0,50098,22662,42872,74894,84846,53387],mixExt$=[40805,41197,47804,42818,33689,74595,42569,125];
+const mixCongPct=[0,0,51.2,34.6,56,50.1,66.6,99.8],mixExtPct=[100,100,48.8,65.4,44,49.9,33.4,0.2];
+charts.mixD=new Chart(document.getElementById('mixDollarChart'),{type:'bar',
+  data:{labels:mixLabels,datasets:[{label:'Congregation (Tithely)',data:mixCong$,backgroundColor:gold,borderRadius:4},
+    {label:'Outside support (network/partners)',data:mixExt$,backgroundColor:slate,borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:22}},
+    plugins:{legend:{position:'top',align:'end'},tooltip:{callbacks:{label:c=>c.dataset.label+': $'+(c.raw||0).toLocaleString()}},
+      datalabels:{display:c=>c.raw>=4000,anchor:'end',align:'end',offset:2,color:c=>c.dataset.label==='Congregation (Tithely)'?goldDark:slateDark,font:{size:9,weight:'700'},formatter:v=>v?kshort(v):''}},
+    scales:{y:{beginAtZero:true,ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'k'},grid:{color:cream}},x:{grid:{display:false}}}}});
+charts.mix=new Chart(document.getElementById('mixChart'),{type:'bar',
+  data:{labels:mixLabels,datasets:[{label:'Congregation (Tithely)',data:mixCongPct,backgroundColor:gold,stack:'m',d$:mixCong$},
+    {label:'Outside support (network/partners)',data:mixExtPct,backgroundColor:slate,stack:'m',d$:mixExt$}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'top',align:'end'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toFixed(0)+'%  ($'+(c.dataset.d$[c.dataIndex]||0).toLocaleString()+')'}},
+      datalabels:{display:c=>c.dataset.data[c.dataIndex]>=8,color:'#fff',font:{size:11,weight:'900'},formatter:v=>Math.round(v)+'%'}},
+    scales:{y:{beginAtZero:true,max:100,stacked:true,ticks:{callback:v=>v+'%'},grid:{color:cream}},x:{stacked:true,grid:{display:false}}}}});
+
+charts.tithely=new Chart(document.getElementById('tithelyChart'),{
+  data:{labels:['Jan-25','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan-26','Feb','Mar','Apr','May','Jun*'],
+    datasets:[{type:'bar',label:'Monthly Giving',yAxisID:'y',data:[8390,7420,34289,6067,6657,9937,14508,10397,17966,15808,18163,40922,34063,21929,28854,27976,25946,2536],backgroundColor:gold,borderRadius:3},
+      {type:'line',label:'Active Givers',yAxisID:'y1',data:[20,17,22,17,18,21,25,25,40,37,37,46,46,48,50,51,52,12],borderColor:orange,backgroundColor:orange,borderWidth:3,pointRadius:2,tension:.3}]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'top',align:'end'},tooltip:{callbacks:{label:c=>c.dataset.label==='Active Givers'?c.dataset.label+': '+c.raw:c.dataset.label+': $'+(c.raw||0).toLocaleString()}},datalabels:{display:false}},
+    scales:{y:{beginAtZero:true,position:'left',ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'k'},grid:{color:cream},title:{display:true,text:'Giving',font:{size:10,weight:'700'}}},
+      y1:{beginAtZero:true,position:'right',grid:{display:false},title:{display:true,text:'Givers',font:{size:10,weight:'700'}}},x:{grid:{display:false}}}}});
+
+const expTot=429731;
+charts.exp=new Chart(document.getElementById('expenseChart'),{type:'doughnut',
+  data:{labels:['Personnel','Building / Office / Admin','Ministry','Outreach & Marketing','Missions'],
+    datasets:[{data:[177255,108296,78991,60925,4264],backgroundColor:[slateDark,orange,gold,goldDark,good],borderWidth:2,borderColor:'#fff'}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'right',labels:{boxWidth:14,font:{size:11}}},
+      tooltip:{callbacks:{label:c=>c.label+': $'+c.raw.toLocaleString()+' ('+((c.raw/expTot)*100).toFixed(1)+'%)'}},
+      datalabels:{display:c=>(c.dataset.data[c.dataIndex]/expTot)>=0.04,color:'#fff',font:{size:11,weight:'900'},formatter:v=>((v/expTot)*100).toFixed(0)+'%'}}}});
+
+/* ---------- INTERACTIVE BUDGET ENGINE ---------- */
+const FY26act={rev:243745,exp:284314};
+const D={giv:160,a27:145,a28:251,a29:300,ext:7440,exp:322754,eg:12};
+const ctrls=['giv','a27','a28','a29','ext','exp','eg'];
+const fmt={giv:v=>'$'+v,a27:v=>v,a28:v=>v,a29:v=>v,ext:v=>'$'+(+v).toLocaleString(),exp:v=>'$'+(+v).toLocaleString(),eg:v=>v+'%'};
+
+charts.forecast=new Chart(document.getElementById('forecastChart'),{type:'bar',
+  data:{labels:['FY26 actual','FY27','FY28','FY29'],datasets:[
+    {label:'Total Revenue',data:[],backgroundColor:orange,borderRadius:4},
+    {label:'Total Expenses',data:[],backgroundColor:slate,borderRadius:4},
+    {type:'line',label:'Net Operating Income',data:[],borderColor:goldDark,backgroundColor:goldDark,borderWidth:3,pointRadius:3,tension:.25}]},
+  options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:22}},
+    plugins:{legend:{position:'top',align:'end'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+usd(c.raw)}},
+      datalabels:{display:c=>c.datasetIndex<2,anchor:'end',align:'end',offset:2,color:c=>c.datasetIndex===1?slateDark:orangeDark,font:{size:9,weight:'700'},formatter:v=>v?kshort(v):''}},
+    scales:{y:{ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'k'},grid:{color:cream}},x:{grid:{display:false}}}}});
+
+function compute(){
+  const g={};ctrls.forEach(k=>g[k]=+document.getElementById('s_'+k).value);
+  const rev27=g.a27*g.giv*12+g.ext, rev28=g.a28*g.giv*12, rev29=g.a29*g.giv*12;
+  const exp27=g.exp, exp28=g.exp*(1+g.eg/100), exp29=g.exp*Math.pow(1+g.eg/100,2);
+  return {g,
+    rev:[FY26act.rev,rev27,rev28,rev29],
+    exp:[FY26act.exp,exp27,exp28,exp29],
+    noi:[FY26act.rev-FY26act.exp,rev27-exp27,rev28-exp28,rev29-exp29]};
+}
+function render(){
+  const r=compute(),g=r.g;
+  ctrls.forEach(k=>document.getElementById('v_'+k).textContent=fmt[k](g[k]));
+  // chart
+  charts.forecast.data.datasets[0].data=r.rev;
+  charts.forecast.data.datasets[1].data=r.exp;
+  charts.forecast.data.datasets[2].data=r.noi;
+  charts.forecast.update();
+  // rollup table (cols FY27,28,29 => index 1,2,3)
+  const yrs=['27','28','29'];
+  yrs.forEach((y,i)=>{
+    const idx=i+1;
+    document.getElementById('r_rev'+y).textContent=usd(r.rev[idx]);
+    document.getElementById('r_exp'+y).textContent=usd(r.exp[idx]);
+    const noi=r.noi[idx], cell=document.getElementById('r_noi'+y);
+    cell.textContent=(noi>=0?'+':'−')+'$'+Math.abs(Math.round(noi)).toLocaleString();
+    cell.style.color=noi>=0?good:bad;
+    const mg=r.rev[idx]?Math.round(noi/r.rev[idx]*100):0, mcell=document.getElementById('r_mg'+y);
+    mcell.textContent=(mg>=0?'+':'−')+Math.abs(mg)+'%'; mcell.style.color=mg>=0?good:bad;
+    document.getElementById('r_a'+y).textContent=g['a'+y];
+  });
+  // result KPIs
+  const noi27=r.noi[1],noi29=r.noi[3];
+  const e27=document.getElementById('k_noi27');e27.textContent=(noi27>=0?'+':'−')+'$'+Math.abs(Math.round(noi27/1000))+'k';e27.style.color=noi27>=0?good:bad;
+  const e29=document.getElementById('k_noi29');e29.textContent=(noi29>=0?'+':'−')+'$'+Math.abs(Math.round(noi29/1000))+'k';e29.style.color=noi29>=0?good:bad;
+  document.getElementById('k_m27').textContent='Margin '+(r.rev[1]?Math.round(noi27/r.rev[1]*100):0)+'%';
+  document.getElementById('k_m29').textContent='Margin '+(r.rev[3]?Math.round(noi29/r.rev[3]*100):0)+'%';
+  const firstPos=r.noi.findIndex((n,i)=>i>=1&&n>=0);
+  document.getElementById('k_first').textContent=firstPos===-1?'Beyond FY29':('FY'+(26+firstPos));
+  // narrative
+  const surplus=firstPos!==-1, txt=surplus
+    ? `On these assumptions, Kingdom City reaches its <strong>first operating surplus in FY${26+firstPos}</strong>, ending FY29 at <strong>${usd(noi29)}</strong> (${r.rev[3]?Math.round(noi29/r.rev[3]*100):0}% margin). Revenue is carried by ${g.a29} average attenders giving $${g.giv}/mo; the plan holds as long as the expense base stays near $${Math.round(g.exp/1000)}k growing ${g.eg}%/yr.`
+    : `On these assumptions Kingdom City <strong>stays in deficit through FY29</strong> (${usd(noi29)}). The expense base ($${Math.round(g.exp/1000)}k growing ${g.eg}%/yr) is outrunning giving &mdash; lower the expense slider or grow attendance/giving to find break-even.`;
+  document.getElementById('bvaNarr').innerHTML=txt;
+  document.getElementById('bvaNarr').className='callout '+(surplus?'good':'bad');
+}
+ctrls.forEach(k=>document.getElementById('s_'+k).addEventListener('input',render));
+document.getElementById('resetBtn').addEventListener('click',()=>{ctrls.forEach(k=>document.getElementById('s_'+k).value=D[k]);render();});
+render();
+</script>
+</body>
+</html>
