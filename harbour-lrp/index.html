@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>The Harbour Company — Long-Range Model</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<style>
+:root{
+  --bg:#f7f4ee; --panel:#fffdf9; --ink:#16202e; --ink-soft:#48566a;
+  --navy:#13293d; --steel:#2e5e8c; --steel-soft:#5b88b5;
+  --gold:#c8962f; --gold-soft:#e7c878; --green:#2f7d4f; --red:#b4452f;
+  --line:#e6ded0; --line-strong:#d6cbb6;
+  --shadow:0 1px 2px rgba(19,41,61,.05),0 8px 28px -12px rgba(19,41,61,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.5;
+  background-image:radial-gradient(circle at 12% 0%,rgba(46,94,140,.05),transparent 42%),radial-gradient(circle at 95% 8%,rgba(200,150,47,.06),transparent 40%);}
+.mono{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+
+/* header */
+header{border-bottom:1px solid var(--line-strong);background:rgba(255,253,249,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:50}
+.hd{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;max-width:1320px;margin:0 auto;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.brand h1{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;letter-spacing:-.01em;color:var(--navy)}
+.brand .tag{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);font-weight:700}
+.hd .meta{display:flex;align-items:center;gap:18px;font-size:.74rem;color:var(--ink-soft)}
+.pulse{display:inline-flex;align-items:center;gap:7px;font-weight:600;color:var(--green)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(47,125,79,.5);animation:p 2.4s infinite}
+@keyframes p{0%{box-shadow:0 0 0 0 rgba(47,125,79,.45)}70%{box-shadow:0 0 0 9px rgba(47,125,79,0)}100%{box-shadow:0 0 0 0 rgba(47,125,79,0)}}
+.exitpill{background:var(--navy);color:#fff;padding:5px 12px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.04em}
+
+/* hero KPIs */
+.hero{padding:26px 0 8px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi.feature{background:linear-gradient(160deg,#13293d,#1d3e5c);border-color:#1d3e5c}
+.kpi.feature .klab,.kpi.feature .ksub{color:#b9cbe0}
+.kpi.feature .kval{color:#fff}
+.kpi .klab{font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.kpi .kval{font-family:'Fraunces',serif;font-weight:600;font-size:1.85rem;letter-spacing:-.02em;margin-top:6px;line-height:1;color:var(--navy);transition:color .2s}
+.kpi.feature .kval .accent{color:var(--gold-soft)}
+.kpi .ksub{font-size:.7rem;color:var(--ink-soft);margin-top:5px}
+.kpi .spark{position:absolute;right:-2px;bottom:-2px;width:46px;height:30px;opacity:.5}
+.flash{animation:flash .5s}
+@keyframes flash{0%{background-color:rgba(200,150,47,.16)}100%{}}
+
+/* context banner */
+.context{margin:20px 0 6px;background:linear-gradient(100deg,#fff8ea,#fffdf9);border:1px solid var(--gold-soft);border-left:4px solid var(--gold);border-radius:12px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start}
+.context .ic{font-family:'Fraunces',serif;font-size:1.4rem;color:var(--gold);font-weight:700;line-height:1}
+.context p{font-size:.84rem;color:var(--ink-soft)}
+.context b{color:var(--ink)}
+
+/* layout */
+.grid{display:grid;grid-template-columns:340px 1fr;gap:22px;padding:22px 0 60px;align-items:start}
+.col-controls{position:sticky;top:88px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);margin-bottom:18px}
+.card h2{font-family:'Fraunces',serif;font-size:1.04rem;font-weight:600;color:var(--navy);padding:15px 18px 0}
+.card .sub{font-size:.72rem;color:var(--ink-soft);padding:2px 18px 12px}
+.card .body{padding:4px 18px 16px}
+
+/* explainer steps */
+.explain .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:4px}
+.explain .step{display:flex;gap:11px;font-size:.82rem;color:var(--ink-soft);line-height:1.45}
+.explain .step b{color:var(--ink)}
+.explain .step .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-family:'Fraunces',serif;font-weight:600;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.explain .step .ex{display:block;margin-top:5px;font-family:'IBM Plex Mono',monospace;font-size:.74rem;color:var(--steel);font-weight:600}
+.explain-note{margin-top:16px;padding-top:13px;border-top:1px dashed var(--line-strong);font-size:.8rem;color:var(--ink-soft);line-height:1.5}
+.explain-note b{color:var(--navy)}
+@media(max-width:780px){.explain .steps{grid-template-columns:1fr}}
+
+/* dials */
+.group{margin-bottom:16px}
+.group .glab{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--steel);font-weight:800;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:4px}
+.group .ghelp{font-size:.7rem;color:var(--ink-soft);line-height:1.4;margin-bottom:10px;font-style:italic}
+.dial{margin-bottom:13px}
+.dial .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.dial label{font-size:.78rem;color:var(--ink);font-weight:500}
+.dial .val{font-family:'IBM Plex Mono',monospace;font-size:.82rem;font-weight:600;color:var(--navy);background:#f0ead d;background:#efe9db;padding:1px 8px;border-radius:6px;border:1px solid var(--line)}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:5px;border-radius:4px;background:linear-gradient(90deg,var(--steel) var(--pct,40%),#e2d9c7 var(--pct,40%));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:var(--panel);border:2.5px solid var(--steel);cursor:pointer;box-shadow:0 1px 4px rgba(19,41,61,.25);transition:transform .12s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+input[type=range]::-moz-range-thumb{width:17px;height:17px;border-radius:50%;background:var(--panel);border:2.5px solid var(--steel);cursor:pointer}
+.seg{display:flex;gap:6px;margin-top:4px}
+.seg button{flex:1;font-family:'Plus Jakarta Sans';font-size:.74rem;font-weight:600;padding:7px 0;border:1px solid var(--line-strong);background:var(--panel);color:var(--ink-soft);border-radius:8px;cursor:pointer;transition:.15s}
+.seg button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.resetbtn{width:100%;margin-top:4px;padding:9px;border:1px dashed var(--line-strong);background:transparent;color:var(--steel);font-weight:600;font-size:.78rem;border-radius:9px;cursor:pointer;font-family:inherit}
+.resetbtn:hover{background:#f1ece1}
+
+/* outputs */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chartcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:15px 18px 14px}
+.chartcard h3{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-bottom:2px}
+.chartcard .ch-sub{font-size:.7rem;color:var(--steel-soft);margin-bottom:8px}
+.chartwrap{position:relative;height:190px}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;border-bottom:1.5px solid var(--line-strong)}
+tbody td{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;color:var(--ink)}
+tbody td:first-child{font-family:'Plus Jakarta Sans';font-weight:500}
+tr.sect td{background:#f3eee3;font-weight:700;color:var(--navy);font-family:'Plus Jakarta Sans'}
+tr.hl td{background:#13293d;color:#fff;font-weight:700}
+tr.hl td:first-child{color:#fff}
+tr.gold td{background:var(--gold-soft);font-weight:700}
+.col-act{color:var(--ink-soft) !important}
+.neg{color:var(--red)}
+
+/* sensitivity */
+.sens{display:grid;gap:3px;margin-top:6px}
+.sens .hrow,.sens .drow{display:grid;grid-template-columns:84px repeat(5,1fr);gap:3px}
+.sens .hc{font-size:.66rem;font-weight:700;text-align:center;padding:5px 2px;color:var(--ink-soft);background:#f3eee3;border-radius:5px}
+.sens .rl{font-size:.7rem;font-weight:700;text-align:center;padding:6px 2px;color:var(--navy);background:#f3eee3;border-radius:5px;display:flex;align-items:center;justify-content:center}
+.sens .cell{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;text-align:center;padding:7px 2px;border-radius:5px;color:#16202e;transition:transform .1s}
+.sens .cell.cur{outline:2px solid var(--navy);font-weight:700;transform:scale(1.04);z-index:2}
+
+/* tabs */
+.tabbar{border-top:1px solid var(--line);background:rgba(255,253,249,.7)}
+.tabbar-inner{display:flex;gap:8px;padding-top:0;padding-bottom:0}
+.tab{flex:0 0 auto;display:flex;flex-direction:column;gap:1px;align-items:flex-start;background:none;border:none;border-bottom:3px solid transparent;padding:11px 16px 10px;cursor:pointer;font-family:'Plus Jakarta Sans';color:var(--ink-soft);transition:.15s;font-size:.92rem;font-weight:700;letter-spacing:-.01em}
+.tab span{font-size:.66rem;font-weight:500;letter-spacing:.01em;color:var(--steel-soft);text-transform:none}
+.tab:hover{color:var(--navy)}
+.tab.on{color:var(--navy);border-bottom-color:var(--gold)}
+.tab.on span{color:var(--steel)}
+.tabpanel[hidden]{display:none}
+
+/* actuals tab */
+.sect-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.18rem;color:var(--navy);margin:26px 0 3px;letter-spacing:-.01em}
+.sect-lead{font-size:.82rem;color:var(--ink-soft);margin-bottom:14px;max-width:760px;line-height:1.5}
+.a-charts3{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.note{background:#f5f0e6;border-left:3px solid var(--steel-soft);border-radius:0 8px 8px 0;padding:9px 13px;font-size:.76rem;color:var(--ink-soft);line-height:1.5;margin-top:10px}
+.note b{color:var(--navy)}
+.a-chartwrap{position:relative;height:210px}
+.a-chartwrap.tall{height:240px}
+.takeaways{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:6px 0 4px}
+.tk{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--steel);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+.tk.warn{border-left-color:var(--gold)}
+.tk.good{border-left-color:var(--green)}
+.tk h4{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-bottom:6px}
+.tk p{font-size:.82rem;color:var(--ink);line-height:1.5}
+.tk p b{color:var(--navy)}
+@media(max-width:1050px){.a-charts3{grid-template-columns:1fr}.takeaways{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line-strong);padding:22px 0 40px;color:var(--ink-soft);font-size:.74rem}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+footer b{color:var(--navy)}
+a.dl{color:var(--steel);font-weight:600;text-decoration:none;border-bottom:1px solid var(--steel-soft)}
+
+@media(max-width:1050px){.kpis{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr}.col-controls{position:static}.charts{grid-template-columns:1fr}}
+@media(max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}.wrap,.hd{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hd">
+    <div class="brand">
+      <h1>The Harbour Company</h1>
+      <span class="tag" id="brandtag">Financial Command Center</span>
+    </div>
+    <div class="meta">
+      <span class="pulse"><span class="dot"></span>Live from QuickBooks</span>
+      <span class="exitpill">Target exit · Mid-2028</span>
+    </div>
+  </div>
+  <div class="tabbar">
+    <div class="wrap tabbar-inner">
+      <button class="tab on" data-tab="actuals">📊 The Numbers Today<span>Trailing quarters &amp; full-year actuals</span></button>
+      <button class="tab" data-tab="model">🎯 The Plan to Exit<span>Driver-based long-range model</span></button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ ACTUALS PANEL ============ -->
+<div id="tab-actuals" class="tabpanel">
+  <section class="hero">
+    <div class="kpis" id="akpis">
+      <div class="kpi feature"><div class="klab">Trailing-12-mo revenue</div><div class="kval" id="a_rev">—</div><div class="ksub" id="a_rev_sub">last 4 closed quarters</div></div>
+      <div class="kpi feature"><div class="klab">Trailing-12-mo gross margin</div><div class="kval" id="a_gm">—</div><div class="ksub">the slice kept after job costs</div></div>
+      <div class="kpi"><div class="klab">Trailing-12-mo EBITDA</div><div class="kval" id="a_eb">—</div><div class="ksub">operating profit, pre-owner-normalization</div></div>
+      <div class="kpi"><div class="klab">FY2025 revenue</div><div class="kval" id="a_fy">—</div><div class="ksub">first full year on the books</div></div>
+      <div class="kpi"><div class="klab">Cash in bank</div><div class="kval" id="a_cash">—</div><div class="ksub" id="a_cash_sub">latest quarter-end</div></div>
+      <div class="kpi"><div class="klab">Owed by customers (A/R)</div><div class="kval" id="a_ar">—</div><div class="ksub" id="a_ar_sub">uncollected invoices</div></div>
+    </div>
+  </section>
+
+  <div class="context">
+    <div class="ic">i</div>
+    <p><b>What this page is.</b> This is Harbour straight from QuickBooks — no projections, just what actually happened. The big lesson up top: a <b>single quarter tells you almost nothing</b> about this business. Because you bill at project milestones but pay for labor and materials as the work happens, one quarter can show a 74% margin and the next can show a loss — same healthy company, just different timing. <b>Always read the trailing-twelve-month (TTM) and full-year numbers</b>, never a single quarter in isolation.</p>
+  </div>
+
+  <div class="takeaways" id="takeaways"></div>
+
+  <div class="sect-title">Revenue &amp; profit, quarter by quarter</div>
+  <div class="sect-lead">Each bar is one quarter of sales. The gold line is gross margin % — notice how violently it swings. That swing is <b>timing, not health</b>: it's the single best argument for judging Harbour on a full-year basis.</div>
+  <div class="a-charts3">
+    <div class="chartcard"><h3>Quarterly revenue &amp; gross margin</h3><div class="ch-sub">Bars = sales that quarter · Gold line = % kept after job costs</div><div class="a-chartwrap"><canvas id="aQRev"></canvas></div>
+      <div class="note"><b>How to read it:</b> the bars rise and fall with when projects close. The gold line jumping from +74% to below zero is the milestone-billing effect — not a business that fell apart in one quarter.</div></div>
+    <div class="chartcard"><h3>Quarterly operating profit (EBITDA)</h3><div class="ch-sub">Profit after all costs, each quarter · red = a loss quarter</div><div class="a-chartwrap"><canvas id="aQEb"></canvas></div>
+      <div class="note"><b>How to read it:</b> a red (negative) quarter usually means costs landed ahead of the revenue they'll eventually earn. Add four quarters together and the real earning power shows up.</div></div>
+  </div>
+
+  <div class="sect-title">Where every dollar of FY2025 revenue went</div>
+  <div class="sect-lead">For the full year, this is how each sales dollar split up. Labor and materials are the cost of doing the jobs; overhead is running the business; what's left is profit.</div>
+  <div class="a-charts3">
+    <div class="chartcard"><h3>The FY2025 revenue dollar</h3><div class="ch-sub">$1.26M of sales, split by where it landed</div><div class="a-chartwrap tall"><canvas id="aDonut"></canvas></div>
+      <div class="note"><b>The headline:</b> job costs (labor + materials) eat ~<span id="d_jobpct">—</span> of every dollar, and <b>labor is the biggest single piece</b>. Shaving even a few points off labor or materials flows almost entirely to profit.</div></div>
+    <div class="chartcard"><h3>FY2025 overhead — the biggest line items</h3><div class="ch-sub">Fixed costs of running the business (not job costs)</div><div class="a-chartwrap tall"><canvas id="aOpex"></canvas></div>
+      <div class="note"><b>How to read it:</b> overhead is small and lean (~<span id="d_opexpct">—</span> of revenue). That's healthy — it means the margin story is won and lost on <b>job costs</b>, not the back office.</div></div>
+  </div>
+
+  <div class="sect-title">Cash vs. what customers owe you</div>
+  <div class="sect-lead">This is the most important operational chart for Harbour. You're profitable on paper, but most of that profit is sitting in <b>unpaid invoices (A/R)</b>, not in the bank. The gap between the two lines is the cash that's earned but not yet collected.</div>
+  <div class="a-charts3">
+    <div class="chartcard"><h3>Cash in bank vs. money owed to you</h3><div class="ch-sub">Green = cash on hand · Gold = unpaid customer invoices (A/R)</div><div class="a-chartwrap"><canvas id="aCashAr"></canvas></div>
+      <div class="note"><b>Why it matters:</b> a wide gap means your money is tied up at customers. Collecting faster (lower DSO) turns that gold into green without selling a single extra job — that's the fastest cash you can find.</div></div>
+    <div class="chartcard"><h3>Equity (book value) building over time</h3><div class="ch-sub">Retained earnings stacking up as you keep profit in</div><div class="a-chartwrap"><canvas id="aEquity"></canvas></div>
+      <div class="note"><b>Why it matters:</b> with no owner draws, profit stays in the company and book value climbs. A buyer sees a business that funds itself — but remember, the sale price is driven by <b>profit × multiple</b>, not book value.</div></div>
+  </div>
+
+  <div class="sect-title">The numbers behind the charts</div>
+  <div class="sect-lead">Every trailing quarter plus the FY2025 full year and the trailing-twelve-month roll-up. This is the raw scoreboard.</div>
+  <div class="card"><div class="body" style="overflow-x:auto;padding-top:14px"><table id="actTable"></table></div></div>
+  <p class="sect-lead" style="margin-top:10px;font-size:.74rem"><b>*TTM</b> = trailing twelve months (the last four closed quarters added together). Books effectively begin Q1 2025, so there's no prior-year comparison yet. The <i>Plan to Exit</i> tab deliberately anchors its starting margin lower than this TTM figure to stay conservative for a buyer.</p>
+</div>
+
+<!-- ============ MODEL PANEL ============ -->
+<div id="tab-model" class="tabpanel" hidden>
+  <section class="hero">
+    <div class="kpis" id="kpis">
+      <div class="kpi feature"><div class="klab">Equity value at exit</div><div class="kval" id="k_equity">—</div><div class="ksub" id="k_equity_sub">at exit multiple</div></div>
+      <div class="kpi feature"><div class="klab">Total value to owners</div><div class="kval" id="k_total">—</div><div class="ksub">equity + cash + distributions</div></div>
+      <div class="kpi"><div class="klab">FY2028E Norm. EBITDA</div><div class="kval" id="k_adjeb">—</div><div class="ksub" id="k_adjeb_sub">exit-year basis</div></div>
+      <div class="kpi"><div class="klab">FY2028E Revenue</div><div class="kval" id="k_rev">—</div><div class="ksub" id="k_rev_sub">—</div></div>
+      <div class="kpi"><div class="klab">FY2028E Gross margin</div><div class="kval" id="k_gm">—</div><div class="ksub">priority metric</div></div>
+      <div class="kpi"><div class="klab">FY2028E Ending cash</div><div class="kval" id="k_cash">—</div><div class="ksub">after distributions</div></div>
+    </div>
+  </section>
+
+  <div class="context">
+    <div class="ic">!</div>
+    <p><b>Read this first.</b> Harbour's <b>monthly</b> gross margin in QuickBooks swings from +80% to &minus;1,000% because revenue is booked at project milestones while job costs land as incurred. Single months are noise. FY2025 <i>looked</i> like 52.8% GM (revenue ahead of cost); 2026-YTD <i>looks</i> like 6.7% (cost ahead of revenue). The honest, blended <b>trailing-twelve-month gross margin is 33.3%</b> — that's where this model starts. The single biggest lever on your exit value is moving that number toward 40%. <b>Buyer-normalized basis:</b> this model values Harbour the way an arms-length buyer would — it subtracts a <b>$180K owner replacement salary</b> (the cost to hire management) and assumes <b>no owner distributions</b>, so the EBITDA shown is what the business earns <i>after</i> paying for someone to run it.</p>
+  </div>
+
+  <div class="grid">
+    <!-- CONTROLS -->
+    <div class="col-controls">
+      <div class="card">
+        <h2>Drivers &amp; assumptions</h2>
+        <div class="sub">Move a dial — every number, chart and the valuation update live.</div>
+        <div class="body" id="controls"></div>
+        <div class="body" style="padding-top:0"><button class="resetbtn" onclick="resetAll()">↺ Reset to baseline</button></div>
+      </div>
+    </div>
+
+    <!-- OUTPUTS -->
+    <div class="col-outputs">
+      <div class="charts" style="margin-bottom:18px">
+        <div class="chartcard"><h3>Revenue &amp; gross margin</h3><div class="ch-sub">Bars = sales each year. Gold line = gross margin %, the slice you keep after job costs.</div><div class="chartwrap"><canvas id="chRev"></canvas></div></div>
+        <div class="chartcard"><h3>Normalized EBITDA</h3><div class="ch-sub">Yearly profit after overhead and a $180K salary to run it without you — the number a buyer values.</div><div class="chartwrap"><canvas id="chEb"></canvas></div></div>
+        <div class="chartcard"><h3>Cash trajectory</h3><div class="ch-sub">Money in the bank at each year-end. With no owner draws, profit stacks up here.</div><div class="chartwrap"><canvas id="chCash"></canvas></div></div>
+        <div class="chartcard"><h3>Value to owners at exit</h3><div class="ch-sub">What you walk away with: sale price + cash in the bank + any draws you took.</div><div class="chartwrap"><canvas id="chVal"></canvas></div></div>
+      </div>
+
+      <div class="card explain">
+        <h2>How the exit value is built</h2>
+        <div class="sub">The whole model in three plain steps. The numbers fill in from your dials.</div>
+        <div class="body">
+          <div class="steps">
+            <div class="step"><span class="n">1</span><div><b>Find the real profit.</b> Start with sales, take out job costs (labor + materials) and overhead, then subtract a <b>$180K salary</b> to hire someone to run it without you. What's left is <b>Normalized EBITDA</b> — the honest yearly profit a buyer cares about. <span class="ex" id="ex1">—</span></div></div>
+            <div class="step"><span class="n">2</span><div><b>Put a price on that profit.</b> Buyers don't pay for one year — they pay a <b>multiple</b> of it. At <span id="ex_mult">4.0×</span>, the business itself is worth the <b>equity value</b> (the price for the company). <span class="ex" id="ex2">—</span></div></div>
+            <div class="step"><span class="n">3</span><div><b>Add what's already yours.</b> On top of the sale price you keep the <b>cash in the bank</b> at closing, plus any <b>draws</b> you took along the way. Together that's your <b>total take-home</b>. <span class="ex" id="ex3">—</span></div></div>
+          </div>
+          <p class="explain-note"><b>Why "gross margin" is the dial that matters most:</b> every extra point of margin is profit that costs you nothing more to produce — and then it gets <i>multiplied</i> at sale. Moving from 33% to 40% margin doesn't just add profit; it adds that profit <span id="ex_mult2">4×</span> over in the final price.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Projection — FY2025A → FY2028E</h2>
+        <div class="sub">FY2025 is actual (QBO). FY2026E–FY2028E are driver-based. Pre-entity tax (pass-through partnership).</div>
+        <div class="body" style="overflow-x:auto">
+          <table id="modelTable"></table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Sensitivity — equity value at exit</h2>
+        <div class="sub">FY2028E equity value across gross-margin (rows) × exit-multiple (columns). Your current setting is outlined.</div>
+        <div class="body">
+          <div class="sens" id="sens"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /tab-model -->
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="wrap">
+    <div>Prepared by <b>Turnkey CFO</b> for The Harbour Company &nbsp;·&nbsp; Source: QuickBooks Online (Realm 9341453971098132) &nbsp;·&nbsp; <span id="pullstamp">Pulled 2026-06-04</span> &nbsp;·&nbsp; Accrual basis</div>
+    <div>Companion workbook with live formulas delivered separately (Excel). &nbsp; <span id="stamp"></span></div>
+  </div>
+</footer>
+
+<script>
+// ---------- baseline assumptions (mirror the Excel Assumptions tab) ----------
+const BASE = {
+  rev26:1300000, g27:0.15, g28:0.15,
+  labor:0.40, mat:0.25, opex:0.12, replSalary:180000,
+  dso:80, dist:0, startCash:28285,
+  mult:4.0, basis:'FY2028E', netdebt:0
+};
+let A = {...BASE};
+
+// historical actuals (QBO)
+const HIST = { rev:1255836, gp:663385, cogsLabor:393817, cogsMat:198634, opex:116681, ebitda:546704, ni:543133, ar:321862 };
+
+// ---------- dial definitions ----------
+const DIALS = [
+  {grp:'Revenue', help:'How much work you sell each year.'},
+  {k:'rev26', label:'FY2026E revenue', min:800000, max:2500000, step:25000, fmt:'$0'},
+  {k:'g27', label:'Revenue growth — FY2027E', min:-0.1, max:0.5, step:0.01, fmt:'%'},
+  {k:'g28', label:'Revenue growth — FY2028E', min:-0.1, max:0.5, step:0.01, fmt:'%'},
+  {grp:'Gross margin — the priority', help:'What’s left after the direct cost of each job (labor + materials). This is the #1 driver of your sale price.'},
+  {k:'labor', label:'Labor cost — % of revenue', min:0.20, max:0.60, step:0.005, fmt:'%'},
+  {k:'mat', label:'Materials & other COGS — % of rev', min:0.10, max:0.45, step:0.005, fmt:'%'},
+  {grp:'Fixed costs & owner normalization', help:'Overhead that doesn’t move with jobs, plus a market salary to replace the owners after a sale.'},
+  {k:'opex', label:'Operating expenses — % of revenue', min:0.08, max:0.40, step:0.005, fmt:'%'},
+  {k:'replSalary', label:'Owner replacement salary (fixed)', min:0, max:300000, step:5000, fmt:'$0'},
+  {grp:'Working capital & cash', help:'How fast you collect (DSO), and how much profit you take out vs. leave in the business.'},
+  {k:'dso', label:'Days sales outstanding (DSO)', min:15, max:150, step:1, fmt:'days'},
+  {k:'dist', label:'Distributions — % of net income', min:0, max:1, step:0.05, fmt:'%'},
+  {grp:'Valuation & exit', help:'What a buyer pays — a multiple of your normalized profit.'},
+  {k:'mult', label:'Exit multiple (× Norm. EBITDA)', min:2, max:8, step:0.1, fmt:'x'},
+  {k:'basis', label:'Exit metric basis', seg:['FY2026E','FY2027E','FY2028E']},
+];
+
+const fUSD=n=>(n<0?'-':'')+'$'+Math.abs(Math.round(n)).toLocaleString();
+const fUSDk=n=>{const a=Math.abs(n);let s;if(a>=1e6)s='$'+(n/1e6).toFixed(2)+'M';else s='$'+Math.round(n/1e3)+'K';return (n<0?'-':'')+s.replace('-','');};
+const fPct=n=>(n*100).toFixed(1)+'%';
+function fmtVal(d,v){if(d.fmt==='%')return fPct(v);if(d.fmt==='x')return v.toFixed(1)+'x';if(d.fmt==='days')return Math.round(v)+' d';return fUSD(v);}
+
+// ---------- core model ----------
+function compute(a){
+  const years=['FY2025A','FY2026E','FY2027E','FY2028E'];
+  const rev=[HIST.rev, a.rev26, a.rev26*(1+a.g27), a.rev26*(1+a.g27)*(1+a.g28)];
+  const rows={rev:[],cogsL:[],cogsM:[],cogs:[],gp:[],gm:[],opex:[],ebitda:[],ebm:[],addback:[],adj:[],adjm:[],ni:[],ar:[],chgAR:[],dist:[],begC:[],ocf:[],endC:[]};
+  let arPrev=HIST.ar, cashPrev=0;
+  for(let i=0;i<4;i++){
+    const r=rev[i]; rows.rev[i]=r;
+    let cl,cm,gp,opx,eb,ni;
+    if(i===0){cl=HIST.cogsLabor;cm=HIST.cogsMat;gp=HIST.gp;opx=HIST.opex;eb=HIST.ebitda;ni=HIST.ni;}
+    else{cl=r*a.labor;cm=r*a.mat;gp=r-(cl+cm);opx=r*a.opex;eb=gp-opx;ni=eb;}
+    rows.cogsL[i]=cl;rows.cogsM[i]=cm;rows.cogs[i]=cl+cm;rows.gp[i]=gp;rows.gm[i]=r?gp/r:0;
+    rows.opex[i]=opx;rows.ebitda[i]=eb;rows.ebm[i]=r?eb/r:0;
+    rows.addback[i]=a.replSalary;rows.adj[i]=eb-a.replSalary;rows.adjm[i]=r?(eb-a.replSalary)/r:0;rows.ni[i]=ni;
+    // cash
+    if(i===0){rows.ar[i]=HIST.ar;rows.chgAR[i]=0;rows.dist[i]=ni*a.dist;rows.begC[i]=0;rows.ocf[i]=a.startCash;rows.endC[i]=a.startCash;}
+    else{const ar=r*a.dso/365;rows.ar[i]=ar;rows.chgAR[i]=arPrev-ar;rows.dist[i]=ni*a.dist;
+      rows.begC[i]=cashPrev;rows.ocf[i]=ni+rows.chgAR[i]-rows.dist[i];rows.endC[i]=cashPrev+rows.ocf[i];arPrev=ar;}
+    cashPrev=rows.endC[i];
+  }
+  const bIdx={'FY2026E':1,'FY2027E':2,'FY2028E':3}[a.basis];
+  const exitAdj=rows.adj[bIdx];
+  const ev=exitAdj*a.mult; const equity=ev-a.netdebt;
+  let cumDist=0; for(let i=1;i<=bIdx;i++) cumDist+=rows.dist[i];
+  const exitCash=rows.endC[bIdx];
+  const total=equity+cumDist+exitCash;
+  return {years,rows,exitAdj,ev,equity,cumDist,exitCash,total,bIdx};
+}
+
+// ---------- render ----------
+let charts={};
+function flash(el){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
+function render(){
+  const M=compute(A);
+  const r=M.rows;
+  // KPIs
+  setK('k_equity',fUSDk(M.equity),`<span class="accent mono">${A.mult.toFixed(1)}x</span> · ${A.basis} Norm. EBITDA`);
+  setK('k_total',fUSDk(M.total));
+  setK('k_adjeb',fUSDk(M.exitAdj),`${A.basis} basis`);
+  setK('k_rev',fUSDk(r.rev[3]),`from $${(r.rev[1]/1e6).toFixed(2)}M in FY26E`);
+  setK('k_gm',fPct(r.gm[3]));
+  setK('k_cash',fUSDk(r.endC[3]));
+  // table
+  buildTable(M);
+  // charts
+  drawCharts(M);
+  // sensitivity
+  buildSens(M);
+  // educational step examples (live)
+  const sx=(id,t)=>{const e=document.getElementById(id);if(e)e.innerHTML=t;};
+  sx('ex1',`→ ${A.basis}: ${fUSDk(M.exitAdj)} normalized profit.`);
+  sx('ex2',`→ ${fUSDk(M.exitAdj)} × ${A.mult.toFixed(1)}× = <b>${fUSDk(M.equity)}</b> sale price.`);
+  sx('ex3',`→ ${fUSDk(M.equity)} + ${fUSDk(M.exitCash)} cash + ${fUSDk(M.cumDist)} draws = <b>${fUSDk(M.total)}</b>.`);
+  sx('ex_mult',`${A.mult.toFixed(1)}×`);
+  sx('ex_mult2',`${A.mult.toFixed(1)}×`);
+}
+function setK(id,val,sub){const e=document.getElementById(id);if(!e)return;if(e.innerHTML!==val){e.innerHTML=val;flash(e.closest('.kpi'));}if(sub!==undefined){const s=document.getElementById(id+'_sub');if(s)s.innerHTML=sub;}}
+
+function buildTable(M){
+  const r=M.rows,y=M.years;
+  const cls=v=>v<0?' class="neg"':'';
+  const line=(lab,arr,f,opt={})=>{
+    let cl=opt.cls||'';
+    let tds=arr.map((v,i)=>{
+      if(f==='%')return `<td${v<0?' class="neg"':''}>${fPct(v)}</td>`;
+      return `<td${v<0?' class="neg"':''}>${fUSD(v)}</td>`;
+    }).join('');
+    return `<tr class="${cl}"><td>${lab}</td>${tds}</tr>`;
+  };
+  let h=`<thead><tr><th>$ unless noted</th>${y.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>`;
+  h+=line('Revenue',r.rev,'$',{cls:'sect'});
+  h+=line('&nbsp;&nbsp;COGS — Labor',r.cogsL,'$');
+  h+=line('&nbsp;&nbsp;COGS — Materials & other',r.cogsM,'$');
+  h+=line('Total COGS',r.cogs,'$');
+  h+=line('Gross Profit',r.gp,'$',{cls:'gold'});
+  h+=line('Gross Margin %',r.gm,'%',{cls:'gold'});
+  h+=line('Operating Expenses',r.opex,'$');
+  h+=line('EBITDA (operating profit)',r.ebitda,'$');
+  h+=line('&nbsp;&nbsp;(&minus;) Owner replacement salary',r.addback.map(v=>-v),'$');
+  h+=line('Normalized EBITDA',r.adj,'$',{cls:'hl'});
+  h+=line('&nbsp;&nbsp;Norm. EBITDA margin %',r.adjm,'%');
+  h+=line('Net Income (pre-distribution)',r.ni,'$');
+  h+=line('Accounts Receivable (DSO)',r.ar,'$',{cls:'sect'});
+  h+=line('Partner distributions',r.dist,'$');
+  h+=line('Ending cash',r.endC,'$',{cls:'hl'});
+  h+='</tbody>';
+  document.getElementById('modelTable').innerHTML=h;
+}
+
+const NAVY='#13293d',STEEL='#2e5e8c',GOLD='#c8962f',GREEN='#2f7d4f',RED='#b4452f',GRID='#e6ded0',INK='#48566a';
+Chart.defaults.font.family="'IBM Plex Mono', monospace";
+Chart.defaults.font.size=10;Chart.defaults.color=INK;
+Chart.register(ChartDataLabels);
+const dlMoney=v=>fUSDk(v);
+function drawCharts(M){
+  const y=M.years,r=M.rows;
+  mk('chRev','bar',{labels:y,datasets:[
+    {label:'Revenue',data:r.rev,backgroundColor:STEEL,borderRadius:5,yAxisID:'y',order:2,
+      datalabels:{display:true,anchor:'end',align:'start',offset:2,color:'#fff',font:{size:9,weight:'700'},formatter:dlMoney}},
+    {label:'GM%',data:r.gm.map(v=>v*100),type:'line',borderColor:GOLD,backgroundColor:GOLD,borderWidth:2.5,pointRadius:3,pointBackgroundColor:GOLD,yAxisID:'y1',order:1,tension:.3,
+      datalabels:{display:true,anchor:'end',align:'top',offset:5,color:'#9a6f1c',font:{size:9,weight:'700'},formatter:v=>v.toFixed(0)+'%'}}
+  ]},{scales:{y:{ticks:{callback:v=>'$'+(v/1e6).toFixed(1)+'M'},grid:{color:GRID}},y1:{position:'right',ticks:{callback:v=>v+'%'},grid:{display:false},suggestedMin:0,suggestedMax:65}},plugins:{legend:{display:false}}});
+  mk('chEb','bar',{labels:y,datasets:[
+    {label:'EBITDA',data:r.ebitda,backgroundColor:'#9db8cf',borderRadius:4,
+      datalabels:{display:true,anchor:'end',align:'top',offset:1,color:STEEL,font:{size:8,weight:'700'},formatter:dlMoney}},
+    {label:'Normalized EBITDA',data:r.adj,backgroundColor:NAVY,borderRadius:4,
+      datalabels:{display:true,anchor:'end',align:'top',offset:1,color:NAVY,font:{size:8,weight:'700'},formatter:dlMoney}}
+  ]},{scales:{y:{ticks:{callback:v=>'$'+(v/1e6).toFixed(1)+'M'},grid:{color:GRID}}},plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:9}}}}});
+  mk('chCash','line',{labels:y,datasets:[
+    {label:'Ending cash',data:r.endC,borderColor:GREEN,backgroundColor:'rgba(47,125,79,.1)',fill:true,borderWidth:2.5,pointRadius:3,pointBackgroundColor:GREEN,tension:.25,
+      datalabels:{display:true,anchor:'end',align:'top',offset:5,color:GREEN,font:{size:9,weight:'700'},formatter:dlMoney}}
+  ]},{scales:{y:{ticks:{callback:v=>'$'+(v/1e6).toFixed(1)+'M'},grid:{color:GRID}}},plugins:{legend:{display:false}}});
+  const valDL=clr=>({display:ctx=>ctx.dataset.data[ctx.dataIndex]>Math.max(40000,M.total*0.05),anchor:'center',align:'center',color:clr,font:{size:9,weight:'700'},formatter:dlMoney});
+  mk('chVal','bar',{labels:['Value to owners'],datasets:[
+    {label:'Equity at exit',data:[M.equity],backgroundColor:GOLD,borderRadius:4,datalabels:valDL('#5b430c')},
+    {label:'Cash retained',data:[M.exitCash],backgroundColor:GREEN,borderRadius:4,datalabels:valDL('#fff')},
+    {label:'Cumulative distributions',data:[M.cumDist],backgroundColor:STEEL,borderRadius:4,datalabels:valDL('#fff')}
+  ]},{indexAxis:'y',layout:{padding:{top:4,right:8}},scales:{x:{stacked:true,ticks:{callback:v=>'$'+(v/1e6).toFixed(1)+'M'},grid:{color:GRID}},y:{stacked:true,grid:{display:false}}},plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:9}}}}});
+}
+function mk(id,type,data,opts){
+  const base={responsive:true,maintainAspectRatio:false,layout:{padding:{top:18,right:8}},animation:{duration:380},plugins:{datalabels:{display:false},tooltip:{callbacks:{label:c=>{let v=c.raw;let n=c.dataset.label||'';if(c.dataset.yAxisID==='y1')return n+': '+v.toFixed(1)+'%';return n+': $'+Math.round(v).toLocaleString();}}}}};
+  const cfg={type,data,options:{...base,...opts,plugins:{...base.plugins,...(opts.plugins||{})}}};
+  if(charts[id]){charts[id].data=data;charts[id].options=cfg.options;charts[id].update();}
+  else charts[id]=new Chart(document.getElementById(id),cfg);
+}
+
+const SENS_GM=[0.28,0.32,0.35,0.38,0.42], SENS_M=[3.0,4.0,5.0,6.0,7.0];
+function buildSens(M){
+  const rev28=M.rows.rev[3];
+  // current cell = nearest gm + mult
+  const curGm=SENS_GM.reduce((a,b)=>Math.abs(b-M.rows.gm[3])<Math.abs(a-M.rows.gm[3])?b:a);
+  const curM=SENS_M.reduce((a,b)=>Math.abs(b-A.mult)<Math.abs(a-A.mult)?b:a);
+  // value grid
+  const vals=[];let lo=1e15,hi=-1e15;
+  for(const gm of SENS_GM){const rowv=[];for(const m of SENS_M){const adj=rev28*(gm-A.opex)-A.replSalary;const eq=adj*m-A.netdebt;rowv.push(eq);lo=Math.min(lo,eq);hi=Math.max(hi,eq);}vals.push(rowv);}
+  let h=`<div class="hrow"><div class="hc">GM ↓ / ×→</div>${SENS_M.map(m=>`<div class="hc">${m.toFixed(1)}x</div>`).join('')}</div>`;
+  SENS_GM.forEach((gm,gi)=>{
+    h+=`<div class="drow"><div class="rl">${(gm*100).toFixed(0)}%</div>`+SENS_M.map((m,mi)=>{
+      const v=vals[gi][mi];const t=(v-lo)/(hi-lo+1e-9);
+      // color scale cream->gold->navy-ish
+      const bg=`rgba(${Math.round(255-t*100)},${Math.round(240-t*120)},${Math.round(210-t*150)},${0.5+t*0.45})`;
+      const cur=(Math.abs(gm-curGm)<1e-6&&Math.abs(m-curM)<1e-6)?' cur':'';
+      const col=t>0.6?'#fff':'#16202e';
+      return `<div class="cell${cur}" style="background:${bg};color:${col}">${fUSDk(v)}</div>`;
+    }).join('')+'</div>';
+  });
+  document.getElementById('sens').innerHTML=h;
+}
+
+// ---------- build controls ----------
+function buildControls(){
+  const c=document.getElementById('controls');let h='';
+  for(const d of DIALS){
+    if(d.grp){h+=`<div class="group"><div class="glab">${d.grp}</div>${d.help?`<div class="ghelp">${d.help}</div>`:''}</div>`;continue;}
+    if(d.seg){
+      h+=`<div class="dial"><div class="row"><label>${d.label}</label></div><div class="seg" id="seg_${d.k}">`+
+         d.seg.map(s=>`<button data-k="${d.k}" data-v="${s}" class="${A[d.k]===s?'on':''}">${s}</button>`).join('')+`</div></div>`;
+    } else {
+      h+=`<div class="dial"><div class="row"><label>${d.label}</label><span class="val" id="v_${d.k}">${fmtVal(d,A[d.k])}</span></div>`+
+         `<input type="range" id="r_${d.k}" min="${d.min}" max="${d.max}" step="${d.step}" value="${A[d.k]}"></div>`;
+    }
+  }
+  c.innerHTML=h;
+  for(const d of DIALS){
+    if(d.grp)continue;
+    if(d.seg){
+      document.querySelectorAll(`#seg_${d.k} button`).forEach(b=>b.onclick=()=>{
+        A[d.k]=b.dataset.v;document.querySelectorAll(`#seg_${d.k} button`).forEach(x=>x.classList.remove('on'));b.classList.add('on');render();
+      });
+    } else {
+      const inp=document.getElementById('r_'+d.k);
+      const setFill=()=>{const p=((inp.value-d.min)/(d.max-d.min))*100;inp.style.setProperty('--pct',p+'%');};
+      setFill();
+      inp.oninput=()=>{A[d.k]=parseFloat(inp.value);document.getElementById('v_'+d.k).textContent=fmtVal(d,A[d.k]);setFill();render();};
+    }
+  }
+}
+function resetAll(){A={...BASE};buildControls();render();}
+
+// ================= QUICKBOOKS ACTUALS TAB =================
+const ACT={"pulled":"2026-06-04 20:26","quarters":[{"revenue":54756,"cogs":27284,"gross":27473,"opex":1350,"ebitda":26123,"netinc":26117,"label":"Q1 2025","gm":0.5017},{"revenue":481946,"cogs":124937,"gross":357009,"opex":48683,"ebitda":308326,"netinc":307840,"label":"Q2 2025","gm":0.7408},{"revenue":488575,"cogs":248279,"gross":240297,"opex":35614,"ebitda":204683,"netinc":202737,"label":"Q3 2025","gm":0.4918},{"revenue":230558,"cogs":191952,"gross":38606,"opex":31035,"ebitda":7572,"netinc":6439,"label":"Q4 2025","gm":0.1674},{"revenue":113251,"cogs":202621,"gross":-89370,"opex":33496,"ebitda":-122866,"netinc":-125710,"label":"Q1 2026","gm":-0.7891}],"years":[{"revenue":1255836,"cogs":592451,"gross":663385,"opex":116681,"ebitda":546704,"netinc":543133,"label":"FY2025","gm":0.5282}],"bs":[{"cash":16191,"ar":13294,"ap":0,"equity":22485,"label":"Q1 2025"},{"cash":36317,"ar":227527,"ap":0,"equity":291046,"label":"Q2 2025"},{"cash":16822,"ar":342244,"ap":0,"equity":410975,"label":"Q3 2025"},{"cash":28285,"ar":321862,"ap":0,"equity":402278,"label":"Q4 2025"},{"cash":2721,"ar":221208,"ap":2500,"equity":210692,"label":"Q1 2026"}],"ttm":{"revenue":1314331,"cogs":767789,"gross":546542,"opex":148827,"ebitda":397714,"netinc":391306,"labels":["Q2 2025","Q3 2025","Q4 2025","Q1 2026"]},"fy25comp":{"labor":393817,"materials":198634,"overhead":111598,"profit":546704},"fy25opex":[{"label":"Salaries & wages (Gusto)","value":29146},{"label":"Business Event","value":7982},{"label":"QuickBooks Payments Fees","value":7903},{"label":"Commissions & fees","value":7003},{"label":"Insurance","value":5952},{"label":"Business Meals","value":5259},{"label":"Accounting fees","value":3800}]};
+const qShort=l=>l.replace('Q1 ',"Q1'").replace('Q2 ',"Q2'").replace('Q3 ',"Q3'").replace('Q4 ',"Q4'").replace('20',"");
+function renderActuals(){
+  const Q=ACT.quarters, B=ACT.bs, T=ACT.ttm, C=ACT.fy25comp;
+  const ttmGm=T.gross/T.revenue;
+  const latest=B[B.length-1];
+  // KPIs
+  document.getElementById('a_rev').textContent=fUSDk(T.revenue);
+  document.getElementById('a_rev_sub').textContent=T.labels[0].replace('20',"'")+' → '+T.labels[3].replace('20',"'");
+  document.getElementById('a_gm').textContent=fPct(ttmGm);
+  document.getElementById('a_eb').textContent=fUSDk(T.ebitda);
+  document.getElementById('a_fy').textContent=fUSDk(ACT.years[0].revenue);
+  document.getElementById('a_cash').textContent=fUSDk(latest.cash);
+  document.getElementById('a_cash_sub').textContent=latest.label;
+  document.getElementById('a_ar').textContent=fUSDk(latest.ar);
+  document.getElementById('a_ar_sub').textContent=latest.label+' uncollected';
+  // takeaways
+  const hiQ=Q.reduce((a,b)=>b.gm>a.gm?b:a), loQ=Q.reduce((a,b)=>b.gm<a.gm?b:a);
+  document.getElementById('takeaways').innerHTML=`
+    <div class="tk warn"><h4>Don't trust one quarter</h4><p><b>${qShort(hiQ.label)}</b> looked like a <b>${fPct(hiQ.gm)}</b> margin; <b>${qShort(loQ.label)}</b> looked like <b>${fPct(loQ.gm)}</b>. Same company — that's billing timing, not the business swinging.</p></div>
+    <div class="tk good"><h4>The real earning power</h4><p>Add the last 4 quarters: <b>${fUSDk(T.revenue)}</b> in sales and <b>${fUSDk(T.ebitda)}</b> of operating profit — a steady <b>${fPct(ttmGm)}</b> blended margin. <i>That's</i> the number to manage.</p></div>
+    <div class="tk warn"><h4>Profit is stuck in invoices</h4><p>At ${latest.label} you had <b>${fUSDk(latest.ar)}</b> owed by customers but only <b>${fUSDk(latest.cash)}</b> in the bank. Collecting faster is your nearest cash.</p></div>`;
+  // donut pct notes
+  const fy=ACT.years[0];
+  document.getElementById('d_jobpct').textContent=fPct((C.labor+C.materials)/fy.revenue);
+  document.getElementById('d_opexpct').textContent=fPct(C.overhead/fy.revenue);
+
+  const labs=Q.map(q=>qShort(q.label));
+  // 1) quarterly rev + GM line
+  mk('aQRev','bar',{labels:labs,datasets:[
+    {label:'Revenue',data:Q.map(q=>q.revenue),backgroundColor:STEEL,borderRadius:5,yAxisID:'y',order:2,
+      datalabels:{display:true,anchor:'end',align:'top',offset:2,color:STEEL,font:{size:9,weight:'700'},formatter:fUSDk}},
+    {label:'GM%',data:Q.map(q=>q.gm*100),type:'line',borderColor:GOLD,backgroundColor:GOLD,borderWidth:2.5,pointRadius:3.5,pointBackgroundColor:Q.map(q=>q.gm<0?RED:GOLD),yAxisID:'y1',order:1,tension:.25,
+      datalabels:{display:true,align:'top',offset:6,color:q=>'#9a6f1c',font:{size:9,weight:'700'},formatter:v=>v.toFixed(0)+'%'}}
+  ]},{layout:{padding:{top:22,right:8}},scales:{y:{ticks:{callback:v=>'$'+(v/1e3).toFixed(0)+'K'},grid:{color:GRID}},y1:{position:'right',ticks:{callback:v=>v+'%'},grid:{display:false},suggestedMin:-90,suggestedMax:90}},plugins:{legend:{display:false}}});
+  // 2) quarterly EBITDA
+  mk('aQEb','bar',{labels:labs,datasets:[
+    {label:'EBITDA',data:Q.map(q=>q.ebitda),backgroundColor:Q.map(q=>q.ebitda<0?RED:NAVY),borderRadius:4,
+      datalabels:{display:true,anchor:q=>'end',align:q=>q.dataset.data[q.dataIndex]<0?'bottom':'top',offset:2,color:Q.map(q=>q.ebitda<0?RED:NAVY),font:{size:9,weight:'700'},formatter:fUSDk}}
+  ]},{layout:{padding:{top:20,bottom:14,right:8}},scales:{y:{ticks:{callback:v=>'$'+(v/1e3).toFixed(0)+'K'},grid:{color:GRID}}},plugins:{legend:{display:false}}});
+  // 3) FY2025 dollar doughnut
+  const dvals=[C.labor,C.materials,C.overhead,C.profit];
+  const dtot=dvals.reduce((a,b)=>a+b,0);
+  mk('aDonut','doughnut',{labels:['Labor (job cost)','Materials (job cost)','Overhead','Profit (EBITDA)'],datasets:[
+    {data:dvals,backgroundColor:[NAVY,STEEL,'#c9b27a',GREEN],borderColor:'#fffdf9',borderWidth:2,
+      datalabels:{display:true,color:'#fff',font:{size:9,weight:'700'},formatter:(v)=>(v/dtot*100).toFixed(0)+'%'}}
+  ]},{cutout:'52%',scales:{},plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:9.5},padding:8}},tooltip:{callbacks:{label:c=>c.label+': '+fUSDk(c.raw)+' ('+(c.raw/dtot*100).toFixed(0)+'%)'}}}});
+  // 4) FY2025 opex top items (horizontal)
+  const ox=ACT.fy25opex;
+  mk('aOpex','bar',{labels:ox.map(o=>o.label),datasets:[
+    {label:'FY2025',data:ox.map(o=>o.value),backgroundColor:'#c9b27a',borderRadius:4,
+      datalabels:{display:true,anchor:'end',align:'end',offset:2,color:INK,font:{size:9,weight:'700'},formatter:fUSDk}}
+  ]},{indexAxis:'y',layout:{padding:{right:46}},scales:{x:{ticks:{callback:v=>'$'+(v/1e3).toFixed(0)+'K'},grid:{color:GRID}},y:{grid:{display:false},ticks:{font:{size:9}}}},plugins:{legend:{display:false}}});
+  // 5) cash vs AR
+  mk('aCashAr','line',{labels:B.map(b=>qShort(b.label)),datasets:[
+    {label:'Owed by customers (A/R)',data:B.map(b=>b.ar),borderColor:GOLD,backgroundColor:'rgba(200,150,47,.12)',fill:true,borderWidth:2.5,pointRadius:3,pointBackgroundColor:GOLD,tension:.25,
+      datalabels:{display:true,align:'top',offset:5,color:'#9a6f1c',font:{size:8.5,weight:'700'},formatter:fUSDk}},
+    {label:'Cash in bank',data:B.map(b=>b.cash),borderColor:GREEN,backgroundColor:'rgba(47,125,79,.12)',fill:true,borderWidth:2.5,pointRadius:3,pointBackgroundColor:GREEN,tension:.25,
+      datalabels:{display:true,align:'bottom',offset:5,color:GREEN,font:{size:8.5,weight:'700'},formatter:fUSDk}}
+  ]},{layout:{padding:{top:18,right:8}},scales:{y:{ticks:{callback:v=>'$'+(v/1e3).toFixed(0)+'K'},grid:{color:GRID}}},plugins:{legend:{display:true,labels:{boxWidth:10,font:{size:9}}}}});
+  // 6) equity build
+  mk('aEquity','line',{labels:B.map(b=>qShort(b.label)),datasets:[
+    {label:'Equity (book value)',data:B.map(b=>b.equity),borderColor:NAVY,backgroundColor:'rgba(19,41,61,.08)',fill:true,borderWidth:2.5,pointRadius:3,pointBackgroundColor:NAVY,tension:.25,
+      datalabels:{display:true,align:'top',offset:5,color:NAVY,font:{size:8.5,weight:'700'},formatter:fUSDk}}
+  ]},{layout:{padding:{top:18,right:8}},scales:{y:{ticks:{callback:v=>'$'+(v/1e3).toFixed(0)+'K'},grid:{color:GRID}}},plugins:{legend:{display:false}}});
+  // table
+  buildActTable(ttmGm);
+}
+function buildActTable(ttmGm){
+  const Q=ACT.quarters,B=ACT.bs,T=ACT.ttm,FY=ACT.years[0];
+  const bsBy={};B.forEach(b=>bsBy[b.label]=b);
+  const cols=[...Q.map(q=>q.label), 'FY2025', 'TTM'];
+  const short=l=>l==='FY2025'?'FY2025':(l==='TTM'?'TTM*':qShort(l));
+  const get=(c,key)=>{
+    if(c==='FY2025')return FY[key];
+    if(c==='TTM')return key==='gm'?ttmGm:T[key];
+    const q=Q.find(x=>x.label===c);return q?q[key]:null;
+  };
+  const getbs=(c,key)=>{if(c==='FY2025'||c==='TTM')return null;const b=bsBy[c];return b?b[key]:null;};
+  const cell=(v,f)=>{if(v===null||v===undefined)return '<td class="col-act">—</td>';if(f==='%')return `<td${v<0?' class="neg"':''}>${fPct(v)}</td>`;return `<td${v<0?' class="neg"':''}>${fUSD(v)}</td>`;};
+  let h=`<thead><tr><th>$ unless noted</th>${cols.map(c=>`<th>${short(c)}</th>`).join('')}</tr></thead><tbody>`;
+  const row=(lab,key,f,cls)=>`<tr class="${cls||''}"><td>${lab}</td>${cols.map(c=>cell(get(c,key),f)).join('')}</tr>`;
+  const rowbs=(lab,key,cls)=>`<tr class="${cls||''}"><td>${lab}</td>${cols.map(c=>cell(getbs(c,key),'$')).join('')}</tr>`;
+  h+=row('Revenue','revenue','$','sect');
+  h+=row('Total COGS (job costs)','cogs','$');
+  h+=row('Gross profit','gross','$','gold');
+  h+=row('Gross margin %','gm','%','gold');
+  h+=row('Operating expenses','opex','$');
+  h+=row('EBITDA (operating profit)','ebitda','$','hl');
+  h+=row('Net income','netinc','$');
+  h+=`<tr class="sect"><td>Balance sheet (quarter-end)</td>${cols.map(()=>'<td></td>').join('')}</tr>`;
+  h+=rowbs('Cash in bank','cash');
+  h+=rowbs('Owed by customers (A/R)','ar');
+  h+=rowbs('Equity (book value)','equity');
+  h+='</tbody>';
+  document.getElementById('actTable').innerHTML=h;
+}
+
+// ================= TAB SWITCHING =================
+let modelRendered=false;
+const TAGS={actuals:'Financial Command Center · The Numbers Today',model:'Long-Range Model · The Plan to Exit'};
+function showTab(name){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===name));
+  document.getElementById('tab-actuals').hidden=(name!=='actuals');
+  document.getElementById('tab-model').hidden=(name!=='model');
+  document.getElementById('brandtag').textContent=TAGS[name];
+  // fix Chart.js sizing for charts created while their panel was hidden
+  requestAnimationFrame(()=>Object.values(charts).forEach(c=>{try{c.resize();}catch(e){}}));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+
+document.getElementById('stamp').textContent='Generated '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+buildControls();render();renderActuals();
+{const ps=document.getElementById('pullstamp');if(ps)ps.textContent='Pulled '+ACT.pulled.split(' ')[0];}
+</script>
+</body>
+</html>

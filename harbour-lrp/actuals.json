@@ -1,0 +1,533 @@
+{
+  "pulled_at": "2026-06-04 20:26",
+  "realm": "9341453971098132",
+  "quarters": [
+    {
+      "revenue": 0.0,
+      "cogs": 0.0,
+      "gross": 0.0,
+      "opex": 0.0,
+      "ebitda": 0.0,
+      "netop": 0.0,
+      "netinc": 0.0,
+      "gm": 0.0,
+      "label": "Q1 2024",
+      "end": "2024-03-31"
+    },
+    {
+      "revenue": 0.0,
+      "cogs": 0.0,
+      "gross": 0.0,
+      "opex": 0.0,
+      "ebitda": 0.0,
+      "netop": 0.0,
+      "netinc": 0.0,
+      "gm": 0.0,
+      "label": "Q2 2024",
+      "end": "2024-06-30"
+    },
+    {
+      "revenue": 0.0,
+      "cogs": 0.0,
+      "gross": 0.0,
+      "opex": 0.0,
+      "ebitda": 0.0,
+      "netop": 0.0,
+      "netinc": 0.0,
+      "gm": 0.0,
+      "label": "Q3 2024",
+      "end": "2024-09-30"
+    },
+    {
+      "revenue": 0.0,
+      "cogs": 0.0,
+      "gross": 0.0,
+      "opex": 0.0,
+      "ebitda": 0.0,
+      "netop": 0.0,
+      "netinc": 0.0,
+      "gm": 0.0,
+      "label": "Q4 2024",
+      "end": "2024-12-31"
+    },
+    {
+      "revenue": 54756.49,
+      "cogs": 27283.78,
+      "gross": 27472.71,
+      "opex": 1349.61,
+      "ebitda": 26123.1,
+      "netop": 26123.1,
+      "netinc": 26117.1,
+      "gm": 0.5017,
+      "label": "Q1 2025",
+      "end": "2025-03-31"
+    },
+    {
+      "revenue": 481946.27,
+      "cogs": 124937.11,
+      "gross": 357009.16,
+      "opex": 48683.07,
+      "ebitda": 308326.09,
+      "netop": 308326.09,
+      "netinc": 307840.36,
+      "gm": 0.7408,
+      "label": "Q2 2025",
+      "end": "2025-06-30"
+    },
+    {
+      "revenue": 488575.37,
+      "cogs": 248278.54,
+      "gross": 240296.83,
+      "opex": 35613.74,
+      "ebitda": 204683.09,
+      "netop": 204683.09,
+      "netinc": 202736.8,
+      "gm": 0.4918,
+      "label": "Q3 2025",
+      "end": "2025-09-30"
+    },
+    {
+      "revenue": 230558.02,
+      "cogs": 191951.82,
+      "gross": 38606.2,
+      "opex": 31034.68,
+      "ebitda": 7571.52,
+      "netop": 7571.52,
+      "netinc": 6438.52,
+      "gm": 0.1674,
+      "label": "Q4 2025",
+      "end": "2025-12-31"
+    },
+    {
+      "revenue": 113250.97,
+      "cogs": 202621.45,
+      "gross": -89370.48,
+      "opex": 33495.74,
+      "ebitda": -122866.22,
+      "netop": -122866.22,
+      "netinc": -125710.17,
+      "gm": -0.7891,
+      "label": "Q1 2026",
+      "end": "2026-03-31"
+    }
+  ],
+  "years": [
+    {
+      "revenue": 0.0,
+      "cogs": 0.0,
+      "gross": 0.0,
+      "opex": 0.0,
+      "ebitda": 0.0,
+      "netop": 0.0,
+      "netinc": 0.0,
+      "gm": 0.0,
+      "items": [],
+      "label": "FY2023"
+    },
+    {
+      "revenue": 0.0,
+      "cogs": 0.0,
+      "gross": 0.0,
+      "opex": 0.0,
+      "ebitda": 0.0,
+      "netop": 0.0,
+      "netinc": 0.0,
+      "gm": 0.0,
+      "items": [],
+      "label": "FY2024"
+    },
+    {
+      "revenue": 1255836.15,
+      "cogs": 592451.25,
+      "gross": 663384.9,
+      "opex": 116681.1,
+      "ebitda": 546703.8,
+      "netop": 546703.8,
+      "netinc": 543132.78,
+      "gm": 0.5282,
+      "items": [
+        {
+          "section": "Income",
+          "label": "4000 Construction Revenue",
+          "value": 1232682.63
+        },
+        {
+          "section": "Income",
+          "label": "4010 Houzz Pro Services",
+          "value": 15541.15
+        },
+        {
+          "section": "Income",
+          "label": "4020 Design Services Income",
+          "value": 2500.0
+        },
+        {
+          "section": "Income",
+          "label": "4210 Houzz Pro Products",
+          "value": 5112.37
+        },
+        {
+          "section": "Cost of Goods Sold",
+          "label": "5010 Cost of labor - COGS",
+          "value": 393817.46
+        },
+        {
+          "section": "Cost of Goods Sold",
+          "label": "5020 Equipment rental - COGS",
+          "value": 362.09
+        },
+        {
+          "section": "Cost of Goods Sold",
+          "label": "5030 Fixtures and Furniture for Projects",
+          "value": 3822.42
+        },
+        {
+          "section": "Cost of Goods Sold",
+          "label": "5050 Supplies & materials - COGS",
+          "value": 194449.28
+        },
+        {
+          "section": "Expenses",
+          "label": "6010 Business Event",
+          "value": 7981.72
+        },
+        {
+          "section": "Expenses",
+          "label": "6020 Listing fees",
+          "value": 3360.0
+        },
+        {
+          "section": "Expenses",
+          "label": "6030 Networking and Self Promotion",
+          "value": 1729.31
+        },
+        {
+          "section": "Expenses",
+          "label": "6040 Referral Fees Expense",
+          "value": 3000.0
+        },
+        {
+          "section": "Expenses",
+          "label": "6050 Social media",
+          "value": 3098.35
+        },
+        {
+          "section": "Expenses",
+          "label": "6060 Website ads",
+          "value": -42.33
+        },
+        {
+          "section": "Expenses",
+          "label": "6065 Business licenses",
+          "value": 671.15
+        },
+        {
+          "section": "Expenses",
+          "label": "6070 Commissions & fees",
+          "value": 7002.9
+        },
+        {
+          "section": "Expenses",
+          "label": "6080 Contributions to charities",
+          "value": 118.3
+        },
+        {
+          "section": "Expenses",
+          "label": "6115 Health insurance & accident plans",
+          "value": 93.82
+        },
+        {
+          "section": "Expenses",
+          "label": "6120 Workers' compensation insurance",
+          "value": 2552.71
+        },
+        {
+          "section": "Expenses",
+          "label": "6205 Bank fees & service charges",
+          "value": 148.96
+        },
+        {
+          "section": "Expenses",
+          "label": "6215 Gifts",
+          "value": 59.56
+        },
+        {
+          "section": "Expenses",
+          "label": "6220 Memberships & subscriptions",
+          "value": 245.99
+        },
+        {
+          "section": "Expenses",
+          "label": "6221 Subcontractor",
+          "value": 3650.0
+        },
+        {
+          "section": "Expenses",
+          "label": "6225 Uniforms",
+          "value": 163.6
+        },
+        {
+          "section": "Expenses",
+          "label": "6300 Insurance",
+          "value": 5951.52
+        },
+        {
+          "section": "Expenses",
+          "label": "6510 Accounting fees",
+          "value": 3800.0
+        },
+        {
+          "section": "Expenses",
+          "label": "6520 Legal fees",
+          "value": 907.0
+        },
+        {
+          "section": "Expenses",
+          "label": "6560 Business Meals",
+          "value": 5258.73
+        },
+        {
+          "section": "Expenses",
+          "label": "6610 Office supplies",
+          "value": 3030.42
+        },
+        {
+          "section": "Expenses",
+          "label": "6620 Shipping & postage",
+          "value": 835.77
+        },
+        {
+          "section": "Expenses",
+          "label": "6625 Small tools & equipment",
+          "value": 202.68
+        },
+        {
+          "section": "Expenses",
+          "label": "6630 Software & apps",
+          "value": 1471.29
+        },
+        {
+          "section": "Expenses",
+          "label": "6631 Design Tools / Software",
+          "value": 1675.2
+        },
+        {
+          "section": "Expenses",
+          "label": "6635 Office Snacks (50%)",
+          "value": 1927.81
+        },
+        {
+          "section": "Expenses",
+          "label": "6710 Payroll Processing Fees",
+          "value": 961.12
+        },
+        {
+          "section": "Expenses",
+          "label": "6715 Taxes",
+          "value": 3171.67
+        },
+        {
+          "section": "Expenses",
+          "label": "6725 Salaries & wages (Gusto)",
+          "value": 29146.19
+        },
+        {
+          "section": "Expenses",
+          "label": "6760 QuickBooks Payments Fees",
+          "value": 7903.02
+        },
+        {
+          "section": "Expenses",
+          "label": "6770 Recruiting and Hiring Expense",
+          "value": 5.28
+        },
+        {
+          "section": "Expenses",
+          "label": "6860 Supplies & materials",
+          "value": 3215.64
+        },
+        {
+          "section": "Expenses",
+          "label": "6910 Airfare",
+          "value": 270.0
+        },
+        {
+          "section": "Expenses",
+          "label": "6920 Hotels",
+          "value": 393.42
+        },
+        {
+          "section": "Expenses",
+          "label": "6930 Taxis or shared rides",
+          "value": 106.1
+        },
+        {
+          "section": "Expenses",
+          "label": "6955 Disposal & waste fees",
+          "value": 3297.8
+        },
+        {
+          "section": "Expenses",
+          "label": "6975 Phone service",
+          "value": 662.54
+        },
+        {
+          "section": "Other Expenses",
+          "label": "7010 Parking & tolls",
+          "value": 6.0
+        },
+        {
+          "section": "Other Expenses",
+          "label": "7030 Vehicle gas & fuel",
+          "value": 1617.76
+        },
+        {
+          "section": "Other Expenses",
+          "label": "7050 Vehicle registration",
+          "value": 107.68
+        },
+        {
+          "section": "Other Expenses",
+          "label": "7060 Vehicle repairs",
+          "value": 1612.58
+        },
+        {
+          "section": "Other Expenses",
+          "label": "7070 Vehicle wash & road services",
+          "value": 22.0
+        },
+        {
+          "section": "Other Expenses",
+          "label": "Late Fees and Penalties",
+          "value": 205.0
+        }
+      ],
+      "label": "FY2025"
+    }
+  ],
+  "bs": [
+    {
+      "cash": 0.0,
+      "ar": 0.0,
+      "curasset": 0.0,
+      "totasset": 0.0,
+      "ap": 0.0,
+      "curliab": 0.0,
+      "totliab": 0.0,
+      "equity": 0.0,
+      "label": "Q1 2024",
+      "end": "2024-03-31"
+    },
+    {
+      "cash": 0.0,
+      "ar": 0.0,
+      "curasset": 0.0,
+      "totasset": 0.0,
+      "ap": 0.0,
+      "curliab": 0.0,
+      "totliab": 0.0,
+      "equity": 0.0,
+      "label": "Q2 2024",
+      "end": "2024-06-30"
+    },
+    {
+      "cash": 0.0,
+      "ar": 0.0,
+      "curasset": 0.0,
+      "totasset": 0.0,
+      "ap": 0.0,
+      "curliab": 0.0,
+      "totliab": 0.0,
+      "equity": 0.0,
+      "label": "Q3 2024",
+      "end": "2024-09-30"
+    },
+    {
+      "cash": 0.0,
+      "ar": 0.0,
+      "curasset": 0.0,
+      "totasset": 0.0,
+      "ap": 0.0,
+      "curliab": 0.0,
+      "totliab": 0.0,
+      "equity": 0.0,
+      "label": "Q4 2024",
+      "end": "2024-12-31"
+    },
+    {
+      "cash": 16190.88,
+      "ar": 13294.22,
+      "curasset": 29485.1,
+      "totasset": 29485.1,
+      "ap": 0.0,
+      "curliab": 7000.0,
+      "totliab": 7000.0,
+      "equity": 22485.1,
+      "label": "Q1 2025",
+      "end": "2025-03-31"
+    },
+    {
+      "cash": 36316.97,
+      "ar": 227526.51,
+      "curasset": 263843.48,
+      "totasset": 263843.48,
+      "ap": 0.0,
+      "curliab": -27202.18,
+      "totliab": -27202.18,
+      "equity": 291045.66,
+      "label": "Q2 2025",
+      "end": "2025-06-30"
+    },
+    {
+      "cash": 16822.47,
+      "ar": 342244.34,
+      "curasset": 368016.81,
+      "totasset": 368016.81,
+      "ap": 0.0,
+      "curliab": -42958.09,
+      "totliab": -42958.09,
+      "equity": 410974.9,
+      "label": "Q3 2025",
+      "end": "2025-09-30"
+    },
+    {
+      "cash": 28284.88,
+      "ar": 321862.45,
+      "curasset": 377397.31,
+      "totasset": 377397.31,
+      "ap": 0.0,
+      "curliab": -24880.51,
+      "totliab": -24880.51,
+      "equity": 402277.82,
+      "label": "Q4 2025",
+      "end": "2025-12-31"
+    },
+    {
+      "cash": 2720.56,
+      "ar": 221207.74,
+      "curasset": 251178.28,
+      "totasset": 251178.28,
+      "ap": 2500.0,
+      "curliab": -13558.13,
+      "totliab": 40485.86,
+      "equity": 210692.42,
+      "label": "Q1 2026",
+      "end": "2026-03-31"
+    }
+  ],
+  "ttm": {
+    "revenue": 1314330.63,
+    "cogs": 767788.92,
+    "gross": 546541.71,
+    "opex": 148827.23,
+    "ebitda": 397714.48,
+    "netinc": 391305.51,
+    "labels": [
+      "Q2 2025",
+      "Q3 2025",
+      "Q4 2025",
+      "Q1 2026"
+    ],
+    "gm": 0.4158
+  }
+}
