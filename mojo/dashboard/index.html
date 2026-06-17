@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <style>
 :root{
   --gold:#E8B35B;--gold2:#D99B33;--espresso:#1C120A;--espresso2:#2A1B10;--coffee:#6F4E37;
@@ -350,6 +351,9 @@ const GOLD='#E8B35B',ESP='#2A1B10',COFFEE='#6F4E37',CARAMEL='#AE7F57',LATTE='#C5
 const PAL=['#E8B35B','#6F4E37','#AE7F57','#C5A486','#8C6B4F','#C9A66B','#7A5C44','#D9C3A0','#5E4632','#B07A3D','#9C6B45','#caa55f','#7d5a3a'];
 const DOLLAR=[COFFEE,GOLD,CARAMEL,LATTE,POS];
 Chart.defaults.font.family="'Plus Jakarta Sans',sans-serif";Chart.defaults.color='#8A7861';Chart.defaults.font.size=11.5;
+if(window.ChartDataLabels){Chart.register(ChartDataLabels);}
+Chart.defaults.plugins.datalabels={display:false};
+const DLEND=fmt=>({display:true,anchor:'end',align:'end',clamp:true,color:'#5a4632',font:{weight:'700',size:10},formatter:fmt});
 function chip(v,goodUp){if(v==null)return '<span class="chip flat">—</span>';const good=goodUp?v>=0:v<0;return `<span class="chip ${good?'up':'down'}">${pc(v)}</span>`;}
 
 document.querySelectorAll('#alt button').forEach(b=>b.addEventListener('click',()=>{
@@ -442,7 +446,7 @@ function locCards(){
     <div class="lstat"><span>Net <b class="${r.net>=0?'pos':'neg'}">${r.net_margin}%</b></span><span>GM <b>${r.gross_margin}%</b></span><span>Labor <b>${r.payroll_pct}%</b></span><span>YTD ${chip(r.sp_growth,true)}</span></div>
   </div>`).join('');
 }
-function hbar(xfmt,lblfmt){return{indexAxis:'y',animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:lblfmt}}},
+function hbar(xfmt,lblfmt){return{indexAxis:'y',animation:false,layout:{padding:{right:42}},plugins:{legend:{display:false},tooltip:{callbacks:{label:lblfmt}},datalabels:DLEND(v=>xfmt(v))},
   scales:{x:{grid:{color:LINE},ticks:{callback:xfmt}},y:{grid:{display:false}}}};}
 function drawLocCharts(){
   if(!charts.cBubble){const grpColor={Mojo:GOLD,'Forest Moon':COFFEE,Sisters:LATTE};
@@ -473,7 +477,7 @@ function drawLocCharts(){
       {label:'Payroll & labor',data:cs.map(r=>r.payroll_pct),backgroundColor:GOLD,stack:'c'},
       {label:'Rent / occupancy',data:cs.map(r=>r.rent_pct),backgroundColor:CARAMEL,stack:'c'},
       {label:'Other operating',data:cs.map(r=>r.other_pct),backgroundColor:LATTE,stack:'c'}]},
-    options:{indexAxis:'y',animation:false,plugins:{legend:{position:'top',labels:{boxWidth:12,padding:9,usePointStyle:true}},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+c.raw+'% of revenue'}}},
+    options:{indexAxis:'y',animation:false,plugins:{legend:{position:'top',labels:{boxWidth:12,padding:9,usePointStyle:true}},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+c.raw+'% of revenue'}},datalabels:{display:true,color:'#fff',font:{size:9,weight:'700'},anchor:'center',align:'center',formatter:v=>v>=8?v+'%':''}},
       scales:{x:{stacked:true,grid:{color:LINE},ticks:{callback:v=>v+'%'},max:115},y:{stacked:true,grid:{display:false}}}}});
   if(!charts.cLocTrend){const shops=D.locations.filter(r=>r.group!=='Sisters');
     charts.cLocTrend=new Chart(document.getElementById('cLocTrend'),{type:'line',
@@ -492,11 +496,12 @@ function drawAnnual(){if(charts.cAnnual)return;const a=D.annual;
       {label:'Roastery',data:a.forest,backgroundColor:COFFEE,stack:'g',borderRadius:3},
       {label:'Property LLCs',data:a.sisters,backgroundColor:LATTE,stack:'g',borderRadius:3},
       {type:'line',label:'Net income',data:a.net,borderColor:POS,backgroundColor:'transparent',borderWidth:2,tension:.3,pointRadius:2}]},
-    options:{animation:false,plugins:{legend:{position:'top',labels:{boxWidth:12,padding:9,usePointStyle:true}},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+f0(c.raw)}}},
+    options:{animation:false,plugins:{legend:{position:'top',labels:{boxWidth:12,padding:9,usePointStyle:true}},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+f0(c.raw)}},
+      datalabels:{color:'#fff',font:{size:8.5,weight:'700'},anchor:'center',align:'center',display:ctx=>ctx.dataset.type!=='line'&&ctx.dataset.data[ctx.dataIndex]>=350000,formatter:v=>v>=1e6?'$'+(v/1e6).toFixed(1)+'M':'$'+Math.round(v/1000)+'k'}},
       scales:{x:{grid:{display:false},stacked:true},y:{stacked:true,grid:{color:LINE},ticks:{callback:v=>k0(v)}}}}});}
 function drawStores(){if(charts.cStores)return;const s=D.store_growth;
   charts.cStores=new Chart(document.getElementById('cStores'),{type:'bar',data:{labels:s.years,datasets:[{label:'Locations open',data:s.counts,backgroundColor:COFFEE,borderRadius:4}]},
-    options:{animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw+' open'}}},scales:{x:{grid:{display:false}},y:{grid:{color:LINE},ticks:{stepSize:1,precision:0}}}}});}
+    options:{animation:false,layout:{padding:{top:16}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw+' open'}},datalabels:{display:true,anchor:'end',align:'top',color:'#5a4632',font:{weight:'700',size:10},formatter:v=>v}},scales:{x:{grid:{display:false}},y:{grid:{color:LINE},ticks:{stepSize:1,precision:0}}}}});}
 function drawMargin(){if(charts.cMargin)return;const m=D.margin;
   charts.cMargin=new Chart(document.getElementById('cMargin'),{type:'line',data:{labels:m.years,datasets:[
     {label:'Gross margin %',data:m.gm,borderColor:GOLD,backgroundColor:'rgba(232,179,91,.12)',fill:true,tension:.3,pointRadius:2,borderWidth:2},
@@ -505,7 +510,7 @@ function drawMargin(){if(charts.cMargin)return;const m=D.margin;
       scales:{x:{grid:{display:false}},y:{grid:{color:LINE},ticks:{callback:v=>v+'%'}}}}});}
 function drawYoY(){if(charts.cYoY)return;const y=D.yoy_measures;
   charts.cYoY=new Chart(document.getElementById('cYoY'),{type:'bar',data:{labels:y.map(r=>r.name),datasets:[{label:'YoY %',data:y.map(r=>r.pct),backgroundColor:y.map(r=>r.pct>=0?POS:NEG),borderRadius:4}]},
-    options:{indexAxis:'y',animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+pc(c.raw)}}},scales:{x:{grid:{color:LINE},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}}}});}
+    options:{indexAxis:'y',animation:false,layout:{padding:{right:42}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+pc(c.raw)}},datalabels:DLEND(v=>pc(v))},scales:{x:{grid:{color:LINE},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}}}});}
 function drawMonthly(){if(charts.cMonthly)return;const m=D.monthly;
   charts.cMonthly=new Chart(document.getElementById('cMonthly'),{type:'line',data:{labels:m.months,datasets:[
     {label:'Revenue',data:m.income,borderColor:GOLD,backgroundColor:'rgba(232,179,91,.14)',fill:true,tension:.3,pointRadius:0,borderWidth:2},
@@ -514,10 +519,10 @@ function drawMonthly(){if(charts.cMonthly)return;const m=D.monthly;
       scales:{x:{grid:{display:false},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:10}},y:{grid:{color:LINE},ticks:{callback:v=>k0(v)}}}}});}
 function drawSeason(){if(charts.cSeason)return;const s=D.seasonality;
   charts.cSeason=new Chart(document.getElementById('cSeason'),{type:'bar',data:{labels:s.months,datasets:[{label:'Revenue index',data:s.index,backgroundColor:s.months.map(m=>m===s.peak?GOLD:(m===s.low?LATTE:CARAMEL)),borderRadius:4}]},
-    options:{animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' index '+c.raw+' (100 = typical month)'}}},scales:{x:{grid:{display:false}},y:{grid:{color:LINE},ticks:{callback:v=>v}}}}});}
-function drawMix(){if(charts.cMix)return;const b=D.buckets.slice(0,9);
+    options:{animation:false,layout:{padding:{top:16}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' index '+c.raw+' (100 = typical month)'}},datalabels:{display:true,anchor:'end',align:'top',color:'#5a4632',font:{weight:'700',size:9.5},formatter:v=>v}},scales:{x:{grid:{display:false}},y:{grid:{color:LINE},ticks:{callback:v=>v}}}}});}
+function drawMix(){if(charts.cMix)return;const b=D.buckets.slice(0,9);const mixT=b.reduce((s,x)=>s+x.amt,0);
   charts.cMix=new Chart(document.getElementById('cMix'),{type:'doughnut',data:{labels:b.map(x=>x.name),datasets:[{data:b.map(x=>x.amt),backgroundColor:PAL}]},
-    options:{animation:false,cutout:'56%',plugins:{legend:{position:'right',labels:{boxWidth:11,padding:7,font:{size:10.5}}},tooltip:{callbacks:{label:c=>' '+c.label+': '+f0(c.raw)}}}}});}
+    options:{animation:false,cutout:'56%',plugins:{legend:{position:'right',labels:{boxWidth:11,padding:7,font:{size:10.5}}},tooltip:{callbacks:{label:c=>' '+c.label+': '+f0(c.raw)+' ('+Math.round(c.raw/mixT*100)+'%)'}},datalabels:{display:true,color:'#fff',font:{size:10,weight:'700'},formatter:(v)=>{const p=Math.round(v/mixT*100);return p>=6?p+'%':'';}}}}});}
 
 /* ---------- valuation scenario tester ---------- */
 const V=D.valuation;
