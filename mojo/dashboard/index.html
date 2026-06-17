@@ -156,6 +156,9 @@ tr.sum{font-weight:800;background:var(--goldbg)} tr.sum td{border-top:2px solid 
 .presetbtn{border:1px solid var(--line);background:#fff;color:var(--espresso);font-family:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer;transition:.15s}
 .presetbtn:hover{border-color:var(--gold);background:var(--goldbg)}
 .presetbtn.warm{background:var(--goldbg);border-color:var(--gold)}
+.presetbtn.step{background:var(--goldbg);border-color:var(--gold);min-width:78px}
+.presetbtn.step:hover{background:var(--gold);color:#fff}
+.ctrlbar .xmark{color:var(--muted);font-weight:700;margin-left:1px}
 .bighero{background:linear-gradient(135deg,var(--espresso),var(--espresso2) 60%,#3B2616);color:#f3e7d4;border-radius:16px;padding:24px 26px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .bighero::after{content:"";position:absolute;right:-80px;top:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(232,179,91,.18),transparent 68%)}
 .bighero .bl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);position:relative}
@@ -286,7 +289,7 @@ footer b{color:var(--ink)}
 <!-- valuation scenario tester -->
 <section class="tier" id="val">
   <div class="tierhead"><h2 class="shimmer">Valuation Scenario Tester</h2><span class="tag">Interactive &middot; your inputs</span></div>
-  <div class="disc"><b>Play with the assumptions.</b> Edit the EBITDA add-backs, the multiple on any company, the property values and net debt &mdash; the totals update live. Defaults start at FY2025 operating EBITDA and a 6.5&times; base multiple. Illustrative only; a buyer's quality-of-earnings review sets the real numbers.</div>
+  <div class="disc"><b>Play with the assumptions.</b> Edit the EBITDA add-backs, the multiple on any company, the property values and net debt &mdash; the totals update live. Defaults start at FY2025 operating EBITDA and a 6.0&times; multiple; use the &minus;0.5 / +0.5 buttons to move it. Illustrative only; a buyer's quality-of-earnings review sets the real numbers.</div>
 
   <div class="grid g2" style="align-items:stretch">
     <div class="bighero">
@@ -306,15 +309,13 @@ footer b{color:var(--ink)}
   <div class="sec">Set your assumptions</div>
   <div class="card">
     <div class="ctrlbar">
-      <span class="grp">Quick scenarios:</span>
-      <button class="presetbtn" data-mult="5">Conservative &mdash; 5.0&times;</button>
-      <button class="presetbtn warm" data-mult="6.5">Base &mdash; 6.5&times;</button>
-      <button class="presetbtn" data-mult="8">Aggressive &mdash; 8.0&times;</button>
+      <span class="grp">Multiple on all shops: <input class="vin mult" id="allMult" type="number" step="0.5" min="0" value="6.0"><span class="xmark">&times;</span></span>
+      <button class="presetbtn step" id="multDown">&minus; 0.5&times;</button>
+      <button class="presetbtn step" id="multUp">+ 0.5&times;</button>
       <button class="presetbtn" id="normBtn">Normalize ramp units to break-even</button>
       <button class="presetbtn" id="resetBtn">Reset all</button>
     </div>
     <div class="ctrlbar" style="margin-top:14px">
-      <span class="grp">Apply multiple to all shops: <input class="vin mult" id="allMult" type="number" step="0.5" min="0" value="6.5"></span>
       <span class="grp">Owner add-back, all shops: <input class="vin" id="ownerAdd" type="number" step="5000" value="0"> /shop</span>
       <span class="grp">Net debt: <input class="vin" id="netDebtIn" type="number" step="10000"></span>
     </div>
@@ -529,28 +530,28 @@ const V=D.valuation;
 let st={cos:[],net_debt:V.net_debt};
 function initState(){
   st.cos=V.companies.map(c=>({short:c.short,seg:c.seg,group:c.group,revenue:c.revenue,
-    ebitda:(c.seg==='OpCo'?c.ebitda:0),adj:0,mult:6.5,value:(c.seg==='PropCo'?c.nav:0)}));
+    ebitda:(c.seg==='OpCo'?c.ebitda:0),adj:0,mult:6.0,value:(c.seg==='PropCo'?c.nav:0)}));
   st.net_debt=V.net_debt;
 }
 function evCo(c){return c.seg==='OpCo'?Math.round((c.ebitda+c.adj)*c.mult):Math.round(c.value);}
 function buildScenTable(){
-  let h=`<thead><tr><th>Company</th><th>Seg</th><th>2025 Rev</th><th>Reported EBITDA</th><th>Add-back</th><th>Adj. EBITDA</th><th>Multiple</th><th>Value</th></tr></thead><tbody>`;
+  let h=`<thead><tr><th>Company</th><th>2025 Rev</th><th>Reported EBITDA</th><th>Add-back</th><th>Adj. EBITDA</th><th>Multiple</th><th>Value</th></tr></thead><tbody>`;
   st.cos.forEach((c,i)=>{
     if(c.seg==='OpCo'){
-      h+=`<tr><td><b>${c.short}</b></td><td><span class="gbadge ${c.group==='Mojo'?'gb-mojo':'gb-forest'}">OpCo</span></td>
+      h+=`<tr><td><b>${c.short}</b></td>
         <td>${f0(c.revenue)}</td><td class="${c.ebitda<0?'neg':''}">${f0s(c.ebitda)}</td>
         <td class="editc"><input class="vin" type="number" step="5000" data-i="${i}" data-f="adj" value="${c.adj}"></td>
         <td id="adje-${i}">—</td>
         <td class="editc"><input class="vin mult" type="number" step="0.5" min="0" data-i="${i}" data-f="mult" value="${c.mult}"></td>
         <td id="val-${i}"><b>—</b></td></tr>`;
     }else{
-      h+=`<tr><td><b>${c.short}</b></td><td><span class="gbadge gb-sisters">PropCo</span></td>
-        <td>${f0(c.revenue)}</td><td class="muted small" colspan="3">real estate — net asset value</td>
+      h+=`<tr><td><b>${c.short}</b></td>
+        <td>${f0(c.revenue)}</td><td class="muted small" colspan="3">real estate &middot; net asset value</td>
         <td class="muted small">n/a</td>
         <td class="editc"><input class="vin" type="number" step="10000" data-i="${i}" data-f="value" value="${c.value}"></td></tr>`;
     }
   });
-  h+=`<tr class="sum"><td>Total</td><td></td><td id="totRev"></td><td id="totEb"></td><td></td><td id="totAdjEb"></td><td id="totMult"></td><td id="totVal"></td></tr></tbody>`;
+  h+=`<tr class="sum"><td>Total</td><td id="totRev"></td><td id="totEb"></td><td></td><td id="totAdjEb"></td><td id="totMult"></td><td id="totVal"></td></tr></tbody>`;
   document.getElementById('scenTbl').innerHTML=h;
 }
 function recompute(){
@@ -584,17 +585,15 @@ function drawScenChart(){if(charts.cScen)return;const cv=st.cos.map(c=>({short:c
   charts.cScen=new Chart(document.getElementById('cScen'),{type:'bar',data:{labels:cv.map(c=>c.short),datasets:[{label:'Value',data:cv.map(c=>c.v),backgroundColor:cv.map(c=>c.op?GOLD:LATTE),borderRadius:4}]},options:hbar(v=>k0(v),c=>' '+f0(c.raw))});}
 document.getElementById('scenTbl').addEventListener('input',e=>{
   if(!e.target.matches('.vin'))return;const i=+e.target.dataset.i,f=e.target.dataset.f;st.cos[i][f]=parseFloat(e.target.value)||0;recompute();});
-document.querySelectorAll('#val .presetbtn[data-mult]').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#val .presetbtn[data-mult]').forEach(x=>x.classList.remove('warm'));b.classList.add('warm');
-  const m=parseFloat(b.dataset.mult);st.cos.forEach(c=>{if(c.seg==='OpCo')c.mult=m;});
-  document.getElementById('allMult').value=m;document.querySelectorAll('#scenTbl input[data-f="mult"]').forEach(inp=>inp.value=m);recompute();}));
+function setAllMult(m){m=Math.max(0,Math.round(m*2)/2);st.cos.forEach(c=>{if(c.seg==='OpCo')c.mult=m;});document.getElementById('allMult').value=m;document.querySelectorAll('#scenTbl input[data-f="mult"]').forEach(inp=>inp.value=m);recompute();}
+document.getElementById('multUp').addEventListener('click',()=>setAllMult((parseFloat(document.getElementById('allMult').value)||0)+0.5));
+document.getElementById('multDown').addEventListener('click',()=>setAllMult((parseFloat(document.getElementById('allMult').value)||0)-0.5));
 document.getElementById('allMult').addEventListener('input',e=>{const m=parseFloat(e.target.value)||0;st.cos.forEach(c=>{if(c.seg==='OpCo')c.mult=m;});document.querySelectorAll('#scenTbl input[data-f="mult"]').forEach(inp=>inp.value=m);recompute();});
 document.getElementById('ownerAdd').addEventListener('input',e=>{const a=parseFloat(e.target.value)||0;st.cos.forEach(c=>{if(c.seg==='OpCo')c.adj=a;});document.querySelectorAll('#scenTbl input[data-f="adj"]').forEach(inp=>inp.value=a);recompute();});
 document.getElementById('netDebtIn').addEventListener('input',e=>{st.net_debt=parseFloat(e.target.value)||0;recompute();});
 document.getElementById('normBtn').addEventListener('click',()=>{st.cos.forEach(c=>{if(c.seg==='OpCo'&&c.ebitda<0)c.adj=-c.ebitda;});
   document.querySelectorAll('#scenTbl input[data-f="adj"]').forEach(inp=>{inp.value=st.cos[+inp.dataset.i].adj;});recompute();});
-document.getElementById('resetBtn').addEventListener('click',()=>{initState();buildScenTable();document.getElementById('allMult').value=6.5;document.getElementById('ownerAdd').value=0;document.getElementById('netDebtIn').value=Math.round(st.net_debt);
-  document.querySelectorAll('#val .presetbtn[data-mult]').forEach(x=>x.classList.toggle('warm',x.dataset.mult==='6.5'));recompute();});
+document.getElementById('resetBtn').addEventListener('click',()=>{initState();buildScenTable();document.getElementById('allMult').value=6.0;document.getElementById('ownerAdd').value=0;document.getElementById('netDebtIn').value=Math.round(st.net_debt);recompute();});
 let valInit=false;
 function initVal(){if(valInit)return;valInit=true;initState();document.getElementById('netDebtIn').value=Math.round(st.net_debt);buildScenTable();drawScenChart();recompute();}
 
