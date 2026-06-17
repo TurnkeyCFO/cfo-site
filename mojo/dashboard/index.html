@@ -147,6 +147,23 @@ tr.sum{font-weight:800;background:var(--goldbg)} tr.sum td{border-top:2px solid 
 .vtoggle button.on{background:#fff;color:var(--espresso);box-shadow:0 1px 3px rgba(0,0,0,.1)}
 .disc{background:#fff7e8;border:1px solid #ecd49a;border-radius:12px;padding:12px 16px;font-size:12.5px;color:#6b5320;margin-bottom:14px}
 .disc b{color:#4d3a12}
+.vin{width:96px;font-family:inherit;font-size:13px;font-weight:700;color:var(--espresso);border:1px solid var(--line);border-radius:8px;padding:6px 9px;text-align:right;background:#fff}
+.vin:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,179,91,.22)}
+.vin.mult{width:66px}
+.ctrlbar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctrlbar .grp{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);font-weight:700}
+.presetbtn{border:1px solid var(--line);background:#fff;color:var(--espresso);font-family:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer;transition:.15s}
+.presetbtn:hover{border-color:var(--gold);background:var(--goldbg)}
+.presetbtn.warm{background:var(--goldbg);border-color:var(--gold)}
+.bighero{background:linear-gradient(135deg,var(--espresso),var(--espresso2) 60%,#3B2616);color:#f3e7d4;border-radius:16px;padding:24px 26px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.bighero::after{content:"";position:absolute;right:-80px;top:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(232,179,91,.18),transparent 68%)}
+.bighero .bl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);position:relative}
+.bighero .bv{font-size:40px;font-weight:800;color:#fff;margin:5px 0 3px;letter-spacing:-.02em;line-height:1;position:relative}
+.bighero .bx{font-size:13px;color:#cab695;position:relative}
+.brow{display:flex;justify-content:space-between;align-items:center;padding:9px 2px;border-bottom:1px dashed var(--line);font-size:13.5px}
+.brow:last-child{border-bottom:none}.brow .bk{color:var(--muted);font-weight:600}.brow .bvv{font-weight:800;color:var(--espresso)}
+.brow.tot{border-top:2px solid var(--espresso);margin-top:2px;padding-top:11px}.brow.tot .bvv{color:var(--gold2);font-size:16px}
+td.editc{background:#fffdf6}
 footer{border-top:1px solid var(--line);padding:20px 0 40px;color:var(--muted);font-size:12px}
 footer b{color:var(--ink)}
 </style>
@@ -173,7 +190,7 @@ footer b{color:var(--ink)}
     <div class="alt" id="alt">
       <button data-t="t30" class="on"><span class="lvl"><span class="dot"></span>30,000 ft</span><span class="who">Portfolio health, momentum &amp; economics</span></button>
       <button data-t="loc"><span class="lvl">By Location</span><span class="who">Every shop, in depth</span></button>
-      <button data-t="val"><span class="lvl">Valuation</span><span class="who">Indicative EV &amp; by company</span></button>
+      <button data-t="val"><span class="lvl">Valuation</span><span class="who">Scenario tester &mdash; your inputs</span></button>
     </div>
   </div>
 </header>
@@ -265,41 +282,48 @@ footer b{color:var(--ink)}
   <div class="grid g4" id="locCards"></div>
 </section>
 
-<!-- valuation -->
+<!-- valuation scenario tester -->
 <section class="tier" id="val">
-  <div class="tierhead"><h2 class="shimmer">Indicative Valuation</h2><span class="tag">Illustrative &middot; EBITDA-based</span></div>
-  <div class="disc"><b>Illustrative, not a formal opinion.</b> A directional, EBITDA-based view to frame a range &mdash; built on FY2025 operating results. A buyer's quality-of-earnings review would normalize further (owner compensation, one-time items, run-rate of new units). Operating businesses are valued on EBITDA; the property LLCs are shown separately at net asset value (real estate would be appraised). Cash-free / debt-free basis.</div>
+  <div class="tierhead"><h2 class="shimmer">Valuation Scenario Tester</h2><span class="tag">Interactive &middot; your inputs</span></div>
+  <div class="disc"><b>Play with the assumptions.</b> Edit the EBITDA add-backs, the multiple on any company, the property values and net debt &mdash; the totals update live. Defaults start at FY2025 operating EBITDA and a 6.5&times; base multiple. Illustrative only; a buyer's quality-of-earnings review sets the real numbers.</div>
 
-  <div class="grid g4" id="valKpi"></div>
-
-  <div class="sec">Valuation assumptions</div>
-  <div class="grid g2">
-    <div class="card"><ul class="assum" id="assum"></ul></div>
-    <div class="card" style="padding:6px 4px"><div style="overflow:auto"><table id="bridgeTbl"></table></div></div>
+  <div class="grid g2" style="align-items:stretch">
+    <div class="bighero">
+      <div class="bl">Total equity value to owners</div>
+      <div class="bv" id="heroEquity">—</div>
+      <div class="bx" id="heroSub"></div>
+    </div>
+    <div class="card">
+      <div class="brow"><span class="bk">Operating enterprise value (Σ company EV)</span><span class="bvv" id="brEV">—</span></div>
+      <div class="brow"><span class="bk">+ Property value (real estate LLCs)</span><span class="bvv" id="brProp">—</span></div>
+      <div class="brow"><span class="bk">− Net debt</span><span class="bvv" id="brDebt">—</span></div>
+      <div class="brow tot"><span class="bk">= Total equity value</span><span class="bvv" id="brEq">—</span></div>
+      <div class="brow"><span class="bk">Blended EV / EBITDA &middot; EV / revenue</span><span class="bvv" id="brBlend">—</span></div>
+    </div>
   </div>
 
-  <div class="sec">Enterprise value range</div>
-  <div class="vrange" id="evRange"></div>
-  <div class="chartcard" style="margin-top:14px"><h3>Football field &mdash; EV across the multiple range</h3><div class="cwrap"><canvas id="cFF"></canvas></div></div>
-
-  <div class="sec">Sensitivity &mdash; EBITDA basis &times; multiple</div>
-  <p class="cap">Enterprise value at each EBITDA scenario and multiple. The base case is highlighted.</p>
-  <div class="card" style="padding:6px 4px"><div style="overflow:auto"><table id="sensTbl" class="matrix"></table></div></div>
-
-  <div class="sec">Equity value bridge</div>
-  <div class="grid g4" id="bridgeCards"></div>
-
-  <div class="sec">Valuation by company</div>
-  <div class="vtoggle" id="multToggle">
-    <button data-m="low">Low &mdash; 5.0&times;</button>
-    <button data-m="base" class="on">Base &mdash; 6.5&times;</button>
-    <button data-m="high">High &mdash; 8.0&times;</button>
+  <div class="sec">Set your assumptions</div>
+  <div class="card">
+    <div class="ctrlbar">
+      <span class="grp">Quick scenarios:</span>
+      <button class="presetbtn" data-mult="5">Conservative &mdash; 5.0&times;</button>
+      <button class="presetbtn warm" data-mult="6.5">Base &mdash; 6.5&times;</button>
+      <button class="presetbtn" data-mult="8">Aggressive &mdash; 8.0&times;</button>
+      <button class="presetbtn" id="normBtn">Normalize ramp units to break-even</button>
+      <button class="presetbtn" id="resetBtn">Reset all</button>
+    </div>
+    <div class="ctrlbar" style="margin-top:14px">
+      <span class="grp">Apply multiple to all shops: <input class="vin mult" id="allMult" type="number" step="0.5" min="0" value="6.5"></span>
+      <span class="grp">Owner add-back, all shops: <input class="vin" id="ownerAdd" type="number" step="5000" value="0"> /shop</span>
+      <span class="grp">Net debt: <input class="vin" id="netDebtIn" type="number" step="10000"></span>
+    </div>
   </div>
-  <div class="grid g2">
-    <div class="card" style="padding:6px 4px"><div style="overflow:auto"><table id="valTbl"></table></div></div>
-    <div class="chartcard"><h3 id="valChartTitle">Enterprise value by company</h3><div class="cwrap tall"><canvas id="cValEV"></canvas></div></div>
-  </div>
-  <div class="flag" id="valCross"></div>
+
+  <div class="sec">Valuation by company &mdash; edit any highlighted cell</div>
+  <div class="card" style="padding:6px 4px"><div style="overflow:auto"><table id="scenTbl"></table></div></div>
+
+  <div class="chartcard" style="margin-top:14px"><h3>Value by company (live)</h3><div class="cwrap tall"><canvas id="cScen"></canvas></div></div>
+  <div class="flag" id="scenCross"></div>
 </section>
 
 </main>
@@ -495,62 +519,84 @@ function drawMix(){if(charts.cMix)return;const b=D.buckets.slice(0,9);
   charts.cMix=new Chart(document.getElementById('cMix'),{type:'doughnut',data:{labels:b.map(x=>x.name),datasets:[{data:b.map(x=>x.amt),backgroundColor:PAL}]},
     options:{animation:false,cutout:'56%',plugins:{legend:{position:'right',labels:{boxWidth:11,padding:7,font:{size:10.5}}},tooltip:{callbacks:{label:c=>' '+c.label+': '+f0(c.raw)}}}}});}
 
-/* ---------- valuation ---------- */
-const V=D.valuation, M5=V.mult;
-const valKpi=[
-  {h:'Normalized EBITDA (FY2025)',v:f0(V.eb_norm),n:V.margin+'% of operating revenue'},
-  {h:'EBITDA margin',v:V.margin+'%',n:'Operating-income basis'},
-  {h:'Enterprise value · base '+M5.base+'×',v:f0(V.ev.base),n:f0(V.ev.low)+' – '+f0(V.ev.high)+' range'},
-  {h:'Indicative equity value · base',v:f0(V.equity.base),n:'EV − net debt + property NAV'},
-];
-document.getElementById('valKpi').innerHTML=valKpi.map(c=>`<div class="card kpi"><h3>${c.h}</h3><div class="val">${c.v}</div><div class="note">${c.n}</div></div>`).join('');
-document.getElementById('assum').innerHTML=[
- `<b>Basis:</b> FY2025 actuals (accrual). Revenue is growing (${pc(V.rev_growth)} YoY), so a forward / trailing-twelve-month view would screen higher.`,
- `<b>EBITDA definition:</b> operating-income basis — pre-depreciation, excludes non-operating &amp; one-time items (the quality-of-earnings-minded read).`,
- `<b>Multiple range:</b> ${M5.low}× / <b>${M5.base}× base</b> / ${M5.high}× — regional multi-unit drive-thru coffee. The owned roastery, 10-unit footprint and double-digit growth support the upper half; pre-maturity units &amp; owner concentration pull the lower half.`,
- `<b>Normalization:</b> units opened 2024–25 underwritten at break-even (+${f0(V.ramp_addback)} added back to reported EBITDA of ${f0(V.eb_reported)}).`,
- `<b>Property LLCs:</b> shown at net asset value (${f0(V.propco_nav)} book); the owned real estate would be appraised and likely screens higher than book.`,
- `<b>Equity bridge:</b> enterprise value − net debt (${f0(V.net_debt)}) + property NAV = equity value. Cash-free / debt-free.`,
-].map(x=>`<li>${x}</li>`).join('');
-document.getElementById('bridgeTbl').innerHTML=`<thead><tr><th>EBITDA build-up — OpCo (FY2025)</th><th>Amount</th></tr></thead><tbody>`+
- [['Operating revenue',V.opco_rev,''],['Reported operating EBITDA',V.eb_reported,'b'],['+ Ramp-unit normalization (break-even)',V.ramp_addback,'i'],['Normalized EBITDA',V.eb_norm,'b']]
- .map(r=>`<tr${r[2]==='b'?' class="sum"':''}><td${r[2]==='i'?' style="padding-left:24px"':''}>${r[0]}</td><td>${f0(r[1])}</td></tr>`).join('')+`</tbody>`;
-document.getElementById('evRange').innerHTML=[['Low',M5.low,V.ev.low],['Base',M5.base,V.ev.base],['High',M5.high,V.ev.high]]
- .map(r=>`<div class="vchip ${r[0]==='Base'?'base':''}"><div class="vl">${r[0]} — ${r[1]}×</div><div class="vv">${f0(r[2])}</div><div class="vx">enterprise value</div></div>`).join('');
-const SN=V.sens;
-document.getElementById('sensTbl').innerHTML=`<thead><tr><th>EBITDA basis</th>`+SN.mults.map(m=>`<th>${m}×</th>`).join('')+`</tr></thead><tbody>`+
- SN.scen.map((sc,i)=>`<tr><td>${sc}</td>`+SN.grid[i].map((v,j)=>`<td class="s${(i+j>=4?3:(i+j>=3?2:(i+j>=2?1:0)))}">${f0(v)}</td>`).join('')+`</tr>`).join('')+`</tbody>`;
-document.getElementById('bridgeCards').innerHTML=[
- {h:'Enterprise value (base)',v:f0(V.ev.base)},{h:'− Net debt',v:f0(-V.net_debt)},{h:'+ Property NAV',v:f0(V.propco_nav)},{h:'= Equity value',v:f0(V.equity.base)},
-].map(c=>`<div class="card kpi"><h3>${c.h}</h3><div class="val">${c.v}</div></div>`).join('');
-document.getElementById('valCross').innerHTML=`<b>Cross-checks (base case):</b> implied EV / revenue ≈ ${V.ev_rev_base}× · EV per coffee shop ≈ ${f0(V.ev_per_shop)} across ${V.n_shops} shops. Scaled / franchised coffee platforms command higher multiples; a regional operator of this size screens in the 5–8× range, with the roastery and the owned real estate as separate value levers.`;
-let valMult='base';
-function renderVal(){
-  const mk={low:'ev_low',base:'ev_base',high:'ev_high'}[valMult]; const mx={low:M5.low,base:M5.base,high:M5.high}[valMult];
-  const op=V.companies.filter(c=>c.seg==='OpCo').slice().sort((a,b)=>b[mk]-a[mk]);
-  const prop=V.companies.filter(c=>c.seg==='PropCo');
-  let h=`<thead><tr><th>Company</th><th>Seg</th><th>Revenue</th><th>EBITDA</th><th>Margin</th><th>EV @ ${mx}×</th></tr></thead><tbody>`;
-  op.forEach(c=>{h+=`<tr><td><b>${c.short}</b></td><td><span class="gbadge ${c.group==='Mojo'?'gb-mojo':'gb-forest'}">${c.seg}</span></td>
-    <td>${f0(c.revenue)}</td><td class="${c.ebitda>=0?'pos':'neg'}">${f0s(c.ebitda)}</td><td>${c.margin}%</td>
-    <td>${c.ramping?'<span class="muted small">ramping</span>':f0(c[mk])}</td></tr>`;});
-  const evtot=op.reduce((s,c)=>s+c[mk],0), rvtot=op.reduce((s,c)=>s+c.revenue,0), ebtot=op.reduce((s,c)=>s+c.ebitda,0);
-  h+=`<tr class="sum"><td>OpCo total</td><td></td><td>${f0(rvtot)}</td><td>${f0s(ebtot)}</td><td>${Math.round(ebtot/rvtot*100)}%</td><td>${f0(evtot)}</td></tr>`;
-  prop.forEach(c=>{h+=`<tr><td><b>${c.short}</b></td><td><span class="gbadge gb-sisters">${c.seg}</span></td><td>${f0(c.revenue)}</td><td class="muted" colspan="2">net asset value</td><td>${f0(c.nav)}</td></tr>`;});
-  document.getElementById('valTbl').innerHTML=h+`</tbody>`;
-  document.getElementById('valChartTitle').textContent='Enterprise value by company — '+mx+'×';
-  if(charts.cValEV)charts.cValEV.destroy();
-  charts.cValEV=new Chart(document.getElementById('cValEV'),{type:'bar',data:{labels:op.map(c=>c.short),datasets:[{label:'EV',data:op.map(c=>c[mk]),backgroundColor:op.map(c=>c.group==='Forest Moon'?COFFEE:GOLD),borderRadius:4}]},options:hbar(v=>k0(v),c=>' '+f0(c.raw))});
+/* ---------- valuation scenario tester ---------- */
+const V=D.valuation;
+let st={cos:[],net_debt:V.net_debt};
+function initState(){
+  st.cos=V.companies.map(c=>({short:c.short,seg:c.seg,group:c.group,revenue:c.revenue,
+    ebitda:(c.seg==='OpCo'?c.ebitda:0),adj:0,mult:6.5,value:(c.seg==='PropCo'?c.nav:0)}));
+  st.net_debt=V.net_debt;
 }
-document.querySelectorAll('#multToggle button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#multToggle button').forEach(x=>x.classList.remove('on'));b.classList.add('on');valMult=b.dataset.m;renderVal();}));
-function drawFF(){if(charts.cFF)return;
-  charts.cFF=new Chart(document.getElementById('cFF'),{type:'bar',data:{labels:['Low '+M5.low+'×','Base '+M5.base+'×','High '+M5.high+'×'],datasets:[{label:'Enterprise value',data:[V.ev.low,V.ev.base,V.ev.high],backgroundColor:[LATTE,GOLD,COFFEE],borderRadius:5}]},
-    options:{indexAxis:'y',animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+f0(c.raw)}}},scales:{x:{grid:{color:LINE},ticks:{callback:v=>k0(v)}},y:{grid:{display:false}}}}});}
+function evCo(c){return c.seg==='OpCo'?Math.round((c.ebitda+c.adj)*c.mult):Math.round(c.value);}
+function buildScenTable(){
+  let h=`<thead><tr><th>Company</th><th>Seg</th><th>2025 Rev</th><th>Reported EBITDA</th><th>Add-back</th><th>Adj. EBITDA</th><th>Multiple</th><th>Value</th></tr></thead><tbody>`;
+  st.cos.forEach((c,i)=>{
+    if(c.seg==='OpCo'){
+      h+=`<tr><td><b>${c.short}</b></td><td><span class="gbadge ${c.group==='Mojo'?'gb-mojo':'gb-forest'}">OpCo</span></td>
+        <td>${f0(c.revenue)}</td><td class="${c.ebitda<0?'neg':''}">${f0s(c.ebitda)}</td>
+        <td class="editc"><input class="vin" type="number" step="5000" data-i="${i}" data-f="adj" value="${c.adj}"></td>
+        <td id="adje-${i}">—</td>
+        <td class="editc"><input class="vin mult" type="number" step="0.5" min="0" data-i="${i}" data-f="mult" value="${c.mult}"></td>
+        <td id="val-${i}"><b>—</b></td></tr>`;
+    }else{
+      h+=`<tr><td><b>${c.short}</b></td><td><span class="gbadge gb-sisters">PropCo</span></td>
+        <td>${f0(c.revenue)}</td><td class="muted small" colspan="3">real estate — net asset value</td>
+        <td class="muted small">n/a</td>
+        <td class="editc"><input class="vin" type="number" step="10000" data-i="${i}" data-f="value" value="${c.value}"></td></tr>`;
+    }
+  });
+  h+=`<tr class="sum"><td>Total</td><td></td><td id="totRev"></td><td id="totEb"></td><td></td><td id="totAdjEb"></td><td id="totMult"></td><td id="totVal"></td></tr></tbody>`;
+  document.getElementById('scenTbl').innerHTML=h;
+}
+function recompute(){
+  let opEV=0,propV=0,adjEb=0,rev=0,repEb=0;
+  st.cos.forEach((c,i)=>{
+    rev+=c.revenue; const ev=evCo(c);
+    if(c.seg==='OpCo'){const ae=c.ebitda+c.adj; adjEb+=ae; repEb+=c.ebitda; opEV+=ev;
+      const ec=document.getElementById('adje-'+i); if(ec)ec.innerHTML=f0s(Math.round(ae));}
+    else{propV+=ev;}
+    const vc=document.getElementById('val-'+i); if(vc)vc.innerHTML='<b>'+f0(ev)+'</b>';
+  });
+  const equity=opEV+propV-st.net_debt, blend=adjEb?(opEV/adjEb):0, evrev=rev?(opEV/rev):0;
+  document.getElementById('totRev').textContent=f0(rev);
+  document.getElementById('totEb').textContent=f0s(Math.round(repEb));
+  document.getElementById('totAdjEb').textContent=f0s(Math.round(adjEb));
+  document.getElementById('totMult').textContent=blend?blend.toFixed(1)+'×':'—';
+  document.getElementById('totVal').innerHTML='<b>'+f0(opEV+propV)+'</b>';
+  document.getElementById('heroEquity').textContent=f0(equity);
+  document.getElementById('heroSub').textContent='Operating EV '+f0(opEV)+'  +  property '+f0(propV)+'  −  net debt '+f0(st.net_debt);
+  document.getElementById('brEV').textContent=f0(opEV);
+  document.getElementById('brProp').textContent=f0(propV);
+  document.getElementById('brDebt').textContent=f0(st.net_debt);
+  document.getElementById('brEq').textContent=f0(equity);
+  document.getElementById('brBlend').textContent=(blend?blend.toFixed(1):'—')+'×  ·  '+(evrev?evrev.toFixed(2):'—')+'×';
+  document.getElementById('scenCross').innerHTML=`<b>This scenario:</b> total equity value <b>${f0(equity)}</b> &mdash; a blended <b>${blend?blend.toFixed(1):'—'}×</b> on ${f0(Math.round(adjEb))} adjusted EBITDA (${evrev?evrev.toFixed(2):'—'}× revenue). Reported EBITDA was ${f0(Math.round(repEb))}; you've added back ${f0(Math.round(adjEb-repEb))}. Change any input to test another scenario.`;
+  if(charts.cScen){const cv=st.cos.map(c=>({short:c.short,v:evCo(c),op:c.seg==='OpCo'})).sort((a,b)=>b.v-a.v);
+    charts.cScen.data.labels=cv.map(c=>c.short);charts.cScen.data.datasets[0].data=cv.map(c=>c.v);
+    charts.cScen.data.datasets[0].backgroundColor=cv.map(c=>c.op?GOLD:LATTE);charts.cScen.update('none');}
+}
+function drawScenChart(){if(charts.cScen)return;const cv=st.cos.map(c=>({short:c.short,v:evCo(c),op:c.seg==='OpCo'})).sort((a,b)=>b.v-a.v);
+  charts.cScen=new Chart(document.getElementById('cScen'),{type:'bar',data:{labels:cv.map(c=>c.short),datasets:[{label:'Value',data:cv.map(c=>c.v),backgroundColor:cv.map(c=>c.op?GOLD:LATTE),borderRadius:4}]},options:hbar(v=>k0(v),c=>' '+f0(c.raw))});}
+document.getElementById('scenTbl').addEventListener('input',e=>{
+  if(!e.target.matches('.vin'))return;const i=+e.target.dataset.i,f=e.target.dataset.f;st.cos[i][f]=parseFloat(e.target.value)||0;recompute();});
+document.querySelectorAll('#val .presetbtn[data-mult]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#val .presetbtn[data-mult]').forEach(x=>x.classList.remove('warm'));b.classList.add('warm');
+  const m=parseFloat(b.dataset.mult);st.cos.forEach(c=>{if(c.seg==='OpCo')c.mult=m;});
+  document.getElementById('allMult').value=m;document.querySelectorAll('#scenTbl input[data-f="mult"]').forEach(inp=>inp.value=m);recompute();}));
+document.getElementById('allMult').addEventListener('input',e=>{const m=parseFloat(e.target.value)||0;st.cos.forEach(c=>{if(c.seg==='OpCo')c.mult=m;});document.querySelectorAll('#scenTbl input[data-f="mult"]').forEach(inp=>inp.value=m);recompute();});
+document.getElementById('ownerAdd').addEventListener('input',e=>{const a=parseFloat(e.target.value)||0;st.cos.forEach(c=>{if(c.seg==='OpCo')c.adj=a;});document.querySelectorAll('#scenTbl input[data-f="adj"]').forEach(inp=>inp.value=a);recompute();});
+document.getElementById('netDebtIn').addEventListener('input',e=>{st.net_debt=parseFloat(e.target.value)||0;recompute();});
+document.getElementById('normBtn').addEventListener('click',()=>{st.cos.forEach(c=>{if(c.seg==='OpCo'&&c.ebitda<0)c.adj=-c.ebitda;});
+  document.querySelectorAll('#scenTbl input[data-f="adj"]').forEach(inp=>{inp.value=st.cos[+inp.dataset.i].adj;});recompute();});
+document.getElementById('resetBtn').addEventListener('click',()=>{initState();buildScenTable();document.getElementById('allMult').value=6.5;document.getElementById('ownerAdd').value=0;document.getElementById('netDebtIn').value=Math.round(st.net_debt);
+  document.querySelectorAll('#val .presetbtn[data-mult]').forEach(x=>x.classList.toggle('warm',x.dataset.mult==='6.5'));recompute();});
+let valInit=false;
+function initVal(){if(valInit)return;valInit=true;initState();document.getElementById('netDebtIn').value=Math.round(st.net_debt);buildScenTable();drawScenChart();recompute();}
 
 function drawFor(t){return()=>{
   if(t==='t30'){drawAnnual();drawStores();drawMargin();drawYoY();drawMonthly();drawSeason();drawMix();}
   if(t==='loc'){renderLoc();locCards();drawLocCharts();}
-  if(t==='val'){renderVal();drawFF();}
+  if(t==='val'){initVal();}
 };}
 drawAnnual();drawStores();drawMargin();drawYoY();drawMonthly();drawSeason();drawMix();
 </script>
