@@ -83,6 +83,37 @@ h2.sec{font-size:clamp(24px,3.2vw,32px);font-weight:800;color:var(--espresso);li
 .waivebanner .wb-big s{color:#b59a78;font-weight:700}
 .waivebanner .wb-big .hl{color:var(--espresso);background:linear-gradient(135deg,var(--bright),var(--gold));padding:1px 12px;border-radius:9px;display:inline-block;box-shadow:0 6px 18px rgba(232,179,91,.35)}
 .waivebanner .wb-sub{position:relative;font-size:14.5px;color:#d6c3a8;margin-top:12px;max-width:660px;margin-left:auto;margin-right:auto}
+/* what-you-pay-today panel */
+.todaybox{background:linear-gradient(135deg,#fff,#F8ECE8);border:1px solid var(--line);border-left:5px solid #B5462F;border-radius:16px;padding:22px 26px;margin:6px 0 22px;box-shadow:var(--shadow)}
+.todaybox .tb-k{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#B5462F;margin-bottom:14px}
+.todaybox .tb-row{display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+.todaybox .tb-hero{flex:0 0 auto}
+.todaybox .tb-big{font-size:clamp(34px,6vw,52px);font-weight:800;color:#9A3A26;line-height:1}
+.todaybox .tb-big span{font-size:.42em;font-weight:700;color:var(--muted)}
+.todaybox .tb-lbl{font-size:13px;font-weight:700;color:#8A7861;margin-top:2px}
+.todaybox .tb-stats{display:flex;gap:26px;flex-wrap:wrap;padding-left:30px;border-left:1px solid #e7d6cf}
+.todaybox .tb-s b{display:block;font-size:21px;font-weight:800;color:var(--espresso);line-height:1.1}
+.todaybox .tb-s span{font-size:12px;color:var(--muted)}
+.todaybox .tb-note{font-size:12.5px;color:#6b5a48;margin-top:16px;line-height:1.55}
+@media(max-width:600px){.todaybox .tb-stats{padding-left:0;border-left:0;gap:16px}}
+/* what-you-save panel */
+.savebox{background:linear-gradient(135deg,#fff,var(--greenbg));border:1px solid #cfe5d6;border-radius:18px;padding:24px 26px;margin-top:24px;box-shadow:var(--shadow)}
+.savebox .sb-k{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+.savebox .sb-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.savebox .sb-grid{grid-template-columns:1fr}}
+.savebox .sb-c{background:#fff;border:1px solid #d6e8dc;border-radius:13px;padding:18px 20px}
+.savebox .sb-c.reco{border:1.5px solid var(--green);box-shadow:0 8px 24px rgba(62,124,90,.14)}
+.savebox .sb-t{font-size:13px;font-weight:800;color:var(--espresso)}
+.savebox .sb-big{font-size:clamp(26px,4.4vw,36px);font-weight:800;color:var(--green);line-height:1.05;margin-top:6px}
+.savebox .sb-big span{font-size:.4em;font-weight:700;color:#5f8a72}
+.savebox .sb-yr{font-size:13px;font-weight:700;color:#4a7c5e;margin-top:1px}
+.savebox .sb-sub{font-size:13px;color:#3c2e22;margin-top:9px;line-height:1.5}
+.savebox .sb-val{margin-top:18px;border-top:1px solid #cfe5d6;padding-top:15px}
+.savebox .sb-vh{font-size:13px;font-weight:800;color:var(--espresso);margin-bottom:9px}
+.savebox .sb-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px 22px}
+@media(max-width:640px){.savebox .sb-list{grid-template-columns:1fr}}
+.savebox .sb-list li{position:relative;padding-left:22px;font-size:13px;color:#3c2e22;line-height:1.45}
+.savebox .sb-list li::before{content:"";position:absolute;left:0;top:7px;width:11px;height:11px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--greenbg)}
 .tiers{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch;margin-top:14px;max-width:820px;margin-left:auto;margin-right:auto}
 @media(max-width:760px){.tiers{grid-template-columns:1fr;max-width:440px}}
 .tier{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px 24px;display:flex;flex-direction:column;box-shadow:0 6px 20px rgba(40,24,10,.06);position:relative}
@@ -259,7 +290,7 @@ footer b{color:var(--ink)}
       <div class="kpi"><div class="v">$11.03M</div><div class="l">Total revenue, 2025 (all 13 entities)</div></div>
       <div class="kpi up"><div class="v g">$1,086,720</div><div class="l">Net income, 2025 &middot; 9.9% net margin</div><span class="pill">Profitable</span></div>
       <div class="kpi up"><div class="v g">59%</div><div class="l">Gross margin across the group</div><span class="pill">Strong</span></div>
-      <div class="kpi"><div class="v">$450<small style="font-size:14px;font-weight:600;color:var(--muted)">/shop · mo</small></div><div class="l">What you pay per shop today for bookkeeping, on books that ran 5 months behind</div><span class="pill w">Upgrade</span></div>
+      <div class="kpi"><div class="v">$620<small style="font-size:14px;font-weight:600;color:var(--muted)">/shop · mo</small></div><div class="l">What you pay per shop today for bookkeeping, on books that ran 5 months behind</div><span class="pill w">Upgrade</span></div>
     </div>
     <p class="rv note">Healthy, growing, and profitable. The story is good. It just needs books that stay accurate and current, reporting that keeps up with a 13-entity operator, and an EBITDA you can actually defend in a deal room. That's the part I'm built for.</p>
   </section>
@@ -267,8 +298,24 @@ footer b{color:var(--ink)}
   <section id="quote">
     <div class="rv">
       <div class="lab">Step 1 &middot; The quote</div>
-      <h2 class="sec">Two ways to partner, priced around your portfolio</h2>
-      <p class="intro">Priced the way you think about it: <b>per company</b>, on your 10 shops and the roastery. The two property LLCs sit out, since they're barely active. Here's the part that matters. <b style="color:var(--green)">Both tiers cost you less per shop than you pay today.</b> Tier 1 is <b>$400 a company</b>, $50 a month under your current ~$450, just done right and on time. Tier 2 is <b>$430 a company</b>, still below what you pay now, and it adds the consolidated, deal-ready layer: one adjusted EBITDA you can defend, intercompany handled, and the live owner dashboard. Setup, migration, and historical cleanup are <b style="color:var(--green)">on me</b>, either tier.</p>
+      <h2 class="sec">What you pay today, what you'd pay me, what you save</h2>
+      <p class="intro">Priced the way you think about it: <b>per company</b>, on your 10 shops and the roastery. The two property LLCs sit out, since they're barely active. First, here's what the current bookkeeping actually costs you, straight from your QuickBooks.</p>
+    </div>
+
+    <div class="rv todaybox">
+      <div class="tb-k">What you're paying today</div>
+      <div class="tb-row">
+        <div class="tb-hero">
+          <div class="tb-big">$620<span>/mo</span></div>
+          <div class="tb-lbl">average per business</div>
+        </div>
+        <div class="tb-stats">
+          <div class="tb-s"><b>$6,200/mo</b><span>total across your shops</span></div>
+          <div class="tb-s"><b>$528/mo</b><span>a typical shop</span></div>
+          <div class="tb-s"><b>5 months</b><span>how far behind it still left you</span></div>
+        </div>
+      </div>
+      <div class="tb-note">Your 2026 run-rate (January through May), pulled live from QuickBooks. Bookkeeping only, not CPA or tax. Georgetown (~$1,130/mo) and Burnet (~$840/mo) run highest; most shops sit on a flat ~$528. You're spending real money and the books were still five months behind.</div>
     </div>
 
     <div class="rv waivebanner">
@@ -282,7 +329,7 @@ footer b{color:var(--ink)}
         <div class="tname">Tier 1 &middot; Clean Books</div>
         <div class="tprice">$400<small> / company &middot; mo</small></div>
         <div class="ttot">&asymp; <b>$4,400/mo</b> across the 10 shops + roastery</div>
-        <div class="tsave">&darr; <b>$50/shop less</b> than the ~$450 you pay today</div>
+        <div class="tsave">&darr; <b>$220/shop less</b> than the ~$620 you pay today</div>
         <div class="tpos">Less than you pay now, and done right: accurate, reconciled, closed by the 15th.</div>
         <div class="blk">Service level</div>
         <dl class="svc">
@@ -310,7 +357,7 @@ footer b{color:var(--ink)}
         <div class="tname">Tier 2 &middot; Full-Service + Owner Dashboard</div>
         <div class="tprice">$430<small> / company &middot; mo</small></div>
         <div class="ttot">&asymp; <b>$4,730/mo</b> across the 10 shops + roastery</div>
-        <div class="tsave">&darr; <b>$20/shop less</b> than today, and far more included</div>
+        <div class="tsave">&darr; <b>$190/shop less</b> than today, and far more included</div>
         <div class="tpos">One financial picture across the whole family, not 11 disconnected files.</div>
         <div class="blk">Service level</div>
         <dl class="svc">
@@ -332,6 +379,34 @@ footer b{color:var(--ink)}
           <li>Quarterly business review with the by-location read</li>
         </ul>
         <div class="spacer"></div>
+      </div>
+    </div>
+
+    <div class="rv savebox">
+      <div class="sb-k">What you save going with me</div>
+      <div class="sb-grid">
+        <div class="sb-c">
+          <div class="sb-t">Tier 1 &middot; Clean Books</div>
+          <div class="sb-big">save ~$1,800<span>/mo</span></div>
+          <div class="sb-yr">about $21,600 a year</div>
+          <div class="sb-sub">$4,400/mo vs the ~$6,200 you pay now. Same scope, finally done right and on time, for less.</div>
+        </div>
+        <div class="sb-c reco">
+          <div class="sb-t">Tier 2 &middot; Full-Service + Dashboard</div>
+          <div class="sb-big">save ~$1,470<span>/mo</span></div>
+          <div class="sb-yr">about $17,640 a year</div>
+          <div class="sb-sub">$4,730/mo vs ~$6,200 today, and you <b>add</b> consolidation, intercompany, adjusted EBITDA, and the live dashboard. More service, still under what you pay now.</div>
+        </div>
+      </div>
+      <div class="sb-val">
+        <div class="sb-vh">And you get more than a smaller bill</div>
+        <ul class="sb-list">
+          <li>Books <b>closed by the 15th</b>, every entity, every month, never five months behind again</li>
+          <li>Setup, migration, and historical cleanup <b>waived</b>, $0 to switch</li>
+          <li>The roastery folded in at the same flat price, even though it's barely on the books today</li>
+          <li>An <b>adjusted EBITDA you can defend</b> in the deal room, tracked monthly</li>
+          <li>This <b>live owner dashboard</b>, 30k-ft and by-location, always current (Tier 2)</li>
+        </ul>
       </div>
     </div>
 
