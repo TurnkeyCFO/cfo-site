@@ -137,6 +137,19 @@ ul.scope li b{color:var(--espresso)}
 .gx{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 14px;box-shadow:var(--shadow);text-align:center}
 .gx .gy{font-size:20px;font-weight:800;color:var(--gold2)}
 .gx .gn{font-size:12.5px;color:var(--ink);font-weight:600;margin-top:3px}
+.heard{display:grid;gap:12px;margin-top:4px}
+.hpt{position:relative;padding:16px 18px 16px 56px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:14px;box-shadow:var(--shadow)}
+.hpt .hn{position:absolute;left:16px;top:16px;width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center;box-shadow:0 4px 12px rgba(232,179,91,.4)}
+.hpt h4{font-size:15.5px;color:var(--espresso);margin:0 0 3px}
+.hpt p{font-size:13.8px;color:var(--muted);margin:0;line-height:1.55}
+.hpt p b{color:var(--ink)}
+.path{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px}
+@media(max-width:720px){.path{grid-template-columns:1fr}}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow)}
+.pc.sell{border-top:4px solid var(--coffee)}.pc.scale{border-top:4px solid var(--gold)}
+.pc .pk{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2)}
+.pc h4{font-size:19px;color:var(--espresso);margin:6px 0 8px}
+.pc p{font-size:14px;color:var(--muted);margin:0 0 8px;line-height:1.55}.pc p:last-child{margin:0}.pc b{color:var(--espresso)}
 .alts{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin:6px 0 22px}
 @media(max-width:720px){.alts{grid-template-columns:1fr}}
 .alt{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px;box-shadow:var(--shadow)}
@@ -201,16 +214,32 @@ footer b{color:var(--ink)}
 <nav class="steps">
   <div class="wrap">
     <div class="steprow" id="steprow">
+      <a href="#heard"><span class="no">&bull;</span>What I heard</a>
       <a href="#today"><span class="no">&bull;</span>Where you stand</a>
       <a href="#quote"><span class="no">1</span>The quote</a>
       <a href="#transition"><span class="no">2</span>The transition</a>
       <a href="#dashboard"><span class="no">3</span>The dashboard</a>
-      <a href="#growth"><span class="no">&bull;</span>The growth story</a>
+      <a href="#growth"><span class="no">&bull;</span>Sell or scale</a>
     </div>
   </div>
 </nav>
 
 <main class="wrap">
+
+  <section id="heard">
+    <div class="rv">
+      <div class="lab">From our conversation</div>
+      <h2 class="sec">What I heard</h2>
+      <p class="intro">Before any numbers, here's what I took away from our call &mdash; the things that actually matter to you, in your words.</p>
+    </div>
+    <div class="rv heard">
+      <div class="hpt"><div class="hn">1</div><h4>Clean, current books are priority #1</h4><p>You went to hand over financials and found you were <b>five months behind</b> &mdash; bank reconciliations hadn't been touched. That can't happen again. Getting it accurate and keeping it current is the whole job.</p></div>
+      <div class="hpt"><div class="hn">2</div><h4>Your books set your valuation</h4><p>Inaccurate numbers put your <b>adjusted EBITDA off by six figures</b> in the middle of a live deal, and that flows straight through the multiple. Whether you sell or keep growing, accurate books raise your EBIT &mdash; and what the business is worth.</p></div>
+      <div class="hpt"><div class="hn">3</div><h4>The standard is "closed by the 15th"</h4><p>Chris had every month closed by the <b>15th</b>, part-time, before you outgrew her. That's the bar: timely, accurate, no surprises &mdash; and you'll never be waiting on me unless I'm waiting on you.</p></div>
+      <div class="hpt"><div class="hn">4</div><h4>Lean communication, on your terms</h4><p>Send you <b>one email</b> with everything I need and you'll crank through it. No calls about a corrected SSN &mdash; I'll only reach out when it actually moves the needle.</p></div>
+      <div class="hpt"><div class="hn">5</div><h4>Built around how Mojo really runs</h4><p>Ten shop LLCs, the <b>Forest Moon roastery</b> selling in every week, the property LLCs, Square POS &amp; payroll, Divvy cards, weekly payroll at each shop, 11 tax returns. I hold the whole picture so each shop can still <b>stand on its own</b>.</p></div>
+    </div>
+  </section>
 
   <section id="today">
     <div class="rv">
@@ -219,36 +248,36 @@ footer b{color:var(--ink)}
       <p class="intro">Pulled straight from your QuickBooks (read-only) across all 13 connected entities, full-year 2025. This is the same straight read you'd get from me every month.</p>
     </div>
     <div class="rv lead">
-      <p><b>You've built something real.</b> From one Burnet drive-thru in 2015 to ten locations and your own roastery, Mojo now runs as 13 separate companies. That's a great problem to have, and it's exactly the point where the back office has to grow up with the business.</p>
-      <p>The operating numbers are strong. What's thin is the <b>bookkeeping behind them</b>: today it's bare-bones, weekly journal entries, and you're still paying a CPA to clean it all up at tax time. With a roastery selling into the shops, you also have real <b>intercompany</b> that a proper monthly close is built to handle.</p>
+      <p><b>You've built something real.</b> From one Burnet drive-thru in 2015 to ten locations and your own roastery, Mojo now runs as 13 separate companies doing about <b>$11.03M</b> a year. That's a great problem to have &mdash; and exactly the point where the back office has to grow up with the business.</p>
+      <p>The operating numbers are strong. What bit you is the <b>bookkeeping behind them</b>: it fell five months behind, reconciliations went undone, and the QuickBooks numbers you were handing over weren't accurate &mdash; which is how an EBITDA gap that size sneaks up on you. With a roastery selling into the shops, you also have real <b>intercompany</b> that a proper monthly close is built to handle.</p>
     </div>
     <div class="rv kpis">
       <div class="kpi"><div class="v">$11.03M</div><div class="l">Total revenue, 2025 (all 13 entities)</div></div>
       <div class="kpi up"><div class="v g">$1,086,720</div><div class="l">Net income, 2025 &middot; 9.9% net margin</div><span class="pill">Profitable</span></div>
       <div class="kpi up"><div class="v g">59%</div><div class="l">Gross margin across the group</div><span class="pill">Strong</span></div>
-      <div class="kpi"><div class="v">$3,380<small style="font-size:14px;font-weight:600;color:var(--muted)">/mo</small></div><div class="l">Bare-bones bookkeeping today &mdash; the gap</div><span class="pill w">Upgrade</span></div>
+      <div class="kpi"><div class="v">$3,380<small style="font-size:14px;font-weight:600;color:var(--muted)">/mo</small></div><div class="l">Current bookkeeping spend &mdash; for books that ran 5 months behind</div><span class="pill w">Upgrade</span></div>
     </div>
-    <p class="rv note">Healthy, growing, and profitable. The story is good &mdash; it just needs books and reporting that keep up with a 13-entity, multi-location operator. That's the part I'm built for.</p>
+    <p class="rv note">Healthy, growing, and profitable &mdash; the story is good. It just needs books that stay accurate and current, reporting that keeps up with a 13-entity operator, and an EBITDA you can actually defend in a deal room. That's the part I'm built for.</p>
   </section>
 
   <section id="quote">
     <div class="rv">
       <div class="lab">Step 1 &middot; The quote</div>
       <h2 class="sec">Two ways to partner, priced around your portfolio</h2>
-      <p class="intro">Both tiers include the full setup, data migration, historical cleanup, and the live owner dashboard at <b style="color:var(--green)">no cost</b>. Nothing to pay to switch. If you're asking what I'd recommend for a group your size, it's <b>Full-Service</b> &mdash; one consolidated close across all 13 entities, intercompany handled, and the dashboard your team just saw.</p>
+      <p class="intro">These reflect a real review of your actual QuickBooks across all 13 entities &mdash; not a generic rate card. <b>Tier 1 lands right about where you are today</b>, just done right: accurate, reconciled, and closed by the 15th. <b>Tier 2 adds about $1,000</b> for the consolidated, deal-ready layer &mdash; one adjusted EBITDA you can defend, intercompany handled, and the live owner dashboard your team just saw. Setup, migration and historical cleanup are <b style="color:var(--green)">included at no cost</b> on either tier.</p>
     </div>
 
     <div class="rv waivebanner">
       <div class="wb-k">My welcome to Mojo</div>
-      <div class="wb-big">Setup, migration, historical cleanup &amp; the dashboard build &mdash; <span class="hl">$0 to switch.</span></div>
-      <div class="wb-sub">Onboarding 13 entities is real work, including squaring up the intercompany and the negative-equity cleanup. That's on me. You start clean, on either tier.</div>
+      <div class="wb-big">Setup, migration &amp; historical cleanup &mdash; <span class="hl">$0 to switch.</span></div>
+      <div class="wb-sub">Onboarding 13 entities is real work, including squaring up the intercompany and the negative-equity cleanup. That's on me &mdash; you start clean and current, on either tier.</div>
     </div>
 
     <div class="tiers">
       <div class="rv tier">
         <div class="tname">Tier 1 &middot; Clean Books</div>
-        <div class="tprice">$6,000<small>/mo</small></div>
-        <div class="tpos">Accurate books and reliable monthly statements, every location.</div>
+        <div class="tprice">$3,600<small>/mo</small></div>
+        <div class="tpos">Right around what you pay today &mdash; but accurate, reconciled, and closed by the 15th.</div>
         <div class="blk">Service level</div>
         <dl class="svc">
           <div><dt>Response time</dt><dd>2 business days</dd></div>
@@ -259,12 +288,13 @@ footer b{color:var(--ink)}
         <div class="blk inb">What's included</div>
         <ul class="scope">
           <li>Monthly bookkeeping &amp; categorization, all 13 entities</li>
-          <li>Bank &amp; credit-card reconciliations</li>
-          <li>Payroll reconciliation &amp; 1099 support</li>
-          <li>Accounts payable / receivable oversight</li>
-          <li>Sales-tax support</li>
-          <li>Monthly financial statements, per location</li>
-          <li>Quarterly financial review</li>
+          <li>Bank &amp; credit-card reconciliations &mdash; <b>done every month</b></li>
+          <li>Square POS &amp; weekly-payroll reconciliation</li>
+          <li><b>Divvy</b> card coding cross-checked &amp; tied out</li>
+          <li>401(k), health insurance &amp; TX subsidy reconciliations</li>
+          <li>Bill pay (the ~25/mo check items) &amp; 1099s</li>
+          <li>Sales-tax support across every entity</li>
+          <li>Monthly financial statements, per location, by the <b>15th</b></li>
         </ul>
         <div class="spacer"></div>
       </div>
@@ -272,7 +302,7 @@ footer b{color:var(--ink)}
       <div class="rv tier reco">
         <div class="ribbon">RECOMMENDED</div>
         <div class="tname">Tier 2 &middot; Full-Service + Owner Dashboard</div>
-        <div class="tprice">$7,500<small>/mo</small></div>
+        <div class="tprice">$4,600<small>/mo</small></div>
         <div class="tpos">One financial picture across the whole family, not 13 disconnected files.</div>
         <div class="blk">Service level</div>
         <dl class="svc">
@@ -285,9 +315,11 @@ footer b{color:var(--ink)}
         <ul class="scope">
           <li><b>Consolidated</b> monthly reporting across all 13 entities</li>
           <li><b>Intercompany</b> tracking &amp; eliminations (roastery &harr; shops)</li>
+          <li>Standalone P&amp;L per shop &mdash; so each can <b>stand on its own</b></li>
+          <li><b>Adjusted-EBITDA</b> tracking &amp; deal-room / Q-of-E-ready books</li>
+          <li>Cash-to-accrual management view for a true EBITDA read</li>
           <li>Inventory &amp; cost-of-goods tracking by location</li>
           <li>This <b>live owner dashboard</b> &mdash; 30k-ft + by-location, always current</li>
-          <li>Per-location P&amp;L scorecards &amp; margin benchmarking</li>
           <li>Cash-flow &amp; working-capital visibility across the group</li>
           <li>Quarterly business review with the by-location read</li>
         </ul>
@@ -296,7 +328,7 @@ footer b{color:var(--ink)}
     </div>
 
     <div class="rv slahint">
-      <b>How the monthly rhythm works:</b> your managers get receipts, invoices and approvals to me in the first few business days of the month; I run a clean close on every entity, square the intercompany, and the consolidated financials plus your live dashboard are current <b>by the second week</b> &mdash; same rhythm, every month.
+      <b>How the monthly rhythm works:</b> early each month I send you <b>one consolidated email</b> with anything I need &mdash; you crank through it in a sitting. I run a clean close on every entity, square the intercompany, and your financials plus the live dashboard are current <b>by the 15th</b> &mdash; same rhythm, every month. You're never waiting on me unless I'm waiting on you.
     </div>
   </section>
 
@@ -315,17 +347,17 @@ footer b{color:var(--ink)}
 
     <div class="rv timeline">
       <div class="tl"><div class="dot">1</div><div class="when">Done</div><h4>QuickBooks connected &mdash; all 13 entities</h4><p>Every company is already linked, read-only. Nothing more needed from you to get me looking at the numbers.</p></div>
-      <div class="tl"><div class="dot">2</div><div class="when">Next 1&ndash;5 days</div><h4>Access &amp; account review</h4><p>View access to the bank, card and loan feeds, plus a short sit-down on how the roastery bills the shops so the intercompany is mapped correctly from day one.</p></div>
-      <div class="tl"><div class="dot">3</div><div class="when">Clean cutover</div><h4>I take over the books</h4><p>One clean date across the whole family. Month one runs a little longer while I learn each location's setup, but you'll have books and the dashboard inside the first cycle.</p></div>
+      <div class="tl"><div class="dot">2</div><div class="when">Next 1&ndash;5 days</div><h4>Access &amp; account review</h4><p>View access to the bank, card and loan feeds, plus a short sit-down on Square, Divvy, the 401(k), health/TX-subsidy reconciliations, and how the roastery bills the shops &mdash; so the intercompany is mapped correctly from day one.</p></div>
+      <div class="tl"><div class="dot">3</div><div class="when">On your timing</div><h4>A clean cutover &mdash; no mid-deal disruption</h4><p>I take over on one clean date whenever you're ready &mdash; including after your go/no-go &mdash; so nothing is ripped out while you're still in the quality-of-earnings review. Month one runs a little longer while I learn each location, but you'll have books and the dashboard inside the first cycle.</p></div>
       <div class="tl"><div class="dot">4</div><div class="when">Weeks 2&ndash;4</div><h4>Historical cleanup &amp; intercompany</h4><p>I square the negative-equity entities, reconcile the roastery-to-shop balances, and standardize coding so every location's P&amp;L is comparable.</p></div>
       <div class="tl done"><div class="dot">5</div><div class="when">Inside one month</div><h4>Fully migrated &mdash; one consolidated picture</h4><p>All 13 entities closed, consolidated, and live on the dashboard, with minimal disruption to your team.</p></div>
     </div>
 
     <div class="subh">Then the monthly rhythm</div>
     <div class="rv cadence">
-      <div class="cstep"><div class="cn">First business days</div><h4>Your team sends inputs</h4><p>Receipts, invoices and approvals from each location.</p><span class="arrow">&rarr;</span></div>
-      <div class="cstep"><div class="cn">By week 2</div><h4>Clean close, every entity</h4><p>All 13 closed, intercompany squared, reconciled.</p><span class="arrow">&rarr;</span></div>
-      <div class="cstep"><div class="cn">Same week</div><h4>Dashboard is current</h4><p>Consolidated financials and the by-location read, live.</p></div>
+      <div class="cstep"><div class="cn">First business days</div><h4>One email of asks</h4><p>I send everything I need in a single list; you crank through it.</p><span class="arrow">&rarr;</span></div>
+      <div class="cstep"><div class="cn">By the 15th</div><h4>Clean close, every entity</h4><p>All 13 closed, intercompany squared, fully reconciled.</p><span class="arrow">&rarr;</span></div>
+      <div class="cstep"><div class="cn">Same day</div><h4>Dashboard is current</h4><p>Consolidated financials and the by-location read, live.</p></div>
     </div>
   </section>
 
@@ -370,19 +402,30 @@ footer b{color:var(--ink)}
 
   <section id="growth">
     <div class="rv">
-      <div class="lab">Built for what you've built</div>
-      <h2 class="sec">Ten years, ten shops, and a roastery</h2>
-      <p class="intro">A back office should match the business it serves. Here's the growth your books need to keep up with &mdash; and exactly why one consolidated close beats 13 disconnected files.</p>
+      <div class="lab">Built for either path</div>
+      <h2 class="sec">Whether you sell or scale, it runs on clean books</h2>
+      <p class="intro">You said it yourself: you're either going to sell it or grow it &mdash; and either way you need to upgrade the bookkeeping. Here's how the same clean foundation pays off on both paths.</p>
     </div>
-    <div class="rv growth">
+    <div class="rv path">
+      <div class="pc sell">
+        <div class="pk">If you sell</div>
+        <h4>Defend every dollar of EBITDA</h4>
+        <p>A buyer's quality-of-earnings review only trusts books that are reconciled, current, and consistent across all 13 entities. <b>Accurate adjusted EBITDA &mdash; tracked monthly, not reconstructed in a panic &mdash; protects your multiple</b> and keeps you out of the six-figure surprises that move a valuation.</p>
+        <p>You stay out of exclusivity guessing. The numbers are ready before the next data request is.</p>
+      </div>
+      <div class="pc scale">
+        <div class="pk">If you grow</div>
+        <h4>See exactly where you make money</h4>
+        <p>Shop 11 and beyond go onto a system that already knows how to add an entity cleanly. <b>True store-level margins, real intercompany from the roastery, and a live owner dashboard</b> tell you which shops to copy and which to fix &mdash; and set up the roastery for the distribution and wholesale you've got on the back burner.</p>
+        <p>The back office finally scales with the brand instead of behind it.</p>
+      </div>
+    </div>
+    <div class="rv growth" style="margin-top:18px">
       <div class="gx"><div class="gy">2015</div><div class="gn">Burnet flagship opens</div></div>
       <div class="gx"><div class="gy">2017&ndash;19</div><div class="gn">Marble Falls, Liberty Hill, Lampasas</div></div>
       <div class="gx"><div class="gy">2020</div><div class="gn">Lakeline + the roastery launches</div></div>
       <div class="gx"><div class="gy">2021&ndash;24</div><div class="gn">Cedar Park, New Hope, Copperas, Georgetown</div></div>
       <div class="gx"><div class="gy">2025</div><div class="gn">Kingsland &mdash; 10th shop</div></div>
-    </div>
-    <div class="rv lead" style="margin-top:22px">
-      <p><b>Vertical integration changed the bookkeeping math.</b> The day Forest Moon started roasting for the shops, your books stopped being ten simple coffee-shop files and became a group with real intercompany. Done right, that gives you true store-level margins and a clean consolidated picture for lenders and partners. Done loosely, it hides where you're actually making money. The whole point of Full-Service is to get that right, every month.</p>
     </div>
   </section>
 
@@ -390,11 +433,12 @@ footer b{color:var(--ink)}
     <div class="rv close">
       <h3>Why this partnership is the right call for Mojo</h3>
       <ul class="drivers">
-        <li><b>One financial picture across all 13 entities.</b> Consolidated, intercompany handled, every location comparable &mdash; the read a multi-unit operator actually needs to make decisions.</li>
-        <li><b>Books that finally match the business.</b> Full monthly close, reconciliations, inventory and cost-of-goods by location, plus a live owner dashboard &mdash; not bare-bones weekly journal entries cleaned up once a year.</li>
-        <li><b>A clean, fast handoff and a real partner.</b> $0 to switch, fully migrated inside a month, historical cleanup included, and someone who reports the numbers to you the same way every month.</li>
+        <li><b>Never five months behind again.</b> Reconciled, accurate, and closed by the 15th &mdash; every entity, every month. No surprises, no scramble when someone asks for financials.</li>
+        <li><b>Books your valuation can stand on.</b> Adjusted EBITDA tracked monthly and ready for any deal room, so the number you defend is the number that's real.</li>
+        <li><b>One picture across all 13 entities.</b> Consolidated, intercompany handled, every shop comparable and able to stand on its own &mdash; plus a live owner dashboard built on your real numbers.</li>
+        <li><b>A clean, easy handoff and a partner who's easy to work with.</b> $0 to switch, no mid-deal disruption, one email of asks a month &mdash; and I won't make your managers cry.</li>
       </ul>
-      <p style="margin-top:18px">It would be a privilege to keep the books for what you've built &mdash; and to help it scale.</p>
+      <p style="margin-top:18px">It would be a privilege to keep the books for what you've built &mdash; whichever direction you take it.</p>
       <div class="sig">Turnkey CFO &middot; bookkeeping, payroll, monthly close &amp; financial reporting</div>
     </div>
   </section>
