@@ -13,6 +13,7 @@
   --gold:#E8B35B;--gold2:#D99B33;--bright:#F4D58A;--espresso:#1C120A;--espresso2:#2A1B10;
   --coffee:#6F4E37;--caramel:#AE7F57;--latte:#C5A486;--ink:#2A1C12;--muted:#8A7861;
   --line:#ECE2D2;--cream:#FAF5EC;--card:#FFFDF8;--gold3:#C79A3A;--green:#3E7C5A;--greenbg:#e8f2ea;--goldbg:#FBF1DD;
+  --navy:#0E1317;--navy2:#16222E;--navy3:#22405C;--steel:#5E89B0;--navybg:#EEF2F6;
   --shadow:0 1px 2px rgba(40,24,10,.05),0 10px 30px rgba(40,24,10,.08);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -22,8 +23,9 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);backg
 h1,h2,h3,h4{font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-.01em}
 header{position:relative;overflow:hidden;color:#f3e7d4;
   background:radial-gradient(900px 440px at 18% 4%,rgba(232,179,91,.26),transparent 60%),
-    radial-gradient(720px 400px at 95% 0%,rgba(174,127,87,.22),transparent 55%),
-    linear-gradient(135deg,var(--espresso) 0%,var(--espresso2) 60%,#3B2616 100%);padding:52px 0 56px}
+    radial-gradient(760px 430px at 96% 102%,rgba(34,64,92,.42),transparent 60%),
+    radial-gradient(720px 400px at 95% 0%,rgba(174,127,87,.20),transparent 55%),
+    linear-gradient(135deg,var(--navy2) 0%,var(--espresso) 48%,var(--espresso2) 100%);padding:52px 0 56px}
 header::after{content:"";position:absolute;right:-120px;bottom:-150px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(232,179,91,.14),transparent 70%)}
 .hd{display:flex;align-items:center;gap:24px;flex-wrap:wrap;position:relative;z-index:1}
 .hd img{height:62px;width:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.4));flex:0 0 auto}
@@ -54,11 +56,11 @@ nav.steps{position:sticky;top:0;z-index:60;background:rgba(250,245,236,.95);back
 .steprow a{font-size:13px;font-weight:700;white-space:nowrap;text-decoration:none;color:var(--muted);padding:8px 15px;border-radius:9px;transition:.15s;display:flex;align-items:center;gap:8px}
 .steprow a .no{font-size:11px;font-weight:800;color:var(--gold2);background:var(--goldbg);width:19px;height:19px;border-radius:50%;display:grid;place-items:center}
 .steprow a:hover{background:#fff;color:var(--espresso)}
-.steprow a.on{background:var(--espresso);color:#fff}
+.steprow a.on{background:linear-gradient(135deg,var(--navy2),var(--espresso));color:#fff}
 .steprow a.on .no{background:rgba(255,255,255,.2);color:#fff}
 section{padding:50px 0 8px}
 .lab{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:10px}
-.lab::before{content:"";width:24px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--coffee))}
+.lab::before{content:"";width:24px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--navy3))}
 h2.sec{font-size:clamp(24px,3.2vw,32px);font-weight:800;color:var(--espresso);line-height:1.15}
 .intro{color:var(--muted);font-size:15.5px;margin:10px 0 26px;max-width:780px}
 .rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
@@ -76,8 +78,9 @@ h2.sec{font-size:clamp(24px,3.2vw,32px);font-weight:800;color:var(--espresso);li
 .pill{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.03em;padding:2px 9px;border-radius:99px;background:var(--greenbg);color:var(--green);margin-top:8px;text-transform:uppercase}
 .pill.w{background:var(--goldbg);color:var(--gold2)}
 .note{font-size:13px;color:var(--muted);font-style:italic;margin-top:14px}
-.waivebanner{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--espresso),var(--espresso2));color:#fff;border-radius:18px;padding:28px 32px;margin:8px 0 28px;box-shadow:0 14px 38px rgba(40,24,10,.24);text-align:center}
+.waivebanner{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--navy2) 0%,var(--espresso) 70%,var(--espresso2) 100%);color:#fff;border-radius:18px;padding:28px 32px;margin:8px 0 28px;box-shadow:0 14px 38px rgba(14,19,23,.3);text-align:center}
 .waivebanner::after{content:"";position:absolute;left:-70px;top:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(232,179,91,.22),transparent 68%)}
+.waivebanner::before{content:"";position:absolute;right:-90px;bottom:-110px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(94,137,176,.28),transparent 66%)}
 .waivebanner .wb-k{position:relative;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
 .waivebanner .wb-big{position:relative;font-size:clamp(22px,3.7vw,34px);font-weight:800;line-height:1.18}
 .waivebanner .wb-big s{color:#b59a78;font-weight:700}
@@ -226,7 +229,7 @@ ul.scope li b{color:var(--espresso)}
 .close ul.drivers li{position:relative;padding:15px 18px 15px 50px;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);font-size:14px;color:var(--ink);line-height:1.55}
 .close ul.drivers li::before{content:"\2713";position:absolute;left:16px;top:15px;color:#fff;background:linear-gradient(135deg,var(--gold),var(--gold2));width:22px;height:22px;border-radius:50%;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
 .close ul.drivers li b{color:var(--espresso)}
-footer{border-top:1px solid var(--line);margin-top:46px;padding:24px 0 50px;color:var(--muted);font-size:12.5px}
+footer{border-top:3px solid var(--navy2);margin-top:46px;padding:24px 0 50px;color:var(--muted);font-size:12.5px}
 footer b{color:var(--ink)}
 @media print{nav.steps,.dbtns,.browser{display:none}body{background:#fff}.rv{opacity:1!important;transform:none!important}section{padding:24px 0 0;break-inside:avoid}}
 </style>
@@ -327,9 +330,9 @@ footer b{color:var(--ink)}
     </div>
 
     <div class="rv waivebanner">
-      <div class="wb-k">My welcome to Mojo</div>
-      <div class="wb-big">Setup, migration, and historical cleanup. <span class="hl">$0 to switch.</span></div>
-      <div class="wb-sub">Onboarding the 11 operating entities is real work, including squaring up the intercompany and the negative-equity cleanup. That part's on me. You start clean and current, on either tier.</div>
+      <div class="wb-k">The bottom line</div>
+      <div class="wb-big">Get more for less. <span class="hl">$0 to switch.</span></div>
+      <div class="wb-sub">Both tiers come in under what you pay today, done right and closed by the 15th, with nothing out of pocket to move over. More service, a lower bill, either tier.</div>
     </div>
 
     <div class="tiers">
@@ -407,7 +410,7 @@ footer b{color:var(--ink)}
         <div class="sb-vh">And you get more than a smaller bill</div>
         <ul class="sb-list">
           <li>Books <b>closed by the 15th</b>, every entity, every month, never five months behind again</li>
-          <li>Setup, migration, and historical cleanup <b>waived</b>, $0 to switch</li>
+          <li>More service for a lower bill, with <b>$0 to switch</b> and nothing out of pocket to move over</li>
           <li>The roastery folded in at the same flat price, even though it's barely on the books today</li>
           <li>An <b>adjusted EBITDA you can defend</b> in the deal room, tracked monthly</li>
           <li>This <b>live owner dashboard</b>, 30k-ft and by-location, always current (Tier 2)</li>
@@ -424,21 +427,21 @@ footer b{color:var(--ink)}
     <div class="rv">
       <div class="lab">Step 2 &middot; The transition</div>
       <h2 class="sec">One clean cutover across the operating entities</h2>
-      <p class="intro">QuickBooks stays exactly where it is. It's already connected. This is cleanup, configuration, and a single clean takeover date, not a rebuild. Here's how I run it so it never lands on your team.</p>
+      <p class="intro">QuickBooks stays exactly where it is, already connected. I take the books over on one clean date and get them current, not a rebuild. Here's how I run it so it never lands on your team.</p>
     </div>
 
     <div class="rv promise">
       <h3>My commitment to you</h3>
-      <p><b>Your first clean, consolidated month lands within weeks, not months.</b> I do all the heavy lifting on the account setup, the intercompany mapping, and the historical cleanup across every entity, so your managers keep running coffee while I get the books right.</p>
-      <p>No setup fee, no migration fee, no per-entity onboarding charge. <b>The transition is on me.</b></p>
+      <p><b>Your first clean, consolidated month lands within weeks, not months.</b> I take on all the heavy lifting and get every entity current and reconciled, so your managers keep running coffee while I get the books right.</p>
+      <p>Nothing out of pocket to move over. <b>The transition is on me.</b></p>
     </div>
 
     <div class="rv timeline">
       <div class="tl"><div class="dot">1</div><div class="when">Done</div><h4>QuickBooks connected, all entities</h4><p>Every company is already linked, read-only. Nothing more needed from you to get me looking at the numbers.</p></div>
       <div class="tl"><div class="dot">2</div><div class="when">Upon engagement signed</div><h4>Access &amp; account review</h4><p>View access to the bank, card and loan feeds, plus a short sit-down on Square, Divvy, the 401(k), health and TX-subsidy reconciliations, and how the roastery bills the shops, so the intercompany is mapped correctly from day one.</p></div>
       <div class="tl"><div class="dot">3</div><div class="when">On your timing</div><h4>A clean cutover, no mid-deal disruption</h4><p>I take over on one clean date whenever you're ready, including after your go/no-go, so nothing is ripped out while you're still in the quality-of-earnings review. Month one runs a little longer while I learn each location, but you'll have books and the dashboard inside the first cycle.</p></div>
-      <div class="tl"><div class="dot">4</div><div class="when">Weeks 2&ndash;4</div><h4>Historical cleanup &amp; intercompany</h4><p>I square the negative-equity entities, reconcile the roastery-to-shop balances, and standardize coding so every location's P&amp;L is comparable.</p></div>
-      <div class="tl done"><div class="dot">5</div><div class="when">Inside one month</div><h4>Fully migrated, one consolidated picture</h4><p>Every operating entity closed, consolidated, and live on the dashboard, with minimal disruption to your team.</p></div>
+      <div class="tl"><div class="dot">4</div><div class="when">Weeks 2&ndash;4</div><h4>Get every entity current</h4><p>I square the negative-equity entities, reconcile the roastery-to-shop balances, and standardize coding so every location's P&amp;L is comparable.</p></div>
+      <div class="tl done"><div class="dot">5</div><div class="when">Inside one month</div><h4>Fully current, one consolidated picture</h4><p>Every operating entity closed, consolidated, and live on the dashboard, with minimal disruption to your team.</p></div>
     </div>
 
     <div class="subh">Then the monthly rhythm</div>
@@ -521,7 +524,7 @@ footer b{color:var(--ink)}
     <div class="rv close">
       <h3>Why this partnership is the right call for Mojo</h3>
       <ul class="drivers">
-        <li><b>It costs you less than today.</b> $400 a company, under what you're already paying per shop, with setup and cleanup on me. You pay less and get more.</li>
+        <li><b>It costs you less than today.</b> $400 a company, under what you're already paying per shop, with $0 to switch. You get more and pay less.</li>
         <li><b>Never five months behind again.</b> Reconciled, accurate, and closed by the 15th, every entity, every month. No scramble when someone asks for financials.</li>
         <li><b>Books your valuation can stand on.</b> Adjusted EBITDA tracked monthly and ready for any deal room, so the number you defend is the number that's real.</li>
         <li><b>One picture across the operating entities.</b> Consolidated, intercompany handled, every shop comparable and able to stand on its own, plus a live owner dashboard built on your real numbers.</li>
@@ -543,7 +546,7 @@ footer b{color:var(--ink)}
 </main>
 
 <footer class="wrap">
-  Figures are real, pulled live from Mojo's QuickBooks Online (read-only), full-year 2025, accrual basis &middot; generated June 17, 2026 &middot; prepared by <b>Turnkey CFO</b>. Tier pricing covers all 13 entities; setup, migration, historical cleanup and the dashboard build are included at no cost.
+  Figures are real, pulled live from Mojo's QuickBooks Online (read-only), full-year 2025, accrual basis &middot; generated June 17, 2026 &middot; prepared by <b>Turnkey CFO</b>. Tier pricing covers the 11 operating entities; the dashboard and a $0 switch are included.
 </footer>
 
 <script>
