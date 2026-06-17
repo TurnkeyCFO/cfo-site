@@ -47,6 +47,19 @@ header .sub{color:#d6c3a8;font-size:13.5px;max-width:580px}
 .alt button.on{background:var(--cream);border-bottom-color:var(--gold)}
 .alt button.on .lvl{color:var(--espresso)} .alt button.on .who{color:var(--muted)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(232,179,91,.25)}
+@media(max-width:680px){
+  header{padding:20px 0 0}
+  .brandrow{flex-direction:column;align-items:flex-start;gap:12px}
+  .idblk{flex-direction:column;align-items:flex-start;gap:11px}
+  .logoimg{height:38px}
+  header h1{font-size:24px;line-height:1.12}
+  header .sub{font-size:13px}
+  .prov{text-align:left;font-size:11.5px}
+  .alt{margin-top:14px;gap:6px}
+  .alt button{flex:1 1 0;min-width:0;padding:10px 12px}
+  .alt button .lvl{font-size:14px}
+  .alt button .who{font-size:10.5px}
+}
 main{padding:28px 0 60px}
 .tier{display:none;animation:fade .35s ease}
 .tier.on{display:block}
