@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Mojo Coffee — Financial Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root{
+  --gold:#E8B35B;--gold2:#D99B33;--espresso:#1C120A;--espresso2:#2A1B10;--coffee:#6F4E37;
+  --caramel:#AE7F57;--latte:#C5A486;--ink:#2A1C12;--muted:#8A7861;--line:#ECE2D2;
+  --cream:#FAF5EC;--card:#FFFDF8;--pos:#3E7C5A;--posbg:#e8f2ea;--neg:#B5462F;--negbg:#f8ece8;
+  --goldbg:#FBF1DD;--navy:#0E1317;--navy2:#16222E;--navy3:#22405C;--steel:#5E89B0;
+  --shadow:0 1px 2px rgba(40,24,10,.05),0 10px 30px rgba(40,24,10,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+h1,h2,h3{font-family:'Plus Jakarta Sans',sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+@keyframes shimmer{to{background-position:-200% center}}
+.shimmer{background:linear-gradient(100deg,var(--coffee) 16%,var(--gold) 38%,#F4D58A 50%,var(--gold) 62%,var(--coffee) 84%);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:shimmer 5s linear infinite}
+.shimmer-title{background:linear-gradient(100deg,#E8B35B 12%,#fff6e2 34%,#F4D58A 50%,#fff6e2 66%,#E8B35B 88%);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:shimmer 4.5s linear infinite}
+header{background:radial-gradient(640px 320px at 99% 120%,rgba(34,64,92,.45),transparent 62%),linear-gradient(135deg,var(--navy2),var(--espresso) 52%,var(--espresso2));color:#f3e7d4;padding:24px 0 0;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-120px;top:-130px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(232,179,91,.20),transparent 68%)}
+.brandrow{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;position:relative;z-index:1}
+.idblk{display:flex;align-items:center;gap:18px}
+.logoimg{height:50px;width:auto;filter:drop-shadow(0 3px 10px rgba(0,0,0,.35))}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+header h1{margin:.12em 0 .08em;font-size:32px;font-weight:800;letter-spacing:-.015em}
+header .sub{color:#d6c3a8;font-size:13.5px;max-width:580px}
+.prov{text-align:right;font-size:12px;color:#cab695;line-height:1.7}
+.prov b{color:#fff;font-weight:700}
+.prov .logo{font-weight:800;font-size:17px;color:#fff;letter-spacing:-.02em}
+.prov .logo span{color:var(--gold)}
+.alt{display:flex;gap:7px;margin:20px 0 -1px;flex-wrap:wrap;position:relative;z-index:1}
+.alt button{cursor:pointer;border:none;text-align:left;background:rgba(255,255,255,.07);color:#e4d4bd;
+  padding:12px 18px;border-radius:11px 11px 0 0;border-bottom:3px solid transparent;transition:.18s;font-family:inherit;flex:0 1 auto;min-width:180px}
+.alt button .lvl{font-weight:800;font-size:16px;color:#fff;display:flex;align-items:center;gap:8px}
+.alt button .who{font-size:11.5px;color:#cab695;margin-top:2px}
+.alt button:hover{background:rgba(255,255,255,.14)}
+.alt button.on{background:var(--cream);border-bottom-color:var(--gold)}
+.alt button.on .lvl{color:var(--espresso)} .alt button.on .who{color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(232,179,91,.25)}
+@media(max-width:680px){
+  header{padding:20px 0 0}
+  .brandrow{flex-direction:column;align-items:flex-start;gap:12px}
+  .idblk{flex-direction:column;align-items:flex-start;gap:11px}
+  .logoimg{height:38px}
+  header h1{font-size:24px;line-height:1.12}
+  header .sub{font-size:13px}
+  .prov{text-align:left;font-size:11.5px}
+  .alt{margin-top:14px;gap:6px}
+  .alt button{flex:1 1 0;min-width:0;padding:10px 12px}
+  .alt button .lvl{font-size:14px}.alt button .who{font-size:10.5px}
+}
+main{padding:28px 0 60px}
+.tier{display:none;animation:fade .35s ease}
+.tier.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.tierhead{display:flex;align-items:baseline;gap:13px;margin-bottom:14px;flex-wrap:wrap}
+.tierhead h2{font-size:25px;margin:0;font-weight:800;letter-spacing:-.01em}
+.tierhead .tag{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--gold2);background:var(--goldbg);padding:4px 11px;border-radius:99px}
+.grid{display:grid;gap:15px}
+.g6{grid-template-columns:repeat(6,1fr)} .g5{grid-template-columns:repeat(5,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1000px){.g6{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:980px){.g5{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){.g4,.g3,.g2{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.g6,.g5,.g4,.g3,.g2{grid-template-columns:1fr}.alt button{min-width:140px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 3px;font-size:12.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.kpi .val{font-weight:800;font-size:27px;letter-spacing:-.02em;line-height:1.05;margin-top:5px}
+.kpi .note{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;margin-top:8px}
+.pill.up{background:var(--posbg);color:var(--pos)} .pill.down{background:var(--negbg);color:var(--neg)} .pill.watch{background:var(--goldbg);color:var(--gold2)}
+.pos{color:var(--pos)} .neg{color:var(--neg)} .accent{color:var(--gold2)}
+.verdict{background:linear-gradient(135deg,#fff,var(--goldbg));border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:16px}
+.verdict h3{color:var(--espresso);font-size:17px;margin:0 0 6px;text-transform:none;letter-spacing:0}
+.verdict .row{display:flex;gap:10px;align-items:flex-start;margin:6px 0}
+.verdict p{margin:0;font-size:14px;color:#4a3a2c}
+.verdict .ic{flex:none;width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;margin-top:2px}
+.ic.g{background:var(--pos)} .ic.w{background:var(--gold2)} .ic.r{background:var(--neg)}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.trio{grid-template-columns:1fr}}
+.tcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px;box-shadow:var(--shadow)}
+.tcard .lab{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.tcard .big{font-weight:800;font-size:24px;margin:4px 0 1px;letter-spacing:-.02em;color:var(--espresso)}
+.tcard .sub{font-size:12px;color:var(--muted)}
+.tcard .row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.ins{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.ins::after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--gold),var(--coffee))}
+.ins .il{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--gold2);display:flex;align-items:center;gap:7px}
+.ins .il .ig{width:18px;height:18px;border-radius:6px;background:var(--goldbg);color:var(--gold2);display:grid;place-items:center;font-size:11px;font-weight:800}
+.ins .iv{font-size:18px;font-weight:800;color:var(--espresso);margin:6px 0 2px;line-height:1.1}
+.ins .is{font-size:11.5px;color:var(--muted);line-height:1.4}
+.chartcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 12px;box-shadow:var(--shadow)}
+.chartcard h3{color:var(--espresso);font-size:15px;margin:0 0 4px;text-transform:none;letter-spacing:0;font-weight:700}
+.chartcard .csub{font-size:12px;color:var(--muted);margin:-2px 0 8px}
+.cwrap{position:relative;height:300px} .cwrap.tall{height:400px} .cwrap.xl{height:460px} .cwrap.sh{height:330px}
+.dollar{display:flex;height:46px;border-radius:11px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+.dollar .seg{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12.5px;white-space:nowrap;min-width:0}
+.dleg{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:12px;color:var(--muted)}
+.dleg span{display:flex;align-items:center;gap:6px}.dleg i{width:11px;height:11px;border-radius:3px;display:inline-block}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+thead th{background:var(--espresso);color:#f3e7d4;font-weight:600;font-size:11px;letter-spacing:.02em;position:sticky;top:0;cursor:pointer;white-space:nowrap}
+tbody tr:hover{background:#faf3e7}
+tr.sum{font-weight:800;background:var(--goldbg)} tr.sum td{border-top:2px solid var(--espresso)}
+.chip{display:inline-block;font-weight:700;font-size:11.5px;padding:2px 7px;border-radius:7px}
+.chip.up{background:var(--posbg);color:var(--pos)} .chip.down{background:var(--negbg);color:var(--neg)} .chip.flat{background:#efe7da;color:var(--muted)}
+.muted{color:var(--muted)} .small{font-size:12px}
+.sec{font-weight:800;color:var(--espresso);font-size:14.5px;margin:24px 0 11px;display:flex;align-items:center;gap:9px}
+.sec::before{content:"";width:18px;height:3px;background:linear-gradient(90deg,var(--gold),var(--navy3));border-radius:2px}
+.cap{font-size:12px;color:var(--muted);margin:-4px 0 12px}
+.flag{background:var(--goldbg);border:1px solid #ecd9ad;border-radius:12px;padding:13px 16px;font-size:13px;color:#6b5320;margin:12px 0}
+.flag b{color:#4d3a12}
+.gbadge{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;letter-spacing:.02em}
+.gb-mojo{background:var(--goldbg);color:var(--gold2)} .gb-forest{background:#ece7df;color:var(--coffee)} .gb-sisters{background:#eef0ea;color:#5d6b54}
+.loccard{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 15px;box-shadow:var(--shadow)}
+.loccard .lh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.loccard .ln{font-weight:800;font-size:14.5px;color:var(--espresso)}
+.loccard .lo{font-size:11px;color:var(--muted)}
+.loccard .lr{font-size:21px;font-weight:800;color:var(--espresso);margin:9px 0 1px}
+.loccard .lstat{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:11.5px;color:var(--muted)}
+.loccard .lstat b{color:var(--ink)}
+.loccard .spark{margin-top:9px}
+.assum{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.assum li{font-size:13px;color:#4a3a2c;padding-left:20px;position:relative;line-height:1.5}
+.assum li::before{content:"";position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:2px;background:var(--gold)}
+.assum b{color:var(--espresso)}
+.vrange{display:flex;gap:12px;flex-wrap:wrap}
+.vchip{flex:1 1 0;min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);text-align:center}
+.vchip .vl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.vchip .vv{font-size:25px;font-weight:800;color:var(--espresso);margin-top:5px;line-height:1.05}
+.vchip .vx{font-size:11.5px;color:var(--muted);margin-top:3px}
+.vchip.base{border:2px solid var(--gold);background:var(--goldbg)}
+.matrix td.s0{background:#fcf4e4}.matrix td.s1{background:#f6e3b8}.matrix td.s2{background:#efce8b}.matrix td.s3{background:#e8b35b;color:#1c120a;font-weight:800}
+.vtoggle{display:inline-flex;background:#efe7da;border-radius:10px;padding:3px;gap:3px;margin:0 0 12px}
+.vtoggle button{border:none;background:transparent;cursor:pointer;font-family:inherit;font-weight:700;font-size:13px;color:var(--muted);padding:7px 16px;border-radius:8px}
+.vtoggle button.on{background:#fff;color:var(--espresso);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.disc{background:#fff7e8;border:1px solid #ecd49a;border-radius:12px;padding:12px 16px;font-size:12.5px;color:#6b5320;margin-bottom:14px}
+.disc b{color:#4d3a12}
+.vin{width:96px;font-family:inherit;font-size:13px;font-weight:700;color:var(--espresso);border:1px solid var(--line);border-radius:8px;padding:6px 9px;text-align:right;background:#fff}
+.vin:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,179,91,.22)}
+.vin.mult{width:66px}
+.ctrlbar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.ctrlbar .grp{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);font-weight:700}
+.presetbtn{border:1px solid var(--line);background:#fff;color:var(--espresso);font-family:inherit;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;cursor:pointer;transition:.15s}
+.presetbtn:hover{border-color:var(--gold);background:var(--goldbg)}
+.presetbtn.warm{background:var(--goldbg);border-color:var(--gold)}
+.presetbtn.step{background:var(--goldbg);border-color:var(--gold);min-width:78px}
+.presetbtn.step:hover{background:var(--gold);color:#fff}
+.ctrlbar .xmark{color:var(--muted);font-weight:700;margin-left:1px}
+.bighero{background:radial-gradient(560px 300px at 102% 130%,rgba(94,137,176,.32),transparent 60%),linear-gradient(135deg,var(--navy2) 0%,var(--espresso) 68%,var(--navy) 100%);color:#f3e7d4;border-radius:16px;padding:24px 26px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.bighero::after{content:"";position:absolute;right:-80px;top:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(232,179,91,.18),transparent 68%)}
+.bighero .bl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);position:relative}
+.bighero .bv{font-size:40px;font-weight:800;color:#fff;margin:5px 0 3px;letter-spacing:-.02em;line-height:1;position:relative}
+.bighero .bx{font-size:13px;color:#cab695;position:relative}
+.brow{display:flex;justify-content:space-between;align-items:center;padding:9px 2px;border-bottom:1px dashed var(--line);font-size:13.5px}
+.brow:last-child{border-bottom:none}.brow .bk{color:var(--muted);font-weight:600}.brow .bvv{font-weight:800;color:var(--espresso)}
+.brow.tot{border-top:2px solid var(--espresso);margin-top:2px;padding-top:11px}.brow.tot .bvv{color:var(--gold2);font-size:16px}
+td.editc{background:#fffdf6}
+footer{border-top:3px solid var(--navy2);padding:20px 0 40px;color:var(--muted);font-size:12px}
+footer b{color:var(--ink)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brandrow">
+      <div class="idblk">
+        <img id="logo" class="logoimg" alt="Mojo Coffee">
+        <div>
+          <div class="eyebrow">Financial Dashboard &middot; Born &amp; Brewed in Texas</div>
+          <h1 class="shimmer-title">Mojo Coffee &mdash; Portfolio</h1>
+          <div class="sub">A plain-language view of all 11 entities &mdash; built live from your QuickBooks.</div>
+        </div>
+      </div>
+      <div class="prov">
+        <div class="logo">Turnkey <span>CFO</span></div>
+        Source: <b>QuickBooks Online (live)</b><br>
+        History: <b id="histwin"></b><br>
+        Through <b id="thru"></b> &middot; <span id="gen"></span>
+      </div>
+    </div>
+    <div class="alt" id="alt">
+      <button data-t="t30" class="on"><span class="lvl"><span class="dot"></span>30,000 ft</span><span class="who">Portfolio health, momentum &amp; economics</span></button>
+      <button data-t="loc"><span class="lvl">By Location</span><span class="who">Every shop, in depth</span></button>
+      <button data-t="val"><span class="lvl">Valuation</span><span class="who">Scenario tester &mdash; your inputs</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- 30k -->
+<section class="tier on" id="t30">
+  <div class="tierhead"><h2 class="shimmer">The 30,000-Foot View</h2><span class="tag">The whole portfolio</span></div>
+  <div class="verdict" id="verdict30"></div>
+  <div class="grid g3" id="kpi30"></div>
+
+  <div class="sec">Recent momentum &mdash; trailing 12 months vs. the prior 12</div>
+  <p class="cap" id="momCap"></p>
+  <div class="trio" id="momentum"></div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="chartcard"><h3>Revenue by year &mdash; by brand group</h3><p class="csub">Coffee shops and the roastery stacked; line is net income.</p><div class="cwrap"><canvas id="cAnnual"></canvas></div></div>
+    <div class="chartcard"><h3>The growth story &mdash; locations open by year</h3><p class="csub">From one drive-thru in 2015 to a multi-location group with its own roastery.</p><div class="cwrap"><canvas id="cStores"></canvas></div></div>
+  </div>
+
+  <div class="sec">Are the books getting healthier as you scale?</div>
+  <div class="grid g2">
+    <div class="chartcard"><h3>Profit margin by year</h3><p class="csub">Gross margin and net margin over time &mdash; is profitability holding as you add shops?</p><div class="cwrap"><canvas id="cMargin"></canvas></div></div>
+    <div class="chartcard"><h3>2025 vs. 2024 &mdash; by measure</h3><p class="csub">Year-over-year change in revenue, costs and profit.</p><div class="cwrap"><canvas id="cYoY"></canvas></div></div>
+  </div>
+
+  <div class="chartcard" style="margin-top:15px"><h3>Monthly revenue vs. spending &mdash; full history</h3><div class="cwrap"><canvas id="cMonthly"></canvas></div></div>
+
+  <div class="sec">Seasonality &mdash; your calendar rhythm</div>
+  <div class="chartcard"><p class="csub" id="seasCap"></p><div class="cwrap"><canvas id="cSeason"></canvas></div></div>
+
+  <div class="sec">Where every revenue dollar goes &mdash; 2025</div>
+  <div class="card"><div class="dollar" id="dollarBar"></div><div class="dleg" id="dollarLeg"></div></div>
+
+  <div class="sec">Consolidated profit &amp; loss &mdash; all 11 entities</div>
+  <div class="grid g2">
+    <div class="card" style="padding:6px 4px"><div style="overflow:auto"><table id="pnlTbl"></table></div></div>
+    <div class="chartcard"><h3>Operating expense mix &mdash; 2025</h3><div class="cwrap tall"><canvas id="cMix"></canvas></div></div>
+  </div>
+
+  <div class="sec">Working capital &mdash; combined balance sheet (today)</div>
+  <div class="grid g4" id="bsCards"></div>
+  <div class="flag" id="wcFlag"></div>
+</section>
+
+<!-- by location -->
+<section class="tier" id="loc">
+  <div class="tierhead"><h2 class="shimmer">By Location</h2><span class="tag">Every entity, in depth</span></div>
+  <p class="cap">2025 full-year actuals (accrual) with growth read through 2026 to date. Auto-surfaced insights, a sortable comparison, and the charts that show which shops carry the group and which need attention.</p>
+
+  <div class="sec">What jumps out</div>
+  <div class="grid g4" id="insights"></div>
+
+  <div class="sec">Scale vs. profitability &mdash; the portfolio map</div>
+  <div class="chartcard"><p class="csub">Each bubble is one entity: revenue across the bottom, net margin up the side, bubble size = net income. Top-right is the sweet spot.</p><div class="cwrap xl"><canvas id="cBubble"></canvas></div></div>
+
+  <div class="sec">The full comparison &mdash; click any column to sort</div>
+  <div class="card" style="padding:6px 4px"><div style="overflow:auto"><table id="locTbl"></table></div></div>
+
+  <div class="sec">Scale &amp; profit by location</div>
+  <div class="grid g2">
+    <div class="chartcard"><h3>2025 revenue by location</h3><div class="cwrap tall"><canvas id="cLocRev"></canvas></div></div>
+    <div class="chartcard"><h3>2025 net income by location</h3><div class="cwrap tall"><canvas id="cLocNet"></canvas></div></div>
+  </div>
+
+  <div class="sec">Profitability &mdash; how efficiently each shop runs</div>
+  <div class="grid g2">
+    <div class="chartcard"><h3>Gross margin % by location</h3><p class="csub" id="gmAvg"></p><div class="cwrap tall"><canvas id="cLocGM"></canvas></div></div>
+    <div class="chartcard"><h3>Net margin % by location</h3><p class="csub" id="nmAvg"></p><div class="cwrap tall"><canvas id="cLocNM"></canvas></div></div>
+  </div>
+
+  <div class="sec">Cost efficiency &mdash; the two biggest line items</div>
+  <div class="grid g2">
+    <div class="chartcard"><h3>Payroll &amp; labor as % of revenue</h3><p class="csub">Lower is leaner. The biggest lever in a coffee shop.</p><div class="cwrap tall"><canvas id="cPay"></canvas></div></div>
+    <div class="chartcard"><h3>Cost of goods as % of revenue</h3><p class="csub">Product cost discipline by shop.</p><div class="cwrap tall"><canvas id="cCogs"></canvas></div></div>
+  </div>
+
+  <div class="sec">Cost structure &mdash; where every revenue dollar goes, by location</div>
+  <div class="chartcard"><p class="csub">Cost of goods, payroll &amp; labor, rent/occupancy and all other operating cost, as a share of each location's revenue. The gap to 100% is profit.</p><div class="cwrap xl"><canvas id="cLocCost"></canvas></div></div>
+
+  <div class="sec">Growth &mdash; the maturation curve &amp; current pace</div>
+  <div class="grid g2">
+    <div class="chartcard"><h3>Revenue trend by shop &mdash; full history</h3><p class="csub">Each line is one location from the year it opened. Newer shops are still climbing.</p><div class="cwrap tall"><canvas id="cLocTrend"></canvas></div></div>
+    <div class="chartcard"><h3>2026 pace &mdash; YTD vs the same period last year</h3><p class="csub">Same-months comparison, so seasonality is apples-to-apples.</p><div class="cwrap tall"><canvas id="cLocSP"></canvas></div></div>
+  </div>
+
+  <div class="sec">Every location at a glance</div>
+  <div class="grid g4" id="locCards"></div>
+</section>
+
+<!-- valuation scenario tester -->
+<section class="tier" id="val">
+  <div class="tierhead"><h2 class="shimmer">Valuation Scenario Tester</h2><span class="tag">Interactive &middot; your inputs</span></div>
+  <div class="disc"><b>Play with the assumptions.</b> Edit the EBITDA add-backs, the multiple on any company and net debt &mdash; the totals update live. Defaults start at FY2025 operating EBITDA and a 6.0&times; multiple; use the &minus;0.5 / +0.5 buttons to move it. Illustrative only; a buyer's quality-of-earnings review sets the real numbers.</div>
+
+  <div class="grid g2" style="align-items:stretch">
+    <div class="bighero">
+      <div class="bl">Total equity value to owners</div>
+      <div class="bv" id="heroEquity">—</div>
+      <div class="bx" id="heroSub"></div>
+    </div>
+    <div class="card">
+      <div class="brow"><span class="bk">Operating enterprise value (Σ company EV)</span><span class="bvv" id="brEV">—</span></div>
+      <div class="brow"><span class="bk">− Net debt</span><span class="bvv" id="brDebt">—</span></div>
+      <div class="brow tot"><span class="bk">= Total equity value</span><span class="bvv" id="brEq">—</span></div>
+      <div class="brow"><span class="bk">Blended EV / EBITDA &middot; EV / revenue</span><span class="bvv" id="brBlend">—</span></div>
+    </div>
+  </div>
+
+  <div class="sec">Set your assumptions</div>
+  <div class="card">
+    <div class="ctrlbar">
+      <span class="grp">Multiple on all shops: <input class="vin mult" id="allMult" type="number" step="0.5" min="0" value="6.0"><span class="xmark">&times;</span></span>
+      <button class="presetbtn step" id="multDown">&minus; 0.5&times;</button>
+      <button class="presetbtn step" id="multUp">+ 0.5&times;</button>
+      <button class="presetbtn" id="normBtn">Normalize new stores to breakeven</button>
+      <button class="presetbtn" id="resetBtn">Reset all</button>
+    </div>
+    <div class="ctrlbar" style="margin-top:14px">
+      <span class="grp">Owner add-back, all shops: <input class="vin" id="ownerAdd" type="number" step="5000" value="0"> /shop</span>
+      <span class="grp">Net debt: <input class="vin" id="netDebtIn" type="number" step="10000"></span>
+    </div>
+  </div>
+
+  <div class="sec">Valuation by company &mdash; edit any highlighted cell</div>
+  <div class="card" style="padding:6px 4px"><div style="overflow:auto"><table id="scenTbl"></table></div></div>
+
+  <div class="chartcard" style="margin-top:14px"><h3>Value by company (live)</h3><div class="cwrap tall"><canvas id="cScen"></canvas></div></div>
+  <div class="flag" id="scenCross"></div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  Profit &amp; loss and balance sheet are real, live from QuickBooks Online (read-only) &middot; history <span id="footwin"></span> &middot; the current partial month/year is shown as YTD and excluded from trailing-12, quarter and year-over-year math. Prepared by <b>Turnkey CFO</b> &mdash; bookkeeping, payroll, monthly close &amp; financial reporting.
+</footer>
+
+<script>
+const D = {"generated": "June 17, 2026", "end_date": "2026-06-16", "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAC+CAYAAADN9GvGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAylpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMS1jMDAxIDc5LjE0NjI4OTk3NzcsIDIwMjMvMDYvMjUtMjM6NTc6MTQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyNS4wIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjYxNUI3RTMwRDY0RjExRUVBNUU4RjE1RDlFMTZFQUZDIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjYxNUI3RTMxRDY0RjExRUVBNUU4RjE1RDlFMTZFQUZDIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NjE1QjdFMkVENjRGMTFFRUE1RThGMTVEOUUxNkVBRkMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NjE1QjdFMkZENjRGMTFFRUE1RThGMTVEOUUxNkVBRkMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5Dqt1cAAA0IElEQVR4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", "valuation": {"opco_rev": 10767903, "eb_reported": 746118, "ramp_addback": 134447, "eb_norm": 880565, "margin": 8.2, "mult": {"low": 5.0, "base": 6.5, "high": 8.0}, "ev": {"low": 4402825, "base": 5723672, "high": 7044520}, "net_debt": 662611, "propco_nav": 0, "propco_assets": 0, "equity": {"low": 3740214, "base": 5061061, "high": 6381909}, "scen": [["Reported FY2025", 746118], ["Normalized (new stores at breakeven)", 880565], ["+ illustrative buyer add-backs (~20%)", 1056678]], "sens": {"mults": [5.0, 6.5, 8.0], "scen": ["Reported FY2025", "Normalized (new stores at breakeven)", "+ illustrative buyer add-backs (~20%)"], "grid": [[3730590, 4849767, 5968944], [4402825, 5723672, 7044520], [5283390, 6868407, 8453424]]}, "companies": [{"short": "Burnet (Flagship)", "group": "Mojo", "seg": "OpCo", "revenue": 1265152, "ebitda": 197691, "margin": 16, "opened": "2015", "ramping": false, "ev_low": 988454, "ev_base": 1284990, "ev_high": 1581526}, {"short": "Lakeline", "group": "Mojo", "seg": "OpCo", "revenue": 1189143, "ebitda": 107622, "margin": 9, "opened": "2020", "ramping": false, "ev_low": 538108, "ev_base": 699540, "ev_high": 860973}, {"short": "Marble Falls", "group": "Mojo", "seg": "OpCo", "revenue": 1240501, "ebitda": 124779, "margin": 10, "opened": "2017", "ramping": false, "ev_low": 623894, "ev_base": 811063, "ev_high": 998231}, {"short": "Copperas Cove", "group": "Mojo", "seg": "OpCo", "revenue": 1129262, "ebitda": 94639, "margin": 8, "opened": "2024", "ramping": false, "ev_low": 473194, "ev_base": 615153, "ev_high": 757111}, {"short": "Liberty Hill", "group": "Mojo", "seg": "OpCo", "revenue": 1117999, "ebitda": 155517, "margin": 14, "opened": "2018", "ramping": false, "ev_low": 777584, "ev_base": 1010860, "ev_high": 1244135}, {"short": "1431 / Cedar Park", "group": "Mojo", "seg": "OpCo", "revenue": 747538, "ebitda": 6200, "margin": 1, "opened": "2021", "ramping": false, "ev_low": 31002, "ev_base": 40303, "ev_high": 49604}, {"short": "Lampasas", "group": "Mojo", "seg": "OpCo", "revenue": 840193, "ebitda": 60174, "margin": 7, "opened": "2019", "ramping": false, "ev_low": 300870, "ev_base": 391131, "ev_high": 481392}, {"short": "New Hope", "group": "Mojo", "seg": "OpCo", "revenue": 687927, "ebitda": 38341, "margin": 6, "opened": "2023", "ramping": false, "ev_low": 191706, "ev_base": 249218, "ev_high": 306730}, {"short": "Georgetown", "group": "Mojo", "seg": "OpCo", "revenue": 592901, "ebitda": -71272, "margin": -12, "opened": "2024", "ramping": true, "ev_low": 0, "ev_base": 0, "ev_high": 0}, {"short": "Kingsland", "group": "Mojo", "seg": "OpCo", "revenue": 186095, "ebitda": -63175, "margin": -34, "opened": "2025", "ramping": true, "ev_low": 0, "ev_base": 0, "ev_high": 0}, {"short": "Forest Moon (Roastery)", "group": "Forest Moon", "seg": "OpCo", "revenue": 1771193, "ebitda": 95602, "margin": 5, "opened": "2020", "ramping": false, "ev_low": 478011, "ev_base": 621414, "ev_high": 764817}], "n_shops": 10, "ev_rev_base": 0.53, "ev_per_shop": 572367, "rev_growth": 38}, "history_label": "2015 \u2013 2026", "kpi": {"revenue_2025": 10767903, "net_2025": 1012597, "net_margin_2025": 9, "gross_margin_2025": 58, "revenue_2026ytd": 5901931, "net_2026ytd": 597350, "locations": 10, "entities": 11, "assets": 1861050, "equity": 336339, "first_year": "2015", "rev_2024": 7823572, "rev_growth_24_25": 38, "rev_2020": 3759948, "rev_mult_5yr": 2.9}, "annual": {"labels": ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026 YTD"], "mojo": [15181, 438818, 895766, 1632250, 2493213, 3759948, 4941028, 5232961, 5585507, 6671124, 8996710, 4827367], "forest": [0, 0, 0, 0, 0, 0, 487268, 1052597, 1267027, 1152448, 1771193, 1074564], "sisters": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "net": [-47220, 19895, -12718, 105769, 175115, 511335, 552819, 98696, 394072, 90030, 1012597, 597548]}, "store_growth": {"years": ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"], "counts": [1, 1, 2, 3, 4, 6, 7, 7, 8, 10, 11, 11]}, "monthly": {"months": ["Jun 1-16, 2026", "Jan 2014", "Feb 2014", "Mar 2014", "Apr 2014", "May 2014", "Jun 2014", "Jul 2014", "Aug 2014", "Sep 2014", "Oct 2014", "Nov 2014", "Dec 2014", "Jan 2015", "Feb 2015", "Mar 2015", "Apr 2015", "May 2015", "Jun 2015", "Jul 2015", "Aug 2015", "Sep 2015", "Oct 2015", "Nov 2015", "Dec 2015", "Jan 2016", "Feb 2016", "Mar 2016", "Apr 2016", "May 2016", "Jun 2016", "Jul 2016", "Aug 2016", "Sep 2016", "Oct 2016", "Nov 2016", "Dec 2016", "Jan 2017", "Feb 2017", "Mar 2017", "Apr 2017", "May 2017", "Jun 2017", "Jul 2017", "Aug 2017", "Sep 2017", "Oct 2017", "Nov 2017", "Dec 2017", "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018", "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", "Nov 2018", "Dec 2018", "Jan 2019", "Feb 2019", "Mar 2019", "Apr 2019", "May 2019", "Jun 2019", "Jul 2019", "Aug 2019", "Sep 2019", "Oct 2019", "Nov 2019", "Dec 2019", "Jan 2020", "Feb 2020", "Mar 2020", "Apr 2020", "May 2020", "Jun 2020", "Jul 2020", "Aug 2020", "Sep 2020", "Oct 2020", "Nov 2020", "Dec 2020", "Jan 2021", "Feb 2021", "Mar 2021", "Apr 2021", "May 2021", "Jun 2021", "Jul 2021", "Aug 2021", "Sep 2021", "Oct 2021", "Nov 2021", "Dec 2021", "Jan 2022", "Feb 2022", "Mar 2022", "Apr 2022", "May 2022", "Jun 2022", "Jul 2022", "Aug 2022", "Sep 2022", "Oct 2022", "Nov 2022", "Dec 2022", "Jan 2023", "Feb 2023", "Mar 2023", "Apr 2023", "May 2023", "Jun 2023", "Jul 2023", "Aug 2023", "Sep 2023", "Oct 2023", "Nov 2023", "Dec 2023", "Jan 2024", "Feb 2024", "Mar 2024", "Apr 2024", "May 2024", "Jun 2024", "Jul 2024", "Aug 2024", "Sep 2024", "Oct 2024", "Nov 2024", "Dec 2024", "Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026", "May 2026"], "income": [512658, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5427, 0, 0, 9754, 24279, 31936, 33104, 34875, 38749, 35036, 32219, 41996, 35763, 40843, 44725, 45295, 34437, 62620, 42864, 45904, 55067, 70335, 87064, 105777, 85012, 108936, 109772, 87978, 110706, 107540, 121492, 134493, 134846, 117590, 127391, 129441, 111069, 167666, 170699, 199315, 165975, 166512, 204942, 216793, 218439, 170124, 237842, 199255, 216754, 215133, 188168, 293276, 245613, 250632, 282276, 274780, 309043, 330000, 303811, 330275, 323327, 359324, 374661, 376205, 323467, 261470, 466351, 455780, 451716, 508201, 468133, 476979, 486670, 477952, 528051, 523525, 452671, 433212, 533485, 511049, 580505, 515834, 532362, 572891, 550798, 586415, 459426, 556911, 531167, 497890, 576053, 526191, 682572, 582114, 603650, 605395, 543562, 599863, 562503, 541575, 568947, 546941, 586706, 694235, 635981, 543649, 731723, 643957, 689527, 682525, 711434, 787948, 653852, 629814, 792380, 843145, 901635, 853480, 851610, 826284, 1127318, 1113737, 907676, 1266970, 877138, 893749, 1267756, 1138424, 1212206], "expenses": [216181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 365, 4507, 9561, 18949, 9830, 12029, 14344, 28226, 11060, 17230, 35183, 14651, 20783, 29607, 22761, 40632, 24082, 23888, 26024, 22860, 33350, 56660, 46652, 55530, 57148, 48554, 51711, 77608, 51917, 46674, 63618, 52567, 58363, 63883, 64834, 76350, 67820, 68091, 86778, 110582, 87186, 84485, 119944, 97723, 115119, 101153, 98488, 112345, 97077, 106533, 127672, 128978, 142952, 119467, 128811, 116817, 135764, 135265, 155834, 138450, 164243, 179818, 154166, 201379, 182969, 127577, 175730, 223076, 207390, 192495, 231600, 193428, 187532, 244677, 203069, 246045, 232466, 190486, 200932, 248242, 223622, 195079, 247787, 229245, 252673, 259477, 269599, 287127, 276985, 246945, 274821, 266656, 241006, 258483, 261872, 261287, 295665, 271172, 257174, 312115, 291041, 244277, 301206, 290456, 300210, 269789, 317373, 337596, 299822, 298071, 333514, 384159, 425444, 331126, 352548, 427815, 406627, 405907, 450365, 485566, 505960, 658785, 524529, 540178, 652648, 511297, 570605, 524856, 559284]}, "momentum": {"revenue": {"ttm": 12025779, "prior": 8345934, "yoy": 44, "q": 3299929, "qp": 3051784, "qoq": 8, "m": 1138424, "mprev": 1267756, "mom": -10, "myoy": 35}, "expense": {"ttm": 6237323, "prior": 4077469, "yoy": 53, "q": 1606758, "qp": 1717355, "qoq": -6, "m": 524856, "mprev": 570605, "mom": -8, "myoy": 23}, "net": {"ttm": 1155523, "prior": -75199, "yoy": -1637, "q": 393032, "qp": 312495, "qoq": 26, "m": 141532, "mprev": 152479, "mom": -7, "myoy": 752}, "latest_month": "Apr 2026", "ttm_window": "May 2025 \u2013 Apr 2026"}, "margin": {"years": ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"], "gm": [-91, 63, 54, 58, 62, 58, 56, 52, 54, 56, 58], "nm": [-311.0, 4.5, -1.4, 6.5, 7.0, 13.6, 10.2, 1.6, 5.8, 1.2, 9.4]}, "yoy_measures": [{"name": "Revenue", "pct": 38}, {"name": "Cost of goods", "pct": 30}, {"name": "Gross profit", "pct": 44}, {"name": "Operating expense", "pct": 50}, {"name": "Net income", "pct": 1025}], "seasonality": {"months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "index": [89, 87, 110, 109, 97, 95, 97, 96, 101, 106, 99, 114], "peak": "Dec", "low": "Feb"}, "per_dollar": [{"name": "Cost of goods", "c": 42}, {"name": "Payroll & labor", "c": 30}, {"name": "Rent / occupancy", "c": 5}, {"name": "Everything else", "c": 16}, {"name": "Profit kept", "c": 7}], "consol_pnl": [{"label": "Total Revenue", "val": 10767903, "cls": "h"}, {"label": "Cost of Goods Sold", "val": -4506935, "cls": ""}, {"label": "Gross Profit", "val": 6260969, "cls": "b"}, {"label": "   Payroll & Labor", "val": -3233559, "cls": "i"}, {"label": "   Rent / Occupancy", "val": -591395, "cls": "i"}, {"label": "   Utilities", "val": -205613, "cls": "i"}, {"label": "   Merchant & Bank Fees", "val": -264308, "cls": "i"}, {"label": "   Marketing / Advertising", "val": -77730, "cls": "i"}, {"label": "   Repairs & Maintenance", "val": -199956, "cls": "i"}, {"label": "   Insurance", "val": -85729, "cls": "i"}, {"label": "   Supplies & Office", "val": -210565, "cls": "i"}, {"label": "   Travel / Meals / Auto", "val": -82932, "cls": "i"}, {"label": "   Management Fees", "val": -278934, "cls": "i"}, {"label": "   Professional & Admin Fees", "val": -93466, "cls": "i"}, {"label": "   Other Operating", "val": -190664, "cls": "i"}, {"label": "Total Operating Expenses", "val": -5514851, "cls": "b"}, {"label": "Net Operating Income", "val": 746118, "cls": "b"}, {"label": "Other Income / (Expense)", "val": 266479, "cls": ""}, {"label": "Net Income", "val": 1012597, "cls": "b"}], "buckets": [{"name": "Payroll & Labor", "amt": 3233559}, {"name": "Rent / Occupancy", "amt": 591395}, {"name": "Management Fees", "amt": 278934}, {"name": "Merchant & Bank Fees", "amt": 264308}, {"name": "Supplies & Office", "amt": 210565}, {"name": "Utilities", "amt": 205613}, {"name": "Repairs & Maintenance", "amt": 199956}, {"name": "Other Operating", "amt": 190664}, {"name": "Professional & Admin Fees", "amt": 93466}, {"name": "Insurance", "amt": 85729}, {"name": "Travel / Meals / Auto", "amt": 82932}, {"name": "Marketing / Advertising", "amt": 77730}], "bs": {"BankAccounts": 617017, "AR": 244393, "CurrentAssets": 851459, "FixedAssets": 947572, "TotalAssets": 1861050, "AP": 175783, "CreditCards": 107720, "CurrentLiabilities": 245082, "LongTermLiabilities": 1279629, "Liabilities": 1524711, "Equity": 336339, "TotalLiabilitiesAndEquity": 1861050}, "working_capital": {"current_ratio": 3.47, "long_term_debt": 1279629, "neg_equity": ["Copperas Cove", "1431 / Cedar Park", "New Hope", "Georgetown", "Kingsland"]}, "locations": [{"name": "Mojo Coffee, LLC", "short": "Burnet (Flagship)", "group": "Mojo", "opened": "2015", "age": 11, "revenue": 1265152, "cogs": 468785, "gross": 796368, "gross_margin": 63, "net": 172050, "net_margin": 14, "opex": 598677, "rev_2026ytd": 615884, "net_2026ytd": 101522, "yoy": 6, "sp_growth": 7, "margin_chg": -5, "rev_share": 11.7, "nm_vs_avg": 5, "cogs_pct": 37, "payroll_pct": 28, "rent_pct": 4, "other_pct": 15, "assets": 219894, "equity": 220948, "rev_series": [15181, 438818, 582931, 749040, 831644, 895395, 1046222, 1054206, 1049413, 1196178, 1265152, 615884]}, {"name": "Mojo Lakeline, LLC", "short": "Lakeline", "group": "Mojo", "opened": "2020", "age": 6, "revenue": 1189143, "cogs": 444040, "gross": 745103, "gross_margin": 63, "net": 101729, "net_margin": 9, "opex": 637482, "rev_2026ytd": 570101, "net_2026ytd": 49855, "yoy": 2, "sp_growth": 6, "margin_chg": -1, "rev_share": 11.0, "nm_vs_avg": 0, "cogs_pct": 37, "payroll_pct": 29, "rent_pct": 7, "other_pct": 17, "assets": 161830, "equity": 152341, "rev_series": [null, null, null, null, null, 153638, 827591, 1032157, 1000753, 1160781, 1189143, 570101]}, {"name": "Mojo Marble, LLC", "short": "Marble Falls", "group": "Mojo", "opened": "2017", "age": 9, "revenue": 1240501, "cogs": 484144, "gross": 756357, "gross_margin": 61, "net": 102993, "net_margin": 8, "opex": 631578, "rev_2026ytd": 603678, "net_2026ytd": 53311, "yoy": 7, "sp_growth": 8, "margin_chg": -3, "rev_share": 11.5, "nm_vs_avg": -1, "cogs_pct": 39, "payroll_pct": 29, "rent_pct": 4, "other_pct": 17, "assets": 299138, "equity": 298059, "rev_series": [null, null, 312835, 772212, 874932, 951358, 1074106, 1088498, 1072827, 1160031, 1240501, 603678]}, {"name": "Mojo Copperas", "short": "Copperas Cove", "group": "Mojo", "opened": "2024", "age": 2, "revenue": 1129262, "cogs": 469697, "gross": 659565, "gross_margin": 58, "net": 96985, "net_margin": 9, "opex": 564926, "rev_2026ytd": 494162, "net_2026ytd": 40202, "yoy": 155, "sp_growth": 1, "margin_chg": 44, "rev_share": 10.5, "nm_vs_avg": 0, "cogs_pct": 42, "payroll_pct": 26, "rent_pct": 6, "other_pct": 18, "assets": -132275, "equity": -130192, "rev_series": [null, null, null, null, null, null, null, null, null, 442703, 1129262, 494162]}, {"name": "Mojo Coffee Liberty Hill, LLC", "short": "Liberty Hill", "group": "Mojo", "opened": "2018", "age": 8, "revenue": 1117999, "cogs": 430366, "gross": 687633, "gross_margin": 62, "net": 164561, "net_margin": 15, "opex": 532116, "rev_2026ytd": 559857, "net_2026ytd": 89962, "yoy": 2, "sp_growth": 9, "margin_chg": 1, "rev_share": 10.4, "nm_vs_avg": 6, "cogs_pct": 38, "payroll_pct": 29, "rent_pct": 4, "other_pct": 14, "assets": 175480, "equity": 172388, "rev_series": [null, null, null, 110998, 731048, 949470, 1098485, 1073835, 1062387, 1096817, 1117999, 559857]}, {"name": "Mojo 1431, LLC", "short": "1431 / Cedar Park", "group": "Mojo", "opened": "2021", "age": 5, "revenue": 747538, "cogs": 284190, "gross": 463348, "gross_margin": 62, "net": 7635, "net_margin": 1, "opex": 457148, "rev_2026ytd": 361971, "net_2026ytd": 16850, "yoy": 8, "sp_growth": 7, "margin_chg": 1, "rev_share": 6.9, "nm_vs_avg": -8, "cogs_pct": 38, "payroll_pct": 34, "rent_pct": 13, "other_pct": 14, "assets": -218205, "equity": -262558, "rev_series": [null, null, null, null, null, null, null, 95261, 605301, 695196, 747538, 361971]}, {"name": "Mojo Lampasas, LLC", "short": "Lampasas", "group": "Mojo", "opened": "2019", "age": 7, "revenue": 840193, "cogs": 336893, "gross": 503300, "gross_margin": 60, "net": 87370, "net_margin": 10, "opex": 443126, "rev_2026ytd": 448163, "net_2026ytd": 52465, "yoy": -1, "sp_growth": 20, "margin_chg": -2, "rev_share": 7.8, "nm_vs_avg": 1, "cogs_pct": 40, "payroll_pct": 30, "rent_pct": 5, "other_pct": 18, "assets": 145562, "equity": 146233, "rev_series": [null, null, null, null, 55588, 810087, 894624, 889004, 794826, 844612, 840193, 448163]}, {"name": "Mojo New Hope", "short": "New Hope", "group": "Mojo", "opened": "2023", "age": 3, "revenue": 687927, "cogs": 264155, "gross": 423771, "gross_margin": 62, "net": 108823, "net_margin": 16, "opex": 385430, "rev_2026ytd": 404987, "net_2026ytd": 8752, "yoy": 820, "sp_growth": 45, "margin_chg": 449, "rev_share": 6.4, "nm_vs_avg": 7, "cogs_pct": 38, "payroll_pct": 36, "rent_pct": 4, "other_pct": 16, "assets": 103856, "equity": -211056, "rev_series": [null, null, null, null, null, null, null, null, null, 74806, 687927, 404987]}, {"name": "Mojo Georgetown, LLC", "short": "Georgetown", "group": "Mojo", "opened": "2024", "age": 2, "revenue": 592901, "cogs": 243204, "gross": 349697, "gross_margin": 59, "net": -82312, "net_margin": -14, "opex": 420969, "rev_2026ytd": 390242, "net_2026ytd": 10231, "yoy": null, "sp_growth": 106, "margin_chg": null, "rev_share": 5.5, "nm_vs_avg": -23, "cogs_pct": 41, "payroll_pct": 37, "rent_pct": 13, "other_pct": 21, "assets": 205106, "equity": -77821, "rev_series": [null, null, null, null, null, null, null, null, null, null, 592901, 390242]}, {"name": "Mojo Kingsland, LLC", "short": "Kingsland", "group": "Mojo", "opened": "2025", "age": 1, "revenue": 186095, "cogs": 97012, "gross": 89083, "gross_margin": 48, "net": -102682, "net_margin": -55, "opex": 152258, "rev_2026ytd": 378323, "net_2026ytd": 76184, "yoy": null, "sp_growth": null, "margin_chg": null, "rev_share": 1.7, "nm_vs_avg": -64, "cogs_pct": 52, "payroll_pct": 39, "rent_pct": 0, "other_pct": 43, "assets": 550700, "equity": -74798, "rev_series": [null, null, null, null, null, null, null, null, null, null, 186095, 378323]}, {"name": "Forest Moon Enterprises LLC", "short": "Forest Moon (Roastery)", "group": "Forest Moon", "opened": "2020", "age": 6, "revenue": 1771193, "cogs": 984449, "gross": 786744, "gross_margin": 44, "net": 355443, "net_margin": 20, "opex": 691142, "rev_2026ytd": 1074564, "net_2026ytd": 98016, "yoy": 54, "sp_growth": 32, "margin_chg": 34, "rev_share": 16.4, "nm_vs_avg": 11, "cogs_pct": 56, "payroll_pct": 29, "rent_pct": 2, "other_pct": 8, "assets": 349963, "equity": 102794, "rev_series": [null, null, null, null, null, null, 487268, 1052597, 1267027, 1152448, 1771193, 1074564]}], "insights": [{"ic": "\u2605", "label": "Top revenue shop", "value": "Burnet (Flagship)", "sub": "$1,265,152 in 2025"}, {"ic": "$", "label": "Most profitable entity", "value": "Forest Moon (Roastery)", "sub": "$355,443 net income"}, {"ic": "%", "label": "Best net margin", "value": "New Hope", "sub": "16% net (shops $100k+)"}, {"ic": "\u25b2", "label": "Fastest growing", "value": "Georgetown", "sub": "+106% vs same period 2025"}, {"ic": "\u2197", "label": "Most improved margin", "value": "New Hope", "sub": "+449 pts net margin vs 2024"}, {"ic": "\u25c6", "label": "Newest shop", "value": "Kingsland", "sub": "Opened 2025 \u2014 ramping"}, {"ic": "\u25ce", "label": "Revenue concentration", "value": "41%", "sub": "of shop revenue from Burnet (Flagship), Marble Falls, Lakeline"}, {"ic": "!", "label": "Watch", "value": "Kingsland", "sub": "-55% net margin \u2014 lowest of the shops"}], "trend_axis": ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026 YTD"], "group_gm": 58, "group_nm": 9.4};
+const f0 = n => (n<0?'-$':'$')+Math.abs(Math.round(n)).toLocaleString();
+const f0s = n => (n<0?'($':'$')+Math.abs(Math.round(n)).toLocaleString()+(n<0?')':'');
+const k0 = n => (n<0?'-$':'$')+Math.round(Math.abs(n)/1000)+'k';
+const m1 = n => '$'+(n/1e6).toFixed(2)+'M';
+const pc = n => n==null?'—':(n>0?'+':'')+n+'%';
+document.getElementById('logo').src=D.logo;
+document.getElementById('thru').textContent=D.end_date;
+document.getElementById('gen').textContent=D.generated;
+document.getElementById('histwin').textContent=D.history_label;
+document.getElementById('footwin').textContent=D.history_label;
+
+const charts={};
+const GOLD='#E8B35B',ESP='#2A1B10',COFFEE='#6F4E37',CARAMEL='#AE7F57',LATTE='#C5A486',POS='#3E7C5A',NEG='#B5462F',LINE='#ECE2D2',GREY='#D8CBB6',NAVY='#2E5074';
+const PAL=['#E8B35B','#6F4E37','#AE7F57','#C5A486','#8C6B4F','#C9A66B','#7A5C44','#D9C3A0','#5E4632','#B07A3D','#9C6B45','#caa55f','#7d5a3a'];
+const DOLLAR=[COFFEE,GOLD,CARAMEL,LATTE,POS];
+Chart.defaults.font.family="'Plus Jakarta Sans',sans-serif";Chart.defaults.color='#8A7861';Chart.defaults.font.size=11.5;
+if(window.ChartDataLabels){Chart.register(ChartDataLabels);}
+Chart.defaults.plugins.datalabels={display:false};
+const DLEND=fmt=>({display:true,anchor:'end',align:'end',clamp:true,color:'#5a4632',font:{weight:'700',size:10},formatter:fmt});
+function chip(v,goodUp){if(v==null)return '<span class="chip flat">—</span>';const good=goodUp?v>=0:v<0;return `<span class="chip ${good?'up':'down'}">${pc(v)}</span>`;}
+
+document.querySelectorAll('#alt button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#alt button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  document.querySelectorAll('.tier').forEach(t=>t.classList.remove('on'));
+  document.getElementById(b.dataset.t).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(drawFor(b.dataset.t),30);
+}));
+
+/* ---------- 30k ---------- */
+const k=D.kpi, M=D.momentum;
+document.getElementById('verdict30').innerHTML=`<h3>The portfolio at a glance</h3>
+  <div class="row"><div class="ic g">&#9650;</div><p><b>A real growth story.</b> From one Burnet drive-thru in ${k.first_year} to <b>${k.locations} coffee locations plus your own roastery</b> today &mdash; ${k.entities} entities, ${k.rev_mult_5yr?('about '+k.rev_mult_5yr+'× the revenue of 2020'):'steady multi-year growth'}.</p></div>
+  <div class="row"><div class="ic g">&#10003;</div><p><b>Healthy and profitable.</b> ${m1(k.revenue_2025)} in 2025 revenue at a <b>${k.gross_margin_2025}% gross margin</b> and <b>${f0(k.net_2025)} net income</b> (${k.net_margin_2025}% net).</p></div>
+  <div class="row"><div class="ic ${M.revenue.yoy>=0?'g':'w'}">${M.revenue.yoy>=0?'&#9650;':'&#9660;'}</div><p><b>Momentum is ${M.revenue.yoy>=0?'up':'soft'}.</b> Trailing-12 revenue is <b>${m1(M.revenue.ttm)}</b>, ${pc(M.revenue.yoy)} vs. the prior twelve months, with net income ${pc(M.net.yoy)}.</p></div>
+  <div class="row"><div class="ic w">~</div><p><b>You have a seasonal rhythm.</b> ${D.seasonality.peak} is your strongest month and ${D.seasonality.low} your softest &mdash; useful for staffing and cash planning.</p></div>
+  <div class="row"><div class="ic g">&#9733;</div><p><b>Built for multi-unit.</b> A roastery selling into the shops means intercompany &mdash; exactly what a consolidated monthly close is made for.</p></div>`;
+const kpi30=[
+  {h:'2025 revenue (all 11)',v:m1(k.revenue_2025),n:'Across coffee & roastery'},
+  {h:'2025 net income',v:f0(k.net_2025),n:k.net_margin_2025+'% net margin',pill:'up',pt:'Profitable'},
+  {h:'Gross margin',v:k.gross_margin_2025+'%',n:'Revenue minus cost of goods',pill:'up',pt:'Strong'},
+  {h:'Coffee locations',v:k.locations,n:'Plus the roastery',pill:'up',pt:'Since '+k.first_year},
+  {h:'Revenue growth 24→25',v:pc(k.rev_growth_24_25),n:m1(k.rev_2024)+' → '+m1(k.revenue_2025),pill:'up',pt:'Year over year'},
+  {h:'2026 YTD revenue',v:m1(k.revenue_2026ytd),n:'Net '+f0(k.net_2026ytd)+' so far',pill:k.net_2026ytd>=0?'up':'down',pt:'Run rate'},
+];
+document.getElementById('kpi30').innerHTML=kpi30.map(c=>`<div class="card kpi"><h3>${c.h}</h3>
+  <div class="val ${c.pill==='up'?'pos':''}">${c.v}</div><div class="note">${c.n}</div>
+  ${c.pill?`<span class="pill ${c.pill}">${c.pt}</span>`:''}</div>`).join('');
+
+document.getElementById('momCap').textContent='Trailing 12 months ('+M.ttm_window+') vs. the prior 12. Latest full month: '+M.latest_month+'. Current partial month excluded.';
+function momCard(lab,b,goodUp){
+  return `<div class="tcard"><div class="lab">${lab} &mdash; trailing 12 mo.</div>
+    <div class="big ${goodUp?(b.yoy>=0?'pos':'neg'):''}">${f0s(b.ttm)}</div>
+    <div class="sub">vs ${f0s(b.prior)} prior 12</div>
+    <div class="row">${chip(b.yoy,goodUp)} <span class="muted small">YoY</span> ${chip(b.qoq,goodUp)} <span class="muted small">QoQ</span> ${chip(b.mom,goodUp)} <span class="muted small">MoM</span></div></div>`;
+}
+document.getElementById('momentum').innerHTML=momCard('Revenue',M.revenue,true)+momCard('Operating expense',M.expense,false)+momCard('Net income',M.net,true);
+
+/* per-dollar bar */
+const PD=D.per_dollar;
+document.getElementById('dollarBar').innerHTML=PD.map((s,i)=>`<div class="seg" style="flex:${Math.max(s.c,2)} 1 0;background:${DOLLAR[i]}">${s.c>=6?s.c+'¢':''}</div>`).join('');
+document.getElementById('dollarLeg').innerHTML=PD.map((s,i)=>`<span><i style="background:${DOLLAR[i]}"></i>${s.name} &mdash; <b style="color:var(--ink)">${s.c}¢</b></span>`).join('');
+document.getElementById('seasCap').textContent='Average revenue by calendar month, indexed to 100 = a typical month (full months across '+D.history_label+'). Peak: '+D.seasonality.peak+' · Softest: '+D.seasonality.low+'.';
+
+document.getElementById('pnlTbl').innerHTML=`<thead><tr><th>Consolidated P&amp;L &mdash; 2025</th><th>Amount</th></tr></thead><tbody>`+
+  D.consol_pnl.map(r=>`<tr${r.cls==='b'?' class="sum"':''}><td${r.cls==='i'?' style="padding-left:24px"':''}>${r.label.trim()}</td>
+    <td class="${r.val<0&&r.cls!=='i'?'neg':''}">${r.cls==='i'?f0(r.val):f0s(r.val)}</td></tr>`).join('')+`</tbody>`;
+const bs=D.bs, WC=D.working_capital;
+document.getElementById('bsCards').innerHTML=[
+  {h:'Cash in bank',v:f0(bs.BankAccounts)},{h:'Total assets',v:f0(bs.TotalAssets)},
+  {h:'Total liabilities',v:f0(bs.Liabilities)},{h:'Owner equity',v:f0(bs.Equity)},
+].map(c=>`<div class="card kpi"><h3>${c.h}</h3><div class="val">${c.v}</div></div>`).join('');
+document.getElementById('wcFlag').innerHTML=`<b>Reading the balance sheet:</b> current ratio ${WC.current_ratio!=null?WC.current_ratio:'—'} (current assets vs. current liabilities), ${f0(WC.long_term_debt)} long-term debt. ${WC.neg_equity.length?('<b>'+WC.neg_equity.length+' entities</b> carry negative equity ('+WC.neg_equity.slice(0,5).join(', ')+(WC.neg_equity.length>5?'…':'')+') &mdash; owner draws / intercompany / newer stores. A cleanup + intercompany reconciliation tightens this up.'):'Equity is positive across the group.'}`;
+
+/* ---------- by location ---------- */
+const L=D.locations.slice();
+document.getElementById('insights').innerHTML=D.insights.map(i=>`<div class="ins"><div class="il"><span class="ig">${i.ic}</span>${i.label}</div>
+  <div class="iv">${i.value}</div><div class="is">${i.sub}</div></div>`).join('');
+document.getElementById('gmAvg').textContent='Group gross margin: '+D.group_gm+'% — bars above the group line in gold.';
+document.getElementById('nmAvg').textContent='Group net margin: '+D.group_nm+'% — green where positive.';
+
+let sortKey='revenue', sortDir=-1;
+function gbadge(g){const m={Mojo:'gb-mojo','Forest Moon':'gb-forest',Sisters:'gb-sisters'};return `<span class="gbadge ${m[g]||'gb-mojo'}">${g}</span>`;}
+function ptsChip(v){if(v==null)return '<span class="chip flat">—</span>';return `<span class="chip ${v>=0?'up':'down'}">${(v>0?'+':'')+v} pts</span>`;}
+function renderLoc(){
+  L.sort((a,b)=>{const x=a[sortKey],y=b[sortKey];if(x==null)return 1;if(y==null)return -1;return typeof x==='number'?(x-y)*sortDir:String(x).localeCompare(String(y))*sortDir;});
+  const cols=[['short','Location'],['group','Group'],['opened','Opened'],['revenue','2025 Rev'],['rev_share','% of rev'],['yoy','Rev YoY'],['gross_margin','GM %'],['net','2025 Net'],['net_margin','Net %'],['nm_vs_avg','vs avg'],['sp_growth','YTD vs LY']];
+  let h='<thead><tr>'+cols.map(c=>`<th data-k="${c[0]}">${c[1]}</th>`).join('')+'</tr></thead><tbody>';
+  L.forEach(r=>{h+=`<tr><td><b>${r.short}</b></td><td>${gbadge(r.group)}</td><td class="muted">${r.opened}</td>
+    <td>${f0(r.revenue)}</td><td class="muted">${r.rev_share}%</td><td>${chip(r.yoy,true)}</td><td>${r.gross_margin}%</td>
+    <td class="${r.net>=0?'pos':'neg'}">${f0s(r.net)}</td><td class="${r.net_margin>=0?'pos':'neg'}">${r.net_margin}%</td>
+    <td>${ptsChip(r.nm_vs_avg)}</td><td>${chip(r.sp_growth,true)}</td></tr>`;});
+  const sr=D.locations.reduce((a,r)=>({rev:a.rev+r.revenue,net:a.net+r.net}),{rev:0,net:0});
+  h+=`<tr class="sum"><td>All 11 entities</td><td></td><td></td><td>${f0(sr.rev)}</td><td>100%</td><td>${chip(D.kpi.rev_growth_24_25,true)}</td><td>${D.group_gm}%</td>
+    <td class="${sr.net>=0?'pos':'neg'}">${f0s(sr.net)}</td><td>${D.group_nm}%</td><td></td><td></td></tr></tbody>`;
+  document.getElementById('locTbl').innerHTML=h;
+  document.querySelectorAll('#locTbl th').forEach(th=>th.addEventListener('click',()=>{
+    const kk=th.dataset.k;if(kk===sortKey)sortDir*=-1;else{sortKey=kk;sortDir=(kk==='short'||kk==='group'||kk==='opened')?1:-1;}renderLoc();}));
+}
+function spark(series){const v=series.filter(x=>x!=null);if(v.length<2)return '';const mn=Math.min(...v),mx=Math.max(...v),w=110,h=30,n=v.length;
+  const pts=v.map((x,i)=>`${(i/(n-1)*w).toFixed(1)},${(h-2-(mx===mn?h/2:(x-mn)/(mx-mn)*(h-5))).toFixed(1)}`).join(' ');
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${pts}" fill="none" stroke="#E8B35B" stroke-width="2"/></svg>`;}
+function locCards(){
+  document.getElementById('locCards').innerHTML=D.locations.map(r=>`<div class="loccard">
+    <div class="lh"><div><div class="ln">${r.short}</div><div class="lo">Opened ${r.opened}${r.age?(' · '+r.age+' yr'+(r.age>1?'s':'')):''}</div></div>${gbadge(r.group)}</div>
+    <div class="lr">${f0(r.revenue)}</div><div class="lo">2025 revenue · ${r.rev_share}% of group</div>
+    ${spark(r.rev_series)}
+    <div class="lstat"><span>Net <b class="${r.net>=0?'pos':'neg'}">${r.net_margin}%</b></span><span>GM <b>${r.gross_margin}%</b></span><span>Labor <b>${r.payroll_pct}%</b></span><span>YTD ${chip(r.sp_growth,true)}</span></div>
+  </div>`).join('');
+}
+function hbar(xfmt,lblfmt){return{indexAxis:'y',animation:false,layout:{padding:{right:42}},plugins:{legend:{display:false},tooltip:{callbacks:{label:lblfmt}},datalabels:DLEND(v=>xfmt(v))},
+  scales:{x:{grid:{color:LINE},ticks:{callback:xfmt}},y:{grid:{display:false}}}};}
+function drawLocCharts(){
+  if(!charts.cBubble){const grpColor={Mojo:GOLD,'Forest Moon':COFFEE,Sisters:LATTE};
+    const ds=['Mojo','Forest Moon'].map(g=>({label:g==='Mojo'?'Coffee shops':(g==='Forest Moon'?'Roastery':'Property LLCs'),
+      backgroundColor:grpColor[g]+'cc',borderColor:grpColor[g],borderWidth:1,
+      data:D.locations.filter(r=>r.group===g&&r.revenue>0).map(r=>({x:r.revenue,y:r.net_margin,r:Math.max(5,Math.sqrt(Math.abs(r.net))/95),sh:r.short}))}));
+    charts.cBubble=new Chart(document.getElementById('cBubble'),{type:'bubble',data:{datasets:ds},
+      options:{animation:false,plugins:{legend:{position:'top',labels:{boxWidth:12,padding:10,usePointStyle:true}},
+        tooltip:{callbacks:{label:c=>' '+c.raw.sh+': '+f0(c.raw.x)+' rev, '+c.raw.y+'% net'}}},
+        scales:{x:{title:{display:true,text:'2025 revenue'},grid:{color:LINE},ticks:{callback:v=>k0(v)}},
+          y:{title:{display:true,text:'Net margin %'},grid:{color:LINE},ticks:{callback:v=>v+'%'}}}}});}
+  const byRev=D.locations.slice().sort((a,b)=>b.revenue-a.revenue);
+  if(!charts.cLocRev)charts.cLocRev=new Chart(document.getElementById('cLocRev'),{type:'bar',data:{labels:byRev.map(r=>r.short),datasets:[{label:'2025 revenue',data:byRev.map(r=>r.revenue),backgroundColor:GOLD,borderRadius:4}]},options:hbar(v=>k0(v),c=>' '+f0(c.raw))});
+  const byNet=D.locations.slice().sort((a,b)=>b.net-a.net);
+  if(!charts.cLocNet)charts.cLocNet=new Chart(document.getElementById('cLocNet'),{type:'bar',data:{labels:byNet.map(r=>r.short),datasets:[{label:'2025 net',data:byNet.map(r=>r.net),backgroundColor:byNet.map(r=>r.net>=0?POS:NEG),borderRadius:4}]},options:hbar(v=>k0(v),c=>' '+f0s(c.raw))});
+  const byGM=D.locations.filter(r=>r.revenue>0).sort((a,b)=>b.gross_margin-a.gross_margin);
+  if(!charts.cLocGM)charts.cLocGM=new Chart(document.getElementById('cLocGM'),{type:'bar',data:{labels:byGM.map(r=>r.short),datasets:[{label:'GM %',data:byGM.map(r=>r.gross_margin),backgroundColor:byGM.map(r=>r.gross_margin>=D.group_gm?GOLD:LATTE),borderRadius:4}]},options:hbar(v=>v+'%',c=>' '+c.raw+'%')});
+  const byNM=D.locations.filter(r=>r.revenue>0).sort((a,b)=>b.net_margin-a.net_margin);
+  if(!charts.cLocNM)charts.cLocNM=new Chart(document.getElementById('cLocNM'),{type:'bar',data:{labels:byNM.map(r=>r.short),datasets:[{label:'Net %',data:byNM.map(r=>r.net_margin),backgroundColor:byNM.map(r=>r.net_margin>=0?POS:NEG),borderRadius:4}]},options:hbar(v=>v+'%',c=>' '+c.raw+'%')});
+  const byPay=D.locations.filter(r=>r.payroll_pct>0).sort((a,b)=>a.payroll_pct-b.payroll_pct);
+  if(!charts.cPay)charts.cPay=new Chart(document.getElementById('cPay'),{type:'bar',data:{labels:byPay.map(r=>r.short),datasets:[{label:'Payroll %',data:byPay.map(r=>r.payroll_pct),backgroundColor:CARAMEL,borderRadius:4}]},options:hbar(v=>v+'%',c=>' '+c.raw+'% of revenue')});
+  const byCogs=D.locations.filter(r=>r.cogs_pct>0).sort((a,b)=>a.cogs_pct-b.cogs_pct);
+  if(!charts.cCogs)charts.cCogs=new Chart(document.getElementById('cCogs'),{type:'bar',data:{labels:byCogs.map(r=>r.short),datasets:[{label:'COGS %',data:byCogs.map(r=>r.cogs_pct),backgroundColor:COFFEE,borderRadius:4}]},options:hbar(v=>v+'%',c=>' '+c.raw+'% of revenue')});
+  const cs=D.locations.filter(r=>r.revenue>0).sort((a,b)=>b.revenue-a.revenue);
+  if(!charts.cLocCost)charts.cLocCost=new Chart(document.getElementById('cLocCost'),{type:'bar',
+    data:{labels:cs.map(r=>r.short),datasets:[
+      {label:'Cost of goods',data:cs.map(r=>r.cogs_pct),backgroundColor:COFFEE,stack:'c'},
+      {label:'Payroll & labor',data:cs.map(r=>r.payroll_pct),backgroundColor:GOLD,stack:'c'},
+      {label:'Rent / occupancy',data:cs.map(r=>r.rent_pct),backgroundColor:CARAMEL,stack:'c'},
+      {label:'Other operating',data:cs.map(r=>r.other_pct),backgroundColor:LATTE,stack:'c'}]},
+    options:{indexAxis:'y',animation:false,plugins:{legend:{position:'top',labels:{boxWidth:12,padding:9,usePointStyle:true}},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+c.raw+'% of revenue'}},datalabels:{display:true,color:'#fff',font:{size:9,weight:'700'},anchor:'center',align:'center',formatter:v=>v>=8?v+'%':''}},
+      scales:{x:{stacked:true,grid:{color:LINE},ticks:{callback:v=>v+'%'},max:115},y:{stacked:true,grid:{display:false}}}}});
+  if(!charts.cLocTrend){const shops=D.locations.filter(r=>r.group!=='Sisters');
+    charts.cLocTrend=new Chart(document.getElementById('cLocTrend'),{type:'line',
+      data:{labels:D.trend_axis,datasets:shops.map((r,i)=>({label:r.short,data:r.rev_series,borderColor:PAL[i%PAL.length],backgroundColor:'transparent',borderWidth:2,tension:.3,pointRadius:0,spanGaps:false}))},
+      options:{animation:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:7,font:{size:10},usePointStyle:true}},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+f0(c.raw)}}},
+        scales:{x:{grid:{display:false}},y:{grid:{color:LINE},ticks:{callback:v=>k0(v)}}}}});}
+  const sp=D.locations.filter(r=>r.sp_growth!=null).sort((a,b)=>b.sp_growth-a.sp_growth);
+  if(!charts.cLocSP)charts.cLocSP=new Chart(document.getElementById('cLocSP'),{type:'bar',data:{labels:sp.map(r=>r.short),datasets:[{label:'YTD vs LY',data:sp.map(r=>r.sp_growth),backgroundColor:sp.map(r=>r.sp_growth>=0?POS:NEG),borderRadius:4}]},options:hbar(v=>v+'%',c=>' '+pc(c.raw))});
+}
+
+/* ---------- 30k charts ---------- */
+function drawAnnual(){if(charts.cAnnual)return;const a=D.annual;
+  charts.cAnnual=new Chart(document.getElementById('cAnnual'),{type:'bar',
+    data:{labels:a.labels,datasets:[
+      {label:'Coffee shops',data:a.mojo,backgroundColor:GOLD,stack:'g',borderRadius:3},
+      {label:'Roastery',data:a.forest,backgroundColor:COFFEE,stack:'g',borderRadius:3},
+      {type:'line',label:'Net income',data:a.net,borderColor:POS,backgroundColor:'transparent',borderWidth:2,tension:.3,pointRadius:2}]},
+    options:{animation:false,plugins:{legend:{position:'top',labels:{boxWidth:12,padding:9,usePointStyle:true}},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+f0(c.raw)}},
+      datalabels:{color:'#fff',font:{size:8.5,weight:'700'},anchor:'center',align:'center',display:ctx=>ctx.dataset.type!=='line'&&ctx.dataset.data[ctx.dataIndex]>=350000,formatter:v=>v>=1e6?'$'+(v/1e6).toFixed(1)+'M':'$'+Math.round(v/1000)+'k'}},
+      scales:{x:{grid:{display:false},stacked:true},y:{stacked:true,grid:{color:LINE},ticks:{callback:v=>k0(v)}}}}});}
+function drawStores(){if(charts.cStores)return;const s=D.store_growth;
+  charts.cStores=new Chart(document.getElementById('cStores'),{type:'bar',data:{labels:s.years,datasets:[{label:'Locations open',data:s.counts,backgroundColor:COFFEE,borderRadius:4}]},
+    options:{animation:false,layout:{padding:{top:16}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw+' open'}},datalabels:{display:true,anchor:'end',align:'top',color:'#5a4632',font:{weight:'700',size:10},formatter:v=>v}},scales:{x:{grid:{display:false}},y:{grid:{color:LINE},ticks:{stepSize:1,precision:0}}}}});}
+function drawMargin(){if(charts.cMargin)return;const m=D.margin;
+  charts.cMargin=new Chart(document.getElementById('cMargin'),{type:'line',data:{labels:m.years,datasets:[
+    {label:'Gross margin %',data:m.gm,borderColor:GOLD,backgroundColor:'rgba(232,179,91,.12)',fill:true,tension:.3,pointRadius:2,borderWidth:2},
+    {label:'Net margin %',data:m.nm,borderColor:POS,backgroundColor:'transparent',tension:.3,pointRadius:2,borderWidth:2}]},
+    options:{animation:false,plugins:{legend:{position:'top',labels:{boxWidth:12,padding:9,usePointStyle:true}},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+c.raw+'%'}}},
+      scales:{x:{grid:{display:false}},y:{grid:{color:LINE},ticks:{callback:v=>v+'%'}}}}});}
+function drawYoY(){if(charts.cYoY)return;const y=D.yoy_measures;
+  charts.cYoY=new Chart(document.getElementById('cYoY'),{type:'bar',data:{labels:y.map(r=>r.name),datasets:[{label:'YoY %',data:y.map(r=>r.pct),backgroundColor:y.map(r=>r.pct>=0?POS:NEG),borderRadius:4}]},
+    options:{indexAxis:'y',animation:false,layout:{padding:{right:42}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+pc(c.raw)}},datalabels:DLEND(v=>pc(v))},scales:{x:{grid:{color:LINE},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}}}});}
+function drawMonthly(){if(charts.cMonthly)return;const m=D.monthly;
+  charts.cMonthly=new Chart(document.getElementById('cMonthly'),{type:'line',data:{labels:m.months,datasets:[
+    {label:'Revenue',data:m.income,borderColor:GOLD,backgroundColor:'rgba(232,179,91,.14)',fill:true,tension:.3,pointRadius:0,borderWidth:2},
+    {label:'Spending',data:m.expenses,borderColor:COFFEE,backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:1.6}]},
+    options:{animation:false,plugins:{legend:{position:'top',labels:{boxWidth:12,padding:9,usePointStyle:true}},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+f0(c.raw)}}},
+      scales:{x:{grid:{display:false},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:10}},y:{grid:{color:LINE},ticks:{callback:v=>k0(v)}}}}});}
+function drawSeason(){if(charts.cSeason)return;const s=D.seasonality;
+  charts.cSeason=new Chart(document.getElementById('cSeason'),{type:'bar',data:{labels:s.months,datasets:[{label:'Revenue index',data:s.index,backgroundColor:s.months.map(m=>m===s.peak?GOLD:(m===s.low?LATTE:CARAMEL)),borderRadius:4}]},
+    options:{animation:false,layout:{padding:{top:16}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' index '+c.raw+' (100 = typical month)'}},datalabels:{display:true,anchor:'end',align:'top',color:'#5a4632',font:{weight:'700',size:9.5},formatter:v=>v}},scales:{x:{grid:{display:false}},y:{grid:{color:LINE},ticks:{callback:v=>v}}}}});}
+function drawMix(){if(charts.cMix)return;const b=D.buckets.slice(0,9);const mixT=b.reduce((s,x)=>s+x.amt,0);
+  charts.cMix=new Chart(document.getElementById('cMix'),{type:'doughnut',data:{labels:b.map(x=>x.name),datasets:[{data:b.map(x=>x.amt),backgroundColor:PAL}]},
+    options:{animation:false,cutout:'56%',plugins:{legend:{position:'right',labels:{boxWidth:11,padding:7,font:{size:10.5}}},tooltip:{callbacks:{label:c=>' '+c.label+': '+f0(c.raw)+' ('+Math.round(c.raw/mixT*100)+'%)'}},datalabels:{display:true,color:'#fff',font:{size:10,weight:'700'},formatter:(v)=>{const p=Math.round(v/mixT*100);return p>=6?p+'%':'';}}}}});}
+
+/* ---------- valuation scenario tester ---------- */
+const V=D.valuation;
+let st={cos:[],net_debt:V.net_debt};
+function initState(){
+  st.cos=V.companies.map(c=>({short:c.short,seg:c.seg,group:c.group,revenue:c.revenue,
+    ebitda:(c.seg==='OpCo'?c.ebitda:0),adj:0,mult:6.0,value:(c.seg==='PropCo'?c.nav:0)}));
+  st.net_debt=V.net_debt;
+}
+function evCo(c){return c.seg==='OpCo'?Math.round((c.ebitda+c.adj)*c.mult):Math.round(c.value);}
+function buildScenTable(){
+  let h=`<thead><tr><th>Company</th><th>2025 Rev</th><th>Reported EBITDA</th><th>Add-back</th><th>Adj. EBITDA</th><th>Multiple</th><th>Value</th></tr></thead><tbody>`;
+  st.cos.forEach((c,i)=>{
+    if(c.seg==='OpCo'){
+      h+=`<tr><td><b>${c.short}</b></td>
+        <td>${f0(c.revenue)}</td><td class="${c.ebitda<0?'neg':''}">${f0s(c.ebitda)}</td>
+        <td class="editc"><input class="vin" type="number" step="5000" data-i="${i}" data-f="adj" value="${c.adj}"></td>
+        <td id="adje-${i}">—</td>
+        <td class="editc"><input class="vin mult" type="number" step="0.5" min="0" data-i="${i}" data-f="mult" value="${c.mult}"></td>
+        <td id="val-${i}"><b>—</b></td></tr>`;
+    }else{
+      h+=`<tr><td><b>${c.short}</b></td>
+        <td>${f0(c.revenue)}</td><td class="muted small" colspan="3">real estate &middot; net asset value</td>
+        <td class="muted small">n/a</td>
+        <td class="editc"><input class="vin" type="number" step="10000" data-i="${i}" data-f="value" value="${c.value}"></td></tr>`;
+    }
+  });
+  h+=`<tr class="sum"><td>Total</td><td id="totRev"></td><td id="totEb"></td><td></td><td id="totAdjEb"></td><td id="totMult"></td><td id="totVal"></td></tr></tbody>`;
+  document.getElementById('scenTbl').innerHTML=h;
+}
+function recompute(){
+  let opEV=0,propV=0,adjEb=0,rev=0,repEb=0;
+  st.cos.forEach((c,i)=>{
+    rev+=c.revenue; const ev=evCo(c);
+    if(c.seg==='OpCo'){const ae=c.ebitda+c.adj; adjEb+=ae; repEb+=c.ebitda; opEV+=ev;
+      const ec=document.getElementById('adje-'+i); if(ec)ec.innerHTML=f0s(Math.round(ae));}
+    else{propV+=ev;}
+    const vc=document.getElementById('val-'+i); if(vc)vc.innerHTML='<b>'+f0(ev)+'</b>';
+  });
+  const equity=opEV+propV-st.net_debt, blend=adjEb?(opEV/adjEb):0, evrev=rev?(opEV/rev):0;
+  document.getElementById('totRev').textContent=f0(rev);
+  document.getElementById('totEb').textContent=f0s(Math.round(repEb));
+  document.getElementById('totAdjEb').textContent=f0s(Math.round(adjEb));
+  document.getElementById('totMult').textContent=blend?blend.toFixed(1)+'×':'—';
+  document.getElementById('totVal').innerHTML='<b>'+f0(opEV+propV)+'</b>';
+  document.getElementById('heroEquity').textContent=f0(equity);
+  document.getElementById('heroSub').textContent='Operating EV '+f0(opEV)+'  −  net debt '+f0(st.net_debt);
+  document.getElementById('brEV').textContent=f0(opEV);
+  document.getElementById('brDebt').textContent=f0(st.net_debt);
+  document.getElementById('brEq').textContent=f0(equity);
+  document.getElementById('brBlend').textContent=(blend?blend.toFixed(1):'—')+'×  ·  '+(evrev?evrev.toFixed(2):'—')+'×';
+  document.getElementById('scenCross').innerHTML=`<b>This scenario:</b> total equity value <b>${f0(equity)}</b> &mdash; a blended <b>${blend?blend.toFixed(1):'—'}×</b> on ${f0(Math.round(adjEb))} adjusted EBITDA (${evrev?evrev.toFixed(2):'—'}× revenue). Reported EBITDA was ${f0(Math.round(repEb))}; you've added back ${f0(Math.round(adjEb-repEb))}. Change any input to test another scenario.`;
+  if(charts.cScen){const cv=st.cos.map(c=>({short:c.short,v:evCo(c),op:c.seg==='OpCo'})).sort((a,b)=>b.v-a.v);
+    charts.cScen.data.labels=cv.map(c=>c.short);charts.cScen.data.datasets[0].data=cv.map(c=>c.v);
+    charts.cScen.data.datasets[0].backgroundColor=cv.map(c=>c.op?GOLD:NAVY);charts.cScen.update('none');}
+}
+function drawScenChart(){if(charts.cScen)return;const cv=st.cos.map(c=>({short:c.short,v:evCo(c),op:c.seg==='OpCo'})).sort((a,b)=>b.v-a.v);
+  charts.cScen=new Chart(document.getElementById('cScen'),{type:'bar',data:{labels:cv.map(c=>c.short),datasets:[{label:'Value',data:cv.map(c=>c.v),backgroundColor:cv.map(c=>c.op?GOLD:NAVY),borderRadius:4}]},options:hbar(v=>k0(v),c=>' '+f0(c.raw))});}
+document.getElementById('scenTbl').addEventListener('input',e=>{
+  if(!e.target.matches('.vin'))return;const i=+e.target.dataset.i,f=e.target.dataset.f;st.cos[i][f]=parseFloat(e.target.value)||0;recompute();});
+function setAllMult(m){m=Math.max(0,Math.round(m*2)/2);st.cos.forEach(c=>{if(c.seg==='OpCo')c.mult=m;});document.getElementById('allMult').value=m;document.querySelectorAll('#scenTbl input[data-f="mult"]').forEach(inp=>inp.value=m);recompute();}
+document.getElementById('multUp').addEventListener('click',()=>setAllMult((parseFloat(document.getElementById('allMult').value)||0)+0.5));
+document.getElementById('multDown').addEventListener('click',()=>setAllMult((parseFloat(document.getElementById('allMult').value)||0)-0.5));
+document.getElementById('allMult').addEventListener('input',e=>{const m=parseFloat(e.target.value)||0;st.cos.forEach(c=>{if(c.seg==='OpCo')c.mult=m;});document.querySelectorAll('#scenTbl input[data-f="mult"]').forEach(inp=>inp.value=m);recompute();});
+document.getElementById('ownerAdd').addEventListener('input',e=>{const a=parseFloat(e.target.value)||0;st.cos.forEach(c=>{if(c.seg==='OpCo')c.adj=a;});document.querySelectorAll('#scenTbl input[data-f="adj"]').forEach(inp=>inp.value=a);recompute();});
+document.getElementById('netDebtIn').addEventListener('input',e=>{st.net_debt=parseFloat(e.target.value)||0;recompute();});
+document.getElementById('normBtn').addEventListener('click',()=>{st.cos.forEach(c=>{if(c.seg==='OpCo'&&c.ebitda<0)c.adj=-c.ebitda;});
+  document.querySelectorAll('#scenTbl input[data-f="adj"]').forEach(inp=>{inp.value=st.cos[+inp.dataset.i].adj;});recompute();});
+document.getElementById('resetBtn').addEventListener('click',()=>{initState();buildScenTable();document.getElementById('allMult').value=6.0;document.getElementById('ownerAdd').value=0;document.getElementById('netDebtIn').value=Math.round(st.net_debt);recompute();});
+let valInit=false;
+function initVal(){if(valInit)return;valInit=true;initState();document.getElementById('netDebtIn').value=Math.round(st.net_debt);buildScenTable();drawScenChart();recompute();}
+
+function drawFor(t){return()=>{
+  if(t==='t30'){drawAnnual();drawStores();drawMargin();drawYoY();drawMonthly();drawSeason();drawMix();}
+  if(t==='loc'){renderLoc();locCards();drawLocCharts();}
+  if(t==='val'){initVal();}
+};}
+drawAnnual();drawStores();drawMargin();drawYoY();drawMonthly();drawSeason();drawMix();
+</script>
+</body>
+</html>
