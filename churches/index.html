@@ -291,12 +291,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p class="trust-strip">QuickBooks Online · Gusto · Ramp — professional liability insured — month-to-month, 30-day notice</p>
           </div>
 
-          <div class="hero-booking reveal">
+          <div class="hero-booking reveal" id="hero-book">
             <img src="./assets/tk-logo.webp" alt="" class="hero-watermark" width="898" height="263" loading="lazy" decoding="async">
             <div class="booking-shell hero-booking-shell">
               <div class="booking-copy">
                 <h2 class="booking-title">Book your 15-minute intro call.</h2>
-                <p>Pick a time right here — no prep required.</p>
+                <p>Pick a time right here — no prep, no forms.</p>
               </div>
               <div class="calendly-inline-widget" data-url="https://calendly.com/ricky-turnkeycfo/15min-intro-call?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=00e676" style="min-width:320px;height:700px;"></div>
             </div>
@@ -609,10 +609,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- Sticky mobile CTA bar — always-visible conversion path on small screens -->
   <div class="mobile-sticky-cta" aria-label="Quick actions">
     <a href="https://turnkeycfo.com/instant-estimate/" target="_blank" rel="noreferrer" class="mobile-sticky-cta-secondary" data-cta="estimate-sticky">Instant Estimate</a>
-    <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" class="mobile-sticky-cta-primary" target="_blank" rel="noreferrer" data-cta="book-call-sticky">Book Call</a>
+    <a href="#hero-book" class="mobile-sticky-cta-primary" data-cta="book-call-sticky">Book Call</a>
   </div>
 
-  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <!-- Calendly: lazy-load on near-viewport (protects LCP). On mobile every "Book" CTA
+       scrolls to the on-page scheduler instead of opening calendly.com in a new tab,
+       so the whole booking happens in one clear path without leaving the page. -->
+  <script>
+  (function(){
+    var loaded=false;
+    function loadCalendly(){
+      if(loaded)return;loaded=true;
+      var s=document.createElement('script');
+      s.src='https://assets.calendly.com/assets/external/widget.js';
+      s.async=true;document.body.appendChild(s);
+    }
+    var widgets=document.querySelectorAll('.calendly-inline-widget');
+    if(widgets.length){
+      if('IntersectionObserver' in window){
+        var io=new IntersectionObserver(function(es){
+          es.forEach(function(e){if(e.isIntersecting){loadCalendly();io.disconnect();}});
+        },{rootMargin:'600px'});
+        widgets.forEach(function(w){io.observe(w);});
+      }else{loadCalendly();}
+    }
+    var book=document.getElementById('hero-book');
+    function isMobile(){return window.matchMedia('(max-width:760px)').matches;}
+    document.addEventListener('click',function(e){
+      var el=e.target.closest('[data-cta^="book-call"]');
+      if(!el||!book||!isMobile())return;
+      e.preventDefault();loadCalendly();
+      book.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  })();
+  </script>
   <script src="./churches.js" defer></script>
 </body>
 </html>

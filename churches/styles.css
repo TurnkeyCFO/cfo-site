@@ -236,9 +236,16 @@
   }
   /* Push page content so sticky bar never covers footer */
   body { padding-bottom: 80px; }
-  /* Hide the inline Calendly on mobile — the sticky "Book Call" bar routes there.
-     This trims the hero fold dramatically and lifts LCP. */
-  .hero-booking { display: none; }
+  /* Mobile: SHOW the inline Calendly as the primary on-page booking path.
+     Lazy-loaded (see index.html) so LCP is protected; every "Book" CTA scrolls here. */
+  .hero-booking { display: block; margin-top: 20px; scroll-margin-top: 12px; }
+  .hero-booking .hero-watermark { display: none; }
+  .hero-booking-shell { padding: 14px 12px; }
+  .hero-booking-shell .booking-copy { text-align: center; margin-bottom: 8px; }
+  .hero-booking-shell .booking-title { font-size: 1.18rem; }
+  .hero-booking .calendly-inline-widget { height: 640px !important; min-width: 0 !important; width: 100%; }
+  /* De-emphasize the Instant Estimate in the hero so Booking is the clear primary path */
+  .hero-actions-primary .button-estimate-glow { animation: none; box-shadow: none; }
   /* Tighten hero for mobile fold — CTAs get above the fold */
   .hero { padding-top: 24px; padding-bottom: 12px; }
   .hero-copy .lede { font-size: 1.02rem; line-height: 1.55; }
