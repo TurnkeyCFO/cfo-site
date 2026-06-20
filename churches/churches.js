@@ -55,7 +55,7 @@
     if (evt.indexOf('calendly') === 0 && evt === 'calendly.event_scheduled') {
       track('calendly_booking_complete', { lp: 'churches', conversion: 1 });
       if (typeof gtag === 'function') {
-        gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXX/XXXXXXXXXXX' });
+        gtag('event', 'conversion', { send_to: 'AW-17845290805/txDVCOKXzMIcELWOpr1C', value: 1.0, currency: 'USD' });
       }
     }
     if (evt === 'estimate_submitted' || evt === 'instant_estimate_submitted') {
