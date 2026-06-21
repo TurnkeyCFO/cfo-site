@@ -47,7 +47,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css?v=2026-05-20-2">
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <!-- Calendly CSS + JS are lazy-loaded on scroll by site.js (saves ~2.5MB + Stripe on first paint) -->
 
   <!-- Organization + AccountingService + WebSite schema -->
   <script type="application/ld+json">
@@ -304,9 +304,7 @@
 
     <main>
       <section class="video-hero" id="video-hero">
-        <video class="video-hero-media" id="video-hero-media" autoplay muted playsinline preload="auto" poster="">
-          <source src="./assets/hero-video.mp4" type="video/mp4">
-        </video>
+        <video class="video-hero-media" id="video-hero-media" muted playsinline preload="none" poster="" data-src="./assets/hero-video.mp4"></video>
         <div class="video-hero-white" id="video-hero-white" aria-hidden="true"></div>
         <div class="video-hero-backdrop" aria-hidden="true">
           <span class="vh-orb vh-orb-1"></span>
@@ -720,7 +718,6 @@
     <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" class="mobile-sticky-cta-primary" target="_blank" rel="noreferrer" data-cta="book-call-sticky">Book Call</a>
   </div>
 
-  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-  <script src="./site.js"></script>
+  <script src="./site.js?v=2026-06-20"></script>
 </body>
 </html>
