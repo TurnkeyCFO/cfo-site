@@ -28,8 +28,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./parent-styles.css?v=7">
   <link rel="stylesheet" href="./styles.css?v=7">
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <script type="application/ld+json">
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
@@ -504,7 +503,10 @@
   <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" class="mobile-sticky-cta-primary" target="_blank" rel="noreferrer" data-cta="book-call-sticky">Book Call</a>
 </div>
 
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+/* Calendly + Stripe lazy-load on scroll (perf) — replaces eager widget.js */
+(function(){var w=document.querySelector(".calendly-inline-widget");if(!w)return;var l=false;function go(){if(l)return;l=true;var c=document.createElement("link");c.rel="stylesheet";c.href="https://assets.calendly.com/assets/external/widget.css";document.head.appendChild(c);var s=document.createElement("script");s.src="https://assets.calendly.com/assets/external/widget.js";s.async=true;document.body.appendChild(s);}if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){go();io.disconnect();}});},{rootMargin:"600px"});io.observe(w);}else{go();}})();
+</script>
 <script src="./real-estate.js" defer></script>
 </body>
 </html>
