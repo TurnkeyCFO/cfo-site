@@ -638,12 +638,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
     var widgets=document.querySelectorAll('.calendly-inline-widget');
     if(widgets.length){
+      // Load on the visitor's first interaction — keeps initial paint clean but
+      // makes Calendly ready well before they reach the booking box.
+      var EV=['scroll','touchstart','pointerdown','keydown','wheel'];
+      function onFirst(){EV.forEach(function(ev){window.removeEventListener(ev,onFirst);});loadCalendly();}
+      EV.forEach(function(ev){window.addEventListener(ev,onFirst,{passive:true});});
+      // Fallback: load when a widget actually scrolls into view (no early margin).
       if('IntersectionObserver' in window){
         var io=new IntersectionObserver(function(es){
           es.forEach(function(e){if(e.isIntersecting){loadCalendly();io.disconnect();}});
-        },{rootMargin:'600px'});
+        },{rootMargin:'0px'});
         widgets.forEach(function(w){io.observe(w);});
-      }else{loadCalendly();}
+      }
     }
     var book=document.getElementById('hero-book');
     function isMobile(){return window.matchMedia('(max-width:760px)').matches;}
