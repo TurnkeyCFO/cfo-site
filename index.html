@@ -15,7 +15,9 @@
   <link rel="icon" type="image/png" href="/assets/icon-192.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0a1410">
+  <meta name="theme-color" content="#00263a">
+
+  <!-- Favicon / app icons -->
 
   <!-- Open Graph -->
   <meta property="og:title" content="Small Business Bookkeeping Services | Turnkey CFO">
@@ -43,7 +45,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css?v=2026-05-20-2">
+  <!-- Calendly CSS + JS are lazy-loaded on scroll by site.js (saves ~2.5MB + Stripe on first paint) -->
 
   <!-- Organization + AccountingService + WebSite schema -->
   <script type="application/ld+json">
@@ -233,991 +237,487 @@
   }
   </script>
 
-<style>
-:root{
-  --paper:#f4f1ea;        /* warm ledger paper */
-  --paper-2:#ece8df;
-  --card:#fbfaf6;
-  --ink:#0f1a14;          /* deep emerald-black */
-  --ink-2:#2b3a32;
-  --muted:#6b7a71;
-  --rule:rgba(15,26,20,0.12);
-  --rule-soft:rgba(15,26,20,0.07);
-  --emerald:#00e676;
-  --emerald-deep:#0a7a4b;
-  --emerald-ink:#063d2a;
-  --red:#c0533f;          /* the "before" debit color */
-  --grid:'Space Grotesk',ui-monospace,Menlo,monospace;
-  --serif:'Newsreader',Georgia,serif;
-  --body:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
-  --tab:"tnum" 1,"lnum" 1;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  font-family:var(--body);background:var(--paper);color:var(--ink);
-  line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;
-}
-body.is-locked{overflow:hidden;height:100vh}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-::selection{background:var(--emerald);color:var(--ink)}
-.tnum{font-variant-numeric:tabular-nums lining-nums;font-feature-settings:var(--tab)}
-
-/* baseline ledger grid faint behind whole page */
-.ledger-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(to bottom,var(--rule-soft) 1px,transparent 1px);
-  background-size:100% 34px;opacity:0.5;mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 92%,transparent)}
-
-/* ---------- PRELOADER (ledger reconcile) ---------- */
-#preloader{position:fixed;inset:0;z-index:9999;background:var(--paper);
-  display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,6vw,90px)}
-.pl-row{display:flex;justify-content:space-between;align-items:baseline;
-  border-bottom:1px solid var(--rule);padding:14px 0;font-family:var(--grid);
-  opacity:0;transform:translateY(10px)}
-.pl-row .lbl{font-size:clamp(.8rem,2.4vw,1.05rem);letter-spacing:.01em;color:var(--ink-2)}
-.pl-row .amt{font-size:clamp(.8rem,2.4vw,1.05rem);font-variant-numeric:tabular-nums;color:var(--ink)}
-.pl-bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:26px}
-.pl-mark{font-family:var(--grid);font-weight:600;font-size:clamp(1.1rem,3vw,1.6rem);letter-spacing:-.01em}
-.pl-mark b{color:var(--emerald-deep)}
-.pl-count{font-family:var(--grid);font-weight:500;font-size:clamp(3rem,12vw,8rem);line-height:.8;
-  font-variant-numeric:tabular-nums;letter-spacing:-.03em}
-.pl-bal{font-family:var(--grid);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--emerald-deep);opacity:0}
-.pl-curtain{position:fixed;inset:0;z-index:9998;background:var(--ink);transform:translateY(100%)}
-
-/* ---------- CURSOR ---------- */
-.cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1.5px solid rgba(10,122,75,.5);
-  border-radius:3px;pointer-events:none;z-index:9000;transform:translate(-50%,-50%);
-  transition:width .25s,height .25s,background .25s,border-color .25s,border-radius .25s,opacity .3s;opacity:0}
-.cursor-dot{position:fixed;top:0;left:0;width:5px;height:5px;background:var(--emerald-deep);
-  pointer-events:none;z-index:9001;transform:translate(-50%,-50%);opacity:0}
-.cursor-ring.is-hover{width:54px;height:54px;background:rgba(0,230,118,.1);border-color:var(--emerald);border-radius:50%}
-.cursor-ring.is-label{width:auto;height:auto;padding:8px 15px;border-radius:4px;background:var(--ink);border-color:var(--ink)}
-.cursor-ring .c-label{font:600 .68rem/1 var(--grid);letter-spacing:.04em;color:var(--paper);white-space:nowrap;opacity:0;transition:opacity .2s;text-transform:uppercase}
-.cursor-ring.is-label .c-label{opacity:1}
-@media(hover:hover) and (pointer:fine){.has-cursor{cursor:none}.has-cursor .cursor-ring,.has-cursor .cursor-dot{opacity:1}}
-
-.scroll-prog{position:fixed;top:0;left:0;height:2.5px;width:0%;background:linear-gradient(90deg,var(--emerald-deep),var(--emerald));z-index:8000}
-
-/* ---------- NAV ---------- */
-.nav{position:fixed;top:0;left:0;right:0;z-index:700;padding:16px 0;transition:background .4s,box-shadow .4s,padding .4s}
-.nav.scrolled{background:rgba(244,241,234,.85);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--rule);padding:10px 0}
-.nav-inner{max-width:1340px;margin:0 auto;padding:0 clamp(18px,4vw,46px);display:flex;align-items:center;justify-content:space-between;gap:20px}
-.nav-logo{height:30px;width:auto}
-.nav-links{display:flex;align-items:center;gap:28px}
-.nav-links a.lnk{font-family:var(--grid);font-size:.9rem;font-weight:500;color:var(--ink-2);position:relative}
-.nav-links a.lnk::after{content:"";position:absolute;left:0;bottom:-5px;height:1.5px;width:0;background:var(--emerald-deep);transition:width .3s}
-.nav-links a.lnk:hover::after{width:100%}
-.nav-phone{font-weight:600;color:var(--ink)!important;white-space:nowrap;font-variant-numeric:tabular-nums}
-.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--grid);font-weight:600;font-size:.92rem;border:none;cursor:pointer;border-radius:4px;padding:13px 24px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .3s}
-.btn-primary{background:var(--ink);color:var(--paper)}
-.btn-primary:hover{box-shadow:0 18px 40px -16px rgba(15,26,20,.55)}
-.btn-primary .b-dot{width:8px;height:8px;border-radius:50%;background:var(--emerald);box-shadow:0 0 0 0 rgba(0,230,118,.6);animation:pulse 2.4s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,230,118,.55)}70%{box-shadow:0 0 0 9px rgba(0,230,118,0)}100%{box-shadow:0 0 0 0 rgba(0,230,118,0)}}
-.btn-ghost{background:transparent;color:var(--ink);border:1.4px solid var(--rule)}
-.btn-ghost:hover{border-color:var(--emerald-deep);background:rgba(0,230,118,.06)}
-.btn-sm{padding:10px 18px;font-size:.85rem}
-.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
-.nav-burger span{width:24px;height:2px;background:var(--ink);border-radius:2px}
-
-/* ---------- LAYOUT ---------- */
-.wrap{max-width:1340px;margin:0 auto;padding:0 clamp(18px,4vw,46px);position:relative;z-index:2}
-section{position:relative}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--grid);font-size:.74rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--emerald-deep)}
-.eyebrow::before{content:"";width:24px;height:1.5px;background:var(--emerald-deep);display:inline-block}
-.eyebrow .idx{color:var(--muted);font-variant-numeric:tabular-nums}
-
-/* masked word reveal */
-.mask{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em}
-.mask>.word{display:inline-block;will-change:transform}
-
-/* ---------- HERO ---------- */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:130px 0 70px;overflow:hidden}
-#book-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;touch-action:pan-y}
-.hero-inner{position:relative;z-index:3;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,70px);align-items:center;width:100%;pointer-events:none}
-.hero-inner > *{pointer-events:auto}
-.hero-kicker{margin-bottom:24px}
-.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.6rem,6.2vw,5.4rem);line-height:1.0;letter-spacing:-.025em;color:var(--ink)}
-.hero h1 .strike{position:relative;color:var(--muted);font-style:italic;font-weight:440}
-.hero h1 .strike::after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:.06em;background:var(--emerald-deep);transform:scaleX(0);transform-origin:left;border-radius:3px;box-shadow:0 0 12px rgba(0,230,118,.5)}
-.hero h1.lit .strike::after{transform:scaleX(1);transition:transform .7s cubic-bezier(.6,0,.2,1) .9s}
-.hero h1 .accent{font-style:italic;color:var(--emerald-deep);font-weight:540}
-.hero-sub{font-size:clamp(1.02rem,1.5vw,1.22rem);color:var(--ink-2);max-width:540px;margin:28px 0 0;line-height:1.55}
-.hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:34px}
-.hero-founder{display:flex;align-items:center;gap:13px;margin-top:36px}
-.hero-founder img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 14px 30px -14px rgba(6,61,42,.4)}
-.hero-founder div{font-size:.88rem;line-height:1.35}
-.hero-founder b{display:block;color:var(--ink);font-weight:700}
-.hero-founder span{color:var(--muted)}
-
-/* hero ledger panel — the live reconcile tape */
-.tape{background:var(--card);border:1px solid var(--rule);border-radius:8px;
-  box-shadow:0 30px 70px -38px rgba(6,61,42,.32);overflow:hidden}
-.tape-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--rule);font-family:var(--grid)}
-.tape-head .th-l{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--emerald-deep);font-weight:600}
-.tape-head .th-live{display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--emerald-deep);font-weight:600}
-.tape-head .th-live .ld{width:7px;height:7px;border-radius:50%;background:var(--emerald);animation:pulse 2s infinite}
-.tape-rows{padding:6px 0}
-.tape-row{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:11px 18px;border-bottom:1px solid var(--rule-soft);font-family:var(--grid);font-size:.86rem}
-.tape-row:last-child{border-bottom:none}
-.tape-row .tr-d{color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tape-row .tr-c{font-size:.7rem;color:var(--muted);background:var(--paper-2);padding:3px 8px;border-radius:3px;white-space:nowrap}
-.tape-row .tr-a{font-variant-numeric:tabular-nums;color:var(--ink);text-align:right;min-width:84px}
-.tape-row .tr-a.neg{color:var(--red)}
-.tape-foot{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;background:var(--ink);color:var(--paper);font-family:var(--grid)}
-.tape-foot .tf-l{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
-.tape-foot .tf-a{font-size:1.15rem;font-weight:600;font-variant-numeric:tabular-nums;color:var(--emerald)}
-.tape-check{display:inline-block;width:15px;height:15px;border-radius:50%;background:var(--emerald);color:var(--ink);font-size:.6rem;font-weight:800;text-align:center;line-height:15px;margin-left:8px;transform:scale(0)}
-
-.scroll-cue{position:absolute;bottom:24px;left:clamp(18px,4vw,46px);z-index:3;display:flex;align-items:center;gap:12px;font:600 .7rem/1 var(--grid);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
-.scroll-cue .sc-line{width:44px;height:1px;background:var(--ink-2);position:relative;overflow:hidden}
-.scroll-cue .sc-line::after{content:"";position:absolute;left:0;top:0;height:100%;width:40%;background:var(--emerald-deep);animation:scue 1.8s infinite}
-@keyframes scue{0%{transform:translateX(-100%)}100%{transform:translateX(280%)}}
-.hero-hint{position:absolute;bottom:24px;right:clamp(18px,4vw,46px);z-index:3;font:500 .7rem/1.4 var(--grid);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right;max-width:200px}
-
-/* ---------- TICKER ---------- */
-.ticker{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 0;overflow:hidden;white-space:nowrap;background:var(--ink)}
-.ticker-track{display:inline-flex;align-items:center;gap:0;will-change:transform}
-.ticker-track .ti{display:inline-flex;align-items:center;gap:14px;padding:0 30px;font-family:var(--grid);font-size:.95rem;color:var(--paper)}
-.ticker-track .ti .v{color:var(--emerald);font-variant-numeric:tabular-nums;font-weight:600}
-.ticker-track .ti .k{color:rgba(244,241,234,.55);text-transform:uppercase;letter-spacing:.1em;font-size:.72rem}
-.ticker-track .sep{color:var(--emerald-deep)}
-
-/* ---------- SECTION HEADS ---------- */
-.sec{padding:clamp(74px,10vw,140px) 0}
-.sec-head{max-width:760px;margin-bottom:clamp(46px,7vw,80px)}
-.sec-head h2{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.4vw,3.7rem);line-height:1.04;letter-spacing:-.022em;margin-top:20px;color:var(--ink)}
-.sec-head h2 em{font-style:italic;color:var(--emerald-deep)}
-.sec-head p{font-size:clamp(1rem,1.4vw,1.16rem);color:var(--ink-2);margin-top:20px;max-width:600px}
-
-/* ---------- COMPARE ---------- */
-.compare-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
-.cmp{padding:clamp(26px,3vw,40px)}
-.cmp.old{background:var(--paper-2)}
-.cmp.new{background:var(--ink);color:var(--paper)}
-.cmp h3{font-family:var(--grid);font-weight:600;font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:10px}
-.cmp.old h3{color:var(--muted)}
-.cmp.new h3{color:var(--emerald)}
-.cmp ul{list-style:none}
-.cmp li{display:flex;gap:13px;align-items:flex-start;padding:14px 0;font-size:1rem;border-top:1px solid var(--rule-soft)}
-.cmp.new li{border-top-color:rgba(255,255,255,.1)}
-.cmp li:first-child{border-top:none}
-.cmp .ic{flex-shrink:0;width:20px;height:20px;border-radius:3px;display:grid;place-items:center;margin-top:2px;font-size:.66rem;font-weight:700}
-.cmp.old .ic{background:rgba(192,83,63,.14);color:var(--red)}
-.cmp.new .ic{background:var(--emerald);color:var(--ink)}
-
-/* ---------- DASHBOARD ---------- */
-.dash-sec{background:var(--ink);color:var(--paper);overflow:hidden}
-.dash-sec .sec-head h2{color:var(--paper)}
-.dash-sec .sec-head h2 em{color:var(--emerald)}
-.dash-sec .sec-head p{color:rgba(244,241,234,.66)}
-.dash-sec .eyebrow{color:var(--emerald)}
-.dash-sec .eyebrow::before{background:var(--emerald)}
-.dash-sec .eyebrow .idx{color:rgba(244,241,234,.4)}
-.browser{background:#0a130e;border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;box-shadow:0 60px 120px -50px rgba(0,0,0,.7)}
-.browser-bar{display:flex;align-items:center;gap:8px;padding:13px 16px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.07)}
-.browser-bar .bd{width:11px;height:11px;border-radius:50%}
-.browser-bar .bd.r{background:#ff5f57}.browser-bar .bd.y{background:#febc2e}.browser-bar .bd.g{background:#28c840}
-.browser-url{margin-left:14px;flex:1;background:rgba(255,255,255,.05);border-radius:5px;padding:6px 14px;font-family:var(--grid);font-size:.76rem;color:rgba(244,241,234,.5);display:flex;align-items:center;gap:8px}
-.browser-url .lk{color:var(--emerald)}
-.browser-live{margin-left:auto;display:flex;align-items:center;gap:7px;font-family:var(--grid);font-size:.72rem;color:var(--emerald);font-weight:600}
-.browser-live .ld{width:7px;height:7px;border-radius:50%;background:var(--emerald);animation:pulse 2s infinite}
-.dash-body{padding:clamp(18px,3vw,32px)}
-.dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
-.kpi{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:18px 20px}
-.kpi .kl{font-family:var(--grid);font-size:.76rem;color:rgba(244,241,234,.55);display:flex;align-items:center;justify-content:space-between}
-.kpi .kl .trend{font-weight:600;font-size:.72rem}
-.kpi .trend.up{color:var(--emerald)}
-.kpi .kv{font-family:var(--grid);font-weight:600;font-size:clamp(1.6rem,3vw,2.4rem);letter-spacing:-.02em;margin-top:8px;color:var(--paper);font-variant-numeric:tabular-nums}
-.dash-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:14px}
-.dash-panel{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:20px}
-.dash-panel .dp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.dash-panel .dp-head h4{font-family:var(--grid);font-weight:600;font-size:.9rem;color:var(--paper)}
-.dash-panel .dp-head .dp-tag{font-family:var(--grid);font-size:.72rem;color:rgba(244,241,234,.5)}
-.chart-svg{width:100%;height:auto;display:block}
-.chart-svg .area{opacity:0}
-.bars{display:flex;align-items:flex-end;gap:10px;height:118px;margin-top:6px}
-.bars .bar{flex:1;background:linear-gradient(180deg,var(--emerald),var(--emerald-deep));border-radius:4px 4px 0 0;height:0}
-.gauge-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;height:100%}
-.gauge-val{font-family:var(--grid);font-weight:600;font-size:2.3rem;letter-spacing:-.02em;color:var(--paper);font-variant-numeric:tabular-nums}
-.gauge-cap{font-size:.78rem;color:rgba(244,241,234,.55);text-align:center}
-.dash-foot{margin-top:16px;font-family:var(--grid);font-size:.78rem;color:rgba(244,241,234,.45);display:flex;align-items:center;gap:9px}
-.dash-foot .df-dot{width:6px;height:6px;border-radius:50%;background:var(--emerald)}
-
-/* ---------- SERVICES ---------- */
-.svc-list{border-top:1px solid var(--rule)}
-.svc-row{display:grid;grid-template-columns:auto .44fr .16fr 1fr;gap:26px;align-items:center;padding:clamp(26px,3.2vw,42px) 0;border-bottom:1px solid var(--rule);position:relative;transition:padding-left .4s}
-.svc-row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(0,230,118,.08),transparent);transition:width .4s;z-index:-1;border-radius:6px}
-.svc-row:hover{padding-left:16px}
-.svc-row:hover::before{width:100%}
-.svc-row .svc-idx{font-family:var(--grid);font-size:.82rem;color:var(--emerald-deep);font-variant-numeric:tabular-nums;font-weight:600}
-.svc-row h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.45rem,2.6vw,2.2rem);letter-spacing:-.018em;color:var(--ink);line-height:1.05}
-.svc-tag{font-family:var(--grid);font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--emerald-deep);justify-self:start;padding:6px 12px;border:1px solid rgba(10,122,75,.25);border-radius:4px;white-space:nowrap}
-.svc-row p{font-size:1.02rem;color:var(--ink-2);max-width:520px}
-
-/* ---------- REASONS ---------- */
-.reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.reason{padding:32px 28px;border-radius:8px;background:var(--card);border:1px solid var(--rule);position:relative;overflow:hidden}
-.reason .rq{font-family:var(--grid);font-size:.72rem;color:var(--emerald-deep);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
-.reason h3{font-family:var(--serif);font-weight:500;font-size:1.4rem;line-height:1.2;letter-spacing:-.015em;color:var(--ink)}
-.reason p{margin-top:14px;font-size:.97rem;color:var(--ink-2)}
-
-/* ---------- TESTIMONIALS ---------- */
-.tst-wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-.tst{padding:clamp(28px,3vw,40px);border-radius:8px;background:var(--card);border:1px solid var(--rule);display:flex;flex-direction:column}
-.tst:nth-child(1){background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.tst .stars{color:var(--emerald);font-size:.92rem;letter-spacing:3px;margin-bottom:18px}
-.tst .q{font-family:var(--serif);font-weight:500;font-size:clamp(1.2rem,1.9vw,1.6rem);line-height:1.3;letter-spacing:-.012em}
-.tst:nth-child(1) .q{color:var(--paper)}
-.tst .res{font-size:.94rem;color:var(--ink-2);margin:20px 0;line-height:1.6;flex:1}
-.tst:nth-child(1) .res{color:rgba(244,241,234,.7)}
-.tst .who{display:flex;flex-direction:column;border-top:1px solid var(--rule);padding-top:18px}
-.tst:nth-child(1) .who{border-top-color:rgba(255,255,255,.12)}
-.tst .who b{font-weight:700}
-.tst .who span{font-size:.86rem;color:var(--muted)}
-.tst:nth-child(1) .who span{color:rgba(244,241,234,.55)}
-
-/* ---------- PROCESS ---------- */
-.proc{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--rule)}
-.proc-step{padding:46px 32px 46px 0;border-right:1px solid var(--rule);position:relative}
-.proc-step:last-child{border-right:none}
-.proc-step .pn{font-family:var(--grid);font-weight:600;font-size:clamp(3.4rem,7vw,6rem);line-height:.8;letter-spacing:-.04em;-webkit-text-stroke:1.5px var(--emerald-deep);color:transparent;display:block;margin-bottom:22px;font-variant-numeric:tabular-nums}
-.proc-step h3{font-family:var(--serif);font-weight:500;font-size:1.6rem;letter-spacing:-.018em;margin-bottom:11px;color:var(--ink)}
-.proc-step p{font-size:.98rem;color:var(--ink-2);max-width:300px}
-
-/* ---------- INDUSTRIES ---------- */
-.ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.ind{display:flex;align-items:center;gap:10px;min-height:62px;padding:15px 18px;border:1px solid var(--rule);border-radius:6px;background:var(--card);font-weight:600;font-size:.94rem;color:var(--ink);transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;position:relative;overflow:hidden}
-.ind .in-n{font-family:var(--grid);font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.ind::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--emerald);transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
-.ind:hover{transform:translateY(-3px);border-color:rgba(0,230,118,.4);box-shadow:0 16px 32px -18px rgba(6,61,42,.3)}
-.ind:hover::before{transform:scaleY(1)}
-
-/* ---------- FAQ ---------- */
-.faq-wrap{max-width:880px;margin:0 auto;border-top:1px solid var(--rule)}
-.faq{border-bottom:1px solid var(--rule)}
-.faq summary{cursor:pointer;padding:24px 0;font-family:var(--serif);font-weight:500;font-size:clamp(1.08rem,1.7vw,1.4rem);letter-spacing:-.01em;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--ink)}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary .pm{flex-shrink:0;width:32px;height:32px;border-radius:4px;border:1.4px solid var(--rule);display:grid;place-items:center;font-size:1.25rem;font-weight:300;transition:transform .3s,background .3s,color .3s,border-color .3s}
-.faq[open] summary .pm{transform:rotate(45deg);background:var(--emerald-deep);color:var(--paper);border-color:var(--emerald-deep)}
-.faq p{padding:0 0 26px;color:var(--ink-2);max-width:700px;line-height:1.7}
-
-/* ---------- FINAL CTA ---------- */
-.final{background:var(--emerald-ink);color:var(--paper);text-align:center;padding:clamp(86px,12vw,160px) 0;position:relative;overflow:hidden}
-.final::before{content:"";position:absolute;width:140%;height:140%;left:-20%;top:-50%;background:radial-gradient(circle at 50% 50%,rgba(0,230,118,.2),transparent 60%);pointer-events:none}
-.final h2{font-family:var(--serif);font-weight:500;font-size:clamp(2.5rem,6.6vw,5.6rem);line-height:1.0;letter-spacing:-.025em;position:relative}
-.final h2 em{font-style:italic;color:var(--emerald)}
-.final p{max-width:520px;margin:24px auto 0;font-size:1.12rem;color:rgba(244,241,234,.78);position:relative}
-.final .hero-actions{justify-content:center;position:relative}
-.final .btn-ghost{color:var(--paper);border-color:rgba(255,255,255,.3)}
-.final .btn-ghost:hover{border-color:var(--emerald);background:rgba(0,230,118,.1)}
-.final .btn-primary{background:var(--paper);color:var(--ink)}
-
-/* ---------- FOOTER ---------- */
-.footer{background:var(--ink);color:var(--paper);padding:clamp(56px,8vw,96px) 0 38px}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
-.footer-logo{height:32px;margin-bottom:20px;filter:brightness(0) invert(1)}
-.footer p{color:rgba(244,241,234,.6);max-width:340px;font-size:.94rem}
-.footer h5{font-family:var(--grid);font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;color:var(--emerald);margin-bottom:18px;font-weight:600}
-.footer-col a,.footer-col span{display:block;color:rgba(244,241,234,.72);font-size:.94rem;margin-bottom:12px;transition:color .25s}
-.footer-col a:hover{color:var(--emerald)}
-.footer-bot{padding-top:28px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.82rem;color:rgba(244,241,234,.45)}
-
-/* ---------- MOBILE STICKY CTA ---------- */
-.msticky{display:none;position:fixed;left:0;right:0;bottom:0;z-index:750;padding:10px 12px;gap:10px;background:rgba(244,241,234,.94);backdrop-filter:blur(10px);border-top:1px solid var(--rule)}
-.msticky a{flex:1;text-align:center;font-family:var(--grid);font-weight:600;font-size:.9rem;padding:13px;border-radius:5px}
-.msticky .ms-2{background:transparent;border:1.4px solid var(--rule);color:var(--ink)}
-.msticky .ms-1{background:var(--ink);color:var(--paper)}
-
-/* reveal base */
-.rv{opacity:0;transform:translateY(30px)}
-
-/* ---------- RESPONSIVE ---------- */
-@media(max-width:1040px){
-  .hero-inner{grid-template-columns:1fr;gap:38px}
-  .tape{max-width:480px}
-  .compare-wrap,.reasons,.tst-wrap{grid-template-columns:1fr}
-  .proc{grid-template-columns:1fr}
-  .proc-step{border-right:none;border-bottom:1px solid var(--rule);padding:36px 0}
-  .dash-grid{grid-template-columns:1fr}
-  .ind-grid{grid-template-columns:repeat(3,1fr)}
-  .svc-row{grid-template-columns:auto 1fr;gap:8px 16px}
-  .svc-row .svc-tag{grid-column:2}
-  .svc-row p{grid-column:2}
-}
-@media(max-width:880px){
-  .nav-links{display:none}
-  .nav-burger{display:flex}
-  .has-cursor .cursor-ring,.has-cursor .cursor-dot{display:none}
-  .dash-kpis{grid-template-columns:1fr}
-  .msticky{display:flex}
-  .hero-hint{display:none}
-  .hero{padding-bottom:90px}
-}
-@media(max-width:560px){
-  .ind-grid{grid-template-columns:repeat(2,1fr)}
-  .compare-wrap{border-radius:6px}
-}
-@media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
-  .rv{opacity:1;transform:none}
-  .pl-row{opacity:1;transform:none}
-}
-</style>
+  <style>
+    .faq-list{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,0.08);}
+    .faq-item{border-bottom:1px solid rgba(255,255,255,0.08);padding:0;}
+    .faq-item summary{cursor:pointer;padding:20px 0;font-size:1.05rem;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+    .faq-item summary::after{content:'+';font-size:1.4rem;font-weight:300;flex-shrink:0;transition:transform 0.2s;}
+    .faq-item[open] summary::after{transform:rotate(45deg);}
+    .faq-item p{padding:0 0 20px;opacity:0.8;line-height:1.7;margin:0;}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .industry-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:28px;}
+    .industry-grid a{display:flex;align-items:center;min-height:60px;padding:14px 16px;border:1px solid var(--tk-border);border-radius:12px;background:rgba(255,255,255,0.86);color:var(--tk-navy);font-weight:600;font-size:0.95rem;line-height:1.3;box-shadow:var(--tk-shadow-soft);transition:border-color 160ms ease,box-shadow 160ms ease,transform 160ms ease;}
+    .industry-grid a:hover{border-color:rgba(0,230,118,0.4);box-shadow:0 14px 30px rgba(4,120,87,0.12);transform:translateY(-2px);}
+    @media (max-width:980px){.industry-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media (max-width:560px){.industry-grid{grid-template-columns:1fr;}}
+  </style>
 </head>
-<body class="is-locked">
+<body>
 
-<div class="ledger-bg" aria-hidden="true"></div>
+  <!-- GTM noscript: paste container ID here -->
+  <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
 
-<!-- PRELOADER : reconciling ledger -->
-<div class="pl-curtain" id="plCurtain"></div>
-<div id="preloader">
-  <div class="pl-row"><span class="lbl">Opening balance</span><span class="amt tnum">$84,210.00</span></div>
-  <div class="pl-row"><span class="lbl">Deposits matched</span><span class="amt tnum">+ $19,480.00</span></div>
-  <div class="pl-row"><span class="lbl">Expenses categorized</span><span class="amt tnum">- $11,070.00</span></div>
-  <div class="pl-bottom">
-    <div class="pl-mark">Turnkey&nbsp;<b>CFO</b><div class="pl-bal" id="plBal">Reconciled ·</div></div>
-    <div class="pl-count tnum" id="plCount">0</div>
-  </div>
-</div>
+  <!-- Liquid Glass SVG Filter -->
+  <svg style="position:absolute;width:0;height:0;overflow:hidden;" aria-hidden="true">
+    <defs>
+      <filter id="liquid-glass-filter" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turbulence"/>
+        <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise"/>
+        <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="70" xChannelSelector="R" yChannelSelector="B" result="displaced"/>
+        <feGaussianBlur in="displaced" stdDeviation="4" result="finalBlur"/>
+        <feComposite in="finalBlur" in2="finalBlur" operator="over"/>
+      </filter>
+    </defs>
+  </svg>
 
-<!-- CURSOR -->
-<div class="cursor-ring" id="cRing"><span class="c-label" id="cLabel"></span></div>
-<div class="cursor-dot" id="cDot"></div>
-<div class="scroll-prog" id="scrollProg"></div>
+  <div class="site-shell">
+    <div class="pulse-field" aria-hidden="true"></div>
 
-<!-- NAV -->
-<nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="./index.html" aria-label="TurnkeyCFO home"><img src="./assets/tk-logo.webp" alt="TurnkeyCFO logo" class="nav-logo"></a>
-    <div class="nav-links">
-      <a href="./index.html" class="lnk">Home</a>
-      <a href="./services/" class="lnk">Services</a>
-      <a href="./pricing/" class="lnk">Pricing</a>
-      <a href="./blog/" class="lnk">Blog</a>
-      <a href="tel:+17372481346" class="lnk nav-phone" data-cta="phone-header">(737) 248-1346</a>
-      <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noreferrer" class="btn btn-primary btn-sm" data-magnetic data-cta="book-call-header"><span class="b-dot"></span>Book a Call</a>
-    </div>
-    <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-
-<!-- HERO : signature physics — messy transactions settle into a clean ledger -->
-<header class="hero" id="top">
-  <canvas id="book-canvas"></canvas>
-  <div class="wrap hero-inner">
-    <div>
-      <div class="hero-kicker eyebrow rv">Small business bookkeeper · Serving nationwide</div>
-      <h1 id="heroH1">
-        <span class="mask"><span class="word">Ready</span></span>
-        <span class="mask"><span class="word">for</span></span>
-        <span class="mask"><span class="word">a</span></span>
-        <span class="mask"><span class="word strike">Bookkeeper</span></span><br>
-        <span class="mask"><span class="word accent">Finance</span></span>
-        <span class="mask"><span class="word accent">Partner?</span></span>
-      </h1>
-      <p class="hero-sub rv">You're not hiring someone to type in transactions. You're hiring a partner who closes your books, builds your dashboards, and tells you what the numbers actually mean — every month.</p>
-      <div class="hero-actions rv">
-        <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noreferrer" class="btn btn-primary" data-magnetic data-label="Let's talk" data-cta="book-call-hero"><span class="b-dot"></span>Book Your 15-Min Intro Call</a>
-        <a href="https://turnkeycfo.com/instant-estimate/" target="_blank" rel="noreferrer" class="btn btn-ghost" data-magnetic data-cta="instant-pricing-hero">Get Instant Pricing</a>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand-lockup" href="./index.html" aria-label="TurnkeyCFO home">
+          <img src="./assets/tk-logo.webp" alt="TurnkeyCFO logo" class="brand-logo" width="898" height="263" decoding="async">
+        </a>
+        <nav class="desktop-nav" aria-label="Primary">
+          <a href="./index.html" class="is-active">Home</a>
+          <a href="./services/">Services</a>
+          <a href="./pricing/">Pricing</a>
+          <a class="nav-phone" href="tel:+17372481346" data-cta="phone-header" style="font-weight:600;white-space:nowrap">&#9742; (737)&nbsp;248-1346</a>
+          <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" class="button button-liquid" target="_blank" rel="noreferrer" data-cta="book-call-header">
+            <div class="liquid-shadow"></div>
+            <div class="liquid-backdrop"></div>
+            <span class="liquid-content">Book a Call</span>
+          </a>
+          <a href="/blog/">Blog</a>
+        </nav>
       </div>
-      <div class="hero-founder rv">
-        <img src="./assets/ricky-headshot.webp" alt="Ricky West" width="48" height="48">
-        <div><b>Ricky West</b><span>Founder of Turnkey CFO</span></div>
+    </header>
+
+    <!-- Location / service-area bar -->
+    <div class="locality-bar" aria-label="Location and service area">
+      <div class="container locality-inner">
+        <span class="locality-pin" aria-hidden="true">📍</span>
+        <span><strong>Austin, TX</strong> — serving clients nationwide</span>
       </div>
     </div>
-    <div class="tape rv" id="heroTape">
-      <div class="tape-head">
-        <span class="th-l">Monthly close · live</span>
-        <span class="th-live"><span class="ld"></span>Reconciling</span>
-      </div>
-      <div class="tape-rows" id="tapeRows">
-        <div class="tape-row"><span class="tr-d">Deposit · Customer payment</span><span class="tr-c">Revenue</span><span class="tr-a">+8,420</span></div>
-        <div class="tape-row"><span class="tr-d">Card · Supplier invoice</span><span class="tr-c">COGS</span><span class="tr-a neg">-3,180</span></div>
-        <div class="tape-row"><span class="tr-d">Payroll run · Gusto</span><span class="tr-c">Payroll</span><span class="tr-a neg">-6,240</span></div>
-        <div class="tape-row"><span class="tr-d">Deposit · Net 30 cleared</span><span class="tr-c">AR</span><span class="tr-a">+5,900</span></div>
-        <div class="tape-row"><span class="tr-d">Transfer · Owner draw</span><span class="tr-c">Equity</span><span class="tr-a neg">-2,000</span></div>
-      </div>
-      <div class="tape-foot">
-        <span class="tf-l">Net change · MTD</span>
-        <span class="tf-a tnum" id="tapeNet">+$2,900<span class="tape-check" id="tapeCheck">✓</span></span>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-cue rv"><div class="sc-line"></div><span>Scroll</span></div>
-  <div class="hero-hint rv">Drag the chips — watch them settle into clean books</div>
-</header>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track" id="ticker">
-    <span class="ti"><span class="v">Day&nbsp;5</span><span class="k">monthly close</span></span><span class="ti sep">·</span>
-    <span class="ti"><span class="v">100%</span><span class="k">reconciled</span></span><span class="ti sep">·</span>
-    <span class="ti"><span class="v">24&nbsp;hr</span><span class="k">response time</span></span><span class="ti sep">·</span>
-    <span class="ti"><span class="v">Payroll&nbsp;&amp;&nbsp;1099</span><span class="k">handled</span></span><span class="ti sep">·</span>
-    <span class="ti"><span class="v">AP&nbsp;/&nbsp;AR</span><span class="k">managed</span></span><span class="ti sep">·</span>
-    <span class="ti"><span class="v">Live</span><span class="k">dashboards</span></span><span class="ti sep">·</span>
-  </div>
-</div>
-
-<!-- COMPARE -->
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="eyebrow"><span class="idx">01</span>The difference</div>
-      <h2>Stop getting PDFs. <em>Start getting answers.</em></h2>
-      <p>Static reports tell you what happened after the month is over. Live dashboards and monthly commentary tell you what's moving now, where cash is headed, and what needs your attention next.</p>
-    </div>
-    <div class="compare-wrap rv">
-      <div class="cmp old">
-        <h3>What most bookkeepers send</h3>
-        <ul>
-          <li><span class="ic">✕</span>Static PDF in your inbox</li>
-          <li><span class="ic">✕</span>Read-only reporting delivered late</li>
-          <li><span class="ic">✕</span>No drill-down, KPI view, or cash context</li>
-          <li><span class="ic">✕</span>No commentary on what changed</li>
-        </ul>
-      </div>
-      <div class="cmp new">
-        <h3>What Turnkey CFO gives you</h3>
-        <ul>
-          <li><span class="ic">✓</span>Live dashboards that stay current</li>
-          <li><span class="ic">✓</span>Monthly close package with commentary</li>
-          <li><span class="ic">✓</span>Trend analysis, cash flow, and KPI visibility</li>
-          <li><span class="ic">✓</span>Clean books you can actually trust</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DASHBOARD WOW -->
-<section class="sec dash-sec" id="dashboard">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="eyebrow"><span class="idx">02</span>Live Financial Command Center</div>
-      <h2>Your numbers, <em>alive</em> — not a PDF you skim.</h2>
-      <p>Every client gets a custom command center built around their business. KPI scorecards, drawn-in charts, and a cash-runway gauge that stay current — so the numbers are actually useful.</p>
-    </div>
-    <div class="browser rv" id="dashCard">
-      <div class="browser-bar">
-        <span class="bd r"></span><span class="bd y"></span><span class="bd g"></span>
-        <div class="browser-url"><span class="lk">&#128274;</span>turnkeycfo.com / dashboard / your-business</div>
-        <div class="browser-live"><span class="ld"></span>Live</div>
-      </div>
-      <div class="dash-body">
-        <div class="dash-kpis">
-          <div class="kpi"><div class="kl">Revenue (MTD)<span class="trend up">&#9650; 12.4%</span></div><div class="kv tnum" data-count="184320" data-prefix="$" data-comma="1">$0</div></div>
-          <div class="kpi"><div class="kl">Cash on hand<span class="trend up">&#9650; 6.1%</span></div><div class="kv tnum" data-count="92740" data-prefix="$" data-comma="1">$0</div></div>
-          <div class="kpi"><div class="kl">Net margin<span class="trend up">&#9650; 2.3pts</span></div><div class="kv tnum" data-count="23.8" data-suffix="%" data-dec="1">0</div></div>
+    <main>
+      <section class="video-hero" id="video-hero">
+        <video class="video-hero-media" id="video-hero-media" muted playsinline preload="none" poster="" data-src="./assets/hero-video.mp4"></video>
+        <div class="video-hero-white" id="video-hero-white" aria-hidden="true"></div>
+        <div class="video-hero-backdrop" aria-hidden="true">
+          <span class="vh-orb vh-orb-1"></span>
+          <span class="vh-orb vh-orb-2"></span>
+          <span class="vh-orb vh-orb-3"></span>
+          <span class="vh-grain"></span>
         </div>
-        <div class="dash-grid">
-          <div class="dash-panel">
-            <div class="dp-head"><h4>Revenue trend</h4><span class="dp-tag">Last 6 months</span></div>
-            <svg class="chart-svg" id="lineChart" viewBox="0 0 560 200" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#00e676" stop-opacity="0.35"/>
-                  <stop offset="100%" stop-color="#00e676" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <path class="area" id="lineArea" fill="url(#lg)" d=""/>
-              <path id="linePath" fill="none" stroke="#00e676" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d=""/>
-            </svg>
-            <div class="dp-head" style="margin-top:24px"><h4>Cash by month</h4><span class="dp-tag">Net inflow</span></div>
-            <div class="bars" id="bars">
-              <div class="bar" data-h="46"></div><div class="bar" data-h="62"></div><div class="bar" data-h="55"></div><div class="bar" data-h="78"></div><div class="bar" data-h="70"></div><div class="bar" data-h="92"></div>
-            </div>
-          </div>
-          <div class="dash-panel">
-            <div class="dp-head"><h4>Cash runway</h4><span class="dp-tag">Months</span></div>
-            <div class="gauge-wrap">
-              <svg width="170" height="100" viewBox="0 0 170 100">
-                <path d="M15 95 A70 70 0 0 1 155 95" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12" stroke-linecap="round"/>
-                <path id="gaugeArc" d="M15 95 A70 70 0 0 1 155 95" fill="none" stroke="#00e676" stroke-width="12" stroke-linecap="round" stroke-dasharray="220" stroke-dashoffset="220"/>
-              </svg>
-              <div class="gauge-val tnum" data-count="8.4" data-suffix=" mo" data-dec="1">0</div>
-              <div class="gauge-cap">Healthy — over 6 months of runway covered</div>
-            </div>
+        <div class="video-hero-overlay" id="video-hero-overlay">
+          <p class="video-hero-title">
+            <span class="vh-line1">Ready for a <span class="vh-strike">Bookkeeper</span></span>
+            <span class="vh-line2"><span class="vh-shimmer">Finance Partner?</span></span>
+          </p>
+          <p class="video-hero-sub">You're not hiring someone to type in transactions. You're hiring a partner who closes your books, builds your dashboards, and tells you what the numbers actually mean — every month.</p>
+          <div class="video-hero-cta">
+            <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" class="button button-liquid" target="_blank" rel="noreferrer" data-cta="book-call-video-hero">
+              <div class="liquid-shadow"></div>
+              <div class="liquid-backdrop"></div>
+              <span class="liquid-content">Book Your 15-Min Intro Call</span>
+            </a>
+            <a href="#hero" class="button button-secondary button-glow">Learn More</a>
           </div>
         </div>
-        <div class="dash-foot"><span class="df-dot"></span>Closed through day 5 · Reconciled · Commentary attached</div>
+        <div class="video-hero-scrollcue" aria-hidden="true">
+          <span>Scroll</span>
+          <div class="video-hero-scrollcue-line"></div>
+        </div>
+      </section>
+      <style>
+        .video-hero{position:relative;width:100%;height:100vh;min-height:560px;overflow:hidden;background:#f6fbf7;display:flex;align-items:center;justify-content:center;text-align:center;}
+        .video-hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+        .video-hero-white{position:absolute;inset:0;background:linear-gradient(160deg,#f6fbf7 0%,#eaf6ee 55%,#dff0e3 100%);opacity:0;z-index:2;pointer-events:none;transition:opacity .7s ease;}
+        .video-hero-white.is-on{opacity:1;}
+        .video-hero-backdrop{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity 1.2s ease .1s;overflow:hidden;}
+        .video-hero-white.is-on ~ .video-hero-backdrop,.video-hero-backdrop.is-on{opacity:1;}
+        .vh-orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;mix-blend-mode:multiply;animation:vh-float 14s ease-in-out infinite;}
+        .vh-orb-1{width:520px;height:520px;left:-120px;top:-140px;background:radial-gradient(circle,#064e3b 0%,rgba(6,78,59,0) 70%);animation-delay:0s;}
+        .vh-orb-2{width:600px;height:600px;right:-160px;top:30%;background:radial-gradient(circle,#064e3b 0%,rgba(6,78,59,0) 72%);animation-delay:-5s;opacity:.5;}
+        .vh-orb-3{width:420px;height:420px;left:30%;bottom:-180px;background:radial-gradient(circle,#064e3b 0%,rgba(6,78,59,0) 70%);animation-delay:-9s;opacity:.4;}
+        @keyframes vh-float{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(40px,-30px) scale(1.05);}66%{transform:translate(-30px,25px) scale(.96);}}
+        .vh-grain{position:absolute;inset:0;background-image:radial-gradient(rgba(6,78,59,.08) 1px,transparent 1px);background-size:14px 14px;opacity:.4;}
+        .video-hero-overlay{position:relative;z-index:3;width:100%;max-width:980px;padding:0 24px;margin:0 auto;text-align:center;color:#0a0a0a;opacity:0;transform:scale(.55);filter:blur(14px);transition:opacity 1.3s cubic-bezier(.16,.84,.3,1),transform 1.4s cubic-bezier(.16,.84,.3,1),filter 1.1s ease;will-change:transform,opacity,filter;}
+        .video-hero-overlay.is-revealed{opacity:1;transform:scale(1);filter:blur(0);}
+        .video-hero-title{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif !important;font-weight:800;font-size:clamp(2.4rem,6.2vw,5rem);line-height:1.05;letter-spacing:-.03em;margin:0 auto 22px !important;max-width:none !important;color:#0a0a0a;display:block;text-align:center;}
+        .vh-line1{display:block;text-align:center;color:#0a0a0a;}
+        .vh-strike{position:relative;display:inline-block;color:#6b6b6b;}
+        .vh-strike::after{content:"";position:absolute;left:-3%;right:-3%;top:55%;height:.13em;background:linear-gradient(90deg,#064e3b 0%,#0a6e52 100%);transform:scaleX(0);transform-origin:left center;border-radius:2px;box-shadow:0 0 14px rgba(6,78,59,.45);}
+        .video-hero-overlay.is-revealed .vh-strike::after{transform:scaleX(1);transition:transform .7s cubic-bezier(.6,.0,.2,1) .35s;}
+        .vh-line2{display:block;text-align:center;font-size:1.18em;margin-top:4px;}
+        .vh-shimmer{background:linear-gradient(120deg,#064e3b 0%,#0a6e52 22%,#118a66 42%,#1aa67c 55%,#118a66 70%,#0a6e52 85%,#064e3b 100%);background-size:280% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:vh-shimmer 6s linear infinite;}
+        @keyframes vh-shimmer{0%{background-position:0% 50%;}100%{background-position:280% 50%;}}
+        .video-hero-sub{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif !important;font-size:clamp(1.05rem,1.5vw,1.35rem);font-weight:400;line-height:1.55;color:#2c2c2c;max-width:760px;margin:0 auto 28px;text-align:center;}
+        .video-hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+        .video-hero-scrollcue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:3;opacity:0;transition:opacity .8s ease 1.2s;display:flex;flex-direction:column;align-items:center;gap:8px;color:#0a0a0a;font:600 .78rem/1 'Plus Jakarta Sans',system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase;}
+        .video-hero-overlay.is-revealed ~ .video-hero-scrollcue{opacity:.7;}
+        .video-hero-scrollcue-line{width:1px;height:36px;background:#0a0a0a;opacity:.55;animation:vh-cue 1.8s ease-in-out infinite;}
+        @keyframes vh-cue{0%,100%{transform:scaleY(.4);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}}
+        /* Mobile: hide the entire video-hero section. Desktop untouched. */
+        @media (max-width:768px){
+          .video-hero{display:none !important;}
+        }
+        @media (max-width:480px){
+          .video-hero{padding:40px 18px 48px;}
+          .video-hero-title{font-size:clamp(1.85rem,7.6vw,2.5rem) !important;}
+          .video-hero-sub{font-size:.96rem;margin-bottom:18px;}
+        }
+      </style>
+      <script>
+        (function(){
+          var v=document.getElementById('video-hero-media');
+          var ov=document.getElementById('video-hero-overlay');
+          var wh=document.getElementById('video-hero-white');
+          if(!v||!ov)return;
+          var revealed=false;
+          var bd=document.querySelector('.video-hero-backdrop');
+          function reveal(){if(revealed)return;revealed=true;wh.classList.add('is-on');ov.classList.add('is-revealed');if(bd)bd.classList.add('is-on');}
+          v.addEventListener('timeupdate',function(){if(v.currentTime>=7)reveal();});
+          v.addEventListener('ended',reveal);
+          setTimeout(reveal,8500);
+          v.play().catch(function(){reveal();});
+        })();
+      </script>
+
+      <section class="hero" id="hero">
+        <div class="container hero-layout">
+          <div class="hero-copy reveal">
+            <p class="kicker">Small business bookkeeper · Serving nationwide</p>
+            <h1>Bookkeeper for small businesses — <span class="shimmer-text">Serving Nationwide.</span></h1>
+            <p class="lede">Most founders get a static PDF 30 to 60 days late, skim it, and still guess what to do next. TurnkeyCFO is a modern bookkeeping service that gives you clean books, monthly close, payroll, 1099, and live dashboards — so the numbers are actually useful. Based in the <a href="https://turnkeycfo.com/bookkeeping-central-texas/">Austin and Central Texas area</a>, we serve clients virtually across the country.</p>
+
+            <!-- Founder bio block -->
+            <div class="founder-strip">
+              <div class="founder-avatar">
+                <img src="./assets/ricky-headshot.webp" alt="Ricky West, Founder of TurnkeyCFO" width="560" height="560" loading="lazy" decoding="async">
+              </div>
+              <div class="founder-copy">
+                <strong>Ricky West — Founder of TurnkeyCFO</strong>
+                <p>Bookkeeping, payroll, 1099, AP/AR, monthly close, and reporting for small businesses. Based in Austin, TX, serving clients nationwide — clean books, fast response, and a partner who actually knows your numbers.</p>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" class="button button-liquid" target="_blank" rel="noreferrer" data-cta="book-call-hero">
+                <div class="liquid-shadow"></div>
+                <div class="liquid-backdrop"></div>
+                <span class="liquid-content">Book Your 15-Min Intro Call</span>
+              </a>
+              <a href="https://turnkeycfo.com/instant-estimate/" class="button button-secondary button-glow" target="_blank" rel="noreferrer" data-cta="instant-pricing-hero">Get Instant Pricing</a>
+            </div>
+
+            <div class="fact-row">
+              <div><strong>10+</strong><span>active clients</span></div>
+              <div><strong>100%</strong><span>retention</span></div>
+              <div><strong>3.1h</strong><span>saved per week</span></div>
+              <div><strong>24hr</strong><span>response time</span></div>
+            </div>
+            <p class="hero-note">Bookkeeping, payroll, 1099, AP/AR, and monthly close for founder-led businesses, nonprofits, and service teams. For tax or legal questions — talk to your CPA or attorney.</p>
+          </div>
+
+          <div class="hero-booking reveal">
+            <img src="./assets/tk-logo.webp" alt="" class="hero-watermark" width="898" height="263" loading="lazy" decoding="async">
+            <div class="booking-shell hero-booking-shell">
+              <div class="booking-copy">
+                <h2 class="booking-title">Book your 15-minute intro call.</h2>
+                <p>Pick a time right here. If you want a quick range before we talk, open the instant estimate first.</p>
+              </div>
+              <div class="calendly-inline-widget" data-url="https://calendly.com/ricky-turnkeycfo/15min-intro-call?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=00e676" style="min-width:320px;height:630px;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container reveal">
+          <div class="section-head">
+            <h2><span class="shimmer-text">Stop getting PDFs.</span> Start getting answers.</h2>
+            <p>Static reports tell you what happened after the month is over. Live dashboards and monthly commentary tell you what is moving now, where cash is headed, and what needs your attention next — the heart of real <a href="/blog/cash-flow-management-for-small-business/">cash flow management for small business</a>.</p>
+          </div>
+          <div class="hero-glance">
+            <p class="glance-label">What changes with TurnkeyCFO</p>
+            <div class="glance-grid">
+              <div>
+                <span>What most bookkeepers send</span>
+                <ul>
+                  <li>Static PDF in your inbox</li>
+                  <li>Read-only reporting delivered late</li>
+                  <li>No drill-down, KPI view, or cash context</li>
+                  <li>No commentary on what changed</li>
+                </ul>
+              </div>
+              <div class="featured-side">
+                <span>What TurnkeyCFO gives you</span>
+                <ul>
+                  <li>Live dashboards that stay current</li>
+                  <li>Monthly close package with commentary</li>
+                  <li>Trend analysis, cash flow, and KPI visibility</li>
+                  <li>Clean books you can actually trust</li>
+                </ul>
+              </div>
+            </div>
+            <div class="live-link-row">
+              <p>Every client gets a custom financial command center built around their business, not a generic template.</p>
+              <a href="https://ricky11west.github.io/ABC-Church/" class="text-link text-link-button" target="_blank" rel="noreferrer">See a live dashboard example</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Everything you need. <span class="shimmer-text">Nothing you don't.</span></h2>
+            <p>Bookkeeping done right — clean books, clear numbers, and the monthly reporting you actually want.</p>
+          </div>
+          <div class="service-list reveal">
+            <article class="service-row">
+              <div class="service-meta">Core</div>
+              <div class="service-body">
+                <h3>Bookkeeping &amp; monthly close</h3>
+                <p>Accurate categorization, reconciliations, and a full monthly close package — P&amp;L, balance sheet, cash flow, and trend analysis with written commentary.</p>
+              </div>
+            </article>
+            <article class="service-row">
+              <div class="service-meta">Always included</div>
+              <div class="service-body">
+                <h3>Payroll, 1099 &amp; AP/AR</h3>
+                <p>Payroll processing, contractor 1099 management, accounts payable, and accounts receivable — handled so you're not the one chasing it.</p>
+              </div>
+            </article>
+            <article class="service-row">
+              <div class="service-meta">Most popular</div>
+              <div class="service-body">
+                <h3>Live financial dashboards</h3>
+                <p>A custom command center updated in real time with KPI scorecards, charts, drill-down views, and mobile-ready visibility for the numbers your team actually uses.</p>
+              </div>
+            </article>
+          </div>
+          <p class="service-note">Explore our full <a href="https://turnkeycfo.com/services/">bookkeeping services</a> and <a href="https://turnkeycfo.com/pricing/">how pricing works</a>, see industry-specific work for <a href="https://turnkeycfo.com/restaurants/">restaurants</a> and <a href="https://turnkeycfo.com/ecommerce/">ecommerce</a>, or read our guide to <a href="/blog/small-business-bookkeeping/">small business bookkeeping</a>. Behind on the books? We do <a href="https://turnkeycfo.com/catch-up-bookkeeping/">catch-up and clean-up bookkeeping</a> too.</p>
+          <p class="service-note">Tax filings and legal matters — we'll coordinate with your CPA or attorney. TurnkeyCFO doesn't give tax or legal advice.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Why owners switch</h2>
+            <p>These are the moments that usually trigger the move away from stale PDFs and into real bookkeeping with live visibility.</p>
+          </div>
+          <div class="reason-list reveal">
+            <div class="reason-row">
+              <h3>"Our finances have never been this clear."</h3>
+              <p>Instead of guessing through reports, you can finally see what changed, why it changed, and what needs attention next.</p>
+            </div>
+            <div class="reason-row">
+              <h3>"I finally feel like I have a finance partner."</h3>
+              <p>It stops feeling like basic bookkeeping support and starts feeling like someone actually knows your numbers.</p>
+            </div>
+            <div class="reason-row">
+              <h3>"This feels bigger than bookkeeping."</h3>
+              <p>Clean books and reporting, plus visibility, commentary, and a clearer path forward every month.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>What clients say</h2>
+            <p>Real outcomes from founder-led businesses, nonprofits, and service teams.</p>
+          </div>
+          <div class="review-list reveal">
+            <article class="review-row">
+              <div class="review-stars" aria-label="5 star review">★★★★★</div>
+              <p class="review-quote">"THANK YOU SO MUCH!! I have been looking for a true finance partner like this!"</p>
+              <p class="review-result">Rebuilt three years of books, set up a live cash + revenue dashboard, and moved monthly close to day 5.</p>
+              <strong>Lauren</strong>
+              <span>CEO · The Harbour Company</span>
+            </article>
+            <article class="review-row">
+              <div class="review-stars" aria-label="5 star review">★★★★★</div>
+              <p class="review-quote">"Phenomenal working with TurnkeyCFO — our finances have never been clearer."</p>
+              <p class="review-result">Unlocked visibility into giving trends, fund balances, and ministry spend we'd never had before — now we lead with insight instead of guessing.</p>
+              <strong>Dakota</strong>
+              <span>Lead Pastor · Heirloom Church</span>
+            </article>
+            <article class="review-row">
+              <div class="review-stars" aria-label="5 star review">★★★★★</div>
+              <p class="review-quote">"You have been unbelievably helpful!! THANK YOU."</p>
+              <p class="review-result">Cleaned up multi-fund nonprofit books across programs and cut monthly close from 3 weeks to under a week — with donor-ready reporting.</p>
+              <strong>Christy</strong>
+              <span>Director · Village of Hope Maui</span>
+            </article>
+            <article class="review-row">
+              <div class="review-stars" aria-label="5 star review">★★★★★</div>
+              <p class="review-quote">"I didn't know bookkeepers could be this awesome!"</p>
+              <p class="review-result">Stood up full bookkeeping, payroll, and 1099 workflow in week one — so the team stayed focused on shipping, not chasing receipts.</p>
+              <strong>Jake</strong>
+              <span>Founder · Build AI</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Up and running in <span class="shimmer-text">days, not months.</span></h2>
+            <p>The process stays simple so you can get clarity fast.</p>
+          </div>
+          <div class="process-grid reveal">
+            <article>
+              <span>01</span>
+              <h3>Assessment</h3>
+              <p>We learn the business, identify the bookkeeping gaps, and scope only what you need.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Access</h3>
+              <p>We connect accounts, clean historical data, and get the bookkeeping foundation right.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Live visibility</h3>
+              <p>You get monthly close, dashboards, and a finance partner who knows your numbers.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ INDUSTRIES WE SERVE ═══════════ -->
+      <section class="section" id="industries">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Industry-specific <span class="shimmer-text">bookkeeping.</span></h2>
+            <p>Every business has its own way of making money. We build books around how your industry actually operates — job costing, fund accounting, tip reporting, mileage, and more.</p>
+          </div>
+          <div class="industry-grid reveal">
+            <a href="./plumbers/">Plumbers</a>
+            <a href="./hvac/">HVAC</a>
+            <a href="./electricians/">Electricians</a>
+            <a href="./roofing/">Roofing</a>
+            <a href="./construction/">Construction</a>
+            <a href="./landscaping/">Landscaping</a>
+            <a href="./treeservice/">Tree Service</a>
+            <a href="./pestcontrol/">Pest Control</a>
+            <a href="./cleaning/">Cleaning</a>
+            <a href="./auto-repair/">Auto Repair</a>
+            <a href="./trucking/">Trucking</a>
+            <a href="./restaurants/">Restaurants</a>
+            <a href="./fitness/">Gym &amp; Fitness</a>
+            <a href="./hairsalon/">Hair Salons</a>
+            <a href="./childcare/">Daycare &amp; Childcare</a>
+            <a href="./medical/">Medical Practices</a>
+            <a href="./veterinary/">Veterinary</a>
+            <a href="./real-estate/">Real Estate</a>
+            <a href="./property-management/">Property Management</a>
+            <a href="./consultants/">Consulting &amp; Agencies</a>
+            <a href="./churches/">Churches &amp; Nonprofits</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ FAQ ═══════════ -->
+      <section class="section" id="faq">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Common bookkeeping <span class="shimmer-text">questions answered.</span></h2>
+            <p>Straight answers to what small business owners and nonprofit teams actually want to know before hiring a bookkeeper.</p>
+          </div>
+          <div class="faq-list reveal">
+            <details class="faq-item">
+              <summary>Do you offer bookkeeping near me, or is this fully remote?</summary>
+              <p>TurnkeyCFO is based in Austin, TX and works with clients both locally and nationwide. Our service is fully virtual — you get the same clean books, live dashboards, and 24-hour response time whether you're in Austin or running a business across the country.</p>
+            </details>
+            <details class="faq-item">
+              <summary>How much does monthly bookkeeping cost for a small business?</summary>
+              <p>Pricing depends on your transaction volume, number of accounts, and which services you need (bookkeeping only vs. bookkeeping + payroll + 1099). Use the Instant Estimate tool on this page to get a real price range in about 60 seconds — no call required.</p>
+            </details>
+            <details class="faq-item">
+              <summary>What's included in your monthly bookkeeping services?</summary>
+              <p>Every engagement includes accurate transaction categorization, bank and credit card reconciliations, a full monthly close package (P&amp;L, balance sheet, cash flow statement), and written commentary on what moved and why. Most clients also add payroll, 1099 management, AP/AR, and a live financial dashboard.</p>
+            </details>
+            <details class="faq-item">
+              <summary>What's the difference between a bookkeeper and a CPA?</summary>
+              <p>A bookkeeper handles day-to-day financial recordkeeping — categorizing transactions, reconciling accounts, running payroll, and producing monthly financial statements. A CPA handles tax preparation, tax strategy, and filing. TurnkeyCFO does the bookkeeping and coordinates with your CPA for tax filings — keeping your books filing-ready year-round.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Can you clean up messy or behind-on books?</summary>
+              <p>Yes — catch-up bookkeeping is one of the most common first projects. We've rebuilt books three years behind, untangled multi-entity messes, and cleaned up misclassified transactions going back to day one. We scope the cleanup, give you a clear estimate, and get you current before setting up the ongoing monthly workflow.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Do you work with nonprofits and churches?</summary>
+              <p>Yes. TurnkeyCFO works with nonprofits, churches, and faith-based organizations — including fund accounting, donor-restricted fund tracking, clergy housing allowance payroll, and 1099s for guest speakers. We have a dedicated <a href="./churches/">church bookkeeping page</a> with full detail.</p>
+            </details>
+            <details class="faq-item">
+              <summary>How quickly can we get started?</summary>
+              <p>Most clients are fully onboarded within 1–2 weeks. 15-minute intro call → we connect to your accounts → clean historical data → monthly close and dashboard live. No long ramp-up, no month-long onboarding projects.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Do you handle payroll and 1099s, or just the books?</summary>
+              <p>Both. TurnkeyCFO handles payroll processing (through Gusto or your existing provider), contractor 1099 management (W-9 collection, threshold tracking, year-end filing), accounts payable, and accounts receivable. Most clients use us as their complete back-office finance team.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-book" id="book">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2>Ready to clean this up?</h2>
+            <p>Use the pricing estimator to get a quick range, then book the call above when you're ready to talk through fit and scope.</p>
+            <div class="hero-actions" style="margin-top:22px;">
+              <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" class="button button-liquid" target="_blank" rel="noreferrer" data-cta="book-call-bottom">
+                <div class="liquid-shadow"></div>
+                <div class="liquid-backdrop"></div>
+                <span class="liquid-content">Book Your 15-Min Intro Call</span>
+              </a>
+              <a href="https://turnkeycfo.com/instant-estimate/" class="button button-secondary button-glow" target="_blank" rel="noreferrer" data-cta="instant-pricing-bottom">Get Instant Pricing</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <img src="./assets/tk-logo.webp" alt="TurnkeyCFO logo" class="footer-logo" width="898" height="263" loading="lazy" decoding="async">
+          <p>Clean books, monthly close, and live dashboards for growing businesses. Austin, TX — serving clients nationwide.</p>
+        </div>
+        <div class="footer-contact">
+          <a href="./services/">Bookkeeping services</a>
+          <a href="./pricing/">Pricing</a>
+          <a href="https://turnkeycfo.com/instant-estimate/" target="_blank" rel="noreferrer" data-cta="instant-pricing-footer">Open pricing estimator</a>
+          <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" class="button-liquid" target="_blank" rel="noreferrer" data-cta="book-call-footer">
+            <div class="liquid-shadow"></div>
+            <div class="liquid-backdrop"></div>
+            <span class="liquid-content">Book your intro call</span>
+          </a>
+          <a href="tel:+17372481346" data-cta="phone-footer">&#9742; Call (737) 248-1346</a>
+          <a href="mailto:Ricky@turnkeycfo.com">Ricky@turnkeycfo.com</a>
+          <span>Austin, Texas</span>
+        </div>
       </div>
-    </div>
+    </footer>
   </div>
-</section>
 
-<!-- SERVICES -->
-<section class="sec" id="services">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="eyebrow"><span class="idx">03</span>What's included</div>
-      <h2>Everything you need. <em>Nothing you don't.</em></h2>
-      <p>Bookkeeping done right — clean books, clear numbers, and the monthly reporting you actually want.</p>
-    </div>
-    <div class="svc-list">
-      <article class="svc-row rv">
-        <span class="svc-idx">01</span>
-        <h3>Bookkeeping &amp; monthly close</h3>
-        <span class="svc-tag">Core</span>
-        <p>Accurate categorization, reconciliations, and a full monthly close package — P&amp;L, balance sheet, cash flow, and trend analysis with written commentary.</p>
-      </article>
-      <article class="svc-row rv">
-        <span class="svc-idx">02</span>
-        <h3>Payroll, 1099 &amp; AP/AR</h3>
-        <span class="svc-tag">Always included</span>
-        <p>Payroll processing, contractor 1099 management, accounts payable, and accounts receivable — handled so you're not the one chasing it.</p>
-      </article>
-      <article class="svc-row rv">
-        <span class="svc-idx">03</span>
-        <h3>Live financial dashboards</h3>
-        <span class="svc-tag">Most popular</span>
-        <p>A custom command center updated in real time with KPI scorecards, charts, drill-down views, and mobile-ready visibility for the numbers your team actually uses.</p>
-      </article>
-    </div>
-    <p style="margin-top:28px;color:var(--muted);font-size:.94rem;max-width:640px">Tax filings and legal matters — we'll coordinate with your CPA or attorney. Turnkey CFO doesn't give tax or legal advice.</p>
+  <!-- Sticky mobile CTA bar — always-visible conversion path on small screens -->
+  <div class="mobile-sticky-cta" aria-label="Quick actions">
+    <a href="https://turnkeycfo.com/instant-estimate/" target="_blank" rel="noreferrer" class="mobile-sticky-cta-secondary" data-cta="estimate-sticky">Instant Estimate</a>
+    <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" class="mobile-sticky-cta-primary" target="_blank" rel="noreferrer" data-cta="book-call-sticky">Book Call</a>
   </div>
-</section>
 
-<!-- REASONS -->
-<section class="sec" style="background:var(--paper-2)">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="eyebrow"><span class="idx">04</span>Why owners switch</div>
-      <h2>The moment it <em>clicks.</em></h2>
-      <p>These are the moments that usually trigger the move away from stale PDFs and into real bookkeeping with live visibility.</p>
-    </div>
-    <div class="reasons">
-      <div class="reason rv"><div class="rq">The clarity</div><h3>"Our finances have never been this clear."</h3><p>Instead of guessing through reports, you can finally see what changed, why it changed, and what needs attention next.</p></div>
-      <div class="reason rv"><div class="rq">The partnership</div><h3>"I finally feel like I have a finance partner."</h3><p>It stops feeling like basic bookkeeping support and starts feeling like someone actually knows your numbers.</p></div>
-      <div class="reason rv"><div class="rq">The shift</div><h3>"This feels bigger than bookkeeping."</h3><p>Clean books and reporting, plus visibility, commentary, and a clearer path forward every month.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="eyebrow"><span class="idx">05</span>What clients say</div>
-      <h2>Real outcomes, <em>real teams.</em></h2>
-      <p>From founder-led businesses, nonprofits, and service teams.</p>
-    </div>
-    <div class="tst-wrap">
-      <article class="tst rv">
-        <div class="stars">★★★★★</div>
-        <p class="q">"THANK YOU SO MUCH!! I have been looking for a true finance partner like this!"</p>
-        <p class="res">Rebuilt three years of books, set up a live cash + revenue dashboard, and moved monthly close to day 5.</p>
-        <div class="who"><b>Lauren</b><span>CEO · The Harbour Company</span></div>
-      </article>
-      <article class="tst rv">
-        <div class="stars">★★★★★</div>
-        <p class="q">"Phenomenal working with Turnkey CFO — our finances have never been clearer."</p>
-        <p class="res">Unlocked visibility into giving trends, fund balances, and ministry spend they'd never had before.</p>
-        <div class="who"><b>Dakota</b><span>Lead Pastor · Heirloom Church</span></div>
-      </article>
-      <article class="tst rv">
-        <div class="stars">★★★★★</div>
-        <p class="q">"You have been unbelievably helpful!! THANK YOU."</p>
-        <p class="res">Cleaned up multi-fund nonprofit books across programs and cut monthly close from 3 weeks to under a week.</p>
-        <div class="who"><b>Christy</b><span>Director · Village of Hope Maui</span></div>
-      </article>
-      <article class="tst rv">
-        <div class="stars">★★★★★</div>
-        <p class="q">"I didn't know bookkeepers could be this awesome!"</p>
-        <p class="res">Stood up full bookkeeping, payroll, and 1099 workflow in week one — so the team stayed focused on shipping.</p>
-        <div class="who"><b>Jake</b><span>Founder · Build AI</span></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="sec" style="background:var(--paper-2)">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="eyebrow"><span class="idx">06</span>How it works</div>
-      <h2>Up and running in <em>days, not months.</em></h2>
-      <p>The process stays simple so you can get clarity fast.</p>
-    </div>
-    <div class="proc">
-      <div class="proc-step rv"><span class="pn">01</span><h3>Assessment</h3><p>We learn the business, identify the bookkeeping gaps, and scope only what you need.</p></div>
-      <div class="proc-step rv"><span class="pn">02</span><h3>Access</h3><p>We connect accounts, clean historical data, and get the bookkeeping foundation right.</p></div>
-      <div class="proc-step rv"><span class="pn">03</span><h3>Live visibility</h3><p>You get monthly close, dashboards, and a finance partner who knows your numbers.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- INDUSTRIES -->
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="eyebrow"><span class="idx">07</span>Industries we serve</div>
-      <h2>Books built around <em>how you make money.</em></h2>
-      <p>Every business has its own way of operating — job costing, fund accounting, tip reporting, mileage, and more.</p>
-    </div>
-    <div class="ind-grid">
-      <a class="ind rv" href="./plumbers/"><span class="in-n">01</span>Plumbers</a>
-      <a class="ind rv" href="./hvac/"><span class="in-n">02</span>HVAC</a>
-      <a class="ind rv" href="./electricians/"><span class="in-n">03</span>Electricians</a>
-      <a class="ind rv" href="./roofing/"><span class="in-n">04</span>Roofing</a>
-      <a class="ind rv" href="./construction/"><span class="in-n">05</span>Construction</a>
-      <a class="ind rv" href="./landscaping/"><span class="in-n">06</span>Landscaping</a>
-      <a class="ind rv" href="./treeservice/"><span class="in-n">07</span>Tree Service</a>
-      <a class="ind rv" href="./pestcontrol/"><span class="in-n">08</span>Pest Control</a>
-      <a class="ind rv" href="./cleaning/"><span class="in-n">09</span>Cleaning</a>
-      <a class="ind rv" href="./auto-repair/"><span class="in-n">10</span>Auto Repair</a>
-      <a class="ind rv" href="./trucking/"><span class="in-n">11</span>Trucking</a>
-      <a class="ind rv" href="./restaurants/"><span class="in-n">12</span>Restaurants</a>
-      <a class="ind rv" href="./fitness/"><span class="in-n">13</span>Gym &amp; Fitness</a>
-      <a class="ind rv" href="./hairsalon/"><span class="in-n">14</span>Hair Salons</a>
-      <a class="ind rv" href="./childcare/"><span class="in-n">15</span>Daycare &amp; Childcare</a>
-      <a class="ind rv" href="./medical/"><span class="in-n">16</span>Medical Practices</a>
-      <a class="ind rv" href="./veterinary/"><span class="in-n">17</span>Veterinary</a>
-      <a class="ind rv" href="./real-estate/"><span class="in-n">18</span>Real Estate</a>
-      <a class="ind rv" href="./property-management/"><span class="in-n">19</span>Property Mgmt</a>
-      <a class="ind rv" href="./consultants/"><span class="in-n">20</span>Consulting &amp; Agencies</a>
-      <a class="ind rv" href="./churches/"><span class="in-n">21</span>Churches &amp; Nonprofits</a>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="sec" id="faq" style="background:var(--paper-2)">
-  <div class="wrap">
-    <div class="sec-head rv" style="margin-left:auto;margin-right:auto;text-align:center">
-      <div class="eyebrow" style="justify-content:center"><span class="idx">08</span>Questions</div>
-      <h2>Common bookkeeping <em>questions answered.</em></h2>
-    </div>
-    <div class="faq-wrap rv">
-      <details class="faq"><summary>Do you offer bookkeeping near me, or is this fully remote?<span class="pm">+</span></summary><p>Turnkey CFO is based in Austin, TX and works with clients both locally and nationwide. Our service is fully virtual — you get the same clean books, live dashboards, and 24-hour response time whether you're in Austin or running a business across the country.</p></details>
-      <details class="faq"><summary>How much does monthly bookkeeping cost for a small business?<span class="pm">+</span></summary><p>Pricing depends on your transaction volume, number of accounts, and which services you need (bookkeeping only vs. bookkeeping + payroll + 1099). Use the Instant Estimate tool to get a real price range in about 60 seconds — no call required.</p></details>
-      <details class="faq"><summary>What's included in your monthly bookkeeping services?<span class="pm">+</span></summary><p>Every engagement includes accurate transaction categorization, bank and credit card reconciliations, a full monthly close package (P&amp;L, balance sheet, cash flow statement), and written commentary on what moved and why. Most clients also add payroll, 1099 management, AP/AR, and a live financial dashboard.</p></details>
-      <details class="faq"><summary>What's the difference between a bookkeeper and a CPA?<span class="pm">+</span></summary><p>A bookkeeper handles day-to-day financial recordkeeping — categorizing transactions, reconciling accounts, running payroll, and producing monthly financial statements. A CPA handles tax preparation, tax strategy, and filing. Turnkey CFO does the bookkeeping and coordinates with your CPA for tax filings — keeping your books filing-ready year-round.</p></details>
-      <details class="faq"><summary>Can you clean up messy or behind-on books?<span class="pm">+</span></summary><p>Yes — catch-up bookkeeping is one of the most common first projects. We've rebuilt books three years behind, untangled multi-entity messes, and cleaned up misclassified transactions going back to day one. We scope the cleanup, give you a clear estimate, and get you current before setting up the ongoing monthly workflow.</p></details>
-      <details class="faq"><summary>Do you work with nonprofits and churches?<span class="pm">+</span></summary><p>Yes. Turnkey CFO works with nonprofits, churches, and faith-based organizations — including fund accounting, donor-restricted fund tracking, clergy housing allowance payroll, and 1099s for guest speakers. We have a dedicated church bookkeeping page with full detail.</p></details>
-      <details class="faq"><summary>How quickly can we get started?<span class="pm">+</span></summary><p>Most clients are fully onboarded within 1–2 weeks. 15-minute intro call → we connect to your accounts → clean historical data → monthly close and dashboard live. No long ramp-up, no month-long onboarding projects.</p></details>
-      <details class="faq"><summary>Do you handle payroll and 1099s, or just the books?<span class="pm">+</span></summary><p>Both. Turnkey CFO handles payroll processing (through Gusto or your existing provider), contractor 1099 management (W-9 collection, threshold tracking, year-end filing), accounts payable, and accounts receivable. Most clients use us as their complete back-office finance team.</p></details>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final" id="book">
-  <div class="wrap">
-    <h2 class="rv">Ready to <em>clean this up?</em></h2>
-    <p class="rv">Get a quick range with the pricing estimator, then book the call when you're ready to talk through fit and scope.</p>
-    <div class="hero-actions rv" style="margin-top:40px">
-      <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noreferrer" class="btn btn-primary" data-magnetic data-label="Let's talk" data-cta="book-call-bottom"><span class="b-dot"></span>Book Your 15-Min Intro Call</a>
-      <a href="https://turnkeycfo.com/instant-estimate/" target="_blank" rel="noreferrer" class="btn btn-ghost" data-magnetic data-cta="instant-pricing-bottom">Get Instant Pricing</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <img src="./assets/tk-logo.webp" alt="Turnkey CFO" class="footer-logo">
-        <p>Clean books, monthly close, and live dashboards for growing businesses. Austin, TX — serving clients nationwide.</p>
-      </div>
-      <div class="footer-col">
-        <h5>Company</h5>
-        <a href="./services/">Bookkeeping services</a>
-        <a href="./pricing/">Pricing</a>
-        <a href="./blog/">Blog</a>
-        <a href="./churches/">Church bookkeeping</a>
-        <a href="https://turnkeycfo.com/instant-estimate/" target="_blank" rel="noreferrer" data-cta="instant-pricing-footer">Open pricing estimator</a>
-      </div>
-      <div class="footer-col">
-        <h5>Contact</h5>
-        <a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noreferrer" data-cta="book-call-footer">Book your intro call</a>
-        <a href="mailto:Ricky@turnkeycfo.com">Ricky@turnkeycfo.com</a>
-        <a href="tel:+17372481346" data-cta="phone-footer">(737) 248-1346</a>
-        <span>Austin, Texas</span>
-      </div>
-    </div>
-    <div class="footer-bot">
-      <span>© 2026 Turnkey CFO · Austin, Texas</span>
-      <span style="max-width:560px">Turnkey CFO provides bookkeeping services and does not provide tax, audit, or legal advice. For tax or legal questions, talk to your CPA or attorney.</span>
-    </div>
-  </div>
-</footer>
-
-<!-- MOBILE STICKY CTA -->
-<div class="msticky" aria-label="Quick actions">
-  <a class="ms-2" href="https://turnkeycfo.com/instant-estimate/" target="_blank" rel="noreferrer" data-cta="estimate-sticky">Instant Estimate</a>
-  <a class="ms-1" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noreferrer" data-cta="book-call-sticky">Book Call</a>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-<script>
-(function(){
-  "use strict";
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
-  const body = document.body;
-  let unlocked = false, lenis;
-
-  /* ---------------- PRELOADER (reconcile) ---------------- */
-  function unlock(){
-    if(unlocked) return; unlocked = true;
-    body.classList.remove('is-locked');
-    if(fine) body.classList.add('has-cursor');
-    initSite();
-  }
-  function runPreloader(){
-    const preloader=document.getElementById('preloader');
-    const plCurtain=document.getElementById('plCurtain');
-    if(reduced){ preloader.style.display='none'; unlock(); return; }
-    const rows=document.querySelectorAll('.pl-row');
-    const plCount=document.getElementById('plCount');
-    const plBal=document.getElementById('plBal');
-    const tl=gsap.timeline();
-    tl.to(rows,{opacity:1,y:0,duration:.5,stagger:.16,ease:'power3.out'});
-    const obj={v:0};
-    tl.to(obj,{v:92410,duration:1.3,ease:'power2.inOut',onUpdate(){
-      plCount.textContent=Math.round(obj.v).toLocaleString('en-US');
-    }},'-=.2');
-    tl.to(plBal,{opacity:1,duration:.3},'-=.2');
-    tl.to(plCount,{opacity:0,duration:.3,delay:.25});
-    tl.fromTo(plCurtain,{y:'100%'},{y:'0%',duration:.6,ease:'power3.inOut',onComplete(){
-      preloader.style.display='none';
-      gsap.to(plCurtain,{y:'-100%',duration:.7,ease:'power3.inOut',delay:.05,onComplete(){ plCurtain.style.display='none'; }});
-      unlock();
-    }});
-  }
-  setTimeout(()=>{ if(!unlocked){ const p=document.getElementById('preloader'),c=document.getElementById('plCurtain'); if(p)p.style.display='none'; if(c)c.style.display='none'; unlock(); } },4000);
-
-  /* ---------------- SIGNATURE PHYSICS: messy -> clean books ---------------- */
-  let engine, render, runner, mWorld, physVisible=true, physReady=false;
-  const CHIPS=[
-    {t:'+8,420',pos:1},{t:'-3,180',neg:1},{t:'PAYROLL',neg:1},{t:'+5,900',pos:1},
-    {t:'-2,000',neg:1},{t:'INVOICE',pos:1},{t:'1099',neg:1},{t:'+1,240',pos:1},
-    {t:'AP/AR',pos:1},{t:'-940',neg:1},{t:'DEPOSIT',pos:1},{t:'RECONCILED',pos:1}
-  ];
-  function initPhysics(){
-    if(reduced || typeof Matter==='undefined') return;
-    const canvas=document.getElementById('book-canvas');
-    if(!canvas) return;
-    const M=Matter;
-    const host=document.querySelector('.hero');
-    let W=host.clientWidth, H=host.clientHeight;
-    engine=M.Engine.create();
-    engine.gravity.y=0.9;
-    mWorld=engine.world;
-    render=M.Render.create({
-      canvas, engine,
-      options:{ width:W, height:H, wireframes:false, background:'transparent', pixelRatio:Math.min(window.devicePixelRatio,2) }
-    });
-    // chips only occupy the left ~55% (under the headline column on desktop) so they don't bury text; full width on mobile is fine since text stacks
-    const styleP={fillStyle:'#0a7a4b',strokeStyle:'rgba(255,255,255,0.0)'};
-    const styleN={fillStyle:'#c0533f'};
-    const bodies=[];
-    const cols=window.innerWidth<1040;
-    const zoneX=cols?W:W*0.62;
-    CHIPS.forEach((c,i)=>{
-      const w=86+ (c.t.length>6?34:0), h=34;
-      const x=40 + Math.random()*(zoneX-120);
-      const y=-100 - i*70 - Math.random()*120;
-      const b=M.Bodies.rectangle(x,y,w,h,{
-        chamfer:{radius:6}, restitution:0.35, friction:0.6, frictionAir:0.012,
-        angle:(Math.random()-0.5)*1.0,
-        render:{ fillStyle:c.neg?'#c0533f':'#0a7a4b' }
-      });
-      b._label=c.t; b._w=w; b._h=h;
-      bodies.push(b);
-    });
-    M.World.add(mWorld,bodies);
-    // walls + floor (floor sits a bit above bottom so chips "settle into the ledger line")
-    const wallOpts={isStatic:true,render:{visible:false}};
-    const floorY=H-46;
-    let floor=M.Bodies.rectangle(W/2,floorY+14,W*2,28,wallOpts);
-    let lw=M.Bodies.rectangle(-14,H/2,28,H*2,wallOpts);
-    let rw=M.Bodies.rectangle(zoneX+14,H/2,28,H*2,wallOpts);
-    M.World.add(mWorld,[floor,lw,rw]);
-
-    // custom render: rounded chips with tabular-num label
-    M.Events.on(render,'afterRender',()=>{
-      const ctx=render.context;
-      ctx.save();
-      ctx.font='600 12px "Space Grotesk", monospace';
-      ctx.textAlign='center'; ctx.textBaseline='middle';
-      bodies.forEach(b=>{
-        const p=b.position;
-        ctx.fillStyle='#f4f1ea';
-        ctx.fillText(b._label, p.x, p.y);
-      });
-      // draw the "ledger baseline" the chips rest on
-      ctx.strokeStyle='rgba(10,122,75,0.5)'; ctx.lineWidth=1.5;
-      ctx.beginPath(); ctx.moveTo(20,floorY); ctx.lineTo(zoneX-20,floorY); ctx.stroke();
-      ctx.fillStyle='rgba(10,26,20,0.45)';
-      ctx.font='600 10px "Space Grotesk", monospace';
-      ctx.textAlign='left';
-      ctx.fillText('RECONCILED LEDGER', 22, floorY-12);
-      ctx.restore();
-    });
-
-    runner=M.Runner.create();
-    M.Render.run(render);
-    M.Runner.run(runner,engine);
-    physReady=true;
-
-    // drag interaction (only fine pointers; on touch we let it settle on its own so page still scrolls)
-    if(fine){
-      const mouse=M.Mouse.create(canvas);
-      const mc=M.MouseConstraint.create(engine,{mouse,constraint:{stiffness:0.2,render:{visible:false}}});
-      M.World.add(mWorld,mc);
-      render.mouse=mouse;
-    }
-
-    function onResize(){
-      const nw=host.clientWidth, nh=host.clientHeight;
-      W=nw;H=nh;
-      render.canvas.width=nw*render.options.pixelRatio;
-      render.canvas.height=nh*render.options.pixelRatio;
-      render.options.width=nw; render.options.height=nh;
-      M.Render.setPixelRatio(render, Math.min(window.devicePixelRatio,2));
-      const zx=window.innerWidth<1040?nw:nw*0.62;
-      M.Body.setPosition(floor,{x:nw/2,y:nh-46+14});
-      M.Body.setPosition(rw,{x:zx+14,y:nh/2});
-    }
-    window.addEventListener('resize',()=>{ clearTimeout(window._prt); window._prt=setTimeout(onResize,200); });
-
-    // pause when hero offscreen
-    const io=new IntersectionObserver(es=>{
-      physVisible=es[0].isIntersecting;
-      if(physVisible){ M.Runner.run(runner,engine); M.Render.run(render); }
-      else { M.Runner.stop(runner); M.Render.stop(render); }
-    },{threshold:0.01});
-    io.observe(host);
-  }
-
-  /* ---------------- HERO TAPE reconcile pulse ---------------- */
-  function initTape(){
-    if(reduced) return;
-    const check=document.getElementById('tapeCheck');
-    ScrollTrigger.create({trigger:'#heroTape',start:'top 90%',once:true,onEnter(){
-      const rows=document.querySelectorAll('#tapeRows .tape-row');
-      gsap.from(rows,{opacity:0,x:-12,duration:.5,stagger:.08,ease:'power2.out'});
-      gsap.to(check,{scale:1,duration:.5,ease:'back.out(2)',delay:.7});
-    }});
-  }
-
-  /* ---------------- CURSOR ---------------- */
-  function initCursor(){
-    if(!fine) return;
-    const ring=document.getElementById('cRing'),dot=document.getElementById('cDot'),label=document.getElementById('cLabel');
-    let rx=innerWidth/2,ry=innerHeight/2,mx=rx,my=ry;
-    addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY; dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`; });
-    (function tick(){ rx+=(mx-rx)*0.18; ry+=(my-ry)*0.18; ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`; requestAnimationFrame(tick); })();
-    document.querySelectorAll('a,button,summary,.ind,.svc-row,.tst,.reason').forEach(el=>{
-      const lbl=el.getAttribute('data-label');
-      el.addEventListener('mouseenter',()=>{ if(lbl){ring.classList.add('is-label');label.textContent=lbl;} else ring.classList.add('is-hover'); });
-      el.addEventListener('mouseleave',()=>{ ring.classList.remove('is-hover','is-label'); label.textContent=''; });
-    });
-  }
-
-  /* ---------------- MAGNETIC ---------------- */
-  function initMagnetic(){
-    if(!fine) return;
-    document.querySelectorAll('[data-magnetic]').forEach(el=>{
-      el.addEventListener('mousemove',e=>{ const r=el.getBoundingClientRect(); const x=e.clientX-(r.left+r.width/2); const y=e.clientY-(r.top+r.height/2); gsap.to(el,{x:x*0.3,y:y*0.4,duration:.5,ease:'power3.out'}); });
-      el.addEventListener('mouseleave',()=>gsap.to(el,{x:0,y:0,duration:.6,ease:'elastic.out(1,0.4)'}));
-    });
-  }
-
-  /* ---------------- LENIS ---------------- */
-  function initLenis(){
-    if(reduced || typeof Lenis==='undefined') return;
-    lenis=new Lenis({lerp:0.09,wheelMultiplier:1});
-    lenis.on('scroll',ScrollTrigger.update);
-    gsap.ticker.add(t=>lenis.raf(t*1000));
-    gsap.ticker.lagSmoothing(0);
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{ const id=a.getAttribute('href'); if(id.length>1){ const t=document.querySelector(id); if(t){ e.preventDefault(); lenis.scrollTo(t,{offset:-70}); } } });
-    });
-  }
-
-  /* ---------------- REVEALS ---------------- */
-  function fmt(n,o){ let s; if(o.dec) s=n.toFixed(o.dec); else s=Math.round(n).toString(); if(o.comma) s=Number(s).toLocaleString('en-US'); return (o.prefix||'')+s+(o.suffix||''); }
-  function initReveals(){
-    if(reduced) return;
-    const heroH1=document.getElementById('heroH1');
-    const words=heroH1.querySelectorAll('.word');
-    gsap.set(words,{y:(i,el)=>el.offsetHeight*1.25});
-    gsap.utils.toArray('.rv').forEach(el=>{
-      gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%'}});
-    });
-    gsap.to(words,{y:0,duration:1.1,ease:'power4.out',stagger:0.07,delay:0.1,onStart(){ heroH1.classList.add('lit'); }});
-
-    gsap.utils.toArray('[data-count]').forEach(el=>{
-      const target=parseFloat(el.getAttribute('data-count'));
-      const o={dec:el.getAttribute('data-dec')?parseInt(el.getAttribute('data-dec')):0,suffix:el.getAttribute('data-suffix')||'',prefix:el.getAttribute('data-prefix')||'',comma:el.getAttribute('data-comma')==='1'};
-      const obj={v:0};
-      ScrollTrigger.create({trigger:el,start:'top 92%',once:true,onEnter(){
-        gsap.to(obj,{v:target,duration:1.8,ease:'power2.out',onUpdate(){ el.textContent=fmt(obj.v,o); },onComplete(){ el.textContent=fmt(target,o); }});
-      }});
-    });
-
-    // dashboard chart
-    const lineData=[40,90,70,120,100,150,130,175];
-    const W=560,H=200,pad=10,max=Math.max(...lineData);
-    const stepX=(W-pad*2)/(lineData.length-1);
-    let d='';
-    lineData.forEach((val,i)=>{ const x=pad+i*stepX; const y=H-pad-(val/max)*(H-pad*2); d+=(i===0?'M':'L')+x.toFixed(1)+' '+y.toFixed(1)+' '; });
-    const area=d+`L${(W-pad).toFixed(1)} ${H} L${pad} ${H} Z`;
-    const linePath=document.getElementById('linePath'),lineArea=document.getElementById('lineArea');
-    linePath.setAttribute('d',d); lineArea.setAttribute('d',area);
-    const len=linePath.getTotalLength();
-    linePath.style.strokeDasharray=len; linePath.style.strokeDashoffset=len;
-    ScrollTrigger.create({trigger:'#dashCard',start:'top 78%',once:true,onEnter(){
-      gsap.to(linePath,{strokeDashoffset:0,duration:1.8,ease:'power2.inOut'});
-      gsap.to(lineArea,{opacity:1,duration:1.2,delay:.5});
-      gsap.to('#gaugeArc',{strokeDashoffset:220-(8.4/12*220),duration:1.6,ease:'power2.out',delay:.3});
-      document.querySelectorAll('#bars .bar').forEach((b,i)=>{ gsap.to(b,{height:b.getAttribute('data-h')+'%',duration:1,ease:'power3.out',delay:.4+i*0.08}); });
-    }});
-
-    ScrollTrigger.refresh();
-  }
-
-  /* ---------------- TICKER ---------------- */
-  function initTicker(){
-    const track=document.getElementById('ticker');
-    if(!track || reduced) return;
-    // duplicate content for seamless loop
-    track.innerHTML+=track.innerHTML;
-    let x=0; const w=track.scrollWidth/2; let vel=0;
-    (function tick(){ x-=(0.5+Math.abs(vel)*0.04); if(-x>=w) x+=w; track.style.transform=`translateX(${x}px)`; vel*=0.9; requestAnimationFrame(tick); })();
-    if(lenis) lenis.on('scroll',e=>{ vel=e.velocity||0; });
-  }
-
-  /* ---------------- MISC ---------------- */
-  function initMisc(){
-    const nav=document.getElementById('nav');
-    const onScroll=()=>{ nav.classList.toggle('scrolled',scrollY>40); const h=document.documentElement; const sp=h.scrollTop/(h.scrollHeight-h.clientHeight); document.getElementById('scrollProg').style.width=(sp*100)+'%'; };
-    addEventListener('scroll',onScroll); onScroll();
-    document.getElementById('burger').addEventListener('click',()=>{ const t=document.getElementById('book'); if(lenis) lenis.scrollTo(t,{offset:-70}); else t.scrollIntoView({behavior:'smooth'}); });
-  }
-
-  function initSite(){
-    initLenis();
-    initPhysics();
-    initTape();
-    initCursor();
-    initMagnetic();
-    initMisc();
-    initTicker();
-    requestAnimationFrame(()=>{ initReveals(); requestAnimationFrame(()=>ScrollTrigger.refresh()); });
-  }
-
-  if(document.readyState==='complete') runPreloader();
-  else addEventListener('load',runPreloader);
-})();
-</script>
+  <script src="./site.js?v=2026-06-20"></script>
 </body>
 </html>
