@@ -124,9 +124,8 @@
   <main>
     <!-- ═══════════ VIDEO HERO (mirrored from homepage) ═══════════ -->
       <section class="video-hero" id="video-hero">
-        <video class="video-hero-media" id="video-hero-media" autoplay muted playsinline preload="auto" poster="">
-          <source src="../assets/hero-video.mp4" type="video/mp4">
-        </video>
+        <video class="video-hero-media" id="video-hero-media" muted playsinline preload="none" poster="" data-src="../assets/hero-video.mp4"></video>
+      <script>/* hero video: desktop-only, never downloaded on mobile */(function(){var v=document.getElementById("video-hero-media");if(!v)return;if(!(window.matchMedia&&window.matchMedia("(min-width:769px)").matches))return;var s=document.createElement("source");s.src=v.getAttribute("data-src");s.type="video/mp4";v.appendChild(s);v.setAttribute("autoplay","");v.load();})();</script>
         <div class="video-hero-white" id="video-hero-white" aria-hidden="true"></div>
         <div class="video-hero-backdrop" aria-hidden="true">
           <span class="vh-orb vh-orb-1"></span>
