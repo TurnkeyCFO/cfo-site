@@ -67,6 +67,13 @@
   <!-- Churches-specific additions layered on top -->
   <link rel="stylesheet" href="./styles.css?v=7">
 
+  <!-- LCP fix: paint the above-the-fold hero instantly instead of waiting for the
+       deferred reveal script (that JS gate was pushing mobile LCP to 6.5s). Below-the-fold
+       .reveal sections still animate in normally. -->
+  <style>
+    .hero .reveal, .hero .hero-copy.reveal { opacity: 1 !important; transform: none !important; }
+  </style>
+
   <!-- Schema.org — consolidated @graph for Google Ads / Quality Score -->
   <script type="application/ld+json">
   {
