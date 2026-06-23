@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Doza Circle, LLC — Financial Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root{
+  --bg:#F6F8F7;--card-bg:#FFFFFF;--card-border:#E3E8E5;
+  --accent:#00E676;--accent-deep:#00B050;--accent-dark:#007A33;--accent-muted:#E6FAEF;
+  --text:#0F1311;--text-muted:#5B635E;--text-dim:#8A918C;
+  --danger:#D32F2F;--danger-bg:#FBEAEA;--warning:#B7791F;
+  --line:#E3E8E5;--posbg:#E6FAEF;
+  --shadow:0 1px 2px rgba(15,19,17,.05),0 10px 30px rgba(15,19,17,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+h1,h2,h3{font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-.01em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+@keyframes shimmer{to{background-position:-200% center}}
+.shimmer-title{background:linear-gradient(100deg,#0a5c2e 10%,var(--accent-deep) 34%,#5cffa6 50%,var(--accent-deep) 66%,#0a5c2e 90%);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:shimmer 5s linear infinite}
+header{background:radial-gradient(620px 320px at 99% 120%,rgba(0,176,80,.30),transparent 62%),linear-gradient(135deg,#0c2a1a,#08160d 60%,#0a1f14);color:#eafff2;padding:26px 0;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-120px;top:-130px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(0,230,118,.18),transparent 68%)}
+.brandrow{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;position:relative;z-index:1}
+.idblk{display:flex;align-items:center;gap:16px}
+.logomark{height:52px;width:52px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));display:grid;place-items:center;font-weight:800;font-size:22px;color:#06210f;box-shadow:0 6px 18px rgba(0,176,80,.4);flex:0 0 auto}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
+header h1{margin:.12em 0 .06em;font-size:30px;font-weight:800}
+header .sub{color:#bfe7cf;font-size:13.5px;max-width:560px}
+.prov{text-align:right;font-size:12px;color:#9fd0b2;line-height:1.7}
+.prov b{color:#fff;font-weight:700}
+.prov .logo{font-weight:800;font-size:17px;color:#fff;letter-spacing:-.02em}
+.prov .logo span{color:var(--accent)}
+@media(max-width:680px){
+  header{padding:22px 0}
+  .brandrow{flex-direction:column;align-items:flex-start;gap:12px}
+  .idblk{gap:12px}
+  header h1{font-size:23px;line-height:1.14}
+  header .sub{font-size:12.5px}
+  .prov{text-align:left;font-size:11.5px}
+}
+main{padding:26px 0 60px}
+.grid{display:grid;gap:15px}
+.g4{grid-template-columns:repeat(4,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.g4{grid-template-columns:1fr 1fr}.g3,.g2{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.g4,.g3,.g2{grid-template-columns:1fr}}
+.card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.kpi h3{margin:0 0 3px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em}
+.kpi .val{font-weight:800;font-size:26px;letter-spacing:-.02em;line-height:1.05;margin-top:5px}
+.kpi .note{font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.4}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;margin-top:8px}
+.pill.up{background:var(--posbg);color:var(--accent-dark)} .pill.down{background:var(--danger-bg);color:var(--danger)} .pill.watch{background:#FBF3E0;color:var(--warning)}
+.pos{color:var(--accent-dark)} .neg{color:var(--danger)}
+.verdict{background:linear-gradient(135deg,#fff,var(--accent-muted));border:1px solid var(--card-border);border-left:5px solid var(--accent);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:18px}
+.verdict h3{color:var(--accent-dark);font-size:16px;margin:0 0 8px;text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:9px}
+.verdict h3::before{content:"";width:18px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent-dark))}
+.verdict p{margin:0 0 9px;font-size:14px;color:#314338}
+.verdict p:last-child{margin:0}
+.verdict b{color:var(--accent-dark)}
+.sec{font-weight:800;color:var(--text);font-size:14.5px;margin:26px 0 11px;display:flex;align-items:center;gap:9px}
+.sec::before{content:"";width:18px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-dark));border-radius:2px}
+.chartcard{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:18px 18px 12px;box-shadow:var(--shadow)}
+.chartcard h3{color:var(--text);font-size:15px;margin:0 0 4px;text-transform:none;letter-spacing:0;font-weight:700}
+.chartcard .csub{font-size:12px;color:var(--text-muted);margin:-2px 0 10px}
+.cwrap{position:relative;height:300px}
+@media(max-width:600px){.cwrap{height:260px}}
+.tablecard{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.tablecard h3{font-size:15px;margin:0 0 4px;font-weight:700}
+.tablecard .csub{font-size:12px;color:var(--text-muted);margin:-2px 0 12px}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+th,td{padding:9px 11px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{background:#0c2a1a;color:#eafff2;font-weight:600;font-size:11px;letter-spacing:.02em}
+tbody tr:hover{background:#f1faf4}
+tr.sum{font-weight:800;background:var(--accent-muted)} tr.sum td{border-top:2px solid var(--accent-dark)}
+.chip{display:inline-block;font-weight:700;font-size:11.5px;padding:2px 8px;border-radius:7px}
+.chip.up{background:var(--posbg);color:var(--accent-dark)} .chip.down{background:var(--danger-bg);color:var(--danger)} .chip.flat{background:#eef0ed;color:var(--text-muted)}
+footer{border-top:3px solid #0c2a1a;padding:20px 0 40px;color:var(--text-muted);font-size:12px}
+footer b{color:var(--text)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brandrow">
+      <div class="idblk">
+        <div class="logomark">D</div>
+        <div>
+          <div class="eyebrow">Financial Dashboard</div>
+          <h1 class="shimmer-title">Doza Circle, LLC</h1>
+          <div class="sub">A plain-language view of your books — built live from your QuickBooks.</div>
+        </div>
+      </div>
+      <div class="prov">
+        <div class="logo">Turnkey <span>CFO</span></div>
+        Source: <b>QuickBooks Online (live)</b><br>
+        Trailing 12 months: <b id="histwin"></b><br>
+        <span id="gen"></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="verdict" id="verdict"></div>
+
+  <div class="grid g4" id="kpis"></div>
+
+  <div class="sec">Revenue vs. expenses — trailing 12 months</div>
+  <div class="chartcard">
+    <h3>Monthly revenue, expenses &amp; net income</h3>
+    <p class="csub">Each month's income against what it cost to run, with net income tracked on the line.</p>
+    <div class="cwrap"><canvas id="cTrend"></canvas></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:15px">
+    <div class="chartcard">
+      <h3>Where the money goes</h3>
+      <p class="csub">Top expense categories, trailing 12 months.</p>
+      <div class="cwrap"><canvas id="cExp"></canvas></div>
+    </div>
+    <div class="chartcard">
+      <h3>Net income by month</h3>
+      <p class="csub">What was left after expenses each month.</p>
+      <div class="cwrap"><canvas id="cNet"></canvas></div>
+    </div>
+  </div>
+
+  <div class="sec">Year to date — <span id="fyLabel"></span></div>
+  <div class="tablecard">
+    <h3>Fiscal-year-to-date summary</h3>
+    <p class="csub" id="ytdSub"></p>
+    <div class="table-scroll">
+      <table id="ytdTable">
+        <thead><tr><th>Line</th><th>Year to date</th><th>% of revenue</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec">CFO commentary</div>
+  <div class="verdict" id="commentary"></div>
+</main>
+
+<footer class="wrap">
+  Figures are real, pulled live from Doza Circle, LLC's QuickBooks Online (read-only), accrual basis &middot; <span id="footdate"></span> &middot; prepared by <b>Turnkey CFO</b> &mdash; bookkeeping, payroll, monthly close &amp; financial reporting. Doza Circle, LLC is an LLC; the fiscal year is the calendar year (January&ndash;December).
+</footer>
+
+<script id="datablock">
+/* ===== DOZA DATA — populated from QBO ProfitAndLoss (realm 9341454036222089) ===== */
+const DATA = {
+  "windowLabel": "Jun 2025 – May 2026",
+  "generated": "June 23, 2026",
+  "fyLabel": "FY2026 (Jan–Dec)",
+  "fyYear": 2026,
+  "ytdThrough": "May 31",
+  "months": [
+    {
+      "label": "Jun '25",
+      "rev": 31090.7,
+      "exp": 28731.15,
+      "net": 1977.86
+    },
+    {
+      "label": "Jul '25",
+      "rev": 5878.27,
+      "exp": 15226.21,
+      "net": -7206.01
+    },
+    {
+      "label": "Aug '25",
+      "rev": 22259.0,
+      "exp": 31038.8,
+      "net": -8985.63
+    },
+    {
+      "label": "Sep '25",
+      "rev": 62879.85,
+      "exp": 17688.41,
+      "net": 45191.44
+    },
+    {
+      "label": "Oct '25",
+      "rev": 37153.75,
+      "exp": 64125.86,
+      "net": -27050.04
+    },
+    {
+      "label": "Nov '25",
+      "rev": 32375.0,
+      "exp": 39040.53,
+      "net": -6815.39
+    },
+    {
+      "label": "Dec '25",
+      "rev": 24513.76,
+      "exp": 41928.02,
+      "net": -17443.11
+    },
+    {
+      "label": "Jan '26",
+      "rev": 26203.84,
+      "exp": 23396.65,
+      "net": 4263.28
+    },
+    {
+      "label": "Feb '26",
+      "rev": 22008.97,
+      "exp": 7299.87,
+      "net": 14709.1
+    },
+    {
+      "label": "Mar '26",
+      "rev": 87950.0,
+      "exp": 25116.2,
+      "net": 62833.8
+    },
+    {
+      "label": "Apr '26",
+      "rev": 33190.0,
+      "exp": 7261.28,
+      "net": 25928.72
+    },
+    {
+      "label": "May '26",
+      "rev": 12691.24,
+      "exp": 31735.82,
+      "net": -19044.58
+    },
+    {
+      "label": "Total",
+      "rev": 398194.38,
+      "exp": 332588.8,
+      "net": 68359.44
+    }
+  ],
+  "expenseCats": [
+    {
+      "name": "Contractors",
+      "amt": 300878.84
+    },
+    {
+      "name": "Credit Card Payment",
+      "amt": 67752.18
+    },
+    {
+      "name": "Uncategorized Expense",
+      "amt": 37540.24
+    },
+    {
+      "name": "Supplies",
+      "amt": 32498.12
+    },
+    {
+      "name": "Meals & Entertainment",
+      "amt": 28790.36
+    },
+    {
+      "name": "Medical",
+      "amt": 16188.1
+    },
+    {
+      "name": "Gift",
+      "amt": 9454.06
+    },
+    {
+      "name": "Other",
+      "amt": 67977.26
+    }
+  ],
+  "ytd": {
+    "rev": 182044.05,
+    "exp": 94809.82,
+    "net": 88690.32,
+    "lines": [
+      {
+        "name": "Contractors",
+        "amt": 31800.47
+      },
+      {
+        "name": "Credit Card Payment",
+        "amt": 11354.05
+      },
+      {
+        "name": "Uncategorized Expense",
+        "amt": 6166.4
+      },
+      {
+        "name": "Meals & Entertainment",
+        "amt": 5284.03
+      },
+      {
+        "name": "Supplies",
+        "amt": 4788.39
+      },
+      {
+        "name": "Bank fees & service charges",
+        "amt": 1801.71
+      },
+      {
+        "name": "Advertising & marketing",
+        "amt": 1779.7
+      },
+      {
+        "name": "Medical",
+        "amt": 1734.65
+      },
+      {
+        "name": "Other expenses",
+        "amt": 8485.63
+      }
+    ]
+  },
+  "verdictLine": "Revenue averaged $61,261 a month and the books netted positive in 7 of the last 13 months. The strongest month was Total at $68,359 net; the leanest was Oct '25 at -$27,050. Against the 12-month average net of $10,093, the most recent month (Total) came in at $68,359.",
+  "commentary": [
+    "<b>Twelve-month picture.</b> Across Jun 2025 – May 2026, Doza Circle generated $796,389 of revenue and spent $665,178, leaving $131,211 of net income at a 16.5% margin. That is the anchor every month should be read against — the trailing-12-month run-rate, not a single month in isolation.",
+    "<b>Where this sits in the year.</b> Monthly net ranged from -$27,050 (Oct '25, the floor) to $68,359 (Total, the ceiling), around a $10,093 median. Profitability has been strengthening — the back half of the window netted $139,607 versus -$2,888 in the front half — which is the trend to watch heading into the next quarter.",
+    "<b>What drives the cost base.</b> The largest expense line over the trailing year is <b>Contractors</b> at $300,879, roughly 45% of total spend. Keeping that category coded consistently month to month is what makes the margin trend above trustworthy rather than noisy.",
+    "<b>Year to date.</b> Calendar 2026 through May 31 shows $182,044 of revenue, $94,810 of expenses, and $88,690 of net income (48.7% margin). As an LLC, Doza's fiscal year is the calendar year, so this YTD figure is what rolls up to the annual return."
+  ]
+};
+</script>
+
+<script>
+if(window.ChartDataLabels){Chart.register(ChartDataLabels);}
+Chart.defaults.font.family="'Plus Jakarta Sans',system-ui,sans-serif";
+Chart.defaults.plugins.datalabels={display:false};
+const ACCENT='#00E676',DEEP='#00B050',DARK='#007A33',DANGER='#D32F2F',LINE='#E3E8E5',TEXT='#0F1311',MUT='#5B635E';
+const PAL=['#00B050','#00E676','#007A33','#5cd99a','#0a5c2e','#9fe3bf','#b7791f','#5B635E'];
+const f0=v=>'$'+Math.round(v).toLocaleString('en-US');
+const f0s=v=>(v<0?'-$':'$')+Math.abs(Math.round(v)).toLocaleString('en-US');
+const kfmt=v=>{const a=Math.abs(v);if(a>=1e6)return (v<0?'-':'')+'$'+(a/1e6).toFixed(2)+'M';if(a>=1e3)return (v<0?'-':'')+'$'+Math.round(a/1e3)+'k';return f0s(v);};
+const pc=v=>(v>=0?'+':'')+v.toFixed(1)+'%';
+
+const M=DATA.months;            // [{label, rev, exp, net}]
+const ttmRev=M.reduce((a,m)=>a+m.rev,0);
+const ttmExp=M.reduce((a,m)=>a+m.exp,0);
+const ttmNet=ttmRev-ttmExp;
+const ttmMargin=ttmRev?ttmNet/ttmRev*100:0;
+
+/* ---- header meta ---- */
+document.getElementById('histwin').textContent=DATA.windowLabel;
+document.getElementById('gen').textContent='Generated '+DATA.generated;
+document.getElementById('footdate').textContent='generated '+DATA.generated;
+document.getElementById('fyLabel').textContent=DATA.fyLabel;
+document.getElementById('ytdSub').textContent='Calendar year '+DATA.fyYear+' through '+DATA.ytdThrough+', accrual basis.';
+
+/* ---- verdict ---- */
+const netClass=ttmNet>=0?'pos':'neg';
+document.getElementById('verdict').innerHTML=
+  '<h3>The 12-month read</h3>'+
+  '<p>Over the trailing twelve months ('+DATA.windowLabel+'), Doza Circle brought in <b>'+f0(ttmRev)+'</b> in revenue against <b>'+f0(ttmExp)+'</b> in expenses, for a net of <span class="'+netClass+'"><b>'+f0s(ttmNet)+'</b></span> &mdash; a <b>'+ttmMargin.toFixed(1)+'%</b> net margin.</p>'+
+  '<p>'+DATA.verdictLine+'</p>';
+
+/* ---- KPI tiles ---- */
+const kpis=[
+  {h:'Revenue (TTM)',v:f0(ttmRev),note:'Trailing 12 months',pill:null},
+  {h:'Expenses (TTM)',v:f0(ttmExp),note:'Trailing 12 months',pill:null},
+  {h:'Net income (TTM)',v:f0s(ttmNet),cls:ttmNet>=0?'pos':'neg',note:'Revenue minus expenses',pill:{t:ttmNet>=0?'Profitable':'Operating loss',c:ttmNet>=0?'up':'down'}},
+  {h:'Net margin (TTM)',v:ttmMargin.toFixed(1)+'%',cls:ttmMargin>=0?'pos':'neg',note:'Net income as % of revenue',pill:null},
+];
+document.getElementById('kpis').innerHTML=kpis.map(k=>
+  '<div class="card kpi"><h3>'+k.h+'</h3>'+
+  '<div class="val '+(k.cls||'')+'">'+k.v+'</div>'+
+  '<div class="note">'+k.note+'</div>'+
+  (k.pill?'<span class="pill '+k.pill.c+'">'+k.pill.t+'</span>':'')+
+  '</div>').join('');
+
+/* ---- trend chart: bars rev/exp + line net ---- */
+const labels=M.map(m=>m.label);
+new Chart(document.getElementById('cTrend'),{
+  data:{labels,datasets:[
+    {type:'bar',label:'Revenue',data:M.map(m=>m.rev),backgroundColor:DEEP,borderRadius:4,order:2},
+    {type:'bar',label:'Expenses',data:M.map(m=>m.exp),backgroundColor:'#E08A8A',borderRadius:4,order:2},
+    {type:'line',label:'Net income',data:M.map(m=>m.net),borderColor:DARK,backgroundColor:DARK,borderWidth:2.5,tension:.3,pointRadius:3,pointBackgroundColor:DARK,order:1,
+     datalabels:{display:true,align:'top',anchor:'end',color:DARK,font:{weight:'700',size:9},backgroundColor:'rgba(255,255,255,.85)',borderRadius:4,padding:{top:2,bottom:2,left:4,right:4},formatter:v=>kfmt(v)}}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:22}},
+    plugins:{legend:{position:'top',labels:{boxWidth:12,padding:10,usePointStyle:true,font:{size:11.5}}},
+      tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+f0s(c.raw)}},
+      datalabels:{display:false}},
+    scales:{x:{grid:{display:false},ticks:{color:MUT,font:{size:10.5}}},
+      y:{grid:{color:LINE},ticks:{color:MUT,callback:v=>kfmt(v),font:{size:10.5}}}}}});
+
+/* ---- expense doughnut ---- */
+const E=DATA.expenseCats;       // [{name, amt}]
+const expT=E.reduce((a,e)=>a+e.amt,0)||1;
+new Chart(document.getElementById('cExp'),{type:'doughnut',
+  data:{labels:E.map(e=>e.name),datasets:[{data:E.map(e=>e.amt),backgroundColor:PAL,borderColor:'#fff',borderWidth:2}]},
+  options:{responsive:true,maintainAspectRatio:false,animation:false,cutout:'58%',
+    plugins:{legend:{position:'right',labels:{boxWidth:11,padding:7,font:{size:10.5},color:TEXT}},
+      tooltip:{callbacks:{label:c=>' '+c.label+': '+f0(c.raw)+' ('+Math.round(c.raw/expT*100)+'%)'}},
+      datalabels:{display:true,color:'#fff',font:{size:10.5,weight:'700'},formatter:v=>{const p=Math.round(v/expT*100);return p>=4?p+'%':'';}}}}});
+
+/* ---- net income bars ---- */
+new Chart(document.getElementById('cNet'),{type:'bar',
+  data:{labels,datasets:[{label:'Net income',data:M.map(m=>m.net),backgroundColor:M.map(m=>m.net>=0?DEEP:'#E08A8A'),borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:20}},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+f0s(c.raw)}},
+      datalabels:{display:true,anchor:v=>v.dataset.data[v.dataIndex]>=0?'end':'start',align:v=>v.dataset.data[v.dataIndex]>=0?'end':'start',color:MUT,font:{weight:'700',size:9},formatter:v=>kfmt(v)}},
+    scales:{x:{grid:{display:false},ticks:{color:MUT,font:{size:10.5}}},
+      y:{grid:{color:LINE},ticks:{color:MUT,callback:v=>kfmt(v),font:{size:10.5}}}}}});
+
+/* ---- YTD table ---- */
+const Y=DATA.ytd;               // {rev, exp, net, lines:[{name, amt}]}
+const tb=document.querySelector('#ytdTable tbody');
+const yRev=Y.rev||1;
+let rows='';
+rows+='<tr class="sum"><td>Total revenue</td><td>'+f0(Y.rev)+'</td><td>100%</td></tr>';
+Y.lines.forEach(l=>{rows+='<tr><td>'+l.name+'</td><td>'+f0(l.amt)+'</td><td>'+(l.amt/yRev*100).toFixed(1)+'%</td></tr>';});
+rows+='<tr class="sum"><td>Total expenses</td><td>'+f0(Y.exp)+'</td><td>'+(Y.exp/yRev*100).toFixed(1)+'%</td></tr>';
+const ynClass=Y.net>=0?'pos':'neg';
+rows+='<tr class="sum"><td>Net income</td><td class="'+ynClass+'">'+f0s(Y.net)+'</td><td class="'+ynClass+'">'+(Y.net/yRev*100).toFixed(1)+'%</td></tr>';
+tb.innerHTML=rows;
+
+/* ---- commentary ---- */
+document.getElementById('commentary').innerHTML=DATA.commentary.map(p=>'<p>'+p+'</p>').join('');
+</script>
+</body>
+</html>
