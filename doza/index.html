@@ -56,34 +56,26 @@ main{padding:26px 0 60px}
 .kpi h3{margin:0 0 3px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em}
 .kpi .val{font-weight:800;font-size:26px;letter-spacing:-.02em;line-height:1.05;margin-top:5px}
 .kpi .note{font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.4}
-.pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;margin-top:8px}
-.pill.up{background:var(--posbg);color:var(--accent-dark)} .pill.down{background:var(--danger-bg);color:var(--danger)} .pill.watch{background:#FBF3E0;color:var(--warning)}
+.deltas{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:99px}
+.pill.up{background:var(--posbg);color:var(--accent-dark)} .pill.down{background:var(--danger-bg);color:var(--danger)} .pill.flat{background:#eef0ed;color:var(--text-muted)}
 .pos{color:var(--accent-dark)} .neg{color:var(--danger)}
-.verdict{background:linear-gradient(135deg,#fff,var(--accent-muted));border:1px solid var(--card-border);border-left:5px solid var(--accent);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:18px}
-.verdict h3{color:var(--accent-dark);font-size:16px;margin:0 0 8px;text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:9px}
-.verdict h3::before{content:"";width:18px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent-dark))}
-.verdict p{margin:0 0 9px;font-size:14px;color:#314338}
-.verdict p:last-child{margin:0}
-.verdict b{color:var(--accent-dark)}
-.sec{font-weight:800;color:var(--text);font-size:14.5px;margin:26px 0 11px;display:flex;align-items:center;gap:9px}
+.hero-month{background:linear-gradient(135deg,#fff,var(--accent-muted));border:1px solid var(--card-border);border-left:5px solid var(--accent);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:16px}
+.hero-month .eyebrow2{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-dark);font-weight:700}
+.hero-month h2{margin:.15em 0 .1em;font-size:22px;font-weight:800;color:var(--text)}
+.hero-month p{margin:0;font-size:13px;color:#314338}
+.sec{font-weight:800;color:var(--text);font-size:15px;margin:30px 0 12px;display:flex;align-items:center;gap:9px}
 .sec::before{content:"";width:18px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-dark));border-radius:2px}
+.sec .secsub{font-weight:500;font-size:12.5px;color:var(--text-muted);margin-left:2px}
 .chartcard{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:18px 18px 12px;box-shadow:var(--shadow)}
 .chartcard h3{color:var(--text);font-size:15px;margin:0 0 4px;text-transform:none;letter-spacing:0;font-weight:700}
 .chartcard .csub{font-size:12px;color:var(--text-muted);margin:-2px 0 10px}
 .cwrap{position:relative;height:300px}
-@media(max-width:600px){.cwrap{height:260px}}
-.tablecard{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
-.tablecard h3{font-size:15px;margin:0 0 4px;font-weight:700}
-.tablecard .csub{font-size:12px;color:var(--text-muted);margin:-2px 0 12px}
-.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
-th,td{padding:9px 11px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
-th:first-child,td:first-child{text-align:left}
-thead th{background:#0c2a1a;color:#eafff2;font-weight:600;font-size:11px;letter-spacing:.02em}
-tbody tr:hover{background:#f1faf4}
-tr.sum{font-weight:800;background:var(--accent-muted)} tr.sum td{border-top:2px solid var(--accent-dark)}
-.chip{display:inline-block;font-weight:700;font-size:11.5px;padding:2px 8px;border-radius:7px}
-.chip.up{background:var(--posbg);color:var(--accent-dark)} .chip.down{background:var(--danger-bg);color:var(--danger)} .chip.flat{background:#eef0ed;color:var(--text-muted)}
+@media(max-width:600px){.cwrap{height:270px}}
+.notes{background:var(--card-bg);border:1px solid var(--card-border);border-left:5px solid var(--accent);border-radius:16px;padding:18px 22px;box-shadow:var(--shadow)}
+.notes p{margin:0 0 10px;font-size:13.5px;color:#314338}
+.notes p:last-child{margin:0}
+.notes b{color:var(--accent-dark)}
 footer{border-top:3px solid #0c2a1a;padding:20px 0 40px;color:var(--text-muted);font-size:12px}
 footer b{color:var(--text)}
 </style>
@@ -103,7 +95,7 @@ footer b{color:var(--text)}
       <div class="prov">
         <div class="logo">Turnkey <span>CFO</span></div>
         Source: <b>QuickBooks Online (live)</b><br>
-        Trailing 12 months: <b id="histwin"></b><br>
+        Reporting month: <b id="asof"></b><br>
         <span id="gen"></span>
       </div>
     </div>
@@ -111,44 +103,67 @@ footer b{color:var(--text)}
 </header>
 
 <main class="wrap">
-  <div class="verdict" id="verdict"></div>
 
-  <div class="grid g4" id="kpis"></div>
+  <!-- PRIMARY: most recently closed month -->
+  <div class="hero-month">
+    <div class="eyebrow2">Most recently closed month</div>
+    <h2 id="curMonthTitle"></h2>
+    <p>The books for this month are closed and reconciled. Earlier periods follow below — quarter over quarter, year over year, full-year 2025, year to date, and the trailing twelve months.</p>
+  </div>
+  <div class="grid g4" id="curKpis"></div>
 
-  <div class="sec">Revenue vs. expenses — trailing 12 months</div>
+  <div class="sec" style="margin-top:18px">Revenue &amp; net income <span class="secsub">— last 12 months</span></div>
   <div class="chartcard">
-    <h3>Monthly revenue, expenses &amp; net income</h3>
-    <p class="csub">Each month's income against what it cost to run, with net income tracked on the line.</p>
+    <h3>Monthly revenue and net income</h3>
+    <p class="csub">Revenue bars with net income tracked on the line. Each month stands alone — no running total.</p>
     <div class="cwrap"><canvas id="cTrend"></canvas></div>
   </div>
 
-  <div class="grid g2" style="margin-top:15px">
+  <!-- QUARTER OVER QUARTER -->
+  <div class="sec">Quarter over quarter <span class="secsub" id="qoqSub"></span></div>
+  <div class="chartcard">
+    <h3>Revenue, expenses &amp; net income by quarter</h3>
+    <p class="csub">The most recent six quarters. The current quarter is partial (only closed months).</p>
+    <div class="cwrap"><canvas id="cQoq"></canvas></div>
+  </div>
+
+  <!-- YEAR OVER YEAR -->
+  <div class="sec">Year over year <span class="secsub" id="yoySub"></span></div>
+  <div class="grid g2">
     <div class="chartcard">
-      <h3>Where the money goes</h3>
-      <p class="csub">Top expense categories, trailing 12 months.</p>
-      <div class="cwrap"><canvas id="cExp"></canvas></div>
+      <h3>Revenue by month</h3>
+      <p class="csub" id="yoyRevSub"></p>
+      <div class="cwrap"><canvas id="cYoyRev"></canvas></div>
     </div>
     <div class="chartcard">
       <h3>Net income by month</h3>
-      <p class="csub">What was left after expenses each month.</p>
-      <div class="cwrap"><canvas id="cNet"></canvas></div>
+      <p class="csub" id="yoyNetSub"></p>
+      <div class="cwrap"><canvas id="cYoyNet"></canvas></div>
     </div>
   </div>
 
-  <div class="sec">Year to date — <span id="fyLabel"></span></div>
-  <div class="tablecard">
-    <h3>Fiscal-year-to-date summary</h3>
-    <p class="csub" id="ytdSub"></p>
-    <div class="table-scroll">
-      <table id="ytdTable">
-        <thead><tr><th>Line</th><th>Year to date</th><th>% of revenue</th></tr></thead>
-        <tbody></tbody>
-      </table>
+  <!-- FULL YEAR 2025 -->
+  <div class="sec">Full-year 2025 <span class="secsub">— January to December</span></div>
+  <div class="grid g4" id="fy25Kpis"></div>
+
+  <!-- 2026 YTD -->
+  <div class="sec" id="ytdSec">Year to date</div>
+  <div class="grid g4" id="ytdKpis"></div>
+
+  <!-- TTM -->
+  <div class="sec" id="ttmSec">Trailing twelve months</div>
+  <div class="grid g2" style="align-items:start">
+    <div class="grid g2" id="ttmKpis" style="grid-template-columns:1fr 1fr"></div>
+    <div class="chartcard">
+      <h3>Where the money goes</h3>
+      <p class="csub">Top expense categories, trailing twelve months.</p>
+      <div class="cwrap"><canvas id="cExp"></canvas></div>
     </div>
   </div>
 
-  <div class="sec">CFO commentary</div>
-  <div class="verdict" id="commentary"></div>
+  <!-- NOTES (facts only) -->
+  <div class="sec">Summary — by the numbers</div>
+  <div class="notes" id="notes"></div>
 </main>
 
 <footer class="wrap">
@@ -158,174 +173,289 @@ footer b{color:var(--text)}
 <script id="datablock">
 /* ===== DOZA DATA — populated from QBO ProfitAndLoss (realm 9341454036222089) ===== */
 const DATA = {
-  "windowLabel": "Jun 2025 – May 2026",
   "generated": "June 23, 2026",
-  "fyLabel": "FY2026 (Jan–Dec)",
-  "fyYear": 2026,
-  "ytdThrough": "May 31",
-  "months": [
+  "asOfMonth": "May 2026",
+  "current": {
+    "label": "May 2026",
+    "short": "May '26",
+    "rev": 12691.24,
+    "exp": 31735.82,
+    "net": -19044.58,
+    "margin": -150.1,
+    "prevLabel": "Apr '26",
+    "yoyLabel": "May '25",
+    "momRev": -61.8,
+    "momNet": -173.4,
+    "yoyRev": -44.0,
+    "yoyNet": -135.1,
+    "prevRev": 33190.0,
+    "yoyRevVal": 22646.73
+  },
+  "trend": [
     {
       "label": "Jun '25",
       "rev": 31090.7,
-      "exp": 28731.15,
       "net": 1977.86
     },
     {
       "label": "Jul '25",
       "rev": 5878.27,
-      "exp": 15226.21,
       "net": -7206.01
     },
     {
       "label": "Aug '25",
       "rev": 22259.0,
-      "exp": 31038.8,
       "net": -8985.63
     },
     {
       "label": "Sep '25",
       "rev": 62879.85,
-      "exp": 17688.41,
       "net": 45191.44
     },
     {
       "label": "Oct '25",
       "rev": 37153.75,
-      "exp": 64125.86,
       "net": -27050.04
     },
     {
       "label": "Nov '25",
       "rev": 32375.0,
-      "exp": 39040.53,
       "net": -6815.39
     },
     {
       "label": "Dec '25",
       "rev": 24513.76,
-      "exp": 41928.02,
       "net": -17443.11
     },
     {
       "label": "Jan '26",
       "rev": 26203.84,
-      "exp": 23396.65,
       "net": 4263.28
     },
     {
       "label": "Feb '26",
       "rev": 22008.97,
-      "exp": 7299.87,
       "net": 14709.1
     },
     {
       "label": "Mar '26",
       "rev": 87950.0,
-      "exp": 25116.2,
       "net": 62833.8
     },
     {
       "label": "Apr '26",
       "rev": 33190.0,
-      "exp": 7261.28,
       "net": 25928.72
     },
     {
       "label": "May '26",
       "rev": 12691.24,
-      "exp": 31735.82,
       "net": -19044.58
-    },
-    {
-      "label": "Total",
-      "rev": 398194.38,
-      "exp": 332588.8,
-      "net": 68359.44
     }
   ],
-  "expenseCats": [
+  "quarters": [
+    {
+      "label": "Q1 '25",
+      "y": 2025,
+      "q": 1,
+      "rev": 134599.23,
+      "exp": 99025.63,
+      "net": 35573.6,
+      "months": 3,
+      "partial": false
+    },
+    {
+      "label": "Q2 '25",
+      "y": 2025,
+      "q": 2,
+      "rev": 79642.69,
+      "exp": 96534.49,
+      "net": -16891.8,
+      "months": 3,
+      "partial": false
+    },
+    {
+      "label": "Q3 '25",
+      "y": 2025,
+      "q": 3,
+      "rev": 91017.12,
+      "exp": 62017.32,
+      "net": 28999.8,
+      "months": 3,
+      "partial": false
+    },
+    {
+      "label": "Q4 '25",
+      "y": 2025,
+      "q": 4,
+      "rev": 94042.51,
+      "exp": 145351.05,
+      "net": -51308.54,
+      "months": 3,
+      "partial": false
+    },
+    {
+      "label": "Q1 '26",
+      "y": 2026,
+      "q": 1,
+      "rev": 136162.81,
+      "exp": 54356.63,
+      "net": 81806.18,
+      "months": 3,
+      "partial": false
+    },
+    {
+      "label": "Q2 '26",
+      "y": 2026,
+      "q": 2,
+      "rev": 45881.24,
+      "exp": 38997.1,
+      "net": 6884.14,
+      "months": 2,
+      "partial": true
+    }
+  ],
+  "yoy": {
+    "prevYear": 2025,
+    "curYear": 2026,
+    "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "revPrev": [
+      39856.33,
+      49788.9,
+      44954.0,
+      25905.26,
+      22646.73,
+      31090.7,
+      5878.27,
+      22259.0,
+      62879.85,
+      37153.75,
+      32375.0,
+      24513.76
+    ],
+    "revCur": [
+      26203.84,
+      22008.97,
+      87950.0,
+      33190.0,
+      12691.24,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "netPrev": [
+      10468.45,
+      23138.67,
+      1966.48,
+      -10768.72,
+      -8100.94,
+      1977.86,
+      -7206.01,
+      -8985.63,
+      45191.44,
+      -27050.04,
+      -6815.39,
+      -17443.11
+    ],
+    "netCur": [
+      4263.28,
+      14709.1,
+      62833.8,
+      25928.72,
+      -19044.58,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "fy2025": {
+    "rev": 399301.55,
+    "exp": 402928.49,
+    "net": -3626.94,
+    "margin": -0.9
+  },
+  "ytdCur": {
+    "rev": 182044.05,
+    "exp": 93353.73,
+    "net": 88690.32,
+    "margin": 48.7,
+    "label": "Jan–May 2026",
+    "year": 2026
+  },
+  "ytdPriorSame": {
+    "rev": 183151.22,
+    "exp": 166447.28,
+    "net": 16703.94,
+    "margin": 9.1
+  },
+  "ttm": {
+    "rev": 398194.38,
+    "exp": 329834.94,
+    "net": 68359.44,
+    "margin": 17.2,
+    "label": "Jun '25 – May '26"
+  },
+  "expenseCatsTTM": [
     {
       "name": "Contractors",
-      "amt": 300878.84
+      "amt": 150439.42
     },
     {
       "name": "Credit Card Payment",
-      "amt": 67752.18
+      "amt": 33876.09
     },
     {
       "name": "Uncategorized Expense",
-      "amt": 37540.24
+      "amt": 18770.12
     },
     {
       "name": "Supplies",
-      "amt": 32498.12
+      "amt": 16249.06
     },
     {
       "name": "Meals & Entertainment",
-      "amt": 28790.36
+      "amt": 14395.18
     },
     {
       "name": "Medical",
-      "amt": 16188.1
+      "amt": 8094.05
     },
     {
       "name": "Gift",
-      "amt": 9454.06
+      "amt": 4727.03
     },
     {
       "name": "Other",
-      "amt": 67977.26
+      "amt": 33970.13
     }
   ],
-  "ytd": {
-    "rev": 182044.05,
-    "exp": 94809.82,
-    "net": 88690.32,
-    "lines": [
-      {
-        "name": "Contractors",
-        "amt": 31800.47
-      },
-      {
-        "name": "Credit Card Payment",
-        "amt": 11354.05
-      },
-      {
-        "name": "Uncategorized Expense",
-        "amt": 6166.4
-      },
-      {
-        "name": "Meals & Entertainment",
-        "amt": 5284.03
-      },
-      {
-        "name": "Supplies",
-        "amt": 4788.39
-      },
-      {
-        "name": "Bank fees & service charges",
-        "amt": 1801.71
-      },
-      {
-        "name": "Advertising & marketing",
-        "amt": 1779.7
-      },
-      {
-        "name": "Medical",
-        "amt": 1734.65
-      },
-      {
-        "name": "Other expenses",
-        "amt": 8485.63
-      }
-    ]
-  },
-  "verdictLine": "Revenue averaged $61,261 a month and the books netted positive in 7 of the last 13 months. The strongest month was Total at $68,359 net; the leanest was Oct '25 at -$27,050. Against the 12-month average net of $10,093, the most recent month (Total) came in at $68,359.",
   "commentary": [
-    "<b>Twelve-month picture.</b> Across Jun 2025 – May 2026, Doza Circle generated $796,389 of revenue and spent $665,178, leaving $131,211 of net income at a 16.5% margin. That is the anchor every month should be read against — the trailing-12-month run-rate, not a single month in isolation.",
-    "<b>Where this sits in the year.</b> Monthly net ranged from -$27,050 (Oct '25, the floor) to $68,359 (Total, the ceiling), around a $10,093 median. Profitability has been strengthening — the back half of the window netted $139,607 versus -$2,888 in the front half — which is the trend to watch heading into the next quarter.",
-    "<b>What drives the cost base.</b> The largest expense line over the trailing year is <b>Contractors</b> at $300,879, roughly 45% of total spend. Keeping that category coded consistently month to month is what makes the margin trend above trustworthy rather than noisy.",
-    "<b>Year to date.</b> Calendar 2026 through May 31 shows $182,044 of revenue, $94,810 of expenses, and $88,690 of net income (48.7% margin). As an LLC, Doza's fiscal year is the calendar year, so this YTD figure is what rolls up to the annual return."
+    "<b>May 2026 (most recently closed month).</b> Revenue $12,691, expenses $31,736, net income -$19,045 (-150.1% margin). Revenue -61.8% vs Apr '26 ($33,190). Revenue -44.0% vs May '25 ($22,647).",
+    "<b>Quarter over quarter.</b> Q1 '26 (last full quarter): revenue $136,163, net $81,806. The strongest full quarter in the window was Q1 '26 at $81,806 net.",
+    "<b>Year over year (Jan–May).</b> 2026: revenue $182,044, net $88,690. 2025 same span: revenue $183,151, net $16,704 (revenue -0.6%, net +431.0%).",
+    "<b>Full-year 2025.</b> Revenue $399,302, expenses $402,928, net -$3,627 (-0.9% margin).",
+    "<b>Trailing twelve months (Jun '25 – May '26).</b> Revenue $398,194, expenses $329,835, net $68,359 (17.2% margin). As an LLC, Doza's fiscal year is the calendar year, so the 2026 year-to-date figure is what rolls up to the annual return."
   ]
 };
 </script>
@@ -334,96 +464,121 @@ const DATA = {
 if(window.ChartDataLabels){Chart.register(ChartDataLabels);}
 Chart.defaults.font.family="'Plus Jakarta Sans',system-ui,sans-serif";
 Chart.defaults.plugins.datalabels={display:false};
-const ACCENT='#00E676',DEEP='#00B050',DARK='#007A33',DANGER='#D32F2F',LINE='#E3E8E5',TEXT='#0F1311',MUT='#5B635E';
+const ACCENT='#00E676',DEEP='#00B050',DARK='#007A33',DANGER='#D32F2F',EXPRED='#E08A8A',LINE='#E3E8E5',TEXT='#0F1311',MUT='#5B635E',GREY='#9aa39d';
 const PAL=['#00B050','#00E676','#007A33','#5cd99a','#0a5c2e','#9fe3bf','#b7791f','#5B635E'];
 const f0=v=>'$'+Math.round(v).toLocaleString('en-US');
 const f0s=v=>(v<0?'-$':'$')+Math.abs(Math.round(v)).toLocaleString('en-US');
 const kfmt=v=>{const a=Math.abs(v);if(a>=1e6)return (v<0?'-':'')+'$'+(a/1e6).toFixed(2)+'M';if(a>=1e3)return (v<0?'-':'')+'$'+Math.round(a/1e3)+'k';return f0s(v);};
-const pc=v=>(v>=0?'+':'')+v.toFixed(1)+'%';
-
-const M=DATA.months;            // [{label, rev, exp, net}]
-const ttmRev=M.reduce((a,m)=>a+m.rev,0);
-const ttmExp=M.reduce((a,m)=>a+m.exp,0);
-const ttmNet=ttmRev-ttmExp;
-const ttmMargin=ttmRev?ttmNet/ttmRev*100:0;
+const D=DATA;
 
 /* ---- header meta ---- */
-document.getElementById('histwin').textContent=DATA.windowLabel;
-document.getElementById('gen').textContent='Generated '+DATA.generated;
-document.getElementById('footdate').textContent='generated '+DATA.generated;
-document.getElementById('fyLabel').textContent=DATA.fyLabel;
-document.getElementById('ytdSub').textContent='Calendar year '+DATA.fyYear+' through '+DATA.ytdThrough+', accrual basis.';
+document.getElementById('asof').textContent=D.asOfMonth;
+document.getElementById('gen').textContent='Generated '+D.generated;
+document.getElementById('footdate').textContent='generated '+D.generated;
+document.getElementById('curMonthTitle').textContent=D.current.label;
 
-/* ---- verdict ---- */
-const netClass=ttmNet>=0?'pos':'neg';
-document.getElementById('verdict').innerHTML=
-  '<h3>The 12-month read</h3>'+
-  '<p>Over the trailing twelve months ('+DATA.windowLabel+'), Doza Circle brought in <b>'+f0(ttmRev)+'</b> in revenue against <b>'+f0(ttmExp)+'</b> in expenses, for a net of <span class="'+netClass+'"><b>'+f0s(ttmNet)+'</b></span> &mdash; a <b>'+ttmMargin.toFixed(1)+'%</b> net margin.</p>'+
-  '<p>'+DATA.verdictLine+'</p>';
+/* ---- KPI card helper ---- */
+function kpiCard(h,valHtml,note,deltas){
+  return '<div class="card kpi"><h3>'+h+'</h3><div class="val">'+valHtml+'</div>'+
+    (note?'<div class="note">'+note+'</div>':'')+
+    (deltas&&deltas.length?'<div class="deltas">'+deltas.join('')+'</div>':'')+'</div>';
+}
+function deltaPill(label,p,vsLabel){
+  if(p===null||p===undefined) return '';
+  const cls=p>0?'up':(p<0?'down':'flat');
+  const sign=p>0?'+':'';
+  return '<span class="pill '+cls+'">'+label+' '+sign+p.toFixed(1)+'%'+(vsLabel?' vs '+vsLabel:'')+'</span>';
+}
+function periodKpis(P,opts){
+  opts=opts||{};
+  const nc=P.net>=0?'pos':'neg';
+  return [
+    kpiCard('Revenue',f0(P.rev),opts.note||null),
+    kpiCard('Expenses',f0(P.exp),opts.note||null),
+    kpiCard('Net income','<span class="'+nc+'">'+f0s(P.net)+'</span>',opts.note||null),
+    kpiCard('Net margin','<span class="'+nc+'">'+P.margin.toFixed(1)+'%</span>',opts.note||null),
+  ].join('');
+}
 
-/* ---- KPI tiles ---- */
-const kpis=[
-  {h:'Revenue (TTM)',v:f0(ttmRev),note:'Trailing 12 months',pill:null},
-  {h:'Expenses (TTM)',v:f0(ttmExp),note:'Trailing 12 months',pill:null},
-  {h:'Net income (TTM)',v:f0s(ttmNet),cls:ttmNet>=0?'pos':'neg',note:'Revenue minus expenses',pill:{t:ttmNet>=0?'Profitable':'Operating loss',c:ttmNet>=0?'up':'down'}},
-  {h:'Net margin (TTM)',v:ttmMargin.toFixed(1)+'%',cls:ttmMargin>=0?'pos':'neg',note:'Net income as % of revenue',pill:null},
-];
-document.getElementById('kpis').innerHTML=kpis.map(k=>
-  '<div class="card kpi"><h3>'+k.h+'</h3>'+
-  '<div class="val '+(k.cls||'')+'">'+k.v+'</div>'+
-  '<div class="note">'+k.note+'</div>'+
-  (k.pill?'<span class="pill '+k.pill.c+'">'+k.pill.t+'</span>':'')+
-  '</div>').join('');
+/* ---- current month KPIs (with MoM + YoY deltas on revenue & net) ---- */
+const C=D.current;
+const cnc=C.net>=0?'pos':'neg';
+document.getElementById('curKpis').innerHTML=[
+  kpiCard('Revenue',f0(C.rev),null,[deltaPill('MoM',C.momRev,C.prevLabel),deltaPill('YoY',C.yoyRev,C.yoyLabel)]),
+  kpiCard('Expenses',f0(C.exp),'What it cost to operate'),
+  kpiCard('Net income','<span class="'+cnc+'">'+f0s(C.net)+'</span>',null,[deltaPill('MoM',C.momNet,C.prevLabel),deltaPill('YoY',C.yoyNet,C.yoyLabel)]),
+  kpiCard('Net margin','<span class="'+cnc+'">'+C.margin.toFixed(1)+'%</span>','Net income as % of revenue'),
+].join('');
 
-/* ---- trend chart: bars rev/exp + line net ---- */
-const labels=M.map(m=>m.label);
+/* ---- 12-month trend: revenue bars + net line (no total bar) ---- */
+const T=D.trend;
 new Chart(document.getElementById('cTrend'),{
-  data:{labels,datasets:[
-    {type:'bar',label:'Revenue',data:M.map(m=>m.rev),backgroundColor:DEEP,borderRadius:4,order:2},
-    {type:'bar',label:'Expenses',data:M.map(m=>m.exp),backgroundColor:'#E08A8A',borderRadius:4,order:2},
-    {type:'line',label:'Net income',data:M.map(m=>m.net),borderColor:DARK,backgroundColor:DARK,borderWidth:2.5,tension:.3,pointRadius:3,pointBackgroundColor:DARK,order:1,
+  data:{labels:T.map(m=>m.label),datasets:[
+    {type:'bar',label:'Revenue',data:T.map(m=>m.rev),backgroundColor:DEEP,borderRadius:4,order:2},
+    {type:'line',label:'Net income',data:T.map(m=>m.net),borderColor:DARK,backgroundColor:DARK,borderWidth:2.5,tension:.3,pointRadius:3,pointBackgroundColor:DARK,order:1,
      datalabels:{display:true,align:'top',anchor:'end',color:DARK,font:{weight:'700',size:9},backgroundColor:'rgba(255,255,255,.85)',borderRadius:4,padding:{top:2,bottom:2,left:4,right:4},formatter:v=>kfmt(v)}}
   ]},
   options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:22}},
     plugins:{legend:{position:'top',labels:{boxWidth:12,padding:10,usePointStyle:true,font:{size:11.5}}},
-      tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+f0s(c.raw)}},
-      datalabels:{display:false}},
+      tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+f0s(c.raw)}},datalabels:{display:false}},
     scales:{x:{grid:{display:false},ticks:{color:MUT,font:{size:10.5}}},
       y:{grid:{color:LINE},ticks:{color:MUT,callback:v=>kfmt(v),font:{size:10.5}}}}}});
 
-/* ---- expense doughnut ---- */
-const E=DATA.expenseCats;       // [{name, amt}]
+/* ---- quarter over quarter: grouped bars rev/exp/net (no total bar) ---- */
+const Q=D.quarters;
+document.getElementById('qoqSub').textContent='— '+Q[0].label+' to '+Q[Q.length-1].label;
+new Chart(document.getElementById('cQoq'),{type:'bar',
+  data:{labels:Q.map(q=>q.label+(q.partial?'*':'')),datasets:[
+    {label:'Revenue',data:Q.map(q=>q.rev),backgroundColor:DEEP,borderRadius:4},
+    {label:'Expenses',data:Q.map(q=>q.exp),backgroundColor:EXPRED,borderRadius:4},
+    {label:'Net income',data:Q.map(q=>q.net),backgroundColor:DARK,borderRadius:4},
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:20}},
+    plugins:{legend:{position:'top',labels:{boxWidth:12,padding:10,usePointStyle:true,font:{size:11.5}}},
+      tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+f0s(c.raw)}},
+      datalabels:{display:true,anchor:'end',align:'end',rotation:-90,color:MUT,font:{weight:'700',size:8.5},formatter:v=>kfmt(v)}},
+    scales:{x:{grid:{display:false},ticks:{color:MUT,font:{size:10.5}}},
+      y:{grid:{color:LINE},ticks:{color:MUT,callback:v=>kfmt(v),font:{size:10.5}}}}}});
+
+/* ---- year over year (2025 vs 2026 monthly) ---- */
+const YY=D.yoy;
+document.getElementById('yoySub').textContent='— '+YY.prevYear+' vs '+YY.curYear;
+document.getElementById('yoyRevSub').textContent='Solid = '+YY.curYear+', dashed = '+YY.prevYear+'. '+YY.curYear+' runs through the closed month.';
+document.getElementById('yoyNetSub').textContent='Solid = '+YY.curYear+', dashed = '+YY.prevYear+'.';
+function yoyChart(canvas,prevArr,curArr){
+  new Chart(document.getElementById(canvas),{type:'line',
+    data:{labels:YY.months,datasets:[
+      {label:''+YY.curYear,data:curArr,borderColor:DARK,backgroundColor:DARK,borderWidth:2.5,tension:.3,pointRadius:3,spanGaps:false},
+      {label:''+YY.prevYear,data:prevArr,borderColor:GREY,backgroundColor:GREY,borderWidth:2,borderDash:[5,4],tension:.3,pointRadius:2.5,spanGaps:false},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,animation:false,
+      plugins:{legend:{position:'top',labels:{boxWidth:12,padding:10,usePointStyle:true,font:{size:11.5}}},
+        tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+(c.raw==null?'n/a':f0s(c.raw))}},datalabels:{display:false}},
+      scales:{x:{grid:{display:false},ticks:{color:MUT,font:{size:10}}},
+        y:{grid:{color:LINE},ticks:{color:MUT,callback:v=>kfmt(v),font:{size:10}}}}}});
+}
+yoyChart('cYoyRev',YY.revPrev,YY.revCur);
+yoyChart('cYoyNet',YY.netPrev,YY.netCur);
+
+/* ---- period KPI rows ---- */
+document.getElementById('fy25Kpis').innerHTML=periodKpis(D.fy2025);
+document.getElementById('ytdSec').innerHTML='Year to date <span class="secsub">— '+D.ytdCur.label+'</span>';
+document.getElementById('ytdKpis').innerHTML=periodKpis(D.ytdCur);
+document.getElementById('ttmSec').innerHTML='Trailing twelve months <span class="secsub">— '+D.ttm.label+'</span>';
+document.getElementById('ttmKpis').innerHTML=periodKpis(D.ttm);
+
+/* ---- TTM expense doughnut ---- */
+const E=D.expenseCatsTTM;
 const expT=E.reduce((a,e)=>a+e.amt,0)||1;
 new Chart(document.getElementById('cExp'),{type:'doughnut',
   data:{labels:E.map(e=>e.name),datasets:[{data:E.map(e=>e.amt),backgroundColor:PAL,borderColor:'#fff',borderWidth:2}]},
   options:{responsive:true,maintainAspectRatio:false,animation:false,cutout:'58%',
     plugins:{legend:{position:'right',labels:{boxWidth:11,padding:7,font:{size:10.5},color:TEXT}},
       tooltip:{callbacks:{label:c=>' '+c.label+': '+f0(c.raw)+' ('+Math.round(c.raw/expT*100)+'%)'}},
-      datalabels:{display:true,color:'#fff',font:{size:10.5,weight:'700'},formatter:v=>{const p=Math.round(v/expT*100);return p>=4?p+'%':'';}}}}});
+      datalabels:{display:true,color:'#fff',font:{size:10.5,weight:'700'},formatter:v=>{const p=Math.round(v/expT*100);return p>=5?p+'%':'';}}}}});
 
-/* ---- net income bars ---- */
-new Chart(document.getElementById('cNet'),{type:'bar',
-  data:{labels,datasets:[{label:'Net income',data:M.map(m=>m.net),backgroundColor:M.map(m=>m.net>=0?DEEP:'#E08A8A'),borderRadius:4}]},
-  options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:{top:20}},
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+f0s(c.raw)}},
-      datalabels:{display:true,anchor:v=>v.dataset.data[v.dataIndex]>=0?'end':'start',align:v=>v.dataset.data[v.dataIndex]>=0?'end':'start',color:MUT,font:{weight:'700',size:9},formatter:v=>kfmt(v)}},
-    scales:{x:{grid:{display:false},ticks:{color:MUT,font:{size:10.5}}},
-      y:{grid:{color:LINE},ticks:{color:MUT,callback:v=>kfmt(v),font:{size:10.5}}}}}});
-
-/* ---- YTD table ---- */
-const Y=DATA.ytd;               // {rev, exp, net, lines:[{name, amt}]}
-const tb=document.querySelector('#ytdTable tbody');
-const yRev=Y.rev||1;
-let rows='';
-rows+='<tr class="sum"><td>Total revenue</td><td>'+f0(Y.rev)+'</td><td>100%</td></tr>';
-Y.lines.forEach(l=>{rows+='<tr><td>'+l.name+'</td><td>'+f0(l.amt)+'</td><td>'+(l.amt/yRev*100).toFixed(1)+'%</td></tr>';});
-rows+='<tr class="sum"><td>Total expenses</td><td>'+f0(Y.exp)+'</td><td>'+(Y.exp/yRev*100).toFixed(1)+'%</td></tr>';
-const ynClass=Y.net>=0?'pos':'neg';
-rows+='<tr class="sum"><td>Net income</td><td class="'+ynClass+'">'+f0s(Y.net)+'</td><td class="'+ynClass+'">'+(Y.net/yRev*100).toFixed(1)+'%</td></tr>';
-tb.innerHTML=rows;
-
-/* ---- commentary ---- */
-document.getElementById('commentary').innerHTML=DATA.commentary.map(p=>'<p>'+p+'</p>').join('');
+/* ---- notes (facts only) ---- */
+document.getElementById('notes').innerHTML=D.commentary.map(p=>'<p>'+p+'</p>').join('');
 </script>
 </body>
 </html>
