@@ -66,7 +66,16 @@
 
   /* ---- section ---- */
   section.block{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:24px 26px;margin:18px 0;}
-  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;flex-wrap:wrap;}
+
+  /* ---- ownership tags ---- */
+  .owner-tag{flex:none;display:inline-flex;align-items:center;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:4px 12px;border-radius:99px;color:#fff;white-space:nowrap;line-height:1.3;}
+  .sec-head .owner-tag{margin-left:auto;}
+  .owner-tag.np{background:var(--clay);}
+  .owner-tag.admin{background:var(--gold);}
+  .owner-tag.tk{background:var(--green);}
+  .owner-legend{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:2px 0 8px;}
+  .owner-legend .legend-label{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin-right:2px;}
   .sec-num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;}
   .sec-title{font-size:19px;font-weight:700;color:var(--navy);margin:0;}
   .sec-sub{font-size:14px;color:var(--muted);font-style:italic;margin:4px 0 16px;padding-left:42px;}
@@ -201,6 +210,29 @@
     .rm-card{width:100%;}
     .rm-arrow{transform:rotate(90deg);padding:5px 0;}
   }
+  /* ---- submit ---- */
+  .submit-wrap{margin-top:20px;}
+  .submit-confirm{margin-top:14px;border-radius:11px;padding:14px 16px;font-size:14.5px;line-height:1.55;background:var(--green-soft);border:1px solid var(--green);border-left:4px solid var(--green);color:#274536;}
+  .submit-confirm b{color:var(--green);}
+  .submit-confirm.warn{background:var(--amber-soft);border-color:var(--gold);border-left-color:var(--gold);color:#5a3f1c;}
+  .submit-confirm.warn b{color:var(--clay-d);}
+  .btn.is-busy{opacity:.55;pointer-events:none;}
+
+  /* ---- staff / budget responsibility rows ---- */
+  .staff-head{display:grid;grid-template-columns:1fr 1fr 1.35fr 26px;gap:12px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-bottom:7px;}
+  .staff-row{display:grid;grid-template-columns:1fr 1fr 1.35fr 26px;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);}
+  .staff-row:last-of-type{border-bottom:none;}
+  .staff-row input{width:100%;border:1.5px solid var(--line);border-radius:9px;padding:9px 11px;font-family:inherit;font-size:14px;color:var(--navy);background:#fff;}
+  .staff-row input:focus{outline:none;border-color:var(--clay);}
+  .staff-row input::placeholder{color:#c2b6a4;font-weight:400;}
+  .staff-del{background:none;border:none;color:#c4ccd4;cursor:pointer;font-size:19px;line-height:1;padding:0;}
+  .staff-del:hover{color:var(--clay);}
+  @media(max-width:620px){
+    .staff-head{display:none;}
+    .staff-row{grid-template-columns:1fr;gap:7px;padding:14px 0;position:relative;}
+    .staff-row .staff-del{position:absolute;top:10px;right:0;}
+  }
+
   /* ---- cheat-sheet inputs ---- */
   .cheat-item{padding:15px 0;border-bottom:1px solid var(--line);}
   .cheat-item:last-child{border-bottom:none;padding-bottom:2px;}
@@ -272,11 +304,17 @@
       <div class="rm-step"><div class="rm-card"><div class="rm-n">STEP 4</div><div class="rm-t">Assume control for the July close</div></div><span class="rm-arrow">→</span></div>
       <div class="rm-step"><div class="rm-card"><div class="rm-n">STEP 5</div><div class="rm-t">Operational + Ramp migration</div></div></div>
     </div>
+    <div class="owner-legend">
+      <span class="legend-label">Who completes each section:</span>
+      <span class="owner-tag np">Northpoint Leadership</span>
+      <span class="owner-tag admin">Payroll / Bookkeeping Admin</span>
+      <span class="owner-tag tk">Turnkey CFO</span>
+    </div>
   </div>
 
   <!-- 1 -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">1</div><h2 class="sec-title">First: get set up in your client portal</h2></div>
+    <div class="sec-head"><div class="sec-num">1</div><h2 class="sec-title">First: get set up in your client portal</h2><span class="owner-tag np">Northpoint Leadership</span></div>
     <p class="sec-sub">This is the very first thing we do. Your portal is where you'll sign your engagement letter, set up payment, and where we'll share documents and reports going forward.</p>
 
     <div class="subhead">We'll take care of this right away <span class="accent">— Turnkey CFO</span></div>
@@ -290,14 +328,14 @@
 
   <!-- 2 -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">2</div><h2 class="sec-title">Access to the systems you already use</h2></div>
+    <div class="sec-head"><div class="sec-num">2</div><h2 class="sec-title">Access to the systems you already use</h2><span class="owner-tag np">Northpoint Leadership</span></div>
     <p class="sec-sub">These are the platforms Northpoint runs on today. Granting us access lets us work directly in them instead of asking you to pull reports every month.</p>
     <div class="check-list" data-group="s2"></div>
   </section>
 
   <!-- 3 -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">3</div><h2 class="sec-title">Bill pay &amp; expenses — access to your current systems</h2></div>
+    <div class="sec-head"><div class="sec-num">3</div><h2 class="sec-title">Bill pay &amp; expenses — access to your current systems</h2><span class="owner-tag np">Northpoint Leadership</span></div>
     <p class="sec-sub">To start, we simply need to see how money moves today. Bill pay, card spend, and the card statements stay exactly where they are for now.</p>
     <p class="body-note">Today your bills run through <b>Bill.com</b>, your card spend through <b>Expensify</b>, and your card activity on <b>Capital One</b>. For now, all three stay in place and nothing changes about how you operate. We just need access to work in them and reconcile directly, instead of asking you to pull statements each month. <b>Your approval still gates every payment</b>, exactly as it does today.</p>
     <div class="check-list" data-group="s3"></div>
@@ -309,7 +347,7 @@
 
   <!-- 4 -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">4</div><h2 class="sec-title">Payroll — validate and document your current setup</h2></div>
+    <div class="sec-head"><div class="sec-num">4</div><h2 class="sec-title">Payroll — validate and document your current setup</h2><span class="owner-tag admin">Payroll / Bookkeeping Admin</span></div>
     <p class="sec-sub">Payroll already runs well in-house on QuickBooks Online Payroll. This is ongoing management, not a migration — we step in to administer and review what's already working.</p>
     <p class="body-note">Your semi-monthly payroll runs on <b>QuickBooks Online Payroll</b> today, and that stays in place. Rather than move anything, our first job is to <b>validate and document</b> what's set up so we can run each cycle correctly for your approval. Please confirm the items below so clergy housing, W-2 staff, benefits, and contractor pay are all verified and on record. We change nothing without your sign-off.</p>
     <div class="check-list" data-group="s4"></div>
@@ -317,7 +355,7 @@
 
   <!-- 5 -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">5</div><h2 class="sec-title">Historical records &amp; document migration</h2></div>
+    <div class="sec-head"><div class="sec-num">5</div><h2 class="sec-title">Historical records &amp; document migration</h2><span class="owner-tag admin">Payroll / Bookkeeping Admin</span></div>
     <p class="sec-sub">We migrate and securely store your full financial history, plus a couple of documents we can't pull from the systems above.</p>
     <p class="body-note">A core part of onboarding is <b>migrating and securely storing all of the historical financial records you have</b>, not just recent items, but your complete history going back as far as you have it. This protects your records, gives us the full picture for the cleanup and rebuild, and keeps the information we'll need to manage tax and compliance later. Everything lands in a secure, access-controlled archive. <b>Send us whatever you have</b> and we'll organize it.</p>
     <div class="check-list" data-group="s5"></div>
@@ -325,14 +363,14 @@
 
   <!-- 6 -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">6</div><h2 class="sec-title">Roles &amp; responsibilities</h2></div>
+    <div class="sec-head"><div class="sec-num">6</div><h2 class="sec-title">Roles &amp; responsibilities</h2><span class="owner-tag np">Northpoint Leadership</span></div>
     <p class="sec-sub">So we always reach the right person and protect sensitive information. Add a name for each, and one person can cover several.</p>
     <div id="roles"></div>
   </section>
 
   <!-- 7 -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">7</div><h2 class="sec-title">Your in-person onboarding meeting</h2></div>
+    <div class="sec-head"><div class="sec-num">7</div><h2 class="sec-title">Your in-person onboarding meeting</h2><span class="owner-tag tk">Turnkey CFO</span></div>
     <p class="sec-sub">An in-person working session with your Turnkey CFO team to capture how Northpoint actually runs, so your books match your world.</p>
     <ul class="bullets">
       <li>Your monthly close rhythm, <b>reporting cadence</b>, and board-reporting preferences</li>
@@ -346,16 +384,29 @@
     <div class="check-list" data-group="s7"></div>
   </section>
 
-  <!-- 8 — CHEAT SHEET -->
+  <!-- 8 — STAFF / BUDGET RESPONSIBILITY -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">8</div><h2 class="sec-title">Cheat sheet — how often you need things</h2></div>
-    <p class="sec-sub">Tell us your reporting rhythm so everything lands when you need it, not after. Type as much or as little as you like in each box; your answers save automatically and collect in the summary at the bottom of this page.</p>
-    <div id="cheat"></div>
+    <div class="sec-head"><div class="sec-num">8</div><h2 class="sec-title">Staff &amp; budget responsibility areas</h2><span class="owner-tag np">Northpoint Leadership</span></div>
+    <p class="sec-sub">Who on your team owns what. This tells us who covers each ministry, department, or budget area, so we allocate expenses and build your reporting around how Northpoint is actually run. Add a row per person; one person can cover several areas.</p>
+    <div class="staff-head"><div>Name</div><div>Role / title</div><div>Responsibility area / ministry / budget line</div><div></div></div>
+    <div id="staff-rows"></div>
+    <div style="margin-top:13px;"><button class="btn ghost" id="staff-add">+ Add staff member</button></div>
   </section>
 
-  <!-- 9 -->
+  <!-- 9 — CHEAT SHEET -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">9</div><h2 class="sec-title">Your transition timeline</h2></div>
+    <div class="sec-head"><div class="sec-num">9</div><h2 class="sec-title">Cheat sheet — how often you need things</h2><span class="owner-tag np">Northpoint Leadership</span></div>
+    <p class="sec-sub">Tell us your reporting rhythm so everything lands when you need it, not after. Type as much or as little as you like in each box; your answers save automatically and collect in the summary at the bottom of this page.</p>
+    <div id="cheat"></div>
+    <div class="submit-wrap">
+      <button class="btn" id="cheat-submit">Submit my answers</button>
+      <div id="cheat-confirm" class="submit-confirm" hidden></div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="block">
+    <div class="sec-head"><div class="sec-num">10</div><h2 class="sec-title">Your transition timeline</h2></div>
     <p class="sec-sub">A clean, staged handoff that follows the five steps at the top: sign, gain access, migrate your history, and assume control for the July close — with the Ramp move saved for after we're fully operational.</p>
     <div class="callout" style="background:var(--green-soft);border-left-color:var(--green);">
       <b>No coverage gap during the handoff:</b> your <b>current bookkeeper closes out June</b> as they normally would. We run alongside them to learn the books, then <b>assume control for the July monthly close</b> — your first full close on us. That brief, intentional overlap means nothing slips through the cracks.
@@ -414,7 +465,7 @@
 <script>
 (function(){
   "use strict";
-  var KEY = "npc-onboarding-v1";
+  var KEY = "npc-onboarding-v2";
 
   // ---- checklist content ----
   var GROUPS = {
@@ -482,8 +533,8 @@
   // ---- state ----
   var state = load();
   function load(){
-    try{ var s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object"){ s.checks=s.checks||{}; s.roles=s.roles||{}; s.cheat=s.cheat||{}; s.notes=s.notes||[]; return s; } }catch(e){}
-    return {checks:{}, roles:{}, cheat:{}, notes:[]};
+    try{ var s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object"){ s.checks=s.checks||{}; s.roles=s.roles||{}; s.cheat=s.cheat||{}; s.staff=Array.isArray(s.staff)?s.staff:[]; s.notes=s.notes||[]; return s; } }catch(e){}
+    return {checks:{}, roles:{}, cheat:{}, staff:[], notes:[]};
   }
   function save(){
     try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
@@ -563,6 +614,38 @@
     cheatHolder.appendChild(item);
   });
 
+  // ---- staff & budget responsibility areas ----
+  var staffRows = document.getElementById("staff-rows");
+  function blankStaff(){ return {id:"st"+(Date.now())+Math.floor(Math.random()*1000), name:"", role:"", area:""}; }
+  function renderStaff(){
+    if(!state.staff.length){ state.staff.push(blankStaff()); }
+    staffRows.innerHTML="";
+    state.staff.forEach(function(s){
+      var row=document.createElement("div"); row.className="staff-row";
+      [["name","Name"],["role","Role / title"],["area","Responsibility area / ministry"]].forEach(function(pair){
+        var field=pair[0];
+        var inp=document.createElement("input"); inp.type="text"; inp.placeholder=pair[1];
+        inp.value = s[field]||"";
+        inp.addEventListener("input", function(){ s[field]=inp.value; renderEntries(); });
+        inp.addEventListener("change", function(){ save(); });
+        inp.addEventListener("blur", function(){ save(); });
+        row.appendChild(inp);
+      });
+      var del=document.createElement("button"); del.className="staff-del"; del.title="Remove this person"; del.innerHTML="&times;";
+      del.addEventListener("click", function(){
+        state.staff = state.staff.filter(function(x){return x.id!==s.id;});
+        if(!state.staff.length) state.staff.push(blankStaff());
+        save(); renderStaff(); renderEntries();
+      });
+      row.appendChild(del);
+      staffRows.appendChild(row);
+    });
+  }
+  document.getElementById("staff-add").addEventListener("click", function(){
+    state.staff.push(blankStaff()); save(); renderStaff();
+  });
+  renderStaff();
+
   // ---- progress ----
   function totalChecks(){
     var n=0;
@@ -634,11 +717,18 @@
   // ---- entries summary (running list of everything entered) ----
   var entriesList = document.getElementById("entries-list");
   function esc(s){ var d=document.createElement("div"); d.textContent=s==null?"":String(s); return d.innerHTML; }
-  function renderEntries(){
+  function collectEntries(){
     var rows = [];
     ROLES.forEach(function(r){
       var v=(state.roles[r.id]||"").trim();
       if(v) rows.push({tag:"Role", q:r.t, a:v});
+    });
+    (state.staff||[]).forEach(function(s){
+      var name=(s.name||"").trim(), role=(s.role||"").trim(), area=(s.area||"").trim();
+      if(name||role||area){
+        var a=[]; if(role) a.push(role); if(area) a.push("covers "+area);
+        rows.push({tag:"Staff & budget", q:(name||"(unnamed staff)"), a:a.join(" · ")||"—"});
+      }
     });
     CHEAT.forEach(function(c){
       var v=(state.cheat[c.id]||"").trim();
@@ -648,6 +738,10 @@
       var v=(n.text||"").trim();
       if(v) rows.push({tag:"Note", q:fmtTime(n.ts), a:v});
     });
+    return rows;
+  }
+  function renderEntries(){
+    var rows = collectEntries();
     entriesList.innerHTML="";
     if(!rows.length){
       entriesList.innerHTML='<div class="entries-empty">Nothing entered yet. As you add role names, fill in the cheat sheet, or jot notes above, they\'ll appear here next to their question.</div>';
@@ -663,6 +757,43 @@
   }
   renderEntries();
 
+  // ---- submit ----
+  var submitBtn = document.getElementById("cheat-submit");
+  var confirmBox = document.getElementById("cheat-confirm");
+  function showConfirm(html, warn){
+    confirmBox.className = "submit-confirm" + (warn?" warn":"");
+    confirmBox.innerHTML = html;
+    confirmBox.hidden = false;
+  }
+  submitBtn.addEventListener("click", function(){
+    save();
+    var rows = collectEntries();
+    if(!rows.length){
+      showConfirm("Please fill in at least one answer above before submitting.", true);
+      return;
+    }
+    var orig = submitBtn.textContent;
+    submitBtn.classList.add("is-busy"); submitBtn.textContent = "Submitting…";
+    var payload = { client:"Northpoint Church", submittedAt:new Date().toISOString(), entries:rows };
+    fetch("/api/np-onboarding", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    }).then(function(res){ return res.json().catch(function(){return {ok:res.ok};}); })
+      .then(function(d){
+        submitBtn.classList.remove("is-busy"); submitBtn.textContent = orig;
+        if(d && d.ok){
+          showConfirm("<b>Thank you — your answers have been submitted.</b><br>Your Turnkey CFO team has been notified and will follow up. You can keep editing and submit again anytime; your entries stay saved on this device.", false);
+        } else {
+          showConfirm("Your answers are <b>saved on this device</b>, but we couldn’t reach the server just now. Please click <b>Submit my answers</b> again in a moment.", true);
+        }
+      })
+      .catch(function(){
+        submitBtn.classList.remove("is-busy"); submitBtn.textContent = orig;
+        showConfirm("Your answers are <b>saved on this device</b>, but we couldn’t reach the server just now. Please click <b>Submit my answers</b> again in a moment.", true);
+      });
+  });
+
   // ---- toolbar ----
   document.getElementById("export-btn").addEventListener("click", function(){
     var blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
@@ -672,8 +803,8 @@
     a.click();
   });
   document.getElementById("reset-btn").addEventListener("click", function(){
-    if(confirm("Reset all checkboxes, role names, cheat-sheet answers, and notes on this device? This cannot be undone.")){
-      state={checks:{},roles:{},cheat:{},notes:[]};
+    if(confirm("Reset all checkboxes, role names, staff entries, cheat-sheet answers, and notes on this device? This cannot be undone.")){
+      state={checks:{},roles:{},cheat:{},staff:[],notes:[]};
       try{ localStorage.removeItem(KEY); }catch(e){}
       location.reload();
     }
