@@ -196,6 +196,14 @@
     .brandmark .logo{height:21px;}
     .brandmark .logo.np{height:22px;}
   }
+  /* ---- hero progress bar ---- */
+  .hero-progress{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 20px;margin:20px 0 4px;}
+  .hp-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px;flex-wrap:wrap;}
+  .hp-label{font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);}
+  .hp-count{font-size:14px;font-weight:700;color:var(--clay);white-space:nowrap;}
+  .hp-track{height:14px;background:var(--line);border-radius:99px;overflow:hidden;}
+  .hp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--clay),var(--gold));border-radius:99px;transition:width .4s ease;}
+
   /* ---- top roadmap ---- */
   .roadmap{margin:24px 0 8px;}
   .roadmap-rail{display:flex;align-items:stretch;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 0 10px;}
@@ -291,6 +299,13 @@
     </div>
     <div class="callout">
       <b>One account for access:</b> wherever you grant system access below, please add <span class="pill">accounting@turnkeycfo.com</span>. It is our team's shared, secure inbox, and using it everywhere keeps your access in one place and protected if a team member ever changes.
+    </div>
+    <div class="hero-progress">
+      <div class="hp-top">
+        <span class="hp-label">Your onboarding progress</span>
+        <span class="hp-count" id="plabel2">0 of 0 complete</span>
+      </div>
+      <div class="hp-track"><div class="hp-fill" id="pfill2"></div></div>
     </div>
   </header>
 
@@ -669,6 +684,8 @@
     var pct = t? Math.round(d/t*100):0;
     document.getElementById("pfill").style.width = pct+"%";
     document.getElementById("plabel").textContent = d+" / "+t;
+    var f2=document.getElementById("pfill2"); if(f2) f2.style.width = pct+"%";
+    var l2=document.getElementById("plabel2"); if(l2) l2.textContent = d+" of "+t+" complete · "+pct+"%";
   }
   updateProgress();
 
