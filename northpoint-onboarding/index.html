@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#FBF7F1" />
+<title>Northpoint Church · Onboarding Checklist · Turnkey CFO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#22323F;
+    --navy-deep:#16232E;
+    --clay:#C74C33;
+    --clay-d:#A63A24;
+    --clay-soft:#f9ece8;
+    --green:#5E8A6E;
+    --green-soft:#e9f0ec;
+    --gold:#C98A3C;
+    --amber-soft:#f6ecd9;
+    --ink:#22323F;
+    --muted:#566570;
+    --line:#ECE4D7;
+    --bg:#FBF7F1;
+    --card:#ffffff;
+    --shadow:0 1px 3px rgba(34,50,63,.06),0 8px 28px rgba(34,50,63,.07);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px 80px;}
+
+  /* ---- top bar ---- */
+  .topbar{
+    position:sticky;top:0;z-index:50;background:rgba(251,247,241,.92);
+    backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{max-width:880px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;}
+  .brandmark{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:.02em;color:var(--navy);font-size:15px;}
+  .brandmark .e{width:24px;height:24px;border-radius:50%;background:var(--clay);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:800;}
+  .brandmark .x{color:#c2b6a4;font-weight:500;}
+  .brandmark .tk{color:var(--navy);}
+  .brandmark .tk span{color:var(--clay);}
+  .progress-wrap{margin-left:auto;display:flex;align-items:center;gap:10px;min-width:160px;}
+  .progress-track{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden;min-width:90px;}
+  .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--clay),var(--gold));border-radius:99px;transition:width .35s ease;}
+  .progress-label{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;}
+
+  /* ---- hero ---- */
+  header.hero{padding:38px 0 8px;}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);margin-bottom:10px;}
+  h1{font-size:clamp(28px,5vw,40px);line-height:1.1;margin:0 0 14px;color:var(--navy);font-weight:800;letter-spacing:-.02em;}
+  .lede{font-size:17px;color:var(--muted);max-width:680px;margin:0 0 20px;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14.5px;padding:14px 0;border-top:2px solid var(--clay);}
+  .meta-row b{color:var(--navy);}
+  .callout{
+    background:var(--clay-soft);border-left:4px solid var(--clay);border-radius:10px;
+    padding:16px 18px;margin:18px 0 6px;font-size:14.5px;color:#3a2b27;
+  }
+  .pill{display:inline-block;background:var(--navy);color:#fff;padding:2px 9px;border-radius:6px;font-weight:600;font-size:13.5px;white-space:nowrap;}
+
+  /* ---- section ---- */
+  section.block{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:24px 26px;margin:18px 0;}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
+  .sec-num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;}
+  .sec-title{font-size:19px;font-weight:700;color:var(--navy);margin:0;}
+  .sec-sub{font-size:14px;color:var(--muted);font-style:italic;margin:4px 0 16px;padding-left:42px;}
+  .body-note{font-size:14.5px;color:#3a4a57;margin:0 0 16px;}
+  .body-note b{color:var(--navy);}
+
+  .subhead{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin:18px 0 8px;}
+  .subhead .accent{color:var(--clay);}
+
+  /* arrow lines (turnkey-handled) */
+  .arrow-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px;}
+  .arrow-item:last-child{border-bottom:none;}
+  .arrow-item .ar{color:var(--clay);font-weight:800;flex:none;}
+  .arrow-item b{color:var(--navy);}
+
+  /* check items */
+  .check-list{margin:6px 0 0;}
+  .check-item{display:flex;gap:13px;padding:13px 0;border-bottom:1px solid var(--line);cursor:pointer;align-items:flex-start;}
+  .check-item:last-child{border-bottom:none;}
+  .box{
+    flex:none;width:22px;height:22px;border:2px solid var(--clay);border-radius:6px;margin-top:1px;
+    display:grid;place-items:center;transition:all .15s ease;background:#fff;
+  }
+  .box svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:all .15s ease;}
+  .check-item.done .box{background:var(--green);border-color:var(--green);}
+  .check-item.done .box svg{opacity:1;transform:scale(1);}
+  .check-item.done .ci-title{color:var(--muted);}
+  .ci-text{flex:1;}
+  .ci-title{font-size:15px;font-weight:700;color:var(--ink);}
+  .ci-desc{font-size:13.5px;color:var(--muted);margin-top:3px;}
+  .badge-done{display:inline-block;background:var(--green-soft);color:var(--green);font-size:10.5px;font-weight:800;letter-spacing:.05em;padding:2px 7px;border-radius:5px;vertical-align:middle;margin-left:6px;}
+  .preset-done .box{background:var(--green);border-color:var(--green);cursor:default;}
+  .preset-done .box svg{opacity:1;transform:scale(1);}
+
+  a{color:var(--clay);font-weight:600;word-break:break-word;}
+
+  /* date chips */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 18px;}
+  .chip{display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:9px;font-size:13px;font-weight:600;color:#fff;}
+  .chip.navy{background:var(--navy);}
+  .chip.green{background:var(--green);}
+  .chip b{font-weight:800;font-size:14px;}
+
+  /* timeline table */
+  .tbl{width:100%;border-collapse:collapse;margin:8px 0 6px;font-size:13.5px;overflow:hidden;border-radius:10px;}
+  .tbl thead th{background:var(--navy-deep);color:#fff;text-align:left;padding:11px 12px;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;}
+  .tbl td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .tbl tbody tr:last-child td{border-bottom:none;}
+  .tbl td:first-child{font-weight:700;color:var(--navy);white-space:nowrap;}
+  .tbl .own{font-weight:700;}
+  .tbl .own.el{color:var(--clay);}
+  .tbl .own.tk{color:var(--navy);}
+  .tbl tr.hl-amber td{background:var(--amber-soft);}
+  .tbl tr.hl-green td{background:var(--green-soft);}
+  .tbl tr.hl-green td:first-child{color:var(--green);}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  /* roles table (inputs) */
+  .role{display:grid;grid-template-columns:1fr 230px;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);}
+  .role:last-child{border-bottom:none;}
+  .role .r-title{font-size:15px;font-weight:700;color:var(--ink);}
+  .role .r-desc{font-size:13px;color:var(--muted);margin-top:2px;}
+  .role input{
+    width:100%;border:none;border-bottom:2px solid var(--clay);background:transparent;
+    font-family:inherit;font-size:15px;padding:6px 2px;color:var(--navy);font-weight:600;
+  }
+  .role input:focus{outline:none;border-bottom-color:var(--green);}
+  .role input::placeholder{color:#c2b6a4;font-weight:400;}
+
+  .bullets{margin:0 0 14px;padding-left:4px;list-style:none;}
+  .bullets li{position:relative;padding:5px 0 5px 22px;font-size:14.5px;color:#3a4a57;}
+  .bullets li::before{content:"";position:absolute;left:2px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--clay);}
+  .bullets li b{color:var(--navy);}
+
+  /* timeline dots list */
+  .tl{list-style:none;margin:6px 0 0;padding:0;}
+  .tl li{position:relative;padding:8px 0 8px 28px;font-size:14.5px;border-bottom:1px solid var(--line);}
+  .tl li:last-child{border-bottom:none;}
+  .tl li::before{content:"";position:absolute;left:4px;top:14px;width:11px;height:11px;border-radius:50%;background:var(--clay);box-shadow:0 0 0 3px var(--clay-soft);}
+  .tl li b{color:var(--navy);}
+  .tl li.g::before{background:var(--green);box-shadow:0 0 0 3px var(--green-soft);}
+
+  /* notes */
+  .notes-add{display:flex;gap:10px;margin:6px 0 18px;flex-wrap:wrap;}
+  .notes-add textarea{
+    flex:1;min-width:220px;min-height:72px;resize:vertical;border:1.5px solid var(--line);border-radius:10px;
+    padding:11px 13px;font-family:inherit;font-size:14.5px;color:var(--ink);line-height:1.5;
+  }
+  .notes-add textarea:focus{outline:none;border-color:var(--clay);}
+  .btn{
+    border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;border-radius:10px;
+    padding:11px 20px;background:var(--navy);color:#fff;transition:background .15s ease;align-self:flex-start;
+  }
+  .btn:hover{background:var(--clay);}
+  .btn.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--line);padding:8px 14px;font-size:13px;}
+  .btn.ghost:hover{background:#fff;color:var(--navy);border-color:var(--clay);}
+  .note-card{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:13px 15px;margin-bottom:10px;}
+  .note-card .nc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:10px;}
+  .note-card .nc-time{font-size:12px;color:var(--muted);font-weight:600;}
+  .note-card .nc-del{background:none;border:none;color:#c4ccd4;cursor:pointer;font-size:17px;line-height:1;padding:0 2px;}
+  .note-card .nc-del:hover{color:var(--clay);}
+  .note-card .nc-body{font-size:14.5px;white-space:pre-wrap;color:var(--ink);}
+  .notes-empty{font-size:14px;color:var(--muted);font-style:italic;padding:6px 0;}
+
+  /* footer / utility */
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:26px 0 6px;}
+  .save-flash{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:600;opacity:0;transition:all .3s ease;pointer-events:none;z-index:99;}
+  .save-flash.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .fineprint{text-align:center;font-size:12.5px;color:#a99c89;margin-top:18px;line-height:1.6;}
+
+  @media (max-width:620px){
+    section.block{padding:20px 16px;border-radius:13px;}
+    .role{grid-template-columns:1fr;gap:6px;}
+    .role input{max-width:320px;}
+    .sec-sub{padding-left:0;}
+    .progress-wrap{min-width:120px;}
+  }
+  @media print{
+    .topbar,.toolbar,.notes-add,.nc-del{display:none!important;}
+    body{background:#fff;}
+    section.block{box-shadow:none;break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brandmark">
+      <span class="e">N</span><span class="x">×</span><span class="tk">TURNKEY <span>CFO</span></span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="pfill"></div></div>
+      <span class="progress-label" id="plabel">0 / 0</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Turnkey CFO · New Client Onboarding</div>
+    <h1>Welcome aboard, Northpoint Church</h1>
+    <p class="lede">A clear checklist of what we need from you to take the books, bill pay, and reporting off your plate and get your dashboard and board package running. Most of it is granting access and gathering a few documents, and we handle the rest.</p>
+    <div class="meta-row">
+      <span><b>Plan:</b> Advisory Phase — Full Books, Board Reporting &amp; Advisory</span>
+      <span><b>Books transition:</b> July 1, 2026</span>
+      <span><b>Prepared:</b> June 24, 2026</span>
+    </div>
+    <div class="callout">
+      <b>One account for access:</b> wherever you grant system access below, please add <span class="pill">accounting@turnkeycfo.com</span>. It is our team's shared, secure inbox, and using it everywhere keeps your access in one place and protected if a team member ever changes.
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <section class="block">
+    <div class="sec-head"><div class="sec-num">1</div><h2 class="sec-title">First: get set up in your client portal</h2></div>
+    <p class="sec-sub">This is the very first thing we do. Your portal is where you'll sign your engagement letter, set up payment, and where we'll share documents and reports going forward.</p>
+
+    <div class="subhead">We'll take care of this right away <span class="accent">— Turnkey CFO</span></div>
+    <div class="arrow-item"><span class="ar">→</span><div><b>Set up your secure Turnkey CFO client portal</b> and send you the invite to log in.</div></div>
+    <div class="arrow-item"><span class="ar">→</span><div><b>Deliver your engagement letter and first payment request</b> straight to the portal.</div></div>
+
+    <div class="subhead">Your part</div>
+    <div class="check-list" data-group="s1"></div>
+    <p class="body-note" style="margin-top:14px;margin-bottom:0;color:var(--muted);font-size:13.5px;">Once the letter is signed and payment is set up, we begin everything below.</p>
+  </section>
+
+  <!-- 2 -->
+  <section class="block">
+    <div class="sec-head"><div class="sec-num">2</div><h2 class="sec-title">System access we need</h2></div>
+    <p class="sec-sub">So we work directly in your systems instead of asking you to pull reports every month.</p>
+    <div class="check-list" data-group="s2"></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="block">
+    <div class="sec-head"><div class="sec-num">3</div><h2 class="sec-title">Bill pay moves to Ramp</h2></div>
+    <p class="sec-sub">Your accounts payable moves onto Ramp, which removes the monthly Bill.com fee, tightens approvals, and feeds straight into your books.</p>
+    <p class="body-note">Today your bills run through Bill.com at a monthly subscription cost. We replace that with <b>Ramp</b>, which is free to you, handles bill pay and card controls in one place, and syncs directly into QuickBooks. We migrate your vendors and recurring payments over so nothing is missed, then wind Bill.com down at month-end. <b>Your approval still gates every payment</b>, so you stay in control of what goes out and when.</p>
+    <div class="chips">
+      <span class="chip navy">RAMP BUILD STARTS <b>Early July</b></span>
+      <span class="chip green">BILL.COM WINDS DOWN <b>End of July</b></span>
+    </div>
+    <p class="body-note" style="margin-bottom:6px;"><b>To open and build your Ramp account, we'll need:</b></p>
+    <div class="check-list" data-group="s3"></div>
+
+    <div class="subhead">The schedule to a clean Ramp cutover</div>
+    <div class="table-scroll">
+    <table class="tbl">
+      <thead><tr><th>Window</th><th>What happens</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr><td>This week</td><td><b>Start here:</b> approve the Ramp application and send entity details (EIN, formation docs)</td><td class="own el">Northpoint</td></tr>
+        <tr><td>This week</td><td>Connect and verify the bank account that funds bill payments</td><td class="own el">Northpoint + us</td></tr>
+        <tr><td>Early July</td><td>We build Ramp: load vendors, recreate recurring bills, set approval routing and card controls</td><td class="own tk">Turnkey CFO</td></tr>
+        <tr><td>Mid-July</td><td>Migrate active vendors off Bill.com; first bills paid through Ramp for your approval</td><td class="own tk">Both</td></tr>
+        <tr class="hl-green"><td>End of July</td><td><b>Bill.com winds down — final month, fee stops</b></td><td class="own tk">Turnkey CFO</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="body-note" style="font-size:13px;color:var(--muted);margin-top:12px;margin-bottom:0;">No interruption to your vendors. Anything in flight on Bill.com is honored while we transition, and every Ramp payment waits on your sign-off.</p>
+  </section>
+
+  <!-- 4 -->
+  <section class="block">
+    <div class="sec-head"><div class="sec-num">4</div><h2 class="sec-title">Payroll records &amp; administration</h2></div>
+    <p class="sec-sub">We administer your payroll runs alongside the books, so compensation, taxes, and clergy items are coded right.</p>
+    <p class="body-note">We'll run payroll on your behalf for your approval each cycle. To set that up cleanly and keep year-to-date totals and year-end forms correct, please <b>send us these records</b> from your current payroll system:</p>
+    <div class="check-list" data-group="s4"></div>
+  </section>
+
+  <!-- 5 -->
+  <section class="block">
+    <div class="sec-head"><div class="sec-num">5</div><h2 class="sec-title">Historical records &amp; document migration</h2></div>
+    <p class="sec-sub">We migrate and securely store your full financial history, plus a couple of documents we can't pull from the systems above.</p>
+    <p class="body-note">A core part of onboarding is <b>migrating and securely storing all of the historical financial records you have</b>, not just recent items, but your complete history going back as far as you have it. This protects your records, gives us the full picture for the cleanup and rebuild, and keeps the information we'll need to manage tax and compliance later. Everything lands in a secure, access-controlled archive. <b>Send us whatever you have</b> and we'll organize it.</p>
+    <div class="check-list" data-group="s5"></div>
+  </section>
+
+  <!-- 6 -->
+  <section class="block">
+    <div class="sec-head"><div class="sec-num">6</div><h2 class="sec-title">Roles &amp; responsibilities</h2></div>
+    <p class="sec-sub">So we always reach the right person and protect sensitive information. Add a name for each, and one person can cover several.</p>
+    <div id="roles"></div>
+  </section>
+
+  <!-- 7 -->
+  <section class="block">
+    <div class="sec-head"><div class="sec-num">7</div><h2 class="sec-title">Your onboarding call</h2></div>
+    <p class="sec-sub">A 45–60 minute working call with your Turnkey CFO team to capture how Northpoint actually runs, so your books match your world.</p>
+    <ul class="bullets">
+      <li>Your monthly close rhythm and board-reporting preferences</li>
+      <li>How you like to <b>allocate expenses</b> across ministries and departments</li>
+      <li>Fund and restricted-gift handling, including the <b>FUEL 2026</b> campaign</li>
+      <li>Giving detail from Planning Center and how you want it reported</li>
+      <li>Account-specific quirks, recurring items, and who needs to see what</li>
+    </ul>
+    <div class="check-list" data-group="s7"></div>
+  </section>
+
+  <!-- 8 -->
+  <section class="block">
+    <div class="sec-head"><div class="sec-num">8</div><h2 class="sec-title">Your transition timeline</h2></div>
+    <p class="sec-sub">Two tracks running in parallel, the books and bill pay, with clear line of sight on each. Our promise: clean and fast, with a real cleanup of the back history.</p>
+    <div class="callout" style="background:var(--green-soft);border-left-color:var(--green);">
+      <b>No coverage gap during the handoff:</b> please have your <b>current provider close out June</b> as they normally would. We'll <b>slightly overlap</b> with them through the first week or two of July as we take the handoff, and that overlap is intentional so nothing slips through the cracks. Your first close fully on us is July's books, delivered in early August.
+    </div>
+
+    <div class="subhead">Books, Reporting &amp; Advisory Phase</div>
+    <ul class="tl">
+      <li><b>First (this week):</b> We set up your client portal and deliver your engagement letter and payment request. You e-sign and set up payment, then we begin.</li>
+      <li><b>Week 1 (Jun 24–30):</b> Accept access (QuickBooks, bank view-only, giving platform, payroll). Verify the books and bank feeds. Schedule your onboarding call.</li>
+      <li><b>Books transition (July 1):</b> We take the books. Cleanup begins on the back history, the chart of accounts rebuild, and standing up proper fund accounting.</li>
+      <li><b>First 90 days (Advisory Phase):</b> Full cleanup, fund-accounting stand-up, annual budget build, cash-flow forecast, restricted-fund and giving reporting, and your live dashboard plus board package.</li>
+      <li><b>First close (early August, for July):</b> Your first full monthly close, live dashboard, and a board-ready summary, delivered ahead of your board meeting.</li>
+    </ul>
+
+    <div class="subhead">Bill Pay Transition — Ramp live in July</div>
+    <ul class="tl">
+      <li><b>This week:</b> You approve the Ramp application and send entity details (Section 3).</li>
+      <li><b>This week:</b> Connect and verify the bank account that funds bill payments.</li>
+      <li><b>Early July:</b> We build Ramp — load vendors, recreate recurring bills, set approval routing and card controls.</li>
+      <li><b>Mid-July:</b> Migrate active vendors off Bill.com; first bills paid through Ramp for your approval.</li>
+      <li class="g"><b>End of July:</b> Bill.com winds down, the monthly fee stops, and AP runs on Ramp.</li>
+      <li class="g"><b>Ongoing:</b> We enter and schedule bills in Ramp for your approval, with no separate subscription to manage.</li>
+    </ul>
+    <p class="body-note" style="font-size:13.5px;margin-top:16px;"><b>Start here:</b> sign your engagement letter and set up payment in your portal (Section 1), grant the access in Section 2, approve the Ramp application (Section 3), and book your onboarding call. Everything else can follow right behind. If anything is unclear, just reply; we'd rather answer a quick question than have you guess. For any tax or legal question, we'll always point you to your CPA or attorney.</p>
+    <p class="body-note" style="font-weight:700;color:var(--navy);margin-bottom:0;">— The Turnkey CFO Team</p>
+  </section>
+
+  <!-- NOTES -->
+  <section class="block" id="notes-block">
+    <div class="sec-head"><div class="sec-num" style="background:var(--green);">✎</div><h2 class="sec-title">My notes</h2></div>
+    <p class="sec-sub">Your private working notes for this onboarding. Saved on this device automatically, and they stay put when you leave.</p>
+    <div class="notes-add">
+      <textarea id="note-input" placeholder="Type a note, then click Add note."></textarea>
+    </div>
+    <div style="margin:-10px 0 18px;"><button class="btn" id="note-add-btn">Add note</button></div>
+    <div id="notes-list"></div>
+  </section>
+
+  <div class="toolbar">
+    <button class="btn ghost" onclick="window.print()">Print / Save PDF</button>
+    <button class="btn ghost" id="export-btn">Export progress (.json)</button>
+    <button class="btn ghost" id="reset-btn">Reset all</button>
+  </div>
+  <p class="fineprint">
+    Progress, role names, and notes are saved automatically in this browser on this device.<br>
+    They persist after you close the tab. Clearing this browser's site data will erase them.
+  </p>
+
+</div>
+
+<div class="save-flash" id="flash">Saved</div>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = "npc-onboarding-v1";
+
+  // ---- checklist content ----
+  var GROUPS = {
+    s1:[
+      {id:"s1-1",t:"Review and e-sign the engagement letter",d:"in the portal."},
+      {id:"s1-2",t:"Set up your payment method",d:"in the portal."}
+    ],
+    s2:[
+      {id:"s2-qbo",t:"QuickBooks Online — accountant / admin access",d:"Add accounting@turnkeycfo.com so we work directly in your books for the cleanup and rebuild, instead of asking you to export reports."},
+      {id:"s2-bank",t:"Bank & loan accounts — view-only access",d:"Add accounting@turnkeycfo.com as a view-only user on your online banking for all operating, savings, and loan accounts. This lets us reconcile directly, and means you won't need to send us monthly statements."},
+      {id:"s2-bill",t:"Bill.com — admin / AP access",d:"Add us with admin access so we can migrate your vendors and recurring bills to Ramp, then wind Bill.com down cleanly."},
+      {id:"s2-cards",t:"Credit cards & other payment systems — view-only access",d:"View-only access to any remaining credit cards, merchant accounts, or payment platforms not already in QuickBooks."},
+      {id:"s2-donor",t:"Giving platform (Planning Center / GivFlow) — view-only access",d:"Donor and giving detail lives here, not in QuickBooks. View access powers your giving dashboard and restricted-fund reporting."},
+      {id:"s2-payroll",t:"Payroll system — admin access",d:"Add accounting@turnkeycfo.com as an admin so we can administer your payroll runs and pull the reports we need for coding."},
+      {id:"s2-confirm",t:"Confirm nothing is missing",d:"Confirm there are no bank, card, or fund accounts outside the systems above, or list any we should add."}
+    ],
+    s3:[
+      {id:"s3-app",t:"Approve the Ramp application & entity details",d:"EIN, formation documents, and authorized signer so we can open your Ramp account."},
+      {id:"s3-bank",t:"Connect the funding bank account",d:"The account Ramp draws from to pay your bills, connected and verified."},
+      {id:"s3-vendors",t:"Current vendor list & recurring bills",d:"So we recreate every payee and payment schedule in Ramp with nothing missed."},
+      {id:"s3-approval",t:"Confirm bill-approval routing",d:"Who reviews and approves a bill before it's paid, so your sign-off stays in place."}
+    ],
+    s4:[
+      {id:"s4-roster",t:"Full employee roster",d:"with current compensation / comp agreements."},
+      {id:"s4-i9",t:"I-9s and any other employee forms on file",d:""},
+      {id:"s4-housing",t:"Pastor / clergy housing allowance documentation",d:""},
+      {id:"s4-1099",t:"1099 contractor list",d:"and current-year 1099 information."},
+      {id:"s4-ytd",t:"Year-to-date payroll register",d:"from your current payroll system."}
+    ],
+    s5:[
+      {id:"s5-stmts",t:"All historical financial statements & records",d:"Every year you can put your hands on: P&L, balance sheets, trial balances, and any supporting workpapers. More history is better, and it helps the cleanup go faster."},
+      {id:"s5-coa",t:"Chart of accounts & prior bookkeeper notes",d:"Your current account structure plus any notes, conventions, or open items from your prior provider so nothing gets lost in the handoff."},
+      {id:"s5-emp",t:"Employee & pay history",d:"The payroll records from Section 4 (roster, housing allowance, 1099s, YTD register), preserved for future tax management."},
+      {id:"s5-lease",t:"Facility lease agreement",d:"Your current lease so we record rent and facility expense accurately in the books."},
+      {id:"s5-campaign",t:"FUEL 2026 campaign summary",d:"The goal, timeline, and how designated and restricted gifts should be tracked and reported to the board."}
+    ],
+    s7:[
+      {id:"s7-call",t:"Schedule the call",d:"We'll send 2–3 windows that work within the next two weeks."}
+    ]
+  };
+
+  var ROLES = [
+    {id:"r-contact",t:"Primary day-to-day contact",d:"Our main point of contact for questions and document requests"},
+    {id:"r-reports",t:"Receives the monthly reports & board package",d:"Who we deliver the close + dashboard to each month"},
+    {id:"r-bills",t:"Approves & funds bill payments",d:"Authorizes vendor payments in Ramp"},
+    {id:"r-payroll",t:"Reviews & approves each payroll run",d:"Signs off on every payroll before it sends"},
+    {id:"r-bank",t:"Bank / treasury access owner",d:"Can confirm or grant banking access"},
+    {id:"r-donor",t:"Giving platform admin (Planning Center)",d:"Owns giving questions and designated funds"},
+    {id:"r-cap",t:"FUEL 2026 campaign lead",d:"Point person for the capital campaign"},
+    {id:"r-board",t:"Board / finance committee liaison",d:"Coordinates board-facing reporting and the monthly review"},
+    {id:"r-sensitive",t:"Authorized for sensitive financial & pay info",d:"Who may receive payroll, compensation, and confidential financials"}
+  ];
+
+  // ---- state ----
+  var state = load();
+  function load(){
+    try{ var s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object") return s; }catch(e){}
+    return {checks:{}, roles:{}, notes:[]};
+  }
+  function save(){
+    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+    flash();
+  }
+  var flashT;
+  function flash(){
+    var f=document.getElementById("flash"); f.classList.add("show");
+    clearTimeout(flashT); flashT=setTimeout(function(){f.classList.remove("show");},1100);
+  }
+
+  // ---- render checklists ----
+  var SVG_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 5"></polyline></svg>';
+
+  function buildCheckItem(item){
+    var preset = !!item.preset;
+    var done = preset ? true : !!state.checks[item.id];
+    var el = document.createElement("div");
+    el.className = "check-item" + (done?" done":"") + (preset?" preset-done":"");
+    el.setAttribute("data-id", item.id);
+    var badge = item.badge ? '<span class="badge-done">'+item.badge+'</span>' : '';
+    var desc = item.d ? '<div class="ci-desc">'+item.d+'</div>' : '';
+    el.innerHTML =
+      '<div class="box">'+SVG_CHECK+'</div>'+
+      '<div class="ci-text"><div class="ci-title">'+item.t+badge+'</div>'+desc+'</div>';
+    if(!preset){
+      el.addEventListener("click", function(){
+        var on = !state.checks[item.id];
+        if(on) state.checks[item.id]=true; else delete state.checks[item.id];
+        el.classList.toggle("done", on);
+        save(); updateProgress();
+      });
+    }
+    return el;
+  }
+
+  Object.keys(GROUPS).forEach(function(g){
+    var holder = document.querySelector('.check-list[data-group="'+g+'"]');
+    if(!holder) return;
+    GROUPS[g].forEach(function(item){ holder.appendChild(buildCheckItem(item)); });
+  });
+
+  // ---- roles ----
+  var rolesHolder = document.getElementById("roles");
+  ROLES.forEach(function(r){
+    var row = document.createElement("div");
+    row.className="role";
+    row.innerHTML = '<div><div class="r-title">'+r.t+'</div><div class="r-desc">'+r.d+'</div></div>';
+    var inp = document.createElement("input");
+    inp.type="text"; inp.placeholder="Add a name"; inp.value = state.roles[r.id] || "";
+    inp.addEventListener("input", function(){
+      state.roles[r.id]=inp.value;
+    });
+    inp.addEventListener("change", function(){ save(); });
+    inp.addEventListener("blur", function(){ save(); });
+    row.appendChild(inp);
+    rolesHolder.appendChild(row);
+  });
+
+  // ---- progress ----
+  function totalChecks(){
+    var n=0;
+    Object.keys(GROUPS).forEach(function(g){
+      GROUPS[g].forEach(function(it){ if(!it.preset) n++; });
+    });
+    return n;
+  }
+  function doneChecks(){
+    var n=0;
+    Object.keys(GROUPS).forEach(function(g){
+      GROUPS[g].forEach(function(it){ if(!it.preset && state.checks[it.id]) n++; });
+    });
+    return n;
+  }
+  function updateProgress(){
+    var t=totalChecks(), d=doneChecks();
+    var pct = t? Math.round(d/t*100):0;
+    document.getElementById("pfill").style.width = pct+"%";
+    document.getElementById("plabel").textContent = d+" / "+t;
+  }
+  updateProgress();
+
+  // ---- notes ----
+  var notesList = document.getElementById("notes-list");
+  function fmtTime(ts){
+    try{
+      var dt = new Date(ts);
+      return dt.toLocaleString(undefined,{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"});
+    }catch(e){ return ""; }
+  }
+  function renderNotes(){
+    notesList.innerHTML="";
+    if(!state.notes || !state.notes.length){
+      notesList.innerHTML='<div class="notes-empty">No notes yet. Anything you jot here stays saved on this device.</div>';
+      return;
+    }
+    state.notes.forEach(function(note){
+      var card=document.createElement("div");
+      card.className="note-card";
+      var top=document.createElement("div"); top.className="nc-top";
+      top.innerHTML='<span class="nc-time">'+fmtTime(note.ts)+'</span>';
+      var del=document.createElement("button"); del.className="nc-del"; del.title="Delete note"; del.innerHTML="&times;";
+      del.addEventListener("click", function(){
+        state.notes = state.notes.filter(function(n){return n.id!==note.id;});
+        save(); renderNotes();
+      });
+      top.appendChild(del);
+      var body=document.createElement("div"); body.className="nc-body"; body.textContent=note.text;
+      card.appendChild(top); card.appendChild(body);
+      notesList.appendChild(card);
+    });
+  }
+  function addNote(){
+    var inp=document.getElementById("note-input");
+    var txt=(inp.value||"").trim();
+    if(!txt) return;
+    var id = "n"+(Date.now())+Math.floor(Math.random()*1000);
+    state.notes.unshift({id:id, ts:new Date().toISOString(), text:txt});
+    inp.value="";
+    save(); renderNotes();
+  }
+  document.getElementById("note-add-btn").addEventListener("click", addNote);
+  document.getElementById("note-input").addEventListener("keydown", function(e){
+    if((e.metaKey||e.ctrlKey) && e.key==="Enter") addNote();
+  });
+  renderNotes();
+
+  // ---- toolbar ----
+  document.getElementById("export-btn").addEventListener("click", function(){
+    var blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="northpoint-onboarding-progress.json";
+    a.click();
+  });
+  document.getElementById("reset-btn").addEventListener("click", function(){
+    if(confirm("Reset all checkboxes, role names, and notes on this device? This cannot be undone.")){
+      state={checks:{},roles:{},notes:[]};
+      try{ localStorage.removeItem(KEY); }catch(e){}
+      location.reload();
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
