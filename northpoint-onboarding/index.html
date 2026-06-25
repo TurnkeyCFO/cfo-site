@@ -135,7 +135,7 @@
   .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 
   /* roles table (inputs) */
-  .role{display:grid;grid-template-columns:1fr 230px;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);}
+  .role{display:grid;grid-template-columns:1fr 170px 200px;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);}
   .role:last-child{border-bottom:none;}
   .role .r-title{font-size:15px;font-weight:700;color:var(--ink);}
   .role .r-desc{font-size:13px;color:var(--muted);margin-top:2px;}
@@ -341,7 +341,7 @@
     <div class="check-list" data-group="s3"></div>
 
     <div class="callout" style="background:var(--amber-soft);border-left-color:var(--gold);margin-top:18px;">
-      <b>Ramp comes later, not now.</b> Consolidating bill pay and card spend onto <b>Ramp</b> (which removes the Bill.com and Expensify fees and feeds straight into QuickBooks) is a <b>post-migration step</b> — we take it on only after we've assumed control of the books and your current state is fully stable and reconciled. Until then, Bill.com, Expensify, and Capital One keep running as-is. We'll walk you through the Ramp move when the time is right, with no interruption to your vendors and your sign-off on every payment.
+      <b>Ramp is close behind.</b> In July, once we're in the books, I'll help you complete the Ramp application — with your signoff — so bill pay and card spend move onto <b>Ramp</b>, dropping the Bill.com and Expensify fees and syncing straight into QuickBooks. Your approval still gates every payment.
     </div>
   </section>
 
@@ -364,7 +364,7 @@
   <!-- 6 -->
   <section class="block">
     <div class="sec-head"><div class="sec-num">6</div><h2 class="sec-title">Roles &amp; responsibilities</h2><span class="owner-tag np">Northpoint Leadership</span></div>
-    <p class="sec-sub">So we always reach the right person and protect sensitive information. Add a name for each, and one person can cover several.</p>
+    <p class="sec-sub">So we always reach the right person and protect sensitive information. Add a name and email for each, and one person can cover several.</p>
     <div id="roles"></div>
   </section>
 
@@ -533,8 +533,8 @@
   // ---- state ----
   var state = load();
   function load(){
-    try{ var s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object"){ s.checks=s.checks||{}; s.roles=s.roles||{}; s.cheat=s.cheat||{}; s.staff=Array.isArray(s.staff)?s.staff:[]; s.notes=s.notes||[]; return s; } }catch(e){}
-    return {checks:{}, roles:{}, cheat:{}, staff:[], notes:[]};
+    try{ var s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object"){ s.checks=s.checks||{}; s.roles=s.roles||{}; s.roleEmails=s.roleEmails||{}; s.cheat=s.cheat||{}; s.staff=Array.isArray(s.staff)?s.staff:[]; s.notes=s.notes||[]; return s; } }catch(e){}
+    return {checks:{}, roles:{}, roleEmails:{}, cheat:{}, staff:[], notes:[]};
   }
   function save(){
     try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
@@ -583,15 +583,18 @@
     var row = document.createElement("div");
     row.className="role";
     row.innerHTML = '<div><div class="r-title">'+r.t+'</div><div class="r-desc">'+r.d+'</div></div>';
-    var inp = document.createElement("input");
-    inp.type="text"; inp.placeholder="Add a name"; inp.value = state.roles[r.id] || "";
-    inp.addEventListener("input", function(){
-      state.roles[r.id]=inp.value;
-      renderEntries();
-    });
-    inp.addEventListener("change", function(){ save(); });
-    inp.addEventListener("blur", function(){ save(); });
-    row.appendChild(inp);
+    var nameInp = document.createElement("input");
+    nameInp.type="text"; nameInp.placeholder="Name"; nameInp.value = state.roles[r.id] || "";
+    nameInp.addEventListener("input", function(){ state.roles[r.id]=nameInp.value; renderEntries(); });
+    nameInp.addEventListener("change", function(){ save(); });
+    nameInp.addEventListener("blur", function(){ save(); });
+    row.appendChild(nameInp);
+    var emailInp = document.createElement("input");
+    emailInp.type="email"; emailInp.placeholder="Email"; emailInp.value = state.roleEmails[r.id] || "";
+    emailInp.addEventListener("input", function(){ state.roleEmails[r.id]=emailInp.value; renderEntries(); });
+    emailInp.addEventListener("change", function(){ save(); });
+    emailInp.addEventListener("blur", function(){ save(); });
+    row.appendChild(emailInp);
     rolesHolder.appendChild(row);
   });
 
@@ -721,7 +724,8 @@
     var rows = [];
     ROLES.forEach(function(r){
       var v=(state.roles[r.id]||"").trim();
-      if(v) rows.push({tag:"Role", q:r.t, a:v});
+      var em=(state.roleEmails[r.id]||"").trim();
+      if(v||em) rows.push({tag:"Role", q:r.t, a:(v||"(no name)")+(em?" · "+em:"")});
     });
     (state.staff||[]).forEach(function(s){
       var name=(s.name||"").trim(), role=(s.role||"").trim(), area=(s.area||"").trim();
@@ -804,7 +808,7 @@
   });
   document.getElementById("reset-btn").addEventListener("click", function(){
     if(confirm("Reset all checkboxes, role names, staff entries, cheat-sheet answers, and notes on this device? This cannot be undone.")){
-      state={checks:{},roles:{},cheat:{},staff:[],notes:[]};
+      state={checks:{},roles:{},roleEmails:{},cheat:{},staff:[],notes:[]};
       try{ localStorage.removeItem(KEY); }catch(e){}
       location.reload();
     }
