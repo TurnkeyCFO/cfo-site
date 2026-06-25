@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex, nofollow" />
 <meta name="theme-color" content="#FBF7F1" />
-<title>Northpoint Church · Onboarding Checklist · Turnkey CFO</title>
+<title>Northpoint Church · Checklist &amp; Cheat Sheet · Turnkey CFO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -201,6 +201,26 @@
     .rm-card{width:100%;}
     .rm-arrow{transform:rotate(90deg);padding:5px 0;}
   }
+  /* ---- cheat-sheet inputs ---- */
+  .cheat-item{padding:15px 0;border-bottom:1px solid var(--line);}
+  .cheat-item:last-child{border-bottom:none;padding-bottom:2px;}
+  .cheat-q{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+  .cheat-d{font-size:13.5px;color:var(--muted);margin-bottom:9px;}
+  .cheat-item textarea{
+    width:100%;min-height:60px;resize:vertical;border:1.5px solid var(--line);border-radius:10px;
+    padding:10px 13px;font-family:inherit;font-size:14.5px;color:var(--ink);line-height:1.5;background:#fff;
+  }
+  .cheat-item textarea:focus{outline:none;border-color:var(--clay);}
+
+  /* ---- entries summary ---- */
+  .entry-row{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px;align-items:flex-start;}
+  .entry-row:last-child{border-bottom:none;}
+  .entry-q{flex:none;width:250px;color:var(--navy);font-weight:700;line-height:1.4;}
+  .entry-tag{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--clay);background:var(--clay-soft);padding:2px 7px;border-radius:5px;margin:0 0 5px;}
+  .entry-a{flex:1;color:#3a4a57;white-space:pre-wrap;word-break:break-word;}
+  .entries-empty{font-size:14px;color:var(--muted);font-style:italic;padding:6px 0;}
+  @media(max-width:620px){.entry-row{flex-direction:column;gap:4px;}.entry-q{width:auto;}}
+
   @media print{
     .topbar,.toolbar,.notes-add,.nc-del{display:none!important;}
     body{background:#fff;}
@@ -228,9 +248,9 @@
 <div class="wrap">
 
   <header class="hero">
-    <div class="eyebrow">Turnkey CFO · New Client Onboarding</div>
+    <div class="eyebrow">Turnkey CFO · Onboarding Checklist &amp; Cheat Sheet</div>
     <h1>Welcome aboard, Northpoint Church</h1>
-    <p class="lede">A clear checklist of what we need from you to take the books, bill pay, and reporting off your plate and get your live dashboard and board package running. Most of it is granting access to the systems you already use and gathering a few documents, and we handle the rest.</p>
+    <p class="lede">Your checklist and cheat sheet for onboarding: what we need from you to take the books, bill pay, and reporting off your plate and get your live dashboard and board package running. Most of it is granting access to the systems you already use, gathering a few documents, and telling us how you like to run things, and we handle the rest.</p>
     <div class="meta-row">
       <span><b>Plan:</b> Advisory Phase — Full Books, Board Reporting &amp; Advisory</span>
       <span><b>We assume control for:</b> the July monthly close</span>
@@ -326,9 +346,16 @@
     <div class="check-list" data-group="s7"></div>
   </section>
 
-  <!-- 8 -->
+  <!-- 8 — CHEAT SHEET -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">8</div><h2 class="sec-title">Your transition timeline</h2></div>
+    <div class="sec-head"><div class="sec-num">8</div><h2 class="sec-title">Cheat sheet — how often you need things</h2></div>
+    <p class="sec-sub">Tell us your reporting rhythm so everything lands when you need it, not after. Type as much or as little as you like in each box; your answers save automatically and collect in the summary at the bottom of this page.</p>
+    <div id="cheat"></div>
+  </section>
+
+  <!-- 9 -->
+  <section class="block">
+    <div class="sec-head"><div class="sec-num">9</div><h2 class="sec-title">Your transition timeline</h2></div>
     <p class="sec-sub">A clean, staged handoff that follows the five steps at the top: sign, gain access, migrate your history, and assume control for the July close — with the Ramp move saved for after we're fully operational.</p>
     <div class="callout" style="background:var(--green-soft);border-left-color:var(--green);">
       <b>No coverage gap during the handoff:</b> your <b>current bookkeeper closes out June</b> as they normally would. We run alongside them to learn the books, then <b>assume control for the July monthly close</b> — your first full close on us. That brief, intentional overlap means nothing slips through the cracks.
@@ -363,13 +390,20 @@
     <div id="notes-list"></div>
   </section>
 
+  <!-- ENTRIES SUMMARY -->
+  <section class="block" id="entries-block">
+    <div class="sec-head"><div class="sec-num" style="background:var(--clay);">☰</div><h2 class="sec-title">Summary of your entries</h2></div>
+    <p class="sec-sub">A running list of everything entered on this page so far — each answer next to the question it belongs to. It updates live as you fill things in, so you can see your cheat sheet at a glance.</p>
+    <div id="entries-list"></div>
+  </section>
+
   <div class="toolbar">
     <button class="btn ghost" onclick="window.print()">Print / Save PDF</button>
     <button class="btn ghost" id="export-btn">Export progress (.json)</button>
     <button class="btn ghost" id="reset-btn">Reset all</button>
   </div>
   <p class="fineprint">
-    Progress, role names, and notes are saved automatically in this browser on this device.<br>
+    Progress, role names, cheat-sheet answers, and notes are saved automatically in this browser on this device.<br>
     They persist after you close the tab. Clearing this browser's site data will erase them.
   </p>
 
@@ -437,11 +471,19 @@
     {id:"r-sensitive",t:"Authorized for sensitive financial & pay info",d:"Who may receive payroll, compensation, and confidential financials"}
   ];
 
+  // ---- cheat sheet: frequency-of-needs questions ----
+  var CHEAT = [
+    {id:"c-bva",q:"When do you need Budget vs. Actuals?",d:"The date each month it's due to you — or the recurring cadence — so it's always in your hands on time."},
+    {id:"c-board",q:"When does Buck meet with the board?",d:"The date or recurring cadence of board meetings, so your reporting is ready ahead of each one."},
+    {id:"c-cashflow",q:"Weekly cash flow — what are the data sources?",d:"Where the numbers come from for weekly cash-flow reporting (bank logins, giving platform, AP system, a spreadsheet, etc.)."},
+    {id:"c-funds",q:"Fund reporting — anything specific to note?",d:"Anything particular about how you track or report restricted funds, designated gifts, or the FUEL 2026 campaign."}
+  ];
+
   // ---- state ----
   var state = load();
   function load(){
-    try{ var s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object") return s; }catch(e){}
-    return {checks:{}, roles:{}, notes:[]};
+    try{ var s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object"){ s.checks=s.checks||{}; s.roles=s.roles||{}; s.cheat=s.cheat||{}; s.notes=s.notes||[]; return s; } }catch(e){}
+    return {checks:{}, roles:{}, cheat:{}, notes:[]};
   }
   function save(){
     try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
@@ -494,11 +536,31 @@
     inp.type="text"; inp.placeholder="Add a name"; inp.value = state.roles[r.id] || "";
     inp.addEventListener("input", function(){
       state.roles[r.id]=inp.value;
+      renderEntries();
     });
     inp.addEventListener("change", function(){ save(); });
     inp.addEventListener("blur", function(){ save(); });
     row.appendChild(inp);
     rolesHolder.appendChild(row);
+  });
+
+  // ---- cheat sheet ----
+  var cheatHolder = document.getElementById("cheat");
+  CHEAT.forEach(function(c){
+    var item = document.createElement("div");
+    item.className = "cheat-item";
+    item.innerHTML = '<div class="cheat-q">'+c.q+'</div><div class="cheat-d">'+c.d+'</div>';
+    var ta = document.createElement("textarea");
+    ta.placeholder = "Type your answer";
+    ta.value = state.cheat[c.id] || "";
+    ta.addEventListener("input", function(){
+      state.cheat[c.id]=ta.value;
+      renderEntries();
+    });
+    ta.addEventListener("change", function(){ save(); });
+    ta.addEventListener("blur", function(){ save(); });
+    item.appendChild(ta);
+    cheatHolder.appendChild(item);
   });
 
   // ---- progress ----
@@ -546,7 +608,7 @@
       var del=document.createElement("button"); del.className="nc-del"; del.title="Delete note"; del.innerHTML="&times;";
       del.addEventListener("click", function(){
         state.notes = state.notes.filter(function(n){return n.id!==note.id;});
-        save(); renderNotes();
+        save(); renderNotes(); renderEntries();
       });
       top.appendChild(del);
       var body=document.createElement("div"); body.className="nc-body"; body.textContent=note.text;
@@ -569,6 +631,38 @@
   });
   renderNotes();
 
+  // ---- entries summary (running list of everything entered) ----
+  var entriesList = document.getElementById("entries-list");
+  function esc(s){ var d=document.createElement("div"); d.textContent=s==null?"":String(s); return d.innerHTML; }
+  function renderEntries(){
+    var rows = [];
+    ROLES.forEach(function(r){
+      var v=(state.roles[r.id]||"").trim();
+      if(v) rows.push({tag:"Role", q:r.t, a:v});
+    });
+    CHEAT.forEach(function(c){
+      var v=(state.cheat[c.id]||"").trim();
+      if(v) rows.push({tag:"Cheat sheet", q:c.q, a:v});
+    });
+    (state.notes||[]).forEach(function(n){
+      var v=(n.text||"").trim();
+      if(v) rows.push({tag:"Note", q:fmtTime(n.ts), a:v});
+    });
+    entriesList.innerHTML="";
+    if(!rows.length){
+      entriesList.innerHTML='<div class="entries-empty">Nothing entered yet. As you add role names, fill in the cheat sheet, or jot notes above, they\'ll appear here next to their question.</div>';
+      return;
+    }
+    rows.forEach(function(row){
+      var el=document.createElement("div");
+      el.className="entry-row";
+      el.innerHTML='<div class="entry-q"><span class="entry-tag">'+esc(row.tag)+'</span><br>'+esc(row.q)+'</div>'+
+                   '<div class="entry-a">'+esc(row.a)+'</div>';
+      entriesList.appendChild(el);
+    });
+  }
+  renderEntries();
+
   // ---- toolbar ----
   document.getElementById("export-btn").addEventListener("click", function(){
     var blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
@@ -578,8 +672,8 @@
     a.click();
   });
   document.getElementById("reset-btn").addEventListener("click", function(){
-    if(confirm("Reset all checkboxes, role names, and notes on this device? This cannot be undone.")){
-      state={checks:{},roles:{},notes:[]};
+    if(confirm("Reset all checkboxes, role names, cheat-sheet answers, and notes on this device? This cannot be undone.")){
+      state={checks:{},roles:{},cheat:{},notes:[]};
       try{ localStorage.removeItem(KEY); }catch(e){}
       location.reload();
     }
