@@ -187,10 +187,25 @@
     .brandmark .logo{height:21px;}
     .brandmark .logo.np{height:22px;}
   }
+  /* ---- top roadmap ---- */
+  .roadmap{margin:24px 0 8px;}
+  .roadmap-rail{display:flex;align-items:stretch;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 0 10px;}
+  .rm-step{flex:1 0 0;min-width:148px;display:flex;align-items:center;}
+  .rm-card{flex:1;align-self:stretch;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:13px 14px;display:flex;flex-direction:column;justify-content:center;}
+  .rm-n{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--clay);margin-bottom:5px;}
+  .rm-t{font-size:13.5px;font-weight:700;color:var(--navy);line-height:1.25;}
+  .rm-arrow{flex:none;color:var(--gold);font-weight:800;font-size:20px;padding:0 7px;align-self:center;}
+  @media (max-width:680px){
+    .roadmap-rail{flex-direction:column;}
+    .rm-step{flex:none;min-width:0;flex-direction:column;}
+    .rm-card{width:100%;}
+    .rm-arrow{transform:rotate(90deg);padding:5px 0;}
+  }
   @media print{
     .topbar,.toolbar,.notes-add,.nc-del{display:none!important;}
     body{background:#fff;}
     section.block{box-shadow:none;break-inside:avoid;}
+    .roadmap-rail{overflow:visible;}
   }
 </style>
 </head>
@@ -218,14 +233,26 @@
     <p class="lede">A clear checklist of what we need from you to take the books, bill pay, and reporting off your plate and get your live dashboard and board package running. Most of it is granting access to the systems you already use and gathering a few documents, and we handle the rest.</p>
     <div class="meta-row">
       <span><b>Plan:</b> Advisory Phase — Full Books, Board Reporting &amp; Advisory</span>
-      <span><b>First payroll on us:</b> Thu, July 30, 2026</span>
-      <span><b>Full books migration:</b> August 2026</span>
+      <span><b>We assume control for:</b> the July monthly close</span>
+      <span><b>Ramp migration:</b> after we're operational</span>
       <span><b>Prepared:</b> June 24, 2026</span>
     </div>
     <div class="callout">
       <b>One account for access:</b> wherever you grant system access below, please add <span class="pill">accounting@turnkeycfo.com</span>. It is our team's shared, secure inbox, and using it everywhere keeps your access in one place and protected if a team member ever changes.
     </div>
   </header>
+
+  <!-- ROADMAP -->
+  <div class="roadmap">
+    <div class="subhead" style="margin:2px 0 10px;">The path from here <span class="accent">— at a glance</span></div>
+    <div class="roadmap-rail">
+      <div class="rm-step"><div class="rm-card"><div class="rm-n">STEP 1</div><div class="rm-t">Sign the engagement letter</div></div><span class="rm-arrow">→</span></div>
+      <div class="rm-step"><div class="rm-card"><div class="rm-n">STEP 2</div><div class="rm-t">Gain access to your systems</div></div><span class="rm-arrow">→</span></div>
+      <div class="rm-step"><div class="rm-card"><div class="rm-n">STEP 3</div><div class="rm-t">Migrate historical records</div></div><span class="rm-arrow">→</span></div>
+      <div class="rm-step"><div class="rm-card"><div class="rm-n">STEP 4</div><div class="rm-t">Assume control for the July close</div></div><span class="rm-arrow">→</span></div>
+      <div class="rm-step"><div class="rm-card"><div class="rm-n">STEP 5</div><div class="rm-t">Operational + Ramp migration</div></div></div>
+    </div>
+  </div>
 
   <!-- 1 -->
   <section class="block">
@@ -250,41 +277,21 @@
 
   <!-- 3 -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">3</div><h2 class="sec-title">Bill pay &amp; expenses move to Ramp <span style="font-weight:600;font-size:14px;color:var(--gold);">— starting August</span></h2></div>
-    <p class="sec-sub">Once the books are fully on us, your accounts payable and card spend consolidate onto Ramp, which removes the Bill.com and Expensify fees and feeds straight into your books.</p>
-    <p class="body-note">Today your bills run through <b>Bill.com</b> and your card spend through <b>Expensify</b>, two separate subscriptions. Beginning in <b>August</b>, we replace both with <b>Ramp</b>, which is free to you, handles bill pay and card controls in one place, and syncs directly into QuickBooks. We migrate your vendors and recurring payments over so nothing is missed, then wind both tools down. <b>Your approval still gates every payment</b>, so you stay in control of what goes out and when.</p>
-    <div class="chips">
-      <span class="chip gold">RAMP BUILD STARTS <b>August</b></span>
-      <span class="chip green">BILL.COM + EXPENSIFY WIND DOWN <b>After migration</b></span>
-    </div>
-    <p class="body-note" style="margin-bottom:6px;"><b>You can get a head start now</b> — to open and build your Ramp account when August comes, we'll need:</p>
+    <div class="sec-head"><div class="sec-num">3</div><h2 class="sec-title">Bill pay &amp; expenses — access to your current systems</h2></div>
+    <p class="sec-sub">To start, we simply need to see how money moves today. Bill pay, card spend, and the card statements stay exactly where they are for now.</p>
+    <p class="body-note">Today your bills run through <b>Bill.com</b>, your card spend through <b>Expensify</b>, and your card activity on <b>Capital One</b>. For now, all three stay in place and nothing changes about how you operate. We just need access to work in them and reconcile directly, instead of asking you to pull statements each month. <b>Your approval still gates every payment</b>, exactly as it does today.</p>
     <div class="check-list" data-group="s3"></div>
 
-    <div class="subhead">The schedule to a clean Ramp cutover</div>
-    <div class="table-scroll">
-    <table class="tbl">
-      <thead><tr><th>Window</th><th>What happens</th><th>Owner</th></tr></thead>
-      <tbody>
-        <tr><td>Now (head start)</td><td>Approve the Ramp application and send entity details (EIN, formation docs)</td><td class="own el">Northpoint</td></tr>
-        <tr><td>Early August</td><td>Connect and verify the bank account that funds bill payments</td><td class="own el">Northpoint + us</td></tr>
-        <tr><td>August</td><td>We build Ramp: load vendors, recreate recurring bills, set approval routing and card controls</td><td class="own tk">Turnkey CFO</td></tr>
-        <tr><td>August</td><td>Migrate active vendors and cards off Bill.com and Expensify; first payments run through Ramp for your approval</td><td class="own tk">Both</td></tr>
-        <tr class="hl-green"><td>End of migration</td><td><b>Bill.com and Expensify wind down — both fees stop</b></td><td class="own tk">Turnkey CFO</td></tr>
-      </tbody>
-    </table>
+    <div class="callout" style="background:var(--amber-soft);border-left-color:var(--gold);margin-top:18px;">
+      <b>Ramp comes later, not now.</b> Consolidating bill pay and card spend onto <b>Ramp</b> (which removes the Bill.com and Expensify fees and feeds straight into QuickBooks) is a <b>post-migration step</b> — we take it on only after we've assumed control of the books and your current state is fully stable and reconciled. Until then, Bill.com, Expensify, and Capital One keep running as-is. We'll walk you through the Ramp move when the time is right, with no interruption to your vendors and your sign-off on every payment.
     </div>
-    <p class="body-note" style="font-size:13px;color:var(--muted);margin-top:12px;margin-bottom:0;">No interruption to your vendors. Anything in flight is honored while we transition, and every Ramp payment waits on your sign-off.</p>
   </section>
 
   <!-- 4 -->
   <section class="block">
-    <div class="sec-head"><div class="sec-num">4</div><h2 class="sec-title">Payroll — we take over the July 30 run</h2></div>
-    <p class="sec-sub">Payroll runs in-house today on QuickBooks Online Payroll. We step in to administer it for you, starting with the July 30 pay run.</p>
-    <p class="body-note">Your semi-monthly payroll currently runs in-house on <b>QuickBooks Online Payroll</b>. We take it over starting with the <b>Thursday, July 30, 2026</b> run, and run each cycle for your approval from there. To make that first run clean, with clergy housing, benefits, and contractor pay all correct, please confirm the items below. During onboarding we'll also review whether QuickBooks Payroll is still the best fit for a staff your size, and we change nothing without your sign-off.</p>
-    <div class="chips">
-      <span class="chip navy">CONFIRM SETUP BY <b>Fri, Jul 24</b></span>
-      <span class="chip green">FIRST PAYROLL ON US <b>Thu, Jul 30</b></span>
-    </div>
+    <div class="sec-head"><div class="sec-num">4</div><h2 class="sec-title">Payroll — validate and document your current setup</h2></div>
+    <p class="sec-sub">Payroll already runs well in-house on QuickBooks Online Payroll. This is ongoing management, not a migration — we step in to administer and review what's already working.</p>
+    <p class="body-note">Your semi-monthly payroll runs on <b>QuickBooks Online Payroll</b> today, and that stays in place. Rather than move anything, our first job is to <b>validate and document</b> what's set up so we can run each cycle correctly for your approval. Please confirm the items below so clergy housing, W-2 staff, benefits, and contractor pay are all verified and on record. We change nothing without your sign-off.</p>
     <div class="check-list" data-group="s4"></div>
   </section>
 
@@ -308,7 +315,9 @@
     <div class="sec-head"><div class="sec-num">7</div><h2 class="sec-title">Your in-person onboarding meeting</h2></div>
     <p class="sec-sub">An in-person working session with your Turnkey CFO team to capture how Northpoint actually runs, so your books match your world.</p>
     <ul class="bullets">
-      <li>Your monthly close rhythm and board-reporting preferences</li>
+      <li>Your monthly close rhythm, <b>reporting cadence</b>, and board-reporting preferences</li>
+      <li>A deep dive on your <b>cash flow</b> — how you track it, fund payroll and bills, and watch runway</li>
+      <li>Your <b>budgeting process</b> — how the annual budget is built, approved, and monitored</li>
       <li>How you like to <b>allocate expenses</b> across ministries and departments</li>
       <li>Fund and restricted-gift handling, including the <b>FUEL 2026</b> campaign</li>
       <li>Giving detail from Planning Center and GivFlow, and how you want it reported</li>
@@ -320,28 +329,26 @@
   <!-- 8 -->
   <section class="block">
     <div class="sec-head"><div class="sec-num">8</div><h2 class="sec-title">Your transition timeline</h2></div>
-    <p class="sec-sub">A clean, staged handoff: payroll moves to us first in July, then a full books migration in August, with a real cleanup of the back history.</p>
+    <p class="sec-sub">A clean, staged handoff that follows the five steps at the top: sign, gain access, migrate your history, and assume control for the July close — with the Ramp move saved for after we're fully operational.</p>
     <div class="callout" style="background:var(--green-soft);border-left-color:var(--green);">
-      <b>No coverage gap during the handoff:</b> your <b>current bookkeeper runs the June books in July</b>, closing out June as they normally would. We then <b>fully migrate the books to Turnkey in August</b>. That brief, intentional overlap means nothing slips through the cracks. Your first close fully on us is August's books, delivered in early September.
+      <b>No coverage gap during the handoff:</b> your <b>current bookkeeper closes out June</b> as they normally would. We run alongside them to learn the books, then <b>assume control for the July monthly close</b> — your first full close on us. That brief, intentional overlap means nothing slips through the cracks.
     </div>
 
     <div class="subhead">Books, Reporting &amp; Migration</div>
     <ul class="tl">
-      <li><b>First (this week):</b> We set up your client portal and deliver your engagement letter and payment request. You e-sign and set up payment, then we begin.</li>
-      <li><b>Late June – July:</b> Accept access to your systems (QuickBooks, bank view-only, Bill.com, Expensify, Planning Center, GivFlow). We verify the books and feeds and hold your in-person onboarding meeting.</li>
-      <li><b>July:</b> Your current bookkeeper closes June as normal. We run in parallel, get to know the books, and take over the July 30 payroll run.</li>
-      <li><b>August (full migration):</b> The books move fully to Turnkey. We begin the cleanup, chart-of-accounts rebuild, and proper fund accounting, and we start the Ramp migration (AP + expenses off Bill.com and Expensify).</li>
-      <li><b>First close (early September, for August):</b> Your first full monthly close on us, live dashboard, and a board-ready summary, delivered ahead of your board meeting.</li>
+      <li><b>Step 1 — Sign (this week):</b> We set up your client portal and deliver your engagement letter and payment request. You e-sign and set up payment, then we begin.</li>
+      <li><b>Step 2 — Gain access:</b> Accept access to your systems (QuickBooks, bank &amp; loan view-only, Bill.com, Expensify, Capital One, Planning Center, GivFlow). We verify the books and feeds and hold your in-person onboarding meeting.</li>
+      <li><b>Step 3 — Migrate historicals:</b> We gather and securely store your full financial history — statements, chart of accounts, loan documents and amortization schedules, budget, lease, and campaign records — and begin the cleanup and fund-accounting rebuild.</li>
+      <li class="g"><b>Step 4 — Assume control for the July close:</b> We take the books and deliver your <b>July monthly close</b> — your first full close on us — with a live dashboard and a board-ready summary ahead of your board meeting.</li>
+      <li><b>Step 5 — Operational + Ramp migration:</b> Once we're fully operational and your current state is stable, we begin the <b>Ramp migration</b> — moving AP and card spend off Bill.com and Expensify, removing those fees and syncing straight into QuickBooks.</li>
     </ul>
 
-    <div class="subhead">Payroll Transition — first run Thu, July 30</div>
+    <div class="subhead">Payroll — ongoing management</div>
     <ul class="tl">
-      <li><b>By Fri, Jul 24:</b> Confirm the payroll items in Section 4, roster, clergy housing, benefit deductions, and pay schedule.</li>
-      <li><b>Week of Jul 27:</b> We verify the QuickBooks Online Payroll setup and stage the run.</li>
-      <li class="g"><b>Thu, Jul 30:</b> First payroll run on us. You approve, we send.</li>
-      <li class="g"><b>Ongoing:</b> We run each semi-monthly payroll for your approval, with no separate system for you to manage.</li>
+      <li><b>Validate &amp; document:</b> Confirm the items in Section 4 — current payroll system, roster, W-2 staff, clergy housing, benefit deductions, 1099s, and pay schedule. Nothing moves; we verify what's already working.</li>
+      <li class="g"><b>Ongoing:</b> We administer and run each semi-monthly payroll for your approval, with no separate system for you to manage.</li>
     </ul>
-    <p class="body-note" style="font-size:13.5px;margin-top:16px;"><b>Start here:</b> sign your engagement letter and set up payment in your portal (Section 1), grant the access in Section 2, confirm the payroll items in Section 4 so we hit the July 30 run, and book your in-person onboarding meeting. Everything else can follow right behind. If anything is unclear, just reply; we'd rather answer a quick question than have you guess. For any tax or legal question, we'll always point you to your CPA or attorney.</p>
+    <p class="body-note" style="font-size:13.5px;margin-top:16px;"><b>Start here:</b> sign your engagement letter and set up payment in your portal (Section 1), grant the access in Sections 2 and 3, confirm the payroll items in Section 4, and book your in-person onboarding meeting. Everything else can follow right behind. If anything is unclear, just reply; we'd rather answer a quick question than have you guess. For any tax or legal question, we'll always point you to your CPA or attorney.</p>
     <p class="body-note" style="font-weight:700;color:var(--navy);margin-bottom:0;">— The Turnkey CFO Team</p>
   </section>
 
@@ -383,42 +390,45 @@
     ],
     s2:[
       {id:"s2-qbo",t:"QuickBooks Online — accountant / admin access",d:"Add accounting@turnkeycfo.com so we work directly in your books and QuickBooks Online Payroll for the cleanup and rebuild, instead of asking you to export reports."},
-      {id:"s2-bank",t:"Bank & loan accounts — view-only access",d:"Add accounting@turnkeycfo.com as a view-only user on your online banking for all operating, savings, and loan accounts. This lets us reconcile directly, and means you won't need to send us monthly statements."},
-      {id:"s2-bill",t:"Bill.com — admin / AP access",d:"Add us with admin access so we can manage AP now and migrate your vendors and recurring bills to Ramp in August, then wind Bill.com down cleanly."},
-      {id:"s2-expensify",t:"Expensify — admin access",d:"Add us so we can see card and expense activity now and fold it into Ramp during the August migration, then retire the Expensify subscription."},
+      {id:"s2-bank",t:"Bank & loan accounts — view-only access",d:"Add accounting@turnkeycfo.com as a view-only user on your online banking for all operating, savings, and loan accounts. This lets us reconcile directly, and means you won't need to send us monthly statements. Bill pay and card spend (Bill.com, Expensify, Capital One) are handled in Section 3."},
       {id:"s2-pco",t:"Planning Center — view access",d:"Your people and giving records live here. View access lets us tie giving to the books and report restricted funds accurately."},
       {id:"s2-givflow",t:"GivFlow — view access",d:"GivFlow powers your giving analytics. View access feeds your giving dashboard and donor-trend reporting."},
       {id:"s2-confirm",t:"Confirm nothing is missing",d:"Confirm there are no bank, card, giving, or fund accounts outside the systems above, or list any we should add."}
     ],
     s3:[
-      {id:"s3-app",t:"Approve the Ramp application & entity details",d:"EIN, formation documents, and authorized signer so we can open your Ramp account when August comes."},
-      {id:"s3-bank",t:"Identify the funding bank account",d:"The account Ramp will draw from to pay your bills, ready to connect and verify in early August."},
-      {id:"s3-vendors",t:"Current vendor list & recurring bills",d:"From Bill.com, so we recreate every payee and payment schedule in Ramp with nothing missed."},
-      {id:"s3-approval",t:"Confirm bill-approval routing",d:"Who reviews and approves a bill before it's paid, so your sign-off stays in place."}
+      {id:"s3-bill",t:"Bill.com — admin / AP access",d:"Add accounting@turnkeycfo.com with admin access so we can see your vendors, recurring bills, and payment history, and manage AP directly."},
+      {id:"s3-expensify",t:"Expensify — admin access",d:"Add us so we can see card and expense activity and tie it cleanly into the books."},
+      {id:"s3-capone",t:"Capital One — view access to statements",d:"View access to your Capital One card statements (a read-only login or authorized-user view is fine) so we can reconcile card spend without you forwarding statements each month."},
+      {id:"s3-approval",t:"Document your current bill-approval process",d:"Who reviews and approves a bill before it's paid today, so your sign-off stays exactly in place as we take over AP."}
     ],
     s4:[
-      {id:"s4-roster",t:"Confirm the employee roster & current compensation",d:"That everyone in QuickBooks Online Payroll, salary, hourly, and commission staff, is current and correct."},
-      {id:"s4-housing",t:"Clergy / pastoral housing allowance designations",d:"So clergy housing (cash) stays coded correctly for your pastoral staff."},
-      {id:"s4-benefits",t:"Benefit & deduction setup",d:"Health, dental, vision, Life/ADD/LTD, and 403(b) deductions confirmed so net pay matches today."},
-      {id:"s4-1099",t:"1099 contractor list",d:"and current-year 1099 information for anyone paid outside payroll."},
-      {id:"s4-schedule",t:"Confirm the pay schedule & funding account",d:"Your semi-monthly calendar and the bank account that funds payroll, ready for the July 30 run."}
+      {id:"s4-system",t:"Validate the current payroll system & access",d:"Confirm QuickBooks Online Payroll is the system of record and give us access so we can review and run each cycle."},
+      {id:"s4-roster",t:"Confirm the employee roster & current compensation",d:"That everyone in QuickBooks Online Payroll — salary, hourly, and commission staff — is current and correct."},
+      {id:"s4-w2",t:"Confirm W-2 employees & filing status",d:"Validate your W-2 staff list and that federal/state withholding and quarterly filings are set up correctly."},
+      {id:"s4-housing",t:"Confirm clergy / pastoral housing allowance designations",d:"So clergy housing (cash) stays coded correctly for your pastoral staff."},
+      {id:"s4-benefits",t:"Confirm benefit & deduction setup",d:"Health, dental, vision, Life/ADD/LTD, and 403(b) deductions verified so net pay matches today."},
+      {id:"s4-1099",t:"Confirm the 1099 contractor list",d:"and current-year 1099 information for anyone paid outside payroll."},
+      {id:"s4-schedule",t:"Document the pay schedule & funding account",d:"Your semi-monthly calendar and the bank account that funds payroll, on record for every run."}
     ],
     s5:[
       {id:"s5-stmts",t:"All historical financial statements & records",d:"Every year you can put your hands on: P&L, balance sheets, trial balances, and any supporting workpapers. More history is better, and it helps the cleanup go faster."},
-      {id:"s5-coa",t:"Chart of accounts & prior bookkeeper notes",d:"Your current account structure plus any notes, conventions, or open items from your current bookkeeper once the June close is done, so nothing gets lost in the August handoff."},
-      {id:"s5-emp",t:"Employee & pay history",d:"The payroll records from Section 4 (roster, housing allowance, 1099s, benefit setup), preserved for future tax management."},
+      {id:"s5-coa",t:"Chart of accounts & prior bookkeeper notes",d:"Your current account structure plus any notes, conventions, or open items from your current bookkeeper, so nothing gets lost in the handoff."},
+      {id:"s5-loans",t:"Loan statements & amortization schedules",d:"For every outstanding loan or note: the current statement, the amortization schedule, and the original loan agreement, so we book principal, interest, and balances correctly."},
+      {id:"s5-budget",t:"Current operating budget & budgeting process",d:"Your latest approved budget plus a short description of how you build and approve it each year, so our reporting maps to how you actually plan."},
+      {id:"s5-cashflow",t:"Cash flow & reporting examples",d:"Any cash-flow tracking or forecasts you use, plus samples of the reports and board package you produce today and how often, so we document your current reporting cadence and match it."},
+      {id:"s5-emp",t:"Employee & pay history",d:"The payroll records from Section 4 (roster, housing allowance, W-2s, 1099s, benefit setup), preserved for future tax management."},
       {id:"s5-lease",t:"Facility lease agreement",d:"Your current lease so we record rent and facility expense accurately in the books."},
       {id:"s5-campaign",t:"FUEL 2026 campaign summary",d:"The goal, timeline, and how designated and restricted gifts should be tracked and reported to the board."}
     ],
     s7:[
-      {id:"s7-call",t:"Set the in-person onboarding meeting",d:"We'll propose 2–3 times to meet at Northpoint within the next two weeks."}
+      {id:"s7-call",t:"Set the in-person onboarding meeting",d:"We'll find a time that works for you to meet at Northpoint — we'll propose a few options and schedule it around your calendar."}
     ]
   };
 
   var ROLES = [
     {id:"r-contact",t:"Primary day-to-day contact",d:"Our main point of contact for questions and document requests"},
     {id:"r-reports",t:"Receives the monthly reports & board package",d:"Who we deliver the close + dashboard to each month"},
-    {id:"r-bills",t:"Approves & funds bill payments",d:"Authorizes vendor payments (Bill.com now, Ramp from August)"},
+    {id:"r-bills",t:"Approves & funds bill payments",d:"Authorizes vendor payments (Bill.com now, Ramp after migration)"},
     {id:"r-payroll",t:"Reviews & approves each payroll run",d:"Signs off on every payroll before it sends"},
     {id:"r-bank",t:"Bank / treasury access owner",d:"Can confirm or grant banking access"},
     {id:"r-donor",t:"Giving platform admin (Planning Center / GivFlow)",d:"Owns giving questions and designated funds"},
