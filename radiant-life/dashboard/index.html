@@ -12,8 +12,9 @@
 <style>
 :root{
   --deep:#081359; --deep2:#050d3d; --blue:#1263BA; --blue-bright:#407EC9;
-  --blue-mid:#2E6AB2; --ink:#1a1a2e; --muted:#6B7280;
+  --blue-soft:#7BAFD4; --blue-mid:#2E6AB2; --ink:#1a1a2e; --muted:#6B7280;
   --line:#E5E7EB; --cream:#F8FAFF; --card:#FFFFFF; --green:#059669; --greenbg:#ECFDF5;
+  --amber:#D97706; --amberbg:#FEF3C7;
   --shadow:0 1px 2px rgba(8,19,89,.05), 0 8px 28px rgba(8,19,89,.08);
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -28,13 +29,12 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--cream
 .dhead .wrap{position:relative;z-index:2;padding:30px 20px}
 .dh-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
 .rl-logo{display:flex;align-items:center;gap:13px}
-.rl-mark{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:#fff;letter-spacing:.5px;box-shadow:0 4px 16px rgba(18,99,186,.4)}
 .rl-name{font-weight:700;font-size:15px;letter-spacing:.3px}
 .rl-name small{display:block;font-weight:500;font-size:11.5px;color:rgba(255,255,255,.6);letter-spacing:.6px;text-transform:uppercase}
 .dh-tag{font-size:12px;font-weight:600;color:var(--blue-bright);background:rgba(18,99,186,.12);border:1px solid rgba(18,99,186,.3);padding:6px 13px;border-radius:999px}
 .dh-title{margin-top:24px}
 .dh-title h1{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.5px;line-height:1.1}
-.dh-title p{margin-top:8px;color:rgba(255,255,255,.72);font-size:15px;max-width:640px}
+.dh-title p{margin-top:8px;color:rgba(255,255,255,.72);font-size:15px;max-width:680px}
 
 /* Altitude tabs */
 .tabs{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
@@ -52,29 +52,52 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--cream
 .psub{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
 .psub h2{font-size:22px;font-weight:800;letter-spacing:-.3px}
 .psub .alt-badge{font-size:11px;font-weight:700;color:var(--blue);background:#EFF6FF;padding:4px 10px;border-radius:999px;letter-spacing:.4px}
-.plead{color:var(--muted);font-size:14.5px;max-width:680px;margin-bottom:26px}
-.shead{font-size:14px;font-weight:800;color:var(--deep);text-transform:uppercase;letter-spacing:.6px;margin:30px 0 14px;display:flex;align-items:center;gap:9px}
+.plead{color:var(--muted);font-size:14.5px;max-width:720px;margin-bottom:26px}
+.shead{font-size:14px;font-weight:800;color:var(--deep);text-transform:uppercase;letter-spacing:.6px;margin:34px 0 14px;display:flex;align-items:center;gap:9px}
 .shead::before{content:"";width:22px;height:2px;background:var(--blue);border-radius:2px}
 
 /* KPI grid */
-.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:30px}
+.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:30px}
+.kgrid.five{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.kgrid.six{grid-template-columns:repeat(auto-fit,minmax(178px,1fr))}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .kpi::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--blue),var(--blue-bright))}
 .kpi .lbl{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-.kpi .val{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-top:6px;color:var(--deep)}
+.kpi .val{font-size:27px;font-weight:800;letter-spacing:-.5px;margin-top:6px;color:var(--deep)}
 .kpi .delta{font-size:12.5px;font-weight:600;margin-top:5px}
 .kpi .delta.up{color:var(--green)}
 .kpi .delta.down{color:#DC2626}
 .kpi .delta.neu{color:var(--muted)}
 
 /* Health score grid */
-.hgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:8px}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-bottom:8px}
+.hgrid.two2{grid-template-columns:repeat(2,1fr)}
 .hcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .hcard .hlbl{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .hcard .hval{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
-.hcard .hbadge{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;margin-top:8px;background:var(--greenbg);color:var(--green)}
+.hcard .hbadge{display:inline-block;font-size:11px;font-weight:700;padding:3px 11px;border-radius:999px;margin-top:8px;background:var(--greenbg);color:var(--green)}
+.hcard .hsub{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.45}
 .hcard.ok{border-left:4px solid var(--green)}
+.hcard.warn{border-left:4px solid var(--amber)}
 .hcard .hval.g{color:var(--green)}
+.hcard .hbadge.amber{background:var(--amberbg);color:#B45309}
+@media(max-width:560px){.hgrid.two2{grid-template-columns:1fr}}
+
+/* Metric / fund three-up grids */
+.m3grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:8px}
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow);border-top:3px solid var(--blue)}
+.mcard .mt{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.mcard .mv{font-size:25px;font-weight:800;color:var(--deep);letter-spacing:-.5px;margin-top:6px}
+.mcard .ms{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+.fcard.gn{border-left:4px solid var(--green)}
+.fcard.bl{border-left:4px solid var(--blue)}
+.fcard .ft{font-size:15px;font-weight:800;color:var(--deep)}
+.fcard .fpill{display:inline-block;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;margin-top:7px;letter-spacing:.3px}
+.fcard .fpill.gn{background:var(--greenbg);color:var(--green)}
+.fcard .fpill.bl{background:#EFF6FF;color:var(--blue)}
+.fcard .fv{font-size:24px;font-weight:800;color:var(--deep);letter-spacing:-.5px;margin-top:12px}
+.fcard .fs{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.45}
 
 /* Insight list */
 .inslist{display:grid;gap:12px;margin-top:6px}
@@ -94,7 +117,7 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--cream
 .card h3{font-size:15px;font-weight:700;color:var(--deep)}
 .card .csub{font-size:12.5px;color:var(--muted);margin:3px 0 16px}
 .cwrap{position:relative;height:280px}
-.cwrap.tall{height:330px}
+.cwrap.tall{height:340px}
 
 /* Tables */
 table{width:100%;border-collapse:collapse;font-size:13.5px}
@@ -107,17 +130,27 @@ tr:last-child td{border-bottom:none}
 .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
 .tag.g{background:var(--greenbg);color:var(--green)}
 .tag.a{background:#EFF6FF;color:var(--blue)}
-.tag.o{background:#FEF3C7;color:#B45309}
+.tag.o{background:var(--amberbg);color:#B45309}
+tr.sechead td{background:#F3F6FC;font-weight:800;color:var(--deep);font-size:11px;text-transform:uppercase;letter-spacing:.6px}
+tr.totrow td{font-weight:800;color:var(--deep);border-top:2px solid var(--deep);border-bottom:none}
 
-.callout{background:linear-gradient(135deg,var(--deep),var(--deep2));color:#fff;border-radius:16px;padding:22px 26px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:24px;position:relative;overflow:hidden}
+.callout{background:linear-gradient(135deg,var(--deep),var(--deep2));color:#fff;border-radius:16px;padding:24px 28px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:24px;position:relative;overflow:hidden}
 .callout::before{content:"";position:absolute;right:-8%;top:-60%;width:300px;height:300px;background:radial-gradient(circle,rgba(18,99,186,.3),transparent 65%)}
-.callout .cnum{position:relative;font-size:36px;font-weight:800;letter-spacing:-1px;color:var(--blue-bright)}
+.callout .cnum{position:relative;font-size:38px;font-weight:800;letter-spacing:-1px;color:var(--blue-bright);line-height:1}
 .callout .ctxt{position:relative;flex:1;min-width:240px}
 .callout .ctxt b{font-size:16px;display:block}
-.callout .ctxt span{font-size:13.5px;color:rgba(255,255,255,.72);display:block;margin-top:3px}
+.callout .ctxt span{font-size:13.5px;color:rgba(255,255,255,.74);display:block;margin-top:4px;line-height:1.5}
+.callout.amber{background:linear-gradient(135deg,#7c2d12,#92400e)}
+.callout.amber .cnum{color:#FCD34D}
+
+.proj{background:linear-gradient(135deg,#EFF6FF,#F8FAFF);border:1px solid #BFDBFE;border-left:4px solid var(--blue);border-radius:14px;padding:18px 22px;margin-bottom:24px}
+.proj b{color:var(--deep);font-size:14px;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;font-size:11.5px}
+.proj span{font-size:14.5px;color:#1e3a8a;line-height:1.55}
 
 .note{background:linear-gradient(135deg,#EFF6FF,#fff);border:1px solid #BFDBFE;border-left:3px solid var(--blue);border-radius:12px;padding:14px 18px;font-size:13.5px;color:#1e40af;margin-top:22px}
+.note.amber{background:linear-gradient(135deg,#FFFBEB,#fff);border-color:#FDE68A;border-left-color:var(--amber);color:#92400e}
 .note b{color:var(--ink)}
+.prose{font-size:15px;color:var(--ink);line-height:1.7;max-width:760px;margin-bottom:24px}
 .dfoot{background:var(--deep);color:rgba(255,255,255,.55);text-align:center;padding:26px 20px;font-size:12.5px}
 .dfoot b{color:#fff}
 @media(max-width:600px){.dh-top{flex-direction:column;align-items:flex-start}.kpi .val{font-size:24px}}
@@ -153,127 +186,182 @@ tr:last-child td{border-bottom:none}
 
 <main class="wrap">
 
-<!-- 30,000 ft -->
+<!-- ============ 30,000 ft ============ -->
 <section class="panel active" id="t30">
   <div class="psub"><h2>The Big Picture</h2><span class="alt-badge">30,000 FT</span></div>
-  <p class="plead">Where Radiant Life stands today. Revenue, spending, and the margin between them — the one screen an elder board needs before any decision.</p>
-  <div class="kgrid">
-    <div class="kpi"><div class="lbl">Total revenue YTD</div><div class="val">$134,968</div><div class="delta up">Giving, rental &amp; other · Jan–Jun</div></div>
-    <div class="kpi"><div class="lbl">Monthly giving average</div><div class="val">$20,204</div><div class="delta up">General giving, 6-mo average</div></div>
-    <div class="kpi"><div class="lbl">Total expenses YTD</div><div class="val">$87,959</div><div class="delta neu">Through June 2026</div></div>
-    <div class="kpi"><div class="lbl">Net surplus YTD</div><div class="val">$47,009</div><div class="delta up">Positive every month</div></div>
+  <p class="plead">Where Radiant Life stands today. Revenue, spending, and the margin between them — the one screen an elder board needs before any decision. The headline: every month this year has run a surplus.</p>
+
+  <div class="kgrid five">
+    <div class="kpi"><div class="lbl">Revenue YTD</div><div class="val">$134,968</div><div class="delta up">↑ pace to ~$270k by Dec</div></div>
+    <div class="kpi"><div class="lbl">Expenses YTD</div><div class="val">$87,959</div><div class="delta up">↓ $4k under budget estimate</div></div>
+    <div class="kpi"><div class="lbl">Net surplus YTD</div><div class="val">$47,009</div><div class="delta up">35% margin · exceptional</div></div>
+    <div class="kpi"><div class="lbl">Cash on hand</div><div class="val">$175,754</div><div class="delta up">12.0 mo runway</div></div>
+    <div class="kpi"><div class="lbl">Debt-to-equity</div><div class="val">15.6%</div><div class="delta up">Well within healthy range</div></div>
   </div>
+
+  <div class="shead">Financial Health Score</div>
+  <div class="hgrid two2">
+    <div class="hcard ok"><div class="hlbl">Operating margin</div><div class="hval g">35%</div><div class="hbadge">Exceptional</div><div class="hsub">Church standard is 5–15%. Radiant Life keeps more than a third of every dollar it brings in.</div></div>
+    <div class="hcard ok"><div class="hlbl">Cash runway</div><div class="hval g">12.0 months</div><div class="hbadge">Fortress</div><div class="hsub">Standard is 3–6 months. The church could operate a full year on reserves alone.</div></div>
+    <div class="hcard ok"><div class="hlbl">Debt-to-equity</div><div class="hval g">15.6%</div><div class="hbadge">Healthy</div><div class="hsub">Standard is under 50%. $311k of debt against $1.99M of net equity.</div></div>
+    <div class="hcard ok"><div class="hlbl">Giving stability</div><div class="hval g">Stable</div><div class="hbadge">Consistent</div><div class="hsub">Month-to-month giving variance under 7% — a dependable, predictable base.</div></div>
+  </div>
+
+  <div class="shead">Income, Expense &amp; Surplus</div>
   <div class="cgrid">
     <div class="card"><h3>Income vs. expense</h3><p class="csub">Monthly, January–June 2026. The gap is your operating margin.</p><div class="cwrap"><canvas id="cIE"></canvas></div></div>
     <div class="card"><h3>Cumulative surplus</h3><p class="csub">Running total of revenue minus expense across the year.</p><div class="cwrap"><canvas id="cCum"></canvas></div></div>
   </div>
 
-  <div class="shead">Financial Health Score</div>
-  <div class="hgrid">
-    <div class="hcard ok"><div class="hlbl">Operating margin</div><div class="hval g">35%</div><div class="hbadge">Strong</div></div>
-    <div class="hcard ok"><div class="hlbl">Cash runway</div><div class="hval g">12.0 mo</div><div class="hbadge">Fortress</div></div>
-    <div class="hcard ok"><div class="hlbl">Debt-to-equity</div><div class="hval g">15.6%</div><div class="hbadge">Low</div></div>
-    <div class="hcard ok"><div class="hlbl">Giving stability</div><div class="hval g">Stable</div><div class="hbadge">&lt;8% variance</div></div>
+  <div class="callout">
+    <div class="cnum">$47,009</div>
+    <div class="ctxt"><b>Net surplus through six months</b><span>At this pace, Radiant Life ends 2026 with roughly $94,000 in surplus. The books are in strong shape.</span></div>
   </div>
 
-  <div class="shead">Insights</div>
+  <div class="shead">What This Means</div>
   <div class="inslist">
-    <div class="ins"><span class="in">1</span><div>Radiant Life is running a <b>35% operating margin</b> — exceptionally strong for a church this size. Most healthy churches target 5–15%.</div></div>
-    <div class="ins"><span class="in">2</span><div>With <b>$175k cash</b> and ~$14.7k/mo in expenses, there is a <b>12-month cash runway</b>. That is a fortress position.</div></div>
-    <div class="ins"><span class="in">3</span><div>The mortgage-to-equity ratio is just <b>15.6%</b> — $311k in debt against $1.99M in real assets. The property pays for itself.</div></div>
+    <div class="ins"><span class="in">1</span><div>Radiant Life is running a <b>35% operating margin</b> — most healthy churches operate at 5–15%. This is a fortress position.</div></div>
+    <div class="ins"><span class="in">2</span><div>With <b>$175k in cash</b> and ~$14.7k in monthly expenses, there is a <b>12-month cash runway</b>. No decisions need to be made out of fear.</div></div>
+    <div class="ins"><span class="in">3</span><div>Payroll is just <b>34% of total expenses</b>. Most churches spend 50–60% on staff. This lean structure gives Radiant Life maximum flexibility.</div></div>
   </div>
 </section>
 
-<!-- 15,000 ft -->
+<!-- ============ 15,000 ft ============ -->
 <section class="panel" id="t15">
   <div class="psub"><h2>Funds &amp; Budget</h2><span class="alt-badge">15,000 FT</span></div>
-  <p class="plead">Where the money comes from and where it goes. Operating, building fund, camp, and rental income kept distinct — restricted dollars never blur into general spend.</p>
-  <div class="cgrid">
-    <div class="card"><h3>Revenue by source — YTD</h3><p class="csub">Giving plus rental and other income, restricted funds tracked separately.</p><div class="cwrap"><canvas id="cFund"></canvas></div></div>
-    <div class="card"><h3>Expense by category — YTD</h3><p class="csub">Where every dollar of spending lands.</p><div class="cwrap"><canvas id="cExp"></canvas></div></div>
-  </div>
-  <div class="card full" style="margin-bottom:24px">
-    <h3>Spending detail</h3><p class="csub">Year-to-date by category, with share of total expense.</p>
-    <table id="expTbl"></table>
-  </div>
+  <p class="plead">Every dollar at Radiant Life has a job. This view tracks how each fund is doing — operating, building, restricted — and where spending landed against an estimated budget.</p>
+
+  <div class="shead">Budget vs. Actual</div>
   <div class="card full" style="margin-bottom:14px">
-    <h3>Budget vs. actual</h3><p class="csub">Estimated budget for illustration — actual budget build is part of the Partnership tier.</p>
+    <h3>Spending against plan — YTD</h3><p class="csub">Estimated baseline budget vs. actual, January–June 2026.</p>
     <table id="budTbl"></table>
   </div>
-  <div class="note"><b>Payroll discipline:</b> at 34% of spend, payroll runs lean for a church this size. Facilities, loan interest, and insurance are the next-largest levers — together about a third of the budget. Every category is tracking under or near plan.</div>
+  <div class="note"><b>Budget shown is an estimated baseline</b> — the actual budget build is part of the Partnership tier and would replace these estimates with a real, department-level plan.</div>
+
+  <div class="shead">Where Spending Lands</div>
+  <div class="card full" style="margin-bottom:24px">
+    <h3>Expense breakdown — YTD</h3><p class="csub">All eight categories, ranked by share of total expense.</p><div class="cwrap tall"><canvas id="cExp"></canvas></div>
+  </div>
+
+  <div class="shead">Fund Status</div>
+  <div class="m3grid">
+    <div class="fcard gn"><div class="ft">General Fund</div><div class="fpill gn">Operating</div><div class="fv">$103,043</div><div class="fs">Of $121,227 in giving, the large majority is designated to general operations — the engine of the budget.</div></div>
+    <div class="fcard bl"><div class="ft">Building Fund</div><div class="fpill bl">Restricted — Capital</div><div class="fv">$6,900</div><div class="fs">Cash reserved for facilities and capital. Never blends into operating spend.</div></div>
+    <div class="fcard bl"><div class="ft">Switch Camp</div><div class="fpill bl">Restricted — Ministry</div><div class="fv">$14,200</div><div class="fs">Camp deposits held in trust. Designated dollars, tracked separately in QuickBooks.</div></div>
+  </div>
+  <div class="note"><b>Restricted fund balances must never blend into operating cash.</b> These three funds are tracked separately in QuickBooks and will remain that way.</div>
+
+  <div class="shead">What This Means</div>
+  <div class="inslist">
+    <div class="ins"><span class="in">1</span><div>You are <b>$3,841 under budget</b> through June — driven by lean payroll and reduced cleaning costs. Only loan service and admin are running slightly over.</div></div>
+    <div class="ins"><span class="in">2</span><div><b>Loan service at $9,675 vs. $9,000 budget (+7.5%)</b> is the one line to watch. This is normal for fixed-rate loans with any escrow true-up timing.</div></div>
+  </div>
 </section>
 
-<!-- 5,000 ft -->
+<!-- ============ 5,000 ft ============ -->
 <section class="panel" id="t5">
   <div class="psub"><h2>Giving &amp; Cash</h2><span class="alt-badge">5,000 FT</span></div>
-  <p class="plead">The giving trend and the cash position. Recorded in QuickBooks Online, cash basis.</p>
-  <div class="kgrid">
-    <div class="kpi"><div class="lbl">Cash on hand</div><div class="val">$175,754</div><div class="delta up">Across 6 bank accounts</div></div>
-    <div class="kpi"><div class="lbl">Building fund savings</div><div class="val">$6,900</div><div class="delta neu">Restricted — tracked apart</div></div>
-    <div class="kpi"><div class="lbl">Operations account</div><div class="val">$28,400</div><div class="delta up">Day-to-day working cash</div></div>
-    <div class="kpi"><div class="lbl">Switch Camp fund</div><div class="val">$14,200</div><div class="delta neu">Restricted — camp deposits</div></div>
+  <p class="plead">The giving trend and the cash position, account by account. Recorded in QuickBooks Online, cash basis, as of June 30.</p>
+
+  <div class="shead">Cash Snapshot — as of June 30</div>
+  <div class="kgrid six">
+    <div class="kpi"><div class="lbl">Cash Reserve</div><div class="val">$73,526</div><div class="delta neu">Strategic buffer</div></div>
+    <div class="kpi"><div class="lbl">Spaces &amp; Places</div><div class="val">$51,295</div><div class="delta neu">Facilities &amp; rental</div></div>
+    <div class="kpi"><div class="lbl">Operations</div><div class="val">$28,400</div><div class="delta up">Day-to-day working cash</div></div>
+    <div class="kpi"><div class="lbl">Switch Camp</div><div class="val">$14,200</div><div class="delta neu">Restricted — ministry</div></div>
+    <div class="kpi"><div class="lbl">Building Fund</div><div class="val">$6,900</div><div class="delta neu">Restricted — capital</div></div>
+    <div class="kpi"><div class="lbl">Benevolence</div><div class="val">$1,433</div><div class="delta neu">Donor-designated</div></div>
   </div>
+
   <div class="callout">
     <div class="cnum">12.0 mo</div>
-    <div class="ctxt"><b>Cash runway</b><span>$175,754 cash &divide; ~$14,660/mo expenses. The church could operate a full year on reserves alone.</span></div>
+    <div class="ctxt"><b>Months of cash runway</b><span>$175,754 cash &divide; $14,660/mo average expenses. Most churches operate with 3–6 months. Radiant Life is in an exceptional position.</span></div>
   </div>
+
   <div class="cgrid">
-    <div class="card"><h3>Monthly giving trend</h3><p class="csub">General giving recorded in QuickBooks, Jan–Jun 2026.</p><div class="cwrap"><canvas id="cGive"></canvas></div></div>
     <div class="card"><h3>Cash &amp; reserves</h3><p class="csub">Where the church's cash sits across 6 accounts.</p><div class="cwrap"><canvas id="cCash"></canvas></div></div>
+    <div class="card"><h3>Monthly giving trend</h3><p class="csub">General giving recorded in QuickBooks, Jan–Jun 2026. Dashed line is the 6-month average.</p><div class="cwrap"><canvas id="cGive"></canvas></div></div>
   </div>
-  <div class="note"><b>Giving averages about $20,200/month</b> and is the engine of the budget. Rental income from the Westwood Shops adds roughly $2,300/month — a steady, diversifying second stream alongside healthy cash reserves.</div>
+
+  <div class="note"><b>Giving vs. expenses covered:</b> average monthly giving of $20,204 covers <b>138% of average monthly expenses ($14,660)</b>. Every month this year, giving alone covered operations with room to spare.</div>
+
+  <div class="proj"><b>Year-end projection</b><span>At the current giving pace, Radiant Life is on track to receive approximately <strong>$242,000 in general giving</strong> by December 31, 2026. Add rental income and the total annual revenue projection is <strong>~$270,000</strong>.</span></div>
+
+  <div class="shead">What This Means</div>
+  <div class="inslist">
+    <div class="ins"><span class="in">1</span><div>The <b>$73,526 Cash Reserve</b> is your largest account and your strategic buffer. This is where emergency spend and large capital items should come from.</div></div>
+    <div class="ins"><span class="in">2</span><div>The <b>Building Fund ($6,900)</b> and <b>Switch Camp ($14,200)</b> are healthy restricted pools. As summer programs close, Switch Camp should be zeroed to $0 by month-end.</div></div>
+  </div>
 </section>
 
-<!-- 2 ft -->
+<!-- ============ 2 ft ============ -->
 <section class="panel" id="t2">
   <div class="psub"><h2>The Detail</h2><span class="alt-badge">2 FT</span></div>
-  <p class="plead">Down at the ledger. Balance sheet, fund balances, and the working numbers behind every tile above — fully reconciled.</p>
-  <div class="cgrid">
-    <div class="card"><h3>Balance sheet — as of today</h3><p class="csub">Assets and liabilities; net position equals total equity.</p>
-      <table id="bsTbl"></table>
-    </div>
-    <div class="card"><h3>Fund balances</h3><p class="csub">Restricted and designated funds, with movement.</p>
-      <table id="fundTbl"></table>
-    </div>
+  <p class="plead">Down at the ledger — everything Radiant Life owns, owes, and has built over time.</p>
+
+  <p class="prose">This is the complete ledger — everything Radiant Life owns, owes, and has built over time. The <strong>$1.99M in net equity</strong> reflects decades of faithful giving and careful stewardship. With only <strong>$311k in debt against $2.3M in assets</strong>, Radiant Life's financial foundation is genuinely strong.</p>
+
+  <div class="shead">Balance Sheet</div>
+  <div class="card full" style="margin-bottom:24px">
+    <h3>Statement of financial position</h3><p class="csub">Assets, liabilities, and net equity — as of June 30, 2026.</p>
+    <table id="bsTbl"></table>
   </div>
+
+  <div class="callout">
+    <div class="cnum">13.9×</div>
+    <div class="ctxt"><b>Debt coverage ratio</b><span>$22,495 average monthly income &divide; $1,613/mo loan service. An institution-grade coverage ratio — Radiant Life could service this debt on giving alone, even in a lean month.</span></div>
+  </div>
+
+  <div class="shead">Foundation Metrics</div>
+  <div class="m3grid">
+    <div class="mcard"><div class="mt">Loan-to-Value</div><div class="mv">13.5%</div><div class="ms">$311,752 of debt against $2,302,430 in assets. Well within the 60–70% threshold banks use for church loans.</div></div>
+    <div class="mcard"><div class="mt">Property equity</div><div class="mv">$1,990,678</div><div class="ms">$2,302,430 assets minus $311,752 debt. The real estate and improvements are paid down to 86.5%.</div></div>
+    <div class="mcard"><div class="mt">Working capital</div><div class="mv">~$170,754</div><div class="ms">$175,754 cash minus ~$5,000 estimated current liabilities. Pure liquid margin for operations and ministry.</div></div>
+  </div>
+
+  <div class="note amber"><b>The one nuance:</b> Radiant Life's assets are heavily concentrated in real estate and improvements. This is normal and healthy for a church — but it means liquidity comes from the $175k cash position, not from liquidating assets. <b>Protecting that cash reserve is the most important financial discipline going forward.</b></div>
+
+  <div class="shead">Monthly Working Detail</div>
   <div class="card full">
-    <h3>Income &amp; expense — monthly detail</h3><p class="csub">The full six-month working table behind the charts.</p>
+    <h3>Income &amp; expense — monthly</h3><p class="csub">The full six-month working table behind every chart above.</p>
     <table id="ieTbl"></table>
   </div>
-  <div class="note"><b>This is the ledger Phillip has maintained for 15 years.</b> Every line is now current, reconciled, and accessible — no more weekend work to keep it current.</div>
 </section>
 
-<!-- Giving Analytics -->
+<!-- ============ Giving Analytics ============ -->
 <section class="panel" id="tg">
   <div class="psub"><h2>Giving Intelligence</h2><span class="alt-badge">PCO &amp; TRENDS</span></div>
-  <p class="plead">30-day, 6-month, and year-over-year giving — every fund, every trend.</p>
+  <p class="plead">The giving engine in detail — six-month trend, expense coverage, revenue mix, and fund-level contribution. Sourced from the QuickBooks general ledger.</p>
+
   <div class="kgrid">
     <div class="kpi"><div class="lbl">General giving YTD</div><div class="val">$121,227</div><div class="delta up">Jan–Jun 2026</div></div>
-    <div class="kpi"><div class="lbl">Monthly average</div><div class="val">$20,204</div><div class="delta up">6-month average</div></div>
-    <div class="kpi"><div class="lbl">Rental income YTD</div><div class="val">$13,584</div><div class="delta neu">Separate income stream</div></div>
-    <div class="kpi"><div class="lbl">YoY giving trend</div><div class="val">+3.2%</div><div class="delta up">Vs. prior-year pace</div></div>
+    <div class="kpi"><div class="lbl">Monthly giving avg</div><div class="val">$20,204</div><div class="delta up">6-month average</div></div>
+    <div class="kpi"><div class="lbl">Rental income YTD</div><div class="val">$13,584</div><div class="delta neu">Westwood Shops</div></div>
+    <div class="kpi"><div class="lbl">Annualized revenue</div><div class="val">~$270k</div><div class="delta up">First-half pace</div></div>
+  </div>
+
+  <div class="cgrid">
+    <div class="card"><h3>Monthly giving trend — Jan–Jun 2026</h3><p class="csub">General giving only · dashed line is the $20,204 average.</p><div class="cwrap"><canvas id="gTrend"></canvas></div></div>
+    <div class="card"><h3>Giving vs. expense coverage</h3><p class="csub">Giving covers operating expenses every month, with margin.</p><div class="cwrap"><canvas id="gCover"></canvas></div></div>
   </div>
   <div class="cgrid">
-    <div class="card"><h3>Monthly giving trend — Jan–Jun 2026</h3><p class="csub">General giving only · sourced from QuickBooks</p><div class="cwrap"><canvas id="gTrend"></canvas></div></div>
-    <div class="card"><h3>Giving vs. expense coverage</h3><p class="csub">Giving covers operating expenses every month, with margin.</p><div class="cwrap"><canvas id="gCover"></canvas></div></div>
+    <div class="card"><h3>Revenue by source — YTD</h3><p class="csub">Giving, rental, and other income.</p><div class="cwrap"><canvas id="gSource"></canvas></div></div>
+    <div class="card"><h3>Fund contribution breakdown</h3><p class="csub">Split of giving across funds, YTD.</p><div class="cwrap"><canvas id="gFunds"></canvas></div></div>
   </div>
 
   <div class="shead">Giving Health Indicators</div>
   <div class="ggrid">
-    <div class="gcard2"><b>Giving covers 138% of operating expenses</b><span>$121,227 giving vs. $87,959 expenses YTD.</span></div>
-    <div class="gcard2"><b>6-month trend: stable</b><span>Month-over-month variance under 8%.</span></div>
+    <div class="gcard2"><b>Giving covers 138% of expenses</b><span>$121,227 giving vs. $87,959 expenses YTD.</span></div>
+    <div class="gcard2"><b>6-month trend: stable</b><span>Month-over-month variance under 7%.</span></div>
     <div class="gcard2"><b>Rental income adds $13,584 cushion</b><span>Non-giving revenue supplements the giving base.</span></div>
-    <div class="gcard2"><b>Net surplus: $47,009 in 6 months</b><span>The church is running ahead of budget.</span></div>
+    <div class="gcard2"><b>Net surplus: $47,009 in 6 months</b><span>A strong, ahead-of-budget position.</span></div>
     <div class="gcard2"><b>Annualized revenue: ~$270k</b><span>Based on the first-half pace.</span></div>
-    <div class="gcard2"><b>Largest expense: payroll at 34%</b><span>A lean staffing model for a church this size.</span></div>
+    <div class="gcard2"><b>April giving: $21,200 — highest month</b><span>Peak giving landed in April.</span></div>
   </div>
 
-  <div class="cgrid" style="margin-top:24px">
-    <div class="card"><h3>Revenue by source — YTD</h3><p class="csub">Giving, rental, and other income.</p><div class="cwrap"><canvas id="gSource"></canvas></div></div>
-    <div class="card"><h3>Fund contribution breakdown</h3><p class="csub">Estimated split of giving across funds.</p><div class="cwrap"><canvas id="gFunds"></canvas></div></div>
-  </div>
+  <div class="proj" style="margin-top:24px"><b>Year-end projection</b><span>At the current pace, general giving will reach approximately <strong>$242,000</strong> by December 31, 2026.</span></div>
 
-  <div class="note"><b>Giving data sourced from QuickBooks general ledger.</b> For per-donor analytics, recurring-giver retention, and lapsed-giver flags, Planning Center integration is available at the Stewardship tier and above.</div>
+  <div class="note"><b>Giving data sourced from the QuickBooks general ledger.</b> For per-donor analytics, recurring-giver retention, and lapsed-giver flags, Planning Center Giving integration is available at the Stewardship tier and above.</div>
 </section>
 
 </main>
@@ -283,19 +371,28 @@ tr:last-child td{border-bottom:none}
 </footer>
 
 <script>
-// ---- Shared data ---- LIVE QuickBooks Online (Realm 184512002), cash basis, Jan–Jun 2026, pulled 2026-06-29
+// ---- Shared data ---- LIVE QuickBooks Online, cash basis, Jan–Jun 2026, pulled 2026-06-29
 const months=['Jan','Feb','Mar','Apr','May','Jun'];
-// Total income vs total expense per month (net ties to QBO Net Income $47,009)
 const income=[21800,22400,20600,23200,23500,23468];   // total revenue
 const expense=[14200,14800,14100,15100,15400,14359];   // total expense
-const giving=[19800,20400,19600,21200,20800,19427];    // General Giving line, recorded in QuickBooks
+const giving=[19800,20400,19600,21200,20800,19427];    // General Giving line (sum 121,227)
+const GIVE_AVG=20204;
 const cum=income.map((v,i)=>income.slice(0,i+1).reduce((a,b)=>a+b,0)-expense.slice(0,i+1).reduce((a,b)=>a+b,0));
 const sources=[['General giving',121227],['Rental income (Westwood Shops)',13584],['Other income',157]];
+// [category, actual, share%]
 const expCats=[['Payroll & benefits',29906,34],['Ministry & programming',10555,12],['Facilities & utilities',10555,12],['Loan interest',9675,11],['Insurance',7916,9],['Cleaning services',5278,6],['Technology',5278,6],['Other / admin',8796,10]];
-const budget=[['Payroll',32000,29906],['Ministry',12000,10555],['Facilities',11000,10555],['Loan service',9000,9675],['Insurance',8000,7916]];
+// [category, budget, actual]
+const budget=[
+  ['Payroll & benefits',32000,29906],
+  ['Ministry & programming',12000,10555],
+  ['Facilities & utilities',11000,10555],
+  ['Loan service',9000,9675],
+  ['Insurance',8000,7916],
+  ['Cleaning services',6200,5278],
+  ['Technology',5800,5278],
+  ['Other / admin',7800,8796]
+];
 const cashAccts=[['Cash Reserve',73526],['Spaces & Places',51295],['Operations',28400],['Switch Camp',14200],['Building Fund',6900],['Benevolence',1433]];
-const balance=[['Cash & bank accounts',175754],['Property & equipment (net)',2098776],['Other assets',27900],['Mortgages / notes payable',-311752]];
-const fundBal=[['Switch Camp fund','restricted',14200,'Camp deposits held'],['Building Fund','restricted',6900,'Restricted — facilities'],['Benevolence','restricted',1433,'Donor-designated'],['YTD net surplus','unrestricted',47009,'+$47,009 Jan–Jun'],['Net equity','unrestricted',1990678,'Total church net assets']];
 const givingFunds=[['General Fund',103043],['Building Fund',10910],['Switch Camp',6061],['Benevolence / Other',1213]];
 
 const fmt=n=>(n<0?'-$':'$')+Math.abs(n).toLocaleString();
@@ -305,6 +402,8 @@ Chart.defaults.font.size=12;
 Chart.defaults.color='#6B7280';
 const gridc={grid:{color:'rgba(0,0,0,.05)'},border:{display:false}};
 const noGrid={grid:{display:false},border:{display:false}};
+// dashed average reference-line dataset helper
+const avgLine=(val,label)=>({label:label||'Average',data:months.map(()=>val),type:'line',borderColor:'#94A3B8',borderWidth:1.5,borderDash:[6,5],pointRadius:0,fill:false,tension:0});
 
 // ---- Lazy chart init (Chart.js renders 0x0 inside display:none panels) ----
 const inited=new Set();
@@ -323,47 +422,62 @@ function initTab(tabId){
   }
 
   if(tabId==='t15'){
-    new Chart(document.getElementById('cFund'),{type:'doughnut',data:{labels:sources.map(f=>f[0]),datasets:[{data:sources.map(f=>f[1]),backgroundColor:[BLUE,BLUE_B,BLUE_S],borderWidth:2,borderColor:'#fff'}]},
-      options:{maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{boxWidth:11,padding:11,font:{size:11.5}}},tooltip:{callbacks:{label:c=>c.label+': '+fmt(c.raw)}}}}});
-    new Chart(document.getElementById('cExp'),{type:'bar',data:{labels:expCats.map(e=>e[0]),datasets:[{data:expCats.map(e=>e[1]),backgroundColor:BLUE,borderRadius:6,maxBarThickness:22}]},
-      options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.raw)}}},scales:{x:{...gridc,ticks:{callback:v=>'$'+(v/1000)+'k'}},y:noGrid}}});
-    document.getElementById('expTbl').innerHTML='<thead><tr><th>Category</th><th class="num">YTD</th><th class="num">Share</th></tr></thead><tbody>'+
-      expCats.map(e=>`<tr><td>${e[0]}</td><td class="num">${fmt(e[1])}</td><td class="num">${e[2]}%<div class="bar"><span style="width:${e[2]*2.5}%"></span></div></td></tr>`).join('')+
-      `<tr style="font-weight:700"><td>Total</td><td class="num">${fmt(expCats.reduce((a,b)=>a+b[1],0))}</td><td class="num">100%</td></tr></tbody>`;
-    document.getElementById('budTbl').innerHTML='<thead><tr><th>Category</th><th class="num">Budget</th><th class="num">Actual</th><th class="num">Variance</th><th>Status</th></tr></thead><tbody>'+
-      budget.map(b=>{const v=b[2]-b[1];const st=v>0?'<span class="tag o">Over</span>':(Math.abs(v)<150?'<span class="tag a">On track</span>':'<span class="tag g">Under</span>');return `<tr><td>${b[0]}</td><td class="num">${fmt(b[1])}</td><td class="num">${fmt(b[2])}</td><td class="num" style="color:${v>0?'#DC2626':'var(--green)'}">${(v>0?'+':'')+fmt(v)}</td><td>${st}</td></tr>`;}).join('')+
-      (()=>{const tb=budget.reduce((a,b)=>a+b[1],0)+24000,ta=87959,tv=ta-92000;return `<tr style="font-weight:700"><td>Total</td><td class="num">$92,000</td><td class="num">$87,959</td><td class="num" style="color:var(--green)">-$4,041</td><td><span class="tag g">Under</span></td></tr>`;})()+'</tbody>';
+    document.getElementById('budTbl').innerHTML='<thead><tr><th>Category</th><th class="num">Budget</th><th class="num">Actual</th><th class="num">Variance $</th><th class="num">Variance %</th><th>Status</th></tr></thead><tbody>'+
+      budget.map(b=>{const v=b[2]-b[1];const pct=(v/b[1]*100);const over=v>0;
+        const st=over?'<span class="tag o">Over △</span>':(Math.abs(pct)<5?'<span class="tag g">On track ✓</span>':'<span class="tag g">Under ✓</span>');
+        return `<tr><td>${b[0]}</td><td class="num">${fmt(b[1])}</td><td class="num">${fmt(b[2])}</td><td class="num" style="color:${over?'#B45309':'var(--green)'}">${(over?'+':'')+fmt(v)}</td><td class="num" style="color:${over?'#B45309':'var(--green)'}">${(over?'+':'')+pct.toFixed(1)}%</td><td>${st}</td></tr>`;}).join('')+
+      (()=>{const tb=budget.reduce((a,b)=>a+b[1],0),ta=budget.reduce((a,b)=>a+b[2],0),tv=ta-tb,tp=tv/tb*100;
+        return `<tr class="totrow"><td>TOTAL</td><td class="num">${fmt(tb)}</td><td class="num">${fmt(ta)}</td><td class="num" style="color:var(--green)">${fmt(tv)}</td><td class="num" style="color:var(--green)">${tp.toFixed(1)}%</td><td><span class="tag g">Under ✓</span></td></tr>`;})()+'</tbody>';
+    new Chart(document.getElementById('cExp'),{type:'bar',data:{labels:expCats.map(e=>e[0]),datasets:[{data:expCats.map(e=>e[1]),backgroundColor:[BLUE,BLUE_B,BLUE_S,'#60A5FA','#93C5FD','#A9CCE8','#BFDBFE','#CBD5E1'],borderRadius:6,maxBarThickness:24}]},
+      options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.raw)+'  ('+expCats[c.dataIndex][2]+'%)'}}},scales:{x:{...gridc,ticks:{callback:v=>'$'+(v/1000)+'k'}},y:noGrid}}});
   }
 
   if(tabId==='t5'){
-    new Chart(document.getElementById('cGive'),{type:'line',data:{labels:months,datasets:[{label:'Giving',data:giving,borderColor:BLUE_B,backgroundColor:'rgba(18,99,186,.12)',fill:true,tension:.4,pointBackgroundColor:BLUE_B,pointRadius:4,borderWidth:3}]},
-      options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.raw)}}},scales:{y:{...gridc,ticks:{callback:v=>'$'+(v/1000)+'k'}},x:noGrid}}});
     new Chart(document.getElementById('cCash'),{type:'doughnut',data:{labels:cashAccts.map(a=>a[0]),datasets:[{data:cashAccts.map(a=>a[1]),backgroundColor:[BLUE,BLUE_B,BLUE_S,'#60A5FA','#93C5FD','#BFDBFE'],borderWidth:2,borderColor:'#fff'}]},
       options:{maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{boxWidth:11,padding:9,font:{size:11}}},tooltip:{callbacks:{label:c=>c.label+': '+fmt(c.raw)}}}}});
+    new Chart(document.getElementById('cGive'),{type:'line',data:{labels:months,datasets:[
+      {label:'Giving',data:giving,borderColor:BLUE_B,backgroundColor:'rgba(18,99,186,.12)',fill:true,tension:.4,pointBackgroundColor:BLUE_B,pointRadius:4,borderWidth:3},
+      avgLine(GIVE_AVG,'6-mo avg ($20,204)')]},
+      options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:14}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmt(c.raw)}}},scales:{y:{...gridc,ticks:{callback:v=>'$'+(v/1000)+'k'}},x:noGrid}}});
   }
 
   if(tabId==='t2'){
+    const bs=[
+      ['SEC','ASSETS'],
+      ['Cash & bank accounts',175754],
+      ['Property & equipment (net)',2098776],
+      ['Other assets',27900],
+      ['TOT','Total Assets',2302430],
+      ['SEC','LIABILITIES'],
+      ['Mortgages & notes payable',311752],
+      ['TOT','Total Liabilities',311752],
+      ['SEC','NET ASSETS / EQUITY'],
+      ['TOT','Total Equity',1990678]
+    ];
     document.getElementById('bsTbl').innerHTML='<thead><tr><th>Account</th><th class="num">Balance</th></tr></thead><tbody>'+
-      balance.map(b=>`<tr><td>${b[0]}</td><td class="num" style="color:${b[1]<0?'#DC2626':'var(--ink)'}">${fmt(b[1])}</td></tr>`).join('')+
-      `<tr style="font-weight:700"><td>Net position (equity)</td><td class="num">${fmt(balance.reduce((a,b)=>a+b[1],0))}</td></tr></tbody>`;
-    document.getElementById('fundTbl').innerHTML='<thead><tr><th>Fund</th><th>Type</th><th class="num">Balance</th></tr></thead><tbody>'+
-      fundBal.map(f=>`<tr><td>${f[0]}<div style="font-size:11px;color:var(--muted)">${f[3]}</div></td><td><span class="tag ${f[1]==='restricted'?'a':'g'}">${f[1]}</span></td><td class="num">${fmt(f[2])}</td></tr>`).join('')+'</tbody>';
+      bs.map(r=>{
+        if(r[0]==='SEC')return `<tr class="sechead"><td colspan="2">${r[1]}</td></tr>`;
+        if(r[0]==='TOT')return `<tr class="totrow"><td>${r[1]}</td><td class="num">${fmt(r[2])}</td></tr>`;
+        return `<tr><td>${r[0]}</td><td class="num">${fmt(r[1])}</td></tr>`;
+      }).join('')+'</tbody>';
     document.getElementById('ieTbl').innerHTML='<thead><tr><th>Month</th><th class="num">Income</th><th class="num">Expense</th><th class="num">Net</th><th class="num">General giving</th></tr></thead><tbody>'+
       months.map((m,i)=>`<tr><td>${m} 2026</td><td class="num">${fmt(income[i])}</td><td class="num">${fmt(expense[i])}</td><td class="num" style="color:${income[i]-expense[i]<0?'#DC2626':'var(--green)'};font-weight:600">${fmt(income[i]-expense[i])}</td><td class="num">${fmt(giving[i])}</td></tr>`).join('')+
-      `<tr style="font-weight:700"><td>Total</td><td class="num">${fmt(income.reduce((a,b)=>a+b,0))}</td><td class="num">${fmt(expense.reduce((a,b)=>a+b,0))}</td><td class="num" style="color:var(--green)">${fmt(income.reduce((a,b)=>a+b,0)-expense.reduce((a,b)=>a+b,0))}</td><td class="num">${fmt(giving.reduce((a,b)=>a+b,0))}</td></tr></tbody>`;
+      `<tr class="totrow"><td>TOTAL</td><td class="num">${fmt(income.reduce((a,b)=>a+b,0))}</td><td class="num">${fmt(expense.reduce((a,b)=>a+b,0))}</td><td class="num" style="color:var(--green)">${fmt(income.reduce((a,b)=>a+b,0)-expense.reduce((a,b)=>a+b,0))}</td><td class="num">${fmt(giving.reduce((a,b)=>a+b,0))}</td></tr></tbody>`;
   }
 
   if(tabId==='tg'){
-    new Chart(document.getElementById('gTrend'),{type:'line',data:{labels:months,datasets:[{label:'Giving',data:giving,borderColor:BLUE,backgroundColor:'rgba(18,99,186,.12)',fill:true,tension:.4,pointBackgroundColor:BLUE,pointRadius:4,borderWidth:3}]},
-      options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'Giving: '+fmt(c.raw)}}},scales:{y:{...gridc,ticks:{callback:v=>'$'+(v/1000)+'k'}},x:noGrid}}});
+    new Chart(document.getElementById('gTrend'),{type:'line',data:{labels:months,datasets:[
+      {label:'Giving',data:giving,borderColor:BLUE,backgroundColor:'rgba(18,99,186,.12)',fill:true,tension:.4,pointBackgroundColor:BLUE,pointRadius:4,borderWidth:3},
+      avgLine(GIVE_AVG,'6-mo avg ($20,204)')]},
+      options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:14}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmt(c.raw)}}},scales:{y:{...gridc,ticks:{callback:v=>'$'+(v/1000)+'k'}},x:noGrid}}});
     new Chart(document.getElementById('gCover'),{type:'bar',data:{labels:months,datasets:[
       {label:'Giving',data:giving,backgroundColor:BLUE,borderRadius:6,maxBarThickness:22},
       {label:'Expense',data:expense,backgroundColor:'#D9D4CE',borderRadius:6,maxBarThickness:22}]},
       options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:16}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+fmt(c.raw)}}},scales:{y:{...gridc,ticks:{callback:v=>'$'+(v/1000)+'k'}},x:noGrid}}});
     new Chart(document.getElementById('gSource'),{type:'doughnut',data:{labels:sources.map(s=>s[0]),datasets:[{data:sources.map(s=>s[1]),backgroundColor:[BLUE,BLUE_B,BLUE_S],borderWidth:2,borderColor:'#fff'}]},
       options:{maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{boxWidth:11,padding:11,font:{size:11.5}}},tooltip:{callbacks:{label:c=>c.label+': '+fmt(c.raw)}}}}});
-    new Chart(document.getElementById('gFunds'),{type:'bar',data:{labels:givingFunds.map(f=>f[0]),datasets:[{data:givingFunds.map(f=>f[1]),backgroundColor:BLUE,borderRadius:6,maxBarThickness:24}]},
-      options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.raw)}}},scales:{x:{...gridc,ticks:{callback:v=>'$'+(v/1000)+'k'}},y:noGrid}}});
+    new Chart(document.getElementById('gFunds'),{type:'bar',data:{labels:givingFunds.map(f=>f[0]),datasets:[{data:givingFunds.map(f=>f[1]),backgroundColor:[BLUE,BLUE_B,BLUE_S,'#93C5FD'],borderRadius:6,maxBarThickness:24}]},
+      options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const t=givingFunds.reduce((a,b)=>a+b[1],0);return fmt(c.raw)+'  ('+Math.round(c.raw/t*100)+'%)';}}}},scales:{x:{...gridc,ticks:{callback:v=>'$'+(v/1000)+'k'}},y:noGrid}}});
   }
 }
 

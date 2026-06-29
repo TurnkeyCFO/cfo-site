@@ -107,7 +107,19 @@ section{scroll-margin-top:70px}
 .waiver .wt{position:relative;flex:1;min-width:240px}
 .waiver .wt b{font-size:17px;font-weight:700}
 .waiver .wt p{font-size:13.5px;color:rgba(255,255,255,.7);margin-top:3px}
-.waiver .wpill{position:relative;background:var(--blue);color:#fff;font-weight:800;font-size:15px;padding:10px 20px;border-radius:999px}
+.waiver .wpill{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--blue),var(--blue-bright));
+  color:#fff;font-weight:800;font-size:15px;padding:10px 24px;border-radius:999px;
+  box-shadow:0 6px 20px rgba(18,99,186,.45);
+  letter-spacing:.3px;
+}
+.waiver .wpill::after{
+  content:"";position:absolute;top:0;left:-100%;width:70%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+  animation:shimmer 2.4s infinite;
+}
+@keyframes shimmer{0%{left:-100%}100%{left:160%}}
 
 /* Transition */
 .road{margin-top:38px;position:relative;padding-left:8px}
@@ -250,7 +262,7 @@ footer .rl-mark{width:38px;height:38px;font-size:16px;margin:0 auto 14px}
       <p>Phillip, thank you for the time this morning. Here is what I took away from our call.</p>
       <ul style="list-style:none;margin:8px 0 0">
         <li style="font-size:16px;padding:14px 0 14px 26px;position:relative;border-top:1px solid var(--line)"><span style="position:absolute;left:0;top:18px;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span>The clock is the headline. Your bookkeeper steps away by <span class="hl">July 15</span>, and <span class="hl">payroll cannot slip</span> — a pastor and staff counting on a paycheck is no place for a gap. That date is the first promise I am making.</li>
-        <li style="font-size:16px;padding:14px 0 14px 26px;position:relative;border-top:1px solid var(--line)"><span style="position:absolute;left:0;top:18px;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span>You have carried the treasurer role for <span class="hl">15 years</span>. You are ready to hand off some of that weight — not disappear from it. My job is to make that feel like relief, not risk.</li>
+        <li style="font-size:16px;padding:14px 0 14px 26px;position:relative;border-top:1px solid var(--line)"><span style="position:absolute;left:0;top:18px;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span>You have carried the treasurer role for <span class="hl">years</span>. You are ready to hand off some of that weight — not disappear from it. My job is to make that feel like relief, not risk.</li>
         <li style="font-size:16px;padding:14px 0 14px 26px;position:relative;border-top:1px solid var(--line)"><span style="position:absolute;left:0;top:18px;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span>The picture is layered — a <span class="hl">strip center and three offices</span> (rental property to reconcile), a <span class="hl">building fund and restricted dollars</span> that can never blur into operating, <span class="hl">Planning Center</span> giving, and the next budget cycle on the horizon.</li>
       </ul>
       <p style="margin-top:18px">This is familiar ground. I already do exactly this work for <span class="hl">Heirloom Church</span> — restricted funds, giving analytics, pastor-facing reporting and all. You would be in good company.</p>
@@ -266,7 +278,7 @@ footer .rl-mark{width:38px;height:38px;font-size:16px;margin:0 auto 14px}
     <h2>A snapshot of Radiant Life today</h2>
     <p class="lead">A first read on the numbers, pulled straight from QuickBooks. This is the real financial picture at Radiant Life through the first half of the year.</p>
     <div class="kpis">
-      <div class="kpi"><div class="lbl">Annual operating revenue</div><div class="val">$269,936</div><div class="sub">Giving + rental income · QBO</div></div>
+      <div class="kpi"><div class="lbl">Revenue YTD (Jan–Jun)</div><div class="val">$134,968</div><div class="sub">Giving + rental income · QBO</div></div>
       <div class="kpi"><div class="lbl">Monthly giving average</div><div class="val">$20,204</div><div class="sub">Jan–Jun 2026 average · QBO</div></div>
       <div class="kpi"><div class="lbl">Total expenses YTD</div><div class="val">$87,959</div><div class="sub">Through June 2026 · QBO</div></div>
       <div class="kpi"><div class="lbl">Net surplus YTD</div><div class="val">$47,009</div><div class="sub">Positive every month this year</div></div>
@@ -326,7 +338,7 @@ footer .rl-mark{width:38px;height:38px;font-size:16px;margin:0 auto 14px}
       </div>
     </div>
     <div class="waiver">
-      <div class="wi">🎁</div>
+      <div class="wi"></div>
       <div class="wt"><b>Setup, migration, and dashboard build are on me.</b><p>Setup, migration, and the dashboard build are waived. Nothing extra to switch — just a clean start.</p></div>
       <div class="wpill">$0 to switch</div>
     </div>
@@ -347,6 +359,11 @@ footer .rl-mark{width:38px;height:38px;font-size:16px;margin:0 auto 14px}
       <div class="step hot">
         <div class="dot">2</div>
         <div class="sbody"><div class="when">July 1, or sooner</div><h4>Books handoff — I take over</h4><p>A clean handoff from your outgoing bookkeeper. I assume the day-to-day so there is never a moment the books are unattended.</p></div>
+      </div>
+      <div style="margin:0 0 20px 62px;background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1px solid #FDE68A;border-left:4px solid #D97706;border-radius:14px;padding:18px 22px;position:relative">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#B45309;margin-bottom:7px">One question before we finalize</div>
+        <div style="font-size:15px;font-weight:600;color:#1a1a2e">Can you confirm the outgoing bookkeeper will complete the July 15 payroll run?</div>
+        <div style="font-size:13.5px;color:#78350F;margin-top:6px">That makes my first payroll responsibility the <strong>end-of-July run</strong> — a cleaner handoff and a week of overlap to get fully oriented before I'm touching payroll.</div>
       </div>
       <div class="step hot">
         <div class="dot">3</div>
