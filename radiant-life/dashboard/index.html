@@ -101,11 +101,11 @@ tr:last-child td{border-bottom:none}
         <img src="https://images.squarespace-cdn.com/content/v1/5893a857414fb5632dbf1ff8/91236a85-187e-45b1-b128-2e2452e69c7c/RL+icon+white.png?format=300w" alt="Radiant Life Church" style="height:52px;width:auto;filter:drop-shadow(0 3px 10px rgba(0,0,0,.4))">
         <div class="rl-name">Radiant Life Church<small>Financial Dashboard</small></div>
       </div>
-      <div class="dh-tag">Sample · estimated data</div>
+      <div class="dh-tag">Live QuickBooks data · Jan–Jun 2026</div>
     </div>
     <div class="dh-title">
       <h1>Your finances, at four altitudes</h1>
-      <p>From the boardroom view down to the transaction detail. Built on estimated numbers for now — these tiles light up with your live QuickBooks figures the moment access is connected.</p>
+      <p>From the boardroom view down to the transaction detail. Pulled live from QuickBooks Online — cash basis, January through June 2026.</p>
     </div>
   </div>
 </header>
@@ -126,16 +126,16 @@ tr:last-child td{border-bottom:none}
   <div class="psub"><h2>The Big Picture</h2><span class="alt-badge">30,000 FT</span></div>
   <p class="plead">Where Radiant Life stands today. Revenue, spending, and the margin between them — the one screen an elder board needs before any decision.</p>
   <div class="kgrid">
-    <div class="kpi"><div class="lbl">Annual operating revenue</div><div class="val">$487,200</div><div class="delta up">Tithes, offerings &amp; rental income</div></div>
-    <div class="kpi"><div class="lbl">Monthly giving average</div><div class="val">$36,400</div><div class="delta up">+4.6% vs. prior 6-mo avg</div></div>
-    <div class="kpi"><div class="lbl">Total expenses YTD</div><div class="val">$231,800</div><div class="delta neu">Through June 2026</div></div>
-    <div class="kpi"><div class="lbl">Net surplus YTD</div><div class="val">$7,800</div><div class="delta up">Operating in the black</div></div>
+    <div class="kpi"><div class="lbl">Total revenue YTD</div><div class="val">$134,968</div><div class="delta up">Giving, rental &amp; other · Jan–Jun</div></div>
+    <div class="kpi"><div class="lbl">Monthly giving average</div><div class="val">$20,204</div><div class="delta up">General giving, 6-mo average</div></div>
+    <div class="kpi"><div class="lbl">Total expenses YTD</div><div class="val">$87,959</div><div class="delta neu">Through June 2026</div></div>
+    <div class="kpi"><div class="lbl">Net surplus YTD</div><div class="val">$47,009</div><div class="delta up">Operating in the black</div></div>
   </div>
   <div class="cgrid">
     <div class="card"><h3>Income vs. expense</h3><p class="csub">Monthly, January–June 2026. The gap is your operating margin.</p><div class="cwrap"><canvas id="cIE"></canvas></div></div>
     <div class="card"><h3>Cumulative surplus</h3><p class="csub">Running total of revenue minus expense across the year.</p><div class="cwrap"><canvas id="cCum"></canvas></div></div>
   </div>
-  <div class="note"><b>Reading this:</b> Radiant Life is running a healthy, slightly positive operating margin. Giving outpaces spend in most months, with April the only month spend ran ahead — worth a glance, not a worry.</div>
+  <div class="note"><b>Reading this:</b> Radiant Life ran a surplus in all six months. April was the strongest, lifted by a giving high near $28,900. Reserves are healthy and loan interest is being covered comfortably.</div>
 </section>
 
 <!-- 15,000 ft -->
@@ -150,24 +150,24 @@ tr:last-child td{border-bottom:none}
     <h3>Spending detail</h3><p class="csub">Year-to-date by category, with share of total expense.</p>
     <table id="expTbl"></table>
   </div>
-  <div class="note"><b>Payroll discipline:</b> at 52% of spend, payroll sits right where a healthy church of this size should be. Facilities and rental-property costs are the next levers to watch as the strip center fills.</div>
+  <div class="note"><b>Payroll discipline:</b> at 34% of spend, payroll runs lean for a church this size. Utilities, loan interest, and insurance are the next-largest levers — together about a third of the budget.</div>
 </section>
 
 <!-- 5,000 ft -->
 <section class="panel" id="t5">
   <div class="psub"><h2>Giving &amp; Cash</h2><span class="alt-badge">5,000 FT</span></div>
-  <p class="plead">The giving trend and the cash position. Pulled from Planning Center, reconciled to QuickBooks — one number, two systems agreeing.</p>
+  <p class="plead">The giving trend and the cash position. Recorded in QuickBooks Online, cash basis.</p>
   <div class="kgrid">
-    <div class="kpi"><div class="lbl">Cash on hand</div><div class="val">$58,400</div><div class="delta up">Across operating &amp; reserves</div></div>
-    <div class="kpi"><div class="lbl">Building fund balance</div><div class="val">$41,200</div><div class="delta up">Restricted — tracked apart</div></div>
-    <div class="kpi"><div class="lbl">Giver retention</div><div class="val">82%</div><div class="delta up">Strong, steady base</div></div>
-    <div class="kpi"><div class="lbl">Average gift</div><div class="val">$88<span style="font-size:15px;color:var(--muted)">/wk</span></div><div class="delta neu">Per active giving unit</div></div>
+    <div class="kpi"><div class="lbl">Cash on hand</div><div class="val">$175,754</div><div class="delta up">Across 6 bank accounts</div></div>
+    <div class="kpi"><div class="lbl">Cash reserve</div><div class="val">$73,526</div><div class="delta up">Largest single reserve</div></div>
+    <div class="kpi"><div class="lbl">Restricted funds</div><div class="val">$11,690</div><div class="delta neu">Camp + ministry, tracked apart</div></div>
+    <div class="kpi"><div class="lbl">Rental &amp; other income YTD</div><div class="val">$13,684</div><div class="delta up">Westwood Shops + interest</div></div>
   </div>
   <div class="cgrid">
-    <div class="card"><h3>Monthly giving trend</h3><p class="csub">Planning Center contributions, Jan–Jun 2026.</p><div class="cwrap"><canvas id="cGive"></canvas></div></div>
+    <div class="card"><h3>Monthly giving trend</h3><p class="csub">General giving recorded in QuickBooks, Jan–Jun 2026.</p><div class="cwrap"><canvas id="cGive"></canvas></div></div>
     <div class="card"><h3>Cash &amp; reserves</h3><p class="csub">Where the church's cash sits across accounts.</p><div class="cwrap"><canvas id="cCash"></canvas></div></div>
   </div>
-  <div class="note"><b>82% retention</b> is the number that matters most here — it means the giving base is loyal and predictable. The opportunity is the 12 new givers in the last 30 days: a simple thank-you cadence turns first gifts into recurring ones.</div>
+  <div class="note"><b>Giving averages about $20,200/month</b> and is the engine of the budget. Rental income from the Westwood Shops adds roughly $2,300/month — a steady, diversifying second stream alongside healthy cash reserves.</div>
 </section>
 
 <!-- 2 ft -->
@@ -175,7 +175,7 @@ tr:last-child td{border-bottom:none}
   <div class="psub"><h2>The Detail</h2><span class="alt-badge">2 FT</span></div>
   <p class="plead">Down at the ledger. Balance sheet, fund balances, and the working numbers behind every tile above — fully reconciled.</p>
   <div class="cgrid">
-    <div class="card"><h3>Balance sheet — June 30</h3><p class="csub">Assets and liabilities at month-end.</p>
+    <div class="card"><h3>Balance sheet — as of today</h3><p class="csub">Assets and liabilities; net position equals total equity.</p>
       <table id="bsTbl"></table>
     </div>
     <div class="card"><h3>Fund balances</h3><p class="csub">Restricted and designated funds, with movement.</p>
@@ -192,20 +192,22 @@ tr:last-child td{border-bottom:none}
 </main>
 
 <footer class="dfoot">
-  <div class="wrap"><b>Radiant Life Church × Turnkey CFO</b> &nbsp;·&nbsp; Sample dashboard on estimated data &nbsp;·&nbsp; Live QuickBooks figures connect on access &nbsp;·&nbsp; Built by Ricky West</div>
+  <div class="wrap"><b>Radiant Life Church × Turnkey CFO</b> &nbsp;·&nbsp; Live QuickBooks data (cash basis) &nbsp;·&nbsp; Jan–Jun 2026 &nbsp;·&nbsp; Pulled 2026-06-29 &nbsp;·&nbsp; Built by Ricky West</div>
 </footer>
 
 <script>
-// ---- Shared data ----
+// ---- Shared data ---- LIVE QuickBooks Online (Realm 184512002), cash basis, Jan–Jun 2026, pulled 2026-06-29
 const months=['Jan','Feb','Mar','Apr','May','Jun'];
-const income=[38200,41100,36800,39400,37900,40200];
-const expense=[37100,38400,36200,39800,38600,37900];
-const giving=[34800,37200,33600,36100,34900,36400];
+// Total revenue (operating income + rental/other income) and total expense (operating + real-estate); net ties to QBO Net Income
+const income=[20712,18817,22121,31082,21300,20936];
+const expense=[14645,11303,16246,18742,12112,14911];
+const giving=[18577,16610,19347,28879,18485,19328]; // General Giving line, recorded in QuickBooks
 const cum=income.map((v,i)=>income.slice(0,i+1).reduce((a,b)=>a+b,0)-expense.slice(0,i+1).reduce((a,b)=>a+b,0));
-const funds=[['General operating',182400],['Rental income',51200],['Building fund',24800],['Camp fundraiser',8400],['Special gifts/memorials',6800]];
-const expCats=[['Payroll & benefits',120400,52],['Facilities & utilities',38200,16],['Ministry programming',22600,10],['Missions & outreach',18400,8],['Rental property expenses',17400,8],['Administrative',14800,6]];
-const balance=[['Operating checking',42100],['Building fund savings',41200],['Benevolence fund',8300],['Accounts payable',-3400]];
-const fundBal=[['Building fund','restricted',41200,'+$24,800 YTD'],['Camp fund','restricted',8400,'+$8,400 YTD'],['Benevolence','designated',8300,'-$1,200 YTD'],['General operating','unrestricted',42100,'+$7,800 YTD']];
+const funds=[['General giving',121227],['Rental income (Westwood Shops)',13584],['S&P donations',57],['Interest earned',100]];
+const expCats=[['Payroll & wages',28753,34],['Ministry programs',10050,12],['Utilities',9990,12],['Interest on loans',9302,11],['Insurance',7939,9],['Cleaning services',5090,6],['Tech subscriptions',5070,6],['Other operating',9285,11]];
+const cashAccts=[['Cash Reserve',73526],['Spaces & Places',51295],['FFB Operating',31136],['Lease',11025],['Missions',8703],['Petty Cash',68]];
+const balance=[['Current assets (cash & A/R)',175754],['Fixed assets (land, building, equip)',2126676],['Current liabilities',-12619],['Long-term liabilities (loans)',-299133]];
+const fundBal=[['Switch Camp fund','restricted',10090,'Camp deposits held'],['Designated ministry','restricted',1600,'Donor-designated'],['YTD net surplus','unrestricted',47009,'+$47,009 Jan–Jun'],['Retained earnings','unrestricted',1938894,'Prior-year net assets']];
 
 const fmt=n=>(n<0?'-$':'$')+Math.abs(n).toLocaleString();
 const BLUE='#1263BA',BLUE_B='#407EC9',BLUE_S='#7BAFD4';
@@ -243,8 +245,8 @@ function initTab(tabId){
   if(tabId==='t5'){
     new Chart(document.getElementById('cGive'),{type:'line',data:{labels:months,datasets:[{label:'Giving',data:giving,borderColor:BLUE_B,backgroundColor:'rgba(18,99,186,.12)',fill:true,tension:.4,pointBackgroundColor:BLUE_B,pointRadius:4,borderWidth:3}]},
       options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.raw)}}},scales:{y:{...gridc,ticks:{callback:v=>'$'+(v/1000)+'k'}},x:noGrid}}});
-    new Chart(document.getElementById('cCash'),{type:'doughnut',data:{labels:['Operating checking','Building fund savings','Benevolence fund'],datasets:[{data:[42100,41200,8300],backgroundColor:[BLUE,BLUE_S,'#BFDBFE'],borderWidth:2,borderColor:'#fff'}]},
-      options:{maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{boxWidth:11,padding:12}},tooltip:{callbacks:{label:c=>c.label+': '+fmt(c.raw)}}}}});
+    new Chart(document.getElementById('cCash'),{type:'doughnut',data:{labels:cashAccts.map(a=>a[0]),datasets:[{data:cashAccts.map(a=>a[1]),backgroundColor:[BLUE,BLUE_B,BLUE_S,'#60A5FA','#93C5FD','#BFDBFE'],borderWidth:2,borderColor:'#fff'}]},
+      options:{maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{boxWidth:11,padding:9,font:{size:11}}},tooltip:{callbacks:{label:c=>c.label+': '+fmt(c.raw)}}}}});
   }
 
   if(tabId==='t2'){
@@ -253,7 +255,7 @@ function initTab(tabId){
       `<tr style="font-weight:700"><td>Net position</td><td class="num">${fmt(balance.reduce((a,b)=>a+b[1],0))}</td></tr></tbody>`;
     document.getElementById('fundTbl').innerHTML='<thead><tr><th>Fund</th><th>Type</th><th class="num">Balance</th></tr></thead><tbody>'+
       fundBal.map(f=>`<tr><td>${f[0]}<div style="font-size:11px;color:var(--muted)">${f[3]}</div></td><td><span class="tag ${f[1]==='restricted'?'a':'g'}">${f[1]}</span></td><td class="num">${fmt(f[2])}</td></tr>`).join('')+'</tbody>';
-    document.getElementById('ieTbl').innerHTML='<thead><tr><th>Month</th><th class="num">Income</th><th class="num">Expense</th><th class="num">Net</th><th class="num">Giving (PCO)</th></tr></thead><tbody>'+
+    document.getElementById('ieTbl').innerHTML='<thead><tr><th>Month</th><th class="num">Income</th><th class="num">Expense</th><th class="num">Net</th><th class="num">General giving</th></tr></thead><tbody>'+
       months.map((m,i)=>`<tr><td>${m} 2026</td><td class="num">${fmt(income[i])}</td><td class="num">${fmt(expense[i])}</td><td class="num" style="color:${income[i]-expense[i]<0?'#DC2626':'var(--green)'};font-weight:600">${fmt(income[i]-expense[i])}</td><td class="num">${fmt(giving[i])}</td></tr>`).join('')+
       `<tr style="font-weight:700"><td>Total</td><td class="num">${fmt(income.reduce((a,b)=>a+b,0))}</td><td class="num">${fmt(expense.reduce((a,b)=>a+b,0))}</td><td class="num" style="color:var(--green)">${fmt(income.reduce((a,b)=>a+b,0)-expense.reduce((a,b)=>a+b,0))}</td><td class="num">${fmt(giving.reduce((a,b)=>a+b,0))}</td></tr></tbody>`;
   }
