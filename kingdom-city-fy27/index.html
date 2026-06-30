@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<html lang="en"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Kingdom City Church — FY27 Budget</title>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -10,365 +8,261 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --slate:#3a443a;--slate-dark:#272d27;--slate-light:#5a655a;
-  --orange:#db6839;--orange-dark:#b0542e;--orange-light:#e38761;
-  --gold:#c1a56c;--gold-dark:#9b8457;
-  --cream:#d8cfbf;--cream-light:#f5f0e7;--paper:#fdfbf6;--white:#fff;
-  --ink:#23291f;--ink-mid:#4a5142;--ink-soft:#8a8472;
-  --good:#5a7d4f;--bad:#b0542e;--warn:#b88a3a;
-  --good-bg:#eef2e9;--bad-bg:#f7e9e2;--warn-bg:#f3ecdd;
-  --r:14px;--sh:0 2px 14px rgba(39,45,39,.10);--sh-lg:0 14px 40px rgba(39,45,39,.16);
-}
+:root{--slate:#3a443a;--slate-dark:#272d27;--orange:#db6839;--orange-dark:#b0542e;--orange-light:#e38761;
+--gold:#c1a56c;--gold-dark:#9b8457;--cream:#d8cfbf;--cream-light:#f5f0e7;--paper:#fdfbf6;--white:#fff;
+--ink:#23291f;--ink-mid:#4a5142;--ink-soft:#8a8472;--good:#5a7d4f;--bad:#b0542e;--warn:#b88a3a;
+--good-bg:#eef2e9;--bad-bg:#f7e9e2;--warn-bg:#f3ecdd;--r:14px;--sh:0 2px 14px rgba(39,45,39,.10);}
 html{scroll-behavior:smooth;}
 body{background:var(--cream-light);font-family:'Lato','Open Sans',sans-serif;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;}
 .wrap{max-width:1080px;margin:0 auto;padding:0 22px;}
-.tabular{font-variant-numeric:tabular-nums;}
-
-/* HERO */
 header.hero{background:radial-gradient(120% 120% at 80% -10%,#3d4a3d 0%,#272d27 60%);color:#fff;padding:54px 0 40px;position:relative;overflow:hidden;}
 header.hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,var(--orange),var(--gold));}
 .hero .mark{width:60px;height:60px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;letter-spacing:1px;box-shadow:0 6px 18px rgba(219,104,57,.45);margin-bottom:18px;}
 .hero .eyebrow{font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-.hero h1{font-size:38px;font-weight:900;letter-spacing:.3px;line-height:1.08;margin-bottom:14px;}
-.hero h1 .yr{color:var(--orange-light);}
-.hero .lede{font-size:17px;font-weight:400;color:#e6e0d4;max-width:660px;line-height:1.6;}
-.hero .lede b{color:#fff;font-weight:700;}
+.hero h1{font-size:38px;font-weight:900;line-height:1.08;margin-bottom:14px;} .hero h1 .yr{color:var(--orange-light);}
+.hero .lede{font-size:17px;color:#e6e0d4;max-width:670px;line-height:1.6;} .hero .lede b{color:#fff;font-weight:700;}
 .hero .stamp{margin-top:22px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:700;}
-
-/* sticky nav */
 nav.toc{position:sticky;top:0;z-index:40;background:rgba(58,68,58,.97);backdrop-filter:blur(8px);box-shadow:0 2px 12px rgba(0,0,0,.18);}
 nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding:0 22px;}
-nav.toc a{flex:0 0 auto;color:var(--cream);text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.4px;padding:13px 12px;border-bottom:3px solid transparent;white-space:nowrap;transition:.15s;}
-nav.toc a:hover{color:#fff;}
-nav.toc a.on{color:#fff;border-bottom-color:var(--orange);}
-
+nav.toc a{flex:0 0 auto;color:var(--cream);text-decoration:none;font-size:12px;font-weight:800;padding:13px 12px;border-bottom:3px solid transparent;white-space:nowrap;transition:.15s;}
+nav.toc a:hover{color:#fff;} nav.toc a.on{color:#fff;border-bottom-color:var(--orange);}
 section.sec{padding:46px 0 14px;}
 .sec-eyebrow{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
-.sec h2{font-size:27px;font-weight:900;color:var(--slate-dark);letter-spacing:.2px;line-height:1.18;max-width:760px;margin-bottom:10px;}
-.sec .intro{font-size:15.5px;color:var(--ink-mid);max-width:720px;margin-bottom:24px;}
-.sec .intro b{color:var(--ink);font-weight:700;}
-
-/* KPI band */
+.sec h2{font-size:27px;font-weight:900;color:var(--slate-dark);line-height:1.18;max-width:780px;margin-bottom:10px;}
+.sec .intro{font-size:15.5px;color:var(--ink-mid);max-width:730px;margin-bottom:24px;} .sec .intro b{color:var(--ink);font-weight:700;}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
 .kpi{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);padding:18px 18px 16px;border-top:4px solid var(--orange);}
 .kpi.good{border-top-color:var(--good);}.kpi.bad{border-top-color:var(--bad);}.kpi.warn{border-top-color:var(--warn);}.kpi.gold{border-top-color:var(--gold);}.kpi.slate{border-top-color:var(--slate);}
 .kpi .l{font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px;}
-.kpi .v{font-size:27px;font-weight:900;color:var(--slate-dark);line-height:1;}
-.kpi .v.bad{color:var(--bad);}.kpi .v.good{color:var(--good);}
+.kpi .v{font-size:27px;font-weight:900;color:var(--slate-dark);line-height:1;} .kpi .v.bad{color:var(--bad);} .kpi .v.good{color:var(--good);}
 .kpi .d{font-size:12px;font-weight:700;color:var(--ink-soft);margin-top:6px;}
-
 .card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;margin-top:16px;}
 .card-h{display:flex;align-items:center;gap:10px;padding:15px 20px;background:var(--slate-dark);}
 .card-h .bar{width:4px;height:20px;border-radius:2px;background:var(--orange);}
 .card-h h3{font-size:12.5px;font-weight:900;letter-spacing:1.4px;color:#fff;text-transform:uppercase;}
 .card-h .r{margin-left:auto;font-size:11px;color:var(--cream);letter-spacing:1px;text-transform:uppercase;font-weight:700;}
 .card-b{padding:20px;}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.grid2.lean{grid-template-columns:1.3fr 1fr;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;} .grid2.lean{grid-template-columns:1.3fr 1fr;}
 .chart{position:relative;height:300px;}.chart.tall{height:340px;}.chart.sm{height:240px;}
-
 .callout{border-left:4px solid var(--orange);background:var(--cream-light);padding:15px 18px;border-radius:8px;margin-top:16px;font-size:14px;color:var(--ink-mid);}
 .callout b,.callout strong{color:var(--slate-dark);}
-.callout.bad{border-left-color:var(--bad);background:var(--bad-bg);}
-.callout.good{border-left-color:var(--good);background:var(--good-bg);}
-.callout.warn{border-left-color:var(--warn);background:var(--warn-bg);}
+.callout.bad{border-left-color:var(--bad);background:var(--bad-bg);} .callout.good{border-left-color:var(--good);background:var(--good-bg);} .callout.warn{border-left-color:var(--warn);background:var(--warn-bg);}
 .callout .big{font-size:15px;font-weight:700;color:var(--slate-dark);display:block;margin-bottom:4px;}
-
 table{width:100%;border-collapse:collapse;font-size:13.5px;}
 th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--cream);}
 th{background:var(--cream-light);font-weight:800;font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-mid);}
-td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
-td.soft,.soft{color:var(--ink-soft);}
-td.b,.b{font-weight:800;color:var(--slate-dark);}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;} td.soft,.soft{color:var(--ink-soft);} td.b,.b{font-weight:800;color:var(--slate-dark);}
 td.basis{font-size:11.5px;color:var(--ink-soft);}
-tr.grp td{background:#eee7da;font-weight:900;color:var(--slate-dark);font-size:12.5px;letter-spacing:.3px;}
-tr.total td{background:var(--slate-dark);color:#fff;font-weight:900;}
-tr.total td.num{color:var(--gold);}
+tr.grp td{background:#eee7da;font-weight:900;color:var(--slate-dark);font-size:12.5px;}
+tr.total td{background:var(--slate-dark);color:#fff;font-weight:900;} tr.total td.num{color:var(--gold);}
 .gdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:middle;}
 .tbl-scroll{overflow-x:auto;}
-
 .split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
 .fundbox{background:var(--slate-dark);border-radius:var(--r);padding:20px 22px;color:#fff;}
 .fundbox h4{font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
 .fundbox .fl{display:flex;justify-content:space-between;padding:7px 0;font-size:13.5px;border-bottom:1px solid rgba(255,255,255,.09);}
 .fundbox .fl .v{font-weight:700;font-variant-numeric:tabular-nums;}
-.fundbox .fl.tot{border-bottom:none;border-top:2px solid var(--gold);margin-top:6px;padding-top:11px;font-weight:900;font-size:15px;}
-.fundbox .fl.tot .v{color:var(--gold);}
-.fundbox .fl.neg .v{color:var(--orange-light);}
-.fundbox .note{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:12px;line-height:1.5;}
-
+.fundbox .fl.tot{border-bottom:none;border-top:2px solid var(--gold);margin-top:6px;padding-top:11px;font-weight:900;font-size:15px;} .fundbox .fl.tot .v{color:var(--gold);}
+.fundbox .fl.neg .v{color:var(--orange-light);} .fundbox .note{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:12px;line-height:1.5;}
 .lever{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);padding:18px 20px;border-top:5px solid var(--gold);}
 .lever .tag{font-size:10.5px;font-weight:900;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold-dark);}
-.lever .big{font-size:34px;font-weight:900;color:var(--slate-dark);line-height:1;margin:6px 0;}
-.lever .big span{font-size:15px;color:var(--ink-soft);font-weight:700;}
-.lever p{font-size:13px;color:var(--ink-mid);margin-top:6px;}
-.lever.a{border-top-color:var(--orange);}.lever.b{border-top-color:var(--good);}.lever.c{border-top-color:var(--slate);}
-
+.lever .big{font-size:32px;font-weight:900;color:var(--slate-dark);line-height:1;margin:6px 0;} .lever .big span{font-size:15px;color:var(--ink-soft);font-weight:700;}
+.lever p{font-size:13px;color:var(--ink-mid);margin-top:6px;} .lever.a{border-top-color:var(--orange);}.lever.b{border-top-color:var(--good);}.lever.c{border-top-color:var(--slate);}
 footer{background:var(--slate-dark);color:var(--cream);padding:30px 0 36px;margin-top:46px;text-align:center;}
-footer .b{color:#fff;font-weight:800;letter-spacing:.5px;}
-footer .s{font-size:12px;color:rgba(255,255,255,.5);margin-top:6px;letter-spacing:.4px;}
+footer .b{color:#fff;font-weight:800;} footer .s{font-size:12px;color:rgba(255,255,255,.5);margin-top:6px;}
+@media(max-width:820px){.hero h1{font-size:29px;}.kpis{grid-template-columns:1fr 1fr;}.grid2,.grid2.lean,.split{grid-template-columns:1fr;}.sec h2{font-size:23px;}.chart{height:270px;}}
+</style></head><body>
 
-@media(max-width:820px){
-  .hero h1{font-size:29px;} .kpis{grid-template-columns:1fr 1fr;}
-  .grid2,.grid2.lean,.split{grid-template-columns:1fr;}
-  .sec h2{font-size:23px;} .chart{height:270px;}
-}
-@media(max-width:480px){ .kpis{grid-template-columns:1fr 1fr;} .kpi .v{font-size:23px;} }
-</style>
-</head>
-<body>
+<header class="hero"><div class="wrap">
+  <div class="mark">KC</div>
+  <div class="eyebrow">Kingdom City Church · Annual Operating Budget</div>
+  <h1>The <span class="yr">FY27</span> budget, in full.</h1>
+  <p class="lede">A church plant in its strongest year yet — attendance climbing to 162, internal giving up sharply, and the books finishing <b>$23,787 in the black</b>. But that surplus is the high-water mark: it rests on outside support that is scheduled to fade. This budget shows the good year, and the work it buys time for.</p>
+  <div class="stamp">Fiscal Year Jul 2026 – Jun 2027 · Prepared by Turnkey CFO · Source: long-range Model (QuickBooks-anchored)</div>
+</div></header>
 
-<header class="hero">
-  <div class="wrap">
-    <div class="mark">KC</div>
-    <div class="eyebrow">Kingdom City Church · Annual Operating Budget</div>
-    <h1>The <span class="yr">FY27</span> budget, in full.</h1>
-    <p class="lede">A church plant whose <b>generosity is growing</b> — attendance climbing from 140 to 162 and internal giving up sharply — but whose <b>true cost base now runs ahead of it</b> once facility rent and the full ministry plan are on the table. This is the year the math gets honest.</p>
-    <div class="stamp">Fiscal Year Jul 2026 – Jun 2027 · Prepared by Turnkey CFO · Source: QuickBooks Online (realm verified)</div>
-  </div>
-</header>
-
-<nav class="toc">
-  <div class="wrap">
-    <a href="#headline">The headline</a>
-    <a href="#income">Where it comes from</a>
-    <a href="#risk">The dependency</a>
-    <a href="#ministry">Where it goes</a>
-    <a href="#people">Who owns it</a>
-    <a href="#cash">Seasonality &amp; cash</a>
-    <a href="#detail">Every line</a>
-    <a href="#levers">Closing the gap</a>
-  </div>
-</nav>
+<nav class="toc"><div class="wrap">
+  <a href="#headline">The headline</a><a href="#income">Where it comes from</a><a href="#cliff">The cliff ahead</a>
+  <a href="#ministry">Where it goes</a><a href="#people">Who owns it</a><a href="#cash">Seasonality &amp; cash</a>
+  <a href="#detail">Every line</a><a href="#levers">The work ahead</a>
+</div></nav>
 
 <!-- 1 HEADLINE -->
-<section class="sec" id="headline">
-  <div class="wrap">
-    <div class="sec-eyebrow">The headline</div>
-    <h2>Operating income of $271.0K against a true cost base of $356.2K — a $85.2K operating gap.</h2>
-    <p class="intro">FY27 is the first budget that carries Kingdom City's <b>complete</b> cost picture — including the <b>$37,596/yr St. Pius facility rent</b> and the full marketing, worship and events plan. Earlier roll-ups that showed a surplus simply hadn't loaded those costs yet. With them in, the operating budget runs a deficit — covered, for now, by external partners, not by the offering plate.</p>
-    <div class="kpis">
-      <div class="kpi good"><div class="l">Operating Income</div><div class="v">$271,005</div><div class="d">Tithes + external + partners</div></div>
-      <div class="kpi slate"><div class="l">Operating Expense</div><div class="v">$356,215</div><div class="d">Full cost, incl. rent</div></div>
-      <div class="kpi bad"><div class="l">Operating Result</div><div class="v bad">($85,210)</div><div class="d">-31% of income</div></div>
-      <div class="kpi gold"><div class="l">Vision Fund (designated)</div><div class="v">$39,710</div><div class="d">Restricted — not operating</div></div>
-    </div>
-    <div class="callout bad"><span class="big">Why this looks different from the earlier dashboard.</span>
-    The previous summary tab showed a ~$51K surplus because its expense engine was built before facility rent, full marketing, worship equipment and the events calendar were loaded into the model. The <b>v2 detailed plan</b> — the one this report is built on — carries all of them. Same church, fuller picture: a <b>$85,210 operating gap</b> the leadership team should plan around now, not discover mid-year.</div>
+<section class="sec" id="headline"><div class="wrap">
+  <div class="sec-eyebrow">The headline</div>
+  <h2>$271,006 in, $247,219 out — a $23,787 operating surplus.</h2>
+  <p class="intro">FY27 is a healthy year on paper: revenue of <b>$271,006</b> against operating costs of <b>$247,219</b> leaves a <b>$23,787 surplus</b> — a 9% margin — plus a separate <b>$39,710</b> Vision Fund. The encouraging engine underneath: attendance rising to 162 and internal giving climbing all year. The caution: most of this budget is still funded from outside the room.</p>
+  <div class="kpis">
+    <div class="kpi good"><div class="l">Operating Income</div><div class="v">$271,006</div><div class="d">Tithes + external + partners</div></div>
+    <div class="kpi slate"><div class="l">Operating Expense</div><div class="v">$247,219</div><div class="d">Full operating plan</div></div>
+    <div class="kpi good"><div class="l">Operating Surplus</div><div class="v good">+$23,787</div><div class="d">9% margin</div></div>
+    <div class="kpi gold"><div class="l">Vision Fund (designated)</div><div class="v">$39,710</div><div class="d">Restricted — not operating</div></div>
   </div>
-</section>
+  <div class="callout good"><span class="big">The good news, stated plainly.</span> Kingdom City out-earns its budget this year and grows its own giving base while doing it. The surplus is real. The single most important thing to understand is <b>why it won't last on its own</b> — which is the next two sections.</div>
+</div></section>
 
 <!-- 2 INCOME -->
-<section class="sec" id="income">
-  <div class="wrap">
-    <div class="sec-eyebrow">Where the money comes from</div>
-    <h2>Only 30 cents of every dollar is given by the people in the room.</h2>
-    <p class="intro">Kingdom City raises <b>$271,005</b> in operating income this year. The encouraging trend underneath it: <b>internal tithes are climbing every month</b> as attendance grows, while outside support gently declines. But today the church still leans on <b>$188,701</b> of external and partner money — 70% of the budget.</p>
-    <div class="grid2 lean">
-      <div class="card"><div class="card-h"><div class="bar"></div><h3>Income by source — FY27</h3><div class="r">$271,005</div></div>
-        <div class="card-b"><div class="chart sm"><canvas id="cSrc"></canvas></div></div></div>
-      <div class="card"><div class="card-h"><div class="bar"></div><h3>The composition</h3></div>
-        <div class="card-b" style="padding:8px 0;"><table>
-          <tr><th>Source</th><th class="num">FY27</th><th class="num">Share</th></tr>
-          <tr><td><span class="gdot" style="background:#5a7d4f"></span>Internal Tithes &amp; Offerings</td><td class="num b">$82,307</td><td class="num soft">30%</td></tr>
-          <tr><td><span class="gdot" style="background:#db6839"></span>External Support</td><td class="num b">$125,379</td><td class="num soft">46%</td></tr>
-          <tr><td><span class="gdot" style="background:#c1a56c"></span>Partnership Support</td><td class="num b">$63,322</td><td class="num soft">23%</td></tr>
-          <tr class="total"><td>Total operating income</td><td class="num">$271,005</td><td class="num">100%</td></tr>
-          <tr><td class="soft" style="font-size:12px">Vision Fund (designated, separate)</td><td class="num soft">$39,710</td><td class="num soft">—</td></tr>
-        </table></div></div>
-    </div>
-    <div class="card"><div class="card-h"><div class="bar"></div><h3>The monthly trajectory — internal giving rising as outside support fades</h3></div>
-      <div class="card-b"><div class="chart tall"><canvas id="cTrend"></canvas></div></div></div>
-    <div class="callout good"><b>The trend is the good news.</b> Internal tithes grow from $6,300 to $7,424/mo across the year as attendance climbs to 162. The strategic job is to keep that line rising fast enough to replace external dollars as they sunset.</div>
-  </div>
-</section>
-
-<!-- 3 RISK -->
-<section class="sec" id="risk">
-  <div class="wrap">
-    <div class="sec-eyebrow">The dependency</div>
-    <h2>70% of the budget rests on money the church doesn't yet generate itself.</h2>
-    <p class="intro">External and partnership support is a <b>gift and a clock</b>. It funds the plant today, but it is scheduled to decline ~20% a year as church-plant partners graduate Kingdom City off support. Two named partners — <b>Shamblee Church</b> and <b>Georgia State FCA</b> — are slated to sunset by June 2027.</p>
-    <div class="split">
-      <div class="fundbox">
-        <h4>External &amp; partner support — the clock</h4>
-        <div class="fl"><span>External Support (40002)</span><span class="v">$125,379</span></div>
-        <div class="fl"><span>Partnership Support (40003)</span><span class="v">$63,322</span></div>
-        <div class="fl tot"><span>Outside support, FY27</span><span class="v">$188,701</span></div>
-        <div class="fl neg" style="border:none"><span>Modeled decline</span><span class="v">~20% / yr</span></div>
-        <div class="note">As this base shrinks, internal giving must grow by an equal amount just to hold the line — before closing any of the gap.</div>
-      </div>
-      <div class="card" style="margin:0"><div class="card-h"><div class="bar"></div><h3>Internal vs external — the crossover the church is chasing</h3></div>
-        <div class="card-b"><div class="chart sm"><canvas id="cDep"></canvas></div></div></div>
-    </div>
-    <div class="callout warn"><b>What this means for FY27.</b> The $85,210 operating gap is fully covered by outside support this year — but that support is the very thing scheduled to fall. Holding internal-giving momentum is not optional; it is the funding plan.</div>
-  </div>
-</section>
-
-<!-- 4 MINISTRY -->
-<section class="sec" id="ministry">
-  <div class="wrap">
-    <div class="sec-eyebrow">Where the money goes</div>
-    <h2>Six buckets carry the whole budget — and one decision drives a third of it.</h2>
-    <p class="intro">Total operating spend of <b>$356,215</b> breaks cleanly into six areas. <b>People</b> is the largest single commitment at 44%. The big swing line is <b>facility</b> — the St. Pius rent alone is $37,596, the bulk of the Building / Office / Admin bucket.</p>
-    <div class="grid2 lean">
-      <div class="card"><div class="card-h"><div class="bar"></div><h3>Expense by ministry area</h3><div class="r">$356,215</div></div>
-        <div class="card-b"><div class="chart"><canvas id="cGroup"></canvas></div></div></div>
-      <div class="card"><div class="card-h"><div class="bar"></div><h3>The breakdown</h3></div>
-        <div class="card-b" style="padding:8px 0;"><table>
-          <tr><th>Area</th><th class="num">FY27</th><th class="num">Share</th></tr>
-          <tr><td><span class="gdot" style="background:#3a443a"></span>Personnel</td><td class="num b">$155,114</td><td class="num soft">44%</td></tr><tr><td><span class="gdot" style="background:#db6839"></span>Building / Office / Admin</td><td class="num b">$69,464</td><td class="num soft">20%</td></tr><tr><td><span class="gdot" style="background:#c1a56c"></span>Ministry</td><td class="num b">$68,209</td><td class="num soft">19%</td></tr><tr><td><span class="gdot" style="background:#5a7d4f"></span>Outreach</td><td class="num b">$38,547</td><td class="num soft">11%</td></tr><tr><td><span class="gdot" style="background:#8a6d9b"></span>Events</td><td class="num b">$20,576</td><td class="num soft">6%</td></tr><tr><td><span class="gdot" style="background:#6a8caf"></span>Missions</td><td class="num b">$4,305</td><td class="num soft">1%</td></tr>
-          <tr class="total"><td>Total operating expense</td><td class="num">$356,215</td><td class="num">100%</td></tr>
-        </table></div></div>
-    </div>
-    <div class="callout"><b>Facility is the lever to watch.</b> At $37,596/yr, rent is roughly 11% of the entire budget and 44% the size of the operating gap. Any change to the space — renegotiation, a portable-church move, or a giving campaign tied to it — moves the church's break-even more than any other single line.</div>
-  </div>
-</section>
-
-<!-- 5 PEOPLE -->
-<section class="sec" id="people">
-  <div class="wrap">
-    <div class="sec-eyebrow">Who owns the budget</div>
-    <h2>Every dollar has a name on it — three leaders carry the plan.</h2>
-    <p class="intro">Each budget line is assigned to the staff member who stewards it. <b>Blake</b> carries pastoral comp, facility, missions, outreach and marketing; <b>Sam</b> owns worship; <b>Lauren</b> owns guest experience, kids and hospitality. This is how a $356,215 budget becomes accountable in practice.</p>
-    <div class="grid2 lean">
-      <div class="card"><div class="card-h"><div class="bar"></div><h3>Budget owned, by leader</h3></div>
-        <div class="card-b"><div class="chart"><canvas id="cOwner"></canvas></div></div></div>
-      <div class="card"><div class="card-h"><div class="bar"></div><h3>Owner &times; ministry area</h3></div>
-        <div class="card-b tbl-scroll" style="padding:8px 0;"><table><tr><th>Ministry area</th><th class='num'>Blake</th><th class='num'>Sam</th><th class='num'>Lauren</th><th class='num'>Total</th></tr>
-<tr><td><span class='gdot' style='background:#3a443a'></span>Personnel</td><td class='num'>$122,496</td><td class='num'>$32,618</td><td class='num soft'>—</td><td class='num b'>$155,114</td></tr>
-<tr><td><span class='gdot' style='background:#db6839'></span>Building / Office / Admin</td><td class='num'>$69,023</td><td class='num soft'>—</td><td class='num'>$441</td><td class='num b'>$69,464</td></tr>
-<tr><td><span class='gdot' style='background:#c1a56c'></span>Ministry</td><td class='num'>$30,263</td><td class='num'>$19,397</td><td class='num'>$18,549</td><td class='num b'>$68,209</td></tr>
-<tr><td><span class='gdot' style='background:#5a7d4f'></span>Outreach</td><td class='num'>$38,547</td><td class='num soft'>—</td><td class='num soft'>—</td><td class='num b'>$38,547</td></tr>
-<tr><td><span class='gdot' style='background:#8a6d9b'></span>Events</td><td class='num'>$9,560</td><td class='num'>$6,666</td><td class='num'>$4,350</td><td class='num b'>$20,576</td></tr>
-<tr><td><span class='gdot' style='background:#6a8caf'></span>Missions</td><td class='num'>$4,305</td><td class='num soft'>—</td><td class='num soft'>—</td><td class='num b'>$4,305</td></tr>
-<tr class='total'><td>Total owned</td><td class='num b'>$274,194</td><td class='num b'>$58,681</td><td class='num b'>$23,340</td><td class='num'>$356,215</td></tr></table></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 6 CASH -->
-<section class="sec" id="cash">
-  <div class="wrap">
-    <div class="sec-eyebrow">Seasonality &amp; cash</div>
-    <h2>Income is steady; spending is lumpy. The gap compounds as the year runs.</h2>
-    <p class="intro">Operating income arrives in a fairly even line each month, but spending spikes around <b>fall launch (Sep), year-end and spring events</b>. Because monthly costs sit above monthly income for most of the year, the <b>cumulative operating shortfall deepens</b> — reaching $85,210 by June. This is the cash strain leadership should fund deliberately, not absorb by surprise.</p>
-    <div class="card"><div class="card-h"><div class="bar"></div><h3>Monthly income vs expense, with cumulative operating net</h3></div>
-      <div class="card-b"><div class="chart tall"><canvas id="cCash"></canvas></div></div></div>
-    <div class="callout warn"><b>Plan the runway.</b> The heaviest months are <b>September</b> (fall kickoff + outreach) and the spring event stretch. A modest operating reserve — or partner timing that front-loads support — keeps these spikes from becoming cash crises.</div>
-  </div>
-</section>
-
-<!-- 7 DETAIL -->
-<section class="sec" id="detail">
-  <div class="wrap">
-    <div class="sec-eyebrow">Every line</div>
-    <h2>The full budget, exactly as QuickBooks sees it.</h2>
-    <p class="intro">Every operating line in the FY27 plan, grouped by area, with the staff owner and how each is forecast — <b>run-rate</b> (rolled flat), <b>seasonal</b> (timed to last year's pattern), <b>headcount</b> (fed from staff comp), <b>fixed</b> (set schedule), or <b>one-time</b>. Nothing is hidden in a summary.</p>
-    <div class="card"><div class="card-h"><div class="bar"></div><h3>FY27 operating budget — line by line</h3><div class="r">$356,215</div></div>
-      <div class="card-b tbl-scroll" style="padding:0;"><table>
-        <tr><th>Line item</th><th>Owner &amp; basis</th><th class="num">FY27</th><th class="num">% of budget</th></tr>
-        <tr class="grp"><td colspan="2"><span class="gdot" style="background:#3a443a"></span>Personnel</td><td class="num">$155,114</td><td class="num">44%</td></tr>
-<tr><td>Salary</td><td class="basis">Blake Odgers · Headcount</td><td class="num">$95,950</td><td class="num soft">26.9%</td></tr>
-<tr><td>Worship Leader</td><td class="basis">Sam Hardie · Headcount</td><td class="num">$30,300</td><td class="num soft">8.5%</td></tr>
-<tr><td>Health Insurance</td><td class="basis">Blake Odgers · Headcount</td><td class="num">$10,273</td><td class="num soft">2.9%</td></tr>
-<tr><td>Retirement Contributions</td><td class="basis">Blake Odgers · Headcount</td><td class="num">$6,060</td><td class="num soft">1.7%</td></tr>
-<tr><td>Honorariums - Speaker</td><td class="basis">Blake Odgers · Headcount</td><td class="num">$5,163</td><td class="num soft">1.4%</td></tr>
-<tr><td>Guest Experience Stipend</td><td class="basis">Blake Odgers · Headcount</td><td class="num">$5,050</td><td class="num soft">1.4%</td></tr>
-<tr><td>Worship Leader FICA</td><td class="basis">Sam Hardie · Headcount</td><td class="num">$2,318</td><td class="num soft">0.7%</td></tr>
-<tr class="grp"><td colspan="2"><span class="gdot" style="background:#db6839"></span>Building / Office / Admin</td><td class="num">$69,464</td><td class="num">20%</td></tr>
-<tr><td>Rent — Facility (St. Pius)</td><td class="basis">Blake Odgers · Run-rate</td><td class="num">$37,596</td><td class="num soft">10.6%</td></tr>
-<tr><td>Turnkey CFO</td><td class="basis">Blake Odgers · Fixed</td><td class="num">$8,600</td><td class="num soft">2.4%</td></tr>
-<tr><td>Church Management Software</td><td class="basis">Blake Odgers · Run-rate</td><td class="num">$7,224</td><td class="num soft">2.0%</td></tr>
-<tr><td>Online Giving Fees</td><td class="basis">Blake Odgers · Run-rate</td><td class="num">$5,350</td><td class="num soft">1.5%</td></tr>
-<tr><td>Office Supplies</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$3,802</td><td class="num soft">1.1%</td></tr>
-<tr><td>Utilities</td><td class="basis">Blake Odgers · Run-rate</td><td class="num">$3,309</td><td class="num soft">0.9%</td></tr>
-<tr><td>IT/Computer Services</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$3,023</td><td class="num soft">0.8%</td></tr>
-<tr><td>Decor</td><td class="basis">Lauren Monaco · Seasonal</td><td class="num">$441</td><td class="num soft">0.1%</td></tr>
-<tr><td>Bank Service Charges</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$111</td><td class="num soft">0.0%</td></tr>
-<tr><td>Office Printing</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$8</td><td class="num soft">0.0%</td></tr>
-<tr class="grp"><td colspan="2"><span class="gdot" style="background:#c1a56c"></span>Ministry</td><td class="num">$68,209</td><td class="num">19%</td></tr>
-<tr><td>Worship Equipment</td><td class="basis">Sam Hardie · Run-rate</td><td class="num">$19,222</td><td class="num soft">5.4%</td></tr>
-<tr><td>Hospitality</td><td class="basis">Lauren Monaco · Run-rate</td><td class="num">$12,338</td><td class="num soft">3.5%</td></tr>
-<tr><td>Church Dev — Ministry Meals</td><td class="basis">Blake Odgers · Run-rate</td><td class="num">$7,975</td><td class="num soft">2.2%</td></tr>
-<tr><td>Small Group — Misc Supplies</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$7,399</td><td class="num soft">2.1%</td></tr>
-<tr><td>Church Dev — Leadership Meetings</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$4,730</td><td class="num soft">1.3%</td></tr>
-<tr><td>Small Group — Childcare Reimb.</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$3,271</td><td class="num soft">0.9%</td></tr>
-<tr><td>Small Group — Events/Retreats</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$3,060</td><td class="num soft">0.9%</td></tr>
-<tr><td>Church Dev — Conferences</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$2,545</td><td class="num soft">0.7%</td></tr>
-<tr><td>Children — Curriculum</td><td class="basis">Lauren Monaco · Seasonal</td><td class="num">$1,535</td><td class="num soft">0.4%</td></tr>
-<tr><td>Youth — Events/Retreats</td><td class="basis">Lauren Monaco · Seasonal</td><td class="num">$1,484</td><td class="num soft">0.4%</td></tr>
-<tr><td>Children — Kids Misc Supplies</td><td class="basis">Lauren Monaco · Seasonal</td><td class="num">$1,400</td><td class="num soft">0.4%</td></tr>
-<tr><td>Guest Followup</td><td class="basis">Lauren Monaco · Run-rate</td><td class="num">$1,309</td><td class="num soft">0.4%</td></tr>
-<tr><td>Small Group — Bible Study</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$882</td><td class="num soft">0.2%</td></tr>
-<tr><td>Church Dev — Mentoring</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$400</td><td class="num soft">0.1%</td></tr>
-<tr><td>Children — Background Checks</td><td class="basis">Lauren Monaco · Seasonal</td><td class="num">$368</td><td class="num soft">0.1%</td></tr>
-<tr><td>Sanctuary Supplies</td><td class="basis">Sam Hardie · Seasonal</td><td class="num">$175</td><td class="num soft">0.0%</td></tr>
-<tr><td>New Member</td><td class="basis">Lauren Monaco · Seasonal</td><td class="num">$114</td><td class="num soft">0.0%</td></tr>
-<tr class="grp"><td colspan="2"><span class="gdot" style="background:#5a7d4f"></span>Outreach</td><td class="num">$38,547</td><td class="num">11%</td></tr>
-<tr><td>Marketing — Advertising</td><td class="basis">Blake Odgers · Run-rate</td><td class="num">$17,768</td><td class="num soft">5.0%</td></tr>
-<tr><td>Media & Signage</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$13,890</td><td class="num soft">3.9%</td></tr>
-<tr><td>Marketing — Merchandise</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$3,871</td><td class="num soft">1.1%</td></tr>
-<tr><td>Website</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$2,012</td><td class="num soft">0.6%</td></tr>
-<tr><td>Marketing — Videography</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$800</td><td class="num soft">0.2%</td></tr>
-<tr><td>Benevolence Expenses</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$126</td><td class="num soft">0.0%</td></tr>
-<tr><td>Postage</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$80</td><td class="num soft">0.0%</td></tr>
-<tr class="grp"><td colspan="2"><span class="gdot" style="background:#8a6d9b"></span>Events</td><td class="num">$20,576</td><td class="num">6%</td></tr>
-<tr><td>Special Events: Worship Guest Players</td><td class="basis">Sam Hardie · Run-rate</td><td class="num">$6,666</td><td class="num soft">1.9%</td></tr>
-<tr><td>Outreach: Community Socials</td><td class="basis">Blake Odgers · Run-rate</td><td class="num">$6,060</td><td class="num soft">1.7%</td></tr>
-<tr><td>Special Events: Easter Service</td><td class="basis">Lauren Monaco · Seasonal</td><td class="num">$2,550</td><td class="num soft">0.7%</td></tr>
-<tr><td>Special Events: Fall Kickoff Sunday</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$2,000</td><td class="num soft">0.6%</td></tr>
-<tr><td>Special Events: Christmas Service</td><td class="basis">Lauren Monaco · Seasonal</td><td class="num">$1,800</td><td class="num soft">0.5%</td></tr>
-<tr><td>Outreach: Vision Sunday</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$1,500</td><td class="num soft">0.4%</td></tr>
-<tr class="grp"><td colspan="2"><span class="gdot" style="background:#6a8caf"></span>Missions</td><td class="num">$4,305</td><td class="num">1%</td></tr>
-<tr><td>Local Missions</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$3,588</td><td class="num soft">1.0%</td></tr>
-<tr><td>SBC Cooperative Giving Program</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$500</td><td class="num soft">0.1%</td></tr>
-<tr><td>Church Planting</td><td class="basis">Blake Odgers · Seasonal</td><td class="num">$217</td><td class="num soft">0.1%</td></tr>
-<tr class="total"><td colspan="2">TOTAL OPERATING EXPENSE — FY27</td><td class="num">$356,215</td><td class="num">100%</td></tr>
+<section class="sec" id="income"><div class="wrap">
+  <div class="sec-eyebrow">Where the money comes from</div>
+  <h2>Only 30 cents of every dollar is given by the people in the room.</h2>
+  <p class="intro">Of $271,006 in operating income, <b>$82,306</b> comes from internal tithes — about 30%. The other <b>$188,700</b> (70%) is external and partner support. The trend is the right one: internal giving rises every month as attendance grows, while outside support gently declines.</p>
+  <div class="grid2 lean">
+    <div class="card"><div class="card-h"><div class="bar"></div><h3>Income by source — FY27</h3><div class="r">$271,006</div></div>
+      <div class="card-b"><div class="chart sm"><canvas id="cSrc"></canvas></div></div></div>
+    <div class="card"><div class="card-h"><div class="bar"></div><h3>The composition</h3></div>
+      <div class="card-b" style="padding:8px 0;"><table>
+        <tr><th>Source</th><th class="num">FY27</th><th class="num">Share</th></tr>
+        <tr><td><span class="gdot" style="background:#5a7d4f"></span>Internal Tithes &amp; Offerings</td><td class="num b">$82,306</td><td class="num soft">30%</td></tr>
+        <tr><td><span class="gdot" style="background:#db6839"></span>External Support</td><td class="num b">$125,378</td><td class="num soft">46%</td></tr>
+        <tr><td><span class="gdot" style="background:#c1a56c"></span>Partnership Support</td><td class="num b">$63,322</td><td class="num soft">23%</td></tr>
+        <tr class="total"><td>Total operating income</td><td class="num">$271,006</td><td class="num">100%</td></tr>
+        <tr><td class="soft" style="font-size:12px">Vision Fund (designated, separate)</td><td class="num soft">$39,710</td><td class="num soft">—</td></tr>
       </table></div></div>
   </div>
-</section>
+  <div class="card"><div class="card-h"><div class="bar"></div><h3>The monthly trajectory — internal giving rising as outside support fades</h3></div>
+    <div class="card-b"><div class="chart tall"><canvas id="cTrend"></canvas></div></div></div>
+  <div class="callout good"><b>The trend is the good news.</b> Internal tithes grow from $6,300 to $7,424/mo across the year as attendance climbs to 162. The strategic job: keep that line rising fast enough to replace external dollars as they sunset.</div>
+</div></section>
+
+<!-- 3 THE CLIFF -->
+<section class="sec" id="cliff"><div class="wrap">
+  <div class="sec-eyebrow">The cliff ahead</div>
+  <h2>FY27 is the peak. On the current plan, the surplus turns to a $24,674 deficit within two years.</h2>
+  <p class="intro">This is the most important picture in the budget. External and partner support is scheduled to fall <b>$82,556</b> over the next two years as church-plant partners graduate Kingdom City off support. Internal giving grows <b>$30,539</b> in the same window — real progress, but not enough to cover the drop. The result: the Model itself shows net income sliding from <b>$23,787 (FY27)</b> to <b>$-12,041 (FY28)</b> to <b>$-24,674 (FY29)</b>.</p>
+  <div class="grid2 lean">
+    <div class="card"><div class="card-h"><div class="bar"></div><h3>Net operating income, FY26 → FY29</h3></div>
+      <div class="card-b"><div class="chart"><canvas id="cArc"></canvas></div></div></div>
+    <div class="card"><div class="card-h"><div class="bar"></div><h3>The squeeze: outside support vs internal giving</h3></div>
+      <div class="card-b"><div class="chart"><canvas id="cArc2"></canvas></div></div></div>
+  </div>
+  <div class="callout warn"><span class="big">Read this as a countdown, not a crisis.</span> FY27's surplus is exactly the runway the church needs — two years to grow internal generosity enough to stand on its own before outside support thins out. The budget's job is to make that countdown visible so the leadership uses the good year to prepare for the lean ones.</div>
+</div></section>
+
+<!-- 4 MINISTRY -->
+<section class="sec" id="ministry"><div class="wrap">
+  <div class="sec-eyebrow">Where the money goes</div>
+  <h2>Five buckets carry the whole budget — and people is more than half of it.</h2>
+  <p class="intro">Operating spend of <b>$247,219</b> divides into five areas. <b>Personnel</b> is the largest commitment at 60% — the staff who carry the mission. Everything else — facility &amp; admin, ministry programs, outreach and missions — fits inside the remaining 40%.</p>
+  <div class="grid2 lean">
+    <div class="card"><div class="card-h"><div class="bar"></div><h3>Expense by ministry area</h3><div class="r">$247,219</div></div>
+      <div class="card-b"><div class="chart"><canvas id="cGroup"></canvas></div></div></div>
+    <div class="card"><div class="card-h"><div class="bar"></div><h3>The breakdown</h3></div>
+      <div class="card-b" style="padding:8px 0;"><table>
+        <tr><th>Area</th><th class="num">FY27</th><th class="num">Share</th></tr>
+        <tr><td><span class="gdot" style="background:#3a443a"></span>Personnel</td><td class="num b">$149,054</td><td class="num soft">60%</td></tr><tr><td><span class="gdot" style="background:#db6839"></span>Building / Office / Admin</td><td class="num b">$31,868</td><td class="num soft">13%</td></tr><tr><td><span class="gdot" style="background:#c1a56c"></span>Ministry</td><td class="num b">$39,824</td><td class="num soft">16%</td></tr><tr><td><span class="gdot" style="background:#5a7d4f"></span>Outreach</td><td class="num b">$22,168</td><td class="num soft">9%</td></tr><tr><td><span class="gdot" style="background:#6a8caf"></span>Missions</td><td class="num b">$4,305</td><td class="num soft">2%</td></tr>
+        <tr class="total"><td>Total operating expense</td><td class="num">$247,219</td><td class="num">100%</td></tr>
+      </table></div></div>
+  </div>
+  <div class="callout"><b>Personnel is the commitment to protect.</b> At $149,054 it is the single largest line and the least discretionary — staff are how a church of 162 actually does ministry. Because it is so dominant, the realistic path to a leaner budget runs through the smaller, flexible buckets, not the staff.</div>
+</div></section>
+
+<!-- 5 PEOPLE -->
+<section class="sec" id="people"><div class="wrap">
+  <div class="sec-eyebrow">Who owns the budget</div>
+  <h2>Every dollar has a name on it — three leaders carry the plan.</h2>
+  <p class="intro">Each budget line is assigned to the staff member who stewards it. <b>Blake</b> carries pastoral comp, facility, missions and outreach; <b>Sam</b> owns worship; <b>Lauren</b> owns guest experience, kids and hospitality. This is how a $247,219 budget becomes accountable in practice.</p>
+  <div class="grid2 lean">
+    <div class="card"><div class="card-h"><div class="bar"></div><h3>Budget owned, by leader</h3></div>
+      <div class="card-b"><div class="chart"><canvas id="cOwner"></canvas></div></div></div>
+    <div class="card"><div class="card-h"><div class="bar"></div><h3>Owner &times; ministry area</h3></div>
+      <div class="card-b tbl-scroll" style="padding:8px 0;"><table><tr><th>Ministry area</th><th class='num'>Blake</th><th class='num'>Sam</th><th class='num'>Lauren</th><th class='num'>Total</th></tr>
+<tr><td><span class='gdot' style='background:#3a443a'></span>Personnel</td><td class='num'>$116,436</td><td class='num'>$32,618</td><td class='num soft'>—</td><td class='num b'>$149,054</td></tr>
+<tr><td><span class='gdot' style='background:#db6839'></span>Building / Office / Admin</td><td class='num'>$31,427</td><td class='num soft'>—</td><td class='num'>$441</td><td class='num b'>$31,868</td></tr>
+<tr><td><span class='gdot' style='background:#c1a56c'></span>Ministry</td><td class='num soft'>—</td><td class='num'>$26,063</td><td class='num'>$13,761</td><td class='num b'>$39,824</td></tr>
+<tr><td><span class='gdot' style='background:#5a7d4f'></span>Outreach</td><td class='num'>$22,168</td><td class='num soft'>—</td><td class='num soft'>—</td><td class='num b'>$22,168</td></tr>
+<tr><td><span class='gdot' style='background:#6a8caf'></span>Missions</td><td class='num'>$4,305</td><td class='num soft'>—</td><td class='num soft'>—</td><td class='num b'>$4,305</td></tr>
+<tr class='total'><td>Total owned</td><td class='num b'>$174,336</td><td class='num b'>$58,681</td><td class='num b'>$14,202</td><td class='num'>$247,219</td></tr></table></div></div>
+  </div>
+</div></section>
+
+<!-- 6 CASH -->
+<section class="sec" id="cash"><div class="wrap">
+  <div class="sec-eyebrow">Seasonality &amp; cash</div>
+  <h2>Income is steady; spending is lumpy. Most months carry the year.</h2>
+  <p class="intro">Operating income arrives in a fairly even line; spending spikes around <b>fall launch, year-end and spring events</b>. Across the year the surplus accumulates to <b>$23,786</b> — but the lumpy months mean the cushion dips before it builds. Knowing which months run tight lets leadership time spending and partner support deliberately.</p>
+  <div class="card"><div class="card-h"><div class="bar"></div><h3>Monthly income vs expense, with cumulative operating net</h3></div>
+    <div class="card-b"><div class="chart tall"><canvas id="cCash"></canvas></div></div></div>
+  <div class="callout warn"><b>Plan the runway.</b> The heaviest spending months are around <b>fall kickoff (Sep)</b> and the spring event stretch. A modest operating reserve keeps those spikes comfortable even in a surplus year.</div>
+</div></section>
+
+<!-- 7 DETAIL -->
+<section class="sec" id="detail"><div class="wrap">
+  <div class="sec-eyebrow">Every line</div>
+  <h2>The full budget, exactly as the model carries it.</h2>
+  <p class="intro">Every operating line in the FY27 plan, grouped by area, with the staff owner who stewards it. Nothing is hidden in a summary.</p>
+  <div class="card"><div class="card-h"><div class="bar"></div><h3>FY27 operating budget — line by line</h3><div class="r">$247,219</div></div>
+    <div class="card-b tbl-scroll" style="padding:0;"><table>
+      <tr><th>Line item</th><th>Owner</th><th class="num">FY27</th><th class="num">% of budget</th></tr>
+      <tr class="grp"><td colspan="2"><span class="gdot" style="background:#3a443a"></span>Personnel</td><td class="num">$149,054</td><td class="num">60%</td></tr>
+<tr><td>Salary</td><td class="basis">Blake Odgers</td><td class="num">$95,950</td><td class="num soft">38.8%</td></tr>
+<tr><td>Worship Leader</td><td class="basis">Sam Hardie</td><td class="num">$30,300</td><td class="num soft">12.3%</td></tr>
+<tr><td>Health Insurance</td><td class="basis">Blake Odgers</td><td class="num">$10,273</td><td class="num soft">4.2%</td></tr>
+<tr><td>Honorariums - Speaker</td><td class="basis">Blake Odgers</td><td class="num">$5,163</td><td class="num soft">2.1%</td></tr>
+<tr><td>Guest Experience Stipend</td><td class="basis">Blake Odgers</td><td class="num">$5,050</td><td class="num soft">2.0%</td></tr>
+<tr><td>Worship Leader FICA</td><td class="basis">Sam Hardie</td><td class="num">$2,318</td><td class="num soft">0.9%</td></tr>
+<tr class="grp"><td colspan="2"><span class="gdot" style="background:#db6839"></span>Building / Office / Admin</td><td class="num">$31,868</td><td class="num">13%</td></tr>
+<tr><td>Finance Operations</td><td class="basis">Blake Odgers</td><td class="num">$8,600</td><td class="num soft">3.5%</td></tr>
+<tr><td>Church Management Software</td><td class="basis">Blake Odgers</td><td class="num">$7,224</td><td class="num soft">2.9%</td></tr>
+<tr><td>Online Giving Fees</td><td class="basis">Blake Odgers</td><td class="num">$5,350</td><td class="num soft">2.2%</td></tr>
+<tr><td>Office Supplies</td><td class="basis">Blake Odgers</td><td class="num">$3,802</td><td class="num soft">1.5%</td></tr>
+<tr><td>Utilities</td><td class="basis">Blake Odgers</td><td class="num">$3,309</td><td class="num soft">1.3%</td></tr>
+<tr><td>IT/Computer Services</td><td class="basis">Blake Odgers</td><td class="num">$3,023</td><td class="num soft">1.2%</td></tr>
+<tr><td>Decor</td><td class="basis">Lauren Monaco</td><td class="num">$441</td><td class="num soft">0.2%</td></tr>
+<tr><td>Bank Service Charges</td><td class="basis">Blake Odgers</td><td class="num">$111</td><td class="num soft">0.0%</td></tr>
+<tr><td>Office Printing</td><td class="basis">Blake Odgers</td><td class="num">$8</td><td class="num soft">0.0%</td></tr>
+<tr class="grp"><td colspan="2"><span class="gdot" style="background:#c1a56c"></span>Ministry</td><td class="num">$39,824</td><td class="num">16%</td></tr>
+<tr><td>Worship Equipment</td><td class="basis">Sam Hardie</td><td class="num">$19,222</td><td class="num soft">7.8%</td></tr>
+<tr><td>Hospitality</td><td class="basis">Lauren Monaco</td><td class="num">$12,338</td><td class="num soft">5.0%</td></tr>
+<tr><td>Special Events</td><td class="basis">Sam Hardie</td><td class="num">$6,666</td><td class="num soft">2.7%</td></tr>
+<tr><td>Guest Followup</td><td class="basis">Lauren Monaco</td><td class="num">$1,309</td><td class="num soft">0.5%</td></tr>
+<tr><td>Sanctuary Supplies</td><td class="basis">Sam Hardie</td><td class="num">$175</td><td class="num soft">0.1%</td></tr>
+<tr><td>New Member</td><td class="basis">Lauren Monaco</td><td class="num">$114</td><td class="num soft">0.0%</td></tr>
+<tr class="grp"><td colspan="2"><span class="gdot" style="background:#5a7d4f"></span>Outreach</td><td class="num">$22,168</td><td class="num">9%</td></tr>
+<tr><td>Media & Signage</td><td class="basis">Blake Odgers</td><td class="num">$13,890</td><td class="num soft">5.6%</td></tr>
+<tr><td>Outreach Events</td><td class="basis">Blake Odgers</td><td class="num">$6,060</td><td class="num soft">2.5%</td></tr>
+<tr><td>Website</td><td class="basis">Blake Odgers</td><td class="num">$2,012</td><td class="num soft">0.8%</td></tr>
+<tr><td>Benevolence Expenses</td><td class="basis">Blake Odgers</td><td class="num">$126</td><td class="num soft">0.1%</td></tr>
+<tr><td>Postage</td><td class="basis">Blake Odgers</td><td class="num">$80</td><td class="num soft">0.0%</td></tr>
+<tr class="grp"><td colspan="2"><span class="gdot" style="background:#6a8caf"></span>Missions</td><td class="num">$4,305</td><td class="num">2%</td></tr>
+<tr><td>Local Missions</td><td class="basis">Blake Odgers</td><td class="num">$3,588</td><td class="num soft">1.5%</td></tr>
+<tr><td>SBC Cooperative Giving Program</td><td class="basis">Blake Odgers</td><td class="num">$500</td><td class="num soft">0.2%</td></tr>
+<tr><td>Church Planting</td><td class="basis">Blake Odgers</td><td class="num">$217</td><td class="num soft">0.1%</td></tr>
+<tr class="total"><td colspan="2">TOTAL OPERATING EXPENSE — FY27</td><td class="num">$247,219</td><td class="num">100%</td></tr>
+    </table></div></div>
+</div></section>
 
 <!-- 8 LEVERS -->
-<section class="sec" id="levers">
-  <div class="wrap">
-    <div class="sec-eyebrow">Closing the gap</div>
-    <h2>Three levers close a $85.2K gap — and two of them are already moving.</h2>
-    <p class="intro">The operating gap is real but not large in absolute terms. Here is the honest math on what it takes to erase it, and why the trend is on the church's side if internal giving keeps climbing.</p>
-    <div class="grid2" style="grid-template-columns:1fr 1fr 1fr;">
-      <div class="lever a"><div class="tag">Lever 1 · Generosity</div><div class="big">+$47<span>/attendee/mo</span></div><p>Lift average giving from <b>~$45</b> to <b>~$92</b> per attendee per month and internal tithes alone close the gap — no other change needed.</p></div>
-      <div class="lever b"><div class="tag">Lever 2 · Growth</div><div class="big">+158<span>attendees</span></div><p>At today's ~$45/mo, roughly <b>158 more</b> people in the room (avg 151 &rarr; 309) covers it through giving as attendance compounds.</p></div>
-      <div class="lever c"><div class="tag">Lever 3 · Retention</div><div class="big">Hold<span>the partners</span></div><p>Every partner dollar <b>retained past its sunset</b> is a dollar internal giving doesn't have to replace this year. Partner stewardship buys time for levers 1 &amp; 2.</p></div>
-    </div>
-    <div class="callout good" style="margin-top:18px;"><span class="big">The bottom line for FY27.</span> Kingdom City is a healthy plant doing the right thing — growing its own giving base while it still has outside support. The budget simply asks leadership to <b>name the $85,210 gap, fund the seasonal cash spikes, and keep the internal-giving line climbing</b>. Do that, and FY28 is where the church's own generosity carries the mission.</div>
+<section class="sec" id="levers"><div class="wrap">
+  <div class="sec-eyebrow">The work ahead</div>
+  <h2>Use the surplus year to outrun the sunset.</h2>
+  <p class="intro">FY27 buys time. Three levers turn the coming $24,674 FY29 shortfall back into balance — and the first two are already in motion as the church grows.</p>
+  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr;">
+    <div class="lever a"><div class="tag">Lever 1 · Generosity</div><div class="big">+$10<span>/attendee/mo</span></div><p>Lifting average giving by about <b>$10/attendee/month</b> by FY29 closes the projected shortfall through internal giving alone — discipleship in giving, not a new revenue source.</p></div>
+    <div class="lever b"><div class="tag">Lever 2 · Growth</div><div class="big">151&rarr;199<span>by FY29</span></div><p>The Model already assumes attendance grows to <b>199</b>. Every person above that — and every new giver among them — compounds internal giving against the sunset.</p></div>
+    <div class="lever c"><div class="tag">Lever 3 · Retention</div><div class="big">Hold<span>the partners</span></div><p>Every partner dollar <b>retained past its scheduled sunset</b> is a dollar internal giving doesn't have to replace. Partner stewardship buys more runway for levers 1 &amp; 2.</p></div>
   </div>
-</section>
+  <div class="callout good" style="margin-top:18px;"><span class="big">The bottom line for FY27.</span> Kingdom City is doing the right things — growing attendance, growing giving, finishing the year in surplus. The budget simply asks leadership to <b>treat this surplus as a two-year runway</b>: keep the internal-giving line climbing, steward the partner relationships, and the church arrives at self-sustaining before the outside support thins out.</div>
+</div></section>
 
-<footer>
-  <div class="wrap">
-    <div class="b">Kingdom City Church · FY27 Operating Budget</div>
-    <div class="s">Prepared by Turnkey CFO · Built from the v2 long-range plan &amp; QuickBooks Online · Figures are management estimates for planning, not audited financials.</div>
-  </div>
-</footer>
+<footer><div class="wrap">
+  <div class="b">Kingdom City Church · FY27 Operating Budget</div>
+  <div class="s">Prepared by Turnkey CFO · Built from the long-range Model (QuickBooks-anchored) · Management estimates for planning, not audited financials.</div>
+</div></footer>
 
 <script>
-const DATA = {"months": ["Jul '26", "Aug '26", "Sep '26", "Oct '26", "Nov '26", "Dec '26", "Jan '27", "Feb '27", "Mar '27", "Apr '27", "May '27", "Jun '27"], "tithes": [6300, 6401.0, 6501.0, 6603.0, 6704.0, 6806.0, 6908.0, 7011.0, 7113.0, 7216.0, 7320.0, 7424.0], "external": [11880, 11599.0, 11324.0, 11056.0, 10794.0, 10538.0, 10288.0, 10045.0, 9807.0, 9574.0, 9348.0, 9126.0], "partnership": [6000, 5858.0, 5719.0, 5584.0, 5451.0, 5322.0, 5196.0, 5073.0, 4953.0, 4836.0, 4721.0, 4609.0], "vision": [697.0, 1393.0, 2090, 2787.0, 3483.0, 4180, 4180, 4180, 4180, 4180, 4180, 4180], "attendance": [140, 142, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162], "op_m": [24180, 23857.0, 23544.0, 23242.0, 22949.0, 22666.0, 22393.0, 22128.0, 21873.0, 21626.0, 21388.0, 21159.0], "exp_m": [27274.0, 26539.0, 40059.0, 35764.0, 26010.0, 30359.0, 29154.0, 25743.0, 30182.0, 30536.0, 28551.0, 26044.0], "cum": [-3094, -5776, -22291, -34813, -37874, -45567, -52328, -55943, -64252, -73162, -80325, -85210], "group_labels": ["Personnel", "Building / Office / Admin", "Ministry", "Outreach", "Events", "Missions"], "group_vals": [155114.0, 69464.0, 68209.0, 38547.0, 20576.0, 4305.0], "group_colors": ["#3a443a", "#db6839", "#c1a56c", "#5a7d4f", "#8a6d9b", "#6a8caf"], "owners": ["Blake Odgers", "Sam Hardie", "Lauren Monaco"], "owner_group": {"Blake Odgers": {"Personnel": 122496.0, "Building / Office / Admin": 69023.0, "Ministry": 30263.0, "Outreach": 38547.0, "Events": 9560.0, "Missions": 4305.0}, "Sam Hardie": {"Personnel": 32618.0, "Building / Office / Admin": 0, "Ministry": 19397.0, "Outreach": 0, "Events": 6666.0, "Missions": 0}, "Lauren Monaco": {"Personnel": 0, "Building / Office / Admin": 441.0, "Ministry": 18549.0, "Outreach": 0, "Events": 4350.0, "Missions": 0}}, "owner_colors": ["#3a443a", "#db6839", "#c1a56c"], "income_src_labels": ["Internal Tithes & Offerings", "External Support", "Partnership Support"], "income_src_vals": [82307.0, 125379.0, 63322.0], "income_src_colors": ["#5a7d4f", "#db6839", "#c1a56c"]};
-const SLATE="#3a443a", ORANGE="#db6839", GOLD="#c1a56c", GOOD="#5a7d4f", CREAM="#d8cfbf", INK="#4a5142";
+const DATA = {"months": ["Jul '26", "Aug '26", "Sep '26", "Oct '26", "Nov '26", "Dec '26", "Jan '27", "Feb '27", "Mar '27", "Apr '27", "May '27", "Jun '27"], "tithes": [6300, 6401, 6501, 6603, 6704, 6806, 6908, 7011, 7113, 7216, 7320, 7424], "external": [11880, 11599, 11324, 11056, 10794, 10538, 10288, 10045, 9807, 9574, 9348, 9126], "partnership": [6000, 5858, 5719, 5584, 5451, 5322, 5196, 5073, 4953, 4836, 4721, 4609], "vision": [697, 1393, 2090, 2787, 3483, 4180, 4180, 4180, 4180, 4180, 4180, 4180], "attendance": [140, 142, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162], "op_m": [24180, 23857, 23544, 23242, 22949, 22666, 22393, 22128, 21873, 21626, 21388, 21159], "exp_m": [20822, 18922, 25872, 21582, 18753, 18402, 22165, 18976, 22550, 19116, 20297, 19762], "cum": [3358, 8293, 5965, 7625, 11821, 16085, 16313, 19465, 18788, 21298, 22389, 23786], "group_labels": ["Personnel", "Building / Office / Admin", "Ministry", "Outreach", "Missions"], "group_vals": [149054, 31868, 39824, 22168, 4305], "group_colors": ["#3a443a", "#db6839", "#c1a56c", "#5a7d4f", "#6a8caf"], "owners": ["Blake Odgers", "Sam Hardie", "Lauren Monaco"], "owner_colors": ["#3a443a", "#db6839", "#c1a56c"], "owner_group": {"Blake Odgers": {"Personnel": 116436, "Building / Office / Admin": 31427, "Ministry": 0, "Outreach": 22168, "Missions": 4305}, "Sam Hardie": {"Personnel": 32618, "Building / Office / Admin": 0, "Ministry": 26063, "Outreach": 0, "Missions": 0}, "Lauren Monaco": {"Personnel": 0, "Building / Office / Admin": 441, "Ministry": 13761, "Outreach": 0, "Missions": 0}}, "income_src_labels": ["Internal Tithes & Offerings", "External Support", "Partnership Support"], "income_src_vals": [82306, 125378, 63322], "income_src_colors": ["#5a7d4f", "#db6839", "#c1a56c"], "arc": {"fy": ["FY26", "FY27", "FY28", "FY29"], "revenue": [226438, 271006, 238817, 218988], "expense": [212745, 247219, 250858, 243662], "noi": [13693, 23787, -12041, -24674], "tithes": [50395, 82306, 97292, 112845], "external": [111265, 125378, 94033, 70525], "partnership": [64778, 63322, 47492, 35619], "attendance": [148, 151, 175, 199], "vision": [0, 39710, 50160, 50160]}, "ext_arc": [176043, 188700, 141525, 106144]};
+const SLATE="#3a443a",ORANGE="#db6839",GOLD="#c1a56c",GOOD="#5a7d4f",BAD="#b0542e",INK="#4a5142";
 Chart.register(ChartDataLabels);
-Chart.defaults.font.family="'Lato','Open Sans',sans-serif";
-Chart.defaults.color=INK;
+Chart.defaults.font.family="'Lato','Open Sans',sans-serif"; Chart.defaults.color=INK;
 Chart.defaults.plugins.datalabels.display=false;
-const usd=v=>'$'+Math.round(v).toLocaleString();
-const usdk=v=>'$'+(v/1000).toFixed(0)+'K';
+const usd=v=>'$'+Math.round(v).toLocaleString(); const usdk=v=>'$'+Math.round(v/1000)+'K';
+const opInc=271006;
 
-/* income source doughnut */
 new Chart(cSrc,{type:'doughnut',data:{labels:DATA.income_src_labels,datasets:[{data:DATA.income_src_vals,backgroundColor:DATA.income_src_colors,borderColor:'#fff',borderWidth:3}]},
  options:{cutout:'58%',plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:11.5},padding:12}},
- datalabels:{display:true,color:'#fff',font:{weight:'900',size:12},formatter:(v)=>Math.round(v/271005.0*100)+'%'},
+ datalabels:{display:true,color:'#fff',font:{weight:'900',size:12},formatter:v=>Math.round(v/opInc*100)+'%'},
  tooltip:{callbacks:{label:c=>c.label+': '+usd(c.raw)}}}}});
 
-/* monthly trend stacked area */
 new Chart(cTrend,{type:'line',data:{labels:DATA.months,datasets:[
  {label:'Internal Tithes',data:DATA.tithes,borderColor:GOOD,backgroundColor:'rgba(90,125,79,.18)',fill:true,tension:.35,borderWidth:2.5,pointRadius:0},
  {label:'External Support',data:DATA.external,borderColor:ORANGE,backgroundColor:'rgba(219,104,57,.14)',fill:true,tension:.35,borderWidth:2.5,pointRadius:0},
@@ -376,27 +270,30 @@ new Chart(cTrend,{type:'line',data:{labels:DATA.months,datasets:[
  options:{interaction:{mode:'index',intersect:false},scales:{y:{ticks:{callback:usdk},grid:{color:'#eee5d6'}},x:{grid:{display:false}}},
  plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:11.5},padding:12}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+usd(c.raw)}}}}});
 
-/* dependency: internal vs external total */
-new Chart(cDep,{type:'line',data:{labels:DATA.months,datasets:[
- {label:'Internal giving',data:DATA.tithes,borderColor:GOOD,backgroundColor:'rgba(90,125,79,.10)',fill:true,tension:.35,borderWidth:3,pointRadius:0},
- {label:'External + partner',data:DATA.external.map((v,i)=>v+DATA.partnership[i]),borderColor:ORANGE,borderDash:[5,4],tension:.35,borderWidth:3,pointRadius:0}]},
- options:{interaction:{mode:'index',intersect:false},scales:{y:{ticks:{callback:usdk},grid:{color:'#eee5d6'}},x:{grid:{display:false}}},
+/* the cliff: NOI by FY */
+new Chart(cArc,{type:'bar',data:{labels:DATA.arc.fy,datasets:[{data:DATA.arc.noi,
+ backgroundColor:DATA.arc.noi.map(v=>v>=0?GOOD:BAD),borderRadius:6}]},
+ options:{scales:{y:{ticks:{callback:usdk},grid:{color:'#eee5d6'}},x:{grid:{display:false},ticks:{font:{weight:'800',size:13}}}},
+ plugins:{legend:{display:false},datalabels:{display:true,anchor:c=>c.dataset.data[c.dataIndex]>=0?'end':'start',align:c=>c.dataset.data[c.dataIndex]>=0?'end':'start',color:c=>c.dataset.data[c.dataIndex]>=0?GOOD:BAD,font:{weight:'900',size:12},formatter:v=>(v>=0?'+':'')+usdk(v)},
+ tooltip:{callbacks:{label:c=>'Net operating income: '+usd(c.raw)}}}}});
+
+/* squeeze: outside vs internal across years */
+new Chart(cArc2,{type:'line',data:{labels:DATA.arc.fy,datasets:[
+ {label:'Outside support (ext+partner)',data:DATA.ext_arc,borderColor:ORANGE,backgroundColor:'rgba(219,104,57,.12)',fill:true,tension:.3,borderWidth:3,pointRadius:4,pointBackgroundColor:ORANGE},
+ {label:'Internal giving',data:DATA.arc.tithes,borderColor:GOOD,backgroundColor:'rgba(90,125,79,.12)',fill:true,tension:.3,borderWidth:3,pointRadius:4,pointBackgroundColor:GOOD}]},
+ options:{interaction:{mode:'index',intersect:false},scales:{y:{ticks:{callback:usdk},grid:{color:'#eee5d6'}},x:{grid:{display:false},ticks:{font:{weight:'800',size:12}}}},
  plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:11},padding:10}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+usd(c.raw)}}}}});
 
-/* expense by group horizontal bar */
-new Chart(cGroup,{type:'bar',data:{labels:DATA.group_labels,datasets:[{data:DATA.group_vals,backgroundColor:DATA.group_colors,borderRadius:6,barThickness:26}]},
+new Chart(cGroup,{type:'bar',data:{labels:DATA.group_labels,datasets:[{data:DATA.group_vals,backgroundColor:DATA.group_colors,borderRadius:6,barThickness:28}]},
  options:{indexAxis:'y',scales:{x:{ticks:{callback:usdk},grid:{color:'#eee5d6'}},y:{grid:{display:false},ticks:{font:{size:11}}}},
  plugins:{legend:{display:false},datalabels:{display:true,anchor:'end',align:'end',color:SLATE,font:{weight:'800',size:11},formatter:usdk},
- tooltip:{callbacks:{label:c=>usd(c.raw)+' · '+Math.round(c.raw/356215.0*100)+'%'}}}}});
+ tooltip:{callbacks:{label:c=>usd(c.raw)+' · '+Math.round(c.raw/247219*100)+'%'}}}}});
 
-/* owner stacked bar by group */
 new Chart(cOwner,{type:'bar',data:{labels:DATA.owners.map(o=>o.split(' ')[0]),datasets:DATA.group_labels.map((g,i)=>({
   label:g,data:DATA.owners.map(o=>DATA.owner_group[o][g]),backgroundColor:DATA.group_colors[i],borderRadius:3,stack:'s'}))},
  options:{scales:{y:{stacked:true,ticks:{callback:usdk},grid:{color:'#eee5d6'}},x:{stacked:true,grid:{display:false},ticks:{font:{weight:'800',size:12}}}},
- plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10.5},padding:8}},
- tooltip:{callbacks:{label:c=>c.dataset.label+': '+usd(c.raw)}}}}});
+ plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10.5},padding:8}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+usd(c.raw)}}}}});
 
-/* cash: bars income/expense + cumulative line */
 new Chart(cCash,{data:{labels:DATA.months,datasets:[
  {type:'bar',label:'Operating income',data:DATA.op_m,backgroundColor:'rgba(90,125,79,.85)',borderRadius:4,order:2},
  {type:'bar',label:'Operating expense',data:DATA.exp_m,backgroundColor:'rgba(219,104,57,.85)',borderRadius:4,order:2},
@@ -407,12 +304,10 @@ new Chart(cCash,{data:{labels:DATA.months,datasets:[
    x:{grid:{display:false}}},
  plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:11},padding:10}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+usd(c.raw)}}}}});
 
-/* scrollspy */
 const links=[...document.querySelectorAll('nav.toc a')];
 const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('on'));
  const i=secs.indexOf(e.target);if(i>=0)links[i].classList.add('on');}})},{rootMargin:'-45% 0px -50% 0px'});
 secs.forEach(s=>s&&io.observe(s));
 </script>
-</body>
-</html>
+</body></html>
