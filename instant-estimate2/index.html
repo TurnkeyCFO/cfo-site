@@ -494,6 +494,29 @@ const restartBtn = document.getElementById('restartBtn');
 const cursorGlow = document.getElementById('cursorGlow');
 const submissionStatus = document.getElementById('submissionStatus');
 const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby3WTNHSphNeqvrSBYyFilCvP2hYRV8YCCpSgLOCThC6PheZ2hflDtLUTUmgOxBCoPT/exec';
+
+// Traffic-source capture: read once on landing (survives the multi-step form
+// via sessionStorage, in case of a mid-form refresh), never overwrites once set
+// so a later internal link click on the results page can't clobber the original source.
+function captureTrafficSource_() {
+  try {
+    const stored = sessionStorage.getItem('tk_traffic_source');
+    if (stored) return JSON.parse(stored);
+    const params = new URLSearchParams(window.location.search);
+    const info = {
+      utmSource: params.get('utm_source') || '',
+      utmMedium: params.get('utm_medium') || '',
+      utmCampaign: params.get('utm_campaign') || '',
+      gclid: params.get('gclid') || '',
+      referrer: document.referrer || ''
+    };
+    sessionStorage.setItem('tk_traffic_source', JSON.stringify(info));
+    return info;
+  } catch (err) {
+    return { utmSource: '', utmMedium: '', utmCampaign: '', gclid: '', referrer: '' };
+  }
+}
+const TRAFFIC_SOURCE = captureTrafficSource_();
 let currentStep = 0;
 
 if (cursorGlow) {
@@ -671,7 +694,11 @@ function buildSubmissionPayload(data, result) {
     monthsBehindLabel: getCleanupLabel(data.monthsBehind),
     cleanupEstimate: result.cleanup,
     complexityFlags: result.flags.join(', '),
-    reviewStatus: result.flags.length ? 'Review suggested' : 'Looks standard'
+    reviewStatus: result.flags.length ? 'Review suggested' : 'Looks standard',
+    trafficSource: TRAFFIC_SOURCE.gclid ? 'google_ads' : (TRAFFIC_SOURCE.utmSource || (TRAFFIC_SOURCE.referrer ? 'referral' : 'direct')),
+    campaign: TRAFFIC_SOURCE.utmCampaign || '',
+    gclid: TRAFFIC_SOURCE.gclid || '',
+    referrer: TRAFFIC_SOURCE.referrer || ''
   };
 }
 
