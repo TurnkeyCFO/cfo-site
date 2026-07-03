@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Objection Handling · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#7C3AED;--deep:#5B21B6;--dk:#4A2A9E;--ink:#2A1A5E;--tint:#F5F3FF;--tintb:#d9cef4;--cardtint:#F4F2FB;--mut:#5c5866;--line:#e6e3ee;--txt:#0A0A0A;--page:#faf9fd;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/dialers/objection-handling">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/dialers/">Dialer Playbook</a><span class="sep">/</span><span class="here">Objection Handling</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Dialer Playbook</div>
+        <h1>Objection Handling</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Dialer Playbook</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP gives every dialing rep a working answer to the objections you will hear most on Turnkey Web calls, in both lanes: the no-website lane (high-rated service businesses with no site at all) and the redesign lane (businesses, nonprofits, and churches with a weak existing site). Each objection below has three parts: what the objection usually means, the response to give, and the pivot back to booking a short review call. The goal of every call is one thing: a booked meeting. It is never to close, quote, or debate on the phone.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<ul>
+<li><strong>Ricky West</strong> owns this playbook. Scripts and objection responses can be adapted per rep, but the core rules here (no price on the call, the 9 dispositions, compliance behavior) are locked and change only through Ricky.</li>
+<li><strong>Dialing reps (currently David, Daniel, and Rebekah, confirm current roster with Ricky)</strong> use this SOP live on calls and tag every call outcome in CloudTalk.</li>
+<li><strong>Ricky (or the designated manager)</strong> approves anything that goes to a prospect in writing after a call. No rep sends follow-up material without an explicit in-channel "APPROVED" reply in Slack.</li>
+</ul>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li>Use this SOP on every outbound dial, across all three daily campaigns (Warm Callbacks, Follow-ups Due, Cold New Prospects).</li>
+<li>Re-read it when a new batch of leads starts, when your script changes, or when you notice the same objection beating you two days in a row.</li>
+<li>After every call, apply exactly one of the 9 CloudTalk tags. The objection you heard determines the tag (mapping noted per objection below).</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="ground-rules-before-any-objection">Ground rules before any objection</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Stay warm and unhurried. An objection is a conversation, not a rejection.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Answer the objection in one or two sentences, then pivot to the booking. Do not lecture.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Never quote price, fees, or plan cost on the call. Price lives in the booked review call.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Never argue. Two genuine "no" signals means thank them and tag the call honestly.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Use the lead sheet context: the redesign lane gives you specific site problems (the Redesign Hooks column) and the no-website lane gives you their Google rating and review count. Reference the specific detail, not a generic pitch.</label></li>
+</ul>
+<h3 id="objection-1-i-already-have-a-guy-or-my-web-person-handles-that">Objection 1: "I already have a guy" (or "my web person handles that")</h3>
+<ul>
+<li><strong>What it means:</strong> They have a relationship, not necessarily results. In the redesign lane you are calling because their current site has visible problems, so "the guy" is not covering everything.</li>
+<li><strong>Response:</strong> "That's great, and I'm not asking you to replace anyone. We took a look at your site and noticed a couple of specific things, like [name one hook, for example the site breaking on phones]. Sometimes a second set of eyes catches what the day-to-day person is too close to see."</li>
+<li><strong>Pivot:</strong> "Would you be open to a quick fifteen minute review where we walk you through exactly what we found? If your current person can fix it, you hand them the list and you're better off either way." If yes, book it. If a soft no, tag <code>Soft No - Follow Up 30 days</code>.</li>
+</ul>
+<h3 id="objection-2-we-dont-have-the-budget-or-no-money-for-that-right-now">Objection 2: "We don't have the budget" (or "no money for that right now")</h3>
+<ul>
+<li><strong>What it means:</strong> Usually a reflex, not a real financial statement. They are pricing an imagined big project, not what we actually offer.</li>
+<li><strong>Response:</strong> "Totally understand, and honestly this is probably smaller than what you're picturing. We work on a simple monthly plan, no big upfront project cost, and the review call itself is free."</li>
+<li><strong>Pivot:</strong> "Let's do the free review first. You'll see exactly what's costing you customers today, and then you can decide if it's worth anything to fix. Worst case you get a free list of problems." Do not name the monthly amount. If they book, tag <code>Interested - Booked</code>. If warm but not committed, tag <code>Interested - Needs Follow Up</code>.</li>
+</ul>
+<h3 id="objection-3-just-send-me-an-email">Objection 3: "Just send me an email"</h3>
+<ul>
+<li><strong>What it means:</strong> A polite brush-off most of the time, but sometimes a real preference. Treat it as a half-open door.</li>
+<li><strong>Response:</strong> "Happy to. So the email is actually useful and not just another sales blast, let me make it specific to you: what's the best address, and is [name the hook or the no-website gap] the main thing you'd want us to cover?"</li>
+<li><strong>Pivot:</strong> "Even better than an email, the review call is fifteen minutes and you can react in real time. Can I hold a slot this week and send the email as the recap?" If they still want email only, capture the address, tag <code>Interested - Needs Follow Up</code>, and post the request in Slack. The follow-up email goes out only after a named "APPROVED" reply from Ricky or the manager, never straight from the call.</li>
+</ul>
+<h3 id="objection-4-not-interested">Objection 4: "Not interested"</h3>
+<ul>
+<li><strong>What it means:</strong> Read the tone. A flat, final "not interested, stop calling" is a hard no. A distracted "not interested" thirty seconds in usually means "you haven't said anything relevant yet."</li>
+<li><strong>Response (soft version):</strong> "No problem, and I'll be quick. The only reason I called is [specific detail: your site doesn't load right on phones / you're rated 4.8 on Google and people can't find you online]. That's it. If that's not a problem you care about, I'll let you go."</li>
+<li><strong>Pivot:</strong> "If it is worth two more minutes someday, can I check back in a month?" If yes, tag <code>Soft No - Follow Up 30 days</code>. If the no is firm, thank them sincerely and tag <code>Not Interested / Hard No</code>. That tag is permanent suppression, so use it only when the no is real.</li>
+</ul>
+<h3 id="objection-5-how-much-is-it">Objection 5: "How much is it?"</h3>
+<ul>
+<li><strong>What it means:</strong> Interest. Nobody asks the price of something they don't want. It is also the one question you must not answer on the call.</li>
+<li><strong>Response:</strong> "Fair question. The honest answer is it depends on what your site actually needs, and I'd be guessing if I threw a number at you now. What I can tell you is it's a simple monthly plan, there's no big project bill, and the review where we scope it is free."</li>
+<li><strong>Pivot:</strong> "The review call is where we put a real number on it, specific to you. Fifteen minutes, no obligation. Does Tuesday or Thursday work better?" Never quote a figure, a range, or "around" anything. If they push hard, hold the line kindly: "I'd rather be accurate than fast on price, that's exactly what the call is for." Book it and tag <code>Interested - Booked</code>.</li>
+</ul>
+<h3 id="objection-6-i-dont-need-a-website-no-website-lane">Objection 6: "I don't need a website" (no-website lane)</h3>
+<ul>
+<li><strong>What it means:</strong> Their business runs on referrals and repeat work, so a site feels optional. They are usually right that they survive without one, and wrong about what it costs them.</li>
+<li><strong>Response:</strong> "You clearly don't need one to be good at what you do, your Google rating proves that. Here's the thing though: you're rated [their rating] with [their review count] reviews, and when someone searches for a [their trade] in [their city], the person who shows up with a site gets the call, even if you're better."</li>
+<li><strong>Pivot:</strong> "Give me fifteen minutes and I'll show you what people see today when they look for you, and what it could look like instead. If it doesn't land, no hard feelings." If no, tag <code>Soft No - Follow Up 30 days</code>. If they reveal they actually do have a website, tag <code>Has Website Already</code> (that flags them for a Turnkey CFO referral check instead of discarding them).</li>
+</ul>
+<h3 id="objection-7-im-too-busy-or-call-me-some-other-time">Objection 7: "I'm too busy" (or "call me some other time")</h3>
+<ul>
+<li><strong>What it means:</strong> Often true, especially for trades. Busy is not a no, it is a scheduling problem.</li>
+<li><strong>Response:</strong> "That's exactly why I'll be brief, and honestly, busy is the best problem to have. I'm not asking for time now. I'm asking for fifteen minutes on your calendar wherever it actually fits, early morning, lunch, whatever works."</li>
+<li><strong>Pivot:</strong> "What's a day this week or next where you get a breather? I'll send the invite and you can move it if the day blows up." If they name a time, fill the <code>callback_at</code> field first, then tag <code>Callback Scheduled</code>. If it is a vague "later," tag <code>Interested - Needs Follow Up</code>.</li>
+</ul>
+<h3 id="objection-8-is-this-ai-are-you-a-robot">Objection 8: "Is this AI? Are you a robot?"</h3>
+<ul>
+<li><strong>What it means:</strong> They have been hit with robocalls and want to know a human is on the line. This is a trust checkpoint, not hostility.</li>
+<li><strong>Response:</strong> "Nope, real person. My name is [your name] and I work with Turnkey Web. You're hearing a real human who looked at your business before dialing, which is why I can tell you [specific detail from the lead sheet]."</li>
+<li><strong>Pivot:</strong> "And since you've got a real person, let me earn the interruption: fifteen minutes this week and I'll show you exactly what we found." Never claim to be AI, never be cagey. Answer directly, prove it with a specific detail, and move on. Tag by however the rest of the call goes.</li>
+</ul>
+<h3 id="objection-9-we-get-all-our-business-from-word-of-mouth">Objection 9: "We get all our business from word of mouth"</h3>
+<ul>
+<li><strong>What it means:</strong> A close cousin of "don't need a website." Referrals work until they don't, and every referral still checks them out online before calling.</li>
+<li><strong>Response:</strong> "Word of mouth is the best marketing there is, and here's what we see: even referred customers look you up before they call. When there's no site, or the site looks rough on a phone, some of those referrals quietly go to the next name on the list."</li>
+<li><strong>Pivot:</strong> "The review call shows you exactly what a referred customer sees today. Fifteen minutes. If it looks fine, I'll tell you so and leave you alone." Tag per the outcome, usually <code>Interested - Needs Follow Up</code> or <code>Soft No - Follow Up 30 days</code>.</li>
+</ul>
+<h3 id="objection-10-my-nephew-handles-our-website-or-i-built-it-myself">Objection 10: "My nephew handles our website" (or "I built it myself")</h3>
+<ul>
+<li><strong>What it means:</strong> There is personal pride or a family relationship attached. Handle with extra care, never insult the existing work.</li>
+<li><strong>Response:</strong> "That's honestly great, most businesses never get that far. The stuff we flagged is the kind of thing that's hard to catch from the inside, like [hook: how it renders on phones, load speed, outdated layout]. It's not about redoing anyone's work, it's about a professional once-over."</li>
+<li><strong>Pivot:</strong> "Let us do the free review and hand you the findings. If your nephew can knock them out, fantastic. If it's more than he wants to take on, we can talk." Tag <code>Interested - Needs Follow Up</code> or <code>Soft No - Follow Up 30 days</code> per the response.</li>
+</ul>
+<h3 id="objection-11-we-tried-a-website-before-and-it-didnt-do-anything">Objection 11: "We tried a website before and it didn't do anything"</h3>
+<ul>
+<li><strong>What it means:</strong> They paid someone once, got a brochure site, and saw no new business. The skepticism is earned.</li>
+<li><strong>Response:</strong> "You're describing most first websites, honestly. A site that just sits there doesn't bring in work. The difference now is a site built to be found and to convert, plus someone actively maintaining it every month instead of launch-and-abandon."</li>
+<li><strong>Pivot:</strong> "The review call is exactly where we show you why the last one didn't perform and what would be different. Fifteen minutes, and you'll know more about your own web presence either way." Tag per the outcome.</li>
+</ul>
+<h3 id="objection-12-who-is-this-how-did-you-get-my-number">Objection 12: "Who is this? How did you get my number?"</h3>
+<ul>
+<li><strong>What it means:</strong> A fair question, and a compliance moment. Answer plainly and immediately.</li>
+<li><strong>Response:</strong> "Of course. My name is [your name], I'm with Turnkey Web, we build and maintain websites for local businesses. Your number is on your public Google Business listing, which is actually part of why I called: you're easy to find on Google but [there's no website attached / the site attached has some problems]."</li>
+<li><strong>Pivot:</strong> Return to the relevant lane's opener and go for the booking. If they say any version of "take me off your list" or "do not call," honor it on the spot, confirm it out loud ("You got it, I'm removing you now"), and tag <code>Not Interested / Hard No</code>. That is a compliance action, not a judgment call.</li>
+</ul>
+<h3 id="after-the-call-always-tag">After the call: always tag</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Apply exactly one of the 9 CloudTalk tags, spelled exactly. A typo does not route.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">For <code>Callback Scheduled</code>, fill the <code>callback_at</code> field before tagging.</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">For a booked meeting, follow the booking SOP (specific slot, verbal yes, save then Send, immediate Slack ping).</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Note the objection you heard in the call notes. Patterns across reps feed script updates.</label></li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li><strong>Never quote price, fees, plan cost, ranges, or "ballparks" on a dial.</strong> Price is scoped and presented on the booked review call, by the person running that call.</li>
+<li><strong>Never claim to be AI, and never deny being human.</strong> You are a real person. Say so plainly when asked.</li>
+<li><strong>Two real no's ends the call politely.</strong> Pushing past a genuine no burns the brand and risks compliance.</li>
+<li><strong>DNC requests are honored instantly and tagged <code>Not Interested / Hard No</code>.</strong> That suppression is permanent. TCPA, state cold-calling rules, and Do Not Call compliance are contractual obligations, not suggestions.</li>
+<li><strong>All calls are recorded on company systems.</strong> Never make claims you would not want replayed: no fake scarcity, no invented credentials, no promises about results or timelines.</li>
+<li><strong>No written follow-up leaves without approval.</strong> Any email or material a prospect is promised goes through Slack and waits for a named "APPROVED" reply.</li>
+<li><strong>Do not disparage the prospect's current site, vendor, or nephew.</strong> Point at specific fixable problems, never at people.</li>
+<li><strong>Keep confidential material confidential.</strong> Scripts, objection responses, lead lists, recordings, and dispositions stay inside company systems, never on personal devices or accounts.</li>
+<li><strong>Church and nonprofit prospects get the mission framing, not the growth framing.</strong> Same offer, different language: "reach your congregation" or "serve your mission," not "grow your business."</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<ul>
+<li><strong>Prospect asks a bookkeeping, tax, or accounting question:</strong> do not answer it. Bookkeeping interest goes to Ricky as a Turnkey CFO referral flag (this is also what the <code>Has Website Already</code> tag exists for). Tax or legal questions get "that's one for your CPA or attorney."</li>
+<li><strong>Prospect gets angry, threatens complaints, or mentions a lawyer:</strong> end the call politely, tag <code>Not Interested / Hard No</code>, and flag Ricky in Slack the same day with what happened.</li>
+<li><strong>Prospect asks for pricing in writing before booking:</strong> do not send numbers. Flag to Ricky and let him decide the response.</li>
+<li><strong>You hear the same new objection repeatedly and this SOP has no answer:</strong> post it in the sales Slack channel with how you handled it. Ricky updates the playbook; reps do not fork their own versions of locked material.</li>
+<li><strong>A warm callback is still unworked at end of day:</strong> flag it. Warm Callbacks are the highest-intent queue and are never allowed to go stale silently.</li>
+<li><strong>Anything touching contract terms, discounts, or scope promises:</strong> Ricky only. Reps never negotiate terms on a dial.</li>
+</ul>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/dialers/cloudtalk-usage/">CloudTalk Usage Guide</a> for the 9 tags, the three-campaign daily structure, and what each tag triggers downstream</li>
+<li><a href="/team/dialers/daily-workflow/">Dialer Daily Workflow</a> for what the no-website and redesign lead data gives you before you dial</li>
+<li><a href="/team/web/booking/">Sales Meeting Booking</a> for the exact booking flow once the prospect says yes</li>
+<li><a href="/team/web/intake-to-build/">Intake to Build</a> for what happens after a booked call converts</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

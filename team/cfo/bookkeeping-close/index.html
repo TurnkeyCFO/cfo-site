@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Monthly Bookkeeping Close · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/bookkeeping-close">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Monthly Bookkeeping Close</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Monthly Bookkeeping Close</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>Every Turnkey CFO client gets their prior month's books closed, delivered, and reviewed on a fixed business-day rhythm. This SOP defines that rhythm (BD1, BD3, BD6, BD10, BD12), who owns each milestone, how transactions get categorized and reconciled, what ships in the delivery package, and how to recover when a close slips. Follow it and a brand-new team member can run a close without asking what happens next.</p>
+<p>One rule above all: each close cycle delivers the PRIOR month's books. Meetings happen on real, delivered numbers, never on a work in progress.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Person</th>
+<th>Close responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Founder</td>
+<td>Ricky</td>
+<td>Reviews deliveries by exception, leads client review meetings, sole approver on anything touching pricing, scope, or engagement terms</td>
+</tr>
+<tr>
+<td>Accounting Manager</td>
+<td>Beth (ramping into ownership)</td>
+<td>QC layer above Hardik, owns the checkpoint and delivery milestones as she ramps, primary client contact once fully released</td>
+</tr>
+<tr>
+<td>Bookkeeper</td>
+<td>Hardik</td>
+<td>Transaction entry, QBO categorization, reconciliation, drafting the books; works in Financial Cents, not Slack</td>
+</tr>
+<tr>
+<td>Admin and comms</td>
+<td>Eldine</td>
+<td>Sends the monthly request, the consolidated checkpoint, the delivery, and meeting invites plus reminders</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Named contact per client</td>
+<td>Gathers documents, completes card memos by BD3, reviews the delivery, attends the review meeting</td>
+</tr>
+</tbody>
+</table></div>
+<p>Milestone-by-milestone duties (this table is the backbone of the whole close):</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Milestone</th>
+<th>Hardik (bookkeeping)</th>
+<th>Eldine (admin/comms)</th>
+<th>Ricky</th>
+<th>Client</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BD1 Request</td>
+<td>Compile each client's request list</td>
+<td>Send the monthly request (statements, receipts, approvals; memos due BD3)</td>
+<td>(none)</td>
+<td>Gather docs</td>
+</tr>
+<tr>
+<td>BD3 Checkpoint</td>
+<td>Books drafted; build checkpoint (open items, memos, unknown txns)</td>
+<td>Send consolidated checkpoint</td>
+<td>(none)</td>
+<td><strong>Ramp/Bill.com charge memos done</strong> (top cause of delayed close)</td>
+</tr>
+<tr>
+<td>BD6 Deliver</td>
+<td>Reconcile; prepare financials + dashboard + Open Items</td>
+<td>Send the delivery</td>
+<td>Review before delivery, by exception</td>
+<td>Review delivery</td>
+</tr>
+<tr>
+<td>BD10 Finalize</td>
+<td>True-up, book estimates, lock the month</td>
+<td>(none)</td>
+<td>(none)</td>
+<td>(none)</td>
+</tr>
+<tr>
+<td>BD12 Meeting</td>
+<td>(none)</td>
+<td>Schedule invites + 2-business-day reminders</td>
+<td>Lead the monthly client review</td>
+<td>Attend</td>
+</tr>
+</tbody>
+</table></div>
+<p>As Beth ramps, checkpoint and delivery ownership shifts from Hardik-plus-Ricky to Beth, and Ricky steps back to strategic review. Update this table when her release is complete (confirm with Ricky).</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li>The cadence counts BUSINESS DAYS of the new month, not calendar days. BD1 is the first business day, BD3 the third, and so on. US business holidays do not count as business days.</li>
+<li>The five milestones: BD1 Request, BD3 Checkpoint, BD6 Deliver, BD10 Finalize (month locks), BD12 Review meeting (about 2 business days after final delivery).</li>
+<li>Every active client runs a recurring "Turnkey Monthly Bookkeeping" project in Financial Cents. The project's internal task list is the working checklist; client tasks track document uploads (they complete as a set: all pending or all done, never partial).</li>
+<li>The Close Command site is the team's shared awareness tool: it shows the next two business days of milestones across every client, with checkboxes that sync team-wide. Check it at the start of each close-week day.</li>
+<li>An older internal document describes a "Day 5" calendar-day close. That model is retired. The business-day cadence in this SOP is canonical.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="bd1-request">BD1: Request</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Hardik compiles each client's request list: which statements, receipts, approvals, and memos are missing for the month being closed.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Eldine sends the monthly request from the role mailbox (accounting@turnkeycfo.com), including the reminder that card memos are due BD3.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Confirm the Financial Cents monthly project exists for the cycle and the client tasks are issued.</label></li>
+</ul>
+<h3 id="bd3-checkpoint">BD3: Checkpoint</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Hardik has the books drafted: transactions entered, first-pass categorization done, unknowns flagged.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Build one consolidated checkpoint note per client: outstanding items, memos still due, unrecognized transactions.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Eldine sends the checkpoint to the client.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Client-side deadline: Ramp and Bill.com charge memos are due today. Late memos are the single most common reason a close slips.</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">If a client has sent NOTHING by BD3, escalate internally the same day. This protects BD6.</label></li>
+</ul>
+<h3 id="categorization-runs-bd1-through-bd6">Categorization (runs BD1 through BD6)</h3>
+<p>Three lanes exist. Confirm at onboarding which lane a client is on; never assume automation coverage (confirm with Ricky for any client not explicitly assigned).</p>
+<ol>
+<li><strong>Manual (default).</strong> Hardik categorizes and memos each transaction in QBO. On suggested transfers and deposits, match rather than add, so duplicates never enter the books.</li>
+<li><strong>qbo-classifier (daily pilot).</strong> Automated daily QBO classification for a small pilot set of clients. Automated write-back is hard-blocked until that client's closed-books date is configured; if it is unset, everything routes to manual review.</li>
+<li><strong>ramp-classifier (daily).</strong> Ramp card transactions are classified automatically, approved via a Slack card, then written back by browser automation. It never mutates QBO directly. Onboarding a new client to this lane requires a client-specific credential first.</li>
+</ol>
+<p>Whatever the lane, Hardik reviews the result. Automation gets the books most of the way; a human stands behind them.</p>
+<h3 id="reconciliation-bd3-through-bd6">Reconciliation (BD3 through BD6)</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Reconcile every bank and card account to a zero difference for the month being closed.</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Match, do not add, when clearing suggested transactions against the feed.</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">Apply client-specific coding rules (fund classes for churches, job tags where required, revenue stream sub-accounts). The per-client dossier is the source for these.</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Flag anything unusual immediately, do not wait for delivery: large unusual withdrawals, possible personal transactions, missing deposits, revenue inconsistencies, negative cash trends.</label></li>
+</ul>
+<h3 id="bd6-deliver">BD6: Deliver</h3>
+<p>The delivery package has three parts:</p>
+<ol>
+<li><strong>Financials</strong> for the closed month.</li>
+<li><strong>Live dashboard</strong> refreshed with the closed numbers.</li>
+<li><strong>Open Items list</strong>: anything still outstanding, stated plainly.</li>
+</ol>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Apply the materiality gate: if remaining gaps are immaterial, ship with flags on the Open Items list. If the month is MATERIALLY incomplete, escalate internally BEFORE shipping. Never deliver financials you would not stand behind.</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">Ricky (or the Accounting Manager once ramped) reviews by exception before send.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Eldine sends the delivery from the role mailbox.</label></li>
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">If BD6 is at risk, the client hears from Turnkey BEFORE the date, not after.</label></li>
+</ul>
+<h3 id="bd10-finalize-and-lock">BD10: Finalize and lock</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">True-up: fold in late items, book estimates or suspense entries for anything still missing.</label></li>
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">Lock the month. Nothing reopens after BD10.</label></li>
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18">Update the dashboard and financials if the true-up changed anything the client already saw.</label></li>
+</ul>
+<h3 id="bd12-review-meeting">BD12: Review meeting</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-19" data-idx="19"><label for="ck-19">Eldine schedules invites and sends reminders 2 business days ahead.</label></li>
+<li class="ck"><input type="checkbox" id="ck-20" data-idx="20"><label for="ck-20">Ricky leads the review on the delivered, locked numbers (transitions to Beth as she ramps).</label></li>
+<li class="ck"><input type="checkbox" id="ck-21" data-idx="21"><label for="ck-21">With several clients, meetings cluster on one day. Spread them across the BD11 to BD14 window; the calendar gives the anchor, Ricky places the exact slots.</label></li>
+</ul>
+<h3 id="meeting-cadence-variants">Meeting cadence variants</h3>
+<p>Each client is assigned one cadence type:</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Review</td>
+<td>Standard client review meeting on BD12</td>
+</tr>
+<tr>
+<td>Board</td>
+<td>Review on BD12, plus a board reference date on the 3rd Monday of the month, tracked separately</td>
+</tr>
+<tr>
+<td>PastorReview (premium)</td>
+<td>Senior-pastor review on the 2nd Wednesday of the month. This is an ACCELERATED close: financials must be final before mid-week of week 2, so BD10 lock happens before that date. Board or elder reference stays 3rd Monday. Whether BD6 also moves earlier for premium clients: (confirm with Ricky)</td>
+</tr>
+<tr>
+<td>Books-only (async)</td>
+<td>No standing meeting. Delivery and dashboard only. Applies to books-only clients and Turnkey's own internal books (which run the same cadence, lowest priority)</td>
+</tr>
+<tr>
+<td>Build</td>
+<td>Working-session engagement with a quarterly board pack instead of a standard monthly close</td>
+</tr>
+</tbody>
+</table></div>
+<p>Paused clients return to the BD12 review cadence on reactivation.</p>
+<h3 id="holiday-handling">Holiday handling</h3>
+<ul>
+<li>US business holidays are non-business days; every BD milestone counts around them automatically.</li>
+<li>If a 3rd Monday board reference lands on a holiday, the board meets an adjacent day; the calendar flags it.</li>
+<li>If a shifted milestone lands during a premium client's accelerated window, resolve the squeeze in the client's favor: lock earlier, never later. Exact shift rule for edge cases: (confirm with Ricky).</li>
+</ul>
+<h3 id="what-breaks-a-close-and-how-to-recover">What breaks a close, and how to recover</h3>
+<p>The number one cause of a delayed close is <strong>late card memos</strong> (Ramp and Bill.com charges without a memo by BD3). Coding accuracy depends on memo quality, so missing memos stall categorization, which stalls reconciliation, which threatens BD6.</p>
+<p>Recovery playbook:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-22" data-idx="22"><label for="ck-22">BD3, nothing received: same-day internal escalation. Eldine sends a direct, warm nudge naming exactly what is missing.</label></li>
+<li class="ck"><input type="checkbox" id="ck-23" data-idx="23"><label for="ck-23">BD4 to BD5, still missing: the weekly per-cardholder reminder engines (Expensify and Bill.com reminder systems, where live for that client) list exactly which transactions need attention from exactly which person. Never send a team-wide blast; reminders are individualized by design.</label></li>
+<li class="ck"><input type="checkbox" id="ck-24" data-idx="24"><label for="ck-24">BD6, gaps remain but immaterial: ship with flags on the Open Items list.</label></li>
+<li class="ck"><input type="checkbox" id="ck-25" data-idx="25"><label for="ck-25">BD6, materially incomplete: escalate to Ricky BEFORE the delivery date. The client hears from us before the date slips, with a specific new date.</label></li>
+<li class="ck"><input type="checkbox" id="ck-26" data-idx="26"><label for="ck-26">BD10: whatever is still missing gets an estimate or suspense entry, and the month locks anyway. Late items land in the next cycle. The rhythm holds even when a client is slow.</label></li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>Deliver PRIOR month books only. Never review a month that is not locked.</li>
+<li>Nothing reopens after BD10. A post-lock discovery becomes a next-cycle adjustment.</li>
+<li>Never deliver financials you would not stand behind. Materially incomplete means escalate first, ship second.</li>
+<li>Never send a broken or text-only substitute to a client, especially a lead pastor. If a dashboard is not confirmed live, hold the delivery email and page Ricky. No failure language ever reaches a recipient.</li>
+<li>Client-facing assets use the client's own brand and palette, never Turnkey's swapped in.</li>
+<li>Client-facing email always sends from a role mailbox (accounting@turnkeycfo.com or a named @turnkeycfo.com address), never a personal address.</li>
+<li>Financial Cents Client Chat is client-visible; Team Chat is internal. Never mix the two.</li>
+<li>Turnkey CFO is a bookkeeping firm. Tax or legal questions from a client route to "your CPA or attorney," never answered in-house.</li>
+<li>Match rather than add in QBO. Duplicated transactions poison every downstream report.</li>
+<li>Automated QBO write-back stays hard-blocked for any client whose closed-books date is not configured. Do not work around the gate.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Routine coding or workflow question</td>
+<td>Hardik to Accounting Manager; the AM decides and directs</td>
+</tr>
+<tr>
+<td>Client asks about their books, timing, or a transaction</td>
+<td>AM handles directly (Ricky reviews drafts during her ramp)</td>
+</tr>
+<tr>
+<td>Anything touching pricing, scope, or engagement terms</td>
+<td>Ricky, always. Never negotiate or promise scope solo</td>
+</tr>
+<tr>
+<td>Tax or legal advice request</td>
+<td>Redirect to "your CPA or attorney"</td>
+</tr>
+<tr>
+<td>Client frustrated, upset, or gone quiet</td>
+<td>Flag to Ricky same day with a read on why</td>
+</tr>
+<tr>
+<td>Client sent nothing by BD3</td>
+<td>Internal escalation same day (protects BD6)</td>
+</tr>
+<tr>
+<td>Month materially incomplete at BD6</td>
+<td>Escalate BEFORE shipping</td>
+</tr>
+<tr>
+<td>Books-level red flags (unusual withdrawals, possible personal spend, missing deposits, negative cash trend)</td>
+<td>Escalate to Ricky immediately; do not wait for the milestone</td>
+</tr>
+<tr>
+<td>Hardik capacity or quality systemically off</td>
+<td>Escalate to Ricky with specifics: which clients, which patterns</td>
+</tr>
+</tbody>
+</table></div>
+<p>Response standards during close week: acknowledge client email the same business day even if the full answer comes later, answer internal Slack within a couple of working hours, and if a date is at risk the client hears from us before the date.</p>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/onboarding/">Client onboarding</a> (cutover, opening balances, and which categorization lane a new client gets)</li>
+<li><a href="/team/cfo/payroll/">Payroll</a> (Gusto rhythm, transition parallel-run, filing calendar)</li>
+<li><a href="/team/cfo/bill-pay/">Bill pay and spend</a> (Ramp workflow, memo discipline, cardholder reminders)</li>
+<li><a href="/team/cfo/communication/">Client communication</a> (channel map, response standards, voice)</li>
+<li><a href="/team/cfo/tools-platforms/">Tools and Platforms</a> (Financial Cents project taxonomy, status pills, client tasks)</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

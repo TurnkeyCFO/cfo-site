@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Turnkey Web Communication · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#7C3AED;--deep:#5B21B6;--dk:#4A2A9E;--ink:#2A1A5E;--tint:#F5F3FF;--tintb:#d9cef4;--cardtint:#F4F2FB;--mut:#5c5866;--line:#e6e3ee;--txt:#0A0A0A;--page:#faf9fd;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/web/communication">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/web/">Turnkey Web</a><span class="sep">/</span><span class="here">Turnkey Web Communication</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Turnkey Web SOP</div>
+        <h1>Turnkey Web Communication</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Turnkey Web</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP defines how Turnkey Web talks to prospects and clients: which Slack channels carry which kind of message, how prospect follow-up is paced and approved, what our external copy sounds like, and how a lead moves cleanly from the dialer to Ricky to the build team and back out to the prospect. Follow it and no prospect ever receives an unreviewed message, no warm lead goes stale, and every touch sounds like Turnkey Web: warm, direct, and professional. Websites are the product; credibility is the pitch.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Communication responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Founder</td>
+<td>Ricky</td>
+<td>Approves every site preview before anything is sent to a prospect. Sole voice on pricing, scope, and engagement terms. CC'd on prospect follow-up emails sent by reps.</td>
+</tr>
+<tr>
+<td>Dialing reps</td>
+<td>The active cold-call reps (see the dialer SOPs)</td>
+<td>Work the daily call queues, apply the standard disposition tags, post email requests and booking pings to Slack, and send prospect follow-up emails only after an explicit approval.</td>
+</tr>
+<tr>
+<td>Build agent</td>
+<td>Automated build system</td>
+<td>Builds a draft site from each intake or email request, deploys it to a preview URL, and posts a "ready for review" card with a quality score to Slack. Never contacts a prospect.</td>
+</tr>
+<tr>
+<td>Follow-up engine</td>
+<td>Automated follow-up system</td>
+<td>Drafts each scheduled follow-up touch and posts a per-touch approval card to Slack. Sends only on an explicit approval reaction; never auto-sends.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Prospect-facing email sends from a role-based mailbox (the shared bookings@ account on the Turnkey Web domain, or a turnkeycfo.com role address where the thread crosses brands), never from anyone's personal email.</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li>Intake form and Instant Estimate submissions post automatically to <code>#leads</code> as they arrive. A rep or Ricky reviews new submissions the same business day.</li>
+<li>Build previews post to <code>#tk-web</code> as soon as the build agent finishes. Ricky reviews and approves or requests changes.</li>
+<li>Prospect follow-up touches are spaced in business days, not calendar days, so a sequence never lands on a weekend. Touches step outward over time: quick first follow-up, then progressively wider gaps.</li>
+<li>Each automated follow-up card expires after 48 hours if nobody reacts. An expired card means the touch is skipped, not sent late.</li>
+<li>A booking ping posts to Slack immediately after a meeting is booked, not batched to end of day.</li>
+<li>Warm callback queues are worked first every day. Anything still sitting in a warm queue at end of day is a flag, not a carryover.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="channel-map-what-goes-where">Channel map: what goes where</h3>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>Carries</th>
+<th>Never carries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#tk-web</code></td>
+<td>Build previews and quality scores, email requests from reps ("Email Requested... Company / Source / Context"), plain-text build approvals, booking pings, automated follow-up approval cards</td>
+<td>Bookkeeping client work (that lives in the CFO channels and Financial Cents)</td>
+</tr>
+<tr>
+<td><code>#leads</code></td>
+<td>Instant Estimate submissions, website intake form submissions, follow-up engine cards tied to estimate leads</td>
+<td>Internal build discussion; keep the review conversation in <code>#tk-web</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Notes:</p>
+<ul>
+<li>Channel names above are the live Slack names. Shorthand like "#tkweb" in older docs means <code>#tk-web</code> (confirm with Ricky if a channel appears to be missing rather than guessing a new one).</li>
+<li>Approvals happen in the channel, in-thread, so the decision trail stays visible. Never approve a send by DM.</li>
+<li>Church and nonprofit prospects flow through the same intake funnel and the same channels as for-profit businesses; the industry tag changes, the process does not.</li>
+</ul>
+<h3 id="the-two-approval-patterns">The two approval patterns</h3>
+<p>Two distinct approval conventions are in use. Both gate a prospect-facing action; they are not interchangeable.</p>
+<ol>
+<li><strong>Build approval: a plain-text human reply.</strong> When the build agent posts a preview, nothing goes to the prospect until Ricky (or a designated approver) replies in-thread with an explicit written approval naming the company, for example "Acme Auto APPROVED". An emoji reaction is not a build approval.</li>
+<li><strong>Send approval: an emoji reaction on a card.</strong> Automated follow-up touches post one card per prospect per touch. React with the approve emoji to send, the reject emoji to skip. Cards expire unsent after 48 hours. There is no auto-send path.</li>
+</ol>
+<p>Treat these as two tiers: a human sentence approves a new deliverable, a reaction approves a routine scheduled touch (confirm with Ricky whether to formally standardize this split; it is the observed working convention).</p>
+<h3 id="prospect-follow-up-cadence-philosophy">Prospect follow-up cadence philosophy</h3>
+<ul>
+<li>One running email thread per prospect. Reply on the same thread for every touch; do not start a new thread per follow-up.</li>
+<li>Business-day spacing. Sequences are defined in business days so no touch lands on a weekend, and sends go out during business hours in the prospect's workday.</li>
+<li>Every touch is approval-gated. The first email is not an exception; it gets a card like every other touch.</li>
+<li>A genuine reply from the prospect stops the sequence. A human takes over the conversation from there.</li>
+<li>Tone is non-pushy: check in politely, say plainly that we are not rushing any decision, and offer a specific next window ("happy to sync Monday if that works").</li>
+<li>Expiry is a feature. If nobody approves a touch inside the window, the touch is skipped. We never send stale copy late to catch up.</li>
+</ul>
+<h3 id="handoff-dialer-to-ricky-to-build-team-to-send">Handoff: dialer to Ricky to build team to send</h3>
+<p>This is the chain a cold-dial prospect moves through. Each step has one owner and one visible artifact in Slack.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Rep finishes the call and applies exactly one standard disposition tag in the dialer (see the dispositions SOP). An interested prospect gets the appropriate interested tag; the tag drives all re-surfacing automatically.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">For a prospect who wants to see something, the rep posts an email request in <code>#tk-web</code>: company name, source (cold dial), prospect email, and one to three lines of call context. The context lines matter; they are what the build and the follow-up copy personalize against.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">The build agent builds a draft site, deploys it to a preview URL on the Turnkey Web domain, and posts the preview card with its quality score to <code>#tk-web</code>.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Ricky reviews the preview. He replies in-thread with the plain-text approval naming the company, or with change requests. No approval, no send.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">After approval, the rep sends the follow-up email to the prospect from the shared bookings@ account, with the preview link, and CCs Ricky.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">If the prospect wants a call, the rep books it live using the booking SOP: get a verbal yes on a specific slot first, create the event with the subject "Website Review: [Company Name]", save and then explicitly send the invite (a saved draft is not a booking), then post the booking ping in Slack immediately using the standard template.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">After the meeting, next steps route through Ricky: proposal, build revisions, or a polite close-out. Reps do not negotiate scope or pricing.</label></li>
+</ul>
+<p>Handoff hygiene:</p>
+<ul>
+<li>A prospect who already has a website is disqualified for Web but flagged as a cross-brand referral candidate for Turnkey CFO bookkeeping. Note it; do not discard the contact.</li>
+<li>If the same business shows up under two reps, flag it for ownership review rather than both reps working it (confirm with Ricky on the standing dedup owner).</li>
+</ul>
+<h3 id="voice-rules-for-external-web-copy">Voice rules for external Web copy</h3>
+<p>These apply to every prospect- and client-facing Web artifact: follow-up emails, site copy, SMS, proposals, and booking invites.</p>
+<ul>
+<li>Warm, professional, plain-spoken. Lead with the answer, then the detail.</li>
+<li>No emojis in anything external. No jargon, no filler, no hype.</li>
+<li>No em-dash characters. Use commas, colons, periods, or parentheses.</li>
+<li>Write the reader as the hero and Turnkey Web as the guide: their business, their customers, their win; we are the help that gets them there.</li>
+<li>Never state service pricing, fees, or price tiers in organic content (site pages, blog articles, social posts). Pricing conversations happen live, scoped to the prospect.</li>
+<li>Turnkey CFO is a bookkeeping firm. In cross-brand referral copy, describe it with bookkeeping language only (bookkeeping, payroll, 1099, AP/AR, monthly close, reporting); never label it a CFO-services firm.</li>
+<li>Tax or legal questions route to "your CPA or attorney." We do not answer them in copy or on calls.</li>
+<li>SMS copy always carries the sender identity and a STOP opt-out line, and stays plain ASCII (special characters inflate message encoding and cost deliverability).</li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>No message reaches a prospect without its approval step. This has held across every observed prospect chain; keep it unbroken.</li>
+<li>No personal email accounts for prospect contact, ever. Role addresses only.</li>
+<li>A hard "not interested" or wrong number is a permanent suppression. That contact is never called, emailed, or texted again by any Turnkey Web sequence.</li>
+<li>Respect do-not-call and call-recording compliance at all times; reps confirm consent posture through the dialer setup, not ad hoc.</li>
+<li>No weekend bookings. Default booking window is 9am to 4pm Central; early morning only when it is the prospect's sole availability, booked and flagged internally.</li>
+<li>Preview links live on the Turnkey Web domain. Never hand a prospect a bare hosting-platform URL.</li>
+<li>Automated cards that expire stay expired. Do not manually resend an expired touch without rereading it for freshness first.</li>
+<li>Do not edit disposition tag names, follow-up intervals, or the campaign structure to "improve" comms pacing. Those are locked; changes go through Ricky.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prospect asks about pricing, scope, or terms</td>
+<td>Ricky, always. Reps never quote or negotiate.</td>
+</tr>
+<tr>
+<td>Prospect is frustrated, confused, or goes quiet after showing interest</td>
+<td>Flag to Ricky in <code>#tk-web</code> the same day with a short read on why.</td>
+</tr>
+<tr>
+<td>Build preview sits unapproved and the prospect is waiting</td>
+<td>Nudge in-thread in <code>#tk-web</code>; if still unapproved by the next business day, tag Ricky directly.</td>
+</tr>
+<tr>
+<td>Follow-up card about to expire on a genuinely warm prospect</td>
+<td>Ping Ricky before the 48-hour window closes rather than letting a hot lead skip a touch.</td>
+</tr>
+<tr>
+<td>Warm callback queue not empty at end of day</td>
+<td>Raise it in <code>#tk-web</code> that evening; warm leads are the highest-intent contacts we have.</td>
+</tr>
+<tr>
+<td>Same prospect claimed by two reps</td>
+<td>Pause outreach from both, flag for ownership review (confirm with Ricky).</td>
+</tr>
+<tr>
+<td>Tax or legal question from a prospect</td>
+<td>"Your CPA or attorney." Do not improvise an answer.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/web/intake-to-build/">Intake to build</a></li>
+<li><a href="/team/web/preview-approve-payment/">Preview, approval, and payment</a></li>
+<li><a href="/team/web/booking/">Sales meeting booking</a></li>
+<li><a href="/team/web/care-plan/">Care plan servicing</a></li>
+<li><a href="/team/dialers/daily-workflow/">Dialer daily workflow</a></li>
+<li><a href="/team/dialers/dispositions-kpis/">Dispositions and KPIs</a></li>
+<li><a href="/team/cfo/communication/">CFO client and team communication</a></li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

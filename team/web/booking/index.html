@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Sales Meeting Booking · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#7C3AED;--deep:#5B21B6;--dk:#4A2A9E;--ink:#2A1A5E;--tint:#F5F3FF;--tintb:#d9cef4;--cardtint:#F4F2FB;--mut:#5c5866;--line:#e6e3ee;--txt:#0A0A0A;--page:#faf9fd;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/web/booking">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/web/">Turnkey Web</a><span class="sep">/</span><span class="here">Sales Meeting Booking</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Turnkey Web SOP</div>
+        <h1>Sales Meeting Booking</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Turnkey Web</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP is the exact process for booking discovery meetings on a live Turnkey Web sales call. Booking while the prospect is still on the phone is the single highest-leverage move in the sales motion: a verbal yes plus a calendar invite in their inbox before the call ends converts far better than "I'll send you some times." The whole flow is designed to take under 60 seconds. It covers the shared booking workspace, how to read the color-coded master calendar, the three steps you run on every call, and the guardrails that keep the calendar sane. Written so a brand-new rep can book their first meeting without asking a single question.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ricky</td>
+<td>Owns the booking account and the master calendar. Runs the discovery meetings. Blocks the internal master calendar after each Slack ping. Coordinates any early-morning household handoff on his end.</td>
+</tr>
+<tr>
+<td>Sales rep</td>
+<td>Logs into the booking workspace at the start of every dial session, proposes a specific time on the call, creates and sends the invite, and posts the Slack ping immediately after booking.</td>
+</tr>
+<tr>
+<td>Eldine</td>
+<td>Backup for calendar questions and invite cleanup when a rep flags an issue (confirm with Ricky).</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li>Runs on every live sales call that reaches a yes: the moment a prospect agrees to a discovery meeting, this flow starts while they are still on the phone.</li>
+<li>One-time setup per rep: get access to the shared booking account before your first dial session.</li>
+<li>Per-session setup: log into the booking account at the start of every dial session and keep the Google Calendar tab live and open the entire time you are on the phone.</li>
+<li>The Slack ping fires the moment the invite is sent, never batched to end of day.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="one-time-setup-your-booking-workspace">One-time setup: your booking workspace</h3>
+<p>You log into one shared Google account. Every calendar Ricky uses is already preloaded onto it, so you see real availability across all of life (work, ministry, family) without switching context.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Get credentials for the sales booking account: bookings@turnkeyweb.org (Ricky provisions access).</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Log in and confirm you can see the color-coded master calendar with multiple calendars overlaid.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Bookmark Google Calendar in the browser you dial from.</label></li>
+</ul>
+<p>One identity for everything: calendar invites, follow-up emails, and anything client-facing all send from bookings@turnkeyweb.org. Never send client email from your personal Gmail.</p>
+<h3 id="reading-the-calendar-color-priority">Reading the calendar: color = priority</h3>
+<p>Every event on the master calendar is color-coded. If a prospect's only availability lands on top of an existing event, the color tells you whether you can book over it.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Color</th>
+<th>What it is</th>
+<th>Can you book over it?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Orange</td>
+<td>Heirloom Church ministry blocks</td>
+<td>Yes. Movable with notice. Easiest to move. Book over it if the client's time is tight.</td>
+</tr>
+<tr>
+<td>Green</td>
+<td>Internal Turnkey work and client check-ins</td>
+<td>Usually. Second priority. Can typically be shifted if needed.</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>Locked external commitments (day-job blocks)</td>
+<td>Never. Red cannot be moved. Do not book over red. Find another slot.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two special cases:</p>
+<ul>
+<li>Early-morning kids time: if the prospect's only availability is early-morning kids time, go ahead and book it. Send the Slack ping the same way as any other booking. Ricky coordinates the morning handoff on his end.</li>
+<li>Weekends: Saturday and Sunday are off the table, always. If a prospect only offers weekend availability, push them to the next available weekday.</li>
+</ul>
+<h3 id="step-1-propose-a-specific-time-on-the-sales-call">Step 1: Propose a specific time (on the sales call)</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Glance at the calendar. You are seeing real availability across every commitment, so trust what is open.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Apply the color rule: skip red, book over orange or green if the prospect's window is tight.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Respect the guardrails: no weekends, default window 9am to 4pm Central, avoid stacking inside a 30-minute buffer of an existing event when you can.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Pick a specific open slot and say it out loud. Never ask "what works for you?" and never offer a vague "sometime next week."</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">Get a verbal yes on that specific slot before you touch the keyboard.</label></li>
+</ul>
+<p>Script that works: "I have Tuesday at 2pm Central open. Want me to lock that in right now while we're on the phone?"</p>
+<h3 id="step-2-create-the-event-client-facing">Step 2: Create the event (client-facing)</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Confirm you are creating the event on the bookings@turnkeyweb.org calendar, not any other overlaid calendar.</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Subject line, exactly this format: Website Review: [Company Name]</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">Guests: the client's email plus ricky@turnkeyweb.org.</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Add a Google Meet link (auto-generated when you add video conferencing).</label></li>
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">In the description, drop a short, warm note for the client. Standard copy: "Looking forward to reviewing the website we built for you. Excited to walk you through it. Let us know if anything comes up in the meantime."</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">Uncheck "Guests can see guest list" in the event options.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Save, then click Send to fire the invite. A saved-but-unsent event is not a booking. The prospect must receive the email invite.</label></li>
+</ul>
+<h3 id="step-3-post-the-slack-ping-internal">Step 3: Post the Slack ping (internal)</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">Post in #tk-web and tag @Ricky the moment the invite is sent. Do not wait until end of day.</label></li>
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">Use this exact format so it is fast to scan:</label></li>
+</ul>
+<pre><code>:calendar: BOOKED @Ricky
+Company: [Name]
+Time: [Day, time CT]
+Source: [cold dial / referral / etc]
+Context: [1-3 line summary of key takeaways and insights from the call]
+</code></pre>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">That is the whole job. Ricky handles the internal master-calendar block from the ping.</label></li>
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18">Move to the next dial.</label></li>
+</ul>
+<h3 id="quick-reference-what-goes-where">Quick reference: what goes where</h3>
+<p>Keep this open during dial sessions.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Where</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Check availability</td>
+<td>All calendars preloaded on bookings@turnkeyweb.org</td>
+<td>Keep the tab open during dials</td>
+</tr>
+<tr>
+<td>Read the colors</td>
+<td>Orange / Green / Red</td>
+<td>Heirloom (movable) / Turnkey (movable) / locked external (never book over)</td>
+</tr>
+<tr>
+<td>Create the client meeting</td>
+<td>bookings@turnkeyweb.org calendar</td>
+<td>Subject: Website Review: [Company]</td>
+</tr>
+<tr>
+<td>Guests on the invite</td>
+<td>Client + Ricky</td>
+<td>Client's email + ricky@turnkeyweb.org</td>
+</tr>
+<tr>
+<td>Notify after booking</td>
+<td>#tk-web, tag @Ricky</td>
+<td>Use the BOOKED template; Ricky blocks the master calendar from there</td>
+</tr>
+<tr>
+<td>Send follow-up email</td>
+<td>From bookings@turnkeyweb.org</td>
+<td>Never from personal Gmail</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>No weekends. Saturday and Sunday are off. Push weekend-only prospects to the next weekday.</li>
+<li>Never book over red. Red means locked external commitments. Find another slot, no exceptions.</li>
+<li>Buffer rule: avoid stacking a new meeting inside a 30-minute buffer of an existing event when you can. Prep and transition time matter.</li>
+<li>Hours rule: the default booking window is 9am to 4pm Central. Early-morning kids time is bookable only when it is the prospect's sole availability, and Ricky coordinates that on his end.</li>
+<li>One sending identity: everything client-facing (invites, follow-up email) sends from bookings@turnkeyweb.org. Personal Gmail never touches a prospect.</li>
+<li>Save then Send: an invite the prospect never received does not exist. Always click Send after saving the event.</li>
+<li>Booked means pinged: a meeting without a same-moment Slack ping in #tk-web is an unfinished booking. The ping is how the master calendar gets blocked.</li>
+<li>Time zone discipline: quote times in Central and label them CT on the call, in the invite, and in the ping.</li>
+<li>Booking is not selling scope: if the prospect asks about project terms, pricing, or timelines beyond the meeting itself, note it in the Context line of the ping and leave it for the discovery meeting. Tax or legal questions route to "your CPA or attorney."</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prospect's only availability conflicts with a red block</td>
+<td>Do not book it. Offer the nearest open weekday slot instead. If the prospect will only take that exact time, book nothing and flag it to Ricky in #tk-web for a decision.</td>
+</tr>
+<tr>
+<td>You booked over orange or green</td>
+<td>Normal and allowed. The Slack ping is the notice; Ricky handles moving the underlying block.</td>
+</tr>
+<tr>
+<td>Double-booking or calendar mistake discovered after the invite went out</td>
+<td>Flag it in #tk-web with @Ricky immediately. Do not silently move or cancel a client-facing invite on your own.</td>
+</tr>
+<tr>
+<td>Prospect wants to reschedule after booking</td>
+<td>Update the event on the bookings calendar, resend the invite, and post an updated BOOKED ping noting the change.</td>
+</tr>
+<tr>
+<td>Locked out of the bookings account mid-session</td>
+<td>Ping Ricky in #tk-web. Do not book from a personal account as a workaround, even once.</td>
+</tr>
+<tr>
+<td>Prospect asks something outside booking (pricing, scope, technical)</td>
+<td>Capture it in the Context line and let the discovery meeting handle it. Tax or legal questions go to "your CPA or attorney."</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/dialers/">Cold-call dialer playbook</a> covers the dial sessions, dispositions, and campaigns that produce these booking moments.</li>
+<li><a href="/team/web/intake-to-build/">Intake to build</a> covers what happens after the discovery meeting: build, preview, approval, and send.</li>
+<li><a href="/team/cfo/communication/">Client communication standards</a> covers firm-wide voice and channel rules for anything client-facing.</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

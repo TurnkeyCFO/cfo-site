@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Dispositions and KPIs · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#7C3AED;--deep:#5B21B6;--dk:#4A2A9E;--ink:#2A1A5E;--tint:#F5F3FF;--tintb:#d9cef4;--cardtint:#F4F2FB;--mut:#5c5866;--line:#e6e3ee;--txt:#0A0A0A;--page:#faf9fd;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/dialers/dispositions-kpis">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/dialers/">Dialer Playbook</a><span class="sep">/</span><span class="here">Dispositions and KPIs</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Dialer Playbook</div>
+        <h1>Dispositions and KPIs</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Dialer Playbook</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP defines the nine disposition tags every dialer applies at the end of every outbound call, what each tag does downstream, the discipline rules that keep the automation trustworthy, and the numbers a dialer is measured on. Tagging is not paperwork. The tag you apply is the instruction that tells the system where that prospect goes next: which queue they land in, when they resurface, whether they get a text, and whether they ever get called again. A new rep should be able to tag confidently from this page alone.</p>
+<p>The mechanics behind the scenes: applying a tag in CloudTalk fires an automation that updates the matching HubSpot contact, HubSpot lists re-sort themselves, and your CloudTalk campaigns refresh from those lists within about 5 to 10 minutes. You never edit HubSpot yourself. Tag correctly and the machine does the rest.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Person</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tag list, follow-up intervals, campaign structure</td>
+<td>Ricky</td>
+<td>These are locked. No rep changes a tag name, interval, or campaign without coordinating with Ricky.</td>
+</tr>
+<tr>
+<td>Applying one correct tag per call</td>
+<td>Each dialer</td>
+<td>The only data-entry duty on a call. Exact spelling, exactly one tag, every call.</td>
+</tr>
+<tr>
+<td>The routing automation (CloudTalk to HubSpot bridge)</td>
+<td>Ricky (systems)</td>
+<td>Reps do not touch it. If tags seem to stop routing, report it; do not work around it.</td>
+</tr>
+<tr>
+<td>KPI review</td>
+<td>Ricky</td>
+<td>Reviews dial activity and appointment outcomes; sets and adjusts performance standards in each rep's Offer Letter.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Each rep works from their own separate CloudTalk account with their own campaigns. Tags and outcomes are tracked per rep.</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>Every completed dial</strong> triggers exactly one disposition tag, applied before you move to the next call.</li>
+<li><strong>Daily</strong>: the three-campaign cadence (Warm Callbacks first, then Follow-ups Due, then Cold - New Prospects) is driven entirely by the tags you applied on prior days. Yesterday's tagging discipline is today's queue quality.</li>
+<li><strong>End of day</strong>: anything still sitting in Warm Callbacks is a flag. Those are the highest-intent contacts and they must not go stale.</li>
+<li><strong>Daily digest</strong>: a cold-dial activity digest posts to the internal Slack reporting channel each afternoon, which is where dial volume and outcomes get visibility without anyone compiling a report by hand.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="the-9-dispositions">The 9 dispositions</h3>
+<p>These are the only nine tags. Spell them exactly as written. Matching is forgiving on capitalization and stray spaces but never on wording: a typo is logged as an unknown tag and the contact is left untouched, which means that prospect silently falls out of the follow-up machine.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>When you use it</th>
+<th>What happens downstream</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>No Answer</code></td>
+<td>Phone rang, nobody picked up, no voicemail left</td>
+<td>Requeued to your cold follow-up campaign in 2 days. CloudTalk also retries within the same dialing session.</td>
+</tr>
+<tr>
+<td><code>VM Left</code></td>
+<td>No answer, and you left a voicemail</td>
+<td>Requeued in 4 days.</td>
+</tr>
+<tr>
+<td><code>Gatekeeper</code></td>
+<td>You reached a receptionist or staffer, never the decision maker</td>
+<td>Requeued in 3 days, and worked at a different time of day on the next attempt.</td>
+</tr>
+<tr>
+<td><code>Callback Scheduled</code></td>
+<td>The prospect asked you to call back at a specific time</td>
+<td>Contact moves to your warm queue and resurfaces at the exact requested time. You must fill the <code>callback_at</code> field first (see discipline rules).</td>
+</tr>
+<tr>
+<td><code>Interested - Booked</code></td>
+<td>You booked a website review meeting on the call</td>
+<td>Contact is qualified: HubSpot lifecycle moves to MQL, the contact drops out of dialing queues, and the meeting flow takes over. This is the win condition.</td>
+</tr>
+<tr>
+<td><code>Interested - Needs Follow Up</code></td>
+<td>Genuine interest, but no committed meeting yet</td>
+<td>Warm queue, resurfaces in 5 days (or sooner if you also set a callback time).</td>
+</tr>
+<tr>
+<td><code>Has Website Already</code></td>
+<td>The business already has a real website they are happy with</td>
+<td>Disqualified from Turnkey Web dialing. Flagged internally as a possible Turnkey CFO bookkeeping referral, so the conversation is not wasted, but you do not pitch bookkeeping on the call.</td>
+</tr>
+<tr>
+<td><code>Soft No - Follow Up 30 days</code></td>
+<td>A polite no that felt like "not right now" rather than "never"</td>
+<td>Requeued to cold in 30 days.</td>
+</tr>
+<tr>
+<td><code>Not Interested / Hard No</code></td>
+<td>A clear, final no, OR a wrong number</td>
+<td>Permanent suppression. Never called again, never texted. Use it for wrong numbers too; that is deliberate, not a workaround.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two of these deserve extra care:</p>
+<ul>
+<li><strong><code>Interested - Booked</code> is the only tag that changes lifecycle stage.</strong> Nothing else you tag moves a contact through the funnel. If a meeting was truly booked, this tag is what makes it count.</li>
+<li><strong><code>Not Interested / Hard No</code> is irreversible from your seat.</strong> It suppresses the contact permanently, including from the automated SMS follow-up. If you are unsure whether a no was final, use <code>Soft No - Follow Up 30 days</code> instead.</li>
+</ul>
+<h3 id="what-tags-feed-the-sms-follow-up">What tags feed the SMS follow-up</h3>
+<p>An automated text goes out to contacts who have been dialed several times without ever answering. Your tags govern who is eligible:</p>
+<ul>
+<li>Contacts carrying a suppression tag (hard no, do not call, wrong number) are never texted.</li>
+<li>Any contact who has EVER answered one of your calls is never texted. Live conversations belong on the phone, not in an automated SMS lane.</li>
+<li>Each contact can receive at most one such text, ever.</li>
+</ul>
+<p>You do not send these texts and you cannot trigger one manually. Your only lever is accurate tagging. Whether the SMS follow-up is currently live or still in test posture: (confirm with Ricky).</p>
+<h3 id="tagging-discipline-rules">Tagging discipline rules</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Tag every call before dialing the next one. No batching tags at the end of a session; memory drift produces wrong queues.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Apply exactly ONE tag per call. Never two, never zero.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Spell the tag exactly as listed above. Do not invent variants like "no answer 2" or "NI".</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">For <code>Callback Scheduled</code>: fill the <code>callback_at</code> custom field on the contact FIRST, then apply the tag. Tag without the field and the callback time never reaches the queue.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Never edit HubSpot records directly. The bridge owns those fields; manual edits get overwritten or, worse, desync the queues.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">If a contact seems to be in the wrong campaign, or a tagged contact never resurfaced, report it in Slack. Do not retag repeatedly to force a fix.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">When the same business shows up twice in your list (or you learn another rep is also calling them), flag it rather than racing to tag first. Duplicate contacts across reps are a known data issue reviewed centrally.</label></li>
+</ul>
+<h3 id="the-kpi-set">The KPI set</h3>
+<p>A dialer is measured on four numbers, in a deliberate order. Volume feeds conversations, conversations feed bookings, and bookings only matter if the prospect shows. These KPIs measure activity and conversion; they are not the comp formula. Compensation is commission-based as defined in your signed contractor agreement, which is the authoritative source for every rate and amount.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>KPI</th>
+<th>Definition</th>
+<th>Where it is tracked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dials per day</strong></td>
+<td>Total outbound dials placed</td>
+<td>CloudTalk call history; surfaced in the daily digest</td>
+</tr>
+<tr>
+<td><strong>Connect rate</strong></td>
+<td>Live conversations with a decision maker, as a share of dials (gatekeeper-only calls do not count as connects)</td>
+<td>CloudTalk history plus your tags: connects are the calls that end in something other than <code>No Answer</code>, <code>VM Left</code>, or <code>Gatekeeper</code></td>
+</tr>
+<tr>
+<td><strong>Booked appointments</strong></td>
+<td>Calls tagged <code>Interested - Booked</code> with a real calendar event created</td>
+<td>HubSpot lifecycle (MQL) plus the booking calendar</td>
+</tr>
+<tr>
+<td><strong>Showed appointments</strong></td>
+<td>Booked meetings the prospect actually attended</td>
+<td>Confirmed against the meeting outcome; this is the activity number your show-based incentives are tied to (your signed contractor agreement is the authoritative source for all comp components, rates, and amounts)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Working expectations:</p>
+<ul>
+<li><strong>Showed appointments are the win condition.</strong> A booked meeting that no-shows helps nobody. Confirm the time verbally on the call, book it properly per the booking SOP, and make the callback commitments you log realistic.</li>
+<li><strong>The internal yardstick on conversion</strong> is roughly one new client per hundred answered calls. That is a planning benchmark, not a quota; it exists so nobody panics at a normal run of no's.</li>
+<li><strong>Numeric daily targets</strong> (dials per day, connect-rate floor) are set per rep in the Offer Letter: (confirm with Ricky) before quoting a specific number to a new rep.</li>
+<li><strong>Tracking is automatic.</strong> You do not keep a spreadsheet. Your tags, CloudTalk's call log, and the booking calendar produce every KPI. This is exactly why tagging discipline is a performance issue, not an admin chore: untagged or mistagged calls make your own numbers unreadable.</li>
+</ul>
+<h3 id="reading-your-own-numbers">Reading your own numbers</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">Check your warm queue at the start and end of each day. Warm leftovers at end of day are the first thing to explain.</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Watch your connect rate by time of day. Gatekeeper-heavy mornings at one vertical often flip in the afternoon; the <code>Gatekeeper</code> tag's different-time-of-day retry exists for this reason.</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Track your own booked-to-showed ratio. If prospects book but do not show, the fix is usually on the call (weak confirmation, vague value framing), not in the list.</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">If your dials are high and connects are near zero for a full day, say so in Slack the same day. That pattern usually means a list or routing problem, not a rep problem.</label></li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>The nine tag names, the follow-up intervals, and the three-campaign structure are locked. Changing any of them without Ricky breaks the routing for every contact already in flight.</li>
+<li>One tag per call, exact spelling, every call. An unknown tag does not error loudly; it silently strands the contact.</li>
+<li><code>Not Interested / Hard No</code> is permanent suppression. Never use it as a shortcut to clean up your queue.</li>
+<li>Never edit HubSpot contact fields by hand. The bridge is the only writer.</li>
+<li>Every call is recorded through company systems, and TCPA, state cold-calling and recording rules, and Do Not Call requirements apply to every dial. Honor any verbal do-not-call request immediately with the hard-no tag.</li>
+<li>Lead lists, scripts, dispositions, and recordings are confidential company property. Nothing gets stored outside company systems: no personal email, cloud drives, phones, or screenshots.</li>
+<li>No comp figures, pricing, or engagement terms are discussed with prospects beyond the approved script. Pricing and scope questions route to the booked meeting.</li>
+<li>If a prospect asks a tax or legal question (it happens with church and nonprofit contacts), the answer is "your CPA or attorney," never an improvised opinion.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tag applied but contact never resurfaced, or landed in the wrong campaign</td>
+<td>Report in Slack with the contact name and tag used. Do not retag to force it.</td>
+</tr>
+<tr>
+<td>Campaign list looks stale for more than about 15 minutes</td>
+<td>Flag it; there is a known relink fix on the systems side. Keep dialing another queue meanwhile.</td>
+</tr>
+<tr>
+<td>Duplicate business appearing under multiple reps</td>
+<td>Flag for central dedup review; do not race another rep to tag it.</td>
+</tr>
+<tr>
+<td>Prospect requests do not call / threatens complaint</td>
+<td>Tag <code>Not Interested / Hard No</code> immediately and mention it in Slack the same day.</td>
+</tr>
+<tr>
+<td>Warm queue not empty at end of day</td>
+<td>Note it in Slack with why (ran out of hours, callback windows, list issue).</td>
+</tr>
+<tr>
+<td>Unsure which tag fits a weird call</td>
+<td>Ask in Slack before guessing. A wrong tag routes a real prospect to the wrong future.</td>
+</tr>
+<tr>
+<td>Anything touching comp, batch terms, or your agreement</td>
+<td>Ricky directly, always.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/dialers/hiring-profile/">Dialer Hiring Profile</a></li>
+<li><a href="/team/dialers/daily-workflow/">Dialer Daily Workflow</a></li>
+<li><a href="/team/web/booking/">Sales Meeting Booking</a></li>
+<li><a href="/team/web/preview-approve-payment/">Preview, Approval, and Payment</a></li>
+<li><a href="/team/web/intake-to-build/">Turnkey Web Intake to Build</a></li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

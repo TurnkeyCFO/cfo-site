@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Payroll Operations · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/payroll">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Payroll Operations</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Payroll Operations</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>Payroll is the most time-critical thing Turnkey CFO touches. A late or wrong payroll run damages client trust faster than any bookkeeping miss, and a botched payroll transition produces wrong W-2s that follow the client for a full tax year. This SOP covers how we run and support client payroll on Gusto and other providers: the cadence, who approves what, how a payroll takeover is onboarded safely, how payroll notices in accounting@ get triaged, contractor versus employee handling, and 1099 season basics. Turnkey CFO is a bookkeeping firm. We process, reconcile, and report payroll. We do not give tax or legal advice: those questions route to the client's CPA or attorney.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ricky</td>
+<td>Sole decision-maker on payroll scope, pricing, which clients we file for versus self-file, and any takeover commitment or cutover date. Follows up directly with a client when an outgoing payroll vendor is slow.</td>
+</tr>
+<tr>
+<td>Accounting Manager</td>
+<td>Owns the payroll calendar across clients, runs or reviews each payroll cycle, owns the transition checklist during a takeover, and is the client-facing contact for payroll questions once ramped.</td>
+</tr>
+<tr>
+<td>Hardik</td>
+<td>Verifies payroll postings land correctly in QBO (gross wages, employer taxes, fees), reconciles payroll bank debits, and flags mismatches. Works in Financial Cents, not Slack.</td>
+</tr>
+<tr>
+<td>Client-designated payroll approver</td>
+<td>Every client names one person authorized to approve payroll and see sensitive pay data (captured in the onboarding Roles &amp; responsibilities section). We never treat anyone else at the client as an approver.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li>Each client has its own pay schedule. Semi-monthly is the most common, but confirm per client and put every run date on the payroll calendar. Never assume a schedule.</li>
+<li>Compliance rhythm: quarterly Form 941 filings, annual Form 940 (FUTA), W-2s in January, and 1099-NEC season in January. Know for each client whether Turnkey files or the provider auto-files or the client self-files (confirm the per-client filing map with Ricky).</li>
+<li>Payroll notices land in accounting@turnkeycfo.com continuously and are triaged as part of the daily mailbox pass (see the email triage SOP).</li>
+<li>Payroll postings must be verified in QBO before the BD3 checkpoint of the monthly close so the close is never waiting on payroll entries.</li>
+<li>Trigger events: a new client signs with payroll in scope (run the transition process below), a provider or CPA sends a filing-due or discrepancy notice (run the discrepancy process below), or a client asks to change provider, schedule, or comp structure (route to Ricky before committing).</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="standard-payroll-run-support">Standard payroll run support</h3>
+<p>Most clients run on Gusto. The provider calculates and moves the money; our job is verification on both sides of the run.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Before the run: confirm the roster and any comp changes with the client's payroll approver. New hires, terminations, and rate changes must come from the approver in writing, never verbally reconstructed.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Review the payroll preview: wages, hours, and tax withholdings look reasonable against the prior run. Anything unexpected gets a question to the approver before approval, not after.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">The client-designated approver approves the run. If Turnkey has been granted approval authority for a client, that grant came from Ricky and is documented in the client dossier. Never approve payroll on an assumption.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">After the run: confirm the bank withdrawal hit the expected account on the expected date.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Confirm the QBO posting. Match (never add) the bank feed transaction to the payroll entry to prevent duplicates. Gross wages in QBO must tie to the payroll register.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">For church clients: verify clergy housing allowance is handled per that client's board-designated documentation. This is a Turnkey CFO specialty and it is verified against the client's known-good setup every cycle, not assumed.</label></li>
+</ul>
+<h3 id="payroll-transition-onboarding-takeovers">Payroll transition onboarding (takeovers)</h3>
+<p>Payroll continuity is the single most time-critical handoff item in any onboarding. The transition pack below is a hard gate: no first live run until every item is complete.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Get connected with the client's current payroll administrator for a clean handoff. If the outgoing vendor is slow, escalate to Ricky, who follows up with the client directly.</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">Collect BEFORE the cutover date: full staff roster with compensation, I-9s, W-4s, the year-to-date payroll register, and (for churches) housing allowance detail with the board designation.</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Agree the cutover date in writing and confirm who issues the partial-year W-2 (outgoing provider or Turnkey's new setup).</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Parallel run and first-run verification: confirm the new system's year-to-date figures tie to the prior provider BEFORE the first live run. This is what prevents wrong W-2s. DO NOT SKIP, no matter how tight the timeline feels.</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">Treat slippage seriously. A transition date that slips more than about two weeks is a blown transition: escalate to Ricky before it gets there, not after.</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Move PII-bearing documents (I-9s, W-4s, registers) through a named secure transfer channel and file them in the client's Drive folder under Payroll &amp; HR. Never store them in a checklist, email thread, or chat.</label></li>
+</ul>
+<h3 id="payroll-notices-triage-accounting">Payroll notices triage (accounting@)</h3>
+<p>Provider and agency notices (Gusto, Intuit, PEO invoices, filing reminders, direct-deposit receipts) arrive in accounting@turnkeycfo.com daily.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Routine confirmations (payroll processed, invoice paid, deposit receipts): verify they match an expected run, then file to the Payroll Notification folder and the client's Drive folder. No action beyond filing.</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">"Run payroll by" reminders: check the payroll calendar. If the run is on track, file it. If not, act on it same day.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Miscellaneous or unexpected charges from a payroll provider or PEO: do not file and forget. Reconcile the charge against the invoice and the payroll register, and open a thread with the provider if it does not tie out. Recurring misc-charge patterns get flagged to the Accounting Manager.</label></li>
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">Anything from a tax agency, or anything mentioning a missed filing, penalty, or discrepancy: route to Ricky same day. These are never handled silently.</label></li>
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">Recurring payroll-timing friction with a client (schedule alignment questions, repeated confusion about run dates) is a signal, not noise: raise it with the Accounting Manager so the cadence gets fixed once instead of re-answered monthly.</label></li>
+</ul>
+<h3 id="payroll-discrepancy-handling-reconcile-before-respond">Payroll discrepancy handling (reconcile before respond)</h3>
+<p>When an outside CPA or tax filer flags a payroll filing item or a number that does not match:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">Do not reply with a guess or a holding opinion on the tax question itself.</label></li>
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18">Reconcile three sources against each other: the GL in QBO, the payroll provider's gross-to-net report, and the W-2 or filing figures in question.</label></li>
+<li class="ck"><input type="checkbox" id="ck-19" data-idx="19"><label for="ck-19">Identify the specific variance and its root cause.</label></li>
+<li class="ck"><input type="checkbox" id="ck-20" data-idx="20"><label for="ck-20">Respond to the filer and the client with the specific variance explanation, copying internal bookkeeping support. Lead with the answer.</label></li>
+<li class="ck"><input type="checkbox" id="ck-21" data-idx="21"><label for="ck-21">If the question turns into tax or legal advice, redirect to the client's CPA or attorney.</label></li>
+</ul>
+<h3 id="contractor-versus-employee-handling">Contractor versus employee handling</h3>
+<ul>
+<li>Employees run through the payroll provider with withholdings. Contractors are paid outside payroll and receive 1099-NEC forms when they meet the reporting threshold.</li>
+<li>W-9 on file BEFORE first payment to any contractor. No exceptions: chasing W-9s in January is how 1099 season goes wrong.</li>
+<li>Owner draws are not payroll. For for-profit clients, confirm the owner draw versus payroll treatment during onboarding and keep it consistent.</li>
+<li>International contractors may require a tax-exemption form above a payment threshold: confirm the requirement per client and collect the form before payments continue (confirm current threshold guidance with Ricky).</li>
+<li>Worker classification (is this person a contractor or an employee) is a tax and legal question. We flag it; the client's CPA or attorney answers it.</li>
+</ul>
+<h3 id="1099-season-basics">1099 season basics</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-22" data-idx="22"><label for="ck-22">Before year-end, scan each client's vendor list for near-duplicate vendor names. Vendor-name fragmentation splits one payee's totals across records and creates missed-1099 risk. Merge or map duplicates before totals are pulled.</label></li>
+<li class="ck"><input type="checkbox" id="ck-23" data-idx="23"><label for="ck-23">Build the 1099 contractor list from the for-profit onboarding pack items: W-9s on file plus current-year payment totals per vendor.</label></li>
+<li class="ck"><input type="checkbox" id="ck-24" data-idx="24"><label for="ck-24">Confirm the current IRS reporting threshold each season rather than relying on memory (confirm with Ricky which threshold year applies).</label></li>
+<li class="ck"><input type="checkbox" id="ck-25" data-idx="25"><label for="ck-25">Confirm per client who files the 1099s: Turnkey, the payroll provider, or the client's CPA (confirm the per-client map with Ricky).</label></li>
+<li class="ck"><input type="checkbox" id="ck-26" data-idx="26"><label for="ck-26">File issued forms to the client's Drive folder under Payroll &amp; HR, 1099 Contractors.</label></li>
+</ul>
+<h3 id="per-client-variation-awareness">Per-client variation awareness</h3>
+<p>Never assume a client is on Gusto. Check the client dossier first. Known patterns:</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Client</th>
+<th>Payroll setup</th>
+<th>What to know</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heirloom Church</td>
+<td>ADP</td>
+<td>Full approval workflow: review preview, verify wages/hours/taxes, approve, confirm bank withdrawal, confirm QBO posting. Clergy housing allowance applies.</td>
+</tr>
+<tr>
+<td>Village of Hope Maui</td>
+<td>Two-entity PEO pattern (processor and legal employer are different entities on the same invoice)</td>
+<td>Split each invoice into three QBO lines (gross wages, employer taxes, fee). Enter as an Expense, NOT a Bill, because the processor auto-debits the bank account. Match, never add, the bank feed. Gross wages must tie to the payroll register.</td>
+</tr>
+<tr>
+<td>Mojo entities</td>
+<td>Intuit QuickBooks Payroll plus Gusto</td>
+<td>Heaviest payroll-notification volume in accounting@. Multiple entities: verify which entity each notice belongs to before filing.</td>
+</tr>
+<tr>
+<td>Kingdom City Church</td>
+<td>Gusto (migrated from a prior provider)</td>
+<td>Migration-era records live in the client's Payroll Handoff folder. Clergy housing allowance applies.</td>
+</tr>
+<tr>
+<td>Northpoint Church</td>
+<td>Gusto (migrated from a prior provider)</td>
+<td>Migration documentation is in the client folder. Clergy housing allowance applies.</td>
+</tr>
+<tr>
+<td>Epic Life Church</td>
+<td>Gusto</td>
+<td>Clergy housing allowance applies; retirement administration runs through a separate church retirement platform.</td>
+</tr>
+</tbody>
+</table></div>
+<p>For any client not listed, the client dossier under the clients section of this portal is the source of truth. If the dossier is silent, ask the Accounting Manager; do not guess.</p>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>The parallel-run YTD verification on any payroll takeover is never skipped. Wrong W-2s are the one payroll mistake we cannot quietly fix later.</li>
+<li>Only the client-designated approver (or a documented Turnkey grant from Ricky) approves a payroll run. Never approve because "it looked normal."</li>
+<li>Tax and legal questions (classification, housing allowance eligibility, filing positions, penalties) route to the client's CPA or attorney. We reconcile numbers; we do not advise on tax.</li>
+<li>Never describe Turnkey CFO with the banned "fractional" CFO-firm label in any client-facing payroll communication. Our language is bookkeeping, payroll, 1099, AP/AR, monthly close, reporting.</li>
+<li>PII discipline: I-9s, W-4s, and pay registers move through a secure channel and live in the client's Drive folder only. Never in Slack, never in a checklist app, never in a personal inbox.</li>
+<li>Client-facing payroll email sends from a role address (accounting@turnkeycfo.com or a named role mailbox), never a personal address.</li>
+<li>QBO discipline: match rather than add on payroll bank-feed transactions; reconcile to a zero difference monthly; follow the client's documented entry pattern (the two-entity Expense-not-Bill pattern exists for a reason).</li>
+<li>Commitments on payroll scope, pricing, provider changes, or cutover dates are Ricky's alone. Never promise a client a takeover date or a provider migration without his sign-off.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Payroll run cannot be verified or approved on time</td>
+<td>Accounting Manager immediately; client hears from us BEFORE the run date, never after</td>
+</tr>
+<tr>
+<td>Tax agency notice, penalty, or missed-filing language</td>
+<td>Ricky, same day, with the notice attached</td>
+</tr>
+<tr>
+<td>Outgoing provider slow during a transition</td>
+<td>Ricky, who contacts the client directly</td>
+</tr>
+<tr>
+<td>Transition date at risk of slipping past roughly two weeks</td>
+<td>Ricky, before the date blows, with the specific blocked items</td>
+</tr>
+<tr>
+<td>Discrepancy flagged by an outside CPA or filer</td>
+<td>Reconcile first (GL vs gross-to-net vs W-2), then respond with the root cause; if it becomes tax advice, redirect to the client's CPA or attorney</td>
+</tr>
+<tr>
+<td>Client asks to change scope, pricing, provider, or schedule</td>
+<td>Ricky, always; never negotiate solo</td>
+</tr>
+<tr>
+<td>Misc payroll charges that will not tie out after provider follow-up</td>
+<td>Accounting Manager, then Ricky if unresolved</td>
+</tr>
+<tr>
+<td>Missing login or access for a payroll platform</td>
+<td>Post the gap to Slack the day it is found; never work around it or borrow credentials</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a> : the payroll-transition pack lives inside the onboarding checklist library</li>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close</a> : payroll postings verified before the BD3 checkpoint</li>
+<li><a href="/team/cfo/communication/">Client Communication</a> : the accounting@ mailbox triage that feeds payroll notices into this SOP</li>
+<li><a href="/team/cfo/bill-pay/">Bill Pay and Spend</a> : card memo and AP workflows that share the same match-not-add QBO discipline</li>
+<li><a href="/team/clients/">Client Dossiers</a> : per-client payroll provider, approver, and quirks (gated section)</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

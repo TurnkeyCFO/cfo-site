@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Offboarding and Deprovisioning · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/offboarding">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Offboarding and Deprovisioning</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Offboarding and Deprovisioning</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP covers two exits: a client leaving the firm, and a team member or dialer rep leaving the team. Both are access events before they are anything else. Onboarding grants access step by step; offboarding walks the same list in reverse, and a step skipped here is a live credential nobody is watching.</p>
+<p>The goal for every client exit: a written end date, one clearly named final close, a complete deliverables package handed over, every access grant revoked, and a farewell that leaves the door open. The goal for every team exit: all access revoked the same day, shared credentials rotated, and every client task reassigned to a named owner before the seat closes.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility in offboarding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exit decision, final scope, farewell relationship</td>
+<td>Ricky</td>
+<td>Sole approver. Confirms the end date, decides the last delivered close, owns the goodbye</td>
+</tr>
+<tr>
+<td>Offboarding execution and QC</td>
+<td>Accounting Manager</td>
+<td>Runs the checklist, verifies every revocation, confirms the deliverables package is complete</td>
+</tr>
+<tr>
+<td>Bookkeeping wrap-up</td>
+<td>Hardik</td>
+<td>Completes the final close work assigned through Financial Cents</td>
+</tr>
+<tr>
+<td>Admin and comms support</td>
+<td>Eldine</td>
+<td>Calendar cleanup, final invoicing coordination, CRM update requests</td>
+</tr>
+<tr>
+<td>Systems deprovisioning</td>
+<td>Ricky (or a delegated ops person)</td>
+<td>Revokes platform accounts, rotates credentials, rebuilds and republishes the team portal</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>Client trigger:</strong> a client gives notice, an engagement ends by its own terms, or Ricky decides to exit the engagement. Nothing in this SOP starts on a verbal hint alone; it starts when the end date is confirmed in writing.</li>
+<li><strong>Team trigger:</strong> a team member or dialer rep resigns, is released, or a contractor engagement ends. The access-revocation lane runs the <strong>same day</strong> the departure is effective, not at the end of the week.</li>
+<li><strong>Client timeline:</strong> the offboarding checklist should be complete within about two weeks of the final delivered close. Any item still open past that is stalled; surface it to Ricky.</li>
+<li><strong>Verification pass:</strong> the Accounting Manager re-walks the full revocation list after the last item is marked done. Offboarding is finished when the verification pass is clean, not when the last email is sent.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="client-offboarding">Client offboarding</h3>
+<p>Run the exit as a named running email thread, the same discipline as onboarding, so every commitment and confirmation lives in one place.</p>
+<p><strong>Confirm the exit in writing</strong></p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Get the end date confirmed in writing from the client's primary contact. A call is not enough; reply to summarize the date and terms so the thread holds the record.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Ricky confirms the <strong>final close scope</strong>: which month is the last close Turnkey delivers. Name it explicitly in the thread ("your final delivered close is the [month] close"). Ambiguity here is how a month gets dropped on the way out, the mirror image of the onboarding cutover risk.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Confirm final billing with Ricky (what remains to invoice and when). Nobody else discusses fees or terms with the client.</label></li>
+</ul>
+<p><strong>Deliver the final package and hand the books back</strong></p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Complete and lock the final close on the normal quality bar. The last month gets the same reconciliation-to-zero standard as every other month; never ship a degraded final close because the client is leaving.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Assemble the final deliverables package: financial statements through the final close, the standard reports the client receives, and any workpapers the client or their next bookkeeper needs to continue cleanly.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Hand off GL continuity the way we would want to receive it: the client keeps their own QBO company (they own it; we were invited in), and the package gives their next bookkeeper the trial balance, last-reconciled dates, and uncleared items as of the final close. Treat the incoming bookkeeper the way the onboarding SOP asks outgoing bookkeepers to treat us.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Confirm the client has retrieved or received everything they need from their Drive folder before access changes begin.</label></li>
+</ul>
+<p><strong>Revoke access, onboarding in reverse</strong></p>
+<p>Work the onboarding access list backwards. Every grant collected in onboarding Step 2 gets an exit action here.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7"><strong>QBO:</strong> remove <code>accounting@turnkeycfo.com</code> as an accountant user (the client removes it from their side; confirm it is done). Disconnect the QBO OAuth connection and flag the client record so automated pulls stop.</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8"><strong>Banks and credit cards:</strong> the client removes the <code>accounting@turnkeycfo.com</code> view-only user at each institution. Confirm each removal in the thread.</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9"><strong>Ramp / Bill.com / Expensify:</strong> remove the Turnkey seat or reviewer access at each platform the client uses, and turn off any automated reminders (cardholder or approver emails) wired to that client.</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10"><strong>Gusto or other payroll platform:</strong> remove Turnkey access. If we ran payroll, confirm who owns the next run and the year-end forms before access drops; payroll continuity matters on the way out exactly as it does on the way in.</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11"><strong>Giving, donor, merchant, and lender portals:</strong> remove any view-only access granted during onboarding.</label></li>
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12"><strong>Google Drive:</strong> freeze the client folder and move it to the Archive folder, preserving the same numbered taxonomy. Nothing is deleted; the folder simply stops being a working folder.</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13"><strong>Financial Cents:</strong> close the recurring monthly project after the final close ships, resolve or explicitly hand off any open client tasks, and mark the client inactive in FC.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14"><strong>Close calendar:</strong> remove the client from Close Command so the milestone views stay honest.</label></li>
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15"><strong>CRM:</strong> send the status change to Ricky in Slack so the maintenance process moves the client to former-client status. Never hand-edit the CRM sheet.</label></li>
+</ul>
+<p><strong>Retention and the goodbye</strong></p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">Retention posture for workpapers and the archived Drive folder: hold per the firm's retention practice (confirm with Ricky). Do not destroy or purge anything on your own judgment.</label></li>
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">Send a farewell from the role address: thank the client genuinely, confirm the final close month and what the package contains, name who to contact if their next bookkeeper has questions, and leave the door open to return. Warm, professional, no guilt, no failure language, and never a complaint about the exit. Former clients are the best referral source a firm has.</label></li>
+</ul>
+<h3 id="team-member-and-dialer-deprovisioning">Team member and dialer deprovisioning</h3>
+<p>This lane is the mirror of the first-week access audit, run at exit speed. Everything below the handoff section happens the <strong>same day</strong> the departure is effective.</p>
+<p><strong>Same-day access revocation</strong></p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18"><strong>Email:</strong> disable or reset the departing person's access to any firm mailbox (role addresses included), and review the mailbox for forwarding rules or delegated access they created. Remove anything routing firm mail outside firm systems.</label></li>
+<li class="ck"><input type="checkbox" id="ck-19" data-idx="19"><label for="ck-19"><strong>Financial Cents:</strong> deactivate their FC login.</label></li>
+<li class="ck"><input type="checkbox" id="ck-20" data-idx="20"><label for="ck-20"><strong>Slack:</strong> deactivate their Slack account.</label></li>
+<li class="ck"><input type="checkbox" id="ck-21" data-idx="21"><label for="ck-21"><strong>CloudTalk (dialer reps):</strong> deactivate the rep's CloudTalk account, remove their rep block from the bridge configuration, and retire their bridge secret. Reassign or park their outbound number.</label></li>
+<li class="ck"><input type="checkbox" id="ck-22" data-idx="22"><label for="ck-22"><strong>HubSpot:</strong> remove or deactivate their HubSpot seat, and reassign their owner id's contacts so list automations do not keep routing calls to a seat that no longer exists.</label></li>
+<li class="ck"><input type="checkbox" id="ck-23" data-idx="23"><label for="ck-23"><strong>Google Drive:</strong> remove their access to the shared drive and any per-folder shares granted directly to them.</label></li>
+<li class="ck"><input type="checkbox" id="ck-24" data-idx="24"><label for="ck-24"><strong>Client platforms:</strong> if they held direct access to any client system (QBO, Ramp, a bank portal, a giving platform), remove each one and confirm it.</label></li>
+<li class="ck"><input type="checkbox" id="ck-25" data-idx="25"><label for="ck-25"><strong>Rotate anything they could have known:</strong> any shared or stored credential the person had access to gets rotated, not just reviewed. This includes rebuilding and republishing the team portal with a new password, since portal access is credential-based and a former team member must not retain a working key.</label></li>
+<li class="ck"><input type="checkbox" id="ck-26" data-idx="26"><label for="ck-26">Run the same verification pass as the client lane: re-walk the list and test that each revoked access actually fails.</label></li>
+</ul>
+<p><strong>Work-in-flight handoff</strong></p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-27" data-idx="27"><label for="ck-27">Inventory everything the person owned: assigned clients, open FC tasks, close-calendar responsibilities, callbacks and warm leads (for a rep), and any in-progress deliverable.</label></li>
+<li class="ck"><input type="checkbox" id="ck-28" data-idx="28"><label for="ck-28">Get a written handoff of open items and context before the last day where the departure allows it. Where it does not, the Accounting Manager reconstructs the list from FC and the close calendar the same day.</label></li>
+<li class="ck"><input type="checkbox" id="ck-29" data-idx="29"><label for="ck-29">Reassign each item to a named person, not to "the team."</label></li>
+</ul>
+<p><strong>The no-orphaned-owner rule</strong></p>
+<p>Every client task, close milestone, and follow-up owned by the departing person is reassigned to a named owner <strong>before the seat closes</strong>. A close milestone with no owner is a missed close waiting to happen, and a rep's warm callbacks left unowned are booked meetings nobody attends. The seat does not close until the ownership map is whole.</p>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li><strong>No exit runs on a verbal.</strong> The client end date is confirmed in writing before any access is removed.</li>
+<li><strong>The final close meets the full quality bar.</strong> Never deliver a weaker last month because the engagement is ending.</li>
+<li><strong>Revocation is verified, not assumed.</strong> Every removal on either lane gets confirmed; asking the client to remove a user is not the same as the user being removed.</li>
+<li><strong>Nothing is deleted.</strong> Client folders archive, they do not disappear. Retention and destruction decisions belong to Ricky (confirm with Ricky).</li>
+<li><strong>Same-day means same-day.</strong> Team access revocation and credential rotation do not wait for a convenient moment.</li>
+<li><strong>Credentials the person touched get rotated, not just reviewed.</strong> That includes the team portal rebuild and republish.</li>
+<li><strong>No failure language reaches the client.</strong> The farewell is warm and clean regardless of why the engagement ended. Anything touching fees, terms, or the reason for the exit is Ricky's to say.</li>
+<li><strong>Turnkey CFO is a bookkeeping firm.</strong> The farewell and handoff language stays in bookkeeping, payroll, 1099, AP/AR, monthly close, and reporting terms. Tax and legal questions still route to the client's CPA or attorney, even on the way out.</li>
+<li><strong>Client-facing email sends from a role address</strong>, never a personal one.</li>
+<li><strong>Single-writer systems stay single-writer.</strong> CRM status changes go through the maintenance process; nobody hand-edits the sheet during an exit.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client end date or final close scope is ambiguous</td>
+<td>Stop and get Ricky's written confirmation before removing anything</td>
+</tr>
+<tr>
+<td>Client asks about fees, refunds, or exit terms</td>
+<td>Ricky, always. Send a same-day holding acknowledgment and stop there</td>
+</tr>
+<tr>
+<td>Client is leaving upset or the exit is relationship-sensitive</td>
+<td>Flag to Ricky same day with your read; he owns the goodbye</td>
+</tr>
+<tr>
+<td>A revocation cannot be completed (client unresponsive, platform will not remove a seat)</td>
+<td>Surface to Ricky within two weeks of the final close; do not mark the exit complete</td>
+</tr>
+<tr>
+<td>A departing team member's access cannot be revoked same-day</td>
+<td>Escalate to Ricky immediately; treat it as a live security gap, not a to-do</td>
+</tr>
+<tr>
+<td>Unsure what the departing person had access to</td>
+<td>Assume more, not less: inventory from the onboarding access list and rotate anything in doubt</td>
+</tr>
+<tr>
+<td>The incoming bookkeeper requests something outside the package</td>
+<td>Route to Ricky before sharing anything beyond the standard deliverables</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a>: the access list this SOP reverses</li>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close</a>: the quality bar the final close still meets</li>
+<li><a href="/team/cfo/tools-platforms/">Tools and Platforms</a>: the platform map and access model behind every revocation</li>
+<li><a href="/team/cfo/communication/">Client Communication</a>: role-address and tone standards for the farewell</li>
+<li><a href="/team/cfo/escalation/">Escalation and SLA</a>: the ladder for anything ambiguous or relationship-sensitive</li>
+<li><a href="/team/dialers/onboarding-checklist/">Rep Onboarding and CloudTalk Setup</a>: the rep-side setup this SOP unwinds</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

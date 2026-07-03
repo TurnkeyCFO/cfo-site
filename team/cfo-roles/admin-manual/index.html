@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin Training Manual · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo-roles/admin-manual">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo-roles/">Role Manuals</a><span class="sep">/</span><span class="here">Admin Training Manual</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Role Training Manual</div>
+        <h1>Admin Training Manual</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Role Manuals</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<div class="completion" id="completion">
+  <div class="cbadge" id="cbadge">0%</div>
+  <div class="cmeta">
+    <div class="ctitle">Training progress</div>
+    <div class="csub" id="csub">0 of 0 steps complete. Progress saves in this browser.</div>
+    <div class="cbar"><i id="mfill"></i></div>
+  </div>
+</div>
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This manual trains a new admin or virtual assistant into the Turnkey admin seat from day one. The admin seat is the firm's rhythm keeper: you send the scheduled client touches on the monthly close calendar, you keep meetings booked and reminded, you keep the calendar and CRM clean, you file documents where they belong, and you support invoicing and social publishing. You do not answer questions about a client's books, and you never touch pricing, scope, or engagement terms. Those belong to other seats, and this manual shows you exactly where the lines are.</p>
+<p>Turnkey CFO is a bookkeeping firm. Our client-facing language is bookkeeping, payroll, 1099, AP/AR, monthly close, and reporting. Tax or legal questions always route to "your CPA or attorney."</p>
+<p>Read this once end to end, then work from the checklists. A new hire should be able to run this seat without asking what happens next.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Person</th>
+<th>How you work together</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Founder</td>
+<td>Ricky West</td>
+<td>Your manager and final escalation point. Sole voice on pricing, scope, and engagement terms. Reviews your client-facing drafts during your first month, then by exception.</td>
+</tr>
+<tr>
+<td>Accounting Manager</td>
+<td>Beth</td>
+<td>The quality gate above the bookkeeper and your closest daily partner. She tells you what is ready to send and when. Route any client question about the books to her.</td>
+</tr>
+<tr>
+<td>Bookkeeper</td>
+<td>Hardik</td>
+<td>Prepares the books and compiles what is missing per client. Works in Financial Cents, not Slack, so handoffs to him happen there.</td>
+</tr>
+<tr>
+<td>Admin / VA (this seat)</td>
+<td>You</td>
+<td>Scheduled client sends (BD1, BD3, BD6), meeting scheduling and reminders, calendar and CRM hygiene, document filing, invoicing support, social publishing support.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two things to know about the team around you:</p>
+<ul>
+<li>Hardik (India) and the Accounting Manager (Pacific time) overlap on purpose: the firm has near 24-hour coverage. Hand work across the overlap rather than sitting on it.</li>
+<li>You send on behalf of the firm, but you do not originate answers about any client's books. When a client replies to one of your sends with a question, you acknowledge and route it. That is the whole job of this seat done well.</li>
+</ul>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<p>Your calendar runs on business days of the new month (BD1 is the first business day, BD3 the third, and so on; US holidays do not count). Each cycle covers the PRIOR month's books.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>When</th>
+<th>What you do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BD1</td>
+<td>Send each client's monthly request from accounting@turnkeycfo.com, including the reminder that card memos are due BD3</td>
+</tr>
+<tr>
+<td>BD3</td>
+<td>Send each client's consolidated checkpoint note. Escalate internally, same day, for any client who has sent nothing</td>
+</tr>
+<tr>
+<td>BD6</td>
+<td>Send the delivery (financials, dashboard, Open Items list) once it has passed review</td>
+</tr>
+<tr>
+<td>BD12 window</td>
+<td>Client review meetings run BD11 to BD14. Your reminders go out 2 business days before each meeting</td>
+</tr>
+<tr>
+<td>Every Friday</td>
+<td>Each client's open questions go out as one batched note with a three business day reply ask</td>
+</tr>
+<tr>
+<td>Daily</td>
+<td>Work the accounting@ inbox triage and keep the calendar current. Thursday is historically the heaviest inbound day, so plan extra triage time</td>
+</tr>
+<tr>
+<td>Ongoing</td>
+<td>File inbound documents to Drive the day they arrive, update the CRM when a client's status changes, flag qualified prospect inquiries the same day, never batched</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="the-process">The process</h2>
+<h3 id="welcome-and-the-team-around-you">Welcome and the team around you</h3>
+<p>Welcome to Turnkey. The firm's promise to clients is simple: their financials always arrive on time, and nothing falls through the cracks. Your seat is where that promise becomes visible. Clients experience Turnkey mostly through the messages you send and the meetings you keep, so a clean, on-time, warm send from you IS the brand.</p>
+<p>The work splits into six lanes, all covered below: monthly close sends, meeting scheduling, calendar and CRM hygiene, document collection and filing, invoicing support, and social publishing support. Every lane has a hard boundary: you run the process, other seats own the content and the decisions.</p>
+<h3 id="your-first-week-access-checklist">Your first week (access checklist)</h3>
+<p>Work through this with Ricky on day one and two. Post any access gap in Slack the day you find it. Never work around a missing login or borrow anyone's credentials.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Slack workspace joined; introduce yourself in the team channel</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Access to the accounting@turnkeycfo.com shared mailbox (your client-facing sends come from here)</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Your own @turnkeycfo.com address provisioned (client email never sends from a personal address)</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Google Calendar access for the firm calendars you will manage</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Financial Cents account created; you can see each client's monthly project</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Google Drive: shared Turnkey Services drive mounted; you can open a client folder and see the numbered taxonomy</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Close Command site bookmarked (the shared close calendar showing the next two business days of milestones)</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">CRM sheet access (the client roster and pipeline)</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Invoicing platform access, per how each client is billed (confirm with Ricky which platform and which clients you support)</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Blotato access if social publishing is in your scope</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">Read the seven CFO SOPs linked in the Your lane section below</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Run the access audit: test every login above, list what works and what does not, post the gap list to Slack</label></li>
+</ul>
+<h3 id="your-3060-day-ramp">Your 30/60 day ramp</h3>
+<p><strong>Days 1 to 14: Learn the rhythm.</strong> Read the SOPs, shadow one full close cycle, and draft your first BD1 and BD3 sends. Everything client-facing you write goes to Ricky as a draft for review before it sends. Watch how the Accounting Manager decides what is ready.</p>
+<p><strong>Days 15 to 30: Run the sends with review.</strong> You own the BD1, BD3, and BD6 sends and the meeting reminders, with Ricky (or the Accounting Manager) reviewing each client-facing message before it goes out. Start owning the accounting@ triage and Drive filing fully.</p>
+<p><strong>Days 31 to 60: Independent on the routine.</strong> Scheduled sends, reminders, calendar, CRM updates, and filing run without pre-review. Anything new, unusual, or sensitive still gets a review pass. Social publishing approval follows the same arc: your first month is co-reviewed, then you publish independently with Ricky as backup.</p>
+<p><strong>Definition of success at 60 days:</strong> every scheduled send goes out on the right business day without being chased, every meeting has an invite and a 2-day reminder, the CRM matches reality, the Drive folders are clean, and Ricky only sees what genuinely needs him.</p>
+<h3 id="your-lane-the-sops-you-own-pieces-of">Your lane: the SOPs you own pieces of</h3>
+<p>You do not own any SOP end to end; you own the admin lane inside each. Read all seven; know these cold:</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>SOP</th>
+<th>Your lane inside it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/team/cfo/bookkeeping-close/">Monthly Close</a></td>
+<td>The BD1 request send, the BD3 checkpoint send, the BD6 delivery send, and the BD12 meeting invites plus reminders</td>
+</tr>
+<tr>
+<td><a href="/team/cfo/communication/">Client Communication</a></td>
+<td>Channel rules, the accounting@ triage workflow, response standards, and the external voice you write in</td>
+</tr>
+<tr>
+<td><a href="/team/cfo/onboarding/">Client Onboarding</a></td>
+<td>Calendar invites, client notifications, and CRM updates when a new client goes active</td>
+</tr>
+<tr>
+<td><a href="/team/cfo/bill-pay/">Bill Pay and Spend</a></td>
+<td>The BD1 and BD3 memo reminders you send; know the platform boundaries even though you never touch payments</td>
+</tr>
+<tr>
+<td><a href="/team/cfo/payroll/">Payroll</a></td>
+<td>Awareness only: payroll mail you triage routes to the bookkeeping lane, never answered by you</td>
+</tr>
+<tr>
+<td><a href="/team/cfo/escalation/">Escalation and SLAs</a></td>
+<td>The full ladder and the NEEDS-RICKY protocol. This one you follow daily</td>
+</tr>
+<tr>
+<td><a href="/team/cfo/tools-platforms/">Tools and Platforms</a></td>
+<td>Drive taxonomy, Financial Cents basics, and the boundaries around QBO (you are not in QBO)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="day-in-the-life">Day in the life</h3>
+<p>A normal day in this seat, in order:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Open the Close Command site: what milestones land today and in the next two business days?</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">Open the accounting@ inbox and triage newest to oldest. File documents to Drive, route bookkeeping items to Hardik's lane, move anything about pricing, scope, or a frustrated tone to the Ricky folder and ping Ricky on Slack.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Acknowledge any client email that expects a reply, same business day, even if the full answer comes later ("received, working on it, you will have it by X").</label></li>
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">Check today's meetings: are invites out, are reminders due, did anyone request a reschedule?</label></li>
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">Send whatever the calendar says is due today (request, checkpoint, delivery, reminder), once it has passed its review gate.</label></li>
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">Reply to internal Slack within a couple of working hours.</label></li>
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18">End of day: nothing sits unfiled in the inbox, nothing due today is unsent, and anything blocked has been flagged, not parked.</label></li>
+</ul>
+<h3 id="week-in-the-month">Week in the month</h3>
+<ul>
+<li><strong>Close week (BD1 through BD6):</strong> your heaviest week. The three sends below, plus extra inbox attention because client documents flow in.</li>
+<li><strong>Week two:</strong> review meetings cluster in the BD11 to BD14 window. Invites, reminders, reschedules, and follow-up notes.</li>
+<li><strong>Weeks three and four:</strong> catch-up and hygiene. CRM cleanup, Drive filing audit, invoicing support, social scheduling, and prep for the next cycle.</li>
+<li><strong>Every Friday, all month:</strong> the batched open-questions note per client, and your weekly status summary to Ricky before end of day Friday Central time.</li>
+</ul>
+<h3 id="the-bd1-request-send">The BD1 request send</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-19" data-idx="19"><label for="ck-19">Hardik compiles each client's request list (which statements, receipts, approvals, and memos are missing). You send it; you do not build the list.</label></li>
+<li class="ck"><input type="checkbox" id="ck-20" data-idx="20"><label for="ck-20">Send from accounting@turnkeycfo.com, one email per client, warm and specific.</label></li>
+<li class="ck"><input type="checkbox" id="ck-21" data-idx="21"><label for="ck-21">Always include the reminder that card memos (Ramp, Bill.com, or the client's card tool) are due by BD3.</label></li>
+<li class="ck"><input type="checkbox" id="ck-22" data-idx="22"><label for="ck-22">If a client owes nothing this cycle, they hear nothing at this step. No empty check-ins.</label></li>
+<li class="ck"><input type="checkbox" id="ck-23" data-idx="23"><label for="ck-23">Confirm the client's Financial Cents monthly project exists and its client tasks are issued.</label></li>
+</ul>
+<h3 id="the-bd3-checkpoint-send">The BD3 checkpoint send</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-24" data-idx="24"><label for="ck-24">Send one consolidated checkpoint note per client: outstanding items, memos still due, transactions that need labeling. One clear list, not scattered questions.</label></li>
+<li class="ck"><input type="checkbox" id="ck-25" data-idx="25"><label for="ck-25">The content comes from Hardik and the Accounting Manager; your job is that it goes out on BD3, complete and readable.</label></li>
+<li class="ck"><input type="checkbox" id="ck-26" data-idx="26"><label for="ck-26">If a client has sent NOTHING by BD3, escalate internally the same day. This protects the BD6 delivery. Then send a direct, warm nudge naming exactly what is missing.</label></li>
+</ul>
+<h3 id="the-bd6-delivery-send">The BD6 delivery send</h3>
+<p>This is the most visible send of the month. Three hard gates before you press send:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-27" data-idx="27"><label for="ck-27">The package is complete: financials, refreshed dashboard, and the Open Items list.</label></li>
+<li class="ck"><input type="checkbox" id="ck-28" data-idx="28"><label for="ck-28">It has passed review (Ricky, or the Accounting Manager once released). You never send an unreviewed delivery.</label></li>
+<li class="ck"><input type="checkbox" id="ck-29" data-idx="29"><label for="ck-29">The dashboard link is confirmed live. If it is not, hold the entire email and page Ricky. Never send a text-only substitute, and never let failure language reach a client.</label></li>
+</ul>
+<p>If BD6 is at risk, the client hears from Turnkey BEFORE the date, with a plain, calm status and a specific new date. A promised date never passes silently.</p>
+<h3 id="meeting-scheduling-and-reminders">Meeting scheduling and reminders</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-30" data-idx="30"><label for="ck-30">Each client has a cadence type (standard review, board, senior-pastor review, async only, or build engagement) recorded in their dossier. Schedule to the type.</label></li>
+<li class="ck"><input type="checkbox" id="ck-31" data-idx="31"><label for="ck-31">Standard reviews anchor to BD12; spread them across BD11 to BD14 so they do not stack. The calendar gives the anchor; Ricky places the exact slots.</label></li>
+<li class="ck"><input type="checkbox" id="ck-32" data-idx="32"><label for="ck-32">Send calendar invites with a video link as soon as the slot is set.</label></li>
+<li class="ck"><input type="checkbox" id="ck-33" data-idx="33"><label for="ck-33">Send a reminder 2 business days before every client meeting. This is a fixed rule of the seat, not a nice-to-have.</label></li>
+<li class="ck"><input type="checkbox" id="ck-34" data-idx="34"><label for="ck-34">Reschedule requests for routine reviews: handle directly, update the calendar, and note it. You do not need Ricky for a date change.</label></li>
+<li class="ck"><input type="checkbox" id="ck-35" data-idx="35"><label for="ck-35">A client asking to CHANGE their cadence (fewer meetings, different rhythm) is Ricky's call. Acknowledge, flag to him, and update the dossier only after he approves.</label></li>
+<li class="ck"><input type="checkbox" id="ck-36" data-idx="36"><label for="ck-36">Never book over a locked calendar block, and avoid stacking within 30 minutes of an existing event.</label></li>
+</ul>
+<h3 id="calendar-and-crm-hygiene">Calendar and CRM hygiene</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-37" data-idx="37"><label for="ck-37">The calendar reflects reality every day: past meetings closed out, upcoming meetings confirmed, holidays accounted for (business-day milestones count around US holidays automatically).</label></li>
+<li class="ck"><input type="checkbox" id="ck-38" data-idx="38"><label for="ck-38">When a new client goes active: update the CRM (stage, service line, start date) as part of onboarding wrap-up.</label></li>
+<li class="ck"><input type="checkbox" id="ck-39" data-idx="39"><label for="ck-39">When anything material changes (contact person, cadence, status, pause or reactivation): update the CRM the day you learn it, after the change is approved by whoever owns it.</label></li>
+<li class="ck"><input type="checkbox" id="ck-40" data-idx="40"><label for="ck-40">Paused clients returning to service go back on the standard review cadence; add them back to the calendar.</label></li>
+<li class="ck"><input type="checkbox" id="ck-41" data-idx="41"><label for="ck-41">You update records; you never decide terms. The exact CRM fields and tabs this seat maintains: (confirm with Ricky).</label></li>
+</ul>
+<h3 id="document-collection-and-drive-filing">Document collection and Drive filing</h3>
+<p>Google Drive is the canonical file store. Financial Cents is not the document of record, and email threads are not storage.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-42" data-idx="42"><label for="ck-42">Statements and documents that arrive by email or through Financial Cents get downloaded and filed into the client's Drive folder the same day.</label></li>
+<li class="ck"><input type="checkbox" id="ck-43" data-idx="43"><label for="ck-43">File into the numbered taxonomy (Governance, Board Reporting, Accounting by year then month, Banking, Payroll and HR, Revenue or Giving, Budget, Contracts, Taxes, Audit and Archive).</label></li>
+<li class="ck"><input type="checkbox" id="ck-44" data-idx="44"><label for="ck-44">Name files descriptively with client and date. Never leave a generic scanner filename.</label></li>
+<li class="ck"><input type="checkbox" id="ck-45" data-idx="45"><label for="ck-45">Anything containing personal identifying information (pay registers, I-9s) travels only through the named secure channel and never sits in an open email thread longer than needed.</label></li>
+<li class="ck"><input type="checkbox" id="ck-46" data-idx="46"><label for="ck-46">Never restructure folders on your own. Flag structural changes to Ricky first.</label></li>
+<li class="ck"><input type="checkbox" id="ck-47" data-idx="47"><label for="ck-47">Do not save new work to OneDrive; it is a read-only backstop from the prior setup.</label></li>
+</ul>
+<h3 id="invoicing-support">Invoicing support</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-48" data-idx="48"><label for="ck-48">You prepare and send invoices exactly per the engagement terms on file. The terms are set by Ricky; you execute them.</label></li>
+<li class="ck"><input type="checkbox" id="ck-49" data-idx="49"><label for="ck-49">Never change an amount, a date, a term, or a billing method. Any client question about their bill routes to Ricky, always, with a same-day acknowledgment from you.</label></li>
+<li class="ck"><input type="checkbox" id="ck-50" data-idx="50"><label for="ck-50">Track that invoices went out on their cycle and flag anything unpaid past its terms to Ricky; you do not chase payment with pressure, you surface it.</label></li>
+<li class="ck"><input type="checkbox" id="ck-51" data-idx="51"><label for="ck-51">Which platform issues which client's invoices, and whether your sends are direct or draft-for-approval: (confirm with Ricky).</label></li>
+</ul>
+<h3 id="social-and-comms-support-boundaries">Social and comms support boundaries</h3>
+<p>If social publishing is in your scope, the model is review-and-publish, not create:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-52" data-idx="52"><label for="ck-52">You review, edit, schedule, and publish content the engines and Ricky produce. You do not originate posts or client-facing copy from scratch.</label></li>
+<li class="ck"><input type="checkbox" id="ck-53" data-idx="53"><label for="ck-53">First month: Ricky co-reviews before anything publishes. After that you approve and publish independently, with Ricky as backup.</label></li>
+<li class="ck"><input type="checkbox" id="ck-54" data-idx="54"><label for="ck-54">Brand voice and visual assets come from the brand style guide; never invent colors, logos, or taglines.</label></li>
+<li class="ck"><input type="checkbox" id="ck-55" data-idx="55"><label for="ck-55">A prospect inquiry arriving through any social or inbound channel gets flagged the same day, never batched. Whether you also do first-touch scheduling for new prospects: (confirm with Ricky).</label></li>
+<li class="ck"><input type="checkbox" id="ck-56" data-idx="56"><label for="ck-56">Existing-client communication about their engagement never runs through social channels. Route it to the proper email lane.</label></li>
+</ul>
+<h3 id="communication-for-this-role">Communication for this role</h3>
+<p>Full rules live in <a href="/team/cfo/communication/">Client Communication</a>. The parts you use hourly:</p>
+<ul>
+<li>Client-facing email sends from a role address (accounting@turnkeycfo.com or your @turnkeycfo.com address). Never a personal address.</li>
+<li>External voice: warm, professional, plain-spoken. No emojis, no jargon. Lead with the answer.</li>
+<li>Internal voice: direct and brief, bullets over prose, Slack channel over DM. Emojis are fine internally.</li>
+<li>Onboarding and follow-up run as one named running thread per contact; reply on the existing thread, never a fresh email per touch.</li>
+<li>Financial Cents Team Chat is internal; Client Chat is client-visible. Never mix them.</li>
+<li>Broad client-facing memos take a "DRAFT for review" pass to Ricky before any external send.</li>
+</ul>
+<h3 id="mastery-checklist">Mastery checklist</h3>
+<p>You have mastered this seat when every box below is honestly checked:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-57" data-idx="57"><label for="ck-57">I can name the five close milestones and what I send at each one</label></li>
+<li class="ck"><input type="checkbox" id="ck-58" data-idx="58"><label for="ck-58">My BD1, BD3, and BD6 sends have gone out on the correct business day for two consecutive cycles</label></li>
+<li class="ck"><input type="checkbox" id="ck-59" data-idx="59"><label for="ck-59">Every client meeting I manage has an invite and a reminder 2 business days ahead, without exception</label></li>
+<li class="ck"><input type="checkbox" id="ck-60" data-idx="60"><label for="ck-60">I can triage the accounting@ inbox to empty using the folder rules, and I know exactly what goes in the Ricky folder</label></li>
+<li class="ck"><input type="checkbox" id="ck-61" data-idx="61"><label for="ck-61">I file documents into the correct Drive taxonomy folder without looking it up</label></li>
+<li class="ck"><input type="checkbox" id="ck-62" data-idx="62"><label for="ck-62">The CRM matched reality at my last spot check</label></li>
+<li class="ck"><input type="checkbox" id="ck-63" data-idx="63"><label for="ck-63">I have escalated at least one BD3 no-response the same day, and one at-risk date before it slipped</label></li>
+<li class="ck"><input type="checkbox" id="ck-64" data-idx="64"><label for="ck-64">I have never answered a books, pricing, tax, or legal question myself, and I know the holding reply by heart</label></li>
+<li class="ck"><input type="checkbox" id="ck-65" data-idx="65"><label for="ck-65">Invoices in my scope went out on cycle for two consecutive months</label></li>
+<li class="ck"><input type="checkbox" id="ck-66" data-idx="66"><label for="ck-66">Ricky has stopped reviewing my routine sends because they no longer need it</label></li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>You never answer questions about a client's books, numbers, or transactions. Acknowledge same day, route to the Accounting Manager.</li>
+<li>Anything touching pricing, scope, engagement terms, or billing amounts goes to Ricky, always. Never negotiate, never promise, never hint ("I am sure that would be fine" counts as a promise).</li>
+<li>Tax or legal questions get the standing line: "That is one for your CPA or attorney, and we are happy to get them anything they need from the books."</li>
+<li>Never send client-facing email from a personal address. Role mailboxes only.</li>
+<li>Never send an unreviewed delivery, and never send a delivery whose dashboard is not confirmed live. Hold and page Ricky instead.</li>
+<li>No failure language ever reaches a client. If something is broken or late, the client hears a plain, calm status before the date.</li>
+<li>Never send a team-wide reminder blast. Reminders are individualized: one person, only their items.</li>
+<li>Never mix Financial Cents Team Chat and Client Chat, and never put internal commentary anywhere a client can see it.</li>
+<li>Never work around a missing login or borrow credentials. Post the access gap to Slack the day you find it.</li>
+<li>Never restructure Drive folders, CRM columns, or calendar structures unilaterally. Flag first.</li>
+<li>Client-facing assets carry the client's own brand and palette, never Turnkey's swapped in.</li>
+<li>Never write the phrase that pairs "fractional" with "CFO" in any outward copy. The top service tier is called Reporting &amp; Advisory.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<p>The full ladder lives in <a href="/team/cfo/escalation/">Escalation and SLAs</a>. Your seat's version:</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Your move</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client question about their books, timing, or a transaction</td>
+<td>Acknowledge same day, route to the Accounting Manager</td>
+</tr>
+<tr>
+<td>Anything about pricing, scope, engagement terms, or an invoice amount</td>
+<td>Ricky, always. Holding acknowledgment only</td>
+</tr>
+<tr>
+<td>Tax or legal question</td>
+<td>The CPA-or-attorney line, then flag to Ricky</td>
+</tr>
+<tr>
+<td>Client frustrated, short, or gone quiet</td>
+<td>Flag to Ricky the same day with your read on why. Answer the routine part, never the emotion</td>
+</tr>
+<tr>
+<td>Client sent nothing by BD3</td>
+<td>Internal escalation the same day, then the warm nudge</td>
+</tr>
+<tr>
+<td>BD6 package incomplete or dashboard not live</td>
+<td>Hold the send, page Ricky before the date</td>
+</tr>
+<tr>
+<td>Reminder or send went to the wrong person or listed wrong items</td>
+<td>Stop everything in that batch, tell Ricky same day</td>
+</tr>
+<tr>
+<td>Missing login or access gap</td>
+<td>Post it in Slack the day you find it</td>
+</tr>
+<tr>
+<td>Unsure whether something needs Ricky</td>
+<td>Ask the Accounting Manager first. That question is what the middle rung is for</td>
+</tr>
+</tbody>
+</table></div>
+<p>When you flag something to Ricky, use the NEEDS-RICKY pattern: post in Slack, include a screenshot or pasted copy of the client message, add one or two lines of context, say what you would do if it were your call, and mark urgency honestly. "Same day" means the client is upset or money is at risk; most things are "next sync."</p>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close</a></li>
+<li><a href="/team/cfo/communication/">Client Communication</a></li>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a></li>
+<li><a href="/team/cfo/bill-pay/">Bill Pay and Spend</a></li>
+<li><a href="/team/cfo/payroll/">Payroll</a></li>
+<li><a href="/team/cfo/escalation/">Escalation and SLAs</a></li>
+<li><a href="/team/cfo/tools-platforms/">Tools and Platforms</a></li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

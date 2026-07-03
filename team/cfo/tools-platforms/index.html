@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tools and Platforms · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/tools-platforms">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Tools and Platforms</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Tools and Platforms</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP is the platform map for the Turnkey CFO team. It tells a new team member what each system is for, where the boundaries sit between them, and how to get access. The short version: QuickBooks Online holds the books, Financial Cents holds the workflow, Google Drive holds the documents, Slack holds the conversation, and the CRM sheet holds the client roster. Everything else supports one of those five.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Responsibility for tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ricky (Founder)</td>
+<td>Approves all access grants, owns every client relationship and billing platform, final say on any tool change</td>
+</tr>
+<tr>
+<td>Accounting Manager</td>
+<td>Day-to-day power user of QBO, Financial Cents, Drive, and the Close Command site; owns the close calendar</td>
+</tr>
+<tr>
+<td>Hardik (Bookkeeper)</td>
+<td>Works inside Financial Cents and QBO; does not work in Slack</td>
+</tr>
+<tr>
+<td>Eldine (Brand Manager / VA)</td>
+<td>Slack, calendar, invoicing, and client notification sends; not in QBO</td>
+</tr>
+</tbody>
+</table></div>
+<p>Internal automation (agents built by Ricky) reads and writes several of these systems on fixed rules. You do not need to operate the automation, but you do need to respect its boundaries, which are called out below.</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li>Read this SOP during your first week, alongside your access setup.</li>
+<li>Revisit it whenever you onboard a new client (each client arrives with its own platform mix).</li>
+<li>The access-audit checklist below is a first-week deliverable for any new team member.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="quickbooks-online-the-system-of-record">QuickBooks Online: the system of record</h3>
+<p>Every client's books live in their own QBO company. QBO is the single source of truth for financial data. If a number matters, it comes from QBO, not from a spreadsheet copy.</p>
+<ul>
+<li>Access model: the client invites <code>accounting@turnkeycfo.com</code> as an accountant user. Ricky requests this invite during onboarding; team members work under that access, never under a client's personal login.</li>
+<li>Bank visibility: clients add <code>accounting@turnkeycfo.com</code> as a View-Only user at each bank. We can see transactions, statements, and balances. We cannot move money, initiate payments, add users, or approve anything. Say exactly that if a client asks.</li>
+<li>Working discipline: categorize with a memo on every transaction, reconcile monthly to a zero difference, and match (rather than add) suggested bank-feed transactions to prevent duplicates.</li>
+</ul>
+<p>What we never do in QBO:</p>
+<ul>
+<li>Never move money or initiate a payment from any system. Bookkeeping access is read-and-record, not treasury.</li>
+<li>Never file or remit taxes. Tax and legal questions route to the client's CPA or attorney.</li>
+<li>Never restructure a chart of accounts, merge accounts, or add new accounts without confirming with Ricky first.</li>
+<li>Never write to QBO from an ad hoc script or one-off automation. Automated write-backs flow only through the approved classification pipelines, each with its own review gate. Reads are open; writes are single-owner.</li>
+<li>Never touch a closed period. If a change would land before the client's closed date, escalate instead.</li>
+</ul>
+<p>One more note on data pulls: internal automation pulls client reports directly from the QBO API. Nobody on the team should be exporting CSVs or taking screenshots to feed internal tooling. If a report seems unreachable, ask Ricky rather than working around it.</p>
+<h3 id="financial-cents-the-workflow-backbone">Financial Cents: the workflow backbone</h3>
+<p>Financial Cents (FC) is where client work is tracked and where client-facing document requests live. It is not where documents are stored (that is Drive) and not where the books live (that is QBO).</p>
+<ul>
+<li>Structure: a Workflow is a template; a Project is an instance of that template for one client and one period. Every active client runs a recurring "Turnkey Monthly Bookkeeping" project per month, with a standard internal task list. Cleanup, onboarding, and annual (1099, tax-year) work run as their own project types. An internal coordination project serves as the team's shared async work log.</li>
+<li>Client Tasks: document requests the client completes themselves (statements, approvals, uploads). Treat them as a binary contract: either the client has finished all of them or the request is still open.</li>
+<li>Status pills route the work: "Waiting on Client" (red) means the blocker is external and follow-up is queued; "Client info received" (green) or no pill means the work is in flight internally; a "Tier 1" pill marks an escalation tier (the exact trigger rule for that pill is undocumented, confirm with Ricky).</li>
+<li>Chat discipline: every project has a Team Chat (internal) and a Client Chat (client-visible). Never mix them. No internal commentary, shorthand, or candor ever goes in Client Chat.</li>
+<li>FC Inbox: FC integrates client email into a Clients folder. It is a reading surface, not the mailbox of record.</li>
+</ul>
+<h3 id="google-drive-the-canonical-file-store">Google Drive: the canonical file store</h3>
+<p>Google Drive (the shared <code>Turnkey Services</code> drive, mounted via Drive for Desktop) is the canonical store for all firm and client documents. OneDrive is a read-only backstop from the prior storage setup; do not save new work there, and treat anything found only in OneDrive as historical.</p>
+<p>Client folders follow a numbered taxonomy, with variants for for-profit, nonprofit, and church entities:</p>
+<ul>
+<li><code>00</code> Governance and legal</li>
+<li><code>01</code> Board and leadership reporting</li>
+<li><code>02</code> Accounting (monthly close), organized Year, then Month, then Bank Statements / Reconciliations / Journal Entries / Financial Statements / Supporting Documents</li>
+<li><code>03</code> Banking and cash management</li>
+<li><code>04</code> Payroll and HR finance</li>
+<li><code>05</code> Revenue, grants, or giving (varies by entity type)</li>
+<li><code>06</code> Budget and forecasting</li>
+<li><code>07</code> Contracts and vendors</li>
+<li><code>08</code> Taxes and compliance</li>
+<li><code>09</code> Audit and historical archive</li>
+</ul>
+<p>Working rules:</p>
+<ul>
+<li>Name files descriptively with client and date. Never leave a generic scanner filename.</li>
+<li>Files that arrive through FC or email get downloaded and filed into the client's Drive folder. FC is explicitly not the document of record.</li>
+<li>Offboarded clients move to an Archive folder that preserves the same taxonomy.</li>
+<li>Do not restructure folders unilaterally. Flag structural changes to Ricky first.</li>
+</ul>
+<h3 id="slack-the-internal-conversation">Slack: the internal conversation</h3>
+<p>Slack carries all internal comms. Default to a channel over a DM so context stays visible. Respond to internal Slack within a couple of working hours. Note that Hardik works in Financial Cents, not Slack, so bookkeeping handoffs to him happen in FC.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#assistant-bot</code></td>
+<td>Personal pings, system alerts, watchdogs, approval cards</td>
+</tr>
+<tr>
+<td><code>#briefings</code></td>
+<td>Read-only daily intelligence: morning brief, Financial Cents digest, system health. Skim, no action needed</td>
+</tr>
+<tr>
+<td><code>#leads</code></td>
+<td>Inbound estimate and intake submissions</td>
+</tr>
+<tr>
+<td><code>#tk-web</code></td>
+<td>Turnkey Web build previews and approvals (Web service line)</td>
+</tr>
+<tr>
+<td><code>#seo</code></td>
+<td>SEO and ads engine traffic</td>
+</tr>
+</tbody>
+</table></div>
+<p>Slack is also the firm's approval surface: automation posts cards that Ricky approves by reaction or reply before anything goes out. If you see an approval card, leave it for the named approver.</p>
+<h3 id="bill-pay-cards-and-payroll-platforms">Bill pay, cards, and payroll platforms</h3>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>What it is for</th>
+<th>Team posture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ramp</td>
+<td>Cards, spend management, and AP for most church clients. Cardholders owe a memo and receipt on every transaction; memos are due by business day 3 of the close</td>
+<td>Work the "Needs Review" queue; request receipts through Ramp; Ricky is the sole approver on bill payments</td>
+</tr>
+<tr>
+<td>Bill.com</td>
+<td>AP and approval chains at some clients</td>
+<td>Read-only for Turnkey tooling. Never approve, pay, or edit bills from our side; automation only reminds the client's own approvers</td>
+</tr>
+<tr>
+<td>Expensify</td>
+<td>Legacy card-expense platform at some clients, being displaced by Ramp</td>
+<td>Read-only. A weekly automated reminder emails cardholders about missing categories and memos</td>
+</tr>
+<tr>
+<td>Gusto</td>
+<td>Payroll platform for most clients</td>
+<td>Per-client processors vary (one church runs ADP, one nonprofit runs a two-entity PEO arrangement). Always check the client dossier before touching payroll</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="the-crm-sheet">The CRM sheet</h3>
+<p>The <code>TurnkeyCFO_CRM</code> Google Sheet is the system of record for prospects and clients: Dashboard, Leads, Clients, Activity Log, and Pipeline tabs. It holds each client's contacts, tier, billing cadence, and status.</p>
+<ul>
+<li>The team reads the CRM freely for roster and contact context.</li>
+<li>Nobody hand-edits it. A single maintenance process owns all writes. If you have an update (a stage change, a new contact, a meeting outcome), send it to Ricky in Slack and it gets applied through that process.</li>
+</ul>
+<h3 id="the-close-command-site">The Close Command site</h3>
+<p>Close Command is the team's live close-calendar app. It shows the business-day milestones (BD1 request, BD3 checkpoint, BD6 deliver, BD10 lock, BD12 meeting) for every client and month, with per-client checklists whose checkboxes sync team-wide. Use it as your next-two-business-days awareness tool during close. It has separate portal views per team member; ask Ricky for the URL and your view.</p>
+<h3 id="requesting-access-first-week-checklist">Requesting access: first-week checklist</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Ask Ricky in Slack for each platform you need, naming the tool and the client scope. He grants or requests every access.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">QBO: confirm you can open each assigned client's company under the accountant access.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Financial Cents: confirm your login and that you can see the monthly projects for your clients.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Google Drive: confirm the shared <code>Turnkey Services</code> drive is visible and you can open your clients' folders.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Slack: confirm you are in the channels listed above.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Ramp / Bill.com / Expensify / Gusto: request per client, only where that client actually uses the platform.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Run the access audit: inventory the stored credentials for each assigned client, test every login that matters for the close, and post a gap list to Slack the same day you find a gap.</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">Never work around a missing login and never borrow someone else's credentials. A gap is an escalation, not an obstacle course.</label></li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>QBO is the source of truth; Drive is the document of record; FC is the workflow layer. Do not let documents pile up in FC or numbers live in side spreadsheets.</li>
+<li>Client-facing email always sends from a role address (such as <code>accounting@turnkeycfo.com</code>), never a personal mailbox.</li>
+<li>Turnkey CFO is a bookkeeping firm. Describe our services as bookkeeping, payroll, 1099, AP/AR, monthly close, and reporting; never describe us as an outsourced CFO in anything a client could see. Tax and legal questions route to the client's CPA or attorney.</li>
+<li>Never mix Team Chat and Client Chat in FC.</li>
+<li>Never move money, approve payments in a client's AP tool without explicit direction, or touch Bill.com beyond reading.</li>
+<li>Respect single-writer systems: the CRM sheet, the classification pipelines, and QBO write-backs each have exactly one owning process. Read freely, write never.</li>
+<li>Do not store credentials outside the firm's systems, and do not screenshot or forward anything containing credentials.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Missing or broken login for an assigned client</td>
+<td>Post the gap in Slack the same day; do not work around it</td>
+</tr>
+<tr>
+<td>A platform is down or misbehaving during close week</td>
+<td>Flag Ricky immediately, before the milestone slips, so the client hears from us first</td>
+</tr>
+<tr>
+<td>Client asks for access changes, new users, or anything touching money movement</td>
+<td>Route to Ricky, always</td>
+</tr>
+<tr>
+<td>Unsure which automation lane a client's transactions run on (manual vs automated classification)</td>
+<td>Confirm with Ricky at onboarding; never assume automation coverage</td>
+</tr>
+<tr>
+<td>Tax or legal question arrives through any platform</td>
+<td>Redirect to the client's CPA or attorney; do not interpret</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close</a></li>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a></li>
+<li><a href="/team/cfo/offboarding/">Offboarding and Deprovisioning</a></li>
+<li><a href="/team/cfo/communication/">Client Communication</a></li>
+<li><a href="/team/cfo/bill-pay/">Bill Pay and Spend</a></li>
+<li><a href="/team/cfo/payroll/">Payroll</a></li>
+<li><a href="/team/cfo/escalation/">Escalation and SLAs</a></li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

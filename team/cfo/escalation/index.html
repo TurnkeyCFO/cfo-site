@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Escalation and Attention Rules · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/escalation">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Escalation and Attention Rules</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Escalation and Attention Rules</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP defines what truly requires Ricky's attention and what the team owns end to end. The single most valuable habit on this team is knowing the difference. Ricky's biggest operational risk is not client acquisition, it is attention overload: every item routed to him that the team could have handled makes the whole firm slower.</p>
+<p>The bias, always: surface what truly needs Ricky, delegate or handle everything else. When in doubt, run it up one rung of the ladder (not straight to the top) and let that person decide.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Person</th>
+<th>Role</th>
+<th>Works in</th>
+<th>Owns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hardik</td>
+<td>Primary bookkeeper (independent practice, India-based)</td>
+<td>Financial Cents, not Slack</td>
+<td>Transaction entry, QBO categorization, reconciliation, book cleanup. Gets books roughly 90 percent of the way there</td>
+</tr>
+<tr>
+<td>Beth</td>
+<td>Accounting Manager, QC layer above Hardik (California-based)</td>
+<td>Slack plus the Outlook role address</td>
+<td>First-pass review of Hardik's work, client-facing communication, the close calendar, Hardik's daily priorities</td>
+</tr>
+<tr>
+<td>Eldine</td>
+<td>Brand Manager and VA</td>
+<td>Slack plus Blotato</td>
+<td>Calendar, invoicing, social publishing, client notifications, anything routine and delegatable</td>
+</tr>
+<tr>
+<td>Ricky</td>
+<td>Founder</td>
+<td>Slack, email, all systems</td>
+<td>Pricing, scope, engagement terms, strategy, escalations that reach the top of the ladder</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two structural notes:</p>
+<ul>
+<li>Hardik and Beth's time zones (India plus Pacific) create near-24-hour coverage on purpose. Hand work across the overlap rather than holding it.</li>
+<li>During Beth's ramp, Ricky co-reviews her client-facing drafts before send. At full release that review step drops and Beth communicates with clients directly, with Ricky as backup.</li>
+</ul>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<p>Standing rhythms that keep escalation from ever being a surprise:</p>
+<ul>
+<li>Hardik and Ricky hold a weekly ops sync every Monday. Systemic issues (capacity, recurring quality patterns, a client whose books keep breaking the same way) belong there, not in ad hoc pings.</li>
+<li>The monthly close (BD1, BD3, BD6, BD10, BD12) has built-in escalation checkpoints. A client who has sent nothing by BD3 is escalated internally the same day. A month that is materially incomplete at BD6 is escalated before delivery, never shipped quietly.</li>
+<li>Client emails are acknowledged the same business day, even if the full answer comes later ("received, working on it, you will have it by X").</li>
+<li>Internal Slack messages get a reply within a couple of working hours.</li>
+<li>If a promised deliverable date is at risk, the client hears from Turnkey before the date, not after.</li>
+</ul>
+<p>Immediate triggers (do not batch, do not wait for a sync):</p>
+<ul>
+<li>A client is frustrated, upset, or has gone quiet. Flag to Ricky the same day with your read on why.</li>
+<li>Anything in the books that looks wrong: large unusual withdrawals, possible personal transactions run through the business, missing deposits, revenue inconsistencies, negative cash trends. Escalate immediately.</li>
+<li>A missing login or access gap. Post it in Slack the day you find it. Never work around a missing login or borrow someone else's credentials.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="the-escalation-ladder">The escalation ladder</h3>
+<p>The ladder runs bookkeeper to Accounting Manager to Ricky. Each rung resolves what it can and passes up only what it cannot.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Routine coding or workflow question</td>
+<td>Hardik raises it to the Accounting Manager. The AM decides and directs</td>
+</tr>
+<tr>
+<td>Client asks about their books, timing, or a specific transaction</td>
+<td>The AM handles it directly (Ricky reviews drafts during Beth's ramp)</td>
+</tr>
+<tr>
+<td>Anything touching pricing, scope, or engagement terms</td>
+<td>Ricky, always. Never negotiate or promise scope on your own</td>
+</tr>
+<tr>
+<td>Tax or legal advice request</td>
+<td>Do not answer. Redirect the client to "your CPA or attorney" and send a holding reply</td>
+</tr>
+<tr>
+<td>Client frustrated, upset, or gone quiet</td>
+<td>Ricky, same day, with context</td>
+</tr>
+<tr>
+<td>Client sent nothing by BD3</td>
+<td>Internal escalation same day, so BD6 delivery is protected</td>
+</tr>
+<tr>
+<td>Month materially incomplete at BD6</td>
+<td>Escalate before shipping. Never deliver financials you would not stand behind</td>
+</tr>
+<tr>
+<td>Hardik capacity or quality systemically off</td>
+<td>Ricky, with specifics: which clients, which patterns</td>
+</tr>
+<tr>
+<td>Something in the books looks wrong (fraud-shaped, personal spend, missing money)</td>
+<td>Ricky, immediately</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="hardik-lanes-and-sla-expectations">Hardik lanes and SLA expectations</h3>
+<p>Hardik works in Financial Cents, not Slack. Route QBO work, transaction questions, and book cleanup to him there.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Assign bookkeeping work through Financial Cents tasks and Team Chat, never through Slack DMs</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Keep internal commentary in Team Chat only. Client Chat is client-visible and the two never mix</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Expect books drafted and a checkpoint list (open items, memos, unknown transactions) by BD3 each cycle</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Expect reconciliation and prepared financials by BD6</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Raise one-off quality misses directly with Hardik in Financial Cents</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Save systemic concerns (capacity, repeated patterns across clients) for the Monday ops sync, or escalate to Ricky with specifics if they cannot wait</label></li>
+</ul>
+<p>Hardik runs his own independent practice. He is a trusted long-term partner, not an employee, so priorities are set through the Accounting Manager and the weekly sync rather than assumed.</p>
+<h3 id="beth-qc-layer">Beth QC layer</h3>
+<p>Beth sits above Hardik as the first-pass reviewer and the client-facing quality gate. Nothing Hardik produces goes to a client without passing through her review.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Review Hardik's completed work before any client sees it: categorization quality, memo quality, reconciliation to zero, anything unusual</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">Handle routine client questions about books, timing, and transactions directly</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Own the close calendar and set Hardik's daily queue</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Send client-facing email from the role address, never a personal one</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">During ramp, route client-facing drafts to Ricky for review before send</label></li>
+</ul>
+<p>Beth's first-pass review does not yet have a written checklist; it is run on judgment while she ramps (confirm with Ricky). When that checklist is defined it will live in the Accounting Manager role SOP.</p>
+<h3 id="the-needs-ricky-protocol">The NEEDS-RICKY protocol</h3>
+<p>When something genuinely needs Ricky, flag it so he can act on it in seconds.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Post in Slack (the internal comms surface for escalations). Do not bury it in Financial Cents or email and hope he sees it</label></li>
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Include a screenshot or a pasted copy of the client message plus one or two lines of context: who, what they asked, why you think it needs him</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">State what you would do if it were your call. A recommendation makes his decision faster</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Do not interpret, soften, or answer the client in the meantime on Ricky-only topics. Send a same-day holding acknowledgment and stop there</label></li>
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">For inbound mail on accounting@turnkeycfo.com that needs his eyes, file it to the Ricky folder so it is tracked (the folder taxonomy is the working triage system; confirm the exact folder rules with Ricky)</label></li>
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">Mark urgency honestly. "Same day" means the client is upset or money is at risk. Most things are "next sync"</label></li>
+</ul>
+<p>Topics that always trigger this protocol, no interpretation, no advisory answer:</p>
+<ul>
+<li>Financial-analysis questions ("why is my margin down?")</li>
+<li>Cash-flow concerns</li>
+<li>Budget strategy</li>
+<li>Tax questions (redirect to their CPA or attorney, then flag)</li>
+<li>Pricing, discounts, or anything about the fee</li>
+<li>Strategic recommendations</li>
+<li>Emotional or relationship-sensitive matters</li>
+</ul>
+<h3 id="what-ricky-always-holds">What Ricky always holds</h3>
+<p>Some things are never delegated, no matter how capable the team gets. These are the client-relationship anchors:</p>
+<ul>
+<li>Pricing, scope, and engagement terms, including renewals, expansions, and anything a client could hear as a promise</li>
+<li>New engagement decisions and proposals</li>
+<li>Frustrated or at-risk client relationships (the team flags, Ricky owns the save)</li>
+<li>Strategic and advisory conversations</li>
+<li>Board-level and senior-pastor presentations, and any premium review meeting</li>
+<li>Contractor and team decisions (rates, roles, hiring, discipline)</li>
+</ul>
+<p>Everything else is presumed delegatable. If a task does not touch one of these anchors, the default answer is: the team handles it.</p>
+<h3 id="correct-and-incorrect-escalations">Correct and incorrect escalations</h3>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Wrong move</th>
+<th>Right move</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client emails "can we push our review meeting a week?"</td>
+<td>Forward to Ricky</td>
+<td>AM reschedules directly and updates the calendar. Calendar is owned below Ricky</td>
+</tr>
+<tr>
+<td>Client emails "we might want to add our second entity"</td>
+<td>AM quotes an add-on or says "sure, no problem"</td>
+<td>Acknowledge same day, flag to Ricky: this is scope</td>
+</tr>
+<tr>
+<td>Hardik is unsure whether a charge is meals or travel</td>
+<td>Ping Ricky</td>
+<td>Hardik asks the AM in Financial Cents. AM decides</td>
+</tr>
+<tr>
+<td>Client asks "should we take out a loan for the building?"</td>
+<td>AM gives a thoughtful opinion</td>
+<td>Holding reply, flag to Ricky same day. This is advisory strategy</td>
+</tr>
+<tr>
+<td>Client asks "can you handle our tax return?"</td>
+<td>Answer yes or no</td>
+<td>"That is one for your CPA or attorney, and we are happy to get them anything they need from the books"</td>
+</tr>
+<tr>
+<td>Client has not sent bank statements and it is BD4</td>
+<td>Wait quietly and hope</td>
+<td>Should have escalated internally on BD3. Escalate now and tell the client before BD6 slips</td>
+</tr>
+<tr>
+<td>A deposit looks like it never hit the books</td>
+<td>Note it for month-end</td>
+<td>Escalate to Ricky immediately with the specifics</td>
+</tr>
+<tr>
+<td>Client sounds short and annoyed in an email</td>
+<td>Answer the question and move on</td>
+<td>Answer the question AND flag the tone to Ricky same day with your read on why</td>
+</tr>
+<tr>
+<td>Hardik miscodes the same vendor three months running</td>
+<td>Vent in Slack</td>
+<td>Raise the pattern at the Monday sync, or to Ricky with specifics if client delivery is at risk</td>
+</tr>
+<tr>
+<td>A login for close work does not exist</td>
+<td>Borrow a teammate's credentials</td>
+<td>Post the access gap in Slack the day you find it and request proper access</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>Never negotiate pricing, scope, or engagement terms with a client. Not even a hint, not even "I am sure that would be fine."</li>
+<li>Never answer a tax or legal question. The line is always "your CPA or attorney."</li>
+<li>Never deliver financials you would not stand behind. Materially incomplete months get escalated before BD6, not shipped with fingers crossed.</li>
+<li>Never let failure language reach a client. If a deliverable is broken or late, the client hears a plain, calm status from us before the deadline, and never an error message or an excuse dump.</li>
+<li>Never work around a missing login or borrow credentials. Surface the gap the day you find it.</li>
+<li>Never mix internal commentary into a client-visible surface (Client Chat in Financial Cents, client email threads).</li>
+<li>Never send client-facing email from a personal address. Role addresses only.</li>
+<li>Escalating too little is worse than escalating too much, but the fix for over-escalating is to escalate to the right rung, not to stop escalating.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<p>This SOP is itself the escalation reference, so the meta-rules are short:</p>
+<ul>
+<li>If you are unsure whether something needs Ricky, ask the Accounting Manager first. That question is exactly what the middle rung is for.</li>
+<li>If the Accounting Manager is unavailable and the item is same-day urgent (upset client, money risk, blown deadline), go straight to Ricky in Slack with context. Skipping a rung for genuine urgency is correct, not rude.</li>
+<li>If Ricky is unreachable and a client is waiting, send the holding acknowledgment ("received, we are on it, you will hear from us by X") and keep the flag active in Slack until he responds.</li>
+<li>If this SOP conflicts with something Ricky has said directly, his direction wins. Flag the conflict so the SOP gets updated.</li>
+</ul>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close Cadence</a></li>
+<li><a href="/team/cfo/communication/">Client Communication</a></li>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a></li>
+<li><a href="/team/cfo/offboarding/">Offboarding and Deprovisioning</a></li>
+<li><a href="/team/cfo/payroll/">Payroll</a></li>
+<li><a href="/team/cfo-roles/bookkeeper-manual/">Bookkeeper Role Guide</a></li>
+<li><a href="/team/cfo-roles/account-manager-manual/">Accounting Manager Role Guide</a></li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

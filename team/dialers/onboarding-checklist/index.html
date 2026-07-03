@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Dialer Onboarding Checklist · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#7C3AED;--deep:#5B21B6;--dk:#4A2A9E;--ink:#2A1A5E;--tint:#F5F3FF;--tintb:#d9cef4;--cardtint:#F4F2FB;--mut:#5c5866;--line:#e6e3ee;--txt:#0A0A0A;--page:#faf9fd;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/dialers/onboarding-checklist">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/dialers/">Dialer Playbook</a><span class="sep">/</span><span class="here">Dialer Onboarding Checklist</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Dialer Playbook</div>
+        <h1>Dialer Onboarding Checklist</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Dialer Playbook</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This checklist takes a new Turnkey Web dialing rep from a signed agreement to their first approved solo calling session. Work it top to bottom. Every item is either done or not done, and a rep does not dial a live prospect until every gate before that step is checked off. The goal is a rep who can run their daily campaigns, tag every call correctly, and book meetings without anyone standing over their shoulder.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility in onboarding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hiring owner</td>
+<td>Ricky</td>
+<td>Signs the agreement, approves the batch, sets commission terms, gives final solo sign-off</td>
+</tr>
+<tr>
+<td>Systems setup</td>
+<td>Ricky (or a delegated ops person)</td>
+<td>CloudTalk account, HubSpot wiring, Slack access, bridge configuration</td>
+</tr>
+<tr>
+<td>Training lead</td>
+<td>Head of Sales (senior rep) or Ricky</td>
+<td>Script walkthrough, objection training, shadow calls (confirm with Ricky which of the two runs training for a given hire)</td>
+</tr>
+<tr>
+<td>New rep</td>
+<td>The contractor being onboarded</td>
+<td>Completes paperwork, installs tools, works through training, passes the sign-off call</td>
+</tr>
+</tbody>
+</table></div>
+<p>New reps are 1099 independent contractors of West Turnkey Holdings LLC, contracted under the Turnkey Web brand. They are not employees.</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li>Trigger: a candidate has accepted the offer and is ready to sign. Do not begin systems setup before the agreement is signed.</li>
+<li>Target timeline: day one covers paperwork and account setup; training and shadowing typically span the first several working days; the first solo session follows sign-off (confirm exact day targets with Ricky, they flex with the hire).</li>
+<li>One-time per rep. Re-run the relevant sections only if a rep returns after an extended gap or moves to a new batch under a renewal.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="1-agreement-and-paperwork-gate-nothing-else-starts-until-this-is-done">1. Agreement and paperwork (gate: nothing else starts until this is done)</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Independent Contractor Agreement signed via e-signature. It incorporates the Offer Letter and Onboarding Guide by reference; confirm both are attached and current.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Walk the rep through the terms they operate under daily: exclusivity to the Turnkey Web brand, the batch scope (a defined, dated CRM export of contacts), commission earned only on revenue actually received and cleared, non-solicitation, and the non-compete.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Confirm the rep understands the compliance clause: TCPA, state cold-calling and call-recording rules, and Do Not Call requirements bind them personally. All calls are recorded through company systems and the rep consents to that in the agreement. The full operating rules live in <a href="/team/dialers/compliance/">Outbound Calling Compliance</a>, covered again in training.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Confirm the confidentiality boundary: CRM records, call recordings, dispositions, scripts, objection-handling materials, and tool credentials never leave company systems. No personal email, personal cloud storage, personal phone (beyond the CloudTalk app), or screenshots kept for personal use.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Collect a completed W-9 before any payment is issued.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">File the signed agreement and W-9 in the firm's contractor records in Google Drive.</label></li>
+</ul>
+<h3 id="2-cloudtalk-account-and-number-assignment">2. CloudTalk account and number assignment</h3>
+<p>Each rep gets a fully separate CloudTalk account. Nothing is shared between reps: not the login, not the bridge secret, not the campaigns.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Create the rep's CloudTalk account under their own email, not under Ricky's or another rep's login.</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">Assign the rep's outbound number in CloudTalk (confirm with Ricky whether the rep dials from a dedicated number or the shared Turnkey Web line).</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Have the rep install the CloudTalk mobile app and confirm they can log in.</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">In the rep's CloudTalk account, create the 9 standardized call tags, spelled exactly as listed in the dispositions SOP. A typo logs as an unknown tag and the contact is left untouched by the automation, so exact spelling matters.</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">Create the <code>callback_at</code> custom contact attribute (type: Date and time). This is the only field a rep ever fills manually, and only when using the Callback Scheduled tag.</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Create the rep's "TKW Tag Router" Workflow Automation pointed at that rep's own bridge route with that rep's own secret header. Never reuse another rep's route or secret.</label></li>
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Create the rep's 3 Parallel Dialer campaigns (Warm Callbacks, Follow-ups Due, Cold New Prospects), each linked to that rep's matching HubSpot Active List, with "Skip if already called today" set to Yes.</label></li>
+</ul>
+<h3 id="3-hubspot-access-wiring">3. HubSpot access wiring</h3>
+<p>HubSpot is the brain of the dialing system. Reps never manually edit HubSpot records; the tag they apply in CloudTalk drives everything downstream through the bridge.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">Add the rep to the bridge configuration (a new rep block with display name, HubSpot owner id reference, bridge secret reference, and CloudTalk account label).</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Add the rep's HubSpot owner id and bridge secret to the environment configuration and the Worker.</label></li>
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">Ricky (or the delegated ops person) runs the bridge's HubSpot setup tool for the new rep: <code>hubspot_setup.py --rep &lt;slug&gt;</code> in dry-run mode first, review the dry-run output with Ricky, then re-run with <code>--apply</code>. This creates the rep's 3 Active Lists and confirms the shared custom properties exist. Reps never run this tool themselves.</label></li>
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">Run the verification test: set a test contact's rep-owner field, queue, and next-call-due time in HubSpot, wait for list re-evaluation, and confirm the contact appears in the rep's Warm Callbacks campaign in CloudTalk. Note that CloudTalk re-syncs linked HubSpot lists roughly every 5 to 10 minutes, so allow for that lag.</label></li>
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">Test one real end-to-end call: dial a controlled test contact, apply a tag, and confirm the HubSpot contact updates and re-queues correctly. Do not put live prospects in front of the rep until this passes.</label></li>
+</ul>
+<h3 id="4-slack-and-calendar-access">4. Slack and calendar access</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18">Invite the rep to the Slack workspace and add them to the Turnkey Web sales channel where booked-meeting pings and build approvals happen.</label></li>
+<li class="ck"><input type="checkbox" id="ck-19" data-idx="19"><label for="ck-19">Teach the booked-meeting ping format: immediately after booking, post in the sales channel tagging the manager with company, time (Central), source, and one to three lines of context.</label></li>
+<li class="ck"><input type="checkbox" id="ck-20" data-idx="20"><label for="ck-20">Set the rep up on the shared Turnkey Web bookings Google account used for scheduling sales meetings. All meeting invites send from this shared account, never from a rep's personal email.</label></li>
+<li class="ck"><input type="checkbox" id="ck-21" data-idx="21"><label for="ck-21">Walk the calendar color rules for booking over existing events: orange blocks are internal ministry time (movable with notice), green is internal Turnkey work (usually shiftable), red is external commitments (locked, never book over). No weekend bookings; default window is 9am to 4pm Central.</label></li>
+</ul>
+<h3 id="5-lead-list-assignment">5. Lead list assignment</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-22" data-idx="22"><label for="ck-22">Ricky exports the rep's batch: a defined, dated export of contacts from HubSpot. The batch is named in the agreement and caps the scope of the engagement.</label></li>
+<li class="ck"><input type="checkbox" id="ck-23" data-idx="23"><label for="ck-23">Confirm the rep's 3 HubSpot Active Lists are populated and syncing into their CloudTalk campaigns.</label></li>
+<li class="ck"><input type="checkbox" id="ck-24" data-idx="24"><label for="ck-24">Explain the daily campaign order: Warm Callbacks first (highest intent, empty it daily), then Follow-ups Due, then Cold New Prospects. Anything left in Warm Callbacks at end of day is a flag, not a shrug.</label></li>
+<li class="ck"><input type="checkbox" id="ck-25" data-idx="25"><label for="ck-25">Explain where the cold leads come from: businesses with no website or a weak website, sourced by internal scrapers. The redesign lead rows include AI-generated conversation hooks the rep can open with.</label></li>
+<li class="ck"><input type="checkbox" id="ck-26" data-idx="26"><label for="ck-26">Flag the duplicate-contact reality: the same business can appear under more than one rep. If a prospect says another Turnkey caller already reached them, tag it honestly and raise it in Slack rather than competing for the contact (confirm with Ricky the current dedup review process).</label></li>
+</ul>
+<h3 id="6-script-and-objection-training">6. Script and objection training</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-27" data-idx="27"><label for="ck-27">Provide the current call scripts per campaign (cold opener, follow-up, warm callback). Scripts are confidential materials; they live in company systems only.</label></li>
+<li class="ck"><input type="checkbox" id="ck-28" data-idx="28"><label for="ck-28">Walk the offer: Turnkey Web builds the site and runs a flat monthly care plan. Reps sell the conversation and the booked meeting, not custom pricing. Any pricing or scope question beyond the standard offer goes to Ricky.</label></li>
+<li class="ck"><input type="checkbox" id="ck-29" data-idx="29"><label for="ck-29">Train the 9 dispositions until the rep can state, without notes, what each tag means and when to use it. The tag names, the three-campaign structure, and the follow-up intervals are locked; scripts and time of day are flexible.</label></li>
+<li class="ck"><input type="checkbox" id="ck-30" data-idx="30"><label for="ck-30">Drill the two tags reps most often get wrong: Callback Scheduled requires filling the <code>callback_at</code> field before tagging, and Not Interested / Hard No is permanent suppression covering both a genuine no and a wrong number.</label></li>
+<li class="ck"><input type="checkbox" id="ck-31" data-idx="31"><label for="ck-31">Run objection role-play: already has a website (tag it, flag for a Turnkey CFO cross-brand referral), too busy, bad past experience with web vendors, price resistance. The rep should redirect price resistance to the value of the booked review call.</label></li>
+<li class="ck"><input type="checkbox" id="ck-32" data-idx="32"><label for="ck-32">Cover the hard compliance lines one more time in plain language: honor every do-not-call request immediately, never misrepresent who we are or what we charge, never impersonate anyone, and remember every call is recorded.</label></li>
+<li class="ck"><input type="checkbox" id="ck-33" data-idx="33"><label for="ck-33">Complete compliance training: the rep reads <a href="/team/dialers/compliance/">Outbound Calling Compliance</a> in full and acknowledges it in writing, either a Slack message in the sales channel ("I have read the Outbound Calling Compliance SOP and will follow it") or a signed form. File the acknowledgment with the rep's contractor records. This acknowledgment is a live-dialing gate, and it renews annually.</label></li>
+</ul>
+<h3 id="7-shadow-calls">7. Shadow calls</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-34" data-idx="34"><label for="ck-34">Shadow calls: the rep listens to at least 3 calls (recorded or live) with the training lead before dialing anything (confirm with Ricky whether a given hire needs more than the 3-call floor).</label></li>
+<li class="ck"><input type="checkbox" id="ck-35" data-idx="35"><label for="ck-35">Supervised calls: the rep dials at least 3 calls with the training lead listening live, starting with lower-stakes cold contacts, not warm callbacks. Each must pass the training lead's review to count.</label></li>
+<li class="ck"><input type="checkbox" id="ck-36" data-idx="36"><label for="ck-36">After each shadowed session, the training lead reviews tag accuracy in HubSpot: did every call end with exactly one correct tag, and did Callback Scheduled entries carry a filled <code>callback_at</code>?</label></li>
+<li class="ck"><input type="checkbox" id="ck-37" data-idx="37"><label for="ck-37">The rep books at least one meeting (real or fully simulated end to end) using the shared bookings account, the calendar color rules, and the Slack ping format, and the training lead verifies the invite was actually sent, not just saved as a draft.</label></li>
+</ul>
+<h3 id="8-gates-before-live-dialing">8. Gates before live dialing</h3>
+<p>Live dialing stays blocked until all five of these artifacts exist and have been verified. The training lead checks them; Ricky's sign-off (next step) confirms them.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-38" data-idx="38"><label for="ck-38">Signed Independent Contractor Agreement (with W-9) on file in the firm's contractor records.</label></li>
+<li class="ck"><input type="checkbox" id="ck-39" data-idx="39"><label for="ck-39">CloudTalk rep account provisioned by Ricky: own login, own number, the 9 tags, the <code>callback_at</code> attribute, the Tag Router automation, and the 3 campaigns, with the end-to-end test call passed (steps 2 and 3 complete).</label></li>
+<li class="ck"><input type="checkbox" id="ck-40" data-idx="40"><label for="ck-40">HubSpot access confirmed via a test contact lookup: the rep pulls up a controlled test contact and sees their own Active Lists populating their CloudTalk campaigns.</label></li>
+<li class="ck"><input type="checkbox" id="ck-41" data-idx="41"><label for="ck-41">Compliance training complete: the rep has read <a href="/team/dialers/compliance/">Outbound Calling Compliance</a> and acknowledged it in writing (Slack message or signed form), filed with contractor records.</label></li>
+<li class="ck"><input type="checkbox" id="ck-42" data-idx="42"><label for="ck-42">3 shadow calls and 3 supervised calls passed, with a clean tag-accuracy review from the training lead on the supervised set.</label></li>
+</ul>
+<h3 id="fail-a-gate">Fail a gate</h3>
+<p>A gate that is not passed keeps dialing blocked. There is no partial credit and no dialing "while we sort it out."</p>
+<ul>
+<li>Dialing stays blocked until the specific gate passes. The training lead follows up on training gates (compliance acknowledgment, shadow and supervised calls); Ricky follows up on paperwork and systems gates (agreement, CloudTalk, HubSpot).</li>
+<li>Retry window: the rep gets a focused retry within one working week of the failed gate, with the gap named plainly (for example: re-drill the two most-missed tags, then redo one supervised session).</li>
+<li>Two failed retries on the same gate triggers a fit conversation with Ricky: either one defined final retry with a specific bar, or the engagement ends before live dialing begins. Ending at this stage is a clean, no-fault exit; the rep is paid anything owed under their agreement and no batch is assigned.</li>
+<li>A systems-gate failure (CloudTalk or HubSpot wiring that will not verify) is not the rep's failure. It pauses the rep's timeline and goes to Ricky to fix; the retry window starts once the wiring works.</li>
+</ul>
+<h3 id="9-first-solo-session-and-sign-off">9. First solo session and sign-off</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-43" data-idx="43"><label for="ck-43">Training lead confirms to Ricky in Slack that the rep is ready: dispositions solid, script natural, compliance understood, booking flow executed correctly.</label></li>
+<li class="ck"><input type="checkbox" id="ck-44" data-idx="44"><label for="ck-44">Ricky gives an explicit go-ahead in Slack. That message is the sign-off; no rep starts solo dialing on an assumed approval.</label></li>
+<li class="ck"><input type="checkbox" id="ck-45" data-idx="45"><label for="ck-45">The rep runs their first solo session on the standard daily campaign order. The training lead spot-checks the day's tags and any recordings afterward.</label></li>
+<li class="ck"><input type="checkbox" id="ck-46" data-idx="46"><label for="ck-46">Any meeting booked in the first solo week gets its follow-up reviewed before sending: nothing goes to a prospect without the named in-channel "APPROVED" reply required by the sales approval chain.</label></li>
+<li class="ck"><input type="checkbox" id="ck-47" data-idx="47"><label for="ck-47">After a clean first week (accurate tags, compliant calls, correct booking flow), the rep moves to normal operating cadence and this checklist is complete.</label></li>
+</ul>
+<h3 id="10-payment-setup-method-only">10. Payment setup (method only)</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-48" data-idx="48"><label for="ck-48">Confirm the W-9 is on file (from step 1). No payment issues without it.</label></li>
+<li class="ck"><input type="checkbox" id="ck-49" data-idx="49"><label for="ck-49">Set the rep up on Zelle, the standard payout rail for dialing contractors.</label></li>
+<li class="ck"><input type="checkbox" id="ck-50" data-idx="50"><label for="ck-50">Explain the payout rhythm: commissions reconcile bi-weekly on a Friday-to-Thursday window and pay out the following Friday, same day, via Zelle.</label></li>
+<li class="ck"><input type="checkbox" id="ck-51" data-idx="51"><label for="ck-51">Explain the commission statement: each payout comes with an itemized statement per client. The rep has 14 days to dispute in writing; after that the statement is final.</label></li>
+<li class="ck"><input type="checkbox" id="ck-52" data-idx="52"><label for="ck-52">If the offer includes a starter draw, explain how it works: it is an advance against future commissions, earned commissions offset it first, and it is never clawed back.</label></li>
+<li class="ck"><input type="checkbox" id="ck-53" data-idx="53"><label for="ck-53">Confirm the rep understands commission is earned only on revenue actually received and cleared, per installment on subscription clients, and continues per sourced client for the term defined in their agreement.</label></li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>No live dialing before all five gates in step 8 are passed (signed agreement, provisioned CloudTalk account, verified HubSpot access, written compliance acknowledgment, 3 shadow plus 3 supervised calls) AND Ricky's explicit solo sign-off.</li>
+<li>The 9 tag names, the three-campaign structure, and the follow-up intervals are locked. Never change them without coordinating with Ricky.</li>
+<li>Reps never manually edit HubSpot contacts. The CloudTalk tag is the only input; the bridge does the rest.</li>
+<li>Nothing goes to a prospect (follow-up email, proposal, preview link) without the named "APPROVED" reply in the sales channel first.</li>
+<li>CloudTalk accounts, bridge routes, and secrets are strictly per rep. Never share a login or reuse a secret.</li>
+<li>All invites and prospect emails send from the shared bookings account or a company role address, never a personal address.</li>
+<li>Confidential materials (scripts, lead lists, recordings, credentials) stay inside company systems. No exceptions.</li>
+<li>Every do-not-call request is honored immediately and permanently. Compliance is not coachable-later; it is day one.</li>
+<li>Payment method setup only in this SOP. Rates, draws, and commission percentages live in the individual signed agreement, not here.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prospect asks about pricing or scope beyond the standard offer</td>
+<td>Rep pauses, takes the question, escalates to Ricky in Slack same day</td>
+</tr>
+<tr>
+<td>Prospect requests do not call</td>
+<td>Tag Not Interested / Hard No immediately; no escalation needed, suppression is automatic</td>
+</tr>
+<tr>
+<td>Prospect says another Turnkey caller already reached them</td>
+<td>Tag honestly, flag in the sales channel for dedup review</td>
+</tr>
+<tr>
+<td>Tag applied but the contact does not re-queue correctly</td>
+<td>Report in Slack; ops replays the missed event through the bridge recovery tool</td>
+</tr>
+<tr>
+<td>CloudTalk campaign not reflecting a HubSpot change after 15+ minutes</td>
+<td>Ops unlinks and re-links the list in CloudTalk campaign settings before contacting CloudTalk support</td>
+</tr>
+<tr>
+<td>Rep unsure which tag fits a call</td>
+<td>Ask the training lead in Slack before guessing; a wrong tag pollutes the queue for weeks</td>
+</tr>
+<tr>
+<td>Anything touching commission terms, batch scope, or the agreement itself</td>
+<td>Ricky only, in writing</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/dialers/hiring-profile/">Dialer hiring profile</a></li>
+<li><a href="/team/dialers/compliance/">Outbound calling compliance</a></li>
+<li><a href="/team/web/booking/">Sales meeting booking</a></li>
+<li><a href="/team/web/preview-approve-payment/">Preview, approval, and payment chain</a></li>
+<li><a href="/team/web/communication/">Turnkey Web communication</a></li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

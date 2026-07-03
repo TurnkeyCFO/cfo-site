@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Dialer Hiring Profile · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#7C3AED;--deep:#5B21B6;--dk:#4A2A9E;--ink:#2A1A5E;--tint:#F5F3FF;--tintb:#d9cef4;--cardtint:#F4F2FB;--mut:#5c5866;--line:#e6e3ee;--txt:#0A0A0A;--page:#faf9fd;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/dialers/hiring-profile">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/dialers/">Dialer Playbook</a><span class="sep">/</span><span class="here">Dialer Hiring Profile</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Dialer Playbook</div>
+        <h1>Dialer Hiring Profile</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Dialer Playbook</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP defines who we hire to dial for Turnkey Web: the traits that predict success in the seat, where candidates come from, how the contractor relationship is structured, what the signed agreement covers, and the red flags that disqualify a candidate before they ever touch a lead list. Anyone screening or interviewing a dialer candidate should be able to run the process from this page alone.</p>
+<p>The dialer seat is a 1099 independent contractor role, not an employee position. The rep works a defined batch of contacts through CloudTalk, books website review meetings, and is paid on a commission-based model defined in the signed contractor agreement (see The contractor structure below). Everything about hiring flows from that structure.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Person</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hiring decision, comp terms, agreement signing</td>
+<td>Ricky</td>
+<td>Sole approver. No offer, rate, batch, or agreement term is committed without him.</td>
+</tr>
+<tr>
+<td>Interview scheduling, candidate coordination</td>
+<td>Eldine (Business Manager)</td>
+<td>Can schedule screens and keep candidates warm. Does not extend offers or discuss comp specifics.</td>
+</tr>
+<tr>
+<td>Technical rep setup after signing</td>
+<td>Ricky (with the cloudtalk-bridge new-rep procedure)</td>
+<td>CloudTalk account, HubSpot owner, bridge secret, campaigns. Covered in the rep onboarding SOP, not here.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Existing reps may refer candidates but have no hiring authority.</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<p>Hiring is event-driven, not scheduled. Open a search when any of these fires:</p>
+<ul>
+<li>A rep exits (resignation, termination, or a batch window closes without renewal).</li>
+<li>Lead supply outruns dialing capacity: warm and follow-up queues are consistently cleared and cold inventory is piling up faster than the current roster can work it.</li>
+<li>A new brand or campaign launches that needs its own dedicated rep (each rep exclusively represents one Turnkey brand, so cross-brand expansion means a new hire, not a reassignment).</li>
+</ul>
+<p>Once a candidate accepts, onboarding runs on a short, firm deadline. The goal is signed agreement to first live call within days, not weeks.</p>
+<h2 id="the-process">The process</h2>
+<h3 id="how-this-seat-fits-the-funnel">How this seat fits the funnel</h3>
+<p>Understanding the seat makes the profile obvious. Turnkey Web sells website design, builds, and a monthly care plan to small service businesses, nonprofits, and churches that either have no website or a weak one. Our lead engines produce large, pre-qualified phone lists. The dialer's job is the human bridge: call the list, have a real conversation, and book a website review meeting that the prospect actually attends. The sales conversation and the close happen downstream; the dialer's win condition is a showed appointment.</p>
+<p>That means we are not hiring closers, account managers, or marketers. We are hiring disciplined, likeable, high-volume phone professionals who can run the same play hundreds of times a week without drift.</p>
+<h3 id="the-profile-we-hire">The profile we hire</h3>
+<p>The seat rewards a specific temperament. Screen for these traits in order of importance:</p>
+<ul>
+<li><strong>Rejection-proof.</strong> High-volume outbound means hearing no all day. The right candidate treats a hard no as a data point, tags it, and dials the next number without losing energy.</li>
+<li><strong>System-follower.</strong> Every call ends with exactly one of nine locked disposition tags, spelled exactly. Callback times get logged in the right field before tagging. The automation downstream depends on this discipline. Candidates who improvise their own tracking break the machine.</li>
+<li><strong>Self-managed.</strong> As a 1099 contractor they control their own schedule and methods, but they must hit the performance standards in their Offer Letter without supervision. Look for evidence they have produced results without a manager watching.</li>
+<li><strong>Clear on the phone.</strong> Warm, plain-spoken, confident voice. No script-reading monotone, no fast-talking pressure. Our prospects are small service businesses, nonprofits, and churches; the tone that works is helpful neighbor, not boiler room.</li>
+<li><strong>Compliance-minded.</strong> They will be bound by TCPA, state cold-calling and call-recording rules, and Do Not Call requirements, and every call is recorded through company systems. They need to take that seriously on day one, not treat it as fine print.</li>
+<li><strong>Tech-comfortable.</strong> The stack is CloudTalk (including the mobile app), HubSpot views, and Slack. They do not need to be technical, but they cannot be tech-averse.</li>
+<li><strong>Trustworthy with data.</strong> They will see lead lists, scripts, pricing structures, and recordings. The confidentiality obligations are real and we only hire people we would trust to honor them.</li>
+</ul>
+<p>Prior cold-calling or appointment-setting experience is a plus, not a requirement. Coachability plus the traits above beats a long resume with bad habits.</p>
+<p>A note on background: many of our prospects are churches and nonprofits. A rep who is comfortable and credible talking with a church administrator or a nonprofit director, without being either dismissive or performative about it, has a real edge. It is not a requirement, but weigh it.</p>
+<p>A note on availability: the daily cadence works warm callbacks first, then due follow-ups, then cold prospects, and scheduled callbacks must be honored at the requested time. A candidate whose other commitments make them unreachable during normal business hours cannot serve the warm queue, and the warm queue is where the appointments come from.</p>
+<h3 id="where-candidates-come-from">Where candidates come from</h3>
+<ul>
+<li><strong>Referrals from current reps and Ricky's network.</strong> This is the primary channel; the current roster came through personal connection and referral.</li>
+<li><strong>Job platforms as a backfill channel</strong> when referrals run dry (confirm with Ricky which platform to post on and who owns the posting before opening a public search).</li>
+</ul>
+<p>Whatever the source, every candidate goes through the same screen below. Referrals do not skip steps.</p>
+<p>Keep a simple record of every candidate considered: name, source, screen date, outcome, and one line on why. Passed-on candidates are a warm bench for the next opening, and the source column tells us over time which channel actually produces reps who stick (confirm with Ricky where this candidate log should live).</p>
+<h3 id="screening-steps">Screening steps</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Collect a short intro: who they are, sales or phone experience, why commission-based work fits their situation.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Run a phone screen. The call itself is the audition: listen for voice quality, energy, and how they handle being told no in conversation.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Walk them through the role honestly: high-volume dialing, locked disposition system, all calls recorded, commission-based pay per the signed agreement, batch-based scope. Watch for hesitation on any of it.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Check the red-flag list below against everything you have heard.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">If they pass, Ricky holds the final conversation, sets comp terms, and decides.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">On a yes: send the Offer Letter, Onboarding Guide, and Independent Contractor Agreement; collect a completed W-9 before any payment is due.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Hand off to the rep onboarding procedure (CloudTalk account, HubSpot owner setup, campaign configuration, one verified end-to-end test call).</label></li>
+</ul>
+<h3 id="interview-questions-that-surface-the-traits">Interview questions that surface the traits</h3>
+<p>Use these in the phone screen. The answers matter less than how they are delivered.</p>
+<ul>
+<li>"Walk me through the last time you got told no twenty times in a row. What did you do on call twenty-one?" (Rejection tolerance. Listen for matter-of-fact resilience, not bravado.)</li>
+<li>"This role runs on a fixed set of nine call outcomes you tag after every call, spelled exactly, no exceptions. How do you feel about working inside a system that tight?" (System-following. Enthusiasm or calm acceptance passes; "I'd probably adapt it" fails.)</li>
+<li>"You set your own schedule here, but the results are measured. Tell me about a time you produced without anyone checking on you." (Self-management. Look for specifics: numbers, timeframes, what they actually did.)</li>
+<li>"Every call is recorded through our systems, and cold calling has real legal rules: Do Not Call lists, calling-hour limits, no misleading claims. What's your experience with that side of the work?" (Compliance posture. Watch for shrugs or jokes.)</li>
+<li>"The pay is commission-based, not hourly: incentives tied to appointments that actually show, plus revenue commission on clients you source. What does your financial situation need this role to produce, and over what timeline?" (Fit with commission reality. A candidate who needs guaranteed income in week one is set up to fail.)</li>
+<li>"Sell me your current phone in sixty seconds." (Voice audition. Warmth, clarity, and structure under mild pressure.)</li>
+</ul>
+<p>Take notes during the screen; whoever runs the final conversation with Ricky should hand him the notes, not a summary from memory.</p>
+<h3 id="the-contractor-structure">The contractor structure</h3>
+<p>Structural terms only; specific rates and figures live in each contractor's Offer Letter and are set by Ricky.</p>
+<ul>
+<li><strong>Entity and paper.</strong> West Turnkey Holdings LLC, d/b/a the relevant Turnkey brand, contracts a named individual as a 1099 independent contractor for a specific role. An Offer Letter and Onboarding Guide are incorporated by reference into the agreement.</li>
+<li><strong>Commission-based compensation, two components.</strong> Compensation is commission-based with two components as defined in the signed contractor agreement. (a) Activity-based incentives tied to booked appointments that actually show: a booking alone is not the earning event, and a no-show earns nothing until it is re-booked and shows (confirm with Ricky the exact rebook and credit rules for the current offer letter version). (b) Revenue commission paid only on revenue actually received and cleared (not signed-but-unpaid, refunded, or charged back) from clients the contractor sourced, paid per installment on subscription clients, running up to twelve months from each sourced client's first-revenue date, and surviving contract termination. The signed agreement is the authoritative source for rates and amounts. Confirm with Ricky how the two components interact in the current offer letter before quoting terms to a candidate.</li>
+<li><strong>Batch expectations.</strong> Compensation is tied to a defined, dated CRM export of contacts (a "Batch"). The batch closes when all contacts are reached or a fixed calendar cutoff hits, whichever comes first. Continuing past the window requires a written renewal that renegotiates rate, scope, and list. Rate changes are prospective only; commission on clients sourced from an original batch survives at the original rate.</li>
+<li><strong>Payout mechanics.</strong> Commissions are batch-paid on the agreed payout cadence: bi-weekly reconciliation on a Friday-to-Thursday window, paid the following Friday via Zelle, with an itemized commission statement per payout. Disputes must be raised in writing within fourteen days or the statement is deemed final.</li>
+<li><strong>Starter draw.</strong> Where offered, the draw is a non-recoverable advance against future commissions, not a loan. Earned commissions offset the draw first, then flow in cash. The draw is never clawed back regardless of who terminates.</li>
+<li><strong>Independent contractor status.</strong> The rep controls manner, means, and schedule subject to the performance standards in the Offer Letter, is solely responsible for their own taxes, receives a 1099-NEC if the reporting threshold is met, and receives no employee benefits.</li>
+</ul>
+<h3 id="what-the-agreement-covers">What the agreement covers</h3>
+<p>Review these clauses with every candidate before signing so nothing surprises them later:</p>
+<ul>
+<li><strong>Exclusivity.</strong> During the term, the contractor exclusively represents their assigned Turnkey brand. No other Turnkey brand and no competing business without written consent.</li>
+<li><strong>Compliance.</strong> TCPA, state cold-calling and call-recording rules, and Do Not Call requirements are named and binding. No false or misleading representations, no impersonation of company personnel. The contractor consents to all calls being recorded through company systems.</li>
+<li><strong>Confidentiality.</strong> Covers CRM records, call recordings, transcripts and dispositions, pricing and commission structures, scripts and objection handling, the Onboarding Guide, and credentials in company tools. No storing confidential information outside company systems: no personal email, personal cloud storage, personal phone storage, or screenshots.</li>
+<li><strong>Work-product ownership.</strong> All call notes, transcripts, dispositions, and lead data are company property, work-for-hire.</li>
+<li><strong>Non-solicitation.</strong> Twelve months post-termination: no soliciting company customers, prospects, or contacts, and no poaching company staff or contractors.</li>
+<li><strong>Non-compete.</strong> Twenty-four months post-termination, nationwide, covering web, SEO, design, bookkeeping, accounting, payroll, and AP/AR work for any Restricted Person (any customer, prospect, lead, or contact in any Turnkey CRM, dialer, or outbound list the contractor became aware of, regardless of who sourced them). Includes a reformation clause. Note: at least one later agreement version is titled with a revised non-compete; confirm with Ricky which version is current before sending paper.</li>
+</ul>
+<p>Candidates asking legal questions about these terms should consult their own attorney; we do not give legal advice.</p>
+<h3 id="offer-and-signing-checklist">Offer and signing checklist</h3>
+<p>Once Ricky says yes, run this sequence without gaps. A stalled signing is usually a candidate cooling off.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">Ricky sets the comp terms and batch scope for this hire (rate, draw if any, batch definition, calendar cutoff).</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Send the Offer Letter and Onboarding Guide together with the Independent Contractor Agreement. All three travel as a set; the agreement incorporates the other two by reference.</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Confirm the agreement version is the current template (confirm with Ricky, since a revised non-compete version exists alongside the original).</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">Collect the signed agreement and a completed W-9 before anything else happens. No W-9, no payment setup, no system access.</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Confirm the Zelle payout detail the contractor wants commissions sent to.</label></li>
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Create the batch: a dated CRM export defining exactly which contacts this contractor is compensated on. Log the export date; it anchors every commission question later.</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">Kick off the technical rep setup (own CloudTalk account under the rep's own login, HubSpot owner, campaigns, one verified end-to-end test call) per the rep onboarding SOP.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Set the first-call deadline and put it in Slack so it is visible. Short and firm.</label></li>
+</ul>
+<h3 id="red-flags-in-candidates">Red flags in candidates</h3>
+<p>Any one of these is grounds to pass. Two or more is an automatic no.</p>
+<ul>
+<li>Only wants a guaranteed hourly rate and shows discomfort with commission-based pay. The structure will grind them down and they will quit mid-batch.</li>
+<li>Pushes back on call recording or wants exceptions to it.</li>
+<li>Signals they will freelance the process: "I have my own system," resistance to the locked disposition tags, or dismissiveness about logging callbacks properly.</li>
+<li>Wants to work leads from a personal phone, personal email, or their own CRM.</li>
+<li>Balks at the non-compete, non-solicitation, or confidentiality terms, or asks whether they can keep the lead list.</li>
+<li>Casual about compliance: jokes about ignoring Do Not Call requests, suggests calling outside permitted hours, or shrugs at the recording-consent discussion.</li>
+<li>Overpromises in the screen itself. A candidate who exaggerates to you will exaggerate to prospects, and misrepresentation is an agreement violation.</li>
+<li>Cannot articulate a realistic weekly dialing commitment, or their schedule obviously cannot support consistent calling blocks.</li>
+<li>A trail of short commission-sales stints with no results they can describe specifically.</li>
+<li>Bad-mouths previous companies' lead quality as the reason they failed. Our lists are strong; ownership of results matters more than list quality excuses.</li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>Ricky is the only person who discusses or commits compensation figures, rates, draws, or agreement terms. Everyone else speaks in structure only.</li>
+<li>No candidate touches CloudTalk, HubSpot, lead sheets, or scripts before the agreement is signed and the W-9 is in hand.</li>
+<li>Never share lead lists, scripts, or recordings during interviews, even as samples.</li>
+<li>The nine disposition tags, the three-campaign structure, and the follow-up intervals are locked. Do not promise a candidate flexibility on them; the flexible parts are campaign order, time of day, and per-campaign scripts.</li>
+<li>One rep, one brand. Do not pitch a candidate a multi-brand role.</li>
+<li>Each rep gets a fully isolated setup (own CloudTalk account, own routing, own secret). Never share credentials between reps, and never let a new rep "borrow" an existing rep's account to start early.</li>
+<li>Legal and tax questions from candidates route to their own CPA or attorney.</li>
+<li>No employment-style promises: no benefits, no guaranteed schedule, no employee framing. The relationship is a 1099 contract and the language we use must match it.</li>
+<li>Do not commit a candidate to a specific batch, list, or territory before Ricky has defined it in the Offer Letter. Batch scope is a comp term, and comp terms are Ricky's.</li>
+<li>Keep candidate materials (resumes, screen notes, references) inside company systems, the same standard we hold reps to for lead data.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Candidate wants modified agreement terms (comp, non-compete, exclusivity, anything)</td>
+<td>Stop. Route to Ricky. Nobody else negotiates paper.</td>
+</tr>
+<tr>
+<td>Candidate discloses a prior TCPA, DNC, or telemarketing compliance issue</td>
+<td>Flag to Ricky before proceeding. Likely disqualifying.</td>
+</tr>
+<tr>
+<td>Referral source pressures for a fast yes on a weak candidate</td>
+<td>Run the full screen anyway; flag the pressure to Ricky.</td>
+</tr>
+<tr>
+<td>Signed rep misses their onboarding deadline or goes quiet before first call</td>
+<td>Flag to Ricky same day. Short firm deadlines are part of the filter.</td>
+</tr>
+<tr>
+<td>Discovery that a rep is storing leads or recordings outside company systems</td>
+<td>Escalate to Ricky immediately. This is an agreement violation, not a coaching moment.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/dialers/onboarding-checklist/">Rep onboarding and CloudTalk setup</a></li>
+<li><a href="/team/dialers/daily-workflow/">Daily dialing cadence and campaigns</a></li>
+<li><a href="/team/dialers/dispositions-kpis/">Disposition tags and what they trigger</a></li>
+<li><a href="/team/web/booking/">Booking the sales meeting</a></li>
+<li><a href="/team/dialers/cloudtalk-usage/">CloudTalk usage guide</a></li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

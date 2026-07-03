@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Bill Pay and Spend Management · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/bill-pay">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Bill Pay and Spend Management</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Bill Pay and Spend Management</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP covers how Turnkey CFO runs accounts payable and card spend for clients: intake of payment requests, vendor setup and ACH onboarding, approval chains, card memo and receipt discipline, and the weekly reminder systems that keep uncoded spend from delaying the monthly close. It spans three platforms (Ramp, Bill.com, Expensify) plus the Google Drive intake flow, and it defines exactly what Turnkey can and cannot do on each platform. Read this before touching any client's AP.</p>
+<p>The single most important idea in this SOP: Turnkey processes, prepares, and reminds. The default posture, firm-wide, is that Turnkey never initiates or approves money movement; clients approve and money moves only on their authority. Where a client has delegated payment approval to us in an explicit written authorization, that exception is exercised only by Ricky personally, under the Money-movement authority guardrail below.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sole approver (money movement)</td>
+<td>Ricky</td>
+<td>Where a client has delegated payment approval to Turnkey in writing, Ricky personally approves every bill before payment initiates. No bill pays without his sign-off in the platform's approval workflow, and no one else at Turnkey ever holds this authority.</td>
+</tr>
+<tr>
+<td>AP processor</td>
+<td>Bookkeeper (Hardik) / Accounting Manager</td>
+<td>Reviews payment requests, sets up vendors, creates bills, uploads receipts, verifies coding.</td>
+</tr>
+<tr>
+<td>Comms and requests</td>
+<td>Eldine</td>
+<td>Sends the BD1 monthly request and the BD3 reminder that card memos are due.</td>
+</tr>
+<tr>
+<td>Client cardholders</td>
+<td>Client staff</td>
+<td>Owe a memo and a receipt on every card transaction. Memo quality drives coding accuracy.</td>
+</tr>
+<tr>
+<td>Client AP approvers</td>
+<td>Client staff</td>
+<td>Approve bills inside their own Bill.com or Ramp approval chain. Turnkey never approves on a client's behalf unless that client has delegated approval to Ricky in a written authorization (see Money-movement authority under Guardrails).</td>
+</tr>
+<tr>
+<td>Automation reminders</td>
+<td>billcom-friday-reminders, expensify-cardholder-reminders</td>
+<td>Individualized weekly nudges, always gated behind Ricky's Slack approval or a preview mode.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>BD1 (business day 1 of the new month):</strong> monthly request goes out, including the reminder that card memos are due by BD3.</li>
+<li><strong>BD3, the memos-by-BD3 rule:</strong> all Ramp and Bill.com charge memos for the prior month must be complete. Missing memos are the top cause of a delayed close. A client with nothing submitted by BD3 gets escalated internally the same day.</li>
+<li><strong>Thursday morning:</strong> Expensify cardholder reminders run (per-cardholder emails listing their own uncoded transactions).</li>
+<li><strong>Friday:</strong> Bill.com individualized reminders run (per-person emails listing only what is pending that person's action), and the Friday card-hygiene habit email pattern applies for Ramp cardholders. Each weekly batch is approved by Ricky in Slack before anything sends.</li>
+<li><strong>On file drop:</strong> a client uploading a completed payment-request form to their shared Google Drive Upload folder triggers a notification to accounting@turnkeycfo.com, which starts the bill-pay intake process.</li>
+<li><strong>Vendor confirmation emails:</strong> send in the morning window (roughly 7 to 10am Central) only.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="platform-map-and-write-boundaries">Platform map and write boundaries</h3>
+<p>Know which platform a client is on before doing anything. Confirm the client's current platform mix at onboarding, do not assume.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>What it does for us</th>
+<th>Turnkey can</th>
+<th>Turnkey can NOT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ramp</td>
+<td>Cards, spend management, bill pay, vendor ACH onboarding</td>
+<td>Create vendors, create bills, upload receipts, request receipts, code transactions (with approval gates)</td>
+<td>Approve its own bills past Ricky, bypass the client's approval chain</td>
+</tr>
+<tr>
+<td>Bill.com</td>
+<td>Legacy AP with client approval chains</td>
+<td>Read bills, approvers, users, vendors; send reminder emails about pending items</td>
+<td>Write anything: no approving, no paying, no editing. Bill.com is strictly read-only for Turnkey.</td>
+</tr>
+<tr>
+<td>Expensify</td>
+<td>Legacy card expense reports at some clients</td>
+<td>Read open reports and flag missing categories or memos; email cardholders reminders</td>
+<td>Write anything back to Expensify. Read-only, always.</td>
+</tr>
+<tr>
+<td>Client bank accounts</td>
+<td>Reconciliation source</td>
+<td>View transactions, statements, balances (view-only access under accounting@turnkeycfo.com)</td>
+<td>Move money, initiate payments, add users, approve transactions</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ramp is the direction of travel: it is the dominant card and AP tool for church clients and is replacing Bill.com and Expensify at several engagements. When a client migrates platforms, update their client dossier and confirm which reminder system covers them (confirm with Ricky).</p>
+<h3 id="ramp-card-spend-and-memo-discipline">Ramp card spend and memo discipline</h3>
+<p>Every card transaction needs three things before it can be coded confidently: a receipt, a memo, and a category. The memo is not optional paperwork, it is the coding signal. At church clients with fund or class tracking, per-cardholder memo context often determines the ministry or fund a charge belongs to, so never default one cardholder's varied spend to a single catch-all account.</p>
+<p>Weekly working rhythm:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Open Ramp's Needs Review filter for each client on Ramp.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">For each flagged transaction, check for receipt, memo, and category.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Use Ramp's Request Receipt feature for anything missing a receipt.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Code what has enough context; leave what does not and let the reminder systems chase the cardholder.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Confirm QBO sync status so coded spend actually lands in the books.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Surface anything unusual (personal-looking charges, large or out-of-pattern spend) to Ricky immediately.</label></li>
+</ul>
+<p>Automated GL coding via the ramp-classifier runs daily for enrolled clients, with a Slack approval card before anything writes back. It never mutates QBO directly. Confirm which clients are enrolled before relying on it (confirm with Ricky).</p>
+<h3 id="bill-pay-intake-via-the-drive-forwarder-ramp-bill-pay">Bill-pay intake via the Drive forwarder (Ramp bill pay)</h3>
+<p>This is the standard AP intake flow for clients on Ramp bill pay. The client uploads a completed payment-request form to their shared Google Drive Upload folder; a forwarder emails accounting@turnkeycfo.com to begin. From there:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Open the request form and determine: vendor name and email, payment type (bill pay vs reimbursement), amount, expense category, and supporting receipt documents.</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">If the vendor is new, create it in Ramp under Vendors.</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Send an ACH information request via Ramp (vendor profile, New, Information Request, check ACH Details, enable Require Bank Account Confirmation). Ramp emails the vendor directly to onboard their banking details.</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Send the standard confirmation email from accounting@turnkeycfo.com, scheduled inside the 7 to 10am Central window only, signed with the client's own finance-team signature (for example "Heirloom Finance Team"), never a Turnkey signature on client-facing AP mail.</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">Wait for Ramp's automated "ACH details received" notification. This is a hard gate. Do not proceed early.</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Create the bill in Ramp using Create Bill Without Invoice. Upload receipts as Documents; if Ramp auto-saves a document as an invoice, delete it and re-upload as a plain document.</label></li>
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Set the payment schedule to Schedule Now and add a vendor memo with the estimated arrival date.</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">Submit the bill, which routes into Ramp's approval workflow, then notify Ricky on Slack that a bill is ready for approval.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Once Ricky approves, Ramp auto-initiates the ACH. No further manual payment action. This approval step runs only at clients that have delegated payment approval to Ricky in writing (see Money-movement authority under Guardrails); at every other client, the client's own approver releases the payment.</label></li>
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">Archive: copy the completed request form and the Ramp payment confirmation into the client's Contracts &amp; Vendors payment-archive folder, named VendorLastName_FirstName_M.D.YY, then delete the processed form from the Upload folder so it never holds stale requests.</label></li>
+</ul>
+<p>The upload trigger and confirmation-loop automation were originally built on OneDrive and have been migrated to Google Drive; if a step in an older client doc references OneDrive, Google Drive is current (confirm with Ricky if a specific client's forwarder behaves differently).</p>
+<h3 id="billcom-approval-chains-and-the-individualized-reminder-philosophy">Bill.com approval chains and the individualized reminder philosophy</h3>
+<p>Bill.com clients run their own internal approval chains: a bill routes through one or more approver slots in order, and payment happens only when the chain completes. Turnkey's role is visibility and nudging, never action, because Bill.com is read-only for us.</p>
+<p>How we read a chain:</p>
+<ul>
+<li>A DENIED slot anywhere in the chain is terminal. The bill is dead; nobody gets nagged about it.</li>
+<li>The current actor is every slot in Approving status (safe for parallel routing), otherwise the first not-yet-approved slot in order.</li>
+<li>Group slots that nobody has picked up are surfaced in the internal ops summary, never emailed to a person.</li>
+</ul>
+<p>The reminder philosophy, and this is a hard rule: reminders are per person, never team-wide. A person receives an email only when something is genuinely pending their action, and the email lists only their items. A named, two-minute personal task gets done; a team broadcast gets ignored. Never add a whole-team blast, and never email someone with nothing pending.</p>
+<p>Operating the weekly batch:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">The Friday batch drafts one email per person with pending items, sent from accounting@turnkeycfo.com.</label></li>
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">Ricky approves the batch with a checkmark reaction on the Slack card before anything sends. An X skips the week; no reaction lets the batch expire unsent. There is no auto-send path.</label></li>
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18">Enrollment of a specific client depends on Turnkey's access role in that client's Bill.com; confirm which clients are live before assuming coverage (confirm with Ricky).</label></li>
+</ul>
+<h3 id="expensify-cardholder-reminders">Expensify cardholder reminders</h3>
+<p>For clients still on Expensify, a weekly Thursday-morning run pulls open reports (read-only), flags transactions missing a GL category or a memo, groups them by cardholder, and emails each cardholder a branded list of exactly which of their transactions need attention.</p>
+<p>What counts as flagged:</p>
+<ul>
+<li>Missing category: empty, or parked in an uncategorized holding value.</li>
+<li>Missing memo: the comment field is empty.</li>
+<li>Zero-dollar rows with a blank merchant (unposted card holds) are filtered out and never generate a reminder line.</li>
+</ul>
+<p>The system discovers client policies dynamically, so a new Expensify client flows in without code changes. It runs behind a preview gate that routes every email to Ricky for review until he explicitly flips it live; confirm the current live status before telling a client their staff are receiving these (confirm with Ricky).</p>
+<h3 id="church-ap-nuances">Church AP nuances</h3>
+<p>Churches carry AP rules that for-profit clients do not. Get these wrong and it is a compliance problem, not just a coding error.</p>
+<ul>
+<li><strong>Benevolence payments go to vendors only.</strong> Pay the utility company or the landlord directly, never the individual being helped. Benevolence requires prior approval and documentation before funds are distributed, filed with the payment record.</li>
+<li><strong>Fund and class tagging:</strong> at fund-accounting churches every transaction needs its fund or class tag at coding time. Distinguish truly restricted funds from ministry-tracking labels; they are not the same thing.</li>
+<li><strong>Related-party sensitivity:</strong> some churches have related-party payments (rent to an affiliated entity, support to a sister congregation) with client instructions about how those appear in reporting. Check the client dossier before touching them.</li>
+<li><strong>Cash floats:</strong> event expenses paid in cash (for example event security) run as a cash-on-hand float with a log, not as slow AP.</li>
+<li>Tax or legal questions raised by any of the above route to the client's CPA or attorney; we do not advise on them.</li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>Default posture: Turnkey never initiates or approves money movement. Bank access is view-only. Bill.com and Expensify are read-only, always, no exceptions. The only exception path is the written, per-client delegation described in Money-movement authority below.</li>
+<li>Ricky is the sole approver for outbound payments (where a client has delegated that authority in writing) and for every weekly reminder batch. No reminder email reaches client staff without his checkmark or an explicit live-mode decision he made.</li>
+<li>Never send a team-wide AP blast. Reminders are individualized or they do not go out.</li>
+<li>Client-facing AP emails send from role addresses (accounting@turnkeycfo.com), carry the client's own finance-team voice where the workflow specifies it, and respect the morning send window for vendor confirmations.</li>
+<li>No failure language ever reaches a client or vendor. If an automated batch fails or holds, it pages Ricky internally; the recipient sees nothing.</li>
+<li>Match, do not add: when reconciling AP activity in QBO, match the bank-feed transaction to the existing entry rather than adding a duplicate.</li>
+<li>Anything touching pricing, scope, or engagement terms found in AP mail routes to Ricky, always.</li>
+<li>Never work around a missing login or borrow credentials. A platform access gap gets posted to Slack the day it is found.</li>
+</ul>
+<h3 id="money-movement-authority">Money-movement authority</h3>
+<p>The firm default: Turnkey never initiates a payment and never approves one. We prepare bills, chase memos, and remind approvers; the client's own people release the money. Any exception to that default exists only when all three of the following hold:</p>
+<ol>
+<li>The client has given an explicit, per-client, written authorization (an engagement letter clause or a written directive from the client's leadership) delegating payment approval to Turnkey.</li>
+<li>The delegated approval is exercised only by Ricky personally. A bookkeeper, accounting manager, or admin never approves or releases a payment, at any client, under any circumstances.</li>
+<li>The client appears in the exception list below with the basis of its authorization. A client not listed has no exception; operate under the default posture.</li>
+</ol>
+<p>Exception clients and authorization basis:</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Client</th>
+<th>Basis of Ricky's approval authority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heirloom Church</td>
+<td>Ricky serves the church personally as its treasurer, a governance seat at the client, alongside the firm engagement. Written authorization on file (confirm with Ricky).</td>
+</tr>
+<tr>
+<td>Any other Ramp bill-pay client where Ricky appears as an approver</td>
+<td>Authorization basis not yet documented here (confirm with Ricky before treating the client as an exception).</td>
+</tr>
+</tbody>
+</table></div>
+<p>The Heirloom arrangement carries a self-review risk: the same person approves the payment as the client's treasurer and runs the firm that books it. The compensating control, required on every cycle:</p>
+<ul>
+<li>The account manager reviews the monthly AP run after the fact against the approved bill list. Every payment released must trace to an approved request; anything that does not gets flagged to Ricky and documented the same day.</li>
+<li>The church board and treasurer report includes the disbursement summary, so the board sees every payment made in the period.</li>
+<li>Between those two reviews, no payment Ricky approves goes unreviewed by a second person.</li>
+</ul>
+<p>Apply the same pattern to any future engagement where Ricky holds a governance role at the client: written authorization, Ricky-only execution, an after-the-fact second-person review, and disbursements surfaced in the client's own governance reporting.</p>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Large or unusual withdrawal, possible personal charge, missing deposit</td>
+<td>Escalate to Ricky immediately, do not wait for the weekly rhythm</td>
+</tr>
+<tr>
+<td>Client has submitted nothing by BD3</td>
+<td>Internal escalation same day (protects the BD6 delivery)</td>
+</tr>
+<tr>
+<td>Vendor ACH details not received and payment is time-sensitive</td>
+<td>Flag to Ricky; do not create the bill early past the hard gate</td>
+</tr>
+<tr>
+<td>Benevolence request naming an individual payee</td>
+<td>Stop; route back to the client for a vendor-directed payment with prior approval</td>
+</tr>
+<tr>
+<td>Client asks a tax or legal question in an AP thread</td>
+<td>Redirect to their CPA or attorney; loop Ricky if the relationship needs handling</td>
+</tr>
+<tr>
+<td>Reminder system behaving unexpectedly (wrong recipient, wrong items)</td>
+<td>Stop the batch, tell Ricky same day</td>
+</tr>
+<tr>
+<td>Repeated non-response from a specific cardholder or approver</td>
+<td>Flag the pattern to Ricky with specifics rather than re-sending forever</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close</a> for the full BD1/BD3/BD6/BD10 cadence this SOP feeds</li>
+<li><a href="/team/cfo/bookkeeping-close/">Transaction Categorization</a> for coding lanes and classifier coverage (lives inside the close SOP)</li>
+<li><a href="/team/cfo/payroll/">Payroll</a> for payroll-side vendor patterns and processor nuances</li>
+<li><a href="/team/cfo/communication/">Client Communication</a> for email voice, role addresses, and response standards</li>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a> for AP platform access setup and view-only bank access</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

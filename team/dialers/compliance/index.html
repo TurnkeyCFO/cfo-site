@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Outbound Calling Compliance · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#7C3AED;--deep:#5B21B6;--dk:#4A2A9E;--ink:#2A1A5E;--tint:#F5F3FF;--tintb:#d9cef4;--cardtint:#F4F2FB;--mut:#5c5866;--line:#e6e3ee;--txt:#0A0A0A;--page:#faf9fd;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/dialers/compliance">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/dialers/">Dialer Playbook</a><span class="sep">/</span><span class="here">Outbound Calling Compliance</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Dialer Playbook</div>
+        <h1>Outbound Calling Compliance</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Dialer Playbook</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>Every dial a Turnkey Web rep makes is regulated activity. This SOP is the compliance layer under the daily workflow: what happens before a list ever reaches your queue, what you do the moment a prospect says stop, when calling is allowed, how call recording consent is handled, why caller ID is never manipulated, and what the automated SMS system already does on your behalf. You read and acknowledge this SOP before your first live dial, and you re-acknowledge it once a year.</p>
+<p>The short version: we scrub before we dial, we honor every stop request the same day and forever, we call only inside the prospect's legal hours, we always say truthfully who we are, and when in doubt we do not make the call.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Follow the rules on every call</td>
+<td>You (the rep)</td>
+<td>Stay in the calling window, honor do-not-call requests immediately, tag correctly, never misrepresent identity, never text from a personal number</td>
+</tr>
+<tr>
+<td>List scrubbing, suppression list, recording configuration</td>
+<td>Ricky (or delegated ops)</td>
+<td>Scrubs lead batches before assignment, owns the internal suppression list, sets the CloudTalk recording posture, keeps acknowledgment records</td>
+</tr>
+<tr>
+<td>Automated enforcement</td>
+<td>The bridge and SMS system</td>
+<td>Writes permanent suppression off your tags, skips suppressed and opted-out contacts, sends the one compliant follow-up text</td>
+</tr>
+<tr>
+<td>Final word on any compliance question</td>
+<td>Ricky</td>
+<td>Every gray area, complaint, or legal mention goes to him same day, in writing</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>Pre-dial scrub:</strong> before any new lead batch or list segment is assigned to a rep. No batch skips it.</li>
+<li><strong>In-call:</strong> the instant a prospect asks not to be called; suppression is logged the same day.</li>
+<li><strong>Every dialing day:</strong> the calling window and identity rules apply to every single call.</li>
+<li><strong>Onboarding:</strong> read this SOP in full and acknowledge in writing before the first live dial.</li>
+<li><strong>Annually:</strong> every rep re-reads and re-acknowledges; Ricky reviews the SOP against current federal and state rules.</li>
+<li><strong>Same day, ad hoc:</strong> any complaint, removal demand, or mention of attorneys or regulators goes to Ricky immediately.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="we-call-businesses-and-that-still-requires-care">We call businesses, and that still requires care</h3>
+<p>Turnkey Web dials businesses, nonprofits, and churches, not consumer lists. That business-to-business posture helps, but it does not make the rules optional:</p>
+<ul>
+<li>Many small-business numbers are the owner's personal cell phone. A sole proprietor's cell is, for practical purposes, a consumer number, and the National Do Not Call Registry can cover it no matter how we sourced it.</li>
+<li>Several states apply do-not-call and calling-hour rules to business lines too, and state rules can be stricter than federal ones.</li>
+<li>Call-recording consent laws apply to every call, business or not.</li>
+</ul>
+<p>The operating stance is simple: run consumer-grade discipline on every call, and the business-to-business question never has to be litigated.</p>
+<h3 id="pre-dial-list-hygiene-before-a-batch-is-dialed">Pre-dial list hygiene (before a batch is dialed)</h3>
+<p>No list segment goes live into a rep's campaigns until it has been scrubbed. Reps do not do the scrubbing; reps verify they only ever dial from scrubbed, assigned queues.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">New lead batches are scrubbed against the National Do Not Call Registry before assignment, because sourced numbers may be personal or cell lines (confirm with Ricky the current scrub tooling and cadence).</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Batches are scrubbed against the internal suppression list: every contact ever tagged <code>Not Interested / Hard No</code> and every contact who has ever asked not to be called. Suppression is permanent and applies across all reps and all campaigns; a suppressed contact never re-enters any queue under any rep, ever.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Reps dial only what CloudTalk serves them. No side lists, no personal spreadsheets, no numbers you found yourself. If it is not in your assigned campaign queue, you do not dial it.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Wrong numbers and disconnects get tagged <code>Not Interested / Hard No</code> so the machine suppresses them too.</label></li>
+</ul>
+<h3 id="in-call-do-not-call-requests-immediate-and-permanent">In-call do-not-call requests (immediate and permanent)</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">The moment a prospect says any version of "stop calling me," acknowledge it plainly, confirm you are removing them, and end the call politely. Do not pitch past a stop request, ever.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Tag the call <code>Not Interested / Hard No</code> before your next dial. That tag is the suppression log entry, and it must land the same day, not at end of week.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">If the tag will not apply or the contact will not sync, flag it in Slack the same day so ops logs the suppression manually. A do-not-call request that goes unlogged is the single worst data failure on this team.</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">Suppression honors across every rep and every campaign. If a suppressed business surfaces under another rep as a duplicate record, that rep honors it too and flags the duplicate in Slack.</label></li>
+</ul>
+<h3 id="calling-hours">Calling hours</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">The outer legal wall is 8am to 9pm in the PROSPECT's local time zone. Not yours, not Central by default. Before dialing outside your own time zone, compute the prospect's local time first.</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Turnkey's standard window of 9am to 4pm Central (per the daily workflow) sits comfortably inside that wall for Central-time prospects. The daily workflow's early-morning exception never crosses the 8am prospect-local line.</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">Some states run stricter rules: narrower calling windows, holiday restrictions, or their own do-not-call registries. Where a state rule is stricter than the federal one, the stricter rule wins. Current state-specific limits on our lists: (confirm with Ricky).</label></li>
+</ul>
+<h3 id="call-recording-consent">Call recording consent</h3>
+<ul>
+<li>Every call is recorded through CloudTalk on company systems, and reps consent to that in their agreement. Never record a prospect call on a personal device or any tool outside CloudTalk.</li>
+<li>On the prospect's side, a number of states require ALL parties to consent to recording (commonly listed: California, Florida, Illinois, Maryland, Massachusetts, Montana, New Hampshire, Pennsylvania, and Washington, among others). Know that these states exist; the exact list shifts, and the firm tracks it centrally.</li>
+<li>The firm's stance on recording configuration for all-party-consent states (announce recording on every call, disable recording by state, or geo-based handling inside CloudTalk) is set centrally: (confirm with Ricky). Do not improvise your own disclosure script; if you are about to dial into an all-party-consent state and have not been told the current posture, ask first.</li>
+</ul>
+<h3 id="caller-id-and-identity">Caller ID and identity</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Caller ID always transmits a real, answerable company number. Never spoof, block, rotate, or falsify caller ID for any reason.</label></li>
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Open with your true name and "Turnkey Web." Every time.</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">Never imply you are the prospect's current provider, a partner of Google, a government or regulatory body, or that you are "returning their call" or "following up on their request" when no such request exists.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">No deceptive pretexts to get past a gatekeeper. Persistence at a different time of day is fine; pretending to be someone you are not is never fine.</label></li>
+</ul>
+<h3 id="sms-follow-up-compliance-the-systems-job-not-yours">SMS follow-up compliance (the system's job, not yours)</h3>
+<p>All prospect texting is system-sent from the company's registered number. Reps never text prospects from any personal number or device. The controls already built into the system:</p>
+<ul>
+<li><strong>Baseline-first activation:</strong> when the SMS system first went live, existing contacts past the threshold were marked as pre-existing without being texted, so there was never a backlog blast. Any new outbound-touch automation follows the same pattern.</li>
+<li><strong>One text, ever, per contact,</strong> with proper sender identity and opt-out language in the body.</li>
+<li><strong>Suppression is honored automatically:</strong> anyone suppressed, anyone tagged do-not-call or wrong number, and anyone who has ever answered a call is never texted.</li>
+<li><strong>Opt-outs are permanent.</strong> A reply asking to stop texts is honored by the system; your part is to tag <code>Not Interested / Hard No</code> the same day if a prospect tells you on a call to stop texting them.</li>
+</ul>
+<h3 id="annual-re-acknowledgment">Annual re-acknowledgment</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">Once a year, every active rep re-reads this SOP and re-acknowledges it in writing: a Slack message in the sales channel ("I have re-read the Outbound Calling Compliance SOP and will follow it") or a signed form. Either is filed with the rep's contractor records.</label></li>
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">Ricky reviews this SOP annually against current federal and state rules and updates anything that has moved. Rule changes mid-year are announced in the sales channel and take effect immediately.</label></li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li><strong>Suppression is permanent, cross-rep, and cross-campaign.</strong> No contact ever comes off the suppression list, no matter how much time has passed or which rep is asking.</li>
+<li><strong>Never dial outside 8am to 9pm in the prospect's local time zone.</strong> Stricter state rules override the federal window.</li>
+<li><strong>Every do-not-call request is tagged and logged the same day.</strong> Never batched, never deferred.</li>
+<li><strong>All recording happens in CloudTalk on company systems.</strong> Never on a personal device.</li>
+<li><strong>Truthful identity on every call.</strong> Real name, real company, real caller ID, no exceptions and no clever framing.</li>
+<li><strong>All prospect SMS is system-sent from company numbers.</strong> A rep texting a prospect from a personal phone is a fireable compliance breach, not a style issue.</li>
+<li><strong>No live dialing without a written compliance acknowledgment on file,</strong> and no continued dialing past a lapsed annual re-acknowledgment.</li>
+<li><strong>When unsure whether a call is compliant, do not make it.</strong> Ask first. A skipped dial costs nothing; a bad one is not undoable.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What you do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prospect asks not to be called</td>
+<td>Tag <code>Not Interested / Hard No</code> before your next dial; suppression logs same day</td>
+</tr>
+<tr>
+<td>Suppression tag will not apply or the contact will not sync</td>
+<td>Flag in Slack the same day so ops logs it manually; do not let it wait</td>
+</tr>
+<tr>
+<td>Prospect threatens a complaint, or mentions attorneys, a regulator, or the DNC registry</td>
+<td>End politely, tag honestly, note exactly what was said, and notify Ricky same day in writing</td>
+</tr>
+<tr>
+<td>You discover a contact was dialed after a do-not-call request</td>
+<td>Ricky, same day, in writing, with the timeline; do not sit on it</td>
+</tr>
+<tr>
+<td>Unsure whether a state's hours, registry, or recording rule allows a call</td>
+<td>Do not dial; ask Ricky first</td>
+</tr>
+<tr>
+<td>Any question about the recording configuration or disclosure posture</td>
+<td>Ricky, before dialing the affected state</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/dialers/daily-workflow/">Dialer Daily Workflow</a> : the working day these rules sit under, including the pre-block suppression touchpoint</li>
+<li><a href="/team/dialers/onboarding-checklist/">Dialer Onboarding Checklist</a> : where the compliance acknowledgment gates live dialing</li>
+<li><a href="/team/dialers/dispositions-kpis/">Dispositions and KPIs</a> : the nine tags, including the suppression tag this SOP leans on</li>
+<li><a href="/team/web/communication/">Web Communication Standards</a> : voice and channel rules for anything prospect-facing</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Care Plan Operations · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#7C3AED;--deep:#5B21B6;--dk:#4A2A9E;--ink:#2A1A5E;--tint:#F5F3FF;--tintb:#d9cef4;--cardtint:#F4F2FB;--mut:#5c5866;--line:#e6e3ee;--txt:#0A0A0A;--page:#faf9fd;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/web/care-plan">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/web/">Turnkey Web</a><span class="sep">/</span><span class="here">Care Plan Operations</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Turnkey Web SOP</div>
+        <h1>Care Plan Operations</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Turnkey Web</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP covers the Turnkey Web monthly care plan: what the plan includes, how a client signs up and gets billed, what monthly maintenance means in practice, how edit requests come in and get turned around, how cancellations are handled, and how a care plan client becomes a bigger engagement. The care plan is the recurring revenue engine of Turnkey Web. A build is a one-time project; the care plan is the relationship. Treat every care plan client as a long-term account, not a completed job.</p>
+<p>The single most important idea in this SOP: the care plan is a promise of responsiveness. A client pays a flat monthly rate so that when something on their site needs to change, they have one place to send it and it gets done without a new invoice, a new negotiation, or a delay. Protect that promise and the plan retains itself.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plan owner and sole pricing/scope approver</td>
+<td>Ricky</td>
+<td>Sets the plan's rate and scope, approves anything custom, decides retention offers and cancellation exceptions. Nothing about price or scope changes without him.</td>
+</tr>
+<tr>
+<td>Billing system</td>
+<td>turnkey-web-payments (Stripe)</td>
+<td>Owns the reusable care plan payment link, custom per-client subscriptions, and one-off charges. Every custom invoice or subscription posts a Slack approval card before it goes live. Stripe syncs to the QuickBooks file through Stripe's managed app.</td>
+</tr>
+<tr>
+<td>Edit execution</td>
+<td>Ricky (with the build tooling)</td>
+<td>Performs site edits and redeploys. Sites live in the Turnkey Web hub repo and deploy on push through Cloudflare Pages.</td>
+</tr>
+<tr>
+<td>Admin, invoicing follow-up, scheduling</td>
+<td>Eldine</td>
+<td>Chases failed payments, sends dunning follow-ups drafted for review, handles calendar items.</td>
+</tr>
+<tr>
+<td>Sales reps (SDRs)</td>
+<td>David and team</td>
+<td>Sell the plan on dial and follow-up calls. Reps quote the standard plan only; anything custom routes to Ricky.</td>
+</tr>
+<tr>
+<td>The client</td>
+<td>Client staff</td>
+<td>Sends edit requests to the designated address, keeps their payment method current, supplies content (text, images) when an edit needs it.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>Sign-up:</strong> triggered by a closed sale (a build client rolling onto the plan, or a redesign prospect converting straight onto it). The plan for a build client starts 30 days after go-live, never on the build invoice date.</li>
+<li><strong>Monthly, automatic:</strong> Stripe charges the subscription. The turnkey-web-payments polling reconciler checks payment status on a schedule; there is no webhook, so a failed payment surfaces on the next poll, not instantly.</li>
+<li><strong>On edit request:</strong> whenever a client emails a change. Acknowledge same business day even if the work lands later.</li>
+<li><strong>Monthly maintenance pass:</strong> a light proactive check on each care plan site (confirm the exact checklist and its schedule with Ricky; see the maintenance section below for the working baseline).</li>
+<li><strong>On cancellation notice:</strong> whenever a client asks to stop. Handled within one business day, escalated to Ricky before anything is confirmed back to the client.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="what-the-plan-includes">What the plan includes</h3>
+<p>The care plan is a flat monthly subscription. Structural scope (confirm the precise published inclusions list with Ricky before quoting anything in writing):</p>
+<ul>
+<li>Hosting and deployment. The site lives in the Turnkey Web hub repo and serves through Cloudflare Pages on the brand domain or the client's own domain. The client never manages hosting.</li>
+<li>Domain and DNS management where Turnkey holds the registration or the Cloudflare zone. Domain registration cost is a small pass-through on top of the plan, agreed at sale.</li>
+<li>Small content edits: text changes, image swaps, hours and contact updates, adding or removing a testimonial, seasonal banner changes. The kind of change a client describes in one email.</li>
+<li>Uptime and basic site health. If the site is down or broken, fixing it is our problem, not a billable event.</li>
+<li>A single point of contact for anything website-related, with a same-business-day acknowledgment.</li>
+</ul>
+<p>What the plan does not include: new pages beyond a small count, redesigns, new functionality (booking systems, e-commerce, member portals), SEO campaigns, ad management, and content writing at volume. Those are scoped separately (see upsell paths). The boundary between "an edit" and "a project" is a judgment call; when in doubt, do the small version under the plan and flag the bigger version to Ricky as an upsell conversation, never a surprise invoice.</p>
+<h3 id="sign-up-flow-payment-link-then-welcome-page">Sign-up flow: payment link, then welcome page</h3>
+<p>The standard plan uses one reusable Stripe payment link. It is the same link for every standard-rate client, so there is nothing to generate per client and nothing to approve per client.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Confirm the sale is closed and the start date is right. Build clients start 30 days after go-live; standalone care plan clients (redesign offer) start immediately.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Send the client the reusable payment link from the role mailbox, in a short warm email: what the plan covers, when billing starts, and where to send edit requests. No emojis, no jargon.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Client completes checkout. Stripe redirects them to the branded welcome page on turnkeyweb.org, which confirms the subscription and restates how to request edits.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Verify the subscription appears in Stripe with the correct start date and payment method.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Record the client in the care plan roster: business name, site URL, repo path, domain ownership, contact person, sign-up date (confirm the roster's canonical location with Ricky).</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Send or confirm the kickoff note: who to email for edits, expected turnaround, and that hosting and upkeep are now handled.</label></li>
+</ul>
+<p>If the deal is custom (multiple sites, extra scope, a negotiated rate), do not use the reusable link. Route it through turnkey-web-payments as a per-client subscription. That path posts a Slack approval card and only goes live on Ricky's reaction approval.</p>
+<h3 id="monthly-maintenance-in-practice">Monthly maintenance in practice</h3>
+<p>Maintenance is mostly quiet. The operational baseline each month per site (confirm the formal checklist with Ricky):</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Load the live site on desktop and mobile. Confirm it renders, forms submit, and the phone number and hours are current.</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">Check Cloudflare Pages deploy status for the site's project. A failed deploy means the last change never shipped.</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8">Confirm the domain and SSL are healthy (no expiry warnings, no certificate errors).</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Skim for anything obviously stale: an expired promotion, a past event still advertised, a copyright year (fix on sight, no ticket needed).</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">Confirm the month's subscription payment cleared. A failed payment goes to the dunning flow below, never to silence.</label></li>
+</ul>
+<p>Anything found broken gets fixed as a plan inclusion. Anything found that suggests a bigger opportunity (an outdated section that needs a real redesign, a business that has clearly grown past its site) gets logged as an upsell note for Ricky.</p>
+<h3 id="edit-requests-intake-turnaround-delivery">Edit requests: intake, turnaround, delivery</h3>
+<p>Edit requests arrive by email to the role mailbox the client was given at kickoff (confirm the canonical care plan intake address with Ricky). Clients should never need to chase a personal address or a text thread.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Acknowledge the same business day: received, working on it, you will have it by a stated day. This acknowledgment is the SLA that makes the plan feel alive.</label></li>
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Classify the request. Small edit (text, image, hours, swap): do it under the plan. Bigger than an edit (new page count, new functionality, redesign scope): tell the client warmly that this one is beyond the monthly plan and that Ricky will follow up with options, then flag Ricky same day.</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">Make the change in the site's directory in the hub repo, commit, and push. Cloudflare Pages deploys on push.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Verify the live page after deploy on desktop and mobile before telling the client it is done. Watch for stale cached assets; version asset references when styling changes.</label></li>
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">Reply with the live link and a one-line summary of what changed. Never reply "done" without the link.</label></li>
+</ul>
+<p>Turnaround norms: small edits within two business days of acknowledgment, same day when trivial (confirm the promised turnaround window with Ricky before publishing it to clients). If a request will take longer, the client hears the new date from us before the old one passes, the same discipline the CFO side uses on deliverable dates.</p>
+<p>Content dependencies: if an edit needs something from the client (new photos, approved wording), ask once, clearly, and park the request as waiting-on-client. Nudge after a week. The clock on our turnaround starts when we have what we need, and the client should know that.</p>
+<h3 id="failed-payments-and-dunning">Failed payments and dunning</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">The polling reconciler or a monthly check surfaces a failed charge.</label></li>
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">First touch: a warm, short email from the role mailbox noting the payment did not go through and linking the client to update their card. Assume card expiry, not intent.</label></li>
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18">No response after several business days: one follow-up, then flag Ricky.</label></li>
+<li class="ck"><input type="checkbox" id="ck-19" data-idx="19"><label for="ck-19">Never pause service or take a site down over a failed payment without Ricky's explicit decision. Suspension is a Ricky-only call.</label></li>
+</ul>
+<h3 id="cancellation-handling">Cancellation handling</h3>
+<p>A cancellation request is a signal, not just an admin task. Handle the mechanics cleanly and give Ricky the chance to save the account.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-20" data-idx="20"><label for="ck-20">Acknowledge the request same business day. Warm, zero guilt, no pressure: confirm we received it and will follow up with the details.</label></li>
+<li class="ck"><input type="checkbox" id="ck-21" data-idx="21"><label for="ck-21">Flag Ricky same day with a read on why they are leaving (price, closed business, moving to another provider, unhappy). Ricky decides whether to make a retention offer. Reps and admin staff never negotiate a save on their own.</label></li>
+<li class="ck"><input type="checkbox" id="ck-22" data-idx="22"><label for="ck-22">Once Ricky confirms, cancel the subscription in Stripe effective at the end of the current billing period. Mid-period refunds are exceptions Ricky approves case by case (confirm the default refund posture with Ricky).</label></li>
+<li class="ck"><input type="checkbox" id="ck-23" data-idx="23"><label for="ck-23">Settle the site and domain handoff. What happens to hosting after cancellation, whether the site stays live, for how long, and on what terms, plus who keeps the domain if Turnkey registered it, follows the engagement's terms (confirm the standard post-cancellation site and domain policy with Ricky; do not improvise it per client).</label></li>
+<li class="ck"><input type="checkbox" id="ck-24" data-idx="24"><label for="ck-24">Send a graceful close-out email: confirmation of the final billing date, what happens to the site and domain, and a genuine open door to return.</label></li>
+<li class="ck"><input type="checkbox" id="ck-25" data-idx="25"><label for="ck-25">Update the care plan roster and note the cancellation reason. Reasons feed back into how the plan is sold and scoped.</label></li>
+</ul>
+<h3 id="upsell-paths-from-the-care-plan">Upsell paths from the care plan</h3>
+<p>Care plan clients are the warmest pipeline Turnkey has. They already pay monthly, already trust the work, and already talk to us. Paths upward:</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Trigger to watch for</th>
+<th>What it becomes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Redesign or rebuild</td>
+<td>Site has outgrown the business, client keeps asking for structural changes</td>
+<td>A build project on the standard 50/50 split (half upfront, half on completion), with the care plan continuing after the new go-live</td>
+</tr>
+<tr>
+<td>New functionality</td>
+<td>Requests for booking, payments, e-commerce, portals, integrations</td>
+<td>A scoped one-off project through turnkey-web-payments</td>
+</tr>
+<tr>
+<td>More pages or content</td>
+<td>Repeated "can we add a page for..." requests</td>
+<td>A scoped content expansion, or a custom retainer above the standard plan</td>
+</tr>
+<tr>
+<td>Turnkey CFO cross-referral</td>
+<td>Client mentions bookkeeping pain, a slow accountant, or messy books</td>
+<td>Warm intro to the bookkeeping side; this mirrors the dialer rule that flags "already has a website" prospects to Turnkey CFO</td>
+</tr>
+<tr>
+<td>Turnkey SEO / Turnkey Design</td>
+<td>Client asks how to rank, or needs brand work</td>
+<td>Note the interest for Ricky; SEO is not a live service line yet, so never promise it as available today (confirm current status with Ricky)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The rule on all of these: spot it, log it, hand it to Ricky. Anyone can notice an upsell; only Ricky prices and proposes one.</p>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>Never quote or write a rate, discount, or refund figure to a client without Ricky's approval. Pricing and scope are Ricky-only, always.</li>
+<li>Never take a client site down, pause hosting, or suspend service without Ricky's explicit decision.</li>
+<li>The standard plan uses the reusable payment link; anything custom goes through turnkey-web-payments with its Slack approval card. No hand-built Stripe objects outside that path.</li>
+<li>All client-facing email sends from a role mailbox, never a personal address. Warm, professional, no emojis, no jargon.</li>
+<li>Verify every deployed edit on the live URL, desktop and mobile, before telling the client it shipped. Watch for stale cached assets after styling changes.</li>
+<li>Do not let an edit request quietly become free project work. If it is bigger than an edit, say so warmly and route it to Ricky as scoped work.</li>
+<li>Tax or legal questions from a client (business structure, sales tax on their products) go to "your CPA or attorney," never answered by us.</li>
+<li>Care plan sites live in the brand hub repo and deploy through Cloudflare Pages on push. No side deployments, no bare preview links handed to clients.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client asks about price, discounts, refunds, or plan scope</td>
+<td>Ricky, always, before any answer beyond "let me get you the details"</td>
+</tr>
+<tr>
+<td>Edit request is bigger than the plan covers</td>
+<td>Flag Ricky same day; acknowledge the client without committing scope</td>
+</tr>
+<tr>
+<td>Client is frustrated, disappointed, or has gone quiet</td>
+<td>Ricky same day, with a read on why</td>
+</tr>
+<tr>
+<td>Cancellation request</td>
+<td>Ricky same day, before confirming anything to the client</td>
+</tr>
+<tr>
+<td>Site down or broken</td>
+<td>Fix immediately; if not fixable fast, Ricky immediately, and the client hears from us before they notice</td>
+</tr>
+<tr>
+<td>Failed payment unresolved after follow-up</td>
+<td>Ricky decides next step; never unilateral suspension</td>
+</tr>
+<tr>
+<td>Tax or legal question</td>
+<td>Redirect to the client's CPA or attorney</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/web/intake-to-build/">Site Build and Delivery</a></li>
+<li><a href="/team/web/booking/">Sales Meeting Booking</a></li>
+<li><a href="/team/dialers/">Cold-Call Dialer Playbook</a></li>
+<li><a href="/team/cfo/communication/">Client Communication Standards</a></li>
+<li><a href="/team/cfo/bookkeeping-close/">Bookkeeping Close Cadence</a> (the responsiveness and "client hears from us first" discipline mirrored here)</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>

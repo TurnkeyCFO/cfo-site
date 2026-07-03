@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Dialer Daily Workflow · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#7C3AED;--deep:#5B21B6;--dk:#4A2A9E;--ink:#2A1A5E;--tint:#F5F3FF;--tintb:#d9cef4;--cardtint:#F4F2FB;--mut:#5c5866;--line:#e6e3ee;--txt:#0A0A0A;--page:#faf9fd;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/dialers/daily-workflow">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/dialers/">Dialer Playbook</a><span class="sep">/</span><span class="here">Dialer Daily Workflow</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Dialer Playbook</div>
+        <h1>Dialer Daily Workflow</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Dialer Playbook</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP is the working day for a Turnkey Web dialer: where your leads come from, the order you work them, how you log every call, what the system does behind the scenes, and how you hand off a booked appointment. A brand-new rep should be able to run a full day from this page alone.</p>
+<p>The job in one sentence: work your three campaigns top to bottom, tag every call with exactly one of the nine dispositions, and book website review meetings that prospects actually attend. Turnkey Web sells website design, builds, and a monthly care plan; your win condition is a showed appointment, and the automation handles everything between your calls.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Person</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dialing, tagging, booking</td>
+<td>You (the rep)</td>
+<td>Work the queues, apply the right tag on every call, book meetings, post the Slack ping</td>
+</tr>
+<tr>
+<td>System design, comp, list changes</td>
+<td>Ricky</td>
+<td>Sole approver on anything locked (tag names, campaign structure, follow-up intervals)</td>
+</tr>
+<tr>
+<td>Duplicate review and list hygiene</td>
+<td>Ricky / ops</td>
+<td>Resolves cross-rep contact collisions; you flag, they fix</td>
+</tr>
+<tr>
+<td>Behind-the-scenes routing</td>
+<td>The CloudTalk bridge (automation)</td>
+<td>Reads your tag, updates HubSpot, re-queues the contact on the right day in the right campaign</td>
+</tr>
+</tbody>
+</table></div>
+<p>Each rep has a fully separate CloudTalk account and their own set of campaigns. You never work another rep's queue.</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li>Dialing happens on normal business days, inside the standard window of 9am to 4pm Central (early morning only when it is the prospect's sole availability, and never weekends).</li>
+<li>Scheduled callbacks are honored at the exact time the prospect requested. That commitment outranks everything else on your board.</li>
+<li>The three campaigns are worked in the same order every day (see below). Specific daily dial-volume or talk-time targets live in your Offer Letter (confirm with Ricky).</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="where-your-leads-come-from">Where your leads come from</h3>
+<p>You never touch a spreadsheet. Turnkey's lead engines continuously discover two kinds of prospects: high-rated local service businesses with no website at all, and businesses, nonprofits, and churches with a weak existing website. Those leads flow into HubSpot, and your three CloudTalk campaigns each sync from a HubSpot list built for you. CloudTalk refreshes from HubSpot roughly every 5 to 10 minutes, so a contact you tag now reappears on the right day automatically.</p>
+<p>Two things follow from that:</p>
+<ul>
+<li><strong>Work what CloudTalk serves you, top to bottom.</strong> The queue order is the priority order. Do not cherry-pick, skip around, or keep a side list.</li>
+<li><strong>Never edit HubSpot records manually.</strong> The tag you apply in CloudTalk is the only input the system needs. Manual edits break the routing.</li>
+</ul>
+<p>For weak-website prospects, the record includes specific problems found on their current site (mobile layout broken, outdated design, and similar). Use those as your conversation starters: you are calling about something real you noticed, not reading a generic pitch. For no-website prospects, the angle is their strong Google rating with no site to catch the customers searching for them. Entity type matters too: a small business wants to grow, a nonprofit wants to serve its mission, a church wants to reach its congregation. Match the framing.</p>
+<h3 id="the-three-campaigns-in-order">The three campaigns, in order</h3>
+<p>Work these in the same order every day:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0"><strong>1. Warm Callbacks.</strong> Prospects who asked to be called back at a specific time, plus interested prospects whose follow-up date has arrived. Highest intent on your board. Empty this queue first, and hit scheduled callbacks at the requested time.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1"><strong>2. Follow-ups Due.</strong> Everyone whose retry date has arrived: no-answers from 2 days ago, voicemails from 4 days ago, gatekeeper blocks from 3 days ago, soft no's from 30 days ago. Warmer than cold because prior-call context exists; check the last tag and notes before dialing.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2"><strong>3. Cold - New Prospects.</strong> Brand-new leads never called before. Cold-opener script. If queues 1 and 2 are empty, this is your whole day.</label></li>
+</ul>
+<p>The campaign order is locked. Scripts, openers, and time of day are yours to optimize (a gatekeeper block, for example, is worth retrying at a different time of day).</p>
+<h3 id="dialing-blocks-and-pacing">Dialing blocks and pacing</h3>
+<p>Run the day in focused blocks rather than grazing:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Before each block, a 30-second compliance touchpoint: confirm every do-not-call request from your last block or session carries the <code>Not Interested / Hard No</code> tag (that tag IS the suppression log), and eyeball the queue for anything that should not be dialed right now, like a prospect whose local time is outside the legal window. Full rules: <a href="/team/dialers/compliance/">Outbound Calling Compliance</a>.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Morning block: clear Warm Callbacks, then start Follow-ups Due.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Midday: honor any scheduled callback times that land here.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">Afternoon block: finish Follow-ups Due, then cold until end of window.</label></li>
+</ul>
+<p>CloudTalk retries a no-answer within the same dialing session before it re-queues the contact, so let the dialer do its job rather than manually redialing. Campaigns are set to skip anyone already called today. Sustained pace beats bursts; a rejection is a data point, tag it and take the next call. Any formal per-block dial quota is set in your Offer Letter (confirm with Ricky).</p>
+<h3 id="log-every-call-the-nine-dispositions">Log every call: the nine dispositions</h3>
+<p>Every outbound call ends with you applying exactly ONE of these nine tags, spelled exactly as written. A typo is not auto-corrected; it logs as an unknown tag and the contact goes nowhere, which means a lead silently rots. The tag names, intervals, and campaign structure are locked; never invent a tag or change a spelling.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>When to use it</th>
+<th>What the system does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>No Answer</code></td>
+<td>Rang out, no human, no voicemail left</td>
+<td>Re-queues in 2 days (cold)</td>
+</tr>
+<tr>
+<td><code>VM Left</code></td>
+<td>You left a voicemail</td>
+<td>Re-queues in 4 days (cold)</td>
+</tr>
+<tr>
+<td><code>Gatekeeper</code></td>
+<td>Blocked by a receptionist or screener</td>
+<td>Re-queues in 3 days; try a different time of day</td>
+</tr>
+<tr>
+<td><code>Callback Scheduled</code></td>
+<td>Prospect asked for a specific callback time</td>
+<td>Resurfaces at the exact requested time (warm)</td>
+</tr>
+<tr>
+<td><code>Interested - Booked</code></td>
+<td>Meeting booked on the call</td>
+<td>Leaves your queues; meeting flow takes over</td>
+</tr>
+<tr>
+<td><code>Interested - Needs Follow Up</code></td>
+<td>Warm conversation, no committed meeting yet</td>
+<td>Resurfaces in 5 days (warm), or sooner if you set a callback time</td>
+</tr>
+<tr>
+<td><code>Has Website Already</code></td>
+<td>They have a real website and no redesign interest</td>
+<td>Disqualified from Web; flagged as a possible Turnkey CFO referral</td>
+</tr>
+<tr>
+<td><code>Soft No - Follow Up 30 days</code></td>
+<td>Not now, but not a hard no</td>
+<td>Re-queues in 30 days (cold)</td>
+</tr>
+<tr>
+<td><code>Not Interested / Hard No</code></td>
+<td>Genuine no, OR a wrong number</td>
+<td>Permanent suppression; never called again</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two tags carry an extra step:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7"><code>Callback Scheduled</code>: fill the <code>callback_at</code> field on the contact BEFORE applying the tag. It is the only field you ever fill manually, and the tag is useless without it.</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8"><code>Interested - Booked</code>: complete the full booking handoff below before moving to the next call.</label></li>
+</ul>
+<p>Wrong numbers get <code>Not Interested / Hard No</code>. That is intentional; both outcomes mean never call again.</p>
+<h3 id="sms-follow-up-the-system-texts-you-do-not">SMS follow-up: the system texts, you do not</h3>
+<p>An automated follow-up runs alongside your dialing. When a contact crosses a threshold of unanswered dials (currently the third), the system sends them a single follow-up text, once ever per contact, from the company's registered number, with proper identity and opt-out language. It automatically skips anyone suppressed, anyone tagged do-not-call or wrong number, and anyone who has ever answered a call.</p>
+<p>Your part:</p>
+<ul>
+<li>Never send prospects texts from your personal phone or any personal number. All SMS is system-sent, on company numbers, for compliance reasons (recording, opt-out, and carrier registration all live on the company side).</li>
+<li>If a prospect replies to a text or references one on a call, treat it as warm context and tag the call normally. The tag drives everything downstream.</li>
+<li>If a prospect asks to stop texts or calls, tag <code>Not Interested / Hard No</code> so suppression is permanent.</li>
+</ul>
+<h3 id="booked-appointment-handoff">Booked appointment handoff</h3>
+<p>A booking is not done until the calendar invite is SENT and the Slack ping is posted. Run this while still warm, target under a minute:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9">Get a verbal yes on a specific slot first, checking the shared bookings calendar as you talk. Respect the calendar colors: red blocks are locked (never book over), orange and green are internal and movable only with notice. Default window 9am to 4pm Central, no weekends, and leave a 30-minute buffer around existing events.</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10">Create the event from the shared bookings account (bookings at turnkeyweb.org), never your personal email. Subject format: <code>Website Review: [Company Name]</code>. Guests: the prospect's email plus the manager's email. Include the auto video link and a short warm note, and uncheck "Guests can see guest list."</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">Save the event, then explicitly hit Send. A saved-but-unsent invite is not booked.</label></li>
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Post the Slack ping IMMEDIATELY in the sales channel, tagging the manager, in the fixed template: <code>:calendar: BOOKED / @Manager / Company / Time CT / Source / Context 1-3 lines</code>. The manager blocks the internal master calendar from your ping; you do not.</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">Tag the call <code>Interested - Booked</code> in CloudTalk.</label></li>
+</ul>
+<p>The context lines matter. One to three sentences on what hooked them and what they care about is what makes the review call land.</p>
+<h3 id="duplicate-contacts-across-reps">Duplicate contacts across reps</h3>
+<p>The lead engines occasionally create the same business as separate contacts under different reps. Etiquette:</p>
+<ul>
+<li>If a prospect says another Turnkey rep already called them, apologize briefly, do not re-pitch, and end the call politely. Tag honestly based on what happened, and flag the contact in Slack the same day so ops can consolidate ownership.</li>
+<li>Never poach: if a contact is clearly mid-conversation with another rep (callback scheduled, interested, or booked by them), it is theirs. Duplicate-collision reviews and any commission question they raise go to Ricky; do not settle ownership between reps yourselves.</li>
+<li>Do not delete or merge contacts yourself. Flag and move on; consolidation is handled centrally (confirm with Ricky who currently owns the dedup review cadence).</li>
+</ul>
+<h3 id="end-of-day-wrap">End-of-day wrap</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Warm Callbacks queue is EMPTY. Anything left in it at end of day is a flag, not a shrug: those are the highest-intent contacts on the board and they go stale fast. If something is left, post it in the sales channel with why.</label></li>
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">Every call you made today carries exactly one tag. An untagged call is an invisible call.</label></li>
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">Every <code>Callback Scheduled</code> you set today has its <code>callback_at</code> time filled.</label></li>
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">Every booking you made today has a sent invite and a posted Slack ping.</label></li>
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18">Note anything odd (bad numbers clustering, a queue that looks wrong, a contact that will not sync) in the sales channel so it is fixed before tomorrow.</label></li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li><strong>The nine tag names, the three-campaign structure, and the follow-up intervals are locked.</strong> Changing any of them requires Ricky. Your scripts, openers, and campaign timing within the day are flexible.</li>
+<li><strong>One tag per call, spelled exactly.</strong> The entire routing machine keys off that string.</li>
+<li><strong>No manual HubSpot edits, no side lists, no personal spreadsheets.</strong> Lead data, call notes, and dispositions are company property and live only in company systems. Nothing gets stored on personal email, cloud, or phone, and no screenshots of lead data.</li>
+<li><strong>Compliance is not fine print.</strong> TCPA, state cold-calling and call-recording rules, and Do Not Call all apply. Every call is recorded through company systems. A do-not-call request means <code>Not Interested / Hard No</code>, immediately and permanently. The full rules live in <a href="/team/dialers/compliance/">Outbound Calling Compliance</a>.</li>
+<li><strong>All invites from the shared bookings account, all texts from company numbers.</strong> Nothing prospect-facing ever comes from a personal address or device.</li>
+<li><strong>No weekend bookings</strong>, early mornings only when it is the prospect's only option (book it and flag it internally).</li>
+<li><strong>Pricing and terms questions beyond the standard offer go to Ricky.</strong> You book the review meeting; you do not negotiate scope or custom terms on a dial.</li>
+<li><strong>Tax or legal questions</strong> (from any prospect, on any call): route to "your CPA or attorney." We do not answer those.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What you do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Warm Callbacks not empty at end of day</td>
+<td>Post it in the sales channel with the reason, same day</td>
+</tr>
+<tr>
+<td>Tagged contact not reappearing on schedule (sync lag past about 15 minutes)</td>
+<td>Flag in Slack; the fix (re-linking the list, replaying the event) is handled centrally, not by you</td>
+</tr>
+<tr>
+<td>Prospect says another rep already called</td>
+<td>Flag the duplicate in Slack same day; ownership questions go to Ricky</td>
+</tr>
+<tr>
+<td>Prospect is upset, threatens complaints, or demands removal</td>
+<td>Tag <code>Not Interested / Hard No</code>, note what happened, flag to Ricky same day</td>
+</tr>
+<tr>
+<td>Cluster of disconnected or wrong numbers in one queue</td>
+<td>Flag in Slack; it may be a stale list segment</td>
+</tr>
+<tr>
+<td>Anything touching your comp, batch terms, or agreement</td>
+<td>Ricky, in writing, always</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/dialers/compliance/">Outbound Calling Compliance</a> : pre-dial list hygiene, do-not-call handling, calling hours, recording consent, and SMS rules</li>
+<li><a href="/team/web/booking/">Sales Meeting Booking</a> : the full booking mechanics this workflow's handoff step summarizes</li>
+<li><a href="/team/dialers/hiring-profile/">Dialer Hiring Profile</a> : who we put in this seat and how the contractor relationship is structured</li>
+<li><a href="/team/web/intake-to-build/">Intake to Build</a> : what happens to the prospect after the review meeting books</li>
+<li><a href="/team/web/communication/">Web Communication Standards</a> : voice and channel rules for anything prospect-facing</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-03</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-03 -->
+</body>
+</html>
