@@ -198,6 +198,34 @@ body::before {
 .status-line.ok { color:var(--emerald-ink); }
 .status-line.warn { color:#B45309; }
 
+/* ---------- checklist (multi-select tech stack) ---------- */
+.checklist { display:flex; flex-direction:column; gap:20px; max-width:640px; }
+.tcat h5 { margin:0 0 10px; font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
+.tgrid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+@media (max-width:640px){ .tgrid{ grid-template-columns:1fr; } }
+.tool {
+  position:relative; display:flex; align-items:center; gap:11px; cursor:pointer; text-align:left;
+  border:1.5px solid var(--line); border-radius:var(--r-sm); background:var(--card);
+  padding:13px 15px; font-family:inherit; font-size:14.5px; font-weight:600; color:var(--ink);
+  transition:border-color .14s ease, box-shadow .14s ease, background .14s ease;
+}
+.tool:hover { border-color:rgba(4,120,87,.42); }
+.tool .box {
+  width:20px; height:20px; border-radius:6px; border:1.5px solid var(--line);
+  display:flex; align-items:center; justify-content:center; flex:none; background:var(--paper);
+  transition:.14s ease;
+}
+.tool .box svg { width:12px; height:12px; opacity:0; transform:scale(.6); transition:.14s ease; }
+.tool.on { border-color:var(--emerald); background:linear-gradient(180deg, rgba(4,120,87,.05), #fff 55%); box-shadow:0 0 0 3px rgba(4,120,87,.11); }
+.tool.on .box { background:var(--emerald); border-color:var(--emerald); }
+.tool.on .box svg { opacity:1; transform:none; }
+.tool-note { margin-top:12px; }
+.tool-note input {
+  width:100%; font-family:inherit; font-size:14.5px; color:var(--ink);
+  border:1.5px solid var(--line); border-radius:var(--r-sm); background:#fff; padding:13px 15px; outline:none; transition:.14s ease;
+}
+.tool-note input:focus { border-color:var(--emerald); box-shadow:0 0 0 4px rgba(4,120,87,.10); }
+
 /* nav */
 .qnav { display:flex; justify-content:space-between; align-items:center; margin-top:34px; gap:14px; }
 .ghostback { background:none; border:none; font-family:inherit; font-size:14px; font-weight:700; color:var(--ink-soft); cursor:pointer; padding:10px 6px; display:inline-flex; align-items:center; gap:7px; border-radius:9px; }
@@ -549,6 +577,15 @@ const QUESTIONS = [
     ]
   },
 
+  /* ---- financial tech stack ---- */
+  {
+    id:'techStack', group:'Your tools', kicker:'Your financial stack',
+    title:'Which tools do you use today?',
+    titleChurch:'Which tools does your church use today?',
+    help:'Select all that apply, across giving, cards, bill pay, and payroll. This tells us exactly what we would be plugging into. Skip anything that does not apply.',
+    kind:'checklist'
+  },
+
   /* ---- complexity ---- */
   {
     id:'accounts', group:'Complexity', kicker:'Accounts',
@@ -643,7 +680,7 @@ const QUESTIONS = [
 ];
 
 /* ---------- rail groups ---------- */
-const GROUPS = ['About you', 'Your specifics', 'Complexity', 'Service level', 'Your estimate'];
+const GROUPS = ['About you', 'Your specifics', 'Your tools', 'Complexity', 'Service level', 'Your estimate'];
 
 /* ---------- engine ---------- */
 let idx = 0;
@@ -674,6 +711,7 @@ function renderTrail() {
 function answered(q) {
   if (q.kind === 'cards') return !!S[q.id];
   if (q.kind === 'text') return q.fields.every(f => !f.required || (S[f.id] && S[f.id].trim()));
+  if (q.kind === 'checklist') return (S.tools && S.tools.length > 0) || !!S.toolsOther;
   if (q.kind === 'contact') return !!S.email;
   return false;
 }
@@ -686,18 +724,17 @@ function renderForming() {
   const on = Math.round((doneCount / act.length) * segs);
   meter.innerHTML = Array.from({length:segs}, (_,i) => `<i class="${i < on ? 'on' : ''}"></i>`).join('');
   const band = $('formingBand');
-  if (!S.revenue) {
-    band.className = 'band veiled';
-    band.textContent = S.orgType ? 'Shaping your range...' : 'Answer to begin';
-    $('formingNote').textContent = 'Your range sharpens with every answer.';
-    return;
+  band.className = 'band veiled';
+  if (!S.orgType) {
+    band.textContent = 'Answer to begin';
+    $('formingNote').textContent = 'Your estimate takes shape as you go. The numbers reveal on the last step.';
+  } else if (doneCount >= act.length - 1) {
+    band.textContent = 'Ready to reveal';
+    $('formingNote').textContent = 'Add your details on the last step to unlock your three-tier estimate.';
+  } else {
+    band.textContent = 'Estimate forming…';
+    $('formingNote').textContent = 'Keep going — your tailored estimate unlocks once you add your details.';
   }
-  const r = calc(S);
-  band.className = 'band';
-  band.innerHTML = `${money(r.tiers.books.low)} &ndash; ${money(r.tiers.strategic.high)}<span class="per">/ mo</span>`;
-  $('formingNote').textContent = doneCount >= act.length - 1
-    ? 'Locked. Reveal your three tiers on the last step.'
-    : 'A live range across all three tiers. It sharpens as you go.';
 }
 
 function optionsFor(q) {
@@ -706,7 +743,7 @@ function optionsFor(q) {
 }
 
 function titleFor(q) {
-  if (q.id === 'revenue' && isChurchy() && q.titleChurch) return q.titleChurch;
+  if (isChurchy() && q.titleChurch) return q.titleChurch;
   return q.title;
 }
 
@@ -741,6 +778,28 @@ function renderQuestion(dir) {
         <input id="${f.id}" type="text" placeholder="${esc(f.ph || '')}" value="${esc(S[f.id] || '')}" autocomplete="off" />
         <div class="err">Please fill this in to continue.</div>
       </div>`).join('') + `</div>`;
+  }
+
+  if (q.kind === 'checklist') {
+    if (!S.tools) S.tools = [];
+    const cats = toolCategories();
+    html += `<div class="checklist">`;
+    cats.forEach(cat => {
+      html += `<div class="tcat"><h5>${esc(cat.label)}</h5><div class="tgrid">` +
+        cat.options.map(o =>
+          `<button type="button" class="tool ${S.tools.includes(o.v) ? 'on' : ''}" data-tool="${esc(o.v)}">
+            <span class="box">${CHECK_SVG}</span><span>${esc(o.t)}</span>
+          </button>`).join('') + `</div></div>`;
+    });
+    html += `<div class="tcat"><h5>Anything else</h5><div class="tgrid">
+        <button type="button" class="tool ${S.toolsOther ? 'on' : ''}" data-tool="__other__">
+          <span class="box">${CHECK_SVG}</span><span>Other tools we use</span>
+        </button>
+      </div>
+      <div class="tool-note" id="toolOtherNote" style="${S.toolsOther ? '' : 'display:none;'}">
+        <input id="toolsOtherNotes" type="text" placeholder="Tell us what else you use — e.g. Aplos, Fathom, Melio" value="${esc(S.toolsOtherNotes || '')}" />
+      </div></div>`;
+    html += `</div>`;
   }
 
   if (q.kind === 'contact') {
@@ -789,6 +848,28 @@ function renderQuestion(dir) {
   qbody.querySelectorAll('.opt').forEach(btn => {
     btn.addEventListener('click', () => pick(q, btn.dataset.v));
   });
+  if (q.kind === 'checklist') {
+    if (!S.tools) S.tools = [];
+    qbody.querySelectorAll('.tool').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = btn.dataset.tool;
+        if (t === '__other__') {
+          S.toolsOther = !S.toolsOther;
+          btn.classList.toggle('on', S.toolsOther);
+          const note = $('toolOtherNote');
+          if (note) note.style.display = S.toolsOther ? '' : 'none';
+          if (S.toolsOther) { const inp = $('toolsOtherNotes'); if (inp) inp.focus(); }
+        } else {
+          const i = S.tools.indexOf(t);
+          if (i >= 0) S.tools.splice(i, 1); else S.tools.push(t);
+          btn.classList.toggle('on', S.tools.includes(t));
+        }
+        renderForming(); renderTrail();
+      });
+    });
+    const notesInput = $('toolsOtherNotes');
+    if (notesInput) notesInput.addEventListener('input', e => { S.toolsOtherNotes = e.target.value; });
+  }
   if (q.kind === 'contact') {
     const cfo = $('cfoInterest');
     cfo.addEventListener('change', () => { S.cfoInterest = cfo.checked; $('cfoWrap').classList.toggle('on', cfo.checked); });
@@ -822,6 +903,11 @@ function collectInputs(q) {
       if (bad) ok = false;
     });
     return ok;
+  }
+  if (q.kind === 'checklist') {
+    const inp = $('toolsOtherNotes');
+    if (inp) S.toolsOtherNotes = inp.value.trim();
+    return true; /* optional — never blocks */
   }
   if (q.kind === 'contact') {
     let ok = true;
@@ -973,6 +1059,66 @@ const GOAL_LABEL = { books:'Peace of mind (clean books)', visibility:'Real visib
 const TIER_LABELS = { books:'Books', reporting:'Books + Reporting', strategic:'Strategic Partnership', cfo:'CFO Services' };
 const SOFT_LABEL = { quickbooks:'QuickBooks', xero:'Xero', zoho:'Zoho Books', none:'None yet', other:'Other' };
 
+/* ---------- financial tech stack (multi-select, tailored by orgType) ---------- */
+const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/* shared categories every business sees */
+const TOOLS_SPEND = { label:'Credit cards & spend', options:[
+  { v:'ramp', t:'Ramp' }, { v:'brex', t:'Brex' }, { v:'divvy', t:'Divvy / BILL Spend' },
+  { v:'expensify', t:'Expensify' }, { v:'bank_cards', t:'Bank business cards' }
+]};
+const TOOLS_AP = { label:'Bill pay & AP', options:[
+  { v:'billcom', t:'Bill.com' }, { v:'melio', t:'Melio' }, { v:'manual_ap', t:'Manual / bank bill pay' }
+]};
+const TOOLS_PAYROLL = { label:'Payroll', options:[
+  { v:'gusto', t:'Gusto' }, { v:'adp', t:'ADP' }, { v:'paychex', t:'Paychex' }, { v:'qb_payroll', t:'QuickBooks Payroll' }
+]};
+
+/* industry-specific category, keyed to orgType */
+const TOOLS_BY_ORG = {
+  church:     { label:'Giving & church management', options:[
+    { v:'planning_center', t:'Planning Center' }, { v:'subsplash', t:'Subsplash' }, { v:'tithely', t:'Tithe.ly' },
+    { v:'pushpay', t:'Pushpay' }, { v:'breeze', t:'Breeze ChMS' }, { v:'ccb_rock', t:'CCB / Rock RMS' }
+  ]},
+  nonprofit:  { label:'Donor & grant management', options:[
+    { v:'bloomerang', t:'Bloomerang' }, { v:'donorperfect', t:'DonorPerfect' }, { v:'kindful', t:'Kindful' },
+    { v:'littlegreenlight', t:'Little Green Light' }, { v:'givebutter', t:'Givebutter' }
+  ]},
+  contractor: { label:'Job & project management', options:[
+    { v:'procore', t:'Procore' }, { v:'buildertrend', t:'Buildertrend' }, { v:'knowify', t:'Knowify' },
+    { v:'servicetitan', t:'ServiceTitan' }, { v:'jobber', t:'Jobber' }, { v:'housecall', t:'Housecall Pro' }
+  ]},
+  ecommerce:  { label:'Sales channels & payments', options:[
+    { v:'shopify', t:'Shopify' }, { v:'amazon', t:'Amazon Seller' }, { v:'stripe', t:'Stripe' },
+    { v:'square', t:'Square' }, { v:'paypal', t:'PayPal' }, { v:'a2x', t:'A2X' }
+  ]},
+  services:   { label:'Billing & practice tools', options:[
+    { v:'stripe', t:'Stripe' }, { v:'square', t:'Square' }, { v:'honeybook', t:'HoneyBook' },
+    { v:'harvest', t:'Harvest' }, { v:'freshbooks', t:'FreshBooks' }
+  ]},
+  realestate: { label:'Property management', options:[
+    { v:'appfolio', t:'AppFolio' }, { v:'buildium', t:'Buildium' }, { v:'rentmanager', t:'Rent Manager' },
+    { v:'doorloop', t:'DoorLoop' }, { v:'stessa', t:'Stessa' }
+  ]}
+};
+
+function toolCategories() {
+  const cats = [];
+  const industry = TOOLS_BY_ORG[S.orgType];
+  if (industry) cats.push(industry);
+  cats.push(TOOLS_SPEND, TOOLS_AP, TOOLS_PAYROLL);
+  return cats;
+}
+
+/* flat label map built from every category so the payload/summary read friendly */
+const TOOL_LABEL = (function () {
+  const m = {};
+  [TOOLS_SPEND, TOOLS_AP, TOOLS_PAYROLL].concat(Object.values(TOOLS_BY_ORG))
+    .forEach(cat => cat.options.forEach(o => { m[o.v] = o.t; }));
+  return m;
+})();
+function toolsLabelList() { return (S.tools || []).map(v => TOOL_LABEL[v] || v); }
+
 function industryLabel() {
   if (S.orgType === 'other' && S.otherIndustryName && S.otherIndustryName.trim()) return S.otherIndustryName.trim();
   return ORG_LABEL[S.orgType] || 'Other';
@@ -1014,6 +1160,8 @@ function buildPayload(r) {
     software: S.software || '',
     softwareLabel: SOFT_LABEL[S.software] || 'Other',
     otherSoftwareName: '',
+    financialTools: toolsLabelList().join(', '),
+    financialToolsOther: S.toolsOther ? (S.toolsOtherNotes || 'Yes (unspecified)') : '',
     accountCount: S.accounts || '',
     accountCountLabel: ACCT_LABEL[S.accounts] || '',
     txnVolume: S.txns || '',
@@ -1205,6 +1353,7 @@ function finish() {
     ['Entities', payload.entityCountLabel],
     ['Revenue', payload.revenueLabel],
     ['Software', payload.softwareLabel],
+    ['Tools in use', [payload.financialTools, (S.toolsOther && S.toolsOtherNotes ? S.toolsOtherNotes : '')].filter(Boolean).join(', ') || 'None listed'],
     ['Accounts', payload.accountCountLabel],
     ['Volume', payload.txnVolumeLabel],
     ['Payroll', payload.payrollLabel],
