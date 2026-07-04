@@ -437,6 +437,26 @@ const TRAFFIC = captureTrafficSource_();
 /* ---------- state ---------- */
 const S = {};
 
+/* ---------- industry preselect (from industry landing pages, e.g. /churches -> ?industry=church) ---------- */
+const ORG_SYNONYMS = {
+  church:'church', churches:'church', ministry:'church', ministries:'church', churchesandministries:'church',
+  nonprofit:'nonprofit', 'non-profit':'nonprofit', nonprofits:'nonprofit', charity:'nonprofit', charities:'nonprofit',
+  contractor:'contractor', contractors:'contractor', construction:'contractor', trades:'contractor', constructiontrades:'contractor',
+  ecommerce:'ecommerce', ecom:'ecommerce', 'e-commerce':'ecommerce', retail:'ecommerce', shop:'ecommerce',
+  services:'services', service:'services', professional:'services', professionalservices:'services', agency:'services', agencies:'services',
+  realestate:'realestate', 'real-estate':'realestate', property:'realestate', properties:'realestate', 'property-management':'realestate',
+  other:'other'
+};
+function presetOrg_() {
+  try {
+    const p = new URLSearchParams(window.location.search);
+    var raw = (p.get('industry') || p.get('org') || p.get('orgType') || '').toLowerCase().trim().replace(/[\s_]+/g, '');
+    return ORG_SYNONYMS[raw] || '';
+  } catch (e) { return ''; }
+}
+const PRESET_ORG = presetOrg_();
+if (PRESET_ORG) { S.orgType = PRESET_ORG; S._orgPreset = true; }
+
 /* ---------- helpers ---------- */
 const $ = (id) => document.getElementById(id);
 const money = (n) => n.toLocaleString('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
@@ -449,7 +469,7 @@ const QUESTIONS = [
     id:'orgType', group:'About you', kicker:'The shape of your organization',
     title:'What kind of organization are you running?',
     help:'This decides which questions we ask next. You only see what applies to you.',
-    kind:'cards', cols:2,
+    kind:'cards', cols:2, showIf: s => !s._orgPreset,
     options:[
       { v:'church',     t:'Church or Ministry',        d:'Giving, funds, and stewardship-grade books.' },
       { v:'nonprofit',  t:'Nonprofit',                 d:'Grants, restricted gifts, board reporting.' },

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <!-- Microsoft Clarity (heatmaps + session replay) -->
@@ -48,261 +48,295 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f2f5f8;
-  --surface: rgba(255,255,255,.82);
-  --surface-2: rgba(255,255,255,.94);
-  --navy: #00263A;
-  --navy-soft: #36576A;
-  --green: #047857;
-  --green-deep: #10b981;
-  --border: rgba(0,38,58,.10);
-  --shadow: 0 16px 40px rgba(7,47,69,.08);
+  --paper: #FAF7F2;
+  --paper-2: #F4EFE7;
+  --card: #FFFFFF;
+  --ink: #00263A;
+  --ink-soft: #3E5A6B;
+  --ink-faint: rgba(0,38,58,.55);
+  --emerald: #047857;
+  --emerald-bright: #10B981;
+  --emerald-ink: #065F46;
+  --line: rgba(0,38,58,.10);
+  --line-soft: rgba(0,38,58,.07);
+  --shadow-lg: 0 24px 60px -18px rgba(7,47,69,.14);
+  --shadow-sm: 0 8px 22px -8px rgba(7,47,69,.10);
+  --r-lg: 26px;
+  --r-md: 18px;
+  --r-sm: 13px;
 }
 * { box-sizing: border-box; }
-html, body { margin:0; padding:0; font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(180deg, #fbfdff 0%, var(--bg) 58%, #f8fbfd 100%); color: var(--navy); }
-body { min-height:100vh; position:relative; overflow-x:hidden; }
+html, body { margin:0; padding:0; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 600px at 88% -8%, rgba(16,185,129,.07), transparent 62%),
+    radial-gradient(900px 640px at -8% 30%, rgba(0,38,58,.05), transparent 60%),
+    linear-gradient(180deg, #FDFBF8 0%, var(--paper) 46%, var(--paper-2) 100%);
+  min-height:100vh;
+  -webkit-font-smoothing: antialiased;
+}
+/* fine grain so the cream never reads flat */
 body::before {
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.3), rgba(255,255,255,.3)),
-    url("./assets/energy-bg.png") center 42% / cover no-repeat;
-  opacity:.14;
-  pointer-events:none;
-  z-index:0;
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.028'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-body::after {
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 12% 8%, rgba(4,120,87,.05), transparent 0 18%),
-    radial-gradient(circle at 86% 12%, rgba(0,38,58,.04), transparent 0 18%);
-  opacity:1;
-  pointer-events:none;
-  z-index:0;
+.wrap { width:min(1120px, calc(100vw - 36px)); margin:0 auto; position:relative; z-index:1; }
+
+/* ---------- header ---------- */
+.masthead { display:flex; align-items:center; justify-content:space-between; padding:26px 0 8px; }
+.masthead img { height:44px; width:auto; }
+.masthead .tag { font-size:12px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); }
+@media (max-width:640px){ .masthead .tag{ display:none; } .masthead img{ height:36px; } }
+
+/* ---------- hero ---------- */
+.hero { text-align:left; padding:34px 0 26px; display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:end; }
+.hero .eyebrow { display:inline-flex; align-items:center; gap:9px; font-size:11.5px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; color:var(--emerald-ink); background:rgba(4,120,87,.08); border:1px solid rgba(4,120,87,.16); padding:8px 14px; border-radius:999px; margin-bottom:18px; }
+.hero .eyebrow .pulse { width:8px; height:8px; border-radius:50%; background:var(--emerald-bright); box-shadow:0 0 0 0 rgba(16,185,129,.5); animation:pulse 2.2s ease-out infinite; }
+@keyframes pulse { 0%{ box-shadow:0 0 0 0 rgba(16,185,129,.45);} 70%{ box-shadow:0 0 0 9px rgba(16,185,129,0);} 100%{ box-shadow:0 0 0 0 rgba(16,185,129,0);} }
+.hero h1 { margin:0; font-size:clamp(34px, 4.6vw, 54px); line-height:1.02; letter-spacing:-.045em; font-weight:800; }
+.hero h1 em { font-style:normal; color:var(--emerald); }
+.hero .sub { margin:14px 0 0; max-width:520px; color:var(--ink-faint); font-size:16.5px; line-height:1.65; }
+.hero-side { text-align:right; padding-bottom:6px; }
+.hero-side .mini { display:inline-block; text-align:left; padding:14px 18px; border:1px solid var(--line); border-radius:var(--r-md); background:rgba(255,255,255,.66); box-shadow:var(--shadow-sm); }
+.hero-side .mini b { display:block; font-size:22px; letter-spacing:-.03em; }
+.hero-side .mini span { font-size:12.5px; color:var(--ink-faint); }
+@media (max-width:880px){ .hero{ grid-template-columns:1fr; } .hero-side{ display:none; } }
+
+/* ---------- stage layout ---------- */
+.stage {
+  display:grid; grid-template-columns: 300px 1fr; gap:0;
+  background: rgba(255,255,255,.72);
+  border:1px solid var(--line); border-radius:var(--r-lg);
+  box-shadow: var(--shadow-lg); overflow:hidden;
+  backdrop-filter: blur(10px);
+  min-height: 540px;
 }
-.shell { width:min(980px, calc(100vw - 32px)); margin:0 auto; padding:32px 0 48px; position:relative; z-index:1; }
-.shell::before {
-  content:"";
-  position:fixed;
-  width:560px;
-  height:560px;
-  left:-140px;
-  top:120px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(4,120,87,.08) 0%, rgba(4,120,87,.04) 28%, transparent 68%);
-  filter:blur(18px);
-  pointer-events:none;
+@media (max-width:880px){ .stage{ grid-template-columns:1fr; min-height:0; } }
+
+/* left rail */
+.rail {
+  background: linear-gradient(178deg, #FFFFFF 0%, #FBF8F2 60%, #F6F1E8 100%);
+  border-right:1px solid var(--line-soft);
+  padding:30px 26px; display:flex; flex-direction:column; gap:22px;
 }
-.shell::after {
-  content:"";
-  position:fixed;
-  width:620px;
-  height:620px;
-  right:-180px;
-  bottom:40px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(0,38,58,.08) 0%, rgba(0,38,58,.04) 34%, transparent 72%);
-  filter:blur(18px);
-  pointer-events:none;
+.rail .rail-title { font-size:11px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); }
+.trail { position:relative; flex:1; }
+.trail::before { content:""; position:absolute; left:7px; top:8px; bottom:8px; width:2px; background:linear-gradient(180deg, rgba(4,120,87,.30), rgba(0,38,58,.08)); border-radius:2px; }
+.trail-item { position:relative; padding:7px 0 7px 30px; font-size:13.5px; font-weight:600; color:var(--ink-faint); transition:color .25s ease; }
+.trail-item::before { content:""; position:absolute; left:2px; top:12px; width:12px; height:12px; border-radius:50%; background:#fff; border:2px solid rgba(0,38,58,.18); transition:.25s ease; }
+.trail-item.done { color:var(--ink-soft); }
+.trail-item.done::before { background:var(--emerald); border-color:var(--emerald); box-shadow:0 0 0 3px rgba(4,120,87,.14); }
+.trail-item.now { color:var(--ink); font-weight:800; }
+.trail-item.now::before { border-color:var(--emerald); background:#fff; box-shadow:0 0 0 4px rgba(4,120,87,.14); }
+.trail-item .sig { display:block; font-size:11.5px; font-weight:600; color:var(--emerald-ink); letter-spacing:.02em; margin-top:1px; }
+
+/* forming estimate widget */
+.forming { border:1px solid var(--line); background:#fff; border-radius:var(--r-md); padding:18px; box-shadow:var(--shadow-sm); }
+.forming .k { font-size:10.5px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
+.forming .band { font-size:22px; font-weight:800; letter-spacing:-.03em; min-height:28px; }
+.forming .band .per { font-size:12px; font-weight:600; color:var(--ink-faint); margin-left:3px; letter-spacing:0; }
+.forming .band.veiled { color:var(--ink-faint); filter:blur(0); }
+.forming .meter { display:flex; gap:4px; margin-top:12px; }
+.forming .meter i { flex:1; height:6px; border-radius:3px; background:rgba(0,38,58,.08); transition:background .4s ease; }
+.forming .meter i.on { background:linear-gradient(90deg, var(--emerald), var(--emerald-bright)); }
+.forming .note { margin-top:10px; font-size:11.5px; color:var(--ink-faint); line-height:1.5; }
+@media (max-width:880px){
+  .rail { flex-direction:row; align-items:center; padding:16px 18px; gap:14px; border-right:none; border-bottom:1px solid var(--line-soft); min-width:0; }
+  .rail .rail-title, .trail { display:none; }
+  .forming { flex:1; min-width:0; display:flex; align-items:center; gap:12px; padding:12px 14px; }
+  .forming .k { margin:0; white-space:nowrap; }
+  .forming .band { font-size:15px; min-height:0; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .forming .meter { margin:0; width:56px; flex:none; }
+  .forming .note { display:none; }
+  .qpane { min-width:0; }
 }
-.cursor-glow {
-  position: fixed;
-  width: 280px;
-  height: 280px;
-  left: 0;
-  top: 0;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: .22;
-  background: radial-gradient(circle, rgba(4,120,87,.22) 0%, rgba(16,185,129,.12) 28%, rgba(4,120,87,0) 72%);
-  filter: blur(26px);
-  transform: translate3d(-50%, -50%, 0);
-  transition: opacity .18s ease;
+.stage > * { min-width:0; }
+
+/* question stage */
+.qpane { padding:44px 48px; display:flex; flex-direction:column; position:relative; }
+@media (max-width:640px){ .qpane{ padding:26px 20px; } }
+.qhead { display:flex; justify-content:space-between; align-items:center; margin-bottom:26px; gap:12px; }
+.qcount { font-size:12px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); }
+.qbar { flex:1; max-width:220px; height:6px; border-radius:999px; background:rgba(0,38,58,.08); overflow:hidden; }
+.qbar i { display:block; height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg, var(--emerald), var(--emerald-bright)); transition:width .45s cubic-bezier(.22,1,.36,1); }
+
+.qbody { flex:1; }
+.question { animation:qin .38s cubic-bezier(.22,1,.36,1); }
+.question.leaving { animation:qout .22s ease forwards; }
+@keyframes qin { from{ opacity:0; transform:translateY(16px);} to{ opacity:1; transform:none;} }
+@keyframes qout { to{ opacity:0; transform:translateY(-12px);} }
+.qkicker { font-size:12px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--emerald-ink); margin-bottom:12px; }
+.qtitle { margin:0 0 10px; font-size:clamp(24px, 3vw, 34px); font-weight:800; letter-spacing:-.04em; line-height:1.08; }
+.qhelp { margin:0 0 26px; color:var(--ink-faint); font-size:15px; line-height:1.6; max-width:560px; }
+
+/* option cards */
+.opts { display:grid; gap:12px; }
+.opts.cols2 { grid-template-columns:repeat(2, minmax(0,1fr)); }
+.opts.cols3 { grid-template-columns:repeat(3, minmax(0,1fr)); }
+@media (max-width:640px){ .opts.cols2, .opts.cols3 { grid-template-columns:1fr; } }
+.opt {
+  position:relative; text-align:left; cursor:pointer;
+  border:1.5px solid var(--line); border-radius:var(--r-md);
+  background:var(--card); padding:17px 18px 17px 52px;
+  font-family:inherit; font-size:15px; color:var(--ink);
+  transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease;
 }
-.hero { text-align:center; padding:10px 0 24px; }
-.logo-wrap {
-  display:flex;
-  justify-content:center;
-  margin:0 auto 18px;
-  position:relative;
-  width:min(1040px, 92vw);
+.opt:hover { border-color:rgba(4,120,87,.45); transform:translateY(-1px); box-shadow:var(--shadow-sm); }
+.opt .key {
+  position:absolute; left:16px; top:50%; transform:translateY(-50%);
+  width:24px; height:24px; border-radius:7px; border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:800; color:var(--ink-soft); background:var(--paper);
 }
-.logo-wrap img {
-  width:min(860px, 88vw);
-  height:auto;
-  opacity:1;
-  filter:none;
+.opt strong { display:block; font-weight:700; font-size:15px; }
+.opt span.d { display:block; margin-top:3px; font-size:13px; color:var(--ink-faint); line-height:1.45; }
+.opt.picked { border-color:var(--emerald); box-shadow:0 0 0 4px rgba(4,120,87,.12), var(--shadow-sm); background:linear-gradient(180deg, rgba(4,120,87,.05), #fff 55%); }
+.opt.picked .key { background:var(--emerald); border-color:var(--emerald); color:#fff; }
+
+/* text inputs */
+.fields { display:grid; gap:16px; max-width:560px; }
+.fields.duo { grid-template-columns:repeat(2, minmax(0,1fr)); }
+@media (max-width:640px){ .fields.duo{ grid-template-columns:1fr; } }
+.f label { display:block; font-size:13px; font-weight:800; margin-bottom:8px; }
+.f label .opt-tag { font-weight:600; color:var(--ink-faint); }
+.f input, .f select {
+  width:100%; appearance:none; font-family:inherit; font-size:15px; color:var(--ink);
+  border:1.5px solid var(--line); border-radius:var(--r-sm); background:#fff;
+  padding:15px 15px; outline:none; transition:.16s ease;
 }
-.logo-wrap::before {
-  content:"";
-  position:absolute;
-  inset:50% auto auto 50%;
-  transform:translate(-50%, -50%);
-  width:520px;
-  height:300px;
-  background: radial-gradient(circle, rgba(4,120,87,.08) 0%, rgba(4,120,87,.03) 36%, transparent 68%);
-  filter: blur(26px);
-  z-index:-1;
+.f input:focus, .f select:focus { border-color:var(--emerald); box-shadow:0 0 0 4px rgba(4,120,87,.10); }
+.f .err { display:none; margin-top:6px; font-size:12.5px; color:#B91C1C; font-weight:600; }
+.f.bad input { border-color:#DC2626; }
+.f.bad .err { display:block; }
+.consent { margin-top:18px; max-width:560px; }
+.consent label { display:flex; gap:11px; align-items:flex-start; font-size:13.5px; color:var(--ink-soft); cursor:pointer; padding:13px 15px; border:1.5px solid var(--line); border-radius:var(--r-sm); background:#fff; transition:.16s ease; }
+.consent label:hover { border-color:rgba(4,120,87,.4); }
+.consent input { margin-top:2px; accent-color:var(--emerald); width:16px; height:16px; }
+.consent.on label { border-color:var(--emerald); box-shadow:0 0 0 3px rgba(4,120,87,.10); }
+.status-line { min-height:20px; margin-top:10px; font-size:12.5px; font-weight:600; }
+.status-line.ok { color:var(--emerald-ink); }
+.status-line.warn { color:#B45309; }
+
+/* ---------- checklist (multi-select tech stack) ---------- */
+.checklist { display:flex; flex-direction:column; gap:20px; max-width:640px; }
+.tcat h5 { margin:0 0 10px; font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
+.tgrid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+@media (max-width:640px){ .tgrid{ grid-template-columns:1fr; } }
+.tool {
+  position:relative; display:flex; align-items:center; gap:11px; cursor:pointer; text-align:left;
+  border:1.5px solid var(--line); border-radius:var(--r-sm); background:var(--card);
+  padding:13px 15px; font-family:inherit; font-size:14.5px; font-weight:600; color:var(--ink);
+  transition:border-color .14s ease, box-shadow .14s ease, background .14s ease;
 }
-.eyebrow { letter-spacing:.24em; text-transform:uppercase; color:var(--navy-soft); font-size:12px; font-weight:700; margin-bottom:14px; }
-h1 { margin:0 auto 10px; max-width:740px; font-size:clamp(34px, 5vw, 56px); line-height:.98; letter-spacing:-.05em; }
-.sub { margin:0 auto; max-width:670px; color: rgba(0,38,58,.72); font-size:17px; line-height:1.6; }
-.frame { background: linear-gradient(180deg, rgba(255,255,255,.84), rgba(255,255,255,.72)); backdrop-filter: blur(14px); border:1px solid var(--border); box-shadow: var(--shadow); border-radius: 32px; overflow:hidden; position:relative; }
-.frame::before {
-  content:"";
-  position:absolute;
-  inset:-18% -12% auto -12%;
-  height:320px;
-  background:
-    radial-gradient(ellipse at 16% 40%, rgba(4,120,87,.12), transparent 0 42%),
-    radial-gradient(ellipse at 78% 22%, rgba(0,38,58,.10), transparent 0 40%),
-    linear-gradient(90deg, rgba(14,219,113,.06), rgba(4,47,69,.03), rgba(14,219,113,.04));
-  filter: blur(6px);
-  animation: driftB 18s ease-in-out infinite alternate;
-  pointer-events:none;
+.tool:hover { border-color:rgba(4,120,87,.42); }
+.tool .box {
+  width:20px; height:20px; border-radius:6px; border:1.5px solid var(--line);
+  display:flex; align-items:center; justify-content:center; flex:none; background:var(--paper);
+  transition:.14s ease;
 }
-.frame::after {
-  content:"";
-  position:absolute;
-  inset:auto -6% -120px -6%;
-  height:240px;
-  background:
-    radial-gradient(ellipse at 24% 50%, rgba(4,120,87,.12), transparent 0 36%),
-    radial-gradient(ellipse at 74% 62%, rgba(0,38,58,.08), transparent 0 34%);
-  filter: blur(8px);
-  animation: driftC 14s ease-in-out infinite alternate;
-  pointer-events:none;
+.tool .box svg { width:12px; height:12px; opacity:0; transform:scale(.6); transition:.14s ease; }
+.tool.on { border-color:var(--emerald); background:linear-gradient(180deg, rgba(4,120,87,.05), #fff 55%); box-shadow:0 0 0 3px rgba(4,120,87,.11); }
+.tool.on .box { background:var(--emerald); border-color:var(--emerald); }
+.tool.on .box svg { opacity:1; transform:none; }
+.tool-note { margin-top:12px; }
+.tool-note input {
+  width:100%; font-family:inherit; font-size:14.5px; color:var(--ink);
+  border:1.5px solid var(--line); border-radius:var(--r-sm); background:#fff; padding:13px 15px; outline:none; transition:.14s ease;
 }
-@keyframes driftB {
-  0% { transform: translateX(-2%) translateY(0); }
-  100% { transform: translateX(2%) translateY(10px); }
+.tool-note input:focus { border-color:var(--emerald); box-shadow:0 0 0 4px rgba(4,120,87,.10); }
+
+/* nav */
+.qnav { display:flex; justify-content:space-between; align-items:center; margin-top:34px; gap:14px; }
+.ghostback { background:none; border:none; font-family:inherit; font-size:14px; font-weight:700; color:var(--ink-soft); cursor:pointer; padding:10px 6px; display:inline-flex; align-items:center; gap:7px; border-radius:9px; }
+.ghostback:hover { color:var(--ink); }
+.gonext {
+  border:none; cursor:pointer; font-family:inherit; font-weight:800; font-size:15px;
+  color:#fff; background:var(--ink); border-radius:14px; padding:16px 26px;
+  box-shadow:0 14px 26px -8px rgba(0,38,58,.30); transition:.16s ease;
+  display:inline-flex; align-items:center; gap:9px;
 }
-@keyframes driftC {
-  0% { transform: translateX(0) translateY(0) scale(1); }
-  100% { transform: translateX(2%) translateY(-14px) scale(1.04); }
+.gonext:hover { transform:translateY(-1px); background:#013049; }
+.gonext.reveal { background:linear-gradient(135deg, var(--emerald), var(--emerald-bright)); box-shadow:0 14px 30px -8px rgba(4,120,87,.45); }
+.gonext:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+.hint { font-size:12px; color:var(--ink-faint); }
+.hint kbd { font-family:inherit; font-weight:800; border:1px solid var(--line); border-bottom-width:2px; padding:2px 6px; border-radius:5px; background:#fff; }
+@media (max-width:640px){ .hint{ display:none; } }
+
+/* ---------- results ---------- */
+.results { display:none; padding:8px 0 30px; }
+.results.active { display:block; }
+.res-head { text-align:center; padding:26px 0 8px; }
+.res-head .eyebrow { display:inline-flex; align-items:center; gap:9px; font-size:11.5px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; color:var(--emerald-ink); background:rgba(4,120,87,.08); border:1px solid rgba(4,120,87,.16); padding:8px 14px; border-radius:999px; margin-bottom:16px; }
+.res-head h2 { margin:0 0 12px; font-size:clamp(30px, 4vw, 46px); letter-spacing:-.045em; line-height:1.04; }
+.res-head p { margin:0 auto; max-width:640px; color:var(--ink-faint); font-size:16px; line-height:1.65; }
+.tiers { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; margin:34px 0 20px; align-items:stretch; }
+.tiers.four { grid-template-columns:repeat(4, minmax(0,1fr)); }
+@media (max-width:1040px){ .tiers, .tiers.four { grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media (max-width:640px){ .tiers, .tiers.four { grid-template-columns:1fr; } }
+.tier {
+  position:relative; display:flex; flex-direction:column;
+  background:var(--card); border:1px solid var(--line); border-radius:24px; padding:26px 24px;
+  box-shadow:var(--shadow-sm);
+  opacity:0; transform:translateY(18px);
 }
-.topbar { padding:18px 24px; display:flex; justify-content:space-between; gap:12px; align-items:center; background: rgba(255,255,255,.7); border-bottom:1px solid var(--border); }
-.badge { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; background:rgba(4,47,69,.05); font-weight:700; font-size:13px; }
-.badge .dot { width:10px; height:10px; border-radius:50%; background:var(--green); box-shadow:0 0 0 4px rgba(4,120,87,.12); }
-.progress-wrap { display:flex; align-items:center; gap:12px; min-width:260px; }
-.progress { flex:1; height:9px; background:rgba(4,47,69,.08); border-radius:999px; overflow:hidden; }
-.bar { height:100%; width:14%; background: linear-gradient(90deg, var(--green), var(--green-deep)); border-radius:999px; transition: width .35s ease; }
-.step-label { font-size:13px; font-weight:700; color:var(--navy-soft); min-width:64px; text-align:right; }
-.grid { display:block; }
-.panel { padding:34px; }
-.main h2 { margin:0 0 12px; font-size:30px; letter-spacing:-.04em; }
-.main p.lead { margin:0 0 24px; color: rgba(0,38,58,.72); line-height:1.6; font-size:16px; }
-.form-step { display:none; animation: fade .22s ease; }
-.form-step.active { display:block; }
-@keyframes fade { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform:none; } }
-.options, .toggle-group { display:grid; gap:12px; }
-.options.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
-.options.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
-.options.industry-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
-.card-option { position:relative; }
-.card-option input { position:absolute; inset:0; opacity:0; pointer-events:none; }
-.card-option label { display:block; padding:18px 18px; border-radius:22px; border:1px solid rgba(0,38,58,.10); background:#fff; cursor:pointer; transition:.18s ease; min-height:84px; }
-.card-option label strong { display:block; font-size:15px; margin-bottom:6px; }
-.card-option label span { color: rgba(0,38,58,.68); font-size:13px; line-height:1.45; }
-.options.industry-grid .card-option label { min-height:72px; display:flex; align-items:center; justify-content:center; text-align:center; }
-.options.industry-grid .card-option label strong { margin-bottom:0; }
-.card-option input:checked + label {
-  border-color: rgba(4,120,87,.92);
-  box-shadow: 0 0 0 4px rgba(4,120,87,.12), 0 0 22px rgba(4,120,87,.16);
-  transform: translateY(-1px);
+.results.active .tier { animation:tin .55s cubic-bezier(.22,1,.36,1) forwards; }
+.results.active .tier:nth-child(1){ animation-delay:.08s; }
+.results.active .tier:nth-child(2){ animation-delay:.2s; }
+.results.active .tier:nth-child(3){ animation-delay:.32s; }
+.results.active .tier:nth-child(4){ animation-delay:.44s; }
+@keyframes tin { to{ opacity:1; transform:none; } }
+.tier.rec {
+  border-color:rgba(4,120,87,.55);
+  box-shadow:0 0 0 4px rgba(4,120,87,.12), 0 24px 50px -14px rgba(4,120,87,.30);
+  background:linear-gradient(180deg, rgba(4,120,87,.06), #fff 40%);
 }
-.card-option label:hover { border-color: rgba(4,47,69,.22); transform: translateY(-1px); }
-.field { margin-bottom:18px; }
-.field label.title { display:block; font-weight:800; font-size:15px; margin-bottom:10px; }
-.input, select { width:100%; appearance:none; border:1px solid rgba(0,38,58,.12); border-radius:16px; padding:16px 15px; font-size:15px; color:var(--navy); background:#fff; outline:none; transition:.18s ease; }
-.input:focus, select:focus { border-color: rgba(4,120,87,.85); box-shadow:0 0 0 4px rgba(4,120,87,.10); }
-.helper { margin-top:8px; color: rgba(0,38,58,.56); font-size:12px; }
-.helper.status { min-height: 18px; }
-.helper.status.ok { color: var(--green); }
-.helper.status.warn { color: #b45309; }
-.helper.status.error { color: #b91c1c; }
-.row-2 { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:14px; }
-.nav { display:flex; justify-content:space-between; gap:12px; margin-top:26px; }
-.btn { border:none; border-radius:16px; padding:16px 20px; font-size:15px; font-weight:800; cursor:pointer; transition:.18s ease; }
-.btn.secondary { background: rgba(4,47,69,.06); color: var(--navy); }
-.btn.secondary:hover { background: rgba(0,38,58,.08); }
-.btn.primary { background: var(--navy); color:#fff; box-shadow:0 14px 24px rgba(0,38,58,.12); }
-.btn.primary:hover { transform: translateY(-1px); background:#02293d; }
-.btn.accent { background: linear-gradient(135deg, var(--green), var(--green-deep)); color:#ffffff; box-shadow:0 10px 24px rgba(4,120,87,.18); }
-.btn.accent:hover { transform: translateY(-1px); box-shadow:0 14px 30px rgba(4,120,87,.22); }
-.hidden { display:none !important; }
-.result-wrap { display:none; padding:38px; background: var(--surface-2); }
-.result-wrap.active { display:block; animation: fade .24s ease; }
-.result-head { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; margin-bottom:24px; }
-.result-head h2 { margin:0 0 10px; font-size:34px; letter-spacing:-.04em; }
-.result-head p { margin:0; max-width:680px; color: rgba(0,38,58,.72); line-height:1.65; }
-.result-card-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px; margin:22px 0 26px; }
-.result-card { padding:22px; border-radius:24px; background:#fff; border:1px solid rgba(0,38,58,.08); box-shadow:0 10px 24px rgba(4,47,69,.06); }
-.result-card .k { font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--navy-soft); font-weight:800; margin-bottom:10px; }
-.result-card .v { font-size:clamp(26px,4vw,36px); font-weight:800; letter-spacing:-.05em; }
-.result-card .s { margin-top:10px; color: rgba(4,47,69,.7); font-size:13px; line-height:1.55; }
-.result-card.highlight { background: linear-gradient(180deg, rgba(4,120,87,.08), rgba(255,255,255,.98)); border-color: rgba(4,120,87,.22); }
-.note-box { display:grid; grid-template-columns: 1.05fr .95fr; gap:16px; }
-.note { padding:20px 22px; background:#fff; border:1px solid rgba(0,38,58,.08); border-radius:22px; }
-.note h3 { margin:0 0 10px; font-size:15px; text-transform:uppercase; letter-spacing:.14em; color:var(--navy-soft); }
-.note p, .note ul { margin:0; color: rgba(0,38,58,.72); font-size:14px; line-height:1.7; }
-.note li + li { margin-top:6px; }
-.note ul { padding-left:18px; }
-.cta-row { display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
-.footer-mini { text-align:center; color: rgba(0,38,58,.58); font-size:12px; padding:18px 12px 0; }
-.tier-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px; margin:22px 0 26px; align-items: stretch; }
-.tier-grid.four { grid-template-columns: repeat(4, minmax(0,1fr)); }
-.tier-card { position:relative; display:flex; flex-direction:column; padding:24px; border-radius:24px; background:#fff; border:1px solid rgba(0,38,58,.10); box-shadow:0 10px 24px rgba(4,47,69,.06); transition: transform .18s ease, box-shadow .18s ease; }
-.tier-card.recommended {
-  border-color: rgba(4,120,87,.55);
-  box-shadow: 0 0 0 4px rgba(4,120,87,.12), 0 18px 44px rgba(4,120,87,.22), 0 0 38px rgba(4,120,87,.18);
-  transform: translateY(-2px);
-  background: linear-gradient(180deg, rgba(4,120,87,.06), #fff 38%);
-}
-.tier-card.custom { border-style: dashed; border-color: rgba(0,38,58,.20); background: linear-gradient(180deg, rgba(0,38,58,.04), #fff 42%); }
-.tier-card.custom.recommended { border-style: solid; }
-.tier-badge { position:absolute; top:-12px; left:24px; padding:6px 12px; border-radius:999px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:800; background: linear-gradient(135deg, var(--green), var(--green-deep)); color:#fff; box-shadow: 0 6px 14px rgba(4,120,87,.28); }
-.tier-name { font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--navy-soft); font-weight:800; margin-bottom:8px; }
-.tier-price { font-size:clamp(22px,2.6vw,28px); font-weight:800; letter-spacing:-.03em; color:var(--navy); margin-bottom:4px; }
-.tier-price .per { font-size:13px; font-weight:600; color:var(--navy-soft); letter-spacing:0; margin-left:4px; }
-.tier-price.custom-price { font-size:22px; color: var(--green); letter-spacing:-.02em; }
-.tier-tagline { font-size:13px; color:rgba(0,38,58,.68); margin-bottom:16px; line-height:1.5; min-height:38px; }
-.tier-section-label { font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--navy-soft); font-weight:800; margin:14px 0 8px; padding-top:12px; border-top:1px dashed rgba(0,38,58,.12); }
-.tier-section-label:first-of-type { padding-top:0; border-top:none; margin-top:0; }
-.tier-list { list-style:none; padding:0; margin:0 0 4px; }
-.tier-list li { position:relative; padding:4px 0 4px 22px; font-size:13.5px; line-height:1.5; color:var(--navy); }
-.tier-list li::before { content:""; position:absolute; left:2px; top:11px; width:10px; height:10px; border-radius:50%; background: rgba(4,120,87,.14); }
-.tier-list li::after { content:""; position:absolute; left:5px; top:13px; width:4px; height:6px; border-right:2px solid var(--green); border-bottom:2px solid var(--green); transform: rotate(45deg); }
-.tier-list.addons li::before { background: rgba(0,38,58,.08); }
-.tier-list.addons li::after { border-color: var(--navy-soft); }
-.tier-list li.disabled { color: rgba(0,38,58,.38); text-decoration: line-through; }
-.tier-list li.disabled::before { background: rgba(0,38,58,.06); }
-.tier-list li.disabled::after { border-color: rgba(0,38,58,.28); }
-.tier-cta { margin-top:auto; padding-top:18px; }
-.tier-cta .btn { width:100%; padding:14px 18px; font-size:14px; border-radius:14px; }
-.tier-no-addons { font-size:12.5px; color:rgba(0,38,58,.50); font-style:italic; padding:4px 0; }
-.result-card-grid.secondary { grid-template-columns: repeat(2, minmax(0,1fr)); }
-@media (max-width: 1040px) {
-  .tier-grid, .tier-grid.four { grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
-@media (max-width: 640px) {
-  .tier-grid, .tier-grid.four, .result-card-grid.secondary { grid-template-columns: 1fr; }
-}
-@media (max-width: 860px) {
-  .note-box, .result-card-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 640px) {
-  .shell { width:min(100vw - 20px, 980px); padding-top:18px; }
-  .panel, .result-wrap { padding:22px; }
-  .topbar { padding:14px 16px; flex-direction:column; align-items:stretch; }
-  .options.two, .options.three, .options.industry-grid, .row-2 { grid-template-columns:1fr; }
-  .badge { justify-content:center; }
-  .logo-wrap img { width:min(680px, 88vw); }
-}
+.tier.custom { border-style:dashed; }
+.tier .badge { position:absolute; top:-13px; left:22px; padding:6px 13px; border-radius:999px; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#fff; background:linear-gradient(135deg, var(--emerald), var(--emerald-bright)); box-shadow:0 8px 18px -4px rgba(4,120,87,.4); }
+.tier .tname { font-size:12.5px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px; }
+.tier .tprice { font-size:clamp(22px, 2.4vw, 27px); font-weight:800; letter-spacing:-.03em; }
+.tier .tprice .per { font-size:13px; font-weight:600; color:var(--ink-soft); margin-left:4px; letter-spacing:0; }
+.tier .tprice.custom-q { color:var(--emerald); font-size:22px; }
+.tier .ttag { margin:8px 0 16px; font-size:13px; color:var(--ink-faint); line-height:1.5; min-height:40px; }
+.tier .sec { font-size:10px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); margin:13px 0 8px; padding-top:12px; border-top:1px dashed var(--line); }
+.tier .sec.first { border-top:none; padding-top:0; margin-top:0; }
+.tier ul { list-style:none; margin:0; padding:0; }
+.tier ul li { position:relative; padding:4px 0 4px 24px; font-size:13.5px; line-height:1.5; }
+.tier ul li::before { content:""; position:absolute; left:2px; top:9px; width:12px; height:12px; border-radius:50%; background:rgba(4,120,87,.13); }
+.tier ul li::after { content:""; position:absolute; left:6px; top:12px; width:4px; height:6px; border-right:2px solid var(--emerald); border-bottom:2px solid var(--emerald); transform:rotate(45deg); }
+.tier ul.mods li::before { background:rgba(0,38,58,.08); }
+.tier ul.mods li::after { border-color:var(--ink-soft); }
+.tier ul li.off { color:rgba(0,38,58,.38); text-decoration:line-through; }
+.tier ul li.off::after { border-color:rgba(0,38,58,.25); }
+.tier .none-mods { font-size:12.5px; font-style:italic; color:var(--ink-faint); padding:3px 0; }
+.tier .tcta { margin-top:auto; padding-top:18px; }
+.tier .tcta a { display:flex; align-items:center; justify-content:center; text-decoration:none; font-weight:800; font-size:14px; border-radius:13px; padding:14px 16px; transition:.16s ease; }
+.tier .tcta a.main { color:#fff; background:linear-gradient(135deg, var(--emerald), var(--emerald-bright)); box-shadow:0 12px 24px -8px rgba(4,120,87,.45); }
+.tier .tcta a.alt { color:var(--ink); background:rgba(0,38,58,.06); }
+.tier .tcta a:hover { transform:translateY(-1px); }
+
+.res-duo { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px; margin:6px 0 18px; }
+@media (max-width:860px){ .res-duo{ grid-template-columns:1fr; } }
+.rcard { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:22px; box-shadow:var(--shadow-sm); }
+.rcard .k { font-size:11px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:9px; }
+.rcard .v { font-size:clamp(24px, 3vw, 32px); font-weight:800; letter-spacing:-.04em; }
+.rcard .s { margin-top:9px; font-size:13px; color:var(--ink-faint); line-height:1.55; }
+.res-notes { display:grid; grid-template-columns:1.05fr .95fr; gap:18px; }
+@media (max-width:860px){ .res-notes{ grid-template-columns:1fr; } }
+.note { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:22px; box-shadow:var(--shadow-sm); }
+.note h4 { margin:0 0 12px; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
+.note ul { margin:0; padding-left:18px; color:var(--ink-soft); font-size:14px; line-height:1.75; }
+.note p { margin:0 0 14px; color:var(--ink-soft); font-size:14px; line-height:1.7; }
+.cta-row { display:flex; gap:12px; flex-wrap:wrap; }
+.cta-row a, .cta-row button { font-family:inherit; font-weight:800; font-size:14.5px; border-radius:13px; padding:15px 20px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; border:none; transition:.16s ease; }
+.cta-row a.main { color:#fff; background:linear-gradient(135deg, var(--emerald), var(--emerald-bright)); box-shadow:0 12px 26px -8px rgba(4,120,87,.4); }
+.cta-row button.alt { color:var(--ink); background:rgba(0,38,58,.06); }
+.cta-row a:hover, .cta-row button:hover { transform:translateY(-1px); }
+
+.foot { text-align:center; color:var(--ink-faint); font-size:12.5px; padding:30px 12px 14px; }
+.foot nav { display:flex; flex-wrap:wrap; gap:18px; justify-content:center; margin-top:10px; }
+.foot nav a { color:var(--emerald); text-decoration:none; font-weight:600; }
 </style>
 </head>
 <body>
@@ -310,673 +344,737 @@ h1 { margin:0 auto 10px; max-width:740px; font-size:clamp(34px, 5vw, 56px); line
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPBL5MRZ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
-  <div class="shell">
-    <section class="hero">
-      <div class="logo-wrap"><img alt="Turnkey CFO" src="./assets/tk-logo.png" /></div>
-      <div class="eyebrow">Instant Estimate Experience</div>
-      <h1>See what your monthly finance support could look like.</h1>
-      <p class="sub">A free and quick way to have a custom quote tailored for your business needs.</p>
-    </section>
 
-    <section class="frame">
-      <div class="topbar" id="formTopbar">
-        <div class="badge"><span class="dot"></span> Premium estimate in under 1 minute</div>
-        <div class="progress-wrap">
-          <div class="progress"><div class="bar" id="progressBar"></div></div>
-          <div class="step-label" id="stepLabel">1 / 5</div>
+<div class="wrap">
+  <header class="masthead">
+    <img src="./assets/tk-logo.png" alt="Turnkey CFO" />
+    <div class="tag">Instant Estimate</div>
+  </header>
+
+  <section class="hero" id="hero">
+    <div>
+      <div class="eyebrow"><span class="pulse"></span> Tailored in about a minute</div>
+      <h1>Your books, priced for <em>your</em> business.</h1>
+      <p class="sub">Every organization runs differently. A church with designated funds, a contractor tracking jobs, a shop carrying inventory. Answer a few smart questions and we shape a three-tier estimate around the way you actually operate.</p>
+    </div>
+    <div class="hero-side">
+      <div class="mini"><b>3 tiers</b><span>One clear recommendation, zero pressure</span></div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage">
+    <aside class="rail">
+      <div class="rail-title">Your estimate path</div>
+      <div class="trail" id="trail"></div>
+      <div class="forming">
+        <div class="k">Estimate forming</div>
+        <div class="band veiled" id="formingBand">Answer to begin</div>
+        <div class="meter" id="formingMeter"></div>
+        <div class="note" id="formingNote">Your range sharpens with every answer.</div>
+      </div>
+    </aside>
+
+    <div class="qpane">
+      <div class="qhead">
+        <div class="qcount" id="qcount">Question 1</div>
+        <div class="qbar"><i id="qbarFill"></i></div>
+      </div>
+      <div class="qbody" id="qbody"></div>
+      <div class="qnav">
+        <button class="ghostback" id="btnBack" type="button">&#8592; Back</button>
+        <div class="hint" id="keyHint">Press <kbd>1</kbd>&ndash;<kbd>9</kbd> to choose &middot; <kbd>Enter</kbd> to continue</div>
+        <button class="gonext" id="btnNext" type="button">Continue &#8594;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="results" id="results">
+    <div class="res-head">
+      <div class="eyebrow"><span class="pulse"></span> Your estimate is ready</div>
+      <h2 id="resTitle">Here is where your books land.</h2>
+      <p id="resNarrative"></p>
+    </div>
+    <div class="tiers" id="tiers"></div>
+    <div class="res-duo">
+      <div class="rcard">
+        <div class="k">Catch-up / setup estimate</div>
+        <div class="v" id="cleanupV">None implied</div>
+        <div class="s" id="cleanupS">Catch-up work is priced separately so your monthly service stays clean and predictable.</div>
+      </div>
+      <div class="rcard">
+        <div class="k">Review status</div>
+        <div class="v" id="reviewV">Looks standard</div>
+        <div class="s" id="reviewS">No major complexity flags were triggered by your answers.</div>
+      </div>
+    </div>
+    <div class="res-notes">
+      <div class="note">
+        <h4>What shaped your estimate</h4>
+        <ul id="summaryList"></ul>
+      </div>
+      <div class="note">
+        <h4>What happens next</h4>
+        <p id="nextCopy">These ranges are built for real planning. The next step is a short intro call where we confirm the details, answer your questions, and turn the tier you like into a finalized proposal.</p>
+        <div class="cta-row">
+          <a class="main" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener noreferrer">Book a 15-min review call</a>
+          <button class="alt" type="button" id="btnRestart">Start over</button>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="grid" id="formGrid">
-        <div class="panel main">
-          <form id="quoteForm">
-            <div class="form-step active" data-step="1">
-              <h2>Start with the shape of the business.</h2>
-              <div class="field">
-                <label class="title" for="companyName">Company name</label>
-                <input class="input" id="companyName" name="companyName" type="text" placeholder="Your company name" required />
-              </div>
-              <div class="field">
-                <label class="title">Industry</label>
-                <div class="options industry-grid">
-                  <div class="card-option"><input type="radio" name="industry" id="ind-church" value="church" required><label for="ind-church"><strong>Church / NonProfit</strong></label></div>
-                  <div class="card-option"><input type="radio" name="industry" id="ind-construction" value="construction"><label for="ind-construction"><strong>Construction</strong></label></div>
-                  <div class="card-option"><input type="radio" name="industry" id="ind-ecommerce" value="other"><label for="ind-ecommerce"><strong>Ecommerce</strong></label></div>
-                  <div class="card-option"><input type="radio" name="industry" id="ind-saas" value="other"><label for="ind-saas"><strong>SaaS</strong></label></div>
-                  <div class="card-option"><input type="radio" name="industry" id="ind-realestate" value="other"><label for="ind-realestate"><strong>Real Estate</strong></label></div>
-                  <div class="card-option"><input type="radio" name="industry" id="ind-finserv" value="other"><label for="ind-finserv"><strong>Financial Services</strong></label></div>
-                  <div class="card-option"><input type="radio" name="industry" id="ind-other" value="other"><label for="ind-other"><strong>Other</strong></label></div>
-                </div>
-              </div>
-              <div class="field hidden" id="otherIndustryWrap">
-                <label class="title" for="otherIndustryName">Tell us your industry</label>
-                <input class="input" id="otherIndustryName" name="otherIndustryName" type="text" placeholder="Optional" />
-              </div>
-              <div class="row-2">
-                <div class="field">
-                  <label class="title" for="revenue">Annual revenue</label>
-                  <select id="revenue" name="revenue" required>
-                    <option value="" disabled selected>Select a range</option>
-                    <option value="lt250">Under $250k</option>
-                    <option value="250to1m">$250k - $1M</option>
-                    <option value="1to3m">$1M - $3M</option>
-                    <option value="gt3m">$3M+</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label class="title" for="software">Accounting software</label>
-                  <select id="software" name="software" required>
-                    <option value="" disabled selected>Select software</option>
-                    <option value="quickbooks">QuickBooks</option>
-                    <option value="xero">Xero</option>
-                    <option value="zoho">Zoho Books</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-step" data-step="software-other">
-              <h2>Tell us the accounting tool you use.</h2>
-              <p class="lead">This helps us flag any migration or workflow considerations before we finalize scope.</p>
-              <div class="field">
-                <label class="title" for="otherSoftwareName">Accounting tool name</label>
-                <input class="input" id="otherSoftwareName" name="otherSoftwareName" type="text" placeholder="Enter your accounting software" />
-              </div>
-            </div>
-
-            <div class="form-step" data-step="2">
-              <h2>Next, tell us about complexity.</h2>
-              <p class="lead">A few simple inputs help us estimate how much hands-on management your books will need each month.</p>
-              <div class="row-2">
-                <div class="field">
-                  <label class="title" for="accountCount">Total bank + credit card accounts</label>
-                  <select id="accountCount" name="accountCount" required>
-                    <option value="le5">5 or fewer</option>
-                    <option value="6to10">6 - 10</option>
-                    <option value="gt10">11+</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row-2">
-                <div class="field">
-                  <label class="title" for="inventory">Inventory tracking?</label>
-                  <select id="inventory" name="inventory" required>
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-step" data-step="3">
-              <h2>Choose the support you want each month.</h2>
-              <p class="lead">Your bookkeeping estimate starts at a base fee, then builds only where extra service is needed.</p>
-              <div class="field">
-                <label class="title">Payroll support</label>
-                <div class="options three">
-                  <div class="card-option"><input type="radio" name="payroll" id="pay-none" value="none" required><label for="pay-none"><strong>No payroll</strong><span>No payroll administration needed.</span></label></div>
-                  <div class="card-option"><input type="radio" name="payroll" id="pay-simple" value="simple"><label for="pay-simple"><strong>Simple payroll</strong><span>W-2 payroll only.</span></label></div>
-                  <div class="card-option"><input type="radio" name="payroll" id="pay-complex" value="complex"><label for="pay-complex"><strong>Payroll +</strong><span>Multi-state or more involved payroll support.</span></label></div>
-                </div>
-              </div>
-              <div class="row-2">
-                <div class="field">
-                  <label class="title" for="billpay">Bill pay / AP support</label>
-                  <select id="billpay" name="billpay" required>
-                    <option value="none">No</option>
-                    <option value="lt40">Yes &mdash; under 40 bills/month</option>
-                    <option value="40to100">Yes &mdash; 40 to 100 bills/month</option>
-                    <option value="gt100">Yes &mdash; 100+ bills/month</option>
-                  </select>
-                </div>
-                <div class="field construction-only hidden" id="jobCostWrap">
-                  <label class="title" for="jobCosting">Need job costing?</label>
-                  <select id="jobCosting" name="jobCosting">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row-2">
-                <div class="field">
-                  <label class="title" for="needs1099">Do you issue 1099s to contractors?</label>
-                  <select id="needs1099" name="needs1099" required>
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                  </select>
-                </div>
-              </div>
-              <div class="field">
-                <label class="title">Interested in custom CFO-level services?</label>
-                <div class="toggle-group">
-                  <div class="card-option"><input type="checkbox" name="cfoInterest" id="cfoInterest" value="yes"><label for="cfoInterest"><strong>Yes &mdash; tell me about CFO services</strong><span>We're bookkeeping-first. This unlocks a custom-quoted CFO scope for the rare business that needs it.</span></label></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-step" data-step="4">
-              <h2>How current are the books today?</h2>
-              <p class="lead">We estimate catch-up work separately so your monthly service quote stays clean.</p>
-              <div class="field">
-                <label class="title" for="monthsBehind">Months behind</label>
-                <select id="monthsBehind" name="monthsBehind" required>
-                  <option value="0">Current / no cleanup needed</option>
-                  <option value="1">1 month</option>
-                  <option value="2">2 months</option>
-                  <option value="3">3 months</option>
-                  <option value="4">4 months</option>
-                  <option value="5">5 months</option>
-                  <option value="6">6 months</option>
-                  <option value="7">7+ months</option>
-                </select>
-                <div class="helper">Cleanup is estimated separately using your monthly service level as the base.</div>
-              </div>
-            </div>
-
-            <div class="form-step" data-step="5">
-              <h2>One last detail before we reveal your estimate.</h2>
-              <p class="lead">Enter your email and we'll surface your custom estimate on the next screen.</p>
-              <div class="field">
-                <label class="title" for="email">Email address</label>
-                <input class="input" id="email" name="email" type="email" placeholder="you@company.com" required />
-                <div class="helper status" id="submissionStatus"></div>
-              </div>
-            </div>
-
-            <div class="nav">
-              <button type="button" class="btn secondary" id="backBtn">Back</button>
-              <button type="button" class="btn primary" id="nextBtn">Continue</button>
-              <button type="submit" class="btn accent hidden" id="submitBtn">See my estimate</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <section class="result-wrap" id="resultWrap">
-        <div class="result-head">
-          <div>
-            <div class="eyebrow" style="margin-bottom:12px;">Your estimate is ready</div>
-            <h2>Choose the plan that fits.</h2>
-            <p id="narrative">Based on your inputs, here's what each tier would look like for your business. One plan is highlighted as our recommendation.</p>
-          </div>
-        </div>
-
-        <div class="tier-grid" id="tierGrid"></div>
-
-        <div class="result-card-grid secondary">
-          <div class="result-card">
-            <div class="k">Cleanup estimate</div>
-            <div class="v" id="cleanupFee">$0</div>
-            <div class="s">Shown separately so monthly service pricing stays clean and predictable.</div>
-          </div>
-          <div class="result-card">
-            <div class="k">Review status</div>
-            <div class="v" id="reviewStatus">Looks standard</div>
-            <div class="s" id="reviewSub">No major complexity flags were triggered by your responses.</div>
-          </div>
-        </div>
-
-        <div class="note-box">
-          <div class="note">
-            <h3>Estimate summary</h3>
-            <ul id="estimateSummary"></ul>
-          </div>
-          <div class="note">
-            <h3>What happens next</h3>
-            <p>This estimate is designed to give you a practical planning range. The next step is a short intro call so we can confirm fit, answer questions, and turn this into a finalized proposal if needed.</p>
-            <div class="cta-row">
-              <a class="btn accent" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener noreferrer" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Book 15min Review Call</a>
-              <button class="btn secondary" type="button" id="restartBtn">Start over</button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <div class="footer-mini">Turnkey CFO &mdash; estimate ranges are directional and subject to final review.</div>
+  <div class="foot">
+    Turnkey CFO &mdash; estimate ranges are directional and subject to final review.
+    <nav>
+      <a href="/">Home</a>
+      <a href="/services/">Bookkeeping Services</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/blog/">Bookkeeping Tips</a>
+    </nav>
   </div>
+</div>
 
 <script>
-const steps = Array.from(document.querySelectorAll('.form-step'));
-const progressBar = document.getElementById('progressBar');
-const stepLabel = document.getElementById('stepLabel');
-const nextBtn = document.getElementById('nextBtn');
-const backBtn = document.getElementById('backBtn');
-const submitBtn = document.getElementById('submitBtn');
-const form = document.getElementById('quoteForm');
-const resultWrap = document.getElementById('resultWrap');
-const formGrid = document.getElementById('formGrid');
-const formTopbar = document.getElementById('formTopbar');
-const restartBtn = document.getElementById('restartBtn');
-const industryInputs = document.querySelectorAll('input[name="industry"]');
-const jobCostWrap = document.getElementById('jobCostWrap');
-const otherIndustryWrap = document.getElementById('otherIndustryWrap');
-const cursorGlow = document.getElementById('cursorGlow');
-const submissionStatus = document.getElementById('submissionStatus');
+'use strict';
 const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby3WTNHSphNeqvrSBYyFilCvP2hYRV8YCCpSgLOCThC6PheZ2hflDtLUTUmgOxBCoPT/exec';
-let currentStep = 0;
 
-// Traffic-source capture: read once on landing (survives the multi-step form
-// via sessionStorage, in case of a mid-form refresh), never overwrites once set
-// so a later internal link click on the results page can't clobber the original source.
+/* ---------- traffic source (never overwritten once set) ---------- */
 function captureTrafficSource_() {
   try {
     const stored = sessionStorage.getItem('tk_traffic_source');
     if (stored) return JSON.parse(stored);
-    const params = new URLSearchParams(window.location.search);
+    const p = new URLSearchParams(window.location.search);
     const info = {
-      utmSource: params.get('utm_source') || '',
-      utmMedium: params.get('utm_medium') || '',
-      utmCampaign: params.get('utm_campaign') || '',
-      gclid: params.get('gclid') || '',
+      utmSource: p.get('utm_source') || '', utmMedium: p.get('utm_medium') || '',
+      utmCampaign: p.get('utm_campaign') || '', gclid: p.get('gclid') || '',
       referrer: document.referrer || ''
     };
     sessionStorage.setItem('tk_traffic_source', JSON.stringify(info));
     return info;
-  } catch (err) {
-    return { utmSource: '', utmMedium: '', utmCampaign: '', gclid: '', referrer: '' };
+  } catch (e) { return { utmSource:'', utmMedium:'', utmCampaign:'', gclid:'', referrer:'' }; }
+}
+const TRAFFIC = captureTrafficSource_();
+
+/* ---------- state ---------- */
+const S = {};
+
+/* ---------- industry preselect (from industry landing pages, e.g. /churches -> ?industry=church) ---------- */
+const ORG_SYNONYMS = {
+  church:'church', churches:'church', ministry:'church', ministries:'church', churchesandministries:'church',
+  nonprofit:'nonprofit', 'non-profit':'nonprofit', nonprofits:'nonprofit', charity:'nonprofit', charities:'nonprofit',
+  contractor:'contractor', contractors:'contractor', construction:'contractor', trades:'contractor', constructiontrades:'contractor',
+  ecommerce:'ecommerce', ecom:'ecommerce', 'e-commerce':'ecommerce', retail:'ecommerce', shop:'ecommerce',
+  services:'services', service:'services', professional:'services', professionalservices:'services', agency:'services', agencies:'services',
+  realestate:'realestate', 'real-estate':'realestate', property:'realestate', properties:'realestate', 'property-management':'realestate',
+  other:'other'
+};
+function presetOrg_() {
+  try {
+    const p = new URLSearchParams(window.location.search);
+    var raw = (p.get('industry') || p.get('org') || p.get('orgType') || '').toLowerCase().trim().replace(/[\s_]+/g, '');
+    return ORG_SYNONYMS[raw] || '';
+  } catch (e) { return ''; }
+}
+const PRESET_ORG = presetOrg_();
+if (PRESET_ORG) { S.orgType = PRESET_ORG; S._orgPreset = true; }
+
+/* ---------- helpers ---------- */
+const $ = (id) => document.getElementById(id);
+const money = (n) => n.toLocaleString('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const isChurchy = () => S.orgType === 'church' || S.orgType === 'nonprofit';
+
+/* ---------- adaptive question definitions ---------- */
+const QUESTIONS = [
+  {
+    id:'orgType', group:'About you', kicker:'The shape of your organization',
+    title:'What kind of organization are you running?',
+    help:'This decides which questions we ask next. You only see what applies to you.',
+    kind:'cards', cols:2, showIf: s => !s._orgPreset,
+    options:[
+      { v:'church',     t:'Church or Ministry',        d:'Giving, funds, and stewardship-grade books.' },
+      { v:'nonprofit',  t:'Nonprofit',                 d:'Grants, restricted gifts, board reporting.' },
+      { v:'contractor', t:'Construction / Trades',     d:'Jobs, subs, and project profitability.' },
+      { v:'ecommerce',  t:'Ecommerce / Retail',        d:'Inventory, channels, and sales tax.' },
+      { v:'services',   t:'Professional Services',     d:'Agencies, consultants, practices, and firms.' },
+      { v:'realestate', t:'Real Estate / Property',    d:'Properties, units, and owner reporting.' },
+      { v:'other',      t:'Something else',            d:'We will tailor it from your description.' }
+    ]
+  },
+  {
+    id:'otherIndustry', group:'About you', kicker:'Your world',
+    title:'Tell us what you do.',
+    help:'One line is plenty. It helps us ask better questions on the call.',
+    kind:'text', showIf: s => s.orgType === 'other',
+    fields:[ { id:'otherIndustryName', label:'Your industry', ph:'e.g. Med spa, trucking, private school', required:true } ]
+  },
+  {
+    id:'entityCount', group:'About you', kicker:'Structure',
+    title:'How many legal entities need books?',
+    help:'Each company gets its own clean set of books, so this shapes the estimate directly.',
+    kind:'cards',
+    options:[
+      { v:'one',   t:'Just one', d:'A single company or organization.' },
+      { v:'2to3',  t:'2 to 3 entities', d:'A couple of related companies.' },
+      { v:'4plus', t:'4 or more', d:'A group or portfolio. We price per entity.' }
+    ]
+  },
+  {
+    id:'revenue', group:'About you', kicker:'Scale',
+    title:'What is your annual revenue?',
+    titleChurch:'What is your annual giving plus other income?',
+    help:'A range is all we need. Nothing here is binding.',
+    kind:'cards',
+    options:[
+      { v:'lt250',   t:'Under $250k' },
+      { v:'250to1m', t:'$250k to $1M' },
+      { v:'1to3m',   t:'$1M to $3M' },
+      { v:'3to10m',  t:'$3M to $10M' },
+      { v:'gt10m',   t:'$10M+' }
+    ]
+  },
+
+  /* ---- industry branches ---- */
+  {
+    id:'funds', group:'Your specifics', kicker:'Fund accounting',
+    title:'Do you track designated funds or restricted gifts?',
+    help:'Building funds, missions, benevolence, grants with strings attached. Anything a donor earmarked.',
+    kind:'cards', showIf: s => isChurchy(),
+    options:[
+      { v:'yes', t:'Yes', d:'We track designated or restricted money.' },
+      { v:'no',  t:'No',  d:'Everything lands in one general fund.' }
+    ]
+  },
+  {
+    id:'campaign', group:'Your specifics', kicker:'Campaigns',
+    title:'Is a capital campaign or building fund underway?',
+    help:'Campaign money deserves its own clean lane in the books.',
+    kind:'cards', showIf: s => isChurchy(),
+    options:[
+      { v:'yes', t:'Yes', d:'Active campaign or one launching soon.' },
+      { v:'no',  t:'No',  d:'Nothing underway right now.' }
+    ]
+  },
+  {
+    id:'jobCosting', group:'Your specifics', kicker:'Job profitability',
+    title:'Do you need to see profit by job or project?',
+    help:'Job costing tells you which projects actually make money, not just whether the month did.',
+    kind:'cards', showIf: s => s.orgType === 'contractor',
+    options:[
+      { v:'yes', t:'Yes', d:'Track costs and margin per job.' },
+      { v:'no',  t:'No',  d:'Company-level books are enough.' }
+    ]
+  },
+  {
+    id:'subs', group:'Your specifics', kicker:'Your crew',
+    title:'Do you pay subcontractors?',
+    help:'Subs mean 1099 tracking, and we fold that in so January never surprises you.',
+    kind:'cards', showIf: s => s.orgType === 'contractor',
+    options:[
+      { v:'yes', t:'Yes', d:'We use 1099 subcontractors.' },
+      { v:'no',  t:'No',  d:'W-2 crew or owner-operated.' }
+    ]
+  },
+  {
+    id:'inventory', group:'Your specifics', kicker:'Product flow',
+    title:'Do you carry inventory?',
+    help:'Inventory changes how cost of goods and margins get tracked each month.',
+    kind:'cards', showIf: s => s.orgType === 'ecommerce',
+    options:[
+      { v:'yes', t:'Yes', d:'We stock and count product.' },
+      { v:'no',  t:'No',  d:'Dropship, digital, or services.' }
+    ]
+  },
+  {
+    id:'channels', group:'Your specifics', kicker:'Where you sell',
+    title:'How many sales channels do you run?',
+    help:'Shopify, Amazon, wholesale, in-person. Each channel adds reconciliation work.',
+    kind:'cards', showIf: s => s.orgType === 'ecommerce',
+    options:[
+      { v:'one',   t:'One channel' },
+      { v:'2to3',  t:'2 to 3 channels' },
+      { v:'4plus', t:'4 or more' }
+    ]
+  },
+  {
+    id:'units', group:'Your specifics', kicker:'Portfolio',
+    title:'How many properties or units do you manage?',
+    help:'Per-property reporting is where real estate books earn their keep.',
+    kind:'cards', showIf: s => s.orgType === 'realestate',
+    options:[
+      { v:'u1to3',  t:'1 to 3' },
+      { v:'u4to10', t:'4 to 10' },
+      { v:'u11',    t:'11 or more' }
+    ]
+  },
+  {
+    id:'ar', group:'Your specifics', kicker:'Getting paid',
+    title:'Do you invoice clients and track receivables?',
+    help:'If money is owed to you, the books should always know exactly who and how much.',
+    kind:'cards', showIf: s => s.orgType === 'services' || s.orgType === 'other',
+    options:[
+      { v:'yes', t:'Yes', d:'We invoice and chase receivables.' },
+      { v:'no',  t:'No',  d:'Paid at time of sale.' }
+    ]
+  },
+
+  /* ---- financial tech stack ---- */
+  {
+    id:'techStack', group:'Your tools', kicker:'Your financial stack',
+    title:'Which tools do you use today?',
+    titleChurch:'Which tools does your church use today?',
+    help:'Select all that apply, across giving, cards, bill pay, and payroll. This tells us exactly what we would be plugging into. Skip anything that does not apply.',
+    kind:'checklist'
+  },
+
+  /* ---- complexity ---- */
+  {
+    id:'accounts', group:'Complexity', kicker:'Accounts',
+    title:'How many bank and credit card accounts?',
+    help:'Count everything we would reconcile monthly, business accounts and cards.',
+    kind:'cards',
+    options:[
+      { v:'le5',   t:'5 or fewer' },
+      { v:'6to10', t:'6 to 10' },
+      { v:'gt10',  t:'11 or more' }
+    ]
+  },
+  {
+    id:'txns', group:'Complexity', kicker:'Volume',
+    title:'Roughly how many transactions a month?',
+    help:'Your best guess across all accounts. Deposits, charges, transfers, everything.',
+    kind:'cards', cols:2,
+    options:[
+      { v:'lt100',    t:'Under 100', d:'Light and tidy.' },
+      { v:'100to300', t:'100 to 300', d:'A steady rhythm.' },
+      { v:'300to750', t:'300 to 750', d:'A busy operation.' },
+      { v:'gt750',    t:'750+', d:'High volume, real machinery.' }
+    ]
+  },
+  {
+    id:'payroll', group:'Service level', kicker:'Your team',
+    title:'What does payroll look like?',
+    kind:'cards',
+    options:[
+      { v:'none',    t:'No payroll', d:'Owner draws or volunteers only.' },
+      { v:'simple',  t:'Simple payroll', d:'Straightforward W-2 payroll, one state.' },
+      { v:'complex', t:'Payroll +', d:'Multi-state or more involved payroll support.' }
+    ],
+    optionsChurch:[
+      { v:'none',    t:'No payroll', d:'Volunteer-led, no paid staff.' },
+      { v:'simple',  t:'Simple payroll', d:'Paid staff, straightforward W-2.' },
+      { v:'complex', t:'Payroll +', d:'Clergy housing allowances, multi-state, or anything beyond simple W-2.' }
+    ]
+  },
+  {
+    id:'billpay', group:'Service level', kicker:'Paying vendors',
+    title:'Want us to run bill pay for you?',
+    help:'We receive, code, and schedule vendor bills so payments never depend on your memory.',
+    kind:'cards', cols:2,
+    options:[
+      { v:'none',    t:'No thanks', d:'We handle our own vendor payments.' },
+      { v:'lt40',    t:'Yes, under 40 bills a month' },
+      { v:'40to100', t:'Yes, 40 to 100 bills a month' },
+      { v:'gt100',   t:'Yes, 100+ bills a month' }
+    ]
+  },
+  {
+    id:'needs1099', group:'Service level', kicker:'Contractors',
+    title:'Do you issue 1099s to contractors?',
+    help:'We track payments all year so January filing is a non-event.',
+    kind:'cards', showIf: s => s.orgType !== 'contractor',
+    options:[
+      { v:'yes', t:'Yes', d:'We pay contractors who need 1099s.' },
+      { v:'no',  t:'No',  d:'No contractor payments to report.' }
+    ]
+  },
+  {
+    id:'booksManaged', group:'Service level', kicker:'Bookkeeping today',
+    title:'How are your books managed today?',
+    titleChurch:'How is your church bookkeeping handled today?',
+    help:'Whoever touches the books now — you, a staff member, a CPA, or an outside firm. Pick the closest.',
+    kind:'cards', cols:2, options:[], writePlaceholder:'Who manages your books?'
+  },
+  {
+    id:'booksState', group:'Service level', kicker:'Where the books stand',
+    title:'How current are your books today?',
+    help:'Catch-up work is estimated separately, so your monthly quote stays clean.',
+    kind:'cards', cols:2,
+    options:[
+      { v:'current', t:'Current', d:'Reconciled and up to date.' },
+      { v:'behind1to3', t:'A few months behind', d:'1 to 3 months of catch-up.' },
+      { v:'behind4to6', t:'Half a year behind', d:'4 to 6 months of catch-up.' },
+      { v:'behind7', t:'7+ months behind', d:'A real cleanup project.' },
+      { v:'fresh', t:'Starting fresh', d:'No books yet. We build from zero.' }
+    ]
+  },
+  {
+    id:'goal', group:'Service level', kicker:'The finish line',
+    title:'When the books are handled, what do you want most?',
+    help:'This shapes which tier we recommend. There is no wrong answer.',
+    kind:'cards',
+    options:[
+      { v:'books',      t:'Peace of mind', d:'Clean, accurate books I never have to think about.' },
+      { v:'visibility', t:'Real visibility', d:'A live dashboard and reporting I can actually act on.' },
+      { v:'partner',    t:'A partner in the numbers', d:'Someone who interprets the story each month, not just closes it.' }
+    ]
+  },
+  {
+    id:'contact', group:'Your estimate', kicker:'Last step',
+    title:'Where should we anchor your estimate?',
+    help:'Your three-tier estimate appears immediately on the next screen. We also keep a copy tied to your details for the follow-up conversation.',
+    kind:'contact'
+  }
+];
+
+/* ---------- rail groups ---------- */
+const GROUPS = ['About you', 'Your specifics', 'Your tools', 'Complexity', 'Service level', 'Your estimate'];
+
+/* ---------- engine ---------- */
+let idx = 0;
+const qbody = $('qbody');
+
+function activeQuestions() { return QUESTIONS.filter(q => !q.showIf || q.showIf(S)); }
+
+function renderTrail() {
+  const act = activeQuestions();
+  const cur = act[idx];
+  const gDone = {};
+  GROUPS.forEach(g => {
+    const qs = act.filter(q => q.group === g);
+    gDone[g] = qs.length > 0 && qs.every(q => answered(q));
+  });
+  $('trail').innerHTML = GROUPS.map(g => {
+    const isNow = cur && cur.group === g;
+    const cls = 'trail-item' + (gDone[g] ? ' done' : '') + (isNow ? ' now' : '');
+    let sig = '';
+    if (g === 'About you' && S.orgType) {
+      const o = QUESTIONS[0].options.find(o => o.v === S.orgType);
+      sig = o ? `<span class="sig">${esc(o.t)}</span>` : '';
+    }
+    return `<div class="${cls}">${esc(g)}${sig}</div>`;
+  }).join('');
+}
+
+function answered(q) {
+  if (q.kind === 'cards') return !!S[q.id];
+  if (q.kind === 'text') return q.fields.every(f => !f.required || (S[f.id] && S[f.id].trim()));
+  if (q.kind === 'checklist') return (S.tools && S.tools.length > 0) || !!S.toolsOther;
+  if (q.kind === 'contact') return !!S.email;
+  return false;
+}
+
+function renderForming() {
+  const act = activeQuestions();
+  const doneCount = act.filter(q => answered(q)).length;
+  const meter = $('formingMeter');
+  const segs = 8;
+  const on = Math.round((doneCount / act.length) * segs);
+  meter.innerHTML = Array.from({length:segs}, (_,i) => `<i class="${i < on ? 'on' : ''}"></i>`).join('');
+  const band = $('formingBand');
+  band.className = 'band veiled';
+  if (!S.orgType) {
+    band.textContent = 'Answer to begin';
+    $('formingNote').textContent = 'Your estimate takes shape as you go. The numbers reveal on the last step.';
+  } else if (doneCount >= act.length - 1) {
+    band.textContent = 'Ready to reveal';
+    $('formingNote').textContent = 'Add your details on the last step to unlock your three-tier estimate.';
+  } else {
+    band.textContent = 'Estimate forming…';
+    $('formingNote').textContent = 'Keep going — your tailored estimate unlocks once you add your details.';
   }
 }
-const TRAFFIC_SOURCE = captureTrafficSource_();
 
-if (cursorGlow) {
-  window.addEventListener('mousemove', (e) => {
-    cursorGlow.style.transform = `translate3d(${e.clientX - 140}px, ${e.clientY - 140}px, 0)`;
-  });
-  window.addEventListener('mouseleave', () => {
-    cursorGlow.style.opacity = '.08';
-  });
-  window.addEventListener('mouseenter', () => {
-    cursorGlow.style.opacity = '.22';
-  });
+function optionsFor(q) {
+  if (q.id === 'payroll' && isChurchy() && q.optionsChurch) return q.optionsChurch;
+  if (q.id === 'booksManaged') return booksManagedOptions();
+  return q.options;
 }
 
-function activeSteps() {
-  const software = document.getElementById('software')?.value;
-  return steps.filter(step => !(step.dataset.step === 'software-other' && software !== 'other'));
+function titleFor(q) {
+  if (isChurchy() && q.titleChurch) return q.titleChurch;
+  return q.title;
 }
 
-function updateJobCostVisibility() {
-  const selected = document.querySelector('input[name="industry"]:checked');
-  const isConstruction = selected && selected.value === 'construction';
-  const isOther = selected && selected.id === 'ind-other';
-  jobCostWrap.classList.toggle('hidden', !isConstruction);
-  otherIndustryWrap.classList.toggle('hidden', !isOther);
-  if (!isConstruction) document.getElementById('jobCosting').value = 'no';
-  if (!isOther) document.getElementById('otherIndustryName').value = '';
-}
-industryInputs.forEach(input => input.addEventListener('change', updateJobCostVisibility));
+function renderQuestion(dir) {
+  const act = activeQuestions();
+  if (idx >= act.length) idx = act.length - 1;
+  const q = act[idx];
+  renderTrail(); renderForming();
+  $('qcount').textContent = `Question ${idx + 1} of ${act.length}`;
+  $('qbarFill').style.width = `${((idx) / act.length) * 100}%`;
+  $('btnBack').style.visibility = idx === 0 ? 'hidden' : 'visible';
 
-function validateStep(index) {
-  const stepList = activeSteps();
-  const fields = stepList[index].querySelectorAll('input, select');
-  for (const field of fields) {
-    if (field.closest('.hidden')) continue;
-    if (field.type === 'radio') {
-      const group = stepList[index].querySelectorAll(`input[name="${field.name}"]`);
-      if (![...group].some(el => el.checked)) return false;
-    } else if (field.hasAttribute('required') && !field.value) {
-      return false;
+  let html = `<div class="question">`;
+  html += `<div class="qkicker">${esc(q.kicker)}</div>`;
+  html += `<h2 class="qtitle">${esc(titleFor(q))}</h2>`;
+  if (q.help) html += `<p class="qhelp">${esc(q.help)}</p>`;
+
+  if (q.kind === 'cards') {
+    const opts = optionsFor(q);
+    const cols = q.cols === 2 ? 'cols2' : (opts.length > 4 ? 'cols2' : '');
+    html += `<div class="opts ${cols}">` + opts.map((o, i) =>
+      `<button type="button" class="opt ${S[q.id] === o.v ? 'picked' : ''}" data-v="${esc(o.v)}">
+        <span class="key">${i + 1}</span>
+        <strong>${esc(o.t)}</strong>${o.d ? `<span class="d">${esc(o.d)}</span>` : ''}
+      </button>`).join('') + `</div>`;
+    if (opts.some(o => o.write)) {
+      const sel = opts.find(o => o.v === S[q.id]);
+      const show = sel && sel.write;
+      html += `<div class="tool-note" id="writeInWrap" style="${show ? '' : 'display:none;'}">
+        <input id="writeInNote" type="text" placeholder="${esc(q.writePlaceholder || 'Tell us more')}" value="${esc(S[q.id + 'Other'] || '')}" autocomplete="off" />
+      </div>`;
     }
   }
-  return true;
+
+  if (q.kind === 'text') {
+    html += `<div class="fields">` + q.fields.map(f =>
+      `<div class="f" id="fw-${f.id}">
+        <label for="${f.id}">${esc(f.label)}${f.required ? '' : ' <span class="opt-tag">(optional)</span>'}</label>
+        <input id="${f.id}" type="text" placeholder="${esc(f.ph || '')}" value="${esc(S[f.id] || '')}" autocomplete="off" />
+        <div class="err">Please fill this in to continue.</div>
+      </div>`).join('') + `</div>`;
+  }
+
+  if (q.kind === 'checklist') {
+    if (!S.tools) S.tools = [];
+    const cats = toolCategories();
+    html += `<div class="checklist">`;
+    cats.forEach(cat => {
+      html += `<div class="tcat"><h5>${esc(cat.label)}</h5><div class="tgrid">` +
+        cat.options.map(o =>
+          `<button type="button" class="tool ${S.tools.includes(o.v) ? 'on' : ''}" data-tool="${esc(o.v)}">
+            <span class="box">${CHECK_SVG}</span><span>${esc(o.t)}</span>
+          </button>`).join('') + `</div></div>`;
+    });
+    html += `<div class="tcat"><h5>Anything else</h5><div class="tgrid">
+        <button type="button" class="tool ${S.toolsOther ? 'on' : ''}" data-tool="__other__">
+          <span class="box">${CHECK_SVG}</span><span>Other tools we use</span>
+        </button>
+      </div>
+      <div class="tool-note" id="toolOtherNote" style="${S.toolsOther ? '' : 'display:none;'}">
+        <input id="toolsOtherNotes" type="text" placeholder="Tell us what else you use — e.g. Aplos, Fathom, Melio" value="${esc(S.toolsOtherNotes || '')}" />
+      </div></div>`;
+    html += `</div>`;
+  }
+
+  if (q.kind === 'contact') {
+    html += `<div class="fields duo">
+      <div class="f" id="fw-firstName">
+        <label for="firstName">First name</label>
+        <input id="firstName" type="text" placeholder="Your first name" value="${esc(S.firstName || '')}" autocomplete="given-name" />
+        <div class="err">We need a name to say hello properly.</div>
+      </div>
+      <div class="f" id="fw-companyName">
+        <label for="companyName">${isChurchy() ? 'Organization name' : 'Company name'}</label>
+        <input id="companyName" type="text" placeholder="${isChurchy() ? 'Your organization' : 'Your company'}" value="${esc(S.companyName || '')}" autocomplete="organization" />
+        <div class="err">Please add your ${isChurchy() ? 'organization' : 'company'} name.</div>
+      </div>
+      <div class="f" id="fw-email">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="you@company.com" value="${esc(S.email || '')}" autocomplete="email" />
+        <div class="err">A valid email unlocks your estimate.</div>
+      </div>
+      <div class="f" id="fw-phone">
+        <label for="phone">Phone <span class="opt-tag">(optional)</span></label>
+        <input id="phone" type="tel" placeholder="(555) 555-5555" value="${esc(S.phone || '')}" autocomplete="tel" />
+      </div>
+      <div class="f" id="fw-software" style="grid-column:1 / -1;">
+        <label for="software">Accounting software today</label>
+        <select id="software">
+          <option value="quickbooks" ${S.software === 'quickbooks' ? 'selected' : ''}>QuickBooks</option>
+          <option value="xero" ${S.software === 'xero' ? 'selected' : ''}>Xero</option>
+          <option value="zoho" ${S.software === 'zoho' ? 'selected' : ''}>Zoho Books</option>
+          <option value="none" ${S.software === 'none' ? 'selected' : ''}>Nothing yet</option>
+          <option value="other" ${S.software === 'other' ? 'selected' : ''}>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="consent ${S.cfoInterest ? 'on' : ''}" id="cfoWrap">
+      <label><input type="checkbox" id="cfoInterest" ${S.cfoInterest ? 'checked' : ''} />
+      I would also like to hear about custom CFO-level services. We are bookkeeping-first; this unlocks a custom-quoted scope for the rare business that needs it.</label>
+    </div>
+    <div class="status-line" id="statusLine"></div>`;
+  }
+
+  html += `</div>`;
+  qbody.innerHTML = html;
+
+  /* wire options */
+  qbody.querySelectorAll('.opt').forEach(btn => {
+    btn.addEventListener('click', () => pick(q, btn.dataset.v));
+  });
+  const writeIn = $('writeInNote');
+  if (writeIn) writeIn.addEventListener('input', e => { S[q.id + 'Other'] = e.target.value; });
+  if (q.kind === 'checklist') {
+    if (!S.tools) S.tools = [];
+    qbody.querySelectorAll('.tool').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = btn.dataset.tool;
+        if (t === '__other__') {
+          S.toolsOther = !S.toolsOther;
+          btn.classList.toggle('on', S.toolsOther);
+          const note = $('toolOtherNote');
+          if (note) note.style.display = S.toolsOther ? '' : 'none';
+          if (S.toolsOther) { const inp = $('toolsOtherNotes'); if (inp) inp.focus(); }
+        } else {
+          const i = S.tools.indexOf(t);
+          if (i >= 0) S.tools.splice(i, 1); else S.tools.push(t);
+          btn.classList.toggle('on', S.tools.includes(t));
+        }
+        renderForming(); renderTrail();
+      });
+    });
+    const notesInput = $('toolsOtherNotes');
+    if (notesInput) notesInput.addEventListener('input', e => { S.toolsOtherNotes = e.target.value; });
+  }
+  if (q.kind === 'contact') {
+    const cfo = $('cfoInterest');
+    cfo.addEventListener('change', () => { S.cfoInterest = cfo.checked; $('cfoWrap').classList.toggle('on', cfo.checked); });
+    $('software').addEventListener('change', e => { S.software = e.target.value; });
+    if (!S.software) S.software = 'quickbooks';
+  }
+
+  /* nav button mode */
+  const btnNext = $('btnNext');
+  const isLast = idx === act.length - 1;
+  btnNext.classList.toggle('reveal', isLast);
+  btnNext.innerHTML = isLast ? 'Reveal my estimate &#10024;' : 'Continue &#8594;';
+  $('keyHint').style.visibility = q.kind === 'cards' ? 'visible' : 'hidden';
 }
 
-function renderStep() {
-  const stepList = activeSteps();
-  const currentStepEl = stepList[currentStep];
-  steps.forEach(step => step.classList.toggle('active', step === currentStepEl));
-  const pct = ((currentStep + 1) / stepList.length) * 100;
-  progressBar.style.width = pct + '%';
-  stepLabel.textContent = `${currentStep + 1} / ${stepList.length}`;
-  backBtn.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
-  const last = currentStep === stepList.length - 1;
-  nextBtn.classList.toggle('hidden', last);
-  submitBtn.classList.toggle('hidden', !last);
+function pick(q, v) {
+  S[q.id] = v;
+  qbody.querySelectorAll('.opt').forEach(b => b.classList.toggle('picked', b.dataset.v === v));
+  renderForming(); renderTrail();
+  const opt = optionsFor(q).find(o => o.v === v);
+  const wrap = $('writeInWrap');
+  if (opt && opt.write) {
+    if (wrap) { wrap.style.display = ''; const i = $('writeInNote'); if (i) i.focus(); }
+    return; /* wait for the write-in + Continue; no auto-advance */
+  }
+  if (wrap) wrap.style.display = 'none';
+  setTimeout(() => advance(), 240);
 }
 
-nextBtn.addEventListener('click', () => {
-  if (!validateStep(currentStep)) {
-    alert('Please complete this step before continuing.');
+function collectInputs(q) {
+  if (q.kind === 'text') {
+    let ok = true;
+    q.fields.forEach(f => {
+      const el = $(f.id); const w = $('fw-' + f.id);
+      S[f.id] = el ? el.value : '';
+      const bad = f.required && !S[f.id].trim();
+      w.classList.toggle('bad', bad);
+      if (bad) ok = false;
+    });
+    return ok;
+  }
+  if (q.kind === 'checklist') {
+    const inp = $('toolsOtherNotes');
+    if (inp) S.toolsOtherNotes = inp.value.trim();
+    return true; /* optional — never blocks */
+  }
+  if (q.kind === 'contact') {
+    let ok = true;
+    [['firstName', v => v.trim()], ['companyName', v => v.trim()], ['email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)]].forEach(([id, test]) => {
+      const el = $(id); S[id] = el ? el.value.trim() : '';
+      const bad = !test(S[id]);
+      $('fw-' + id).classList.toggle('bad', bad);
+      if (bad) ok = false;
+    });
+    S.phone = $('phone') ? $('phone').value.trim() : '';
+    S.software = $('software') ? $('software').value : S.software;
+    S.cfoInterest = $('cfoInterest') ? $('cfoInterest').checked : !!S.cfoInterest;
+    return ok;
+  }
+  if (q.kind === 'cards') {
+    const opt = optionsFor(q).find(o => o.v === S[q.id]);
+    if (opt && opt.write) { const wn = $('writeInNote'); if (wn) S[q.id + 'Other'] = wn.value.trim(); }
+    return !!S[q.id];
+  }
+  return !!S[q.id];
+}
+
+function advance() {
+  const act = activeQuestions();
+  const q = act[idx];
+  if (!collectInputs(q)) return;
+  if (idx >= act.length - 1) { finish(); return; }
+  const el = qbody.querySelector('.question');
+  if (el) el.classList.add('leaving');
+  setTimeout(() => { idx += 1; renderQuestion(1); }, 180);
+}
+
+$('btnNext').addEventListener('click', advance);
+$('btnBack').addEventListener('click', () => {
+  if (idx === 0) return;
+  idx -= 1; renderQuestion(-1);
+});
+
+document.addEventListener('keydown', (e) => {
+  if ($('results').classList.contains('active')) return;
+  const act = activeQuestions(); const q = act[idx];
+  if (e.key === 'Enter') {
+    const tag = document.activeElement ? document.activeElement.tagName : '';
+    if (tag !== 'TEXTAREA') { e.preventDefault(); advance(); }
     return;
   }
-  const stepList = activeSteps();
-  const currentStepEl = stepList[currentStep];
-  if (currentStepEl?.dataset.step === 'software-other') {
-    const otherSoftwareInput = document.getElementById('otherSoftwareName');
-    if (!otherSoftwareInput.value.trim()) {
-      alert('Please enter the accounting tool you use.');
-      otherSoftwareInput.focus();
-      return;
-    }
+  if (q && q.kind === 'cards' && /^[1-9]$/.test(e.key)) {
+    const opts = optionsFor(q);
+    const i = parseInt(e.key, 10) - 1;
+    if (opts[i]) pick(q, opts[i].v);
   }
-  currentStep = Math.min(currentStep + 1, stepList.length - 1);
-  renderStep();
-});
-backBtn.addEventListener('click', () => {
-  currentStep = Math.max(currentStep - 1, 0);
-  renderStep();
 });
 
-document.getElementById('software').addEventListener('change', () => {
-  const stepList = activeSteps();
-  if (currentStep >= stepList.length) currentStep = stepList.length - 1;
-  renderStep();
-});
-
-function money(n) {
-  return n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+/* ---------- pricing engine (Turnkey CFO standard model) ---------- */
+function monthsBehindOf(s) {
+  return { current:0, behind1to3:2, behind4to6:5, behind7:7, fresh:0 }[s.booksState] || 0;
+}
+function needs1099Of(s) {
+  if (s.orgType === 'contractor') return s.subs === 'yes';
+  return s.needs1099 === 'yes';
 }
 
-function setSubmissionStatus(message, tone = '') {
-  if (!submissionStatus) return;
-  submissionStatus.textContent = message || '';
-  submissionStatus.className = `helper status${tone ? ` ${tone}` : ''}`;
-}
-
-function getIndustryLabel(data) {
-  const selectedIndustryEl = document.querySelector('input[name="industry"]:checked + label strong');
-  const defaultIndustry = selectedIndustryEl ? selectedIndustryEl.textContent : 'Other';
-  if (data.industry === 'other' && data.otherIndustryName?.trim()) return data.otherIndustryName.trim();
-  return defaultIndustry;
-}
-
-function getSoftwareLabel(data) {
-  if (data.software === 'quickbooks') return 'QuickBooks';
-  if (data.software === 'xero') return 'Xero';
-  if (data.software === 'zoho') return 'Zoho Books';
-  return data.otherSoftwareName?.trim() || 'Other';
-}
-
-function getRevenueLabel(value) {
-  return value === 'lt250' ? 'Under $250k'
-    : value === '250to1m' ? '$250k to $1M'
-    : value === '1to3m' ? '$1M to $3M'
-    : '$3M+';
-}
-
-function getAccountLabel(value) {
-  return value === 'le5' ? '5 or fewer financial accounts'
-    : value === '6to10' ? '6 to 10 financial accounts'
-    : '11+ financial accounts';
-}
-
-function getPayrollLabel(value) {
-  return { none: 'No payroll', simple: 'Simple payroll', complex: 'Payroll +' }[value] || 'Unknown';
-}
-
-function getBillpayLabel(value) {
-  return {
-    none: 'No bill pay support',
-    lt40: 'Under 40 bills/month',
-    '40to100': '40 to 100 bills/month',
-    gt100: '100+ bills/month'
-  }[value] || 'Unknown';
-}
-
-function getCleanupLabel(value) {
-  return parseInt(value, 10) > 0
-    ? `${value === '7' ? '7+' : value} month(s) behind`
-    : 'Current books / no cleanup indicated';
-}
-
-function getAttachedAddOns(data) {
-  const addOns = [];
-  if (data.payroll === 'simple') addOns.push('Payroll (Simple)');
-  else if (data.payroll === 'complex') addOns.push('Payroll (Multi-state / Complex)');
-  if (data.needs1099 === 'yes') addOns.push('1099 Module');
-  if (data.billpay === 'lt40') addOns.push('Bill Pay (under 40/mo)');
-  else if (data.billpay === '40to100') addOns.push('Bill Pay (40-100/mo)');
-  else if (data.billpay === 'gt100') addOns.push('Bill Pay (100+/mo)');
-  return addOns;
-}
-
-const TIER_LABELS = {
-  books: 'Books',
-  reporting: 'Books + Reporting',
-  strategic: 'Strategic Partnership',
-  cfo: 'CFO Services'
-};
-
-function fmtRange(r) { return `${money(r.low)} - ${money(r.high)}`; }
-
-function buildSubmissionPayload(data, result) {
-  const attachedAddOns = getAttachedAddOns(data);
-  return {
-    timestamp: new Date().toISOString(),
-    email: data.email || '',
-    companyName: data.companyName || '',
-    industry: data.industry || '',
-    industryLabel: getIndustryLabel(data),
-    otherIndustryName: data.otherIndustryName?.trim() || '',
-    revenue: data.revenue || '',
-    revenueLabel: getRevenueLabel(data.revenue),
-    software: data.software || '',
-    softwareLabel: getSoftwareLabel(data),
-    otherSoftwareName: data.otherSoftwareName?.trim() || '',
-    accountCount: data.accountCount || '',
-    accountCountLabel: getAccountLabel(data.accountCount),
-    inventory: data.inventory || '',
-    jobCosting: data.jobCosting || 'no',
-    payroll: data.payroll || '',
-    payrollLabel: getPayrollLabel(data.payroll),
-    billpay: data.billpay || '',
-    billpayLabel: getBillpayLabel(data.billpay),
-    needs1099: data.needs1099 === 'yes',
-    cfoInterest: !!result.cfoInterest,
-    recommendedTier: TIER_LABELS[result.recommended],
-    attachedAddOns: attachedAddOns.join(', '),
-    booksRange: fmtRange(result.tiers.books),
-    reportingRange: fmtRange(result.tiers.reporting),
-    strategicRange: fmtRange(result.tiers.strategic),
-    cfoTierPrice: result.cfoInterest ? 'Custom quote' : '',
-    tierCoreMonthly: result.core,
-    tierFloor: result.floor,
-    monthsBehind: data.monthsBehind || '0',
-    monthsBehindLabel: getCleanupLabel(data.monthsBehind),
-    cleanupEstimate: result.cleanup,
-    complexityFlags: result.flags.join(', '),
-    reviewStatus: result.flags.length ? 'Review suggested' : 'Looks standard',
-    trafficSource: TRAFFIC_SOURCE.gclid ? 'google_ads' : (TRAFFIC_SOURCE.utmSource || (TRAFFIC_SOURCE.referrer ? 'referral' : 'direct')),
-    campaign: TRAFFIC_SOURCE.utmCampaign || '',
-    gclid: TRAFFIC_SOURCE.gclid || '',
-    referrer: TRAFFIC_SOURCE.referrer || ''
-  };
-}
-
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-function renderTierCards(result) {
-  const grid = document.getElementById('tierGrid');
-  const showCfo = result.cfoInterest;
-  grid.classList.toggle('four', showCfo);
-  grid.innerHTML = '';
-
-  const attachedAddOns = [];
-  if (result.addOns.payroll === 'simple') attachedAddOns.push('Payroll (Simple)');
-  else if (result.addOns.payroll === 'complex') attachedAddOns.push('Payroll (Multi-state / Complex)');
-  if (result.addOns.needs1099) attachedAddOns.push('1099 Module');
-  const billPayLabel = ({ lt40: 'Bill Pay (under 40/mo)', '40to100': 'Bill Pay (40-100/mo)', gt100: 'Bill Pay (100+/mo)' })[result.addOns.billpay];
-
-  const booksCore = [
-    'Monthly bookkeeping',
-    'Bank &amp; credit card reconciliations',
-    'Month-end close',
-    'P&amp;L and Balance Sheet PDFs'
-  ];
-  const reportingCore = [
-    'Everything in Books',
-    'Dedicated client portal',
-    'Live financial dashboard',
-    'PDF financials as backup'
-  ];
-  const strategicCore = [
-    'Everything in Books + Reporting',
-    'Monthly Loom video breakdown',
-    '1 optional 30-min call per month'
-  ];
-  const cfoCore = [
-    'Custom-scoped CFO support',
-    'Tailored to your business after a discovery call',
-    'Pricing set based on scope'
-  ];
-
-  const tierDefs = [
-    {
-      key: 'books',
-      name: 'Books',
-      tagline: 'Accurate monthly books without added complexity.',
-      price: fmtRange(result.tiers.books),
-      core: booksCore,
-      addOns: (() => {
-        const out = attachedAddOns.slice();
-        if (billPayLabel) out.push({ text: billPayLabel, disabled: true, note: '(requires Books + Reporting)' });
-        return out;
-      })(),
-      ctaLabel: 'Select Books'
-    },
-    {
-      key: 'reporting',
-      name: 'Books + Reporting',
-      tagline: 'Accurate books plus live financial visibility each month.',
-      price: fmtRange(result.tiers.reporting),
-      core: reportingCore,
-      addOns: (() => {
-        const out = attachedAddOns.slice();
-        if (billPayLabel) out.push(billPayLabel);
-        return out;
-      })(),
-      ctaLabel: 'Select Books + Reporting'
-    },
-    {
-      key: 'strategic',
-      name: 'Strategic Partnership',
-      tagline: 'Premium bookkeeping with Ricky\u2019s interpretation each month.',
-      price: fmtRange(result.tiers.strategic),
-      core: strategicCore,
-      addOns: (() => {
-        const out = attachedAddOns.slice();
-        if (billPayLabel) out.push(billPayLabel);
-        return out;
-      })(),
-      ctaLabel: 'Select Strategic Partnership'
-    }
-  ];
-
-  if (showCfo) {
-    tierDefs.push({
-      key: 'cfo',
-      name: 'CFO Services',
-      tagline: 'Custom-scoped CFO support for businesses that need strategic finance.',
-      price: null,
-      core: cfoCore,
-      addOns: [],
-      ctaLabel: 'Book a discovery call',
-      custom: true
-    });
-  }
-
-  tierDefs.forEach(def => {
-    const isRec = def.key === result.recommended;
-    const card = document.createElement('div');
-    card.className = 'tier-card' + (isRec ? ' recommended' : '') + (def.custom ? ' custom' : '');
-
-    let html = '';
-    if (isRec) html += '<div class="tier-badge">Recommended</div>';
-    html += `<div class="tier-name">${escapeHtml(def.name)}</div>`;
-    html += def.price
-      ? `<div class="tier-price">${def.price}<span class="per">/ month</span></div>`
-      : `<div class="tier-price custom-price">Custom quote</div>`;
-    html += `<div class="tier-tagline">${def.tagline}</div>`;
-    html += `<div class="tier-section-label">What's included</div>`;
-    html += `<ul class="tier-list">${def.core.map(i => `<li>${i}</li>`).join('')}</ul>`;
-
-    if (!def.custom) {
-      html += `<div class="tier-section-label">Your add-ons</div>`;
-      if (def.addOns.length) {
-        html += `<ul class="tier-list addons">` + def.addOns.map(a => {
-          if (typeof a === 'string') return `<li>${escapeHtml(a)}</li>`;
-          return `<li class="disabled">${escapeHtml(a.text)}${a.note ? ' <em style="font-style:italic;color:rgba(0,38,58,.5);font-size:12px;">' + escapeHtml(a.note) + '</em>' : ''}</li>`;
-        }).join('') + `</ul>`;
-      } else {
-        html += `<div class="tier-no-addons">No add-ons selected</div>`;
-      }
-    }
-
-    const ctaClass = isRec ? 'btn accent' : 'btn secondary';
-    const ctaHref = 'https://calendly.com/ricky-turnkeycfo/15min-intro-call';
-    html += `<div class="tier-cta"><a class="${ctaClass}" href="${ctaHref}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">${escapeHtml(def.ctaLabel)}</a></div>`;
-
-    card.innerHTML = html;
-    grid.appendChild(card);
-  });
-}
-
-async function submitLead(payload) {
-  if (!WEBHOOK_URL) {
-    const message = 'Lead capture is not configured yet. Add your Apps Script /exec URL in WEBHOOK_URL.';
-    setSubmissionStatus(message, 'warn');
-    throw new Error(message);
-  }
-
-  setSubmissionStatus('Saving your estimate details...', 'warn');
-
-  const response = await fetch(WEBHOOK_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'text/plain;charset=utf-8'
-    },
-    body: JSON.stringify(payload),
-    keepalive: true
-  });
-
-  setSubmissionStatus('Estimate details sent to your capture sheet.', 'ok');
-  return response;
-}
-
-function calculateEstimate(data) {
+function calc(s) {
   const flags = [];
 
-  // Core bookkeeping price (non-add-on complexity only)
-  let core = 300;
-  core += { lt250: -50, '250to1m': 0, '1to3m': 150, gt3m: 300 }[data.revenue] || 0;
-  core += { le5: 0, '6to10': 50, gt10: 100 }[data.accountCount] || 0;
-  core += { other: 0, church: -100, construction: 100 }[data.industry] || 0;
-  if (data.industry === 'construction' && data.jobCosting === 'yes') core += 50;
-  core += 50; // base workflow overhead
+  let core = 350; /* base + workflow overhead */
+  core += { lt250:-50, '250to1m':0, '1to3m':150, '3to10m':300, gt10m:450 }[s.revenue] || 0;
+  core += { le5:0, '6to10':50, gt10:100 }[s.accounts] || 0;
+  core += { lt100:0, '100to300':40, '300to750':110, gt750:190 }[s.txns] || 0;
 
-  // Add-on effort folded into tier price (not shown as line items)
-  const payrollAdj = { none: 0, simple: 100, complex: 300 }[data.payroll] || 0;
-  const billAdj = { none: 0, lt40: 100, '40to100': 250, gt100: 350 }[data.billpay] || 0;
-  const tenNinetyNineAdj = data.needs1099 === 'yes' ? 25 : 0;
-  const addOnsCost = payrollAdj + billAdj + tenNinetyNineAdj;
+  if (isChurchy()) core -= 100;
+  if (s.orgType === 'contractor') core += 100;
+  if (s.orgType === 'ecommerce') core += 50;
+  if (s.orgType === 'realestate') core += { u1to3:0, u4to10:75, u11:150 }[s.units] || 0;
 
-  // Absolute price floor: $300/mo is the lowest price we will EVER show — for any
-  // business, including a church (the -$100 church discount and the minimal-client
-  // path reduce price toward this floor but can never cross it). Standard (non-minimal)
-  // clients floor higher at $350.
+  if (s.funds === 'yes') core += 75;
+  if (s.campaign === 'yes') core += 50;
+  if (s.jobCosting === 'yes') core += 75;
+  if (s.inventory === 'yes') core += 75;
+  if (s.channels === '2to3') core += 25;
+  if (s.channels === '4plus') core += 60;
+
+  const entMult = { one:1, '2to3':1.8, '4plus':2.6 }[s.entityCount] || 1;
+  core = Math.round((core * entMult) / 5) * 5;
+
+  const payrollAdj = { none:0, simple:100, complex:300 }[s.payroll] || 0;
+  const billAdj = { none:0, lt40:100, '40to100':250, gt100:350 }[s.billpay] || 0;
+  const n99 = needs1099Of(s) ? 25 : 0;
+  const addOnsCost = payrollAdj + billAdj + n99;
+
   const ABS_MIN = 300;
-  const isMinimalClient = (
-    data.revenue === 'lt250' &&
-    data.accountCount === 'le5' &&
-    data.payroll === 'none' &&
-    data.billpay === 'none' &&
-    data.needs1099 !== 'yes' &&
-    data.inventory !== 'yes' &&
-    !(data.industry === 'construction' && data.jobCosting === 'yes')
+  const minimal = (
+    s.revenue === 'lt250' && s.accounts === 'le5' && (s.txns === 'lt100' || !s.txns) &&
+    s.payroll === 'none' && s.billpay === 'none' && !needs1099Of(s) &&
+    s.inventory !== 'yes' && s.jobCosting !== 'yes' && (s.entityCount === 'one' || !s.entityCount)
   );
-  const floor = Math.max(ABS_MIN, isMinimalClient ? ABS_MIN : 350); // $300 absolute floor — never lower, even churches
+  const floor = minimal ? ABS_MIN : 350;
 
-  // Input-driven tier deltas (scale with core complexity)
-  const brDelta  = core <= 450 ? 125 : core <= 700 ? 175 : 250;
-  const spDelta  = core <= 450 ? 350 : core <= 700 ? 500 : 700;
+  const brDelta = core <= 450 ? 125 : core <= 700 ? 175 : 250;
+  const spDelta = core <= 450 ? 350 : core <= 700 ? 500 : 700;
 
-  const books     = Math.max(floor, core + addOnsCost);
+  const books = Math.max(floor, core + addOnsCost);
   const reporting = books + brDelta;
   const strategic = reporting + spDelta;
 
@@ -985,126 +1083,402 @@ function calculateEstimate(data) {
     const high = Math.max(mid + 75, low + 150);
     return { mid, low, high };
   };
+  const tiers = { books: rangeOf(books), reporting: rangeOf(reporting), strategic: rangeOf(strategic) };
 
-  const tiers = {
-    books:     rangeOf(books),
-    reporting: rangeOf(reporting),
-    strategic: rangeOf(strategic)
-  };
-
-  // Cleanup estimate anchored to Books+Reporting monthly (standard delivery level)
   let cleanup = 0;
-  const monthsBehind = parseInt(data.monthsBehind, 10) || 0;
-  if (monthsBehind > 0) {
-    const mult = monthsBehind >= 6 ? 0.4 : 0.5;
-    cleanup = tiers.reporting.mid * mult * monthsBehind;
-  }
+  const mb = monthsBehindOf(s);
+  if (mb > 0) cleanup = tiers.reporting.mid * (mb >= 6 ? 0.4 : 0.5) * mb;
+  const fresh = s.booksState === 'fresh';
 
-  if (data.software === 'other') flags.push('non-standard accounting software');
-  if (data.inventory === 'yes') flags.push('inventory tracking');
-  if (monthsBehind >= 6) flags.push('6+ months of cleanup');
+  if (s.software === 'other') flags.push('non-standard accounting software');
+  if (s.software === 'none') flags.push('accounting system setup needed');
+  if (s.inventory === 'yes') flags.push('inventory tracking');
+  if (mb >= 6) flags.push('6+ months of catch-up');
+  if (fresh) flags.push('ground-up books setup');
+  if (s.entityCount === '4plus') flags.push('4+ entity group, priced per entity');
 
-  // Recommendation logic
-  const cfoInterest = !!data.cfoInterest;
+  const cfoInterest = !!s.cfoInterest;
   let recommended;
-  if (cfoInterest) {
-    recommended = 'cfo';
-  } else {
-    const hasAddOn = data.payroll !== 'none' || data.billpay !== 'none' || data.needs1099 === 'yes';
-    const bigRev = data.revenue === '1to3m' || data.revenue === 'gt3m';
-    if (hasAddOn || bigRev || data.inventory === 'yes') {
-      recommended = 'reporting';
-    } else {
-      recommended = 'books';
-    }
+  if (cfoInterest) recommended = 'cfo';
+  else if (s.goal === 'partner') recommended = 'strategic';
+  else if (s.goal === 'visibility') recommended = 'reporting';
+  else {
+    const pushUp = s.billpay !== 'none' || s.entityCount !== 'one' ||
+      s.revenue === '3to10m' || s.revenue === 'gt10m' ||
+      s.funds === 'yes' || s.campaign === 'yes' || s.jobCosting === 'yes' || s.inventory === 'yes';
+    recommended = pushUp ? 'reporting' : 'books';
   }
-
-  // Bill pay gates Books tier out of recommendation eligibility
-  const billPayBlocksBooks = data.billpay !== 'none';
 
   return {
-    core, floor, tiers, cleanup, flags,
-    cfoInterest, recommended, billPayBlocksBooks,
-    addOns: {
-      payroll: data.payroll,
-      billpay: data.billpay,
-      needs1099: data.needs1099 === 'yes'
-    }
+    core, floor, tiers, cleanup, fresh, flags, cfoInterest, recommended,
+    monthsBehind: mb,
+    addOns: { payroll: s.payroll, billpay: s.billpay, needs1099: needs1099Of(s) }
   };
 }
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (!validateStep(currentStep)) {
-    alert('Please complete this step before seeing your estimate.');
-    return;
-  }
-  setSubmissionStatus('');
-  const fd = new FormData(form);
-  const data = Object.fromEntries(fd.entries());
-  data.cfoInterest = fd.get('cfoInterest') === 'yes';
-  const result = calculateEstimate(data);
+/* ---------- labels for payload + summary ---------- */
+const ORG_LABEL = { church:'Church or Ministry', nonprofit:'Nonprofit', contractor:'Construction / Trades', ecommerce:'Ecommerce / Retail', services:'Professional Services', realestate:'Real Estate / Property', other:'Other' };
+const REV_LABEL = { lt250:'Under $250k', '250to1m':'$250k to $1M', '1to3m':'$1M to $3M', '3to10m':'$3M to $10M', gt10m:'$10M+' };
+const ACCT_LABEL = { le5:'5 or fewer financial accounts', '6to10':'6 to 10 financial accounts', gt10:'11+ financial accounts' };
+const TXN_LABEL = { lt100:'Under 100 transactions/mo', '100to300':'100 to 300 transactions/mo', '300to750':'300 to 750 transactions/mo', gt750:'750+ transactions/mo' };
+const PAY_LABEL = { none:'No payroll', simple:'Simple payroll', complex:'Payroll +' };
+const BILL_LABEL = { none:'No bill pay support', lt40:'Under 40 bills/month', '40to100':'40 to 100 bills/month', gt100:'100+ bills/month' };
+const ENTITY_LABEL = { one:'Single entity', '2to3':'2 to 3 entities', '4plus':'4+ entities' };
+const BOOKS_LABEL = { current:'Current / no catch-up', behind1to3:'1 to 3 months behind', behind4to6:'4 to 6 months behind', behind7:'7+ months behind', fresh:'Starting fresh (no books yet)' };
+const GOAL_LABEL = { books:'Peace of mind (clean books)', visibility:'Real visibility (dashboard + reporting)', partner:'A partner in the numbers' };
+const TIER_LABELS = { books:'Books', reporting:'Books + Reporting', strategic:'Strategic Partnership', cfo:'CFO Services' };
+const SOFT_LABEL = { quickbooks:'QuickBooks', xero:'Xero', zoho:'Zoho Books', none:'None yet', other:'Other' };
 
-  renderTierCards(result);
+/* ---------- financial tech stack (multi-select, tailored by orgType) ---------- */
+const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-  document.getElementById('cleanupFee').textContent = result.cleanup > 0 ? money(result.cleanup) : 'None implied';
+/* shared categories every business sees */
+const TOOLS_SPEND = { label:'Credit cards & spend', options:[
+  { v:'ramp', t:'Ramp' }, { v:'brex', t:'Brex' }, { v:'divvy', t:'Divvy / BILL Spend' },
+  { v:'expensify', t:'Expensify' }, { v:'bank_cards', t:'Bank business cards' }
+]};
+const TOOLS_AP = { label:'Bill pay & AP', options:[
+  { v:'billcom', t:'Bill.com' }, { v:'melio', t:'Melio' }, { v:'manual_ap', t:'Manual / bank bill pay' }
+]};
+const TOOLS_PAYROLL = { label:'Payroll', options:[
+  { v:'gusto', t:'Gusto' }, { v:'adp', t:'ADP' }, { v:'paychex', t:'Paychex' }, { v:'qb_payroll', t:'QuickBooks Payroll' }
+]};
 
-  const reviewStatus = document.getElementById('reviewStatus');
-  const reviewSub = document.getElementById('reviewSub');
-  if (result.flags.length) {
-    reviewStatus.textContent = 'Review suggested';
-    reviewSub.textContent = 'The estimate still works, but a few items deserve a quick follow-up: ' + result.flags.join(', ') + '.';
-  } else {
-    reviewStatus.textContent = 'Looks standard';
-    reviewSub.textContent = 'No major complexity flags were triggered by your responses.';
-  }
+/* industry-specific category, keyed to orgType */
+const TOOLS_BY_ORG = {
+  church:     { label:'Giving & church management', options:[
+    { v:'planning_center', t:'Planning Center' }, { v:'subsplash', t:'Subsplash' }, { v:'tithely', t:'Tithe.ly' },
+    { v:'pushpay', t:'Pushpay' }, { v:'breeze', t:'Breeze ChMS' }, { v:'ccb_rock', t:'CCB / Rock RMS' }
+  ]},
+  nonprofit:  { label:'Donor & grant management', options:[
+    { v:'bloomerang', t:'Bloomerang' }, { v:'donorperfect', t:'DonorPerfect' }, { v:'kindful', t:'Kindful' },
+    { v:'littlegreenlight', t:'Little Green Light' }, { v:'givebutter', t:'Givebutter' }
+  ]},
+  contractor: { label:'Job & project management', options:[
+    { v:'procore', t:'Procore' }, { v:'buildertrend', t:'Buildertrend' }, { v:'knowify', t:'Knowify' },
+    { v:'servicetitan', t:'ServiceTitan' }, { v:'jobber', t:'Jobber' }, { v:'housecall', t:'Housecall Pro' }
+  ]},
+  ecommerce:  { label:'Sales channels & payments', options:[
+    { v:'shopify', t:'Shopify' }, { v:'amazon', t:'Amazon Seller' }, { v:'stripe', t:'Stripe' },
+    { v:'square', t:'Square' }, { v:'paypal', t:'PayPal' }, { v:'a2x', t:'A2X' }
+  ]},
+  services:   { label:'Billing & practice tools', options:[
+    { v:'stripe', t:'Stripe' }, { v:'square', t:'Square' }, { v:'honeybook', t:'HoneyBook' },
+    { v:'harvest', t:'Harvest' }, { v:'freshbooks', t:'FreshBooks' }
+  ]},
+  realestate: { label:'Property management', options:[
+    { v:'appfolio', t:'AppFolio' }, { v:'buildium', t:'Buildium' }, { v:'rentmanager', t:'Rent Manager' },
+    { v:'doorloop', t:'DoorLoop' }, { v:'stessa', t:'Stessa' }
+  ]}
+};
 
-  const industryLabel = getIndustryLabel(data);
-  const payrollLabel = getPayrollLabel(data.payroll).toLowerCase();
-  const billLabel = {
-    none: 'no bill pay support',
-    lt40: 'bill pay under 40 bills/month',
-    '40to100': 'bill pay for 40 to 100 bills/month',
-    gt100: 'bill pay above 100 bills/month'
-  }[data.billpay];
-  const attachedAddOns = getAttachedAddOns(data);
-  const submissionPayload = buildSubmissionPayload(data, result);
+function toolCategories() {
+  const cats = [];
+  const industry = TOOLS_BY_ORG[S.orgType];
+  if (industry) cats.push(industry);
+  cats.push(TOOLS_SPEND, TOOLS_AP, TOOLS_PAYROLL);
+  return cats;
+}
 
-  const recCopy = {
-    books: 'Books is the simplest fit for your setup.',
-    reporting: 'Books + Reporting pairs accurate books with live visibility.',
-    strategic: 'Strategic Partnership adds a monthly Loom and optional call on top of full reporting.',
-    cfo: 'Because you\u2019re interested in CFO-level services, we\u2019ve surfaced a custom tier as our recommendation.'
-  }[result.recommended];
-  document.getElementById('narrative').textContent = `Based on your inputs, here's how each plan would look for your business. ${recCopy} You'll see which one is recommended below.`;
+/* flat label map built from every category so the payload/summary read friendly */
+const TOOL_LABEL = (function () {
+  const m = {};
+  [TOOLS_SPEND, TOOLS_AP, TOOLS_PAYROLL].concat(Object.values(TOOLS_BY_ORG))
+    .forEach(cat => cat.options.forEach(o => { m[o.v] = o.t; }));
+  return m;
+})();
+function toolsLabelList() { return (S.tools || []).map(v => TOOL_LABEL[v] || v); }
 
-  const estimateSummary = document.getElementById('estimateSummary');
-  const summaryItems = [
-    `Company name: ${data.companyName}`,
-    `Industry: ${industryLabel}`,
-    `Annual revenue: ${submissionPayload.revenueLabel}`,
-    `Accounting software: ${submissionPayload.softwareLabel}`,
-    `Complexity: ${submissionPayload.accountCountLabel}`,
-    `Inventory tracking: ${data.inventory === 'yes' ? 'Yes' : 'No'}`,
-    `Payroll support: ${payrollLabel}`,
-    `Bill pay / AP: ${billLabel}`,
-    `1099 contractors: ${data.needs1099 === 'yes' ? 'Yes' : 'No'}`,
-    `CFO interest: ${result.cfoInterest ? 'Yes \u2014 custom tier surfaced' : 'No'}`,
-    `Add-ons attached: ${attachedAddOns.length ? attachedAddOns.join(', ') : 'None'}`,
-    `Recommended tier: ${TIER_LABELS[result.recommended]}`,
-    `Cleanup status: ${submissionPayload.monthsBehindLabel}`
+/* ---------- how books are managed today (tailored providers by orgType) ---------- */
+const BOOKS_PROVIDERS = {
+  church:     [ { v:'ifr', t:'IFR' }, { v:'belay', t:'Belay' }, { v:'churchbiz', t:'ChurchBiz' }, { v:'aplos_svc', t:'Aplos Bookkeeping' } ],
+  nonprofit:  [ { v:'jitasa', t:'Jitasa' }, { v:'yptc', t:'Your Part-Time Controller' }, { v:'belay', t:'Belay' }, { v:'charitycfo', t:'The Charity CFO' } ],
+  contractor: [ { v:'bench', t:'Bench' }, { v:'proledge', t:'ProLedge' }, { v:'completecontroller', t:'Complete Controller' } ],
+  ecommerce:  [ { v:'bench', t:'Bench' }, { v:'bookkeeper360', t:'Bookkeeper360' }, { v:'xendoo', t:'Xendoo' }, { v:'finaloop', t:'Finaloop' } ],
+  services:   [ { v:'bench', t:'Bench' }, { v:'pilot', t:'Pilot' }, { v:'bookkeeper360', t:'Bookkeeper360' }, { v:'acct1800', t:'1-800Accountant' } ],
+  realestate: [ { v:'bench', t:'Bench' }, { v:'hallcpa', t:'Hall CPA' }, { v:'completecontroller', t:'Complete Controller' } ]
+};
+
+function booksManagedOptions() {
+  const base = [
+    { v:'inhouse',    t:'In-house / myself',     d:'Me, an owner, or a staff member keeps them.' },
+    { v:'outsourced', t:'Outsourced bookkeeper', d:'A freelancer or bookkeeping firm.' }
   ];
-  if (data.industry === 'construction') {
-    summaryItems.splice(9, 0, `Job costing: ${data.jobCosting === 'yes' ? 'Yes' : 'No'}`);
+  const providers = BOOKS_PROVIDERS[S.orgType] || [];
+  const tail = [
+    { v:'cpa',   t:'Our CPA / tax accountant', d:'A CPA who also touches the books.' },
+    { v:'none',  t:'No one right now',         d:'Nobody is keeping them current.' },
+    { v:'other', t:'Someone else',             d:'Tell us who you use.', write:true }
+  ];
+  return base.concat(providers, tail);
+}
+
+function booksManagedLabelOf() {
+  const sel = booksManagedOptions().find(o => o.v === S.booksManaged);
+  if (!sel) return '';
+  if (sel.write) return S.booksManagedOther ? ('Other: ' + S.booksManagedOther) : 'Other (unspecified)';
+  return sel.t;
+}
+
+function industryLabel() {
+  if (S.orgType === 'other' && S.otherIndustryName && S.otherIndustryName.trim()) return S.otherIndustryName.trim();
+  return ORG_LABEL[S.orgType] || 'Other';
+}
+function fmtRange(r) { return `${money(r.low)} - ${money(r.high)}`; }
+
+function attachedAddOns(r) {
+  const out = [];
+  if (r.addOns.payroll === 'simple') out.push('Payroll (Simple)');
+  else if (r.addOns.payroll === 'complex') out.push('Payroll (Multi-state / Complex)');
+  if (r.addOns.needs1099) out.push('1099 Module');
+  if (r.addOns.billpay === 'lt40') out.push('Bill Pay (under 40/mo)');
+  else if (r.addOns.billpay === '40to100') out.push('Bill Pay (40-100/mo)');
+  else if (r.addOns.billpay === 'gt100') out.push('Bill Pay (100+/mo)');
+  if (S.funds === 'yes') out.push('Fund Accounting');
+  if (S.campaign === 'yes') out.push('Capital Campaign Tracking');
+  if (S.jobCosting === 'yes') out.push('Job Costing');
+  if (S.inventory === 'yes') out.push('Inventory Tracking');
+  return out;
+}
+
+function buildPayload(r) {
+  const legacyIndustry = isChurchy() ? 'church' : (S.orgType === 'contractor' ? 'construction' : 'other');
+  return {
+    timestamp: new Date().toISOString(),
+    formVariant: 'instant-estimate',
+    email: S.email || '',
+    firstName: S.firstName || '',
+    phone: S.phone || '',
+    companyName: S.companyName || '',
+    industry: legacyIndustry,
+    industryLabel: industryLabel(),
+    orgType: S.orgType || '',
+    otherIndustryName: (S.otherIndustryName || '').trim(),
+    entityCount: S.entityCount || 'one',
+    entityCountLabel: ENTITY_LABEL[S.entityCount] || 'Single entity',
+    revenue: S.revenue || '',
+    revenueLabel: REV_LABEL[S.revenue] || '',
+    software: S.software || '',
+    softwareLabel: SOFT_LABEL[S.software] || 'Other',
+    otherSoftwareName: '',
+    financialTools: toolsLabelList().join(', '),
+    financialToolsOther: S.toolsOther ? (S.toolsOtherNotes || 'Yes (unspecified)') : '',
+    accountCount: S.accounts || '',
+    accountCountLabel: ACCT_LABEL[S.accounts] || '',
+    txnVolume: S.txns || '',
+    txnVolumeLabel: TXN_LABEL[S.txns] || '',
+    inventory: S.inventory || 'no',
+    salesChannels: S.channels || '',
+    propertyUnits: S.units || '',
+    fundAccounting: S.funds || 'no',
+    capitalCampaign: S.campaign || 'no',
+    jobCosting: S.jobCosting || 'no',
+    paysSubcontractors: S.subs || '',
+    tracksReceivables: S.ar || '',
+    payroll: S.payroll || '',
+    payrollLabel: PAY_LABEL[S.payroll] || '',
+    billpay: S.billpay || '',
+    billpayLabel: BILL_LABEL[S.billpay] || '',
+    needs1099: needs1099Of(S),
+    booksManaged: S.booksManaged || '',
+    booksManagedLabel: booksManagedLabelOf(),
+    booksManagedOther: S.booksManagedOther || '',
+    goal: S.goal || '',
+    goalLabel: GOAL_LABEL[S.goal] || '',
+    cfoInterest: !!r.cfoInterest,
+    recommendedTier: TIER_LABELS[r.recommended],
+    attachedAddOns: attachedAddOns(r).join(', '),
+    booksRange: fmtRange(r.tiers.books),
+    reportingRange: fmtRange(r.tiers.reporting),
+    strategicRange: fmtRange(r.tiers.strategic),
+    cfoTierPrice: r.cfoInterest ? 'Custom quote' : '',
+    tierCoreMonthly: r.core,
+    tierFloor: r.floor,
+    monthsBehind: String(r.monthsBehind),
+    monthsBehindLabel: BOOKS_LABEL[S.booksState] || '',
+    cleanupEstimate: r.fresh ? 'Custom setup quote' : r.cleanup,
+    complexityFlags: r.flags.join(', '),
+    reviewStatus: r.flags.length ? 'Review suggested' : 'Looks standard',
+    trafficSource: TRAFFIC.gclid ? 'google_ads' : (TRAFFIC.utmSource || (TRAFFIC.referrer ? 'referral' : 'direct')),
+    campaign: TRAFFIC.utmCampaign || '',
+    gclid: TRAFFIC.gclid || '',
+    referrer: TRAFFIC.referrer || ''
+  };
+}
+
+/* ---------- submit ---------- */
+function setStatus(msg, tone) {
+  const el = $('statusLine');
+  if (!el) return;
+  el.textContent = msg || '';
+  el.className = 'status-line' + (tone ? ' ' + tone : '');
+}
+
+async function submitLead(payload) {
+  setStatus('Saving your estimate details...', 'warn');
+  const res = await fetch(WEBHOOK_URL, {
+    method: 'POST', mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload), keepalive: true
+  });
+  setStatus('Saved. Building your reveal...', 'ok');
+  return res;
+}
+
+/* ---------- reveal ---------- */
+function countUp(el, from, to, prefix, suffixHtml) {
+  const dur = 900; const t0 = performance.now();
+  function frame(t) {
+    const p = Math.min(1, (t - t0) / dur);
+    const eased = 1 - Math.pow(1 - p, 3);
+    const v = Math.round(from + (to - from) * eased);
+    el.innerHTML = `${prefix || ''}${money(v)}${suffixHtml || ''}`;
+    if (p < 1) requestAnimationFrame(frame);
   }
-  estimateSummary.innerHTML = summaryItems.map(item => `<li>${item}</li>`).join('');
+  requestAnimationFrame(frame);
+}
 
-  formGrid.classList.add('hidden');
-  formTopbar.classList.add('hidden');
-  resultWrap.classList.add('active');
-  resultWrap.scrollIntoView({ behavior:'smooth', block:'start' });
+function renderTiers(r) {
+  const grid = $('tiers');
+  grid.classList.toggle('four', r.cfoInterest);
+  const mods = attachedAddOns(r);
+  const billLabel = ({ lt40:'Bill Pay (under 40/mo)', '40to100':'Bill Pay (40-100/mo)', gt100:'Bill Pay (100+/mo)' })[r.addOns.billpay];
+  const modsSansBill = mods.filter(m => !m.startsWith('Bill Pay'));
 
-  // GTM virtual pageview — fires when the estimate result is revealed
+  const defs = [
+    {
+      key:'books', name:'Books',
+      tag:'Accurate monthly books without added complexity.',
+      range:r.tiers.books,
+      core:['Monthly bookkeeping','Bank & credit card reconciliations','Month-end close','P&L and Balance Sheet delivered'],
+      mods: billLabel ? modsSansBill.concat([{ text:billLabel, off:true, note:'(requires Books + Reporting)' }]) : mods.slice(),
+      cta:'Select Books'
+    },
+    {
+      key:'reporting', name:'Books + Reporting',
+      tag:'Accurate books plus live financial visibility each month.',
+      range:r.tiers.reporting,
+      core:['Everything in Books','Dedicated client portal','Live financial dashboard','Monthly reporting package'],
+      mods: mods.slice(),
+      cta:'Select Books + Reporting'
+    },
+    {
+      key:'strategic', name:'Strategic Partnership',
+      tag:'Premium bookkeeping with a walkthrough of the story each month.',
+      range:r.tiers.strategic,
+      core:['Everything in Books + Reporting','Monthly video breakdown of your numbers','Optional 30-min call each month'],
+      mods: mods.slice(),
+      cta:'Select Strategic Partnership'
+    }
+  ];
+  if (r.cfoInterest) {
+    defs.push({
+      key:'cfo', name:'CFO Services', custom:true,
+      tag:'Custom-scoped support for the business that needs strategic finance.',
+      core:['Custom-scoped engagement','Tailored after a discovery call','Pricing set by scope'],
+      mods:[], cta:'Book a discovery call'
+    });
+  }
+
+  grid.innerHTML = defs.map(d => {
+    const isRec = d.key === r.recommended;
+    let h = `<div class="tier ${isRec ? 'rec' : ''} ${d.custom ? 'custom' : ''}">`;
+    if (isRec) h += `<div class="badge">Recommended</div>`;
+    h += `<div class="tname">${esc(d.name)}</div>`;
+    h += d.range
+      ? `<div class="tprice" data-low="${d.range.low}" data-high="${d.range.high}">${money(d.range.low)} &ndash; ${money(d.range.high)}<span class="per">/ month</span></div>`
+      : `<div class="tprice custom-q">Custom quote</div>`;
+    h += `<div class="ttag">${esc(d.tag)}</div>`;
+    h += `<div class="sec first">What's included</div><ul>${d.core.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
+    if (!d.custom) {
+      h += `<div class="sec">Built into your price</div>`;
+      h += d.mods.length
+        ? `<ul class="mods">${d.mods.map(m => typeof m === 'string'
+            ? `<li>${esc(m)}</li>`
+            : `<li class="off">${esc(m.text)} <em style="font-style:italic;font-size:12px;">${esc(m.note || '')}</em></li>`).join('')}</ul>`
+        : `<div class="none-mods">No add-ons selected</div>`;
+    }
+    h += `<div class="tcta"><a class="${isRec ? 'main' : 'alt'}" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener noreferrer">${esc(d.cta)}</a></div>`;
+    h += `</div>`;
+    return h;
+  }).join('');
+
+  /* count-up on prices */
+  setTimeout(() => {
+    grid.querySelectorAll('.tprice[data-low]').forEach(el => {
+      const low = +el.dataset.low, high = +el.dataset.high;
+      const dur = 950; const t0 = performance.now();
+      (function frame(t) {
+        const p = Math.min(1, (t - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.innerHTML = `${money(Math.round(low * eased))} &ndash; ${money(Math.round(high * eased))}<span class="per">/ month</span>`;
+        if (p < 1) requestAnimationFrame(frame);
+      })(t0);
+    });
+  }, 250);
+}
+
+function finish() {
+  const r = calc(S);
+  const payload = buildPayload(r);
+
+  renderTiers(r);
+
+  $('resTitle').textContent = S.firstName ? `Here is where ${S.companyName || 'your books'} lands, ${S.firstName}.` : 'Here is where your books land.';
+  const recCopy = {
+    books: 'Books keeps it simple and clean, which fits the way you run.',
+    reporting: 'Books + Reporting pairs accurate books with the visibility you asked for.',
+    strategic: 'Strategic Partnership adds a monthly walkthrough of the story behind your numbers.',
+    cfo: 'Because you asked about CFO-level services, a custom tier is surfaced as the recommendation.'
+  }[r.recommended];
+  $('resNarrative').textContent = `Three ways to work together, priced from your answers. ${recCopy}`;
+
+  if (r.fresh) {
+    $('cleanupV').textContent = 'Custom setup quote';
+    $('cleanupS').textContent = 'Ground-up books get scoped as a one-time setup project on the intro call, so your monthly service starts clean.';
+  } else if (r.cleanup > 0) {
+    $('cleanupV').textContent = money(r.cleanup);
+    $('cleanupS').textContent = `${BOOKS_LABEL[S.booksState]}. Catch-up is a one-time project priced off your monthly service level.`;
+  } else {
+    $('cleanupV').textContent = 'None implied';
+    $('cleanupS').textContent = 'Your books are current, so there is nothing to catch up. Monthly service can start right away.';
+  }
+
+  if (r.flags.length) {
+    $('reviewV').textContent = 'Review suggested';
+    $('reviewS').textContent = 'The estimate holds, and a few items deserve a quick look together: ' + r.flags.join(', ') + '.';
+  } else {
+    $('reviewV').textContent = 'Looks standard';
+    $('reviewS').textContent = 'No major complexity flags were triggered by your answers.';
+  }
+
+  const items = [
+    ['Organization', `${payload.companyName} (${payload.industryLabel})`],
+    ['Entities', payload.entityCountLabel],
+    ['Revenue', payload.revenueLabel],
+    ['Software', payload.softwareLabel],
+    ['Tools in use', [payload.financialTools, (S.toolsOther && S.toolsOtherNotes ? S.toolsOtherNotes : '')].filter(Boolean).join(', ') || 'None listed'],
+    ['Accounts', payload.accountCountLabel],
+    ['Volume', payload.txnVolumeLabel],
+    ['Payroll', payload.payrollLabel],
+    ['Bill pay', payload.billpayLabel],
+    ['1099s', payload.needs1099 ? 'Yes' : 'No'],
+    ['Managed by', payload.booksManagedLabel || 'Not specified'],
+    ['Books today', payload.monthsBehindLabel],
+    ['Your goal', payload.goalLabel],
+    ['Add-ons', payload.attachedAddOns || 'None'],
+    ['Recommended', payload.recommendedTier]
+  ];
+  if (S.funds) items.splice(3, 0, ['Fund accounting', S.funds === 'yes' ? 'Yes' : 'No']);
+  if (S.campaign === 'yes') items.splice(4, 0, ['Capital campaign', 'Yes']);
+  if (S.jobCosting) items.splice(3, 0, ['Job costing', S.jobCosting === 'yes' ? 'Yes' : 'No']);
+  $('summaryList').innerHTML = items.map(([k, v]) => `<li><strong>${esc(k)}:</strong> ${esc(v)}</li>`).join('');
+
+  $('stage').style.display = 'none';
+  $('hero').style.display = 'none';
+  $('results').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     event: 'instant_estimate_revealed',
@@ -1112,37 +1486,22 @@ form.addEventListener('submit', (e) => {
     page_title: 'Instant Estimate - Result'
   });
 
-  submitLead(submissionPayload).catch((error) => {
-    console.error('Instant Estimate webhook submission failed.', error);
-    if (!WEBHOOK_URL) return;
-    setSubmissionStatus('We showed the estimate, but the sheet capture failed. Confirm the deployed Apps Script /exec URL and redeploy the web app.', 'error');
+  submitLead(payload).catch(err => {
+    console.error('Instant Estimate webhook submission failed.', err);
   });
-});
+}
 
-restartBtn.addEventListener('click', () => {
-  form.reset();
-  setSubmissionStatus('');
-  currentStep = 0;
-  updateJobCostVisibility();
-  renderStep();
-  formGrid.classList.remove('hidden');
-  formTopbar.classList.remove('hidden');
-  resultWrap.classList.remove('active');
+$('btnRestart').addEventListener('click', () => {
+  Object.keys(S).forEach(k => delete S[k]);
+  idx = 0;
+  $('results').classList.remove('active');
+  $('stage').style.display = '';
+  $('hero').style.display = '';
+  renderQuestion(0);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-updateJobCostVisibility();
-renderStep();
+renderQuestion(0);
 </script>
-<footer style="text-align:center;padding:32px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:#36576A;position:relative;z-index:2;">
-  <nav style="display:flex;flex-wrap:wrap;gap:18px;justify-content:center;">
-    <a href="/" style="color:#047857;text-decoration:none;">Home</a>
-    <a href="/services/" style="color:#047857;text-decoration:none;">Bookkeeping Services</a>
-    <a href="/pricing/" style="color:#047857;text-decoration:none;">Pricing</a>
-    <a href="/blog/" style="color:#047857;text-decoration:none;">Bookkeeping Tips</a>
-  </nav>
-</footer>
 </body>
 </html>
-
-
