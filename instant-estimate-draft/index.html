@@ -648,6 +648,13 @@ const QUESTIONS = [
     ]
   },
   {
+    id:'booksManaged', group:'Service level', kicker:'Bookkeeping today',
+    title:'How are your books managed today?',
+    titleChurch:'How is your church bookkeeping handled today?',
+    help:'Whoever touches the books now — you, a staff member, a CPA, or an outside firm. Pick the closest.',
+    kind:'cards', cols:2, options:[], writePlaceholder:'Who manages your books?'
+  },
+  {
     id:'booksState', group:'Service level', kicker:'Where the books stand',
     title:'How current are your books today?',
     help:'Catch-up work is estimated separately, so your monthly quote stays clean.',
@@ -739,6 +746,7 @@ function renderForming() {
 
 function optionsFor(q) {
   if (q.id === 'payroll' && isChurchy() && q.optionsChurch) return q.optionsChurch;
+  if (q.id === 'booksManaged') return booksManagedOptions();
   return q.options;
 }
 
@@ -769,6 +777,13 @@ function renderQuestion(dir) {
         <span class="key">${i + 1}</span>
         <strong>${esc(o.t)}</strong>${o.d ? `<span class="d">${esc(o.d)}</span>` : ''}
       </button>`).join('') + `</div>`;
+    if (opts.some(o => o.write)) {
+      const sel = opts.find(o => o.v === S[q.id]);
+      const show = sel && sel.write;
+      html += `<div class="tool-note" id="writeInWrap" style="${show ? '' : 'display:none;'}">
+        <input id="writeInNote" type="text" placeholder="${esc(q.writePlaceholder || 'Tell us more')}" value="${esc(S[q.id + 'Other'] || '')}" autocomplete="off" />
+      </div>`;
+    }
   }
 
   if (q.kind === 'text') {
@@ -848,6 +863,8 @@ function renderQuestion(dir) {
   qbody.querySelectorAll('.opt').forEach(btn => {
     btn.addEventListener('click', () => pick(q, btn.dataset.v));
   });
+  const writeIn = $('writeInNote');
+  if (writeIn) writeIn.addEventListener('input', e => { S[q.id + 'Other'] = e.target.value; });
   if (q.kind === 'checklist') {
     if (!S.tools) S.tools = [];
     qbody.querySelectorAll('.tool').forEach(btn => {
@@ -889,6 +906,13 @@ function pick(q, v) {
   S[q.id] = v;
   qbody.querySelectorAll('.opt').forEach(b => b.classList.toggle('picked', b.dataset.v === v));
   renderForming(); renderTrail();
+  const opt = optionsFor(q).find(o => o.v === v);
+  const wrap = $('writeInWrap');
+  if (opt && opt.write) {
+    if (wrap) { wrap.style.display = ''; const i = $('writeInNote'); if (i) i.focus(); }
+    return; /* wait for the write-in + Continue; no auto-advance */
+  }
+  if (wrap) wrap.style.display = 'none';
   setTimeout(() => advance(), 240);
 }
 
@@ -921,6 +945,11 @@ function collectInputs(q) {
     S.software = $('software') ? $('software').value : S.software;
     S.cfoInterest = $('cfoInterest') ? $('cfoInterest').checked : !!S.cfoInterest;
     return ok;
+  }
+  if (q.kind === 'cards') {
+    const opt = optionsFor(q).find(o => o.v === S[q.id]);
+    if (opt && opt.write) { const wn = $('writeInNote'); if (wn) S[q.id + 'Other'] = wn.value.trim(); }
+    return !!S[q.id];
   }
   return !!S[q.id];
 }
@@ -1119,6 +1148,37 @@ const TOOL_LABEL = (function () {
 })();
 function toolsLabelList() { return (S.tools || []).map(v => TOOL_LABEL[v] || v); }
 
+/* ---------- how books are managed today (tailored providers by orgType) ---------- */
+const BOOKS_PROVIDERS = {
+  church:     [ { v:'ifr', t:'IFR' }, { v:'belay', t:'Belay' }, { v:'churchbiz', t:'ChurchBiz' }, { v:'aplos_svc', t:'Aplos Bookkeeping' } ],
+  nonprofit:  [ { v:'jitasa', t:'Jitasa' }, { v:'yptc', t:'Your Part-Time Controller' }, { v:'belay', t:'Belay' }, { v:'charitycfo', t:'The Charity CFO' } ],
+  contractor: [ { v:'bench', t:'Bench' }, { v:'proledge', t:'ProLedge' }, { v:'completecontroller', t:'Complete Controller' } ],
+  ecommerce:  [ { v:'bench', t:'Bench' }, { v:'bookkeeper360', t:'Bookkeeper360' }, { v:'xendoo', t:'Xendoo' }, { v:'finaloop', t:'Finaloop' } ],
+  services:   [ { v:'bench', t:'Bench' }, { v:'pilot', t:'Pilot' }, { v:'bookkeeper360', t:'Bookkeeper360' }, { v:'acct1800', t:'1-800Accountant' } ],
+  realestate: [ { v:'bench', t:'Bench' }, { v:'hallcpa', t:'Hall CPA' }, { v:'completecontroller', t:'Complete Controller' } ]
+};
+
+function booksManagedOptions() {
+  const base = [
+    { v:'inhouse',    t:'In-house / myself',     d:'Me, an owner, or a staff member keeps them.' },
+    { v:'outsourced', t:'Outsourced bookkeeper', d:'A freelancer or bookkeeping firm.' }
+  ];
+  const providers = BOOKS_PROVIDERS[S.orgType] || [];
+  const tail = [
+    { v:'cpa',   t:'Our CPA / tax accountant', d:'A CPA who also touches the books.' },
+    { v:'none',  t:'No one right now',         d:'Nobody is keeping them current.' },
+    { v:'other', t:'Someone else',             d:'Tell us who you use.', write:true }
+  ];
+  return base.concat(providers, tail);
+}
+
+function booksManagedLabelOf() {
+  const sel = booksManagedOptions().find(o => o.v === S.booksManaged);
+  if (!sel) return '';
+  if (sel.write) return S.booksManagedOther ? ('Other: ' + S.booksManagedOther) : 'Other (unspecified)';
+  return sel.t;
+}
+
 function industryLabel() {
   if (S.orgType === 'other' && S.otherIndustryName && S.otherIndustryName.trim()) return S.otherIndustryName.trim();
   return ORG_LABEL[S.orgType] || 'Other';
@@ -1179,6 +1239,9 @@ function buildPayload(r) {
     billpay: S.billpay || '',
     billpayLabel: BILL_LABEL[S.billpay] || '',
     needs1099: needs1099Of(S),
+    booksManaged: S.booksManaged || '',
+    booksManagedLabel: booksManagedLabelOf(),
+    booksManagedOther: S.booksManagedOther || '',
     goal: S.goal || '',
     goalLabel: GOAL_LABEL[S.goal] || '',
     cfoInterest: !!r.cfoInterest,
@@ -1359,6 +1422,7 @@ function finish() {
     ['Payroll', payload.payrollLabel],
     ['Bill pay', payload.billpayLabel],
     ['1099s', payload.needs1099 ? 'Yes' : 'No'],
+    ['Managed by', payload.booksManagedLabel || 'Not specified'],
     ['Books today', payload.monthsBehindLabel],
     ['Your goal', payload.goalLabel],
     ['Add-ons', payload.attachedAddOns || 'None'],
