@@ -490,6 +490,31 @@ footer ul a:hover{color:var(--emerald)}
   </div>
 </section>
 
+      <!-- ══════ INDUSTRY CONTEXT BAND (stock imagery) ══════ -->
+      <section class="iband" aria-label="Built For Roofers">
+        <img class="iband-bg" src="https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&w=1600&q=72" alt="Roofer working on a residential roof" loading="lazy" decoding="async" width="1600" height="900">
+        <div class="iband-ov" aria-hidden="true"></div>
+        <div class="iband-in">
+          <div class="ieye">BUILT FOR ROOFERS</div>
+          <h2>Know your margin before the next tear-off.</h2>
+          <p>Job costing, material draws, and crew payroll, in view.</p>
+        </div>
+      </section>
+<style id="iband-style">
+.iband{position:relative;min-height:clamp(360px,44vw,560px);display:flex;align-items:center;overflow:hidden;background:var(--pine)}
+.iband-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+.iband-ov{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(4,22,14,.94) 0%,rgba(4,22,14,.80) 34%,rgba(6,40,26,.50) 66%,rgba(6,40,26,.22) 100%),linear-gradient(0deg,rgba(0,122,51,.30),rgba(4,22,14,0) 56%)}
+.iband-in{position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;padding:clamp(48px,6vw,72px) clamp(20px,5vw,60px)}
+.iband .ieye{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--emerald);margin-bottom:18px}
+.iband .ieye::before{content:"";width:34px;height:1.5px;background:var(--emerald)}
+.iband h2{font-size:clamp(30px,4.4vw,54px);font-weight:800;letter-spacing:-.03em;line-height:1.08;color:#fff;max-width:20ch;text-shadow:0 2px 26px rgba(2,14,8,.5)}
+.iband p{margin-top:16px;font-size:clamp(15.5px,1.35vw,18px);color:#cfe7d9;max-width:52ch;font-weight:500}
+@media(max-width:640px){
+ .iband{min-height:clamp(320px,82vw,470px)}
+ .iband-ov{background:linear-gradient(100deg,rgba(4,22,14,.93) 0%,rgba(4,22,14,.82) 56%,rgba(6,40,26,.64) 100%),linear-gradient(0deg,rgba(4,22,14,.55),rgba(4,22,14,0) 60%)}
+}
+</style>
+
 <!-- ================= SERVICES ================= -->
 <section class="svc" id="services">
   <div class="inner">

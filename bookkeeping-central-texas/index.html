@@ -193,7 +193,31 @@
       </div>
     </section>
 
-    <section class="section section-tight">
+
+      <!-- INDUSTRY CONTEXT BAND (stock imagery) -->
+      <section class="ind-band" aria-label="Bookkeeping In Central Texas">
+        <img class="ind-band-media" src="https://images.unsplash.com/photo-1531218150217-54595bc2b934?auto=format&fit=crop&w=1600&q=72" alt="Austin, Texas skyline at dusk" loading="lazy" decoding="async" width="1600" height="900">
+        <div class="ind-band-overlay" aria-hidden="true"></div>
+        <div class="container ind-band-inner">
+          <span class="ind-band-rule" aria-hidden="true"></span>
+          <p class="ind-band-kicker">BOOKKEEPING IN CENTRAL TEXAS</p>
+          <h2 class="ind-band-head">Austin-based books, built for local business.</h2>
+          <p class="ind-band-sub">Clean monthly close and reporting you can trust.</p>
+        </div>
+      </section>
+<style id="ind-band-style">
+.ind-band{position:relative;width:100%;min-height:clamp(340px,42vw,520px);display:flex;align-items:center;overflow:hidden;isolation:isolate;background:#00263a;}
+.ind-band-media{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:center;}
+.ind-band-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,38,58,.95) 0%,rgba(0,38,58,.82) 34%,rgba(0,38,58,.54) 66%,rgba(0,38,58,.30) 100%),linear-gradient(0deg,rgba(4,120,87,.30),rgba(0,38,58,0) 58%);}
+.ind-band-inner{position:relative;z-index:2;padding:58px 0;}
+.ind-band-rule{display:block;width:46px;height:3px;border-radius:2px;background:linear-gradient(90deg,#00e676,#10b981);margin:0 0 18px;box-shadow:0 0 16px rgba(0,230,118,.5);}
+.ind-band-kicker{font:700 .8rem/1.1 'Plus Jakarta Sans',system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#00e676;margin:0 0 12px;}
+.ind-band-head{font:800 clamp(1.7rem,3.4vw,2.9rem)/1.08 'Plus Jakarta Sans',system-ui,sans-serif;letter-spacing:-.02em;color:#fff;margin:0;max-width:20ch;text-shadow:0 2px 22px rgba(0,18,12,.45);}
+.ind-band-sub{font:400 clamp(1rem,1.35vw,1.18rem)/1.5 'Plus Jakarta Sans',system-ui,sans-serif;color:rgba(255,255,255,.9);margin:16px 0 0;max-width:44ch;}
+@media (max-width:760px){.ind-band{min-height:clamp(300px,74vw,430px);}.ind-band-overlay{background:linear-gradient(90deg,rgba(0,38,58,.92) 0%,rgba(0,38,58,.8) 58%,rgba(0,38,58,.66) 100%),linear-gradient(0deg,rgba(0,38,58,.55),rgba(0,38,58,0) 62%);}.ind-band-inner{padding:40px 0;}}
+</style>
+
+<section class="section section-tight">
       <div class="container reveal">
         <div class="section-head">
           <h2>A Central Texas bookkeeper <span class="shimmer-text">without the local-only limits.</span></h2>
