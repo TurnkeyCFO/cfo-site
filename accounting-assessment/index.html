@@ -374,7 +374,7 @@ var QUESTIONS = [
  // W — written
  {id:"W1",s:"W",type:"text",q:"<b>Client email.</b> A church treasurer emails, clearly frustrated, that their June financials are five days late and they have a board meeting tomorrow night. Write the reply you'd send. (There's no need to invent excuses — we're looking at tone, ownership, and clarity.)"},
  {id:"W2",s:"W",type:"text",q:"<b>Troubleshooting.</b> You take over a client's books and the checking account won't reconcile — there's a <span class='mono'>$1,240</span> difference between QBO and the bank statement. Walk through, step by step, how you'd track down and fix it."},
- {id:"W3",s:"W",type:"text",q:"<b>Your review process.</b> Part of this role is reviewing another bookkeeper's QuickBooks work before it reaches the client. In your own words, what are the first things you check, and how do you decide what to fix yourself versus what to send back or ask the client about?"}
+ {id:"W3",s:"W",type:"text",q:"<b>From your own experience.</b> Tell us about a specific time you personally caught a meaningful error in a set of books — yours or someone else's. What was the error, how did you notice it, and what did you do to fix it? We're looking for real detail from your own work, not a general description."}
 ];
 
 /* ============================================================ */
@@ -423,6 +423,91 @@ function mcIndex(id){
 var MC_TOTAL = QUESTIONS.filter(function(q){return q.type!=='text';}).length;
 var W_TOTAL  = QUESTIONS.filter(function(q){return q.type==='text';}).length;
 var answers = {}; var written = {};
+
+/* ============================================================
+   SILENT INTEGRITY TELEMETRY — no visible UI. Captures timing,
+   tab/app switching, paste + typing dynamics so the team can
+   spot outside/AI help and see how long each part actually took.
+   ============================================================ */
+var T = { loadAt: Date.now(), firstInteractAt:null, q:{}, blur:[], paste:[], copyCount:0, written:{} };
+function tnow(){ return Date.now() - T.loadAt; }
+function tFirst(){ if(T.firstInteractAt===null) T.firstInteractAt = tnow(); }
+var currentQ = null, awayStart = null, awayStartQ = null;
+
+// per-question first-seen (viewport) — attribution for away time
+try {
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting && e.intersectionRatio>=0.5){
+        var id = e.target.id.replace('q_','');
+        if(!T.q[id]) T.q[id] = {};
+        if(T.q[id].seen==null) T.q[id].seen = tnow();
+        currentQ = id;
+      }
+    });
+  }, {threshold:[0.5]});
+  document.querySelectorAll('.q').forEach(function(el){ io.observe(el); });
+} catch(e){}
+
+// MCQ answer timing + change count
+document.querySelectorAll('.opt').forEach(function(lbl){
+  lbl.addEventListener('click', function(){
+    tFirst();
+    var id = lbl.getAttribute('data-q');
+    if(!T.q[id]) T.q[id]={};
+    T.q[id].ans = tnow();
+    T.q[id].changes = (T.q[id].changes||0)+1;
+  });
+});
+
+// written: typing dynamics + paste capture
+document.querySelectorAll('textarea[data-w]').forEach(function(ta){
+  var id = ta.getAttribute('data-w');
+  T.written[id] = {inputs:0, maxJump:0, finalLen:0, pasted:false, pasteChars:0};
+  if(!T.q[id]) T.q[id]={};
+  var last = 0;
+  ta.addEventListener('input', function(){
+    tFirst();
+    var L = ta.value.length;
+    var jump = L - last; if(jump>T.written[id].maxJump) T.written[id].maxJump = jump;
+    last = L;
+    T.written[id].inputs++;
+    T.written[id].finalLen = L;
+    T.q[id].ans = tnow();
+  });
+  ta.addEventListener('paste', function(e){
+    var cd = e.clipboardData || window.clipboardData;
+    var txt = cd ? cd.getData('text') : '';
+    var len = txt ? txt.length : 0;
+    T.written[id].pasted = true;
+    T.written[id].pasteChars += len;
+    T.paste.push({field:id, len:len, at:tnow()});
+  });
+});
+
+// away tracking — coalesced across tab-switch (visibilitychange) + app-switch (blur/focus)
+function goneAway(){ if(awayStart===null){ awayStart = tnow(); awayStartQ = currentQ; } }
+function backAgain(){ if(awayStart!==null){ T.blur.push({at:awayStart, dur:tnow()-awayStart, q:awayStartQ}); awayStart=null; } }
+document.addEventListener('visibilitychange', function(){ if(document.hidden) goneAway(); else backAgain(); });
+window.addEventListener('blur', goneAway);
+window.addEventListener('focus', backAgain);
+document.addEventListener('copy', function(){ T.copyCount++; });
+document.addEventListener('keydown', tFirst, {once:true});
+document.addEventListener('pointerdown', tFirst, {once:true});
+
+function buildTelemetry(){
+  backAgain(); // close any open away interval
+  var blurMs = T.blur.reduce(function(a,b){return a+(b.dur||0);},0);
+  return {
+    firstInteractAt: T.firstInteractAt,
+    wallMs: tnow(),
+    blur: T.blur, blurCount: T.blur.length, blurMsTotal: blurMs,
+    paste: T.paste, copyCount: T.copyCount,
+    q: T.q, written: T.written,
+    ua: (navigator.userAgent||'').slice(0,180),
+    screen: (window.screen ? (window.screen.width+'x'+window.screen.height) : '')
+  };
+}
 
 // option selection
 document.querySelectorAll('.opt').forEach(function(lbl){
@@ -504,7 +589,8 @@ document.getElementById('submit').addEventListener('click', function(){
     elapsedSec: elapsed,
     submittedAt: new Date().toISOString(),
     answers: answers,
-    written: written
+    written: written,
+    telemetry: buildTelemetry()
   };
 
   fetch('/api/accounting-assessment', {
