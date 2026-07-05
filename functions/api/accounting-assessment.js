@@ -149,7 +149,8 @@ export async function onRequestPost({ request, env }) {
     L.push("");
     L.push("*" + w + " — " + WRITTEN_LABEL[w] + "*");
     var ans = clip(written[w] || "(left blank)", 1100);
-    L.push(">>> " + ans.replace(/\n/g, "\n"));
+    // one ">" per line so multi-line answers quote cleanly without cascading
+    L.push(ans.split("\n").map(function(ln){ return "> " + ln; }).join("\n"));
   });
 
   var text = L.join("\n");
