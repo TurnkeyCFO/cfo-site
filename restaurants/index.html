@@ -110,6 +110,16 @@ a{color:inherit;text-decoration:none}
 #pre .plogo{height:54px;width:auto;opacity:.95;filter:brightness(0) invert(1)}
 #pre .pnum{font-weight:800;font-size:15px;letter-spacing:.22em;color:var(--emerald);font-variant-numeric:tabular-nums}
 body.locked{overflow:hidden}
+/* ---------- preloader industry image ---------- */
+#pre{overflow:hidden}
+#pre .pbg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.12);will-change:opacity,transform;animation:preImg 1.3s cubic-bezier(.2,.6,.2,1) .06s forwards,preKen 8s ease-out .06s forwards}
+#pre .pov{position:absolute;inset:0;background:radial-gradient(118% 86% at 50% 40%,rgba(6,40,26,.28),rgba(4,22,14,.72) 60%,rgba(4,22,14,.93) 100%),linear-gradient(0deg,rgba(0,122,51,.30),rgba(4,22,14,0) 55%)}
+#pre .plogo,#pre .pnum{position:relative;z-index:2}
+#pre .plogo{filter:brightness(0) invert(1) drop-shadow(0 4px 22px rgba(2,12,7,.55))}
+#pre .pnum{text-shadow:0 2px 16px rgba(2,12,7,.7)}
+@keyframes preImg{to{opacity:.62}}
+@keyframes preKen{from{transform:scale(1.12)}to{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){#pre .pbg{opacity:.6;transform:none;animation:none}}
 
 /* ---------- progress + cursor ---------- */
 #prog{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--emerald),var(--sea));z-index:1200}
@@ -354,6 +364,8 @@ footer ul a:hover{color:var(--emerald)}
 <div id="cur"><span id="curlb"></span></div>
 
 <div id="pre" aria-hidden="true">
+  <div class="pbg" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=72')"></div>
+  <div class="pov"></div>
   <img class="plogo" src="/assets/tk-logo.webp" alt="Turnkey CFO logo">
   <div class="pnum"><span id="pn">0</span>%</div>
 </div>
