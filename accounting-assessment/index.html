@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Accounting Manager · Skills Assessment · Turnkey CFO</title>
+<link rel="icon" href="/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dk:#007F66; --md:#00A383; --br:#08C398; --ink:#0A3D26; --deep:#006B54;
+    --tint:#f1faf5; --tintb:#b8e6d2; --mut:#5b605c; --line:#e2e6e3; --txt:#1a1a1a;
+    --page:#f7f9f8; --card:#ffffff; --warn:#8a5a13; --warnbg:#fdf3e7; --warnbd:#f0d6ae;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:70px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px;}
+
+  /* ===== STICKY BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:820px;margin:0 auto;padding:9px 22px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;}
+  .pbar{flex:1;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+          background:linear-gradient(90deg,var(--dk),var(--br));transition:width .35s ease;}
+  .pct{font-size:12px;font-weight:800;color:var(--deep);min-width:52px;text-align:right;
+       font-variant-numeric:tabular-nums;}
+  .timer{font-size:12px;font-weight:700;color:var(--mut);min-width:52px;text-align:right;
+         font-variant-numeric:tabular-nums;}
+
+  /* ===== HEADER ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:30px 0 0 0;}
+  .hd{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .hd img{height:46px;width:auto;}
+  .hd .eyebrow{font-size:11px;font-weight:700;letter-spacing:2.2px;color:var(--md);text-transform:uppercase;}
+  .rule{display:flex;height:6px;margin-top:20px;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;}
+  .rule .b{background:var(--md);width:25%;}
+  .rule .c{background:var(--br);width:20%;}
+  .title{padding:28px 0 6px 0;}
+  .title h1{font-size:clamp(27px,5vw,40px);font-weight:800;color:var(--ink);line-height:1.1;letter-spacing:-.5px;}
+  .title .sub{font-size:16px;color:var(--mut);margin-top:11px;max-width:680px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 26px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+
+  main{padding:14px 0 70px 0;}
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;
+              padding:24px 26px;margin:20px 0;}
+  .st{display:flex;align-items:baseline;gap:10px;margin:0 0 4px 0;font-size:19px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--br);padding-left:13px;letter-spacing:-.2px;}
+  .st .n{color:var(--md);font-weight:800;font-size:14px;}
+  .lead{color:var(--mut);font-size:14px;margin:5px 0 4px 18px;max-width:680px;}
+
+  /* ===== INTRO CARD ===== */
+  .intro .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 6px 0;}
+  @media(max-width:620px){.intro .row{grid-template-columns:1fr;}}
+  .fld label{display:block;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+             color:var(--md);margin-bottom:5px;}
+  .fld input[type=text],.fld input[type=email]{width:100%;padding:11px 13px;border:1.5px solid var(--line);
+      border-radius:9px;font-family:inherit;font-size:15px;color:var(--txt);background:#fff;transition:border .15s;}
+  .fld input:focus{outline:none;border-color:var(--md);}
+  .instructions{background:var(--tint);border:1px solid var(--tintb);border-radius:11px;padding:16px 18px;margin:16px 0;}
+  .instructions .cap{display:block;font-weight:800;color:var(--deep);letter-spacing:1.2px;
+             text-transform:uppercase;font-size:11px;margin-bottom:8px;}
+  .instructions ul{margin:0 0 0 18px;}
+  .instructions li{margin:0 0 6px 0;font-size:13.5px;color:#33463c;}
+  .instructions li b{color:var(--ink);}
+  .honor{display:flex;gap:11px;align-items:flex-start;margin:18px 0 4px 0;padding:14px 16px;
+         border:1.5px solid var(--tintb);border-radius:11px;background:#fff;cursor:pointer;}
+  .honor input{appearance:none;flex:0 0 22px;width:22px;height:22px;margin-top:1px;cursor:pointer;
+      border:2px solid var(--md);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  .honor input:checked{background:var(--dk);border-color:var(--dk);}
+  .honor input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:11px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  .honor span{font-size:13.5px;color:#33463c;font-weight:600;}
+
+  /* ===== QUESTIONS ===== */
+  .q{padding:16px 0;border-top:1px solid var(--line);}
+  .q:first-of-type{border-top:none;}
+  .q .qn{display:flex;gap:10px;align-items:flex-start;}
+  .q .qnum{flex:0 0 auto;font-size:12px;font-weight:800;color:#fff;background:var(--md);
+           border-radius:7px;padding:2px 8px;margin-top:2px;font-variant-numeric:tabular-nums;}
+  .q .qtext{font-size:15.5px;font-weight:600;color:var(--ink);line-height:1.5;}
+  .q .qtext .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;
+                  background:#f0f4f1;border:1px solid var(--line);border-radius:6px;padding:1px 6px;white-space:nowrap;}
+  .opts{margin:12px 0 0 34px;display:flex;flex-direction:column;gap:8px;}
+  @media(max-width:560px){.opts{margin-left:8px;}}
+  .opt{display:flex;gap:11px;align-items:flex-start;padding:11px 14px;border:1.5px solid var(--line);
+       border-radius:10px;cursor:pointer;transition:all .13s;background:#fff;}
+  .opt:hover{border-color:var(--tintb);background:var(--tint);}
+  .opt.sel{border-color:var(--dk);background:var(--tint);box-shadow:0 0 0 1px var(--dk) inset;}
+  .opt input{appearance:none;flex:0 0 19px;width:19px;height:19px;margin-top:1px;cursor:pointer;
+      border:2px solid var(--md);border-radius:50%;background:#fff;position:relative;transition:all .13s;}
+  .opt input:checked{border-color:var(--dk);}
+  .opt input:checked::after{content:"";position:absolute;left:3px;top:3px;width:9px;height:9px;
+      border-radius:50%;background:var(--dk);}
+  .opt .ol{flex:0 0 auto;font-weight:800;color:var(--deep);font-size:13.5px;text-transform:uppercase;}
+  .opt .ot{font-size:14px;color:var(--txt);line-height:1.45;}
+
+  /* ===== WRITTEN ===== */
+  .q textarea{width:100%;margin:12px 0 0 0;min-height:130px;padding:13px 15px;border:1.5px solid var(--line);
+      border-radius:10px;font-family:inherit;font-size:14.5px;line-height:1.6;color:var(--txt);
+      background:#fff;resize:vertical;transition:border .15s;}
+  .q textarea:focus{outline:none;border-color:var(--md);}
+  .wc{font-size:11.5px;color:var(--mut);text-align:right;margin-top:5px;font-variant-numeric:tabular-nums;}
+
+  .callout{background:var(--ink);border-radius:12px;padding:15px 19px;color:#eafff3;
+           font-size:13.5px;line-height:1.6;margin:14px 0;}
+  .callout .cap{display:block;font-weight:800;color:var(--br);letter-spacing:1.4px;
+                text-transform:uppercase;font-size:11px;margin-bottom:6px;}
+  .callout strong{color:#fff;}
+
+  /* ===== SUBMIT ===== */
+  .submitbar{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:20px 0;text-align:center;}
+  .btn{display:inline-block;border:none;background:var(--dk);color:#fff;font-family:inherit;font-weight:800;
+       font-size:16px;letter-spacing:.3px;padding:15px 40px;border-radius:11px;cursor:pointer;transition:all .15s;}
+  .btn:hover{background:var(--deep);transform:translateY(-1px);}
+  .btn:disabled{background:#9fb5ab;cursor:not-allowed;transform:none;}
+  .err{color:#a3341f;font-size:13.5px;font-weight:700;margin-top:14px;min-height:18px;}
+  .fineprint{font-size:12px;color:var(--mut);margin-top:12px;line-height:1.5;}
+
+  /* ===== DONE SCREEN ===== */
+  #done{display:none;text-align:center;padding:60px 0;}
+  #done .mark{width:74px;height:74px;border-radius:50%;background:var(--tint);border:2px solid var(--br);
+              margin:0 auto 22px auto;display:flex;align-items:center;justify-content:center;}
+  #done .mark::after{content:"";width:20px;height:38px;border:solid var(--dk);border-width:0 5px 5px 0;
+              transform:rotate(45deg);margin-top:-6px;}
+  #done h2{font-size:28px;font-weight:800;color:var(--ink);}
+  #done p{font-size:16px;color:var(--mut);max-width:520px;margin:14px auto 0 auto;}
+
+  footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;color:var(--mut);font-size:12px;}
+  footer b{color:var(--deep);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <img src="/assets/tk-logo.webp" alt="Turnkey CFO">
+    <div class="pbar"><i id="pbar"></i></div>
+    <div class="pct" id="pct">0%</div>
+    <div class="timer" id="timer">0:00</div>
+  </div>
+</div>
+
+<div id="assessment">
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <img src="/assets/tk-logo.webp" alt="Turnkey CFO">
+      <div class="eyebrow">Skills Assessment</div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="title">
+      <h1>Accounting Manager<br>Skills Assessment</h1>
+      <p class="sub">A short, practical assessment of the bookkeeping, review, and client-handling skills the Accounting Manager role relies on. There are no trick questions — just the day-to-day work of the seat.</p>
+      <div class="chips">
+        <span class="chip"><b>28</b>&nbsp;questions + 3 short written</span>
+        <span class="chip"><b>~35–40</b>&nbsp;minutes</span>
+        <span class="chip">One sitting</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- INTRO -->
+    <section class="blk intro">
+      <div class="st"><span class="n">Start</span> Before you begin</div>
+      <div class="row">
+        <div class="fld"><label for="name">Your full name</label><input type="text" id="name" autocomplete="name" placeholder="First and last name"></div>
+        <div class="fld"><label for="email">Your email</label><input type="email" id="email" autocomplete="email" placeholder="you@email.com"></div>
+      </div>
+      <div class="instructions">
+        <span class="cap">How this works</span>
+        <ul>
+          <li>Multiple-choice questions each have <b>one best answer</b>. Pick the response you'd stand behind on a real client's books.</li>
+          <li>The three written prompts near the end ask you to <b>think out loud</b> — a few clear sentences is plenty; polish matters less than sound reasoning.</li>
+          <li>Please complete it in <b>one sitting</b> and on your own. It's designed to reflect how you actually work, not to be memorized.</li>
+          <li>You won't be graded on speed — the timer is just for our reference.</li>
+        </ul>
+      </div>
+      <label class="honor"><input type="checkbox" id="honor"><span>I'm completing this assessment on my own, without help from another person, as an honest reflection of my knowledge.</span></label>
+    </section>
+
+    <div id="questions"></div>
+
+    <!-- SUBMIT -->
+    <section class="submitbar">
+      <button class="btn" id="submit">Submit assessment</button>
+      <div class="err" id="err"></div>
+      <div class="fineprint">Your responses go directly to the Turnkey CFO team. You'll see a confirmation once it's submitted.</div>
+    </section>
+
+  </div>
+</main>
+
+<footer><div class="wrap"><b>Turnkey CFO</b> &nbsp;·&nbsp; Bookkeeping, payroll &amp; reporting &nbsp;·&nbsp; Confidential assessment</div></footer>
+</div>
+
+<!-- DONE -->
+<div id="done">
+  <div class="wrap">
+    <div class="mark"></div>
+    <h2>Thank you — your assessment is submitted.</h2>
+    <p>We've received your responses and the Turnkey CFO team will review them. We appreciate the time and care you put into it, and we'll be in touch about next steps.</p>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   QUESTION BANK — question + option text only.
+   The correct-answer key lives SERVER-SIDE (/api/accounting-assessment),
+   never in this page, so the assessment can't be reverse-engineered.
+   ============================================================ */
+var SECTIONS = [
+  {n:"A", t:"Bookkeeping fundamentals", lead:"The basics that everything else rests on."},
+  {n:"B", t:"QuickBooks Online in practice", lead:"Day-to-day QBO decisions you'll make and review."},
+  {n:"C", t:"Month-end close &amp; review", lead:"Owning the close and catching what the bookkeeper missed."},
+  {n:"D", t:"Payroll, 1099 &amp; compliance", lead:"The liabilities and filings that trip people up."},
+  {n:"E", t:"Church &amp; nonprofit accounting", lead:"Most of our clients are churches and ministries — this matters."},
+  {n:"F", t:"Roll-up-your-sleeves", lead:"Two quick exercises — actually work the numbers."},
+  {n:"G", t:"Judgment &amp; client handling", lead:"How you carry yourself when it's not black-and-white."},
+  {n:"W", t:"In your own words", lead:"Three short written prompts. A few clear sentences each."}
+];
+
+var QUESTIONS = [
+ // A — fundamentals
+ {id:"A1",s:"A",q:"Which of these accounts normally carries a <b>credit</b> balance?",o:[
+   ["a","Accounts Receivable"],["b","Prepaid Insurance"],["c","Unearned (deferred) revenue"],["d","Office Supplies Expense"]]},
+ {id:"A2",s:"A",q:"A business buys <span class='mono'>$1,200</span> of office supplies on account (to be paid later). The correct entry is:",o:[
+   ["a","Debit Supplies Expense $1,200; Credit Cash $1,200"],
+   ["b","Debit Supplies Expense $1,200; Credit Accounts Payable $1,200"],
+   ["c","Debit Accounts Payable $1,200; Credit Supplies Expense $1,200"],
+   ["d","Debit Cash $1,200; Credit Accounts Payable $1,200"]]},
+ {id:"A3",s:"A",q:"Under <b>accrual</b> accounting, revenue is recognized when:",o:[
+   ["a","The cash is received"],["b","The invoice is paid"],
+   ["c","The product or service has been delivered / earned"],["d","The month closes, regardless of timing"]]},
+ {id:"A4",s:"A",q:"A client pays a 12-month insurance premium of <span class='mono'>$2,400</span> up front on Jan 1. Under accrual accounting, how much is insurance <b>expense</b> in January?",o:[
+   ["a","$2,400"],["b","$0"],["c","$200"],["d","$1,200"]]},
+
+ // B — QBO
+ {id:"B1",s:"B",q:"In QuickBooks Online, what is the <b>Undeposited Funds</b> account for?",o:[
+   ["a","Tracking petty cash on hand"],
+   ["b","Holding received payments until they're grouped into a single bank deposit that matches the bank statement"],
+   ["c","Recording expenses you can't yet categorize"],
+   ["d","Holding owner contributions until year-end"]]},
+ {id:"B2",s:"B",q:"You're reconciling a checking account and it's off — by exactly the amount of a check that's <b>in QBO but not yet on the bank statement</b>. The most likely explanation:",o:[
+   ["a","The bank made an error"],
+   ["b","It's an outstanding check that hasn't cleared yet — a normal timing difference"],
+   ["c","The check was entered twice"],
+   ["d","You should post a reconciliation adjustment to force it to zero"]]},
+ {id:"B3",s:"B",q:"An owner paid for a legitimate business expense with their <b>personal</b> card, and the business has not reimbursed them (single-member LLC). The cleanest way to record it in the company's books:",o:[
+   ["a","Owner's Draw"],
+   ["b","Record the expense, with the offsetting entry to Owner Contribution / Owner's Equity"],
+   ["c","Leave it in Uncategorized Expense until reimbursed"],
+   ["d","Don't record it — it was personal"]]},
+ {id:"B4",s:"B",q:"A transaction was categorized to the wrong expense account last month. The books are <b>not yet closed</b>. The right fix is to:",o:[
+   ["a","Delete it and re-enter it fresh"],
+   ["b","Change the category on the existing transaction (reclassify it)"],
+   ["c","Book a new expense for the difference"],
+   ["d","Leave it — it nets out over the year"]]},
+ {id:"B5",s:"B",q:"A <span class='mono'>$500</span> deposit shows up in the bank feed. You've already recorded the customer's $500 invoice payment to Undeposited Funds and made the deposit in QBO. When the bank-feed item appears, you should:",o:[
+   ["a","Add it as new income"],
+   ["b","Match it to the deposit already recorded in QBO"],
+   ["c","Categorize it to Uncategorized Income"],
+   ["d","Exclude it from the feed"]]},
+
+ // C — close & QC
+ {id:"C1",s:"C",q:"Before you'd consider a client's books <b>closed</b> for the month, which is the most complete requirement?",o:[
+   ["a","Every bank transaction has a category"],
+   ["b","All bank &amp; credit-card accounts are reconciled to their statements, and the P&amp;L and Balance Sheet have been reviewed for anything out of pattern"],
+   ["c","The P&amp;L has been emailed to the client"],
+   ["d","Payroll has been run"]]},
+ {id:"C2",s:"C",q:"On a Balance Sheet you're reviewing, <b>Accounts Receivable is negative</b>. That most likely means:",o:[
+   ["a","The client is unusually profitable"],
+   ["b","Customer payments or credits were applied without matching them to invoices, or a payment was recorded twice"],
+   ["c","Nothing — AR is often negative"],
+   ["d","The bank feed is disconnected"]]},
+ {id:"C3",s:"C",q:"A December utility bill of <span class='mono'>$300</span> arrives and is paid in January. For accurate <b>accrual-basis</b> December books, in December you should:",o:[
+   ["a","Do nothing until it's paid in January"],
+   ["b","Accrue it — record the expense and an Accounts Payable in December"],
+   ["c","Record it as a prepaid asset"],
+   ["d","Record it only as a January expense"]]},
+ {id:"C4",s:"C",q:"Reviewing a bookkeeper's work, you see they <b>“added”</b> several bank-feed deposits as new income — but those customers' invoice payments were <b>already recorded</b>. The impact is:",o:[
+   ["a","Income is understated"],
+   ["b","Income is overstated / double-counted — those deposits should have been matched to the existing entries, not added"],
+   ["c","No impact; it all nets out"],
+   ["d","The bank won't reconcile, but income is fine"]]},
+
+ // D — payroll / 1099 / tax
+ {id:"D1",s:"D",q:"Federal income tax and FICA <b>withheld</b> from an employee's paycheck (not yet remitted to the IRS) should be recorded as:",o:[
+   ["a","Payroll Expense"],["b","A Payroll Liability"],["c","Owner's Equity"],["d","Revenue"]]},
+ {id:"D2",s:"D",q:"Which of these most likely requires a Form <b>1099-NEC</b> (assume the amount is over the threshold)?",o:[
+   ["a","A full-time W-2 employee"],
+   ["b","An incorporated (C-corp) vendor you bought merchandise from"],
+   ["c","An unincorporated independent contractor paid $2,000 for services by check/ACH"],
+   ["d","A vendor you paid entirely by credit card"]]},
+ {id:"D3",s:"D",q:"The IRS reporting threshold that generally triggers a 1099-NEC for nonemployee compensation is:",o:[
+   ["a","$600"],["b","$2,000"],["c","$10,000"],["d","Any amount, no threshold"]]},
+ {id:"D4",s:"D",q:"Sales tax you've <b>collected</b> from customers but not yet remitted to the state is:",o:[
+   ["a","Revenue"],["b","An expense"],["c","A liability owed to the state"],["d","Owner's equity"]]},
+
+ // E — church / nonprofit
+ {id:"E1",s:"E",q:"A donor gives <span class='mono'>$5,000</span> earmarked specifically for the building fund. This is recorded as:",o:[
+   ["a","Unrestricted revenue"],
+   ["b","Revenue with donor restriction (restricted / designated)"],
+   ["c","A liability"],["d","A loan from the donor"]]},
+ {id:"E2",s:"E",q:"A church receives a designated <b>missions-trip</b> offering and later spends it on that trip. When it's spent, the funds are:",o:[
+   ["a","Kept as restricted forever"],
+   ["b","Released from restriction as they're used for their intended purpose"],
+   ["c","Recorded as brand-new revenue again"],
+   ["d","Refunded to the donors"]]},
+ {id:"E3",s:"E",q:"For a nonprofit, the report that splits expenses across <b>Program, Management &amp; General, and Fundraising</b> is the:",o:[
+   ["a","Statement of Financial Position"],
+   ["b","Statement of Functional Expenses"],
+   ["c","Statement of Cash Flows"],["d","Balance Sheet"]]},
+ {id:"E4",s:"E",q:"A minister has a properly <b>designated housing allowance</b>. For payroll and reporting, that housing allowance is generally:",o:[
+   ["a","Taxed as normal wages with income tax withheld"],
+   ["b","Excluded from federal income-taxable wages (not in W-2 Box 1), but still subject to the minister's self-employment (SECA) tax"],
+   ["c","Not reported or tracked anywhere"],
+   ["d","Recorded as a business expense of the church"]]},
+ {id:"E5",s:"E",q:"A church takes a special collection for a specific family in need and passes 100% of it through to that family. The bookkeeping should:",o:[
+   ["a","Record the money in and back out as a clearly-tracked benevolence pass-through — and recognize it isn't a tax-deductible designated gift to an individual"],
+   ["b","Record only the incoming collection as revenue"],
+   ["c","Ignore it since the church kept none of it"],
+   ["d","Record it as a loan to the family"]]},
+
+ // F — exercises
+ {id:"F1",s:"F",q:"Work the bank rec: bank statement ending balance <span class='mono'>$10,000</span>; add deposits in transit <span class='mono'>$500</span>; subtract outstanding checks <span class='mono'>$1,500</span>. The QBO book balance is <span class='mono'>$9,000</span>. Does it reconcile?",o:[
+   ["a","Yes — adjusted bank balance is $9,000, which matches the books"],
+   ["b","No, it's off by $1,000"],
+   ["c","No, it's off by $2,000"],
+   ["d","There isn't enough information"]]},
+ {id:"F2",s:"F",q:"A P&amp;L shows: Income <span class='mono'>$50,000</span>, Cost of Goods Sold <span class='mono'>$20,000</span>, and Gross Profit listed as <span class='mono'>$70,000</span>. What's wrong?",o:[
+   ["a","Nothing — that's correct"],
+   ["b","Gross Profit should be $30,000 (Income minus COGS) — the two were added instead of subtracted"],
+   ["c","COGS is too low"],
+   ["d","Income is understated"]]},
+
+ // G — judgment
+ {id:"G1",s:"G",q:"A client asks you to record their personal vacation as a <b>“business travel”</b> expense to lower their taxes. You should:",o:[
+   ["a","Do it — the client is always right"],
+   ["b","Decline to misclassify it, explain it isn't a legitimate business expense, and suggest they talk with their CPA"],
+   ["c","Book it as “Miscellaneous” so it's less obvious"],
+   ["d","Record half of it as a compromise"]]},
+ {id:"G2",s:"G",q:"During close you find a <span class='mono'>$3,000</span> discrepancy you can't resolve, and the delivery deadline is tomorrow. Best action:",o:[
+   ["a","Post a plug to force it to balance and say nothing"],
+   ["b","Promptly flag it to your manager with what you've found and your proposed next step, rather than hiding it"],
+   ["c","Delay the entire close indefinitely"],
+   ["d","Ask the client to cover the difference"]]},
+ {id:"G3",s:"G",q:"A bookkeeper you oversee left 15 transactions sitting in <b>“Ask My Accountant.”</b> The best quality-control approach is:",o:[
+   ["a","Approve them all to keep the close on schedule"],
+   ["b","Review each one, recategorize the ones you can determine, and compile a short, specific question list for the client on the rest"],
+   ["c","Forward all 15 to the client to sort out"],
+   ["d","Delete them so the report looks clean"]]},
+ {id:"G4",s:"G",q:"A client emails asking (a) why a software subscription moved categories this month, and (b) what you'd charge to <b>also start doing their payroll</b>. Best response:",o:[
+   ["a","Answer (a); for (b), give them your best guess at a monthly price so they have a number"],
+   ["b","Answer (a) clearly; for (b), acknowledge the interest warmly and say you'll follow up with the right person — without quoting a price"],
+   ["c","Skip (a) and focus on winning the payroll work"],
+   ["d","Tell them to email the owner directly about both"]]},
+
+ // W — written
+ {id:"W1",s:"W",type:"text",q:"<b>Client email.</b> A church treasurer emails, clearly frustrated, that their June financials are five days late and they have a board meeting tomorrow night. Write the reply you'd send. (There's no need to invent excuses — we're looking at tone, ownership, and clarity.)"},
+ {id:"W2",s:"W",type:"text",q:"<b>Troubleshooting.</b> You take over a client's books and the checking account won't reconcile — there's a <span class='mono'>$1,240</span> difference between QBO and the bank statement. Walk through, step by step, how you'd track down and fix it."},
+ {id:"W3",s:"W",type:"text",q:"<b>Your review process.</b> Part of this role is reviewing another bookkeeper's QuickBooks work before it reaches the client. In your own words, what are the first things you check, and how do you decide what to fix yourself versus what to send back or ask the client about?"}
+];
+
+/* ============================================================ */
+var qRoot = document.getElementById('questions');
+var curSection = null;
+QUESTIONS.forEach(function(item, idx){
+  if(item.s !== curSection){
+    curSection = item.s;
+    var sec = SECTIONS.find(function(x){return x.n===item.s;});
+    var block = document.createElement('section');
+    block.className = 'blk';
+    block.innerHTML = '<div class="st"><span class="n">'+sec.n+'</span> '+sec.t+'</div><p class="lead">'+sec.lead+'</p>';
+    block.setAttribute('data-sec', item.s);
+    qRoot.appendChild(block);
+  }
+  var host = qRoot.lastChild;
+  var wrap = document.createElement('div');
+  wrap.className = 'q';
+  wrap.id = 'q_'+item.id;
+  var num = (item.type==='text') ? '&#9998;' : (mcIndex(item.id));
+  var html = '<div class="qn"><span class="qnum">'+num+'</span><div class="qtext">'+item.q+'</div></div>';
+  if(item.type==='text'){
+    html += '<textarea data-w="'+item.id+'" placeholder="Type your response here..."></textarea><div class="wc" id="wc_'+item.id+'">0 words</div>';
+  } else {
+    html += '<div class="opts">';
+    item.o.forEach(function(op){
+      html += '<label class="opt" data-q="'+item.id+'" data-k="'+op[0]+'">'+
+              '<input type="radio" name="'+item.id+'" value="'+op[0]+'">'+
+              '<span class="ol">'+op[0]+'</span><span class="ot">'+op[1]+'</span></label>';
+    });
+    html += '</div>';
+  }
+  wrap.innerHTML = html;
+  host.appendChild(wrap);
+});
+
+// number only the multiple-choice questions 1..N
+function mcIndex(id){
+  var n=0;
+  for(var i=0;i<QUESTIONS.length;i++){
+    if(QUESTIONS[i].type!=='text'){ n++; if(QUESTIONS[i].id===id) return n; }
+  }
+  return '';
+}
+
+var MC_TOTAL = QUESTIONS.filter(function(q){return q.type!=='text';}).length;
+var W_TOTAL  = QUESTIONS.filter(function(q){return q.type==='text';}).length;
+var answers = {}; var written = {};
+
+// option selection
+document.querySelectorAll('.opt').forEach(function(lbl){
+  lbl.addEventListener('click', function(){
+    var q = lbl.getAttribute('data-q'), k = lbl.getAttribute('data-k');
+    answers[q] = k;
+    document.querySelectorAll('.opt[data-q="'+q+'"]').forEach(function(o){o.classList.remove('sel');});
+    lbl.classList.add('sel');
+    lbl.querySelector('input').checked = true;
+    updateProgress();
+  });
+});
+// written
+document.querySelectorAll('textarea[data-w]').forEach(function(ta){
+  ta.addEventListener('input', function(){
+    var id = ta.getAttribute('data-w');
+    var t = ta.value.trim();
+    written[id] = t;
+    var words = t ? t.split(/\s+/).length : 0;
+    document.getElementById('wc_'+id).textContent = words+' word'+(words===1?'':'s');
+    updateProgress();
+  });
+});
+
+function answeredCount(){
+  var mc = Object.keys(answers).length;
+  var w = 0; for(var k in written){ if(written[k] && written[k].length>0) w++; }
+  return mc + w;
+}
+function updateProgress(){
+  var total = MC_TOTAL + W_TOTAL;
+  var pct = Math.round(answeredCount()/total*100);
+  document.getElementById('pbar').style.width = pct+'%';
+  document.getElementById('pct').textContent = pct+'%';
+}
+
+// timer
+var t0 = Date.now(); var elapsed = 0;
+setInterval(function(){
+  elapsed = Math.floor((Date.now()-t0)/1000);
+  var m = Math.floor(elapsed/60), s = elapsed%60;
+  document.getElementById('timer').textContent = m+':'+(s<10?'0':'')+s;
+}, 1000);
+
+// submit
+var submitting = false;
+document.getElementById('submit').addEventListener('click', function(){
+  if(submitting) return;
+  var err = document.getElementById('err');
+  err.textContent = '';
+  var name = document.getElementById('name').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var honor = document.getElementById('honor').checked;
+
+  if(!name){ err.textContent = 'Please enter your name at the top.'; scrollTo2('name'); return; }
+  if(!email || email.indexOf('@')<0){ err.textContent = 'Please enter a valid email at the top.'; scrollTo2('email'); return; }
+  if(!honor){ err.textContent = 'Please check the honesty statement before submitting.'; scrollTo2('honor'); return; }
+
+  // find first unanswered MC
+  var firstMissing = null;
+  QUESTIONS.forEach(function(q){
+    if(firstMissing) return;
+    if(q.type==='text'){ if(!written[q.id] || written[q.id].length<1) firstMissing=q.id; }
+    else { if(!answers[q.id]) firstMissing=q.id; }
+  });
+  if(firstMissing){
+    err.textContent = 'A few questions are still blank — please answer every question before submitting.';
+    var el = document.getElementById('q_'+firstMissing);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  submitting = true;
+  var btn = document.getElementById('submit');
+  btn.disabled = true; btn.textContent = 'Submitting…';
+
+  var payload = {
+    name: name, email: email, honor: honor,
+    elapsedSec: elapsed,
+    submittedAt: new Date().toISOString(),
+    answers: answers,
+    written: written
+  };
+
+  fetch('/api/accounting-assessment', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  }).then(function(r){ return r.json().catch(function(){return {ok:r.ok};}); })
+    .then(function(res){
+      if(res && res.ok){ showDone(); }
+      else { throw new Error((res && res.error) || 'submit failed'); }
+    })
+    .catch(function(e){
+      submitting = false; btn.disabled=false; btn.textContent='Submit assessment';
+      err.textContent = 'Something went wrong submitting. Please check your connection and try again.';
+    });
+});
+
+function scrollTo2(id){ var el=document.getElementById(id); if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); el.focus&&el.focus(); } }
+function showDone(){
+  document.getElementById('assessment').style.display='none';
+  document.getElementById('done').style.display='block';
+  document.getElementById('pbar').style.width='100%';
+  document.getElementById('pct').textContent='100%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
