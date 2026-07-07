@@ -545,11 +545,62 @@
     {id:"c-funds",q:"Fund reporting — anything specific to note?",d:"Anything particular about how you track or report restricted funds, designated gifts, or the FUEL 2026 campaign."}
   ];
 
+  // ---- confirmed submission (received via #assistantbot 2026-07-07) ----
+  // Seeded so the answers show for everyone, on any device, not just the
+  // browser they were originally typed in. Local edits still override these.
+  var SEED = {
+    roles: {
+      "r-contact":"Jennifer Mazzola",
+      "r-reports":"Buck Giebelhaus",
+      "r-bills":"Debi Kechley",
+      "r-payroll":"Buck Giebelhaus",
+      "r-bank":"Jennifer Mazzola",
+      "r-donor":"Jennifer Mazzola",
+      "r-cap":"Buck Giebelhaus",
+      "r-board":"Buck Giebelhaus",
+      "r-sensitive":"Buck Giebelhaus"
+    },
+    roleEmails: {
+      "r-contact":"jenn.mazzola@npaustin.com",
+      "r-reports":"buck.giebelhaus@npaustin.com",
+      "r-bills":"debi.kechley@npaustin.com",
+      "r-payroll":"buck.giebelhaus@npaustin.com",
+      "r-bank":"jenn.mazzola@npaustin.com",
+      "r-donor":"jenn.mazzola@npaustin.com",
+      "r-cap":"buck.giebelhaus@npaustin.com",
+      "r-board":"buck.giebelhaus@npaustin.com",
+      "r-sensitive":"buck.giebelhaus@npaustin.com"
+    },
+    cheat: {
+      "c-bva":"Monthly as early as possible.",
+      "c-board":"Third Thursday every month",
+      "c-cashflow":"PCO, Frost Bank, Transaction Reports (Venmo, Square, Checks), Quickbooks",
+      "c-funds":"We have restricted funds and hold funds"
+    }
+  };
+
   // ---- state ----
   var state = load();
   function load(){
-    try{ var s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object"){ s.checks=s.checks||{}; s.roles=s.roles||{}; s.roleEmails=s.roleEmails||{}; s.cheat=s.cheat||{}; s.staff=Array.isArray(s.staff)?s.staff:[]; s.notes=s.notes||[]; return s; } }catch(e){}
-    return {checks:{}, roles:{}, roleEmails:{}, cheat:{}, staff:[], notes:[]};
+    var base = {
+      checks:{}, staff:[], notes:[],
+      roles: Object.assign({}, SEED.roles),
+      roleEmails: Object.assign({}, SEED.roleEmails),
+      cheat: Object.assign({}, SEED.cheat)
+    };
+    try{
+      var s = JSON.parse(localStorage.getItem(KEY));
+      if(s && typeof s==="object"){
+        base.checks = s.checks||{};
+        base.staff = Array.isArray(s.staff)?s.staff:[];
+        base.notes = s.notes||[];
+        // local edits win over the seed; unedited fields keep the seed
+        base.roles = Object.assign({}, SEED.roles, s.roles||{});
+        base.roleEmails = Object.assign({}, SEED.roleEmails, s.roleEmails||{});
+        base.cheat = Object.assign({}, SEED.cheat, s.cheat||{});
+      }
+    }catch(e){}
+    return base;
   }
   function save(){
     try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
