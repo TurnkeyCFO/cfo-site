@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Accounting Onboarding Guide · Turnkey CFO</title>
+<link rel="icon" href="/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dk:#007F66; --md:#00A383; --br:#08C398; --ink:#0A3D26; --deep:#006B54;
+    --tint:#f1faf5; --tintb:#b8e6d2; --mut:#5b605c; --line:#e2e6e3; --txt:#1a1a1a;
+    --page:#f7f9f8; --card:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:84px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+
+  /* ===== STICKY PROGRESS BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:10px 28px;display:flex;align-items:center;gap:16px;}
+  .topbar img{height:30px;width:auto;}
+  .pbar{flex:1;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+          background:linear-gradient(90deg,var(--dk),var(--br));transition:width .4s ease;}
+  .pct{font-size:12.5px;font-weight:800;color:var(--deep);min-width:110px;text-align:right;
+       font-variant-numeric:tabular-nums;}
+
+  /* ===== HEADER ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:34px 0 0 0;}
+  .hd{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .hd img{height:52px;width:auto;}
+  .hd .right{text-align:right;}
+  .hd .eyebrow{font-size:11px;font-weight:700;letter-spacing:2.4px;color:var(--md);text-transform:uppercase;}
+  .hd .conf{font-size:10px;color:var(--mut);letter-spacing:.6px;text-transform:uppercase;margin-top:4px;}
+  .rule{display:flex;height:6px;margin-top:22px;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;}
+  .rule .b{background:var(--md);width:25%;}
+  .rule .c{background:var(--br);width:20%;}
+  .title{padding:30px 0 8px 0;}
+  .title h1{font-size:clamp(30px,5vw,44px);font-weight:800;color:var(--ink);line-height:1.08;letter-spacing:-.5px;}
+  .title .sub{font-size:16px;color:var(--mut);margin-top:12px;max-width:720px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 30px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;letter-spacing:.2px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== NAV ===== */
+  nav.toc{background:var(--ink);padding:14px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 14px;}
+  nav.toc a{color:#bfe9d7;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:.4px;
+            padding:3px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;}
+  nav.toc a .n{color:var(--br);margin-right:4px;}
+
+  main{padding:14px 0 60px 0;}
+
+  /* ===== SECTION ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;
+              padding:28px 30px;margin:26px 0;}
+  .st{display:flex;align-items:baseline;gap:10px;margin:0 0 6px 0;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--br);padding-left:14px;letter-spacing:-.2px;}
+  .st .n{color:var(--md);font-weight:800;font-size:15px;}
+  .lead{color:var(--mut);font-size:14px;margin:6px 0 16px 19px;max-width:760px;}
+  h3.sub2{font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--md);
+          margin:22px 0 10px 0;}
+
+  /* ===== CHECKLIST ===== */
+  ul.ck{list-style:none;margin:6px 0;}
+  ul.ck li{display:flex;gap:12px;align-items:flex-start;padding:9px 10px;border-radius:9px;margin:2px 0;}
+  ul.ck li:hover{background:var(--tint);}
+  ul.ck input[type=checkbox]{appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:3px;cursor:pointer;
+      border:2px solid var(--md);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  ul.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  ul.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  ul.ck label{cursor:pointer;flex:1;}
+  ul.ck li.done label{color:var(--mut);}
+  ul.ck b, ul.ck strong{color:var(--deep);}
+  .hint{display:block;font-size:12.5px;color:var(--mut);margin-top:2px;}
+
+  /* ===== TABLES ===== */
+  .tblwrap{overflow-x:auto;margin:8px 0;border-radius:10px;border:1px solid var(--line);}
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;
+     letter-spacing:1px;text-transform:uppercase;padding:9px 12px;white-space:nowrap;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:#f8faf9;}
+  td b, td strong{color:var(--ink);}
+  td .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
+      padding:2px 8px;border-radius:999px;background:var(--tint);border:1px solid var(--tintb);color:var(--deep);white-space:nowrap;}
+  td .tag.warn{background:#fdf3e7;border-color:#f0d6ae;color:#8a5a13;}
+  td .tag.pause{background:#f0f1f0;border-color:#d8dcd9;color:#5b605c;}
+
+  /* ===== CALLOUTS ===== */
+  .callout{background:var(--ink);border-radius:12px;padding:16px 20px;color:#eafff3;
+           font-size:13.5px;line-height:1.6;margin:14px 0;}
+  .callout .cap{display:block;font-weight:800;color:var(--br);letter-spacing:1.4px;
+                text-transform:uppercase;font-size:11px;margin-bottom:6px;}
+  .callout strong{color:#fff;}
+  .callout ul{margin:4px 0 0 18px;}
+  .callout li{margin:0 0 5px 0;}
+  .note{background:var(--tint);border:1px solid var(--tintb);border-left:5px solid var(--br);
+        border-radius:10px;padding:13px 16px;font-size:13.5px;margin:14px 0;}
+  .note .cap{display:block;font-weight:800;color:var(--deep);letter-spacing:1.2px;
+             text-transform:uppercase;font-size:11px;margin-bottom:4px;}
+
+  ul.tk{margin:6px 0 6px 20px;}
+  ul.tk li{margin:0 0 7px 0;}
+  ul.tk li::marker{color:var(--md);}
+  ul.tk b, ul.tk strong{color:var(--deep);}
+
+  /* phase strip */
+  .phases{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
+  .ph{background:var(--tint);border:1px solid var(--tintb);border-radius:11px;padding:13px 14px;}
+  .ph .d{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--md);}
+  .ph .t{font-size:14.5px;font-weight:800;color:var(--ink);margin:3px 0 4px 0;}
+  .ph .s{font-size:12px;color:var(--mut);line-height:1.45;}
+  @media(max-width:760px){.phases{grid-template-columns:1fr 1fr;}}
+
+  /* BD timeline */
+  .bd{display:flex;gap:14px;padding:11px 4px;border-bottom:1px solid var(--line);}
+  .bd:last-child{border-bottom:none;}
+  .bd .when{flex:0 0 118px;font-weight:800;color:var(--dk);font-size:13.5px;}
+  .bd:nth-child(odd) .when{color:var(--md);}
+  .bd .what{flex:1;font-size:13.5px;}
+  .bd .what b{color:var(--ink);}
+
+  .deliv{background:#fff;border:2px dashed var(--md);border-radius:11px;padding:14px 17px;margin:16px 0;font-size:13.5px;}
+  .deliv .cap{display:block;font-weight:800;color:var(--dk);letter-spacing:1.2px;text-transform:uppercase;
+              font-size:11px;margin-bottom:5px;}
+
+  a{color:var(--deep);font-weight:600;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;
+             align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:24px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.5;}
+
+  /* ===== PRINT: clean pages, no bleed ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar, nav.toc{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:18px 0;break-inside:auto;}
+    .st{break-after:avoid;page-break-after:avoid;}
+    h3.sub2{break-after:avoid;page-break-after:avoid;}
+    .callout,.note,.deliv,.ph,ul.ck li,.bd{break-inside:avoid;page-break-inside:avoid;}
+    table{break-inside:auto;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblwrap{overflow:visible;border:none;}
+    a{text-decoration:none;color:var(--txt);}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="in">
+    <img src="/assets/tk-logo.webp" alt="Turnkey CFO">
+    <div class="pbar"><i id="pfill"></i></div>
+    <div class="pct" id="ptext">0 of 0 complete</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <img src="/assets/tk-logo.webp" alt="Turnkey CFO">
+      <div class="right">
+        <div class="eyebrow">Onboarding Guide</div>
+        <div class="conf">Internal · Accounting Onboarding</div>
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="title">
+      <h1>Welcome to Turnkey CFO.</h1>
+      <div class="sub">This is your working onboarding packet. It walks you through every system, every client,
+      and every habit that makes this seat successful. Check items off as you go; your progress saves in this
+      browser automatically. Pair it with your Welcome and Role Overview, your 60-Day Onboarding Plan, and the Client Cheat
+      Sheets you'll receive.</div>
+    </div>
+    <div class="chips">
+      <span class="chip dark"><b>Accounting Manager / Account Executive</b></span>
+      <span class="chip">Start <b>July 2026</b></span>
+      <span class="chip">Path <b>60 days to full ownership</b></span>
+      <span class="chip">Email <b>your @turnkeycfo.com address</b></span>
+      <span class="chip">HQ <b>Austin, TX · Remote</b></span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="in">
+    <a href="#role"><span class="n">01</span>Your Role</a>
+    <a href="#access"><span class="n">02</span>Access &amp; Setup</a>
+    <a href="#fc"><span class="n">03</span>Financial Cents</a>
+    <a href="#close"><span class="n">04</span>Close Calendar</a>
+    <a href="#roster"><span class="n">05</span>Client Roster</a>
+    <a href="#qbo"><span class="n">06</span>QuickBooks Study</a>
+    <a href="#tools"><span class="n">07</span>Tool Deep-Dives</a>
+    <a href="#drive"><span class="n">08</span>Google Drive</a>
+    <a href="#letters"><span class="n">09</span>Engagement Letters</a>
+    <a href="#comms"><span class="n">10</span>Communication</a>
+    <a href="#time"><span class="n">11</span>Time Tracking</a>
+    <a href="#milestones"><span class="n">12</span>Milestones</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ============ 01 ROLE ============ -->
+<section class="blk" id="role">
+  <div class="st"><span class="n">01</span>Your Role at a Glance</div>
+  <p class="lead">Hardik (India-based) handles transaction entry and gets each client's books roughly 90% of the
+  way. You are the expert layer above him: reviewing his work, owning the close calendar, and becoming the
+  primary contact our clients trust. Ricky moves to the strategic layer as you ramp.</p>
+
+  <div class="tblwrap"><table>
+    <tr><th style="width:26%">You own</th><th>What it means day to day</th></tr>
+    <tr><td><b>Monthly close</b></td><td>Own the BD1 / BD3 / BD6 / BD10 / BD12 calendar. Know where every client stands at every step. Surface blockers early.</td></tr>
+    <tr><td><b>Quality review</b></td><td>First-pass review of Hardik's completed QuickBooks work before anything reaches a client. Catch miscodes and context issues.</td></tr>
+    <tr><td><b>Client liaison</b></td><td>Attend client calls, handle one-off inquiries, build trust with the roster.</td></tr>
+    <tr><td><b>Team oversight</b></td><td>Set Hardik's daily priorities, review his output, make specific correction requests with context.</td></tr>
+    <tr><td><b>Bookkeeping support</b></td><td>Step in when needed: adjusting entries, reclassifications, judgment calls outside Hardik's scope.</td></tr>
+    <tr><td><b>Workflow management</b></td><td>Run everything through Financial Cents: statuses, tasks, due dates, client requests.</td></tr>
+  </table></div>
+
+  <h3 class="sub2">The team around you</h3>
+  <div class="tblwrap"><table>
+    <tr><th style="width:20%">Person</th><th style="width:30%">Role</th><th>How you work together</th></tr>
+    <tr><td><b>Ricky West</b></td><td>Founder. Strategy, client delivery, systems</td><td>Your manager and escalation point. Reviews your client comms during ramp, then by exception only.</td></tr>
+    <tr><td><b>Hardik</b></td><td>Bookkeeping support (India)</td><td>Handles transaction entry and prep. You review his output and set his queue. India + Pacific time gives us near 24-hour coverage.</td></tr>
+    <tr><td><b>Eldine</b></td><td>Virtual assistant</td><td>Sends scheduled client notifications, calendar management, invoicing support, social. Coordinate through Slack.</td></tr>
+    <tr><td><b>You</b></td><td>Accounting Manager / Account Executive</td><td>The connective tissue between backend production and the client.</td></tr>
+  </table></div>
+
+  <h3 class="sub2">Your 60-day ramp</h3>
+  <div class="phases">
+    <div class="ph"><div class="d">Days 1&ndash;14</div><div class="t">Client Immersion</div><div class="s">Systems access, engagement letters, COAs, org maps, shadow Hardik.</div></div>
+    <div class="ph"><div class="d">Days 15&ndash;30</div><div class="t">Parallel Review</div><div class="s">QC alongside Ricky, first close cycle, first directed asks to Hardik.</div></div>
+    <div class="ph"><div class="d">Days 31&ndash;45</div><div class="t">Supported Release</div><div class="s">Independent QC queue, own Hardik's priorities, first solo client call.</div></div>
+    <div class="ph"><div class="d">Days 46&ndash;60+</div><div class="t">Full Ownership</div><div class="s">Primary contact for most clients. Ricky is strategic, not operational.</div></div>
+  </div>
+</section>
+
+<!-- ============ 02 ACCESS ============ -->
+<section class="blk" id="access">
+  <div class="st"><span class="n">02</span>Access &amp; Setup (Week 1, Day 1&ndash;2)</div>
+  <p class="lead">Ricky grants the access; you confirm each one works and flag anything broken the same day.
+  Work through this list top to bottom.</p>
+
+  <h3 class="sub2">Email first</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="a1"><label for="a1"><b>Log in to your Turnkey CFO mailbox</b> at office.com (Outlook on the web). Complete MFA setup on your phone.
+      <span class="hint">This address is your client-facing identity. All client email you send comes from here, never from a personal address.</span></label></li>
+    <li><input type="checkbox" id="a2"><label for="a2"><b>Set up your email signature</b>: your name, Accounting Manager, Turnkey CFO, your-name@TurnkeyCFO.com, turnkeycfo.com.
+      <span class="hint">Warm and professional. No emojis in client-facing email, ever.</span></label></li>
+    <li><input type="checkbox" id="a3"><label for="a3"><b>Add the mailbox to your phone</b> (Outlook mobile app) so client replies never sit unseen.</label></li>
+    <li><input type="checkbox" id="a4"><label for="a4"><b>Open the accounting inbox: accounting@turnkeycfo.com.</b> Ricky will grant you shared-mailbox access; confirm it appears in Outlook (it may take a few minutes after the grant).
+      <span class="hint">This is the operational inbox: QBO access invites, bank statements, client document submissions, and system notifications land here. You will live in this mailbox during close week.</span></label></li>
+    <li><input type="checkbox" id="a5"><label for="a5"><b>Learn the accounting inbox layout</b>: how incoming client mail is foldered, what gets flagged for Ricky, and what you can action directly.
+      <span class="hint">Rule of thumb: statements and documents get filed to the client's Drive folder; anything about scope, pricing, or a frustrated tone goes to Ricky.</span></label></li>
+  </ul>
+
+  <h3 class="sub2">Core systems</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="a6"><label for="a6"><b>Slack</b>: accept your invite, install desktop + mobile, introduce yourself. Slack is our internal nervous system; client-facing email is Outlook.</label></li>
+    <li><input type="checkbox" id="a7"><label for="a7"><b>Financial Cents</b>: accept your invite and log in. Section 03 is your full study guide for this platform.</label></li>
+    <li><input type="checkbox" id="a8"><label for="a8"><b>QuickBooks Online</b>: confirm you can open every active client's QBO file. Report any client file you cannot open.
+      <span class="hint">Access flows through the firm's QBO Accountant seat tied to accounting@turnkeycfo.com.</span></label></li>
+    <li><input type="checkbox" id="a9"><label for="a9"><b>Google Drive</b>: confirm you can open the Turnkey CFO shared folders (Ricky adds you). Section 08 covers the structure.</label></li>
+  </ul>
+
+  <h3 class="sub2">Client platforms</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="a10"><label for="a10"><b>Ramp</b>: confirm access to the Heirloom Church and Village of Hope Maui Ramp accounts (Kingdom City and Radiant Life also run Ramp; access as those wire in).</label></li>
+    <li><input type="checkbox" id="a11"><label for="a11"><b>Gusto</b>: confirm payroll access for the Gusto clients (Heirloom, Harbour, VOH, with Epic Life and Kingdom City migrating in).</label></li>
+    <li><input type="checkbox" id="a12"><label for="a12"><b>Bill.com</b>: confirm access for Epic Life (and Northpoint while it transitions to Ramp).</label></li>
+    <li><input type="checkbox" id="a13"><label for="a13"><b>Everything else via the Client Vaults</b>: Toast, Planning Center, Subsplash, Tithe.ly, DonorPerfect, Shopify, and the rest are reached through each client's vault in Financial Cents. You will audit these in Section 03.</label></li>
+  </ul>
+
+  <div class="callout"><span class="cap">If access is missing</span>
+  Do not work around a missing login or borrow credentials. Post the gap in Slack the day you find it. A clean
+  access map in week 1 saves hours during your first close.</div>
+</section>
+
+<!-- ============ 03 FINANCIAL CENTS ============ -->
+<section class="blk" id="fc">
+  <div class="st"><span class="n">03</span>Financial Cents: Deep Review</div>
+  <p class="lead">Financial Cents is our workflow backbone. Every client, every close, every document request
+  runs through it. Before your first close cycle you need to know its layout cold.</p>
+
+  <h3 class="sub2">Learn the layout</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="f1"><label for="f1"><b>Home / dashboard</b>: understand the status pills on each project, task progress bars, and due dates. This view is how you will answer "where does every client stand" at a glance.</label></li>
+    <li><input type="checkbox" id="f2"><label for="f2"><b>Projects</b>: open several monthly-close projects. Study how tasks are templated, who each task is assigned to, and how recurring projects regenerate each month.</label></li>
+    <li><input type="checkbox" id="f3"><label for="f3"><b>Client profiles</b>: each client record holds contacts, notes, and the vault. Click through every active client's profile once.</label></li>
+    <li><input type="checkbox" id="f4"><label for="f4"><b>The Inbox</b> (Clients Inbox folder): client emails sync here so requests and replies stay attached to the client. Learn how it differs from Outlook.</label></li>
+    <li><input type="checkbox" id="f5"><label for="f5"><b>Team Chat vs Client Chat</b> inside a project: Team Chat is internal; Client Chat is visible to the client. Never put internal commentary in Client Chat.
+      <span class="hint">Read a month of both tabs on two or three clients to absorb the tone difference.</span></label></li>
+    <li><input type="checkbox" id="f6"><label for="f6"><b>Client Tasks</b>: how we request documents from clients, how automatic reminders fire, and what the client sees on their end.</label></li>
+  </ul>
+
+  <h3 class="sub2">Client Vault audit (your first deliverable)</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="f7"><label for="f7"><b>Open every active client's vault</b> and inventory what credentials are stored: banks, QBO, payroll, POS, giving platforms.</label></li>
+    <li><input type="checkbox" id="f8"><label for="f8"><b>Test the logins that matter for close</b> (bank portals, statement sources, giving platforms). Note which work, which prompt for 2FA sent to someone else, and which are stale.</label></li>
+    <li><input type="checkbox" id="f9"><label for="f9"><b>Produce a vault gap list</b>: one row per client, columns for system, status (works / 2FA blocked / stale / missing), and what is needed to fix it. Share it with Ricky in Slack.</label></li>
+  </ul>
+  <div class="deliv"><span class="cap">Deliverable</span>Vault access audit, one row per client system, delivered by end of week 1. This becomes the master access map we maintain going forward.</div>
+</section>
+
+<!-- ============ 04 CLOSE ============ -->
+<section class="blk" id="close">
+  <div class="st"><span class="n">04</span>The Monthly Close Calendar</div>
+  <p class="lead">Every client runs the same rhythm, measured in business days (BD) of the new month. Each cycle
+  delivers the prior month's books. This cadence is the product; protecting it is the job.</p>
+
+  <div class="bd"><div class="when">BD 1 · Request</div><div class="what"><b>Open-items request goes out.</b> Hardik compiles what is missing per client; Eldine sends the request: statements, receipts, approvals, and a reminder that card memos are due by BD3.</div></div>
+  <div class="bd"><div class="when">BD 3 · Checkpoint</div><div class="what"><b>One consolidated note per client:</b> outstanding items, memos due, unrecognized transactions. Any client who has sent nothing gets escalated internally today, because silence at BD3 threatens BD6.</div></div>
+  <div class="bd"><div class="when">BD 6 · Deliver</div><div class="what"><b>Financials + dashboard + Open Items list ship.</b> Materiality gate: ship with flags if gaps are immaterial; escalate before shipping if materially incomplete. Ricky reviews by exception.</div></div>
+  <div class="bd"><div class="when">BD 10 · Finalize</div><div class="what"><b>True-up and lock.</b> Book estimates or suspense for anything still missing, then LOCK the month. Nothing reopens after BD10.</div></div>
+  <div class="bd"><div class="when">BD 12 · Meeting</div><div class="what"><b>Review meetings.</b> Clients with a review cadence meet roughly two business days after final delivery, spread across BD11 to BD14.</div></div>
+
+  <div class="callout"><span class="cap">Premium rule</span>
+  Epic Life and Northpoint get a senior-pastor review on the <strong>second Wednesday</strong> of the month, a
+  premium date that requires an accelerated close so financials are final before it. Heirloom's review aligns
+  with its board day.</div>
+
+  <ul class="ck">
+    <li><input type="checkbox" id="c1"><label for="c1"><b>Study the live Close Command tool</b>: <a href="https://cfo-close-command.pages.dev/" target="_blank" rel="noopener">cfo-close-command.pages.dev</a>. Learn the Overview (Gantt matrix), Week view, and per-client checklists. Checkboxes sync across the team.</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2"><b>Walk one client through the full BD template</b> on paper: what happens at each BD, who initiates, and what the deliverable looks like.</label></li>
+    <li><input type="checkbox" id="c3"><label for="c3"><b>Know the first-week-of-month reality</b>: the close is a hard, recurring deadline. Plan your availability around BD1 to BD10 each month.</label></li>
+  </ul>
+</section>
+
+<!-- ============ 05 ROSTER ============ -->
+<section class="blk" id="roster">
+  <div class="st"><span class="n">05</span>Client Roster &amp; Systems Matrix</div>
+  <p class="lead">Who they are, what they run on, and what to watch. Deep detail per client lives in your Client
+  Cheat Sheets; treat this table as the map.</p>
+
+  <div class="tblwrap"><table>
+    <tr><th>Client</th><th>What they are</th><th>Status</th><th>Payroll</th><th>Cards / AP</th><th>Revenue / Giving</th><th>Sales tax</th></tr>
+    <tr><td><b>Heirloom Church</b></td><td>Church plant, Kyle TX. Longest-standing client</td><td><span class="tag">Active</span></td><td>Gusto (semi-monthly)</td><td>Ramp</td><td>Subsplash</td><td>&mdash;</td></tr>
+    <tr><td><b>Epic Life Church</b></td><td>Church, New Braunfels TX</td><td><span class="tag">Active · ramping</span></td><td>Gusto (migrating)</td><td>Bill.com + Divvy cards</td><td>Planning Center / Stripe; Square merch</td><td>Open item (merch)</td></tr>
+    <tr><td><b>Kingdom City Church</b></td><td>Church plant, Atlanta GA</td><td><span class="tag">Active · build</span></td><td>Gusto (migrating from ADP-era setup)</td><td>Ramp (3 cardholders)</td><td>Tithe.ly</td><td>&mdash;</td></tr>
+    <tr><td><b>Northpoint Church</b></td><td>Church, Cedar Park TX</td><td><span class="tag">Signed · onboarding</span></td><td>TBD (takeover in motion)</td><td>Bill.com + Expensify, moving to Ramp</td><td>Planning Center</td><td>&mdash;</td></tr>
+    <tr><td><b>Radiant Life Church</b></td><td>Church, Abilene TX (~300 attendance)</td><td><span class="tag warn">Prospect</span></td><td>1 FT clergy + 3 PT</td><td>Ramp (newly set up)</td><td>Planning Center + GiftFlow</td><td>Open item (t-shirts)</td></tr>
+    <tr><td><b>Village of Hope Maui</b></td><td>501(c)(3) foster-care nonprofit, Kihei HI</td><td><span class="tag warn">Status: confirm</span></td><td>Gusto (as vendor bills)</td><td>Ramp (single cardholder)</td><td>DonorPerfect, Stripe, PayPal, Venmo</td><td>&mdash;</td></tr>
+    <tr><td><b>The Harbour Company</b></td><td>Luxury reconstruction/renovation, DMV region</td><td><span class="tag">Active</span></td><td>Gusto</td><td>Melio; Houzz Pro (client-side)</td><td>Job billing via Houzz Pro</td><td>&mdash;</td></tr>
+    <tr><td><b>Paradox Coffee (Doxa)</b></td><td>Multi-location coffee roaster, Austin/Buda TX</td><td><span class="tag">Active</span></td><td>Unconfirmed</td><td>Toast-financed leases</td><td>Toast (4 streams), Shopify, Stripe</td><td><b>Yes</b> · multi-city TX</td></tr>
+    <tr><td><b>Mojo Coffee</b></td><td>Central TX coffee group, many entities</td><td><span class="tag warn">Proposal</span></td><td>&mdash;</td><td>&mdash;</td><td>Toast POS</td><td><b>Yes</b> · multi-entity TX workpaper</td></tr>
+    <tr><td><b>Doza Circle</b></td><td>Live-events / brand agency, SoCal</td><td><span class="tag">Active · books-only</span></td><td>None (contractor model)</td><td>QBO-native</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td><b>Sivils, Inc.</b></td><td>Scrap metal + hauling S-corp, Central TX</td><td><span class="tag pause">Cleanup / TBD</span></td><td>Off-QBO provider</td><td>Cash-heavy vendor payments</td><td>Cash sales</td><td>&mdash;</td></tr>
+    <tr><td><b>Mosquera Counseling</b></td><td>Counseling practice, Katy TX</td><td><span class="tag">Active</span></td><td>None</td><td>&mdash;</td><td>QB Payments + PayPal</td><td>&mdash;</td></tr>
+    <tr><td><b>Soularis</b></td><td>Startup marketplace, Austin TX</td><td><span class="tag warn">Renewal due</span></td><td>QuickBooks Payroll</td><td>QBO bill pay</td><td>Pre-revenue detail</td><td>&mdash;</td></tr>
+    <tr><td><b>Turnkey (internal)</b></td><td>Our own books, same cadence as clients</td><td><span class="tag">Active</span></td><td>&mdash;</td><td>Capital One card</td><td>Stripe (Turnkey Web billing)</td><td>&mdash;</td></tr>
+  </table></div>
+
+  <div class="callout"><span class="cap">Name traps and hard rules</span>
+    <ul>
+      <li><strong>Doxa is not Doza.</strong> Paradox Coffee LLC does business as Doxa Coffee Roasters; Doza Circle is an unrelated events agency. Never cross-code them.</li>
+      <li><strong>The Paradox and Sivils owner is the same person</strong>, but the books are fully separate. Same contact, two clients, no merged coding.</li>
+      <li><strong>Harbour and Best Option Restoration DMV are related entities</strong> with intercompany due-to/due-from activity.</li>
+      <li><strong>Radiant Life is a prospect.</strong> No work is performed until the engagement is signed. Discovery read-access only.</li>
+      <li><strong>We never say "fractional CFO."</strong> We are a bookkeeping firm: bookkeeping, payroll, 1099, AP/AR, monthly close, reporting. The top tier is "Reporting &amp; Advisory." Tax and legal questions go to the client's CPA or attorney.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 06 QBO STUDY ============ -->
+<section class="blk" id="qbo">
+  <div class="st"><span class="n">06</span>QuickBooks Study: Every Client, In Depth</div>
+  <p class="lead">This is the heart of your first two weeks. For each client, work the same protocol in QBO,
+  with their Client Cheat Sheet open beside you. The goal is that by Day 14 you know every COA, every fund
+  structure, and every quirk by name.</p>
+
+  <h3 class="sub2">The per-client protocol (repeat for all)</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="q1"><label for="q1"><b>Read the Client Cheat Sheet first.</b> Ricky prepared one branded PDF per client: snapshot, key people, money map, coding rules, watch list. It is your primer before touching the books.</label></li>
+    <li><input type="checkbox" id="q2"><label for="q2"><b>Chart of Accounts</b>: read it top to bottom. Note the account numbering logic, parent/sub structure, and anything that looks over-categorized or legacy.</label></li>
+    <li><input type="checkbox" id="q3"><label for="q3"><b>Classes and funds</b>: for churches and nonprofits, map which classes are true restricted/designated funds versus ministry tracking labels. This distinction drives how we report to boards and elders.</label></li>
+    <li><input type="checkbox" id="q4"><label for="q4"><b>Entity basics</b>: entity type, fiscal year (Heirloom and Kingdom City start July; most others are calendar), accounting method, payroll mapping.</label></li>
+    <li><input type="checkbox" id="q5"><label for="q5"><b>Review 2&ndash;3 months of completed financials</b>: develop a feel for what "normal" looks like, where the recurring activity lands, and where issues typically arise.</label></li>
+    <li><input type="checkbox" id="q6"><label for="q6"><b>Bank and card accounts</b>: know every connected account, its purpose, and its reconciliation state.</label></li>
+    <li><input type="checkbox" id="q7"><label for="q7"><b>Recurring vendors and coding patterns</b>: build your per-client reference notes as you go (vendors, common miscodes, payroll schedules, seasonal patterns).</label></li>
+  </ul>
+
+  <h3 class="sub2">Client-specific study flags</h3>
+  <div class="tblwrap"><table>
+    <tr><th style="width:22%">Client</th><th>What to study extra hard</th></tr>
+    <tr><td><b>Heirloom</b></td><td>Largest class structure on the roster (17 designated-fund classes). Staff-designated giving funds tracked separately; never collapse them. Fiscal year starts July.</td></tr>
+    <tr><td><b>Epic Life</b></td><td>Only 2 of ~50 classes are true restricted funds; the rest are ministry tracking. A one-fund migration is planned. Watch the "Not Specified" class and rental income coded as donations.</td></tr>
+    <tr><td><b>Kingdom City</b></td><td>Inherited, over-categorized COA pending consolidation. Off-duty police pay routes through a cash float, never slow AP. Large Ramp memo backlog.</td></tr>
+    <tr><td><b>Northpoint</b></td><td>Fund accounting being built from scratch. Very large uncoded credit-card backlog is the cleanup target. Related-party rent is outside our advisory scope.</td></tr>
+    <tr><td><b>VOH</b></td><td>Known QBO annual-P&amp;L nesting bug: total expenses can render as zero on the annual view, so sum the monthly columns instead. Grant funds have strict date windows.</td></tr>
+    <tr><td><b>Harbour</b></td><td>Revenue/COGS timing mismatches create fake negative-margin months; frame as timing/WIP, never as a loss. Watch vendor-name fragmentation for 1099 thresholds.</td></tr>
+    <tr><td><b>Paradox / Doxa</b></td><td>Four revenue streams through Toast plus Shopify and Stripe. Heavy investor-note debt. Months that show zero income usually mean missing data, not reality.</td></tr>
+    <tr><td><b>Doza Circle</b></td><td>Owner-level commingling with a related individual's deposits. International contractors paid via Wise (W-8BEN awareness). Reimbursements sometimes post as income.</td></tr>
+    <tr><td><b>Sivils</b></td><td>Cash-on-hand history had a large reconciliation drift, now mostly resolved; keep monitoring. Legacy Opening Balance Equity is a conversion artifact, do not zero it casually.</td></tr>
+    <tr><td><b>Mosquera</b></td><td>Cash accounts have run chronically negative; statements arrive slowly. Verify anomalies before reporting.</td></tr>
+    <tr><td><b>Soularis</b></td><td>Thinnest coverage on the roster. W-2 vs 1099 classification of the contractor team is an open compliance flag.</td></tr>
+  </table></div>
+
+  <div class="deliv"><span class="cap">Deliverable: client study notes + questions</span>
+  For every client, produce (1) a one-page set of study notes in your own words: who they are, how money flows,
+  the fund/class logic, the three things most likely to go wrong; and (2) <b>at least five specific questions</b>
+  about their books, their structure, or their history. Bring these to your working sessions with Ricky. The
+  questions are how we verify comprehension, so make them sharp.</div>
+</section>
+
+<!-- ============ 07 TOOLS ============ -->
+<section class="blk" id="tools">
+  <div class="st"><span class="n">07</span>Tool Deep-Dives</div>
+  <p class="lead">Four platforms carry most of the operational weight outside QBO. Get properly fluent in each.</p>
+
+  <h3 class="sub2">Ramp (corporate cards + expense management)</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="t1"><label for="t1"><b>Learn the Ramp workflow</b>: transactions land daily, cardholders owe a memo and receipt, and coding maps each transaction to the client's GL. Heirloom and VOH run daily automated GL-coding support; Kingdom City and Radiant Life are manual for now.</label></li>
+    <li><input type="checkbox" id="t2"><label for="t2"><b>Know the cardholder rules per client</b>: who holds cards, what their memos should say, and how memo quality drives coding accuracy. The cheat sheets carry the per-cardholder guidance.</label></li>
+    <li><input type="checkbox" id="t3"><label for="t3"><b>Memo deadline discipline</b>: card memos are due by BD3 each month. Chasing memos early is one of the highest-leverage things you can do for the close.</label></li>
+  </ul>
+
+  <h3 class="sub2">Gusto (payroll)</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="t4"><label for="t4"><b>Tour each Gusto account</b>: pay schedules (Heirloom is semi-monthly), employee vs contractor setup, and how payroll journal entries land in QBO.</label></li>
+    <li><input type="checkbox" id="t5"><label for="t5"><b>Understand clergy specifics</b>: housing allowances and church payroll nuances are exactly why you were hired; make sure our setups match what you know to be right, and flag anything that does not.</label></li>
+    <li><input type="checkbox" id="t6"><label for="t6"><b>Know the compliance calendar</b>: quarterly 941s, annual 940 FUTA, W-2s, and 1099-NEC season. Note which clients we file for and which self-file through the platform.</label></li>
+  </ul>
+
+  <h3 class="sub2">Bill.com and AP</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="t7"><label for="t7"><b>Epic Life AP</b>: bills flow through Bill.com with approval chains; card spend rides BILL Divvy. Learn who approves what.</label></li>
+    <li><input type="checkbox" id="t8"><label for="t8"><b>Northpoint transition</b>: currently Bill.com + Expensify, moving to Ramp. Understand both the current state and the target state.</label></li>
+  </ul>
+
+  <h3 class="sub2">Sales tax</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="t9"><label for="t9"><b>Paradox / Doxa</b>: multi-location Texas sales tax across several cities. Study how Toast revenue backs out tax and how filings are prepared.</label></li>
+    <li><input type="checkbox" id="t10"><label for="t10"><b>Mojo (if it closes)</b>: a multi-entity Texas sales tax workpaper already exists: gross receipts back out 8.25% tax, then apply the timely-filing discount, rolled up by entity and month. Learn its logic now so you can run it later.</label></li>
+    <li><input type="checkbox" id="t11"><label for="t11"><b>Open items to track</b>: Epic Life merch/coffee sales and Radiant Life t-shirt sales are not currently set up for sales tax collection. These are flagged, unresolved, and will need a plan.</label></li>
+  </ul>
+
+  <h3 class="sub2">Giving and POS platforms</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="t12"><label for="t12"><b>Map each platform to its client</b>: Subsplash (Heirloom), Planning Center (Epic Life, Northpoint, Radiant Life), Tithe.ly (Kingdom City), DonorPerfect (VOH), Toast (Doxa, Mojo), Shopify (Doxa), Square (Epic Life merch), Stripe and PayPal in several places. Know how each one's deposits hit the bank and how fees are netted.</label></li>
+  </ul>
+</section>
+
+<!-- ============ 08 DRIVE ============ -->
+<section class="blk" id="drive">
+  <div class="st"><span class="n">08</span>Google Drive &amp; File Management</div>
+  <p class="lead">Ricky will add you to the shared folders. Your job is to learn the structure and keep it clean:
+  every file has one home, and that home is predictable.</p>
+
+  <h3 class="sub2">The structure</h3>
+  <div class="tblwrap"><table>
+    <tr><th style="width:34%">Folder</th><th>What lives there</th></tr>
+    <tr><td><b>Turnkey Services</b> (root)</td><td>Top-level brand folders: Turnkey CFO, Turnkey Web, Turnkey AI, Turnkey Recruiting, plus shared brand files.</td></tr>
+    <tr><td><b>Turnkey CFO / 01_FIRM_OPERATIONS</b></td><td>Internal firm SOPs and operations.</td></tr>
+    <tr><td><b>Turnkey CFO / 02_CLIENTS</b></td><td><b>Your main workspace.</b> One folder per client: engagement letters, SOPs, reports, budgets, important documents.</td></tr>
+    <tr><td><b>Turnkey CFO / 03_SALES_PIPELINE</b></td><td>Prospects and proposals (Ricky's lane, useful context).</td></tr>
+    <tr><td><b>Turnkey CFO / 04_TEMPLATES_IP</b></td><td>Reusable templates: letters, checklists, workpapers.</td></tr>
+    <tr><td><b>Turnkey CFO / 06_FINANCE_TURNKEY</b></td><td>Turnkey's own finances.</td></tr>
+    <tr><td><b>Turnkey CFO / 07_CONTRACTORS_TEAM</b></td><td>Team agreements and contractor files, including yours.</td></tr>
+    <tr><td><b>Turnkey CFO / 09_LEGAL_COMPLIANCE</b></td><td>Legal and compliance documents.</td></tr>
+  </table></div>
+
+  <h3 class="sub2">How we manage files</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="d1"><label for="d1"><b>Confirm your access</b> to Turnkey CFO and its subfolders, especially 02_CLIENTS. Flag anything you cannot open.</label></li>
+    <li><input type="checkbox" id="d2"><label for="d2"><b>Walk every client folder in 02_CLIENTS</b>: find each client's engagement letter, SOPs, and any budget or report archives.</label></li>
+    <li><input type="checkbox" id="d3"><label for="d3"><b>Learn the conventions</b>: client documents live in that client's folder, never in your own drive or on desktop. Descriptive names with the client and date beat "scan001.pdf". Do not restructure or rename folders; if the structure fights you, raise it rather than reorganizing solo.</label></li>
+    <li><input type="checkbox" id="d4"><label for="d4"><b>Statements and client submissions</b> that arrive in the accounting inbox get filed into the client's folder so the whole team can find them during close.</label></li>
+  </ul>
+</section>
+
+<!-- ============ 09 LETTERS ============ -->
+<section class="blk" id="letters">
+  <div class="st"><span class="n">09</span>Engagement Letters &amp; Client Onboarding</div>
+  <p class="lead">The engagement letter is the source of truth for what we owe each client. You cannot QC a
+  client's deliverables until you know what was promised.</p>
+
+  <h3 class="sub2">Read every letter</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="l1"><label for="l1"><b>Locate each client's signed engagement letter</b> in their 02_CLIENTS folder and read it end to end.</label></li>
+    <li><input type="checkbox" id="l2"><label for="l2"><b>Extract the essentials into your notes</b>: scope, monthly fee, deliverables and cadence, start date, term/renewal date, and anything unusual that was promised.</label></li>
+    <li><input type="checkbox" id="l3"><label for="l3"><b>Flag term dates</b>: at least one engagement (Soularis) has a renewal window in play; part of your seat is making sure no letter quietly lapses.</label></li>
+    <li><input type="checkbox" id="l4"><label for="l4"><b>Learn the letter structure itself</b>: our standard terms, tiers (Books / +Dashboard / +Advisory), and how pricing maps to entity count and complexity. You will eventually walk new clients through this.</label></li>
+  </ul>
+
+  <h3 class="sub2">How a new client onboards</h3>
+  <ul class="ck">
+    <li><input type="checkbox" id="l5"><label for="l5"><b>Study the flow</b>: proposal, signed engagement letter, billing setup, then QBO accountant access granted to accounting@turnkeycfo.com, systems access (payroll, cards, giving), opening balances and cutover, then the first monthly close.</label></li>
+    <li><input type="checkbox" id="l6"><label for="l6"><b>Review a live onboarding checklist</b>: Epic Life and Northpoint both have working onboarding checklists in flight. Read them to see the real sequence and where clients typically stall.</label></li>
+    <li><input type="checkbox" id="l7"><label for="l7"><b>Know the cutover rule</b>: opening balances and the prior-provider handoff are part of every onboarding. A close that starts from bad opening balances never recovers, so this step is never skipped.</label></li>
+  </ul>
+</section>
+
+<!-- ============ 10 COMMS ============ -->
+<section class="blk" id="comms">
+  <div class="st"><span class="n">10</span>Communication &amp; Escalation Protocols</div>
+  <p class="lead">This is our starting standard. You and Ricky will refine it together in your first weeks, and
+  the refined version becomes the firm's playbook.</p>
+
+  <h3 class="sub2">Channels</h3>
+  <div class="tblwrap"><table>
+    <tr><th style="width:28%">Channel</th><th>Use it for</th></tr>
+    <tr><td><b>Slack</b></td><td>All internal communication: questions, blockers, status, escalations. Default to posting in channel over DM so context is shared.</td></tr>
+    <tr><td><b>Email (your @turnkeycfo.com address)</b></td><td>All client-facing written communication. Clients never get messaged from personal accounts.</td></tr>
+    <tr><td><b>Financial Cents</b></td><td>Document requests (Client Tasks), project status, client-visible chat, and internal team chat tied to a project.</td></tr>
+    <tr><td><b>accounting@turnkeycfo.com</b></td><td>Inbound operational mail: statements, invites, submissions. Monitor daily during close week.</td></tr>
+  </table></div>
+
+  <h3 class="sub2">Response standards</h3>
+  <ul class="tk">
+    <li><b>Client emails</b>: acknowledge the same business day, even if the full answer comes later. "Received, working on it, you'll have it by X" builds more trust than a perfect answer two days late.</li>
+    <li><b>Internal Slack</b>: respond within a couple of working hours. If something will take longer, say so.</li>
+    <li><b>Never leave a client guessing</b> near a deliverable date. If BD6 is at risk, the client hears from us before the date, not after.</li>
+  </ul>
+
+  <h3 class="sub2">The escalation ladder</h3>
+  <div class="tblwrap"><table>
+    <tr><th style="width:30%">Situation</th><th>Path</th></tr>
+    <tr><td>Routine coding or workflow question</td><td>Hardik asks <b>you</b>; you decide or direct.</td></tr>
+    <tr><td>Client asks about their books, timing, or a transaction</td><td><b>You</b> handle directly (Ricky reviews drafts during ramp phases).</td></tr>
+    <tr><td>Anything touching <b>pricing, scope, or engagement terms</b></td><td>Escalate to <b>Ricky</b>, always. You never negotiate or promise scope solo.</td></tr>
+    <tr><td>Client asks for <b>tax or legal advice</b></td><td>Redirect warmly to "your CPA or attorney." We do bookkeeping, payroll, 1099, AP/AR, close, reporting.</td></tr>
+    <tr><td>Client is frustrated, upset, or going quiet</td><td>Flag to <b>Ricky</b> same day with your read on why.</td></tr>
+    <tr><td>Client sent nothing by BD3</td><td><b>Internal escalation same day</b> so BD6 is protected.</td></tr>
+    <tr><td>Hardik capacity or quality is systemically off</td><td>Escalate to <b>Ricky</b> with specifics: which clients, which patterns.</td></tr>
+    <tr><td>A month is materially incomplete at BD6</td><td>Escalate <b>before shipping</b>; never deliver financials you would not stand behind.</td></tr>
+  </table></div>
+
+  <h3 class="sub2">Voice rules for client-facing writing</h3>
+  <ul class="tk">
+    <li>Warm, professional, plain-spoken. No jargon, no emojis, no filler.</li>
+    <li>Lead with the answer, then the detail.</li>
+    <li>Never "fractional CFO." Our language: bookkeeping, payroll, 1099, AP/AR, monthly close, reporting, and "Reporting &amp; Advisory" for the top tier.</li>
+    <li>During Phases 1&ndash;3, outgoing client communication is reviewed by Ricky before send. Full release removes the review step.</li>
+  </ul>
+
+  <ul class="ck">
+    <li><input type="checkbox" id="m1"><label for="m1"><b>Read this section twice</b>, then bring your suggested changes to Ricky. You have run client relationships before; make this protocol better.</label></li>
+  </ul>
+</section>
+
+<!-- ============ 11 TIME ============ -->
+<section class="blk" id="time">
+  <div class="st"><span class="n">11</span>Time Tracking</div>
+  <p class="lead">Clean, per-client time records help us learn what each client truly costs to serve, and they keep
+  your logged hours accurate. Upwork's time tracker is your system of record; these are the habits that make
+  the data useful.</p>
+  <ul class="ck">
+    <li><input type="checkbox" id="tt1"><label for="tt1"><b>Track daily, per client</b>: date, client (or "Training" / "Internal"), hours to the quarter hour, and a one-line description of the work.</label></li>
+    <li><input type="checkbox" id="tt2"><label for="tt2"><b>Separate training time from client time</b> during onboarding so each client’s true cost stays clear.</label></li>
+    <li><input type="checkbox" id="tt3"><label for="tt3"><b>Log consistently</b>: keep a per-client running total each week so client-cost reporting never depends on memory.</label></li>
+    <li><input type="checkbox" id="tt4"><label for="tt4"><b>Keep it simple</b>: Upwork's tracker is the system of record; a light supporting spreadsheet is plenty if you want one. Show Ricky your setup in week 1.</label></li>
+  </ul>
+</section>
+
+<!-- ============ 12 MILESTONES ============ -->
+<section class="blk" id="milestones">
+  <div class="st"><span class="n">12</span>Milestones &amp; What Success Looks Like</div>
+  <p class="lead">The checkpoints from your 60-Day Onboarding Plan, in one place. Check them off as they land.</p>
+  <ul class="ck">
+    <li><input type="checkbox" id="ms1"><label for="ms1"><b>Day 1</b>: systems access granted; engagement letter review begins.</label></li>
+    <li><input type="checkbox" id="ms2"><label for="ms2"><b>Day 7</b>: all client COAs, org structures, and key contacts documented; vault audit delivered.</label></li>
+    <li><input type="checkbox" id="ms3"><label for="ms3"><b>Day 14</b>: Hardik's workflow observed end to end; client historical financials reviewed; study notes and question lists complete.</label></li>
+    <li><input type="checkbox" id="ms4"><label for="ms4"><b>Day 21</b>: first parallel QC review complete alongside Ricky.</label></li>
+    <li><input type="checkbox" id="ms5"><label for="ms5"><b>Day 30</b>: first full close cycle supported; first directed asks to Hardik issued.</label></li>
+    <li><input type="checkbox" id="ms6"><label for="ms6"><b>Day 38</b>: Phase 3 begins; independent QC ownership starts.</label></li>
+    <li><input type="checkbox" id="ms7"><label for="ms7"><b>Day 45</b>: first solo client call; first independently reviewed close cycle complete.</label></li>
+    <li><input type="checkbox" id="ms8"><label for="ms8"><b>Day 60</b>: full release; formal check-in with Ricky.</label></li>
+  </ul>
+  <div class="callout"><span class="cap">What success looks like at 60 days</span>
+  Every client's close is on time. Hardik knows his queue every morning because you set it. You know every
+  client's agreements, staff, COA, and quirks by name. Client calls happen without Ricky. When something in the
+  books is off, you catch it, direct the fix, and handle it. Ricky's role is strategic, not operational.</div>
+</section>
+
+</main>
+
+<footer>
+  <div class="in">
+    <img src="/assets/tk-logo.webp" alt="Turnkey CFO">
+    <div class="t">Turnkey CFO · Internal onboarding guide · Prepared July 2026<br>
+    Companion documents: Welcome and Role Overview, 60-Day Onboarding Plan, Client Cheat Sheets. Questions: Ricky@TurnkeyCFO.com</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('ul.ck input[type=checkbox]'));
+  var fill = document.getElementById('pfill');
+  var text = document.getElementById('ptext');
+  function update(){
+    var done = boxes.filter(function(b){return b.checked;}).length;
+    var pct = boxes.length ? Math.round(done/boxes.length*100) : 0;
+    fill.style.width = pct + '%';
+    text.textContent = done + ' of ' + boxes.length + ' complete';
+    boxes.forEach(function(b){ b.closest('li').classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    b.checked = localStorage.getItem('acct-ob-' + b.id) === '1';
+    b.addEventListener('change', function(){
+      localStorage.setItem('acct-ob-' + b.id, b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+})();
+</script>
+
+</body>
+</html>
