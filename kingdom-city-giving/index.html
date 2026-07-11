@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Kingdom City Giving · Jul 10, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;background:#F7F2EA;color:#2E2A26;line-height:1.5;padding:28px 20px 64px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1360px;margin:0 auto}
+  header{margin-bottom:8px}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B0542E}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.02em;color:#2E2A26;margin:4px 0 2px}
+  .subtitle{color:#6B5F55;font-size:13.5px}
+  .freshness{margin:14px 0 26px;font-size:12.5px;color:#2E2A26;background:#EAF6FC;border:1px solid #E7DDCB;border-radius:10px;padding:10px 14px}
+  .freshness strong{color:#B0542E}
+  h2{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6B5F55;margin:30px 0 14px;display:flex;align-items:center;gap:10px}
+  .h2win{font-size:10.5px;letter-spacing:.06em;color:#A69889;background:#FFFFFF;border:1px solid #E7DDCB;padding:2px 8px;border-radius:99px;text-transform:none;font-weight:600}
+  .grid-kpi{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:6px}
+  .kpi{background:#FFFFFF;border:1px solid #E7DDCB;border-radius:12px;padding:16px 18px}
+  .kpi-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6B5F55}
+  .kpi-value{font-size:24px;font-weight:800;letter-spacing:-.02em;color:#2E2A26;margin-top:6px;line-height:1.1}
+  .kpi-sub{margin-top:5px;font-size:11.5px;font-weight:600}
+  .kpi-win{margin-top:6px;font-size:10.5px;color:#A69889;border-top:1px dashed #E7DDCB;padding-top:5px}
+  .grid{display:grid;gap:16px;margin-bottom:8px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .charts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .panel{background:#FFFFFF;border:1px solid #E7DDCB;border-radius:14px;padding:18px 20px}
+  .panel.wide{grid-column:1 / -1}
+  .panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .panel-title{font-size:14.5px;font-weight:700;color:#2E2A26;letter-spacing:-.01em}
+  .panel-window{font-size:11px;color:#A69889;font-weight:600;margin-top:2px}
+  .panel-note{font-size:11.5px;color:#6B5F55;background:#F7F2EA;border-left:3px solid #B0542E;border-radius:6px;padding:8px 11px;margin-bottom:12px;line-height:1.5}
+  .canvas-wrap{position:relative;width:100%}
+  .listcard .list-body{margin-top:4px}
+  .list-note{font-size:11.5px;color:#6B5F55;background:#F7F2EA;border-left:3px solid #E7DDCB;border-radius:6px;padding:9px 11px;margin:2px 0 10px;line-height:1.55}
+  .pill{font-size:12px;font-weight:800;padding:3px 11px;border-radius:99px;flex:0 0 auto}
+  .lrow{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:8px 0;border-bottom:1px solid #E7DDCB;font-size:13.5px;color:#2E2A26}
+  .lrow:last-child{border-bottom:0}
+  .lmeta{font-size:11px;color:#A69889;text-align:right;white-space:nowrap}
+  .lamt{font-weight:700;font-variant-numeric:tabular-nums}
+  .empty{color:#A69889;font-style:italic;font-size:13px;padding:8px 0}
+  footer{margin-top:46px;text-align:center;color:#A69889;font-size:11px}
+  @media (max-width:1180px){
+    .grid-kpi{grid-template-columns:repeat(3,1fr)}
+    .g3{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:820px){
+    body{padding:20px 14px 48px}
+    h1{font-size:24px}
+    .grid-kpi{grid-template-columns:repeat(2,1fr)}
+    .charts{grid-template-columns:1fr}
+    .g2,.g3{grid-template-columns:1fr}
+    .panel.wide{grid-column:auto}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Kingdom City Church · Giving Analytics</div>
+    <h1>Week of Jul 10, 2026</h1>
+    <div class="subtitle">Weekend window: Jul 4 · refreshed 11:33 PM</div>
+  </header>
+
+  <div class="freshness">
+    <strong>What you're looking at:</strong> every figure below is computed live from the
+    last 12 months of Kingdom City's Tithely giving through <strong>Jul 10, 2026</strong>.
+    Each panel states its own time window (last 30 days, current quarter, last 12 months, etc.).
+  </div>
+
+  <div class="grid-kpi"><div class="kpi">
+      <div class="kpi-label">Last Weekend</div>
+      <div class="kpi-value">$7,377</div>
+      <div class="kpi-sub" style="color:#1F9D55">9 givers · +$2,528 vs prior wknd</div><div class="kpi-win">weekend of Jul 4</div>
+    </div><div class="kpi">
+      <div class="kpi-label">Last 30 Days</div>
+      <div class="kpi-value">$27,218</div>
+      <div class="kpi-sub" style="color:#1F9D55">49 active givers · +$4,545 vs prev 30</div><div class="kpi-win">Jun 10 – Jul 10</div>
+    </div><div class="kpi">
+      <div class="kpi-label">Last Closed Quarter</div>
+      <div class="kpi-value">$76,524</div>
+      <div class="kpi-sub" style="color:#C0392B">67 givers · -$8,323 vs prior Q</div><div class="kpi-win">2026Q2</div>
+    </div><div class="kpi">
+      <div class="kpi-label">Avg Gift</div>
+      <div class="kpi-value">$283</div>
+      <div class="kpi-sub" style="color:#C0392B">-$14 vs prior quarter</div><div class="kpi-win">per gift · 2026Q2</div>
+    </div><div class="kpi">
+      <div class="kpi-label">Top-10 Giver Share</div>
+      <div class="kpi-value">51%</div>
+      <div class="kpi-sub" style="color:#A69889">share of giving from the 10 largest givers</div><div class="kpi-win">last 90 days · since Apr 11, 2026</div>
+    </div></div>
+
+  <h2>Trends</h2>
+  <div class="charts"><div class="panel wide">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Monthly Giving</div>
+          <div class="panel-window">last 13 months · Jul &#x27;25 – Jul &#x27;26</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:320px"><canvas id="c_monthly"></canvas></div>
+    </div><div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Quarterly Giving</div>
+          <div class="panel-window">last closed quarters · total + unique givers</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:300px"><canvas id="c_quarterly"></canvas></div>
+    </div><div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Recurring vs One-Time</div>
+          <div class="panel-window">by quarter · $ split</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:300px"><canvas id="c_recurringQ"></canvas></div>
+    </div><div class="panel wide">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Recurring % of Giving</div>
+          <div class="panel-window">monthly trend · Jul &#x27;25 – Jul &#x27;26</div>
+        </div>
+      </div>
+      <div class="panel-note">Higher = more predictable, sustainable income from recurring schedules.</div>
+      <div class="canvas-wrap" style="height:300px"><canvas id="c_rshare"></canvas></div>
+    </div><div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Year over Year</div>
+          <div class="panel-window">current quarter vs the same quarter a year earlier</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:300px"><canvas id="c_yoy"></canvas></div>
+    </div><div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Donor Retention</div>
+          <div class="panel-window">% of last quarter&#x27;s givers who gave again the next quarter</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:300px"><canvas id="c_retention"></canvas></div>
+    </div><div class="panel wide">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Fund Giving</div>
+          <div class="panel-window">last 12 months · top funds by 12-mo total</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:320px"><canvas id="c_fundTrend"></canvas></div>
+    </div><div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Giver Cadence Mix</div>
+          <div class="panel-window">all active givers · how often each typically gives</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:320px"><canvas id="c_cadence"></canvas></div>
+    </div><div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">New vs Returning Givers</div>
+          <div class="panel-window">by month · green = first-ever gift that month</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:300px"><canvas id="c_newVsRet"></canvas></div>
+    </div><div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Avg Gift Size by Cadence</div>
+          <div class="panel-window">all-time average per gift, grouped by giver cadence</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:300px"><canvas id="c_avgCadence"></canvas></div>
+    </div><div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Fund Breakdown</div>
+          <div class="panel-window">last 30 days (Jun 10 →) vs the 30 days before</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:300px"><canvas id="c_funds"></canvas></div>
+    </div><div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Gift-Size Distribution</div>
+          <div class="panel-window">current quarter (2026Q3) · # of gifts per band</div>
+        </div>
+      </div>
+      
+      <div class="canvas-wrap" style="height:300px"><canvas id="c_dist"></canvas></div>
+    </div></div>
+
+  
+      <h2>New &amp; Returning Givers</h2>
+      <div class="grid g3"><div class="panel listcard">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">First-Time Givers</div>
+          <div class="panel-window">last 30 days · first-ever gift since Jun 10</div>
+        </div>
+        <div class="pill" style="color:#1F9D55;background:#EAF6FC">7</div>
+      </div>
+      <div class="list-note">People whose very first gift to Kingdom City landed in the last month — worth a warm welcome.</div>
+      <div class="list-body"><div class="lrow"><span>Natalie Lockhart</span><span class="lmeta">first gift Jul 5 · $100</span></div><div class="lrow"><span>Charisse Holmes</span><span class="lmeta">first gift Jun 30 · $257</span></div><div class="lrow"><span>Elisabeth Hyde</span><span class="lmeta">first gift Jun 21 · $683</span></div><div class="lrow"><span>Sam Hardie</span><span class="lmeta">first gift Jun 17 · $1,061</span></div><div class="lrow"><span>Becca Owens</span><span class="lmeta">first gift Jun 15 · $740</span></div><div class="lrow"><span>Beverly Prater</span><span class="lmeta">first gift Jun 14 · $5</span></div><div class="lrow"><span>Geniya Barkley</span><span class="lmeta">first gift Jun 12 · $5</span></div></div>
+    </div><div class="panel listcard">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Consistent Monthly Givers</div>
+          <div class="panel-window">gave in 5+ of the last 6 months (Feb 2026–Jul 2026)</div>
+        </div>
+        <div class="pill" style="color:#B0542E;background:#EAF6FC">36</div>
+      </div>
+      <div class="list-note">Your dependable monthly base — gave in at least 5 of the last 6 months.</div>
+      <div class="list-body"><div class="lrow"><span>Andy Rodman</span></div><div class="lrow"><span>Atlanta Baptist Association</span></div><div class="lrow"><span>Bailey Cash</span></div><div class="lrow"><span>Benjamin Mote</span></div><div class="lrow"><span>Blake Odgers</span></div><div class="lrow"><span>Brandon Schroeder</span></div><div class="lrow"><span>Breayna Mentz</span></div><div class="lrow"><span>Brian Hardie</span></div><div class="lrow"><span>Brittany Gibson</span></div><div class="lrow"><span>Carly Lamp</span></div><div class="lrow"><span>Charlie Craige</span></div><div class="lrow"><span>Christopher Heydt</span></div><div class="lrow"><span>Collin Bowman</span></div><div class="lrow"><span>Cora Wilson</span></div><div class="lrow"><span>Dani Andujo</span></div><div class="lrow"><span>Daniel Blessing</span></div><div class="lrow"><span>Donovan O&#x27;Dell</span></div><div class="lrow"><span>First Baptist Church Columbiana</span></div><div class="lrow"><span>Higher Call</span></div><div class="lrow"><span>Jamie Baker</span></div><div class="lrow"><span>Jay &amp; Renee Cole</span></div><div class="lrow"><span>Joe Odgers</span></div><div class="lrow"><span>Kaity Scanlan</span></div><div class="lrow"><span>Mary Clare &amp; Brent Patrick</span></div><div class="lrow"><span>Michael Engelhaupt</span></div><div class="lrow"><span>Michael McDonald</span></div><div class="lrow"><span>Nick and Lauren Monaco</span></div><div class="lrow"><span>Paul Harrison</span></div><div class="lrow"><span>Peter Nash</span></div><div class="lrow"><span>Renea Davis</span></div></div>
+    </div><div class="panel listcard">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Dormant Returners</div>
+          <div class="panel-window">silent 90+ days, then gave in the last 31 days</div>
+        </div>
+        <div class="pill" style="color:#C1A56C;background:#EAF6FC">1</div>
+      </div>
+      <div class="list-note">Givers who went quiet for 3+ months and have just come back.</div>
+      <div class="list-body"><div class="lrow"><span>North Metro Church</span></div></div>
+    </div></div>
+
+      <h2>Giving Rhythm &amp; Follow-Up</h2>
+      <div class="grid g2"><div class="panel listcard">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Overdue Givers (cadence-aware)</div>
+          <div class="panel-window">past their own typical giving interval</div>
+        </div>
+        <div class="pill" style="color:#C0392B;background:#EAF6FC">22</div>
+      </div>
+      <div class="list-note"><strong>How this list is built:</strong> for each giver we measure their <em>typical</em> gap between gifts (the median days between their past donations). A name appears here only when it has been at least <strong>50% longer than their own normal gap</strong> since their last gift — e.g., someone who usually gives about every 30 days but hasn't given in 45+ days. It is <strong>not</strong> a fixed calendar cutoff, so monthly and quarterly givers are judged against their own rhythm and aren't wrongly flagged. These are previously-consistent givers who may have slipped — a good list for a personal check-in.</div>
+      <div class="list-body"><div class="lrow"><span>Aaron Leonardy</span><span class="lmeta">gives ~every 16d · last Dec 15</span></div><div class="lrow"><span>Abraham Tallini</span><span class="lmeta">gives ~every 42d · last Mar 9</span></div><div class="lrow"><span>Amarrah Pope</span><span class="lmeta">gives ~every 13d · last Jun 15</span></div><div class="lrow"><span>Anonymous</span><span class="lmeta">last Mar 15</span></div><div class="lrow"><span>BreAnna Theis</span><span class="lmeta">gives ~every 41d · last Nov 6</span></div><div class="lrow"><span>Christopher Hunt, Sr.</span><span class="lmeta">gives ~every 42d · last Mar 1</span></div><div class="lrow"><span>CrossPoint City Church</span><span class="lmeta">gives ~every 30d · last Nov 8</span></div><div class="lrow"><span>Dave Kacsur</span><span class="lmeta">gives ~every 34d · last Mar 28</span></div><div class="lrow"><span>Feven Gebrehiwot</span><span class="lmeta">gives ~every 15d · last Jan 19</span></div><div class="lrow"><span>Gabrielle Leonovs</span><span class="lmeta">gives ~every 69d · last Dec 7</span></div><div class="lrow"><span>Jamie Baker</span><span class="lmeta">gives ~every 1d · last Jun 30</span></div><div class="lrow"><span>Jeff &amp; Brandy Robertson</span><span class="lmeta">gives ~every 35d · last May 16</span></div><div class="lrow"><span>Joshua Baxter</span><span class="lmeta">gives ~every 31d · last Jan 31</span></div><div class="lrow"><span>Kamari Davis</span><span class="lmeta">gives ~every 7d · last Oct 12</span></div><div class="lrow"><span>Kayla White</span><span class="lmeta">gives ~every 7d · last May 15</span></div><div class="lrow"><span>Kent Graper</span><span class="lmeta">gives ~every 31d · last Dec 10</span></div><div class="lrow"><span>Mark &amp; Riley Pope</span><span class="lmeta">gives ~every 36d · last Dec 3</span></div><div class="lrow"><span>Ryan and Cora Wilson</span><span class="lmeta">gives ~every 38d · last Feb 13</span></div><div class="lrow"><span>Sydney Meagher</span><span class="lmeta">gives ~every 29d · last May 20</span></div><div class="lrow"><span>Tyler Tratchel</span><span class="lmeta">gives ~every 77d · last Mar 16</span></div><div class="lrow"><span>West Cobb Church</span><span class="lmeta">last May 5</span></div><div class="lrow"><span>ephraim rowell</span><span class="lmeta">gives ~every 28d · last May 28</span></div></div>
+    </div><div class="panel listcard">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Due to Give Soon</div>
+          <div class="panel-window">inside their expected next-gift window</div>
+        </div>
+        <div class="pill" style="color:#C98A54;background:#EAF6FC">3</div>
+      </div>
+      <div class="list-note">Givers whose usual rhythm says another gift is likely about now.</div>
+      <div class="list-body"><div class="lrow"><span>Collin Bowman</span><span class="lmeta">gives ~every 7d · last Jul 4</span></div><div class="lrow"><span>Cora Wilson</span><span class="lmeta">gives ~every 16d · last Jun 26</span></div><div class="lrow"><span>Kelly Dineen</span><span class="lmeta">gives ~every 53d · last May 24</span></div></div>
+    </div></div>
+
+      <h2>Top Givers &amp; Movers <span class="h2win">last 30 days</span></h2>
+      <div class="grid g3"><div class="panel listcard">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Top Givers</div>
+          <div class="panel-window">last 30 days · since Jun 10</div>
+        </div>
+        <div class="pill" style="color:#B0542E;background:#EAF6FC">12</div>
+      </div>
+      
+      <div class="list-body"><div class="lrow money"><span>North Metro Church</span><span class="lamt">$5,000</span></div><div class="lrow money"><span>First Baptist Church Columbiana</span><span class="lamt">$1,651</span></div><div class="lrow money"><span>Breayna Mentz</span><span class="lamt">$1,510</span></div><div class="lrow money"><span>Atlanta Baptist Association</span><span class="lamt">$1,500</span></div><div class="lrow money"><span>Mary Clare &amp; Brent Patrick</span><span class="lamt">$1,446</span></div><div class="lrow money"><span>Sam Hardie</span><span class="lamt">$1,061</span></div><div class="lrow money"><span>Cora Wilson</span><span class="lamt">$1,028</span></div><div class="lrow money"><span>Peter Nash</span><span class="lamt">$1,027</span></div><div class="lrow money"><span>Bailey Cash</span><span class="lamt">$860</span></div><div class="lrow money"><span>Steven Keck</span><span class="lamt">$821</span></div><div class="lrow money"><span>Schuyler Petty</span><span class="lamt">$758</span></div><div class="lrow money"><span>Becca Owens</span><span class="lamt">$740</span></div></div>
+    </div><div class="panel listcard">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Biggest Increases</div>
+          <div class="panel-window">last 30 days vs the 30 before</div>
+        </div>
+        <div class="pill" style="color:#1F9D55;background:#EAF6FC">12</div>
+      </div>
+      
+      <div class="list-body"><div class="lrow money"><span>North Metro Church</span><span class="lamt" style="color:#1F9D55">+$5,000</span></div><div class="lrow money"><span>First Baptist Church Columbiana</span><span class="lamt" style="color:#1F9D55">+$1,651</span></div><div class="lrow money"><span>Sam Hardie</span><span class="lamt" style="color:#1F9D55">+$1,061</span></div><div class="lrow money"><span>Becca Owens</span><span class="lamt" style="color:#1F9D55">+$740</span></div><div class="lrow money"><span>Elisabeth Hyde</span><span class="lamt" style="color:#1F9D55">+$683</span></div><div class="lrow money"><span>Titobiloluwa Obitayo</span><span class="lamt" style="color:#1F9D55">+$593</span></div><div class="lrow money"><span>Steven Keck</span><span class="lamt" style="color:#1F9D55">+$410</span></div><div class="lrow money"><span>Breayna Mentz</span><span class="lamt" style="color:#1F9D55">+$381</span></div><div class="lrow money"><span>Charisse Holmes</span><span class="lamt" style="color:#1F9D55">+$257</span></div><div class="lrow money"><span>Stella Louis</span><span class="lamt" style="color:#1F9D55">+$230</span></div><div class="lrow money"><span>Peter Nash</span><span class="lamt" style="color:#1F9D55">+$205</span></div><div class="lrow money"><span>Tyler Godfrey</span><span class="lamt" style="color:#1F9D55">+$149</span></div></div>
+    </div><div class="panel listcard">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Biggest Decreases</div>
+          <div class="panel-window">last 30 days vs the 30 before</div>
+        </div>
+        <div class="pill" style="color:#C0392B;background:#EAF6FC">12</div>
+      </div>
+      
+      <div class="list-body"><div class="lrow money"><span>Jeff &amp; Brandy Robertson</span><span class="lamt" style="color:#C0392B">-$2,000</span></div><div class="lrow money"><span>Cora Wilson</span><span class="lamt" style="color:#C0392B">-$1,867</span></div><div class="lrow money"><span>Bridgepoint Church at Toco Hills</span><span class="lamt" style="color:#C0392B">-$1,500</span></div><div class="lrow money"><span>Joseph Ashley</span><span class="lamt" style="color:#C0392B">-$572</span></div><div class="lrow money"><span>ephraim rowell</span><span class="lamt" style="color:#C0392B">-$411</span></div><div class="lrow money"><span>Blake Odgers</span><span class="lamt" style="color:#C0392B">-$278</span></div><div class="lrow money"><span>Michael McDonald</span><span class="lamt" style="color:#C0392B">-$259</span></div><div class="lrow money"><span>Audrey Wang</span><span class="lamt" style="color:#C0392B">-$200</span></div><div class="lrow money"><span>Brandon Iben</span><span class="lamt" style="color:#C0392B">-$104</span></div><div class="lrow money"><span>Kayla White</span><span class="lamt" style="color:#C0392B">-$83</span></div><div class="lrow money"><span>Sydney Meagher</span><span class="lamt" style="color:#C0392B">-$72</span></div><div class="lrow money"><span>Kelly Dineen</span><span class="lamt" style="color:#C0392B">-$31</span></div></div>
+    </div></div>
+    
+
+  <footer>Kingdom City Giving Dashboard · refreshed daily from Tithely · Jul 10, 2026</footer>
+</div>
+
+<script>
+Chart.register(ChartDataLabels);
+const D = {"monthly": {"labels": ["Jul '25", "Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26", "Apr '26", "May '26", "Jun '26", "Jul '26"], "totals": [4782, 10397, 17966, 15808, 18163, 40922, 34063, 21929, 28854, 27976, 27190, 21358, 12981]}, "quarterly": {"labels": ["2025Q3", "2025Q4", "2026Q1", "2026Q2"], "totals": [33146, 74894, 84846, 76524], "givers": [45, 55, 59, 67]}, "recurringQ": {"labels": ["2025Q3", "2025Q4", "2026Q1", "2026Q2"], "recurring": [20748, 40249, 58047, 49291], "onetime": [12398, 34645, 26799, 27233]}, "rshare": {"labels": ["Jul '25", "Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26", "Apr '26", "May '26", "Jun '26", "Jul '26"], "pct": [90.3, 79.8, 45.3, 76.4, 79.3, 33.7, 70.6, 73.5, 62.0, 63.7, 61.5, 68.9, 48.5]}, "yoy": {"labels": [], "current": [], "prev": []}, "retention": {"labels": ["2025Q4", "2026Q1", "2026Q2"], "pct": [75.6, 72.7, 76.3]}, "fundTrend": {"labels": ["Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26", "Apr '26", "May '26", "Jun '26", "Jul '26"], "series": [{"name": "General Giving", "data": [10397, 17966, 15808, 17728, 38567, 33601, 21724, 28648, 27771, 27020, 21111, 12842]}, {"name": "Vision Fund", "data": [0, 0, 0, 435, 2356, 463, 205, 206, 205, 170, 247, 138]}]}, "cadence": {"labels": ["Weekly", "Monthly", "Quarterly", "Semi/Annual", "Sporadic/Single"], "counts": [16, 45, 4, 3, 35]}, "newVsRet": {"labels": ["Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26", "Apr '26", "May '26", "Jun '26", "Jul '26"], "new": [9, 17, 7, 3, 11, 8, 5, 3, 9, 4, 7, 1], "returning": [16, 23, 30, 34, 35, 39, 44, 47, 42, 48, 40, 28]}, "avgCadence": {"labels": ["Weekly", "Monthly", "Quarterly", "Semiannual"], "amts": [147, 328, 1731, 926]}, "funds": {"labels": ["General Giving", "Vision Fund"], "last30": [26911, 307], "prev30": [22503, 170]}, "dist": {"labels": ["$0\u2013$25", "$25\u2013$50", "$50\u2013$100", "$100\u2013$250", "$250\u2013$500", "$500\u2013$1000", "$1000\u2013$2500", "$2,500+"], "counts": [2, 1, 6, 15, 7, 2, 1, 1]}, "colors": {"blue": "#B0542E", "blue2": "#C98A54", "navy": "#2E2A26", "gold": "#C1A56C", "green": "#1F9D55", "slate": "#6B5F55", "muted": "#6B5F55", "red": "#C0392B", "series": ["#B0542E", "#C98A54", "#2E2A26", "#C1A56C", "#1F9D55", "#6B5F55"]}};
+const C = D.colors;
+const money = v => '$' + Math.round(v).toLocaleString();
+const moneyK = v => Math.abs(v)>=1e6 ? '$'+(v/1e6).toFixed(1)+'M' : Math.abs(v)>=1e3 ? '$'+(v/1e3).toFixed(0)+'K' : '$'+Math.round(v);
+const FONT = "'Plus Jakarta Sans', sans-serif";
+Chart.defaults.font.family = FONT;
+Chart.defaults.color = '#6B5F55';
+Chart.defaults.animation = false;
+Chart.defaults.maintainAspectRatio = false;
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.plugins.legend.labels.boxWidth = 8;
+Chart.defaults.plugins.legend.labels.font = {size: 11, weight: '600'};
+
+function dl(opts) { return Object.assign({color:'#2E2A26', font:{weight:'700', size:10}, clamp:true}, opts||{}); }
+const gridX = {grid:{display:false}, ticks:{maxRotation:0, autoSkip:true, font:{size:10}}};
+const gridY = (fmt) => ({grid:{color:'#E7DDCB'}, ticks:{callback:fmt, font:{size:10}}, beginAtZero:true});
+const el = id => document.getElementById(id);
+
+new Chart(el('c_monthly'), {type:'line',
+  data:{labels:D.monthly.labels, datasets:[{label:'Giving', data:D.monthly.totals, borderColor:C.blue, backgroundColor:'rgba(21,147,219,.12)', fill:true, tension:.32, pointRadius:3, pointBackgroundColor:C.blue, borderWidth:2.5}]},
+  options:{plugins:{legend:{display:false}, datalabels:dl({align:'top',anchor:'end',display:'auto',formatter:moneyK,color:C.navy,backgroundColor:'rgba(255,255,255,.72)',borderRadius:4,padding:2}), tooltip:{callbacks:{label:ctx=>money(ctx.parsed.y)}}}, scales:{x:gridX, y:gridY(moneyK)}}
+});
+
+new Chart(el('c_quarterly'), {type:'bar',
+  data:{labels:D.quarterly.labels, datasets:[{label:'Total', data:D.quarterly.totals, backgroundColor:C.blue, borderRadius:6, maxBarThickness:52}]},
+  options:{plugins:{legend:{display:false}, datalabels:dl({anchor:'end',align:'top',formatter:moneyK}), tooltip:{callbacks:{afterLabel:ctx=>D.quarterly.givers[ctx.dataIndex]+' givers'}}}, scales:{x:gridX, y:gridY(moneyK)}}
+});
+
+new Chart(el('c_recurringQ'), {type:'bar',
+  data:{labels:D.recurringQ.labels, datasets:[
+    {label:'Recurring', data:D.recurringQ.recurring, backgroundColor:C.blue, borderRadius:4, maxBarThickness:52},
+    {label:'One-time', data:D.recurringQ.onetime, backgroundColor:C.slate, borderRadius:4, maxBarThickness:52}]},
+  options:{plugins:{legend:{position:'bottom'}, datalabels:dl({display:ctx=>ctx.dataset.data[ctx.dataIndex]>0?'auto':false, color:'#fff', formatter:moneyK}), tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+money(ctx.parsed.y)}}}, scales:{x:Object.assign({stacked:true},gridX), y:Object.assign({stacked:true},gridY(moneyK))}}
+});
+
+new Chart(el('c_rshare'), {type:'line',
+  data:{labels:D.rshare.labels, datasets:[{label:'Recurring %', data:D.rshare.pct, borderColor:C.blue2, backgroundColor:'rgba(32,160,224,.10)', fill:true, tension:.3, pointRadius:3, pointBackgroundColor:C.blue2, borderWidth:2.5}]},
+  options:{plugins:{legend:{display:false}, datalabels:dl({align:'top',anchor:'end',display:'auto',formatter:v=>v.toFixed(0)+'%',color:C.navy,backgroundColor:'rgba(255,255,255,.72)',borderRadius:4,padding:2}), tooltip:{callbacks:{label:ctx=>ctx.parsed.y.toFixed(1)+'% recurring'}}}, scales:{x:gridX, y:Object.assign(gridY(v=>v+'%'),{max:100})}}
+});
+
+new Chart(el('c_yoy'), {type:'bar',
+  data:{labels:D.yoy.labels, datasets:[
+    {label:'Prior year', data:D.yoy.prev, backgroundColor:C.slate, borderRadius:4, maxBarThickness:34},
+    {label:'Current', data:D.yoy.current, backgroundColor:C.blue, borderRadius:4, maxBarThickness:34}]},
+  options:{plugins:{legend:{position:'bottom'}, datalabels:dl({anchor:'end',align:'top',formatter:moneyK,font:{size:9,weight:'700'}}), tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+money(ctx.parsed.y)}}}, scales:{x:gridX, y:gridY(moneyK)}}
+});
+
+new Chart(el('c_retention'), {type:'line',
+  data:{labels:D.retention.labels, datasets:[{label:'Retention', data:D.retention.pct, borderColor:C.green, backgroundColor:'rgba(31,157,85,.10)', fill:true, tension:.3, pointRadius:3, pointBackgroundColor:C.green, borderWidth:2.5}]},
+  options:{plugins:{legend:{display:false}, datalabels:dl({align:'top',anchor:'end',display:'auto',formatter:v=>v.toFixed(0)+'%',color:C.navy,backgroundColor:'rgba(255,255,255,.72)',borderRadius:4,padding:2}), tooltip:{callbacks:{label:ctx=>ctx.parsed.y.toFixed(1)+'% retained'}}}, scales:{x:gridX, y:Object.assign(gridY(v=>v+'%'),{max:100})}}
+});
+
+new Chart(el('c_fundTrend'), {type:'line',
+  data:{labels:D.fundTrend.labels, datasets:D.fundTrend.series.map((s,i)=>({label:s.name, data:s.data, borderColor:C.series[i%C.series.length], backgroundColor:'transparent', tension:.3, pointRadius:2, borderWidth:2}))},
+  options:{plugins:{legend:{position:'bottom'}, datalabels:{display:false}, tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+money(ctx.parsed.y)}}}, scales:{x:gridX, y:gridY(moneyK)}}
+});
+
+new Chart(el('c_cadence'), {type:'doughnut',
+  data:{labels:D.cadence.labels, datasets:[{data:D.cadence.counts, backgroundColor:[C.blue,C.blue2,C.navy,C.gold,C.muted], borderColor:'#fff', borderWidth:2}]},
+  options:{cutout:'58%', plugins:{legend:{position:'right'}, datalabels:dl({color:'#fff', formatter:(v,ctx)=>{const t=ctx.dataset.data.reduce((a,b)=>a+b,0); return t?Math.round(v/t*100)+'%':'';}}), tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed+' givers'}}}}
+});
+
+new Chart(el('c_newVsRet'), {type:'bar',
+  data:{labels:D.newVsRet.labels, datasets:[
+    {label:'New', data:D.newVsRet.new, backgroundColor:C.green, borderRadius:3, maxBarThickness:34},
+    {label:'Returning', data:D.newVsRet.returning, backgroundColor:C.blue, borderRadius:3, maxBarThickness:34}]},
+  options:{plugins:{legend:{position:'bottom'}, datalabels:dl({display:ctx=>ctx.dataset.data[ctx.dataIndex]>0?'auto':false, color:'#fff', formatter:v=>v}), tooltip:{}}, scales:{x:Object.assign({stacked:true},gridX), y:Object.assign({stacked:true},gridY(v=>v))}}
+});
+
+new Chart(el('c_avgCadence'), {type:'bar',
+  data:{labels:D.avgCadence.labels, datasets:[{label:'Avg gift', data:D.avgCadence.amts, backgroundColor:C.gold, borderRadius:5, maxBarThickness:34}]},
+  options:{indexAxis:'y', plugins:{legend:{display:false}, datalabels:dl({anchor:'end',align:'right',formatter:money}), tooltip:{callbacks:{label:ctx=>money(ctx.parsed.x)}}}, scales:{x:Object.assign(gridY(moneyK),{grid:{color:'#E7DDCB'}}), y:{grid:{display:false}}}}
+});
+
+new Chart(el('c_funds'), {type:'bar',
+  data:{labels:D.funds.labels, datasets:[
+    {label:'Prev 30', data:D.funds.prev30, backgroundColor:C.slate, borderRadius:4, maxBarThickness:30},
+    {label:'Last 30', data:D.funds.last30, backgroundColor:C.blue, borderRadius:4, maxBarThickness:30}]},
+  options:{indexAxis:'y', plugins:{legend:{position:'bottom'}, datalabels:dl({anchor:'end',align:'right',formatter:v=>v>0?moneyK(v):'', font:{size:9,weight:'700'}}), tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+money(ctx.parsed.x)}}}, scales:{x:Object.assign(gridY(moneyK),{grid:{color:'#E7DDCB'}}), y:{grid:{display:false}, ticks:{font:{size:10}}}}}
+});
+
+new Chart(el('c_dist'), {type:'bar',
+  data:{labels:D.dist.labels, datasets:[{label:'Gifts', data:D.dist.counts, backgroundColor:C.blue2, borderRadius:5, maxBarThickness:46}]},
+  options:{plugins:{legend:{display:false}, datalabels:dl({anchor:'end',align:'top',formatter:v=>v}), tooltip:{callbacks:{label:ctx=>ctx.parsed.y+' gifts'}}}, scales:{x:Object.assign({},gridX,{ticks:{maxRotation:45,minRotation:0,font:{size:9}}}), y:gridY(v=>v)}}
+});
+</script>
+</body>
+</html>
