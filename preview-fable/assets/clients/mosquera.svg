@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" role="img" aria-labelledby="title desc">
+  <title id="title">Mosquera Counseling</title>
+  <desc id="desc">A muted sage teal therapy logo with two interlocking rounded leaf forms and a humanist wordmark.</desc>
+  <g fill="#3E7B6E">
+    <path d="M38 14C24.6 14 14 24.6 14 38c0 17.5 18.8 26.2 24 29.6C43.2 64.2 62 55.5 62 38c0-13.4-10.6-24-24-24Zm0 12c6.7 0 12 5.3 12 12 0 7.5-6.6 13-12 16.4C32.6 51 26 45.5 26 38c0-6.7 5.3-12 12-12Z"/>
+    <path d="M62 14C48.6 14 38 24.6 38 38c0 17.5 18.8 26.2 24 29.6C67.2 64.2 86 55.5 86 38c0-13.4-10.6-24-24-24Zm0 12c6.7 0 12 5.3 12 12 0 7.5-6.6 13-12 16.4C56.6 51 50 45.5 50 38c0-6.7 5.3-12 12-12Z"/>
+    <path d="M50 28c7.1 8.2 7.1 20.8 0 29-7.1-8.2-7.1-20.8 0-29Z" fill="#315F55"/>
+  </g>
+  <g fill="#3E7B6E" font-family="Arial, Helvetica, sans-serif">
+    <text x="106" y="39" font-size="28" font-weight="700">Mosquera</text>
+    <text x="108" y="59" font-size="16" font-weight="400">Counseling</text>
+  </g>
+</svg>

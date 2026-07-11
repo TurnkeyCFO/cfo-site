@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 246 80" role="img" aria-labelledby="title desc">
+  <title id="title">SIVILS METALS</title>
+  <desc id="desc">A steel charcoal industrial logo with a faceted beam mark and orange spark accent.</desc>
+  <g fill="#2B2F33">
+    <path d="M16 22 33 12h34l17 10v36L67 68H33L16 58V22Zm18 4-8 5v18l8 5h32l8-5V31l-8-5H34Z"/>
+    <path d="M34 30h32l8 8-8 8H34l-8-8 8-8Z"/>
+    <path d="M42 48h16l-7 12H35l7-12Z"/>
+  </g>
+  <g fill="#F2641F">
+    <path d="M83 8 87.1 18.9 98 23 87.1 27.1 83 38 78.9 27.1 68 23 78.9 18.9 83 8Z"/>
+    <circle cx="92" cy="44" r="4"/>
+  </g>
+  <g fill="#2B2F33" font-family="Arial, Helvetica, sans-serif">
+    <text x="112" y="40" font-size="30" font-weight="900" letter-spacing="2">SIVILS</text>
+    <text x="114" y="61" font-size="15" font-weight="700" letter-spacing="7">METALS</text>
+  </g>
+</svg>
