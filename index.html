@@ -169,11 +169,15 @@ h2.big em.sf{color:var(--deep)}
 
 /* ============ statement ============ */
 .ans{background:var(--paper)}
-.ansgrid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(36px,6vw,96px);align-items:center}
+.ansgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px);align-items:center}
 .ansp{font-size:clamp(20px,2.3vw,30px);font-weight:600;line-height:1.42;color:var(--ink);letter-spacing:-.014em}
 .ansp .ln{display:block;overflow:hidden;padding-bottom:.16em;margin-bottom:-.16em}
 .ansp .ln>span{display:inline-block;will-change:transform}
 .ansp em.sf{color:var(--deep)}
+.teamcol{display:flex;flex-direction:column;gap:22px}
+.teamimg{border-radius:20px;overflow:hidden;box-shadow:0 34px 90px rgba(13,36,26,.22);transform:rotate(1.2deg)}
+.teamimg img{width:100%;height:100%;object-fit:cover;display:block}
+.teamcap{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tx2);text-align:center;margin-top:-8px}
 .founder{display:flex;gap:18px;align-items:center;background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:24px 26px;box-shadow:0 20px 60px rgba(13,36,26,.06)}
 .founder img{width:76px;height:76px;border-radius:50%;object-fit:cover}
 .founder .fn{font-weight:800;color:var(--ink);font-size:15.5px}
@@ -502,6 +506,9 @@ footer ul a:hover{color:var(--emerald)}
         <div class="eyebrow"><span class="num">001</span> Who we are</div>
         <p class="ansp" id="ansp">Turnkey CFO is a bookkeeping firm in Austin, Texas. We handle <em class="sf">monthly bookkeeping, payroll, 1099 filing, AP/AR, and catch-up work</em> for small businesses, churches, and nonprofits nationwide — and we replace the static PDF report with a live financial dashboard.</p>
       </div>
+      <div class="teamcol">
+      <div class="teamimg rv"><img src="/assets/fable/team.jpg" alt="The Turnkey CFO team" loading="lazy"></div>
+      <div class="teamcap rv">The Turnkey team</div>
       <div class="founder rv">
         <img src="/assets/ricky-headshot.webp" alt="Ricky West, founder of Turnkey CFO" width="76" height="76" loading="lazy">
         <div>
@@ -509,6 +516,7 @@ footer ul a:hover{color:var(--emerald)}
           <div class="fr">Founder, Turnkey CFO</div>
           <div class="fq">"You should never have to wonder what's happening in your own books. Clarity is the whole product."</div>
         </div>
+      </div>
       </div>
     </div>
   </div>
