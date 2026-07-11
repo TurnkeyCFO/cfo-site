@@ -237,7 +237,11 @@ h2.big em.sf{color:var(--deep)}
 .band p{margin:22px auto 0;color:#b9d6c5;max-width:52ch;font-size:clamp(15px,1.4vw,18px)}
 
 /* ============ church lane ============ */
-.church{background:var(--pine);color:#eafff3}
+.church{background:var(--pine);color:#eafff3;position:relative;overflow:hidden}
+.chmedia{position:absolute;inset:-8% 0;z-index:0}
+.chmedia video{width:100%;height:100%;object-fit:cover;display:block}
+.church::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,26,16,.72),rgba(4,26,16,.5) 55%,rgba(4,26,16,.78))}
+.church .inner{position:relative;z-index:2}
 .church .eyebrow{color:var(--emerald)}.church .eyebrow::before{background:var(--emerald)}
 .church h2.big{color:#fff}
 .church .sub{color:#b9d6c5}
@@ -627,6 +631,11 @@ footer ul a:hover{color:var(--emerald)}
 
 <!-- ================= CHURCH LANE ================= -->
 <section class="church" id="churches">
+  <div class="chmedia" aria-hidden="true">
+    <video autoplay muted loop playsinline poster="/assets/fable/church.jpg">
+      <source src="/assets/fable/church.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="inner">
     <div class="eyebrow"><span class="num">005</span> Churches &amp; nonprofits</div>
     <h2 class="big">Fund accounting that keeps trust <em class="sf">easy.</em></h2>
@@ -1143,6 +1152,14 @@ function countUps(instant){
       scrollTrigger: { trigger: el, start: 'top 88%' },
       onUpdate: function(){ el.textContent = Math.round(o.v); } });
   });
+}
+
+/* ensure all bg videos play (some browsers stall secondary autoplay) */
+if('IntersectionObserver' in window){
+  var vio = new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ var v = e.target; if(v.paused){ v.play().catch(function(){}); } } });
+  }, { rootMargin: '200px' });
+  document.querySelectorAll('video').forEach(function(v){ vio.observe(v); });
 }
 
 /* ---------- progress bar ---------- */
