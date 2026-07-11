@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 80" role="img" aria-labelledby="title desc">
+  <title id="title">Build AI</title>
+  <desc id="desc">An electric violet AI tooling logo with bracket and cube geometry beside a tight wordmark.</desc>
+  <g fill="#6D28D9">
+    <path d="M25 17 10 40l15 23h13L23 40l15-23H25Z"/>
+    <path d="M67 17 82 40 67 63H54l15-23-15-23h13Z"/>
+    <path d="M46 14 65 25v23L46 60 27 48V25l19-11Zm0 12-8 5v11l8 5 8-5V31l-8-5Z"/>
+    <circle cx="46" cy="37" r="5"/>
+    <circle cx="46" cy="18" r="4"/>
+    <circle cx="63" cy="49" r="4"/>
+  </g>
+  <g fill="#6D28D9" font-family="Arial, Helvetica, sans-serif">
+    <text x="104" y="50" font-size="35" font-weight="800">Build AI</text>
+  </g>
+</svg>
