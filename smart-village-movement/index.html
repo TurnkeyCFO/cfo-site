@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Turnkey CFO × Smart Village Movement</title>
+<link rel="icon" href="/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pine:#06281a; --pine2:#0a3423; --emerald:#00E676; --deep:#007A33; --sea:#00B050; --mint:#CCFFE5;
+    --cream:#FAF7F1; --paper:#FFFDF8; --bone:#F3EEE4; --sand:#EBE4D6;
+    --ink:#0d241a; --tx:#243830; --tx2:#5c6f64;
+    --line:rgba(13,36,26,.12); --line2:rgba(13,36,26,.07);
+    --serif:'Fraunces',Georgia,serif;
+    --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+    --maxw:1180px;
+    --rad:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream); color:var(--tx); font-family:var(--sans);
+    font-weight:400; line-height:1.6; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* paper grain */
+  body::before{
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+
+  /* ── MASTHEAD ── */
+  header.top{
+    background:var(--pine); color:var(--paper); position:relative; overflow:hidden;
+    border-bottom:3px solid var(--emerald);
+  }
+  header.top::after{
+    content:''; position:absolute; right:-160px; top:-160px; width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(0,230,118,.16), transparent 68%);
+  }
+  .masthead{
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+    padding:20px 0; position:relative; z-index:2;
+  }
+  .masthead img{height:30px; width:auto; display:block;}
+  .mast-r{font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,253,248,.62); font-weight:600;}
+
+  .hero{padding:46px 0 54px; position:relative; z-index:2;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:9px; font-size:.7rem; font-weight:700;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--emerald);
+    border:1px solid rgba(0,230,118,.32); border-radius:100px; padding:7px 15px; margin-bottom:22px;
+  }
+  .eyebrow::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--emerald);}
+  .hero h1{
+    font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem,5vw,3.6rem);
+    line-height:1.04; letter-spacing:-.02em; color:var(--paper); max-width:19ch;
+  }
+  .hero h1 em{font-style:italic; color:var(--emerald);}
+  .hero p.sub{
+    margin-top:20px; max-width:62ch; font-size:1.03rem; color:rgba(255,253,248,.72); font-weight:300;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;
+  }
+  .chip{
+    font-size:.74rem; font-weight:600; letter-spacing:.03em; color:rgba(255,253,248,.86);
+    background:rgba(255,253,248,.07); border:1px solid rgba(255,253,248,.16);
+    padding:7px 13px; border-radius:100px;
+  }
+
+  /* ── TABS ── */
+  .tabbar{
+    position:sticky; top:0; z-index:40; background:rgba(250,247,241,.93);
+    backdrop-filter:blur(14px); border-bottom:1px solid var(--line);
+  }
+  .tabs{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    appearance:none; background:none; border:none; cursor:pointer; font-family:var(--sans);
+    font-size:.82rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--tx2); padding:19px 20px; white-space:nowrap; position:relative;
+    transition:color .2s ease;
+  }
+  .tab .num{font-size:.66rem; color:var(--line); margin-right:7px; font-weight:800; transition:color .2s;}
+  .tab:hover{color:var(--ink);}
+  .tab[aria-selected="true"]{color:var(--pine);}
+  .tab[aria-selected="true"] .num{color:var(--sea);}
+  .tab::after{
+    content:''; position:absolute; left:14px; right:14px; bottom:0; height:3px;
+    background:var(--emerald); border-radius:3px 3px 0 0;
+    transform:scaleX(0); transform-origin:left; transition:transform .28s cubic-bezier(.4,0,.2,1);
+  }
+  .tab[aria-selected="true"]::after{transform:scaleX(1);}
+
+  /* ── PANELS ── */
+  main{position:relative; z-index:2;}
+  .panel{display:none; padding:56px 0 96px; animation:rise .5s cubic-bezier(.2,.7,.3,1);}
+  .panel[data-active]{display:block;}
+  @keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+
+  .sec-label{
+    font-size:.7rem; font-weight:800; letter-spacing:.17em; text-transform:uppercase;
+    color:var(--sea); margin-bottom:14px;
+  }
+  h2.big{
+    font-family:var(--serif); font-weight:600; font-size:clamp(1.9rem,3.4vw,2.65rem);
+    line-height:1.1; letter-spacing:-.015em; color:var(--ink); max-width:20ch;
+  }
+  .lede{margin-top:18px; font-size:1.08rem; color:var(--tx); max-width:66ch; font-weight:300;}
+  .lede strong{font-weight:600; color:var(--ink);}
+
+  /* bio */
+  .bio-grid{display:grid; grid-template-columns:1.35fr .85fr; gap:56px; margin-top:44px; align-items:start;}
+  .prose p{margin-bottom:17px; color:var(--tx); max-width:60ch;}
+  .prose p strong{color:var(--ink); font-weight:600;}
+  .pull{
+    border-left:3px solid var(--emerald); padding:4px 0 4px 22px; margin:28px 0;
+    font-family:var(--serif); font-size:1.22rem; line-height:1.45; color:var(--pine); font-weight:500; font-style:italic;
+  }
+  .facts{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--rad);
+    padding:8px 26px 22px; position:sticky; top:88px;
+    box-shadow:0 1px 2px rgba(13,36,26,.04), 0 12px 34px -18px rgba(13,36,26,.22);
+  }
+  .fact{padding:18px 0; border-bottom:1px solid var(--line2);}
+  .fact:last-child{border-bottom:none;}
+  .fact dt{font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--tx2);}
+  .fact dd{margin-top:7px; font-size:.97rem; color:var(--ink); font-weight:500; line-height:1.45;}
+  .fact dd.num{font-family:var(--serif); font-size:1.9rem; font-weight:600; line-height:1; color:var(--pine);}
+
+  /* services */
+  .svc-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:2px; margin-top:44px; background:var(--line2); border:1px solid var(--line2); border-radius:var(--rad); overflow:hidden;}
+  .svc{
+    background:var(--paper); padding:30px 28px 32px; position:relative;
+    transition:background .25s ease;
+  }
+  .svc:hover{background:#fff;}
+  .svc-top{display:flex; align-items:baseline; gap:11px; margin-bottom:13px;}
+  .svc-num{font-family:var(--serif); font-size:.9rem; font-weight:700; color:var(--sea);}
+  .svc h3{font-size:1.06rem; font-weight:700; color:var(--ink); letter-spacing:-.01em; line-height:1.3;}
+  .svc p{font-size:.92rem; color:var(--tx2); line-height:1.62;}
+  .svc .tag{
+    display:inline-block; margin-top:14px; font-size:.66rem; font-weight:800; letter-spacing:.11em;
+    text-transform:uppercase; color:var(--deep); background:var(--mint);
+    padding:5px 10px; border-radius:5px;
+  }
+  .svc .tag.soft{background:var(--bone); color:var(--tx2);}
+
+  /* cadence */
+  .cadence{
+    margin-top:52px; background:var(--pine); border-radius:var(--rad); padding:38px 34px 34px;
+    color:var(--paper); position:relative; overflow:hidden;
+  }
+  .cadence::after{
+    content:''; position:absolute; right:-90px; bottom:-120px; width:340px; height:340px; border-radius:50%;
+    background:radial-gradient(circle, rgba(0,230,118,.14), transparent 70%);
+  }
+  .cadence h3{font-family:var(--serif); font-size:1.5rem; font-weight:600; color:var(--paper); margin-bottom:8px;}
+  .cadence > p{color:rgba(255,253,248,.66); font-size:.95rem; font-weight:300; max-width:60ch;}
+  .rail{display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:30px; position:relative; z-index:2;}
+  .stop{padding:20px 18px; background:rgba(255,253,248,.05); border-top:2px solid rgba(0,230,118,.4);}
+  .stop:last-child{border-top-color:var(--emerald); background:rgba(0,230,118,.09);}
+  .stop .bd{font-size:.66rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; color:var(--emerald); margin-bottom:8px;}
+  .stop .what{font-size:.88rem; color:rgba(255,253,248,.9); line-height:1.5; font-weight:500;}
+
+  .note{
+    margin-top:34px; padding:20px 24px; background:var(--bone); border-radius:12px;
+    border-left:3px solid var(--sand); font-size:.92rem; color:var(--tx2);
+  }
+  .note strong{color:var(--ink); font-weight:600;}
+
+  /* dashboard */
+  .dash-head{display:flex; justify-content:space-between; align-items:flex-end; gap:28px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; background:var(--pine); color:var(--paper);
+    font-family:var(--sans); font-size:.8rem; font-weight:700; letter-spacing:.05em;
+    padding:13px 22px; border-radius:100px; text-decoration:none; white-space:nowrap;
+    border:none; cursor:pointer; transition:transform .18s ease, background .18s ease;
+  }
+  .btn:hover{background:var(--deep); transform:translateY(-2px);}
+  .btn.ghost{background:transparent; color:var(--pine); border:1.5px solid var(--line);}
+  .btn.ghost:hover{background:var(--paper); border-color:var(--sea); transform:translateY(-2px);}
+  .frame{
+    margin-top:30px; border:1px solid var(--line); border-radius:var(--rad); overflow:hidden;
+    background:#F2F5F8; box-shadow:0 1px 2px rgba(13,36,26,.05), 0 26px 60px -30px rgba(13,36,26,.34);
+  }
+  .frame-bar{
+    display:flex; align-items:center; gap:8px; padding:11px 16px;
+    background:var(--paper); border-bottom:1px solid var(--line);
+  }
+  .dot{width:9px; height:9px; border-radius:50%; background:var(--sand);}
+  .frame-bar span{
+    margin-left:9px; font-size:.72rem; color:var(--tx2); font-weight:500;
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;
+  }
+  .frame iframe{display:block; width:100%; height:78vh; min-height:560px; border:none;}
+  .demo-tag{
+    display:inline-flex; align-items:center; gap:8px; margin-top:16px;
+    font-size:.78rem; color:var(--tx2);
+  }
+  .demo-tag b{color:var(--ink);}
+
+  /* next steps */
+  .steps{margin-top:44px; counter-reset:s;}
+  .step{
+    display:grid; grid-template-columns:56px 1fr; gap:24px; padding:30px 0;
+    border-top:1px solid var(--line);
+  }
+  .step:last-child{border-bottom:1px solid var(--line);}
+  .step-n{
+    counter-increment:s; font-family:var(--serif); font-size:1.5rem; font-weight:600;
+    color:var(--sea); line-height:1;
+  }
+  .step-n::before{content:counter(s,decimal-leading-zero);}
+  .step h3{font-size:1.16rem; font-weight:700; color:var(--ink); margin-bottom:9px; letter-spacing:-.01em;}
+  .step p{color:var(--tx2); font-size:.96rem; max-width:64ch;}
+  .step p + p{margin-top:10px;}
+  .path{
+    display:inline-flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:15px;
+    padding:12px 15px; background:var(--bone); border-radius:9px;
+    font-size:.83rem; font-weight:600; color:var(--ink);
+  }
+  .path i{font-style:normal; color:var(--tx2); font-size:.9em;}
+  .path b{
+    background:var(--paper); border:1px solid var(--line); padding:4px 9px; border-radius:5px;
+    font-weight:600;
+  }
+  .email-box{
+    margin-top:16px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    background:var(--pine); border-radius:11px; padding:16px 20px;
+  }
+  .email-box .lbl{font-size:.66rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--emerald);}
+  .email-box .addr{
+    font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:1.02rem; font-weight:600;
+    color:var(--paper); letter-spacing:-.01em;
+  }
+  .copy{
+    margin-left:auto; background:rgba(255,253,248,.1); border:1px solid rgba(255,253,248,.22);
+    color:var(--paper); font-family:var(--sans); font-size:.72rem; font-weight:700; letter-spacing:.07em;
+    text-transform:uppercase; padding:8px 14px; border-radius:100px; cursor:pointer; transition:all .18s;
+  }
+  .copy:hover{background:var(--emerald); color:var(--pine); border-color:var(--emerald);}
+
+  .assure{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:44px; background:var(--line2); border-radius:var(--rad); overflow:hidden; border:1px solid var(--line2);}
+  .assure div{background:var(--paper); padding:24px 22px;}
+  .assure h4{font-size:.92rem; font-weight:700; color:var(--ink); margin-bottom:7px;}
+  .assure p{font-size:.86rem; color:var(--tx2); line-height:1.6;}
+
+  /* footer */
+  footer{background:var(--pine); color:rgba(255,253,248,.6); padding:44px 0; margin-top:0;}
+  .foot{display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; font-size:.84rem;}
+  .foot img{height:26px; opacity:.9;}
+  .foot a{color:var(--emerald); text-decoration:none; font-weight:600;}
+  .foot a:hover{text-decoration:underline;}
+
+  @media (max-width:900px){
+    .wrap{padding:0 20px;}
+    .bio-grid{grid-template-columns:1fr; gap:36px;}
+    .facts{position:static;}
+    .svc-grid{grid-template-columns:1fr;}
+    .rail{grid-template-columns:repeat(2,1fr);}
+    .assure{grid-template-columns:1fr;}
+    .tab{padding:16px 13px; font-size:.74rem;}
+    .frame iframe{height:70vh;}
+    .step{grid-template-columns:38px 1fr; gap:16px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="masthead">
+      <img src="/assets/tk-logo-white.webp" alt="Turnkey CFO">
+      <div class="mast-r">Prepared for Smart Village Movement</div>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">Private &middot; For Anna &amp; the Board</div>
+      <h1>Clean books, restricted funds tracked, and a <em>clear view of cash</em> before ground breaks.</h1>
+      <p class="sub">Everything we discussed, in one place. My background, what we would handle for Smart Village Movement, an example of the dashboard your board would receive each month, and the one step that starts the free QuickBooks assessment.</p>
+      <div class="hero-meta">
+        <span class="chip">Ricky West &middot; Founder</span>
+        <span class="chip">Turnkey CFO &middot; Austin, TX</span>
+        <span class="chip">Nonprofits &amp; churches</span>
+        <span class="chip">July 2026</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="tabbar">
+  <div class="wrap">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true"  data-panel="bio"><span class="num">01</span>Bio</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="services"><span class="num">02</span>Services</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="dashboard"><span class="num">03</span>Dashboard Example</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="next"><span class="num">04</span>Next Steps</button>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- ══ 01 BIO ══ -->
+  <section class="panel" id="bio" data-active>
+    <div class="wrap">
+      <div class="sec-label">01 — Background</div>
+      <h2 class="big">Ricky West</h2>
+      <p class="lede">Founder of <strong>Turnkey CFO</strong>, a bookkeeping firm in Austin, Texas serving churches, nonprofits, and small to medium businesses nationwide.</p>
+
+      <div class="bio-grid">
+        <div class="prose">
+          <p>Before starting Turnkey CFO, I served as <strong>CFO of an organization running roughly $40 million a year</strong>, and spent years before that inside larger companies. That work is where I learned what a board actually needs to see, and how quickly a set of books stops being useful when nobody is watching them closely.</p>
+
+          <p>Turnkey CFO exists because most nonprofits are in the same position Smart Village Movement is in right now. The books technically get done. Someone loyal and well meaning keeps them. But when a real question shows up, like <strong>when do the pledges land, and can we cover the construction draw in March</strong>, the books cannot answer it.</p>
+
+          <div class="pull">My job is to make the numbers clean, current, and able to answer the question you are actually asking.</div>
+
+          <p>Nonprofit work is the core of the practice. That means <strong>restricted fund tracking</strong>, grant compliance, coordinating with your CPA on the 990, and monthly reporting a board can read in a few minutes instead of a few hours.</p>
+
+          <p>I want to be direct about scope. <strong>I do not file taxes.</strong> I partner with the CPA you already use and make sure they receive a clean, documented, audit ready file. I also do not need to take payment authority away from your team. If the chairman wants payments to stay in house, they stay in house, and I make sure every one of them is documented and reconciled correctly.</p>
+
+          <p>Everything below is what we walked through on our call, written down so you can forward it without needing to explain it.</p>
+        </div>
+
+        <dl class="facts">
+          <div class="fact">
+            <dt>Previously</dt>
+            <dd class="num">$40M</dd>
+            <dd style="margin-top:6px;font-weight:400;color:var(--tx2);font-size:.88rem;">Annual revenue of the organization where I served as CFO</dd>
+          </div>
+          <div class="fact">
+            <dt>Firm</dt>
+            <dd>Turnkey CFO — Austin, TX, serving clients nationwide</dd>
+          </div>
+          <div class="fact">
+            <dt>Focus</dt>
+            <dd>Churches, nonprofits, and small to medium businesses</dd>
+          </div>
+          <div class="fact">
+            <dt>Nonprofit specialty</dt>
+            <dd>Restricted funds, grant compliance, 990 support, board reporting</dd>
+          </div>
+          <div class="fact">
+            <dt>Direct</dt>
+            <dd>Ricky@turnkeycfo.com<br>(682) 433-1852</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 02 SERVICES ══ -->
+  <section class="panel" id="services">
+    <div class="wrap">
+      <div class="sec-label">02 — Scope</div>
+      <h2 class="big">What we would handle for Smart Village Movement</h2>
+      <p class="lede">Built around what you described on our call: pledges spread over three or more years, a cardiac and vascular hospital about to break ground, weekly wires to India, and a board that needs to see it clearly.</p>
+
+      <div class="svc-grid">
+        <div class="svc">
+          <div class="svc-top"><span class="svc-num">01</span><h3>Monthly bookkeeping and close</h3></div>
+          <p>Full reconciliation of bank accounts, credit cards, and QuickBooks every month. You receive a Statement of Activity and a Statement of Financial Position on a fixed calendar, not whenever it happens to be finished.</p>
+          <span class="tag">Core</span>
+        </div>
+
+        <div class="svc">
+          <div class="svc-top"><span class="svc-num">02</span><h3>Restricted fund tracking</h3></div>
+          <p>Every incoming dollar tagged to the program it belongs to. At any moment you can pull a report showing what a fund has received, what it has spent, and exactly what remains. This is the piece that turns a fundraiser into something you can steward and defend.</p>
+          <span class="tag">Core</span>
+        </div>
+
+        <div class="svc">
+          <div class="svc-top"><span class="svc-num">03</span><h3>Cash flow projection</h3></div>
+          <p>The problem you named first. Pledges arriving across three or more years, modeled against when construction costs actually hit, so the board can see the gap before it becomes a gap.</p>
+          <span class="tag">Core</span>
+        </div>
+
+        <div class="svc">
+          <div class="svc-top"><span class="svc-num">04</span><h3>International wire documentation</h3></div>
+          <p>Once the hospital breaks ground, payments to project managers, contractors, and architects in India become weekly. We categorize, document, and reconcile every one of them. <strong>Payment authority stays with your team</strong> exactly as the chairman prefers.</p>
+          <span class="tag">Core</span>
+        </div>
+
+        <div class="svc">
+          <div class="svc-top"><span class="svc-num">05</span><h3>Grant compliance support</h3></div>
+          <p>Spend documented at the program level and ready to report at term end. If Smart Village Movement pursues larger institutional grants later, the tagging and audit trail are already in place rather than being reconstructed under deadline.</p>
+          <span class="tag">Core</span>
+        </div>
+
+        <div class="svc">
+          <div class="svc-top"><span class="svc-num">06</span><h3>990 support with your CPA</h3></div>
+          <p>We do not file taxes. We hand your existing CPA a clean, documented, audit ready file, and we keep the pieces the 990 depends on in order year round: restricted fund records, grant documentation, and quarterly payroll filings.</p>
+          <span class="tag">Core</span>
+        </div>
+
+        <div class="svc">
+          <div class="svc-top"><span class="svc-num">07</span><h3>Bill pay, vendor payments, and 1099s</h3></div>
+          <p>Reimbursements, vendor payments, and annual 1099 preparation, if and when you want that lane handled. Available as an add on rather than assumed.</p>
+          <span class="tag soft">Optional</span>
+        </div>
+
+        <div class="svc">
+          <div class="svc-top"><span class="svc-num">08</span><h3>Reporting and advisory</h3></div>
+          <p>Recommendations on the tools and platforms other nonprofits your size use well, and a board level read on the numbers each month. If the engagement later expands across the chairman's other entities, one consistent view across all of them.</p>
+          <span class="tag soft">Optional</span>
+        </div>
+      </div>
+
+      <div class="cadence">
+        <h3>The monthly cadence</h3>
+        <p>A fixed calendar so your team, your CPA, and your board always know when the numbers arrive.</p>
+        <div class="rail">
+          <div class="stop">
+            <div class="bd">Business day 1</div>
+            <div class="what">Bank and credit card statements requested and collected</div>
+          </div>
+          <div class="stop">
+            <div class="bd">Business day 3</div>
+            <div class="what">Open questions sent on anything unclear</div>
+          </div>
+          <div class="stop">
+            <div class="bd">Business day 6–8</div>
+            <div class="what">Financials submitted, with any remaining items flagged</div>
+          </div>
+          <div class="stop">
+            <div class="bd">Business day 10</div>
+            <div class="what">Board ready financials and dashboard in your hands</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>On pricing.</strong> I am not going to put a number in front of your board without seeing the books first. The free assessment produces a specific quote and tiered options, so the board is deciding on real figures rather than an estimate.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 03 DASHBOARD ══ -->
+  <section class="panel" id="dashboard">
+    <div class="wrap">
+      <div class="dash-head">
+        <div>
+          <div class="sec-label">03 — Example</div>
+          <h2 class="big">The dashboard your board would receive</h2>
+          <p class="lede">This is a real example of the monthly dashboard we build for our nonprofit clients, shown here with sample data for a fictional organization. <strong>Smart Village Movement's version would be built from your own QuickBooks file</strong>, with fund tracking and pledge timing reflecting your actual programs.</p>
+        </div>
+        <a class="btn ghost" href="/abc-nonprofit/" target="_blank" rel="noopener">Open full screen &#8599;</a>
+      </div>
+
+      <div class="frame">
+        <div class="frame-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span>turnkeycfo.com — monthly nonprofit dashboard — sample data</span>
+        </div>
+        <iframe src="/abc-nonprofit/" title="Example nonprofit financial dashboard" loading="lazy"></iframe>
+      </div>
+
+      <div class="demo-tag">
+        <b>Note for the board:</b> the organization, donors, and figures shown are illustrative sample data, not a real client.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 04 NEXT STEPS ══ -->
+  <section class="panel" id="next">
+    <div class="wrap">
+      <div class="sec-label">04 — To begin</div>
+      <h2 class="big">One step starts it</h2>
+      <p class="lede">Add us to your QuickBooks as an accountant user. That is the whole ask. The assessment is <strong>free, and there is no obligation attached to it.</strong></p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-n"></div>
+          <div>
+            <h3>Invite us into QuickBooks Online</h3>
+            <p>Whoever holds admin access on the QuickBooks file, likely Rebecca, can send the invite in about a minute.</p>
+            <div class="path">
+              <b>Sign in to QuickBooks Online</b> <i>→</i> <b>Settings ⚙</b> <i>→</i> <b>Manage users</b> <i>→</i> <b>Accountants</b> <i>→</i> <b>Invite</b>
+            </div>
+            <div class="email-box">
+              <span class="lbl">Invite this address</span>
+              <span class="addr" id="addr">accounting@turnkeycfo.com</span>
+              <button class="copy" id="copyBtn">Copy</button>
+            </div>
+            <p>QuickBooks emails us the invitation and we accept it. Nothing else is needed from your team.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-n"></div>
+          <div>
+            <h3>We run the free assessment</h3>
+            <p>We review the file as it stands today: how the chart of accounts is built, whether restricted funds are actually traceable, how the India wires are being recorded, and what the 990 would need that is not there yet. We report what we find plainly, including anything that is already in good shape.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-n"></div>
+          <div>
+            <h3>You receive a dashboard built on your real numbers</h3>
+            <p>The same dashboard shown in the previous tab, built from Smart Village Movement's actual QuickBooks data, so the board is looking at itself rather than at an example.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-n"></div>
+          <div>
+            <h3>Tiered options for the board</h3>
+            <p>A clear set of options, from core bookkeeping through the added lanes, priced against what the assessment actually finds. The board decides from there. If the answer is no, you keep the assessment and the dashboard regardless.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="assure">
+        <div>
+          <h4>Read only to start</h4>
+          <p>The assessment is a review. We change nothing in your file without asking first.</p>
+        </div>
+        <div>
+          <h4>Your CPA stays</h4>
+          <p>We work alongside the CPA who files your 990. We are not replacing that relationship.</p>
+        </div>
+        <div>
+          <h4>Payments stay in house</h4>
+          <p>The chairman keeps payment authority. We document and reconcile, we do not take the keys.</p>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:38px;">
+        <strong>Questions before you forward this?</strong> Reach me directly at Ricky@turnkeycfo.com or (682) 433-1852. Happy to get on a short call with the chairman if that is easier than email.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <img src="/assets/tk-logo-white.webp" alt="Turnkey CFO">
+      <div>Prepared for Smart Village Movement &middot; July 2026 &middot; Confidential</div>
+      <div><a href="mailto:Ricky@turnkeycfo.com">Ricky@turnkeycfo.com</a> &middot; (682) 433-1852</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
+
+  function show(id, push){
+    tabs.forEach(function(t){ t.setAttribute('aria-selected', String(t.dataset.panel === id)); });
+    panels.forEach(function(p){
+      if (p.id === id) { p.setAttribute('data-active',''); }
+      else { p.removeAttribute('data-active'); }
+    });
+    if (push) history.replaceState(null, '', '#' + id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ show(t.dataset.panel, true); });
+  });
+
+  var valid = panels.map(function(p){ return p.id; });
+  var hash = (location.hash || '').replace('#','');
+  if (valid.indexOf(hash) !== -1) show(hash, false);
+
+  var btn = document.getElementById('copyBtn');
+  if (btn) btn.addEventListener('click', function(){
+    var txt = document.getElementById('addr').textContent.trim();
+    function done(){ btn.textContent = 'Copied'; setTimeout(function(){ btn.textContent = 'Copy'; }, 1800); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(done).catch(done);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = txt; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch(e){}
+      document.body.removeChild(ta); done();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
