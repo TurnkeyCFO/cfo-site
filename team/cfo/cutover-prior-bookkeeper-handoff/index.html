@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Cutover and Prior-Bookkeeper Handoff (Turnkey CFO) · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/cutover-prior-bookkeeper-handoff">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Cutover and Prior-Bookkeeper Handoff (Turnkey CFO)</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Cutover and Prior-Bookkeeper Handoff (Turnkey CFO)</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#common-failure-modes"><span class="n">05</span>Common failure modes</a><a href="#guardrails"><span class="n">06</span>Guardrails</a><a href="#escalation"><span class="n">07</span>Escalation</a><a href="#related-sops"><span class="n">08</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>The cutover is the single most consequential part of onboarding. Everything else can be fixed later; a books takeover that starts from opening balances that never tied is a wound that reopens at every close for a year, and again at tax time. The whole job of this SOP is to make the first period Turnkey owns start from a clean, verified, agreed-upon baseline, with no month dropped between the prior bookkeeper's last close and ours, and no month accidentally posted twice.</p>
+<p>This SOP is invoked by the go-live runbook at its cutover step and runs in parallel with the rest of onboarding. It covers the conversation with the outgoing bookkeeper, the exact records to pull, how to prove the opening balances are right, where the cutover date gets recorded so automation respects it, and the payroll parallel run that keeps year-end forms correct. The goal is a signed-off opening baseline the first close can build on without doubt.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility in cutover</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prior-firm relationship, escalation, terms</td>
+<td>Ricky</td>
+<td>Contacts the outgoing bookkeeper or CPA directly when the handoff stalls; owns anything touching fees or scope.</td>
+</tr>
+<tr>
+<td>Cutover execution and QC</td>
+<td>Accounting Manager</td>
+<td>Runs the handoff call, collects the records, drives the tie-out, sets the cutover date, verifies the parallel run.</td>
+</tr>
+<tr>
+<td>Opening-balance tie-out</td>
+<td>Bookkeeper (Hardik)</td>
+<td>Ties opening balances to the beginning trial balance, reconciles each account to its last-reconciled date, confirms nothing double-counts.</td>
+</tr>
+<tr>
+<td>Client side</td>
+<td>Named primary contact</td>
+<td>Authorizes the release of records and access from the outgoing firm.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>Trigger:</strong> the engagement letter is signed and the go-live runbook reaches the cutover step. Records requests can begin as soon as the client authorizes the outgoing firm to release them.</li>
+<li><strong>Handoff call:</strong> schedule the outgoing-bookkeeper handoff as early as possible; a live conversation surfaces quirks that a records dump never will.</li>
+<li><strong>The cutover date is the hardest date in onboarding when payroll is involved.</strong> Treat any slippage past roughly two weeks as a blown transition to be reset, not absorbed.</li>
+<li><strong>No coverage gap.</strong> The outgoing firm locks the last period before cutover; a brief intentional overlap is fine, a gap is not.</li>
+<li><strong>Done means tied.</strong> The cutover is not complete when the records arrive; it is complete when the opening balances tie, the cutover date is recorded in both systems, and (if applicable) the payroll parallel run has matched.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="step-1-the-prior-bookkeeper-handoff-call">Step 1: The prior-bookkeeper handoff call</h3>
+<p>Run one structured call (or a tight thread if a call is impossible) with the outgoing bookkeeper or CPA, with the client's authorization in hand. Treat them the way this SOP asks outgoing firms to treat us: professional, specific, no surprises. Agenda:</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Confirm the exact last period the outgoing firm will close and lock, and the agreed cutover date (the first period Turnkey owns).</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Walk the chart of accounts and any non-obvious account usage, class or fund structure, and known quirks.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Identify open items: unreconciled bank or card items, open AP and AR, pending payroll liabilities, and any in-progress adjustments.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Confirm who holds which access today (bank portals, payroll provider, lender and investment portals, merchant processors) and how each will be handed over.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Confirm the CPA of record and the last filed return or 990, so bookkeeping ties to it.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Agree the handoff timeline in writing, including when the beginning trial balance will be delivered.</label></li>
+</ul>
+<h3 id="step-2-records-request-list">Step 2: Records request list</h3>
+<p>Request these from the outgoing firm or the client, in one clear list, with a secure channel named for anything carrying PII. Track each item until it arrives.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6"><strong>Beginning trial balance</strong> as of the cutover date (the anchor for the entire tie-out).</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7"><strong>Bank and credit card statements</strong> covering the cutover boundary, plus the last-reconciled date and the list of uncleared items for every account.</label></li>
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8"><strong>Chart of accounts</strong> and any prior-bookkeeper notes or memos.</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9"><strong>Prior-year tax return or Form 990</strong>, and the CPA of record.</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10"><strong>Historical financials:</strong> P&amp;L, balance sheet, trial balance, and workpapers for the periods before cutover.</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11"><strong>Open AP and AR</strong> detail as of cutover (unpaid bills, uncollected invoices), so balances carry correctly.</label></li>
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12"><strong>Payroll history</strong> if we are taking over payroll: the full roster with compensation, I-9s and W-4s, the year-to-date payroll register, and quarterly and annual filing history (the 941 series and the W-2 or 1099 history), all before the cutover date.</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13"><strong>Fixed-asset and depreciation schedule</strong>, loan amortization schedules, and any lender or investment statements.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14"><strong>Sales-tax filing status and prior returns</strong> for any client that files, plus portal access.</label></li>
+</ul>
+<h3 id="step-3-opening-balance-verification-do-not-skip">Step 3: Opening-balance verification (do not skip)</h3>
+<p>This is where a takeover is won or lost. Work every account; never force a tie.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">Enter or confirm opening balances so they match the beginning trial balance line for line as of the cutover date.</label></li>
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">For each bank and card account, reconcile to the last-reconciled date and carry the uncleared items forward exactly, so the first reconciliation does not double-count a cleared transaction or drop an outstanding one.</label></li>
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">Tie opening equity to the last filed return; a mismatch here usually means a prior adjustment we have not accounted for, not a rounding difference.</label></li>
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18">Confirm open AP and AR balances match the detail provided, not just the summary total.</label></li>
+<li class="ck"><input type="checkbox" id="ck-19" data-idx="19"><label for="ck-19">If anything will not tie, stop and escalate before posting. Do not plug a difference to make the balance sheet balance; a forced tie hides the real error and surfaces it later as an unexplained variance.</label></li>
+</ul>
+<h3 id="step-4-set-the-cutover-date-in-both-systems">Step 4: Set the cutover date in both systems</h3>
+<p>The cutover date has to live in two places so that both people and automation respect it.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-20" data-idx="20"><label for="ck-20">Set <code>books_closed_date</code> in the client's Supabase record to the close of the last period the prior firm owns. Automated QBO write-back reads this value; an empty value silently forces full manual review and can let automation touch a period it should not.</label></li>
+<li class="ck"><input type="checkbox" id="ck-21" data-idx="21"><label for="ck-21">Set the corresponding closing or lock date inside QBO so periods before cutover are protected from accidental edits.</label></li>
+<li class="ck"><input type="checkbox" id="ck-22" data-idx="22"><label for="ck-22">Confirm both values agree and record the cutover date in the client's dossier and running thread.</label></li>
+</ul>
+<h3 id="step-5-payroll-parallel-run-any-client-where-we-take-over-payroll">Step 5: Payroll parallel run (any client where we take over payroll)</h3>
+<p>Payroll is the least forgiving handoff, because a mistake surfaces as a wrong W-2 that cannot be fixed with an apology.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-23" data-idx="23"><label for="ck-23">Before the first live run on the new provider, confirm the new system's year-to-date figures tie to the outgoing provider's register, employee by employee. This is the parallel-run verification and it is mandatory.</label></li>
+<li class="ck"><input type="checkbox" id="ck-24" data-idx="24"><label for="ck-24">Agree the cutover date for payroll and who issues the partial-year W-2 (the outgoing provider for its portion, us or the new provider for ours).</label></li>
+<li class="ck"><input type="checkbox" id="ck-25" data-idx="25"><label for="ck-25">Confirm tax deposits and quarterly filings are current through the cutover, with no gap in liability coverage across the boundary.</label></li>
+<li class="ck"><input type="checkbox" id="ck-26" data-idx="26"><label for="ck-26">Run the first live cycle only after the parallel figures match. If the outgoing vendor is slow with the register, Ricky follows up with the client directly; payroll continuity is the most time-critical item in the whole onboarding.</label></li>
+</ul>
+<h3 id="step-6-sign-off-the-baseline">Step 6: Sign off the baseline</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-27" data-idx="27"><label for="ck-27">Confirm in the running thread that opening balances tied, the cutover date is set in both systems, uncleared items carried correctly, and (if applicable) the payroll parallel run matched.</label></li>
+<li class="ck"><input type="checkbox" id="ck-28" data-idx="28"><label for="ck-28">Only after this sign-off does routine categorization and the first close begin. This sign-off is the handoff back to the go-live runbook.</label></li>
+</ul>
+<h2 id="common-failure-modes">Common failure modes</h2>
+<p>These are patterns seen across takeovers, written as patterns rather than as any one client's story. Watch for each.</p>
+<ul>
+<li><strong>The three-way rent (or any recurring expense) reconciled inconsistently.</strong> A single recurring payment coded to different accounts across the prior periods, or split and recombined differently month to month, so it never nets cleanly at cutover. Trace the recurring items specifically before trusting the trial balance; do not assume a clean summary means clean detail.</li>
+<li><strong>Credentials lost mid-flight.</strong> Access that existed during the handoff call is gone by the time the tie-out needs it, because the outgoing person left or a shared login was changed. Capture and vault every needed credential at first contact, per the Credential Intake and Vaulting SOP; never rely on a login staying available.</li>
+<li><strong>Opening balances that will not tie to the last return.</strong> Usually a prior-period adjustment or a reclass the outgoing firm made after the last financials we were given. Get the adjusting entries, do not plug the difference.</li>
+<li><strong>Uncleared items double-counted at first reconciliation.</strong> The first close re-clears a transaction the prior firm already cleared, or drops one still outstanding, because the last-reconciled date and uncleared list were not captured. This is why Step 3 captures them explicitly.</li>
+<li><strong>Payroll year-to-date mismatch caught after the first run.</strong> The single most damaging pattern, because it produces wrong W-2s. The parallel-run verification in Step 5 exists solely to catch it before a live run.</li>
+<li><strong>A coverage gap between the two firms.</strong> Neither firm owns the boundary month, so it silently drops. The handoff call fixes the exact last period the prior firm locks, so there is overlap, never a gap.</li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li><strong>Never skip opening-balance verification.</strong> Shortcutting the tie-out is the number one way months get dropped or duplicated.</li>
+<li><strong>Never force a tie.</strong> A difference that will not resolve is a real error to find, not a number to plug. Stop and escalate.</li>
+<li><strong>Never skip the payroll parallel run.</strong> Wrong W-2s are not recoverable with an apology.</li>
+<li><strong><code>books_closed_date</code> is set in both QBO and Supabase before automation runs.</strong> An empty value silently defaults to full manual review and can let write-back reach a protected period.</li>
+<li><strong>No books-of-record work before the letter is signed and the baseline is agreed.</strong> Research and access collection can start earlier; posting cannot.</li>
+<li><strong>PII travels only through a named secure channel.</strong> Pay registers, I-9s, and returns never sit in open email threads or the checklist longer than needed.</li>
+<li><strong>Turnkey CFO is a bookkeeping firm.</strong> Cutover language stays in bookkeeping terms; tax positions and return questions route to the client's CPA or attorney.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Opening balances will not tie to the prior close or the last return</td>
+<td>Stop before posting anything; escalate to the Bookkeeper then Ricky. Do not force the tie.</td>
+</tr>
+<tr>
+<td>Outgoing bookkeeper is unresponsive or withholding records</td>
+<td>Escalate to Ricky with specifics; he decides the client-side approach and contacts the client directly.</td>
+</tr>
+<tr>
+<td>Payroll handoff is at risk of missing the cutover date</td>
+<td>Flag to Ricky immediately; he contacts the client. Reset the transition date rather than run on unverified figures.</td>
+</tr>
+<tr>
+<td>Payroll year-to-date figures do not match in the parallel run</td>
+<td>Do not run the first live cycle; escalate and resolve the mismatch first.</td>
+</tr>
+<tr>
+<td>A needed credential is lost during the handoff</td>
+<td>Follow the Credential Intake and Vaulting SOP; escalate to Ricky if access cannot be restored.</td>
+</tr>
+<tr>
+<td>A tax or return question arises during tie-out</td>
+<td>Redirect to the client's CPA or attorney; do not interpret a tax position.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/master-client-go-live-checklist/">Master Client Go-Live Checklist</a>: the runbook that invokes this cutover step</li>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a>: the broader onboarding this cutover runs inside</li>
+<li><a href="/team/cfo/credential-intake-vaulting/">Credential Intake and Vaulting</a>: how the access captured at handoff is stored and rotated</li>
+<li><a href="/team/cfo/payroll/">Payroll</a>: platform specifics and the compliance calendar behind the parallel run</li>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close</a>: the first close this baseline hands into</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-18</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-18 -->
+</body>
+</html>

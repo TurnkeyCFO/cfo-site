@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Credential Intake and Vaulting (Turnkey CFO) · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/credential-intake-vaulting">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Credential Intake and Vaulting (Turnkey CFO)</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Credential Intake and Vaulting (Turnkey CFO)</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>Every client engagement is, underneath the bookkeeping, a pile of access: bank logins, payroll admin, card platforms, QBO, giving portals, lender sites. How we take that access in, where we keep it, and how we retire it is the difference between a firm a client can trust with their financial life and a liability waiting to happen. This SOP sets the one standard for all of it, so no secret ever lives somewhere it should not, and no departed person or ended engagement leaves a working key behind.</p>
+<p>The governing principle is simple: prefer access grants over shared secrets, keep the few secrets we must hold in a vault built for it, and treat any secret that touches email or chat as already compromised. This SOP is referenced by the cutover handoff (capture and vault at first contact) and by the client welcome packet (how we ask for access), and its rotation rule is enforced at offboarding.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility for credentials</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Credential policy, vault ownership, rotation authority</td>
+<td>Ricky</td>
+<td>Owns the password manager, decides who holds what, executes token revocation and high-sensitivity rotations.</td>
+</tr>
+<tr>
+<td>Intake execution and hygiene</td>
+<td>Accounting Manager</td>
+<td>Runs the secure intake, files secrets in the vault, catches and remediates a secret sent the wrong way.</td>
+</tr>
+<tr>
+<td>Automation secret registration</td>
+<td>Whoever builds the automation</td>
+<td>Registers a machine credential in the workspace secrets store under the owning skill, never in code or chat.</td>
+</tr>
+<tr>
+<td>Everyone</td>
+<td>All team</td>
+<td>Follows least privilege, never emails a secret, never borrows a login, reports an exposure the moment it is seen.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>At intake:</strong> every new access grant or credential is handled the moment it comes in, never left sitting in an inbox to be filed later.</li>
+<li><strong>On exposure:</strong> if a credential arrives by email, chat, or any non-secure channel, the redirect-and-rotate response runs the same day. There is no "it is probably fine."</li>
+<li><strong>On offboarding:</strong> every shared or stored credential the departing person or ended engagement could have known is rotated, not just reviewed, per the offboarding checklists.</li>
+<li><strong>Standing review:</strong> access is reviewed against the least-privilege table below whenever a role changes, and as part of the first-week access audit for every new client.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="rule-1-credentials-never-travel-by-email-or-chat">Rule 1: Credentials never travel by email or chat</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">We do not ask clients to email or message us passwords, and we never send one that way ourselves. The ask is always for an access grant (invite our role address as a user) or a secure share, never "reply with the login."</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">The default for every platform is: the client invites <code>accounting@turnkeycfo.com</code> (or the scoped role) as a user, or connects us through the platform's own authorization flow (QBO OAuth is the model: the client authorizes, no password ever changes hands).</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Where a raw secret genuinely must move, it moves through a secure share (a password-manager one-time share link or an equivalent), never the body of an email or a chat message.</label></li>
+</ul>
+<h3 id="rule-2-the-redirect-and-rotate-response-when-a-client-emails-one-anyway">Rule 2: The redirect-and-rotate response, when a client emails one anyway</h3>
+<p>Clients will sometimes email a password despite the ask. When that happens, run this deterministic response the same day; do not let it slide because it is awkward.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3"><strong>Acknowledge</strong> receipt warmly and briefly, and tell the client plainly that for their security we do not keep credentials sent by email, and how to grant access the right way next time (invite our role address, or use the secure link we provide).</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4"><strong>Rotate</strong> the exposed credential: because it sat in an inbox, treat it as compromised. Either the client changes that password, or we change it if we have the access to, and then re-establish access through a proper grant.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5"><strong>Vault</strong> the new access or secret in the password manager per Rule 3.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6"><strong>Delete</strong> the email carrying the old secret from the mailbox after the rotation is done, and confirm it is not sitting in a sent folder, a forward, or the thread history.</label></li>
+<li class="ck"><input type="checkbox" id="ck-7" data-idx="7"><label for="ck-7">Record that the exposure happened and was remediated, so a pattern with a given client can be addressed directly.</label></li>
+</ul>
+<h3 id="rule-3-where-credentials-live">Rule 3: Where credentials live</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-8" data-idx="8"><label for="ck-8"><strong>Human-used client credentials live in the firm password manager</strong>, filed under the client, with access scoped to the roles that need them. This is the single system of record for logins a person uses. Not a spreadsheet, not a note, not a message, not a document in Drive.</label></li>
+<li class="ck"><input type="checkbox" id="ck-9" data-idx="9"><label for="ck-9"><strong>Automation credentials live in the workspace secrets store</strong> (the workspace <code>.env</code>), registered under a clear, named variable and documented with the owning skill that consumes it. Machine secrets follow the single-writer discipline: each secret belongs to one automation, named so its purpose is obvious, for example a Ramp client id and secret registered as <code>RAMP_CLIENT_ID_&lt;SUFFIX&gt;</code> and its paired secret variable for a given client, consumed only by the Ramp classifier. The convention is the variable name plus a note of which skill owns it, never the value written anywhere but the secrets store.</label></li>
+<li class="ck"><input type="checkbox" id="ck-10" data-idx="10"><label for="ck-10"><strong>Never in code, chat, SOPs, checklists, dossiers, or commit history.</strong> These pages and the client dossiers are content, not a data store; the lint gate and the encrypted-at-rest boundary exist precisely so a secret can never be written into them. Financial Cents is a workflow tool, not a credential vault; do not store logins in its notes.</label></li>
+<li class="ck"><input type="checkbox" id="ck-11" data-idx="11"><label for="ck-11">When a credential is captured at cutover (Rule from the handoff SOP), it goes straight into the vault at first contact, because access that exists during a handoff call has a habit of disappearing before the tie-out needs it.</label></li>
+</ul>
+<h3 id="rule-4-least-privilege-at-intake">Rule 4: Least privilege at intake</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-12" data-idx="12"><label for="ck-12">Request the narrowest access that does the job. For banks and cards that means view-only or read-only, and we state the money-movement boundary to the client in writing: we can view transactions, statements, and balances; we cannot move money, initiate payments, add users, or approve anything.</label></li>
+<li class="ck"><input type="checkbox" id="ck-13" data-idx="13"><label for="ck-13">Scope AP, card, and payroll platform access to the role actually needed (reviewer versus admin), not the broadest option offered.</label></li>
+<li class="ck"><input type="checkbox" id="ck-14" data-idx="14"><label for="ck-14">Prefer a scoped authorization flow over a shared login every time one exists.</label></li>
+</ul>
+<h3 id="rule-5-rotation-on-offboarding">Rule 5: Rotation on offboarding</h3>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-15" data-idx="15"><label for="ck-15">When an engagement ends or a team member leaves, every shared or stored credential they could have known is rotated, not merely reviewed. Removing a seat does not retire a secret a person still remembers.</label></li>
+<li class="ck"><input type="checkbox" id="ck-16" data-idx="16"><label for="ck-16">This includes rebuilding and republishing the team portal with a new password when a team member departs, since portal access is credential-based.</label></li>
+<li class="ck"><input type="checkbox" id="ck-17" data-idx="17"><label for="ck-17">Client-engagement exits also revoke the OAuth token grants (Ricky executes the Supabase token revocation), so no automation can reach a former client's books.</label></li>
+<li class="ck"><input type="checkbox" id="ck-18" data-idx="18"><label for="ck-18">The offboarding checklists are the forcing function; this SOP is the standard they point to.</label></li>
+</ul>
+<h3 id="who-may-hold-what-by-role">Who may hold what, by role</h3>
+<p>Access is granted by role and by need, not by seniority. This is the ceiling, not a default to hand out.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>May hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ricky / admin</td>
+<td>The password manager itself, the workspace secrets store, token-revocation authority, and any credential the firm holds. Sole authority to rotate high-sensitivity secrets.</td>
+</tr>
+<tr>
+<td>Accounting Manager</td>
+<td>Scoped client logins needed to run close and QC, filed in the vault; intake and rotation execution. Not the raw automation secrets store unless a specific task requires it.</td>
+</tr>
+<tr>
+<td>Bookkeeper</td>
+<td>The platform access needed to do the books (QBO, the client's card and AP tools as scoped, Financial Cents). Not bank money-movement access, not the automation secrets store.</td>
+</tr>
+<tr>
+<td>Admin / VA</td>
+<td>The tools needed for their tasks (calendar, CRM, comms). No client bank or payroll credentials.</td>
+</tr>
+<tr>
+<td>Dialer rep</td>
+<td>Their own dialer and outreach tools only. No client financial credentials at all.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li><strong>A secret in an inbox is a compromised secret.</strong> Redirect and rotate the same day, every time, no exceptions for "small" logins.</li>
+<li><strong>Access grants beat shared secrets.</strong> Always prefer inviting our role address or using an authorization flow over holding a password.</li>
+<li><strong>View-only means view-only, and we say so in writing.</strong> State the money-movement boundary to the client when requesting bank access.</li>
+<li><strong>One vault for human logins, one secrets store for automation, and nowhere else.</strong> Never a spreadsheet, a note, a chat, a dossier, or code.</li>
+<li><strong>Automation secrets name their owning skill.</strong> Each machine credential belongs to one automation and is documented as such.</li>
+<li><strong>Least privilege at intake and at every role change.</strong> Request the narrowest access that works.</li>
+<li><strong>Rotate on exit, do not just review.</strong> Removing a seat is not retiring a secret.</li>
+<li><strong>Never borrow a login or work around a missing one.</strong> Post the gap the day it is found and get proper access.</li>
+<li><strong>These pages never carry a secret.</strong> The lint gate and encryption boundary enforce it; do not attempt to smuggle one in with an allow marker.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A client emails or messages a password</td>
+<td>Run the redirect-and-rotate response same day; if you cannot rotate it yourself, escalate to Ricky to coordinate the client.</td>
+</tr>
+<tr>
+<td>A credential is exposed in a commit, a document, or a shared link</td>
+<td>Treat as compromised; escalate to Ricky immediately to rotate and purge; do not wait to confirm it was seen.</td>
+</tr>
+<tr>
+<td>Unsure what access a role or person should hold</td>
+<td>Default to the least-privilege table above and confirm with Ricky before granting more.</td>
+</tr>
+<tr>
+<td>A platform offers only broad access when narrow is needed</td>
+<td>Flag to Ricky; he decides whether to accept the broader grant with compensating controls.</td>
+</tr>
+<tr>
+<td>A credential needed for close is missing or has stopped working</td>
+<td>Post the gap to Slack the day you find it; never borrow or work around it.</td>
+</tr>
+<tr>
+<td>A departing person's credentials cannot be rotated same-day</td>
+<td>Escalate to Ricky immediately; treat it as a live security gap, not a to-do.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/cutover-prior-bookkeeper-handoff/">Cutover and Prior-Bookkeeper Handoff</a>: capture and vault access at first contact</li>
+<li><a href="/team/cfo/master-client-go-live-checklist/">Master Client Go-Live Checklist</a>: where access and automation secrets are collected during go-live</li>
+<li><a href="/team/cfo/client-offboarding-checklist/">Client Offboarding Checklist</a>: the rotation-on-exit forcing function</li>
+<li><a href="/team/cfo/offboarding/">Offboarding and Deprovisioning</a>: the reverse-access list and team credential rotation</li>
+<li><a href="/team/cfo/tools-platforms/">Tools and Platforms</a>: the platform access model behind every grant</li>
+<li><a href="/team/cfo/communication/">Client Communication</a>: role-address standards for the access ask</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-18</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-18 -->
+</body>
+</html>

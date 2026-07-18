@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Standard Proposal Package (Turnkey CFO) · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/standard-proposal-package">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Standard Proposal Package (Turnkey CFO)</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Standard Proposal Package (Turnkey CFO)</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP defines the productized Turnkey CFO proposal: the repeatable version of the gold-standard proposal that already wins. The core idea is that the proposal is not a document that argues a price. It is a diagnosis built on the prospect's own real numbers, wrapped in a relationship-framed briefing that names the stakes and reframes the decision away from cost.</p>
+<p>Two artifacts, not one: a diagnostic dashboard (the proof, built live on the prospect's data) and a briefing page (the pitch, one click from the dashboard). Pricing lives outside both artifacts, delivered as a deliberate follow-up. This SOP documents each artifact section by section, the hosting rule, a lighter one-pager variant for smaller deals, the canonical tier names, and the single rule that governs every number: it comes from the pricing ladder.</p>
+<p>Turnkey CFO is a bookkeeping firm. Proposal language is bookkeeping, payroll, 1099, AP/AR, monthly close, and reporting. The banned "fractional" phrase never appears; the top tier is called Reporting &amp; Advisory.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proposal owner</td>
+<td>Ricky (transitioning to Vanessa)</td>
+<td>Owns the diagnosis, the framing, and every commitment in the proposal.</td>
+</tr>
+<tr>
+<td>Data source</td>
+<td>Proposal owner</td>
+<td>Builds the diagnostic dashboard on the prospect's live read-only data.</td>
+</tr>
+<tr>
+<td>Pricing</td>
+<td>Ricky</td>
+<td>Every number in any quote comes from the pricing ladder; nothing bespoke or off-ladder.</td>
+</tr>
+<tr>
+<td>Build support</td>
+<td>As needed</td>
+<td>Renders the dashboard and briefing to the brand-domain host.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>Trigger:</strong> a discovery call ends with the assessment-or-demo next step (see the Discovery Call Runbook). The proposal is the deliverable that next step points to.</li>
+<li><strong>Prerequisite:</strong> read-only access to the prospect's real data (QBO, plus any giving or payment platform). The whole model is "built on your real numbers," so the assessment access is what unlocks the proposal.</li>
+<li><strong>Sequence:</strong> access granted, dashboard built on live data, briefing page written around it, both hosted on the brand domain (noindex), link sent. Pricing follows as a separate tiered quote within one business day, never printed inside the proposal.</li>
+<li><strong>Smaller deals:</strong> where a full two-artifact build is not warranted (a simple single-entity SMB), use the light one-pager variant below instead.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="step-1-the-two-artifact-anatomy">Step 1: The two-artifact anatomy</h3>
+<p><strong>Artifact A, the diagnostic dashboard (the proof).</strong> A live, read-only view built on the prospect's actual QBO data, organized by altitude so a non-financial decision-maker can read it:</p>
+<ul>
+<li>A layered structure from the highest level down to full detail. The proven shape is roughly: a top-level health view (plain-language verdict plus the multi-year arc), a trends and history view, a ministries-or-segments view, a budget-versus-actual view, a giving or revenue deep-dive, and a full-detail view.</li>
+<li>The top-level view leads with a plain-language health card above the numbers, not a wall of figures. Say where things stand in a sentence, then show the chart.</li>
+<li>A visible provenance line proving it runs on their real data ("Source: QuickBooks Online, live," through a stated month). The provenance is the credibility: it is manifestly their numbers, not a template.</li>
+</ul>
+<p><strong>Artifact B, the relationship briefing page (the pitch).</strong> One click from the dashboard, this is the actual proposal. It frames the relationship, names the stakes, restates the dashboard as a service feature, defuses the transition fear by name, and reframes the decision away from price.</p>
+<h3 id="step-2-the-briefing-page-section-by-section">Step 2: The briefing page, section by section</h3>
+<p>Build the briefing in this order. This is the documented anatomy of the pattern that works.</p>
+<ol>
+<li><strong>Title and hook.</strong> A short, forward-looking line about clarity for their next chapter.</li>
+<li><strong>Relationship framing, not transactional.</strong> Position Turnkey as a partner who already understands their world and their people, not a vendor bolting on a service.</li>
+<li><strong>Name the stakes.</strong> What they are outgrowing (reporting they cannot read, a provider who cannot sit in the room) set against what is at stake for them (a campaign, a growth phase, a board that needs clean numbers).</li>
+<li><strong>"Where things stand today, in plain language."</strong> Live health cards translated into plain terms, with any honest reframing (a deliberate investment-year position, a trend turning) stated straight. Numbers here are the prospect's own, shown in the live dashboard, not printed as fees.</li>
+<li><strong>"What you will actually see."</strong> Restate the dashboard's layered structure as a service feature, and embed a live button straight into the working dashboard.</li>
+<li><strong>The full scope of partnership.</strong> A set of service tiles covering the offer: core bookkeeping, readable reporting, budget versus actual, being "in the room" at their meeting cadence, campaign or program reporting where relevant, giving or revenue insight, automation, cleanup, and a real partner relationship.</li>
+<li><strong>Transition-risk defusal, by name.</strong> Name the specific fear ("we know the last switch took a long time; that will not happen here") and follow it with a concrete commitment (first clean monthly report within weeks, the transition handled on our side).</li>
+<li><strong>A numbered path across a real calendar.</strong> Week one, weeks two to three, month two, and ongoing, each with a plain outcome. A simple path removes the fear of the unknown.</li>
+<li><strong>Structure section where relevant.</strong> For a campaign or a multi-phase program, break it into named phases so the client sees we understand the shape of what they are doing.</li>
+<li><strong>Closing reframe.</strong> End by moving the decision off price and onto clarity and partnership.</li>
+<li><strong>Footer methodology.</strong> Disclose the data source plainly (live QBO, read-only, through a stated month).</li>
+</ol>
+<p><strong>Pricing lives outside both artifacts.</strong> No fee, tier price, or dollar figure is printed inside the dashboard or the briefing. Pricing is the deliberate follow-up quote. This is deliberate: the proposal sells clarity and partnership, and the price conversation happens on its own, sourced from the ladder.</p>
+<h3 id="step-3-hosting">Step 3: Hosting</h3>
+<ul>
+<li>Host both artifacts on the brand domain, never on an internal HUD host and never on a bare preview URL. Per the deliverable-hosting rule, a client-facing page is served from turnkeycfo.com (or the relevant brand apex), added as a subdirectory of the brand's site repo so it deploys on push.</li>
+<li>Mark the proposal pages noindex so they do not surface in search.</li>
+<li>Send the client the branded link, not the build URL.</li>
+</ul>
+<h3 id="step-4-the-light-one-pager-variant-smaller-deals">Step 4: The light one-pager variant (smaller deals)</h3>
+<p>For a simple single-entity SMB where a full two-artifact build is not warranted, use a single briefing one-pager instead of the dashboard-plus-briefing pair:</p>
+<ul>
+<li>The gap named plainly, the outcome we deliver, the tier that fits, the simple path (take the keys, first clean report, ongoing rhythm), and the reframe off price.</li>
+<li>Still no printed fee: pricing follows as the tiered quote, or, only where the discovery runbook's live-pricing exception applies (a simple single-entity SMB meeting every part of the ladder's simple-SMB gate), an on-ladder range confirmed in writing.</li>
+<li>Still hosted on the brand domain (noindex) or delivered as a branded PDF, never off-brand.</li>
+</ul>
+<h3 id="step-5-tier-names-and-the-pricing-rule">Step 5: Tier names and the pricing rule</h3>
+<ul>
+<li><strong>Canonical tier names, always:</strong> Books / Books + Reporting (the recommended lead tier) / Reporting &amp; Advisory. Use these exact names in every proposal and one-pager. Never the banned "fractional" phrase.</li>
+<li><strong>Every number comes from the ladder.</strong> Any figure in any quote, one-pager, or letter traces to the pricing ladder (pricing-model/pricing.json, internal). No hardcoded fee that is not on the ladder, and no bespoke off-ladder number. Relationship or referral adjustments stay on-ladder through the ladder's sanctioned override construct, with a reason recorded, never an invented one-off price.</li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li><strong>The proposal is a diagnosis, not a price argument.</strong> Lead with the dashboard built on their real numbers; the briefing frames it. Never open with a fee.</li>
+<li><strong>No fees or dollar figures inside the dashboard or the briefing.</strong> Pricing is the separate follow-up quote, sourced from the ladder.</li>
+<li><strong>Every number traces to the pricing ladder.</strong> No hardcoded or off-ladder fee anywhere in the package.</li>
+<li><strong>Canonical tier names only.</strong> Books / Books + Reporting / Reporting &amp; Advisory. Never the banned "fractional" phrase; the top tier is Reporting &amp; Advisory.</li>
+<li><strong>Brand-domain hosting only.</strong> Client-facing proposals live on the brand apex (noindex), never on an internal HUD host or a bare preview link. Send the branded link.</li>
+<li><strong>The prospect's own data, read-only.</strong> The dashboard runs on their live numbers through a stated month, view-only. Never move money, never write back.</li>
+<li><strong>No failure language, ever.</strong> Nothing broken or degraded reaches a prospect. If a dashboard is not live and clean, hold the send and fix it first.</li>
+<li><strong>The client's own brand on client-facing assets.</strong> Where a proposal carries the client's masthead or accent, use their real brand, never a generic template palette or another client's.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prospect asks for a printed price inside the proposal</td>
+<td>Hold; pricing is the follow-up quote from the ladder. Bring the shape to Ricky.</td>
+</tr>
+<tr>
+<td>A needed number is not on the pricing ladder</td>
+<td>Ricky, before it goes in any artifact. Never invent an off-ladder figure.</td>
+</tr>
+<tr>
+<td>Read-only data access cannot be obtained</td>
+<td>The dashboard cannot be built on real data; escalate to Ricky to decide the fallback (a one-pager, or wait for access).</td>
+</tr>
+<tr>
+<td>A relationship or referral adjustment is requested</td>
+<td>Ricky, via the ladder's sanctioned override with a recorded reason; never a silent one-off price.</td>
+</tr>
+<tr>
+<td>Anything touching scope, terms, or "fractional" language slipping in</td>
+<td>Ricky, always.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/discovery-call-runbook/">Discovery Call Runbook</a>: the call whose close step points to this proposal</li>
+<li><a href="/team/cfo/sales-to-service-handoff/">Sales to Service Handoff</a>: where the proposal's commitments carry into "promises made" on a won deal</li>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a>: where a signed proposal goes next</li>
+<li><a href="/team/cfo/communication/">Client and Team Communication</a>: the external voice and brand-on-client-assets rules the proposal follows</li>
+<li><a href="/team/cfo/escalation/">Escalation and Attention Rules</a>: the firm-wide escalation ladder</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-18</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-18 -->
+</body>
+</html>

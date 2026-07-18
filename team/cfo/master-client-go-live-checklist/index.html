@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Master Client Go-Live Checklist (Turnkey CFO) · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/master-client-go-live-checklist">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Master Client Go-Live Checklist (Turnkey CFO)</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Master Client Go-Live Checklist (Turnkey CFO)</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#per-client-copy-template"><span class="n">05</span>Per-client copy template</a><a href="#guardrails"><span class="n">06</span>Guardrails</a><a href="#escalation"><span class="n">07</span>Escalation</a><a href="#related-sops"><span class="n">08</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This is the single runbook that takes a signed client from "yes" to fully wired into every Turnkey system, in the order the dependencies actually require. It exists because the workspace has no single canonical roster: a new client has to be added into a dozen separate systems, several of them by hand and several that quietly depend on an earlier step being done right. Missing one link does not fail loudly. It fails a month later as a dropped close, a dashboard that never refreshed, or a classifier lane that silently defaulted to full manual review.</p>
+<p>The goal is a client who shows up green everywhere the nightly roster-diff looks, with no drift flags, and a first close scheduled on the standard BD1/BD3/BD6/BD10 rhythm. This checklist is the operational spine; the relationship-and-access side of onboarding lives in the Client Onboarding SOP, the books cutover lives in the Cutover and Prior-Bookkeeper Handoff SOP, and secrets handling lives in the Credential Intake and Vaulting SOP. Work all four together for a new client.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility in go-live</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Engagement terms, pricing, scope, exceptions</td>
+<td>Ricky</td>
+<td>Sole approver of the CRM add, the engagement letter, and any off-ladder pricing. Coordinates the one QBO consent click.</td>
+</tr>
+<tr>
+<td>Go-live execution and QC</td>
+<td>Accounting Manager</td>
+<td>Owns this checklist end to end. Drives every operational step, chases the human-gated steps, and verifies the exit criterion.</td>
+</tr>
+<tr>
+<td>Bookkeeping setup</td>
+<td>Bookkeeper (Hardik)</td>
+<td>Reviews the QBO file, confirms the reclass reference tab, begins categorization once cutover is locked (works in Financial Cents).</td>
+</tr>
+<tr>
+<td>Admin and comms support</td>
+<td>Eldine</td>
+<td>Calendar invites, client notifications, CRM hygiene requests.</td>
+</tr>
+<tr>
+<td>Client side</td>
+<td>Named primary contact</td>
+<td>Grants access, signs, completes the single QBO consent click.</td>
+</tr>
+</tbody>
+</table></div>
+<p>One owner per line below means one accountable person, not one pair of hands. Where a step needs a Ricky decision, the Accounting Manager still owns getting it in front of him and confirming it landed.</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>Trigger:</strong> the engagement letter is signed. Discovery, the handoff brief, and access requests can begin earlier, but the roster wiring in this SOP starts once the letter is executed.</li>
+<li><strong>Target window:</strong> the operational wiring (CRM through roster-diff green) should complete within the first onboarding week, in parallel with the cutover work, so the first close runs on a fully wired client.</li>
+<li><strong>Dependency order is not optional.</strong> QBO OAuth must precede the Supabase-dependent steps; the roster steps must precede the roster-diff exit check. Do not reorder to "get ahead."</li>
+<li><strong>Stall rule:</strong> any step open past about one week is stalled. Surface it to Ricky in a recap so he can nudge the client or unblock the decision.</li>
+<li><strong>Exit gate:</strong> go-live is not "done" until the TurnkeyRosterDiff job shows the new client green across every required surface with zero drift flags in the errors channel.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<p>Work the steps in order. Each line names its owner. Two steps are irreducibly human and cannot be automated away; they are marked <strong>[HUMAN-ONLY]</strong> and are the two places the pipeline will always wait on a person.</p>
+<h3 id="1-crm-row-created-and-stage-progressing">1. CRM row created and stage progressing</h3>
+<p><strong>Owner:</strong> Accounting Manager (submits via the crm-maintenance flow; Ricky approves the Slack card).
+- [ ] Client exists in the canonical CRM sheet, stage moving toward Onboarding then Active.
+- [ ] Service line, start date, and meeting cadence type recorded on the row.
+- [ ] Never hand-edit the CRM sheet. The write happens through the crm-maintenance approval card only.</p>
+<h3 id="2-engagement-letter-drafted-approved-signed">2. Engagement letter drafted, approved, signed</h3>
+<p><strong>Owner:</strong> Ricky (pricing and scope are his alone).
+- [ ] Draft via the engagement-letter builder; every fee traces to the canonical pricing source, never a hand-typed number.
+- [ ] Ricky approves the Slack card. No books-of-record work starts before the letter is signed.
+- [ ] Signed copy filed in the client's Drive folder.</p>
+<h3 id="3-sales-to-service-handoff-brief-filed-step-2-gate">3. Sales-to-Service Handoff Brief filed  [STEP-2 GATE]</h3>
+<p><strong>Owner:</strong> Ricky authors it (or whoever ran discovery); Accounting Manager verifies the brief's path exists before any step below proceeds.
+- [ ] The handoff brief is written and its location recorded: what was sold, at what tier, the client's complexity flags, entities, payroll and AP/AR scope, promised deliverables, and any pricing exception with its reason.
+- [ ] <strong>Onboarding does not proceed past this line without the brief.</strong> A go-live built on a verbal handoff is how scope drifts and a promised dashboard never gets built.</p>
+<h3 id="4-onboarding-checklist-published-for-every-client-no-exceptions">4. Onboarding checklist published, for every client, no exceptions</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Confirm the internal onboarding-checklist DRAFT auto-published to the brand apex onboarding path after the letter drafted, and that it researched the client correctly (real brand, real facts, no placeholder pricing). It is an internal review artifact: never emailed to the client.
+- [ ] Stand up the live, shared onboarding checklist APP for this client. This is required for every client now, not only on request: author the client config (researched brand, section templates including the cutover and opening-balance section, payroll pack if applicable) and deploy it to its client onboarding subdomain via the app's build tool.
+- [ ] The roster-diff treats a missing onboarding app for an active client as a first-class drift flag, so this step is enforced, not optional.</p>
+<h3 id="5-qbo-oauth-granted-human-only">5. QBO OAuth granted  <strong>[HUMAN-ONLY]</strong></h3>
+<p><strong>Owner:</strong> Accounting Manager (Vanessa) chases and coordinates; the client (with Ricky if needed) performs the one consent click.
+- [ ] Run the qbo-client-onboard connect flow for the client.
+- [ ] The client clicks "Connect" once on the Intuit consent screen. This single click cannot be automated. Make it easy: send a short Loom walking them through exactly where to click, and the Accounting Manager chases until it is done.
+- [ ] This is the hard dependency for every Supabase-backed step below. Do not attempt them until the grant completes.</p>
+<h3 id="6-supabase-clients-row-verified">6. Supabase clients row verified</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Confirm the OAuth flow wrote the client row with a valid realm id, tokens, and onboarded set true.
+- [ ] Confirm the canonical client-key slug for this client is correct (aligned to the ledger-engine key map), so every downstream system normalizes the client the same way.
+- [ ] With this row correct, COA and Classes push into the close tooling automatically; no manual push step is needed.</p>
+<h3 id="7-turnkey-accountant-reference-tab">7. turnkey-accountant reference tab</h3>
+<p><strong>Owner:</strong> Accounting Manager (Bookkeeper reviews the result).
+- [ ] Add the client to the reclassification reference map and populate the reference tab (COA, classes, vendor patterns).
+- [ ] Bookkeeper spot-checks the tab before it feeds any categorization.</p>
+<h3 id="8-financial-cents-project-created-human-only">8. Financial Cents project created  <strong>[HUMAN-ONLY]</strong></h3>
+<p><strong>Owner:</strong> Accounting Manager or Bookkeeper.
+- [ ] Create the Financial Cents client and the recurring monthly bookkeeping project from the internal template (internal task list plus client tasks). This is manual in the Financial Cents UI: there is no creation API, and the scraper is read-only. It cannot be scripted; a person creates it by hand.
+- [ ] Confirm the recurring project lands on the standard monthly cadence.</p>
+<h3 id="9-close-command-roster">9. Close Command roster</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Regenerate the roster blocks from the canonical roster source (the client-roster generator), then paste the generated Close Command client array and its Python mirror, and verify. Do not hand-edit one mirror without the other; the two files must always match.
+- [ ] After deploy, confirm the live page loads, the client appears, and the dropdowns render.</p>
+<h3 id="10-classifier-lane-assigned">10. Classifier lane assigned</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Decide and record this client's categorization lane: manual (Bookkeeper), the daily QBO classifier pilot, or the Ramp classifier. Never assume automation coverage; a new client defaults to manual until explicitly wired in.
+- [ ] If Ramp: add the client block to the Ramp classifier config and register its credentials in the workspace secrets store per the Credential Intake and Vaulting SOP.
+- [ ] If QBO classifier pilot: add the client in all three places it must appear (config, the code allowlist, and the Supabase managed flag) so the pilot gate is consistent.</p>
+<h3 id="11-time-tracking-job-confirmed">11. Time-tracking job confirmed</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Confirm the client now appears in the Close Command time-tracking job picker. This follows automatically from the roster step; verify it rather than editing it separately.</p>
+<h3 id="12-dashboards-and-reminder-engines-stood-up-as-sold">12. Dashboards and reminder engines stood up, as sold</h3>
+<p><strong>Owner:</strong> Accounting Manager (any live-send switch stays Ricky's to flip).
+- [ ] Build or schedule whatever the handoff brief says was sold: a client financial dashboard, a giving dashboard (choose the platform: Planning Center, Tithely, or Subsplash, and confirm the Ricky-only recipient posture until unlocked), Expensify cardholder reminders (auto-discovered; confirm the preview-only posture), or Bill.com approver reminders (config block plus credentials; confirm the live-enabled posture).
+- [ ] Nothing that emails a client or church contact flips to live without Ricky's explicit go. Stand it up idle and leave the switch for him.</p>
+<h3 id="13-sop-client-dossier-authored-and-published">13. SOP client dossier authored and published</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Author the two dossier files (profile and service SOPs) from the engagement's real detail, evergreen only, no fees or balances.
+- [ ] Publish through the encrypted portal publish tool. Every client dossier is encrypted at rest; the publish tool refuses an unencrypted client page.</p>
+<h3 id="14-client-mastery-academy-entry">14. Client Mastery Academy entry</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Author and verify the client facts file, update the mastery roster, and compile the dossier into the study bank so the team can learn the account.</p>
+<h3 id="15-client-cheat-sheet">15. Client cheat sheet</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Author the one-page cheat sheet and render the PDF, so anyone covering the account has the fast reference.</p>
+<h3 id="16-roster-diff-green-exit-criterion">16. Roster-diff green  [EXIT CRITERION]</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Run or wait for the nightly TurnkeyRosterDiff and confirm the new client is present and green across every required surface (roster mirrors, onboarding app, SOP dossier, cheat sheet, classifier lane, Supabase) with no drift flags in the errors channel.
+- [ ] A green diff is the definition of done. Until the diff is green, the client is not live; it is mid-onboarding. Do not close the go-live thread on "I think I got everything."</p>
+<h2 id="per-client-copy-template">Per-client copy template</h2>
+<p>Copy the block below into the client's running onboarding thread (or the onboarding app) and check it off as you go. Fill the owner in only where it differs from the default.</p>
+<pre><code class="language-text">CLIENT GO-LIVE: &lt;Client legal name&gt;  |  slug: &lt;client-key&gt;  |  started: &lt;date&gt;
+
+[ ] 1.  CRM row created, stage progressing            (Accounting Manager; Ricky approves)
+[ ] 2.  Engagement letter signed                      (Ricky)
+[ ] 3.  Sales-to-Service Handoff Brief filed  GATE    (Ricky authors; AM verifies path)
+[ ] 4.  Onboarding checklist app live (EVERY client)  (Accounting Manager)
+[ ] 5.  QBO OAuth consent click done  HUMAN-ONLY      (client clicks; Vanessa chases)
+[ ] 6.  Supabase clients row + slug verified          (Accounting Manager)
+[ ] 7.  turnkey-accountant reference tab populated     (Accounting Manager)
+[ ] 8.  Financial Cents project created  HUMAN-ONLY   (AM or Bookkeeper, by hand in FC)
+[ ] 9.  Close Command roster (generate, paste, verify) (Accounting Manager)
+[ ] 10. Classifier lane assigned (manual / QBO / Ramp) (Accounting Manager)
+[ ] 11. Time-tracking job appears in picker            (Accounting Manager)
+[ ] 12. Dashboards + reminder engines, as sold         (Accounting Manager; Ricky flips live)
+[ ] 13. SOP client dossier authored + published        (Accounting Manager)
+[ ] 14. Client Mastery entry compiled                  (Accounting Manager)
+[ ] 15. Client cheat sheet rendered                     (Accounting Manager)
+[ ] 16. Roster-diff GREEN  =  EXIT CRITERION            (Accounting Manager)
+</code></pre>
+<p>The two HUMAN-ONLY steps (the QBO consent click and the Financial Cents project creation) are the only two that can never be scripted. Everything else can be automated or generated; if any of the rest is stalling, it is a process gap to fix, not a permanent human bottleneck.</p>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li><strong>The handoff brief is a hard gate.</strong> No step past line 3 proceeds without it. A go-live on a verbal handoff drifts on scope.</li>
+<li><strong>QBO OAuth is the load-bearing dependency.</strong> Do not start the Supabase-backed steps until the consent click is confirmed. Skipping ahead produces silent half-wired state.</li>
+<li><strong>New clients default to manual categorization.</strong> Never assume a client is on an automated lane; wire the lane explicitly and record it.</li>
+<li><strong>Live-send switches stay Ricky's.</strong> Stand dashboards and reminder engines up idle. Nothing emails a client or church contact until Ricky flips it on.</li>
+<li><strong>Single-writer systems stay single-writer.</strong> CRM writes go through the maintenance flow; roster blocks are generated then pasted, never hand-diverged between the two mirrors.</li>
+<li><strong>Every client dossier is encrypted at rest.</strong> Never publish an unencrypted client page; the publish tool will refuse it, and that refusal is a feature.</li>
+<li><strong>Green diff is the only "done."</strong> The exit criterion is machine-verified, not a human's memory of the list.</li>
+<li><strong>Turnkey CFO is a bookkeeping firm.</strong> Client-facing language stays in bookkeeping, payroll, 1099, AP/AR, monthly close, and reporting. Tax or legal questions route to the client's CPA or attorney.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anything touching pricing, scope, or terms</td>
+<td>Ricky, always. Never promise or negotiate scope solo.</td>
+</tr>
+<tr>
+<td>Handoff brief missing and the client is pushing to start</td>
+<td>Stop at the gate; get Ricky to file the brief before proceeding.</td>
+</tr>
+<tr>
+<td>QBO consent click stalled more than a few days</td>
+<td>Escalate to Ricky; he coordinates the client directly. Re-send the Loom.</td>
+</tr>
+<tr>
+<td>A generated roster block will not parse or the mirrors disagree</td>
+<td>Do not deploy. Fix the generator input and re-run; escalate if the self-test fails.</td>
+</tr>
+<tr>
+<td>Financial Cents project cannot be created (access, template)</td>
+<td>Escalate to Ricky or the Bookkeeper same day; it blocks the first close.</td>
+</tr>
+<tr>
+<td>Roster-diff will not go green after all steps</td>
+<td>Treat each remaining flag as a real gap; work it or escalate. Do not declare go-live complete over a red diff.</td>
+</tr>
+<tr>
+<td>A client needs a system not covered here (bespoke pull script, new giving platform)</td>
+<td>Flag to Ricky, add the one-off, and note it so the roster-diff can watch it.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a>: the relationship, access-collection, and kickoff side of the same new-client event</li>
+<li><a href="/team/cfo/cutover-prior-bookkeeper-handoff/">Cutover and Prior-Bookkeeper Handoff</a>: the books cutover this go-live runs alongside (invoked at the cutover step)</li>
+<li><a href="/team/cfo/credential-intake-vaulting/">Credential Intake and Vaulting</a>: how the access and automation secrets collected during go-live are handled</li>
+<li><a href="/team/cfo/client-offboarding-checklist/">Client Offboarding Checklist</a>: the exact inverse of this runbook, run at exit</li>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close</a>: the BD1/BD3/BD6/BD10 rhythm this go-live hands into</li>
+<li><a href="/team/cfo/tools-platforms/">Tools and Platforms</a>: the platform and access model behind every wiring step</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-18</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-18 -->
+</body>
+</html>

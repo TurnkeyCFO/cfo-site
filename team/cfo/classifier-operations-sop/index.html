@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Classifier Operations SOP · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/classifier-operations-sop">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Classifier Operations SOP</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Classifier Operations SOP</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP tells a bookkeeper or reviewer exactly how transaction classification runs today: which client is on which lane, how the daily automated loop feeds the Close Command Transactions tab, how to review and approve coded transactions there, and what to do for a client the automated loop does not yet cover. The lanes exist in rule files a bookkeeper would never read; this page is where they become usable operating instructions.</p>
+<p>The one thing to internalize: classification is a draft, and a human stands behind every posted code. The automation proposes; the reviewer decides; nothing writes back to the client's books without a human decision.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Person</th>
+<th>Role in classification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hardik (bookkeeper)</td>
+<td>Primary reviewer of proposed codes on the Transactions tab; runs the manual lane where no automated lane covers a client</td>
+</tr>
+<tr>
+<td>Vanessa (US Client Lead)</td>
+<td>QC reviewer on the Transactions tab; final sign-off feeds the BD6 QC gate</td>
+</tr>
+<tr>
+<td>Ricky (Founder)</td>
+<td>Owns any change to lane assignment, the shadow-to-live posture, and registration of new scheduled runs</td>
+</tr>
+</tbody>
+</table></div>
+<p>The classification store itself (<code>ledger.db</code>) is single-writer: only the ledger-engine process writes it, and every reviewer decision flows through the Close Command Transactions tab, never by hand-editing the store.</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>Daily, 7:45 AM CST:</strong> the ledger-engine ingest run (<code>TurnkeyLedgerIngest</code>) pulls each token-working client's uncategorized QBO transactions from the last 60 days, classifies them, and pushes them to the Close Command Transactions tab as queued items in shadow mode.</li>
+<li><strong>Daily / on demand:</strong> Hardik and Vanessa work the Transactions tab, approving, editing, or asking the client about each queued item.</li>
+<li><strong>Every 10 minutes:</strong> the ledger sync (<code>TurnkeyLedgerSync</code>) carries Ramp-lane proposals up and pulls reviewer decisions back down, stamping the Ramp approval sheet so the existing Ramp apply cron executes approvals.</li>
+<li><strong>Weekly (staged, not yet registered):</strong> the manual-lane run for any active client the automated loop does not cover. Registration is a Ricky decision (see The process).</li>
+<li><strong>Monthly close:</strong> classification review is a BD1 to BD6 activity feeding the QC gate; a client with a backlog of unresolved queued items is a BD3 escalation.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="the-four-lanes">The four lanes</h3>
+<p>Every onboarded client sits on exactly one primary classification lane. Never assume automation coverage; confirm a client's lane against this table or their dossier.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Lane</th>
+<th>What it is</th>
+<th>How review happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ramp classifier</strong></td>
+<td>Ramp card transactions are classified automatically and pushed to the Transactions tab. On approval, the decision stamps the Ramp approval sheet and the Ramp apply cron writes it back</td>
+<td>Reviewer works the client's rows on the Transactions tab; write-back is via the existing Ramp apply path, never direct</td>
+</tr>
+<tr>
+<td><strong>ledger-engine QBO uncategorized (Transactions tab)</strong></td>
+<td>The daily ingest pulls QBO transactions coded to an Uncategorized / Ask My Accountant account, classifies them in shadow mode, and queues them on the Transactions tab</td>
+<td>Reviewer approves or edits on the tab; QBO write-back is applied deliberately by the single-transaction applier, not on a cron</td>
+</tr>
+<tr>
+<td><strong>qbo-classifier pilot</strong></td>
+<td>The older daily QBO classifier for the original pilot clients, still in shadow posture</td>
+<td>Slack-gated review; being superseded by the ledger-engine loop</td>
+</tr>
+<tr>
+<td><strong>None (manual)</strong></td>
+<td>No automated lane covers the client; the bookkeeper categorizes every transaction in QBO directly</td>
+<td>Manual coding, reviewed under the normal QC pyramid</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="current-lane-assignment">Current lane assignment</h3>
+<p>This is the operating assignment as it stands. Live queue depth per client is read from the Transactions tab itself (it changes daily); this table is the durable routing, not a count.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Client</th>
+<th>Primary lane</th>
+<th>On the live Transactions tab</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heirloom Church</td>
+<td>Ramp classifier</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Village of Hope Maui</td>
+<td>Ramp classifier</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>The Harbour Company</td>
+<td>ledger-engine QBO uncategorized</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Mojo (Kingsland entity)</td>
+<td>ledger-engine QBO uncategorized</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Northpoint Church</td>
+<td>ledger-engine QBO uncategorized</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Kingdom City Church</td>
+<td>ledger-engine QBO uncategorized</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Cornerstone Church</td>
+<td>ledger-engine QBO uncategorized</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Turnkey CFO (internal)</td>
+<td>ledger-engine QBO uncategorized</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Mosquera Counseling</td>
+<td>ledger-engine QBO uncategorized (eligible)</td>
+<td>Not currently populating (see coverage note)</td>
+</tr>
+<tr>
+<td>Paradox Coffee</td>
+<td>ledger-engine QBO uncategorized (eligible)</td>
+<td>Not currently populating (see coverage note)</td>
+</tr>
+<tr>
+<td>Sivils, Inc.</td>
+<td>None (marked inactive)</td>
+<td>No, excluded by the inactive gate</td>
+</tr>
+<tr>
+<td>Best Option Restoration DMV</td>
+<td>None (marked inactive)</td>
+<td>No, excluded by the inactive gate</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Coverage note (honest status).</strong> The daily ledger-engine loop covers every token-working active client and is the source of the Transactions-tab queue. Of the clients that previously had no automated reclassification lane, Harbour is now covered and populating. Mosquera and Paradox are eligible for the loop but are not currently producing queued items; that means either the run found no uncategorized transactions in the 60-day window for them, or their QBO token needs attention. A reviewer confirms which by checking the daily run report before assuming they are clean. Sivils and Best Option Restoration DMV are excluded on purpose: they carry an inactive flag in the engine's roster, so the daily loop skips them. Any client not producing a queue is treated as classification unchanged for that client until it is either populating or moved to the manual lane.</p>
+<h3 id="the-daily-loop-end-to-end">The daily loop, end to end</h3>
+<ol>
+<li><strong>7:45 AM:</strong> the ingest run fetches uncategorized QBO transactions per token-working client, loads that client's reference context (its chart of accounts and classes, from the REF tab or a live pull), and classifies each line.</li>
+<li>Proposed codes that are not a valid account or class for that client are hard-rejected and flagged, so a bad suggestion never becomes a silent miscode. The transaction still queues, with live account and class dropdowns for the reviewer.</li>
+<li>Items push to the Close Command Transactions tab as <code>queued</code>, tagged shadow mode.</li>
+<li>Reviewers work the queue during the day (see below).</li>
+<li>Decisions are pulled back: Ramp-lane approvals stamp the Ramp sheet for the apply cron; QBO-lane approvals accumulate for the deliberate single-transaction applier. No lane writes to a client's books without a human decision.</li>
+</ol>
+<h3 id="reviewer-workflow-on-the-transactions-tab">Reviewer workflow on the Transactions tab</h3>
+<p>The Transactions tab lives in the Close Command portal (Ricky, Hardik, and Vanessa portals; not Eldine's). Open it, filter to your client, and work each queued row.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Read the transaction: date, merchant, amount, memo, cardholder, and the proposed account and class with the reasoning.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">If the proposed code is right, approve it. If it is close but wrong, edit the account or class from the live dropdown (only real chart-of-accounts values are accepted; you cannot free-type a code) and approve.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">If you cannot code it without the client's input, use Ask Client. That moves the item to an outstanding-questions list and surfaces it on the client's outstanding sheet; when the client answers, it re-queues with their answer attached.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Decisions are atomic per row. If two reviewers open the same client, the first decision wins and the second sees a conflict notice, so work is never silently clobbered.</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Approving is a proposal to write back, not the write itself. Ramp approvals flow through the Ramp apply path; QBO approvals are applied deliberately, one transaction at a time, with closed-period and chart-of-accounts guards.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">Clear a client's queue down to zero or to only Ask-Client items before BD6, so classification is not what holds the close.</label></li>
+</ul>
+<h3 id="the-staged-weekly-manual-lane">The staged weekly manual lane</h3>
+<p>For any active client the automated loop does not cover (today: a client whose QBO lane is eligible but not populating, or one deliberately on the manual lane), there is a staged weekly manual reclassification run so no client goes a full month without a pass.</p>
+<ul>
+<li><strong>What it is:</strong> a scheduled weekly task that reminds the bookkeeper to run a manual reclassification pass on the named uncovered clients: open each client's QBO, work the Uncategorized and Ask My Accountant accounts down, apply the client's coding rules from the dossier, and record the pass.</li>
+<li><strong>Task description (ready to register):</strong> "Weekly manual reclassification, uncovered clients. For each client on the manual lane, work Uncategorized and Ask My Accountant to zero or to flagged open items, apply dossier coding rules, and note completion. Owner: Hardik. Cadence: weekly."</li>
+<li><strong>Registration is a Ricky decision.</strong> The task configuration and schedule are prepared, but the scheduled job is not registered. Turning it on (or folding these clients into the automated loop instead) is Ricky's call, because it commits a standing weekly obligation and may overlap with the ledger-engine rollout. Until it is registered, uncovered clients are handled by the bookkeeper on the normal manual lane and flagged in the open-items list.</li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>Never hand-edit the classification store. Every decision flows through the Transactions tab.</li>
+<li>Never treat a proposed code as posted. Classification is shadow until a human approves and the appropriate apply path writes it back.</li>
+<li>Never assume a client is covered. Confirm the lane and confirm the client is actually populating the queue before relying on automation for them.</li>
+<li>Never free-type an account or class on the tab. Only real chart-of-accounts values are valid; an edit that is not in the client's synced lists is refused by design.</li>
+<li>Never write back into a closed period. The QBO applier refuses closed-period writes; do not work around it.</li>
+<li>Never register the weekly manual-lane job, change a lane assignment, or flip a client from shadow to live write-back without Ricky's decision.</li>
+<li>A client producing no queue is classification unchanged for that client, not a client that is clean. Verify, then decide manual lane or fix the token.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What you do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A client shows no queued items and you cannot tell if it is clean or broken</td>
+<td>Check the daily run report; if the token is dead or the client is eligible but empty with known uncategorized activity, flag to Ricky</td>
+</tr>
+<tr>
+<td>An active client is on no lane and is not being reclassified</td>
+<td>Handle manually this cycle, flag it on the open-items list, and raise registering the weekly manual lane with Ricky</td>
+</tr>
+<tr>
+<td>Proposed codes are repeatedly wrong for a client</td>
+<td>Correct them, then flag the pattern with examples so the reference context improves</td>
+</tr>
+<tr>
+<td>A queued item needs client input</td>
+<td>Use Ask Client on the tab; do not guess</td>
+</tr>
+<tr>
+<td>You are unsure whether a transaction touches a closed period</td>
+<td>Do not apply it; flag to Ricky or the QC reviewer</td>
+</tr>
+<tr>
+<td>Any change to lanes, schedules, or shadow-to-live posture</td>
+<td>Ricky, always</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close</a></li>
+<li><a href="/team/cfo/qc-review-sop/">QC Review</a></li>
+<li><a href="/team/cfo/bill-pay/">Bill Pay and Spend</a></li>
+<li><a href="/team/cfo/tools-platforms/">Tools and Platforms</a></li>
+<li><a href="/team/cfo/escalation/">Escalation and Attention Rules</a></li>
+<li><a href="/team/cfo-roles/bookkeeper-manual/">Bookkeeper Role Guide</a></li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-18</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-18 -->
+</body>
+</html>

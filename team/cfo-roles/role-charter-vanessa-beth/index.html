@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Vanessa and Beth Role Charter · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo-roles/role-charter-vanessa-beth">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo-roles/">Role Manuals</a><span class="sep">/</span><span class="here">Vanessa and Beth Role Charter</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">Role Training Manual</div>
+        <h1>Vanessa and Beth Role Charter</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">Role Manuals</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<div class="completion" id="completion">
+  <div class="cbadge" id="cbadge">0%</div>
+  <div class="cmeta">
+    <div class="ctitle">Training progress</div>
+    <div class="csub" id="csub">0 of 0 steps complete. Progress saves in this browser.</div>
+    <div class="cbar"><i id="mfill"></i></div>
+  </div>
+</div>
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>Turnkey hired two US client-facing people within a short window, and their mandates overlap. Without a written split, both seats wait on Ricky for direction and the two-in-a-box model breaks on day one. This charter resolves the overlap: who owns the client relationship day to day, who owns getting a new client live, who reviews what, and what both always escalate to Ricky.</p>
+<p>This is a DRAFT-STANDARD, framed for Ricky to amend. The recommended default below is designed to match the seats each person already occupies in the live systems; where Ricky wants a different split, he changes it here and this becomes the standard. It is a RICKY DECISION.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<p>The recommended default draws a clean line: Vanessa owns the ongoing relationship, Beth owns the transition into it.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Seat</th>
+<th>Recommended default</th>
+<th>Primary surface</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vanessa: US Client Lead</strong></td>
+<td>Owns client relationships day to day. Runs the review-tier client meetings. Is the BD6 QC reviewer. Approves the Financials-Ready pulls. This matches her existing Close Command role, where she runs reviews and approves the financials hand-off</td>
+<td>Close Command, the role mailbox, client meetings</td>
+</tr>
+<tr>
+<td><strong>Beth: Account Manager</strong></td>
+<td>Owns the onboarding lane: new-client go-live execution end to end. Owns client-communication QC and escalation triage during and just after onboarding, then hands the ongoing relationship to the US Client Lead</td>
+<td>The role mailbox, the go-live checklist, Close Command</td>
+</tr>
+</tbody>
+</table></div>
+<p>Why this split, not the reverse: the assessment shows Vanessa already runs reviews and approves Financials-Ready in Close Command, so making her the standing US Client Lead and BD6 QC reviewer formalizes what is already true. Beth's ministry background and client-facing QC strength fit the highest-variance, highest-touch moment in the lifecycle, the go-live, where a new client is either set up cleanly or inherits problems for months. Giving Beth the onboarding lane as a distinct seat mirrors the Blueprint's separate onboarding lane and keeps go-live from competing with steady-state client work for the same person's attention.</p>
+<p>Both seats sit above the bookkeeper and below Ricky. Both escalate pricing, scope, and engagement terms to Ricky only, and neither ever negotiates those with a client.</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>On a new signing:</strong> Beth owns the go-live. She drives the master client go-live checklist to completion and is the client's primary contact through onboarding.</li>
+<li><strong>At go-live completion:</strong> Beth runs the sales-to-service and onboarding hand-off to Vanessa, who becomes the ongoing US Client Lead for that client. The hand-off is a defined moment, not a fade.</li>
+<li><strong>Monthly close:</strong> Vanessa is the BD6 QC reviewer for her clients and approves the Financials-Ready pull; Beth can serve as QC reviewer for clients still in her onboarding window.</li>
+<li><strong>Review-tier meetings:</strong> Vanessa runs them from the standard agenda and report pack; board-tier and pastor-tier meetings stay with Ricky until he delegates them.</li>
+<li><strong>On a client-experience issue during or just after onboarding:</strong> Beth owns the triage; a steady-state client issue is Vanessa's.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="the-division-of-labor-concretely">The division of labor, concretely</h3>
+<ul>
+<li><strong>Client relationships, ongoing:</strong> Vanessa. She is who the client emails, who runs their review meeting, who knows their book.</li>
+<li><strong>Getting a client live:</strong> Beth. From signed letter to a client fully wired into every system and delivering its first clean close.</li>
+<li><strong>BD6 QC review:</strong> Vanessa for steady-state clients; Beth for clients still inside their onboarding window. Exactly one named reviewer signs off per client per cycle (see the QC Review SOP).</li>
+<li><strong>Financials-Ready approval:</strong> Vanessa approves the pull for her clients.</li>
+<li><strong>Client-communication QC and escalation triage:</strong> Beth during onboarding; Vanessa in steady state.</li>
+<li><strong>Pricing, scope, engagement terms:</strong> neither. Both flag to Ricky, acknowledge warmly to the client, and commit to nothing.</li>
+</ul>
+<h3 id="the-client-assignment-grid-to-fill-and-amend">The client-assignment grid (to fill and amend)</h3>
+<p>The split above is by lifecycle stage; clients also need explicit assignment so each has one named owner. This grid is left for Ricky to fill and is amendable at any time. Every active client should have a US Client Lead named, and any client currently in go-live should have an onboarding owner named.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Client</th>
+<th>US Client Lead (steady state)</th>
+<th>Onboarding owner (if in go-live)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>(fill per active client)</em></td>
+<td><em>(Vanessa / Beth)</em></td>
+<td><em>(Beth / n/a)</em></td>
+<td><em>(cadence tier, any exception)</em></td>
+</tr>
+</tbody>
+</table></div>
+<p>Until the grid is filled, the default holds: Vanessa is the standing US Client Lead, Beth owns any client currently onboarding. Ricky assigns and reassigns clients here; a reassignment is a note in this grid, not a renegotiation of the charter.</p>
+<h3 id="the-onboarding-to-steady-state-hand-off">The onboarding-to-steady-state hand-off</h3>
+<p>The one place these two seats must not drop the client is the hand-off at go-live completion. Beth does not simply stop; she hands over.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Beth confirms the go-live checklist is complete and the first close is either done or scheduled.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Beth produces the hand-off: what the client bought, scope and exclusions, every promise made, systems and access, known risks, the first-30-day win.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Vanessa receives it, confirms she can run the relationship from it without re-asking Ricky, and becomes the client's named lead.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">The client is told, warmly, who their ongoing point of contact is, so the transition is visible and reassuring rather than a silent swap.</label></li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>Exactly one named US Client Lead per active client, and one named onboarding owner per client in go-live. No client with zero owners; no client with two people each assuming the other has it.</li>
+<li>Neither seat negotiates or promises pricing, scope, or engagement terms. Both flag to Ricky and commit to nothing.</li>
+<li>Neither seat gives tax or legal advice. The line is always the client's CPA or attorney.</li>
+<li>The go-live-to-steady-state hand-off is a defined moment with an artifact, never a fade where the client quietly loses their onboarding contact.</li>
+<li>This charter is Ricky's to amend. A teammate does not reassign clients or redraw the split on their own; changes are made here.</li>
+<li>Client-facing email sends from a role address, never a personal one, from either seat.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pricing, scope, or engagement-term question from a client</td>
+<td>Either seat: acknowledge warmly, flag to Ricky same day, promise a follow-up, commit to nothing</td>
+</tr>
+<tr>
+<td>Unclear which seat owns a given client</td>
+<td>Check the assignment grid; if unfilled or ambiguous, Ricky assigns</td>
+</tr>
+<tr>
+<td>A client in go-live has a steady-state-shaped issue, or vice versa</td>
+<td>The two seats decide who is closer and one owns it; if unresolved, Ricky decides</td>
+</tr>
+<tr>
+<td>A frustrated or at-risk client</td>
+<td>Flag to Ricky same day with a read on why; the relationship save is Ricky's</td>
+</tr>
+<tr>
+<td>Disagreement between the two seats on ownership or approach</td>
+<td>Ricky resolves it; do not let a client feel the seam</td>
+</tr>
+<tr>
+<td>Ricky wants a different split than this default</td>
+<td>He amends this charter; the amended version becomes the standard</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo-roles/account-manager-manual/">Account Manager Role Guide</a></li>
+<li><a href="/team/cfo-roles/bookkeeper-manual/">Bookkeeper Role Guide</a></li>
+<li><a href="/team/cfo/qc-review-sop/">QC Review</a></li>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a></li>
+<li><a href="/team/cfo/communication/">Client Communication</a></li>
+<li><a href="/team/cfo/escalation/">Escalation and Attention Rules</a></li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-18</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-18 -->
+</body>
+</html>

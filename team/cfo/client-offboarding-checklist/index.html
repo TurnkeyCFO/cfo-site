@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Client Offboarding Checklist (Turnkey CFO) · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/client-offboarding-checklist">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Client Offboarding Checklist (Turnkey CFO)</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Client Offboarding Checklist (Turnkey CFO)</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#per-client-copy-template"><span class="n">05</span>Per-client copy template</a><a href="#guardrails"><span class="n">06</span>Guardrails</a><a href="#escalation"><span class="n">07</span>Escalation</a><a href="#related-sops"><span class="n">08</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>Onboarding fans a client out into a dozen systems. Offboarding has to fan the same client back in, and today it has no single switch that does it. When our most recent retirement went through, exactly one system (the ledger engine's inactive list) picked it up cleanly; nine or more other places still carried live references with nothing saying whether they were intentionally kept for history or simply forgotten. That is the failure this checklist exists to prevent.</p>
+<p>This SOP is the operational de-wiring companion to the Offboarding and Deprovisioning SOP. That SOP owns the relationship side (final close scope, the deliverables package, the farewell, and revoking access at the client's own institutions). This checklist owns the internal side: walking the go-live wiring in reverse so no roster, lane, dashboard, dossier, or automation is left quietly pointed at a client who has left. The goal is a departed client that appears active nowhere, with every retained reference explicitly flagged as historical, proven by a green roster-diff.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility in offboarding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exit decision, final scope, token revocation</td>
+<td>Ricky</td>
+<td>Confirms the end date and final close, and personally executes the Supabase token revocation.</td>
+</tr>
+<tr>
+<td>Offboarding execution and QC</td>
+<td>Accounting Manager</td>
+<td>Runs this de-wiring checklist, verifies every removal, confirms the exit criterion.</td>
+</tr>
+<tr>
+<td>Bookkeeping wrap-up</td>
+<td>Bookkeeper (Hardik)</td>
+<td>Completes the final close, then helps archive the Financial Cents project.</td>
+</tr>
+<tr>
+<td>Admin and comms support</td>
+<td>Eldine</td>
+<td>Calendar cleanup, CRM update requests.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>Trigger:</strong> the client end date and final delivered close are confirmed in writing by Ricky. Nothing here starts on a verbal hint. It starts when the exit is real.</li>
+<li><strong>Sequence:</strong> the final close ships first (per the Offboarding and Deprovisioning SOP), then the de-wiring below runs. Do not remove a client from the close roster or classifier lane before their last close is delivered and locked.</li>
+<li><strong>Target window:</strong> complete within about two weeks of the final delivered close. Any item open past that is stalled; surface it to Ricky.</li>
+<li><strong>The retention decision is explicit, never a default.</strong> For each reference system below, decide plainly: remove it, or keep it flagged as historical. "Left it because I was not sure" is the exact drift this checklist bans.</li>
+<li><strong>Exit gate:</strong> offboarding is complete only when the roster-diff shows the client as active on no required surface, and every retained reference is intentionally flagged historical, with no unexplained drift.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<p>Work the go-live wiring in reverse. Each line names its owner and calls for a decision, remove or keep-as-historical, never an ambiguous leftover.</p>
+<h3 id="1-crm-status-change">1. CRM status change</h3>
+<p><strong>Owner:</strong> Accounting Manager (sends the change; Ricky approves).
+- [ ] Move the client to former-client or inactive status through the crm-maintenance approval flow. Never hand-edit the CRM sheet.</p>
+<h3 id="2-ledger-engine-inactive-gate">2. Ledger-engine inactive gate</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Add the client's slug to the ledger-engine inactive keys set and leave its key-map entry in place for historical normalization. This is the one gate that already fans out correctly: it stops COA and Classes pushes for the client. Do this first among the technical steps.</p>
+<h3 id="3-close-command-roster-removal">3. Close Command roster removal</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Regenerate the roster blocks from the canonical source and remove the client from BOTH the Close Command client array and its Python mirror in the same change. The generator preserves active-versus-inactive status, so a client kept for historical close records stays visibly inactive rather than vanishing. Verify the live page after deploy.</p>
+<h3 id="4-time-tracking-job">4. Time-tracking job</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Confirm the client no longer appears as a selectable job in the time picker. This follows from the roster removal; verify it rather than editing separately.</p>
+<h3 id="5-classifier-lane-removal">5. Classifier lane removal</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] If the client was on Ramp: remove its block from the Ramp classifier config and retire its credentials per the Credential Intake and Vaulting SOP.
+- [ ] If the client was a QBO classifier pilot: remove it from all three places it lived (config, the code allowlist, and the Supabase managed flag) so no half-membership remains.
+- [ ] If manual: confirm the Bookkeeper's recurring categorization work stops after the final close.</p>
+<h3 id="6-dashboards-and-reminder-engines-disabled">6. Dashboards and reminder engines disabled</h3>
+<p><strong>Owner:</strong> Accounting Manager (Ricky flips any live-send switch off).
+- [ ] Turn off any giving dashboard, financial dashboard, Expensify cardholder reminders, and Bill.com approver reminders wired to this client. Confirm no scheduled job still emails a contact at the departed client.
+- [ ] Remove the client from any dashboard-builder client list so no custom dashboard silently keeps refreshing.</p>
+<h3 id="7-supabase-token-revocation-ricky-executes">7. Supabase token revocation  <strong>[RICKY EXECUTES]</strong></h3>
+<p><strong>Owner:</strong> Ricky.
+- [ ] Ricky disconnects the QBO OAuth connection, revokes the stored tokens, and sets the client row inactive (onboarded false). Automated pulls must be unable to reach the client's books after exit. The Accounting Manager flags this for Ricky and confirms it landed, but Ricky performs the revocation. A dead client row that still holds live tokens is a standing security gap, exactly the kind found in the audit.</p>
+<h3 id="8-reclassification-reference-tab-and-per-client-scripts">8. Reclassification reference tab and per-client scripts</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Retire the client from the reclassification reference map, and archive any bespoke per-client pull or dashboard scripts (do not leave them runnable and unowned). Keeping them for reference is fine, moved to an archive location and labeled, not left live.</p>
+<h3 id="9-sop-client-dossier-retired-or-flagged">9. SOP client dossier retired or flagged</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Decide: retire the dossier (delete the two content files, rebuild, and publish the deletion through the portal delete path, which rebuilds the encrypted roster automatically), OR keep it for reference with an explicit historical note in its Snapshot. Do not leave an active-looking dossier for a departed client. Whichever you choose, record the decision.</p>
+<h3 id="10-client-mastery-and-cheat-sheet-annotation">10. Client Mastery and cheat sheet annotation</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Mark the client former or closed-lost in the mastery roster and on the cheat sheet, retaining the content for reference. These are legitimately kept for institutional memory; the rule is that the status is annotated, never left reading as an active account.</p>
+<h3 id="11-financial-cents-project-archived">11. Financial Cents project archived</h3>
+<p><strong>Owner:</strong> Accounting Manager or Bookkeeper.
+- [ ] After the final close ships, close the recurring monthly project, resolve or hand off any open tasks, and mark the client inactive in Financial Cents. This is manual in the UI.</p>
+<h3 id="12-access-revocation-at-the-clients-institutions">12. Access revocation at the client's institutions</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Run the reverse-access list in the Offboarding and Deprovisioning SOP: remove the accountant user and view-only bank, card, payroll, AP, giving, and lender access, and archive the Drive folder. Confirm each removal in the exit thread. This checklist points to that SOP rather than duplicating it; both must be complete for the exit to be done.</p>
+<h3 id="13-credential-rotation">13. Credential rotation</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Rotate any shared or stored credential the engagement touched, per the Credential Intake and Vaulting SOP. Removing a seat is not the same as retiring a secret someone may still hold.</p>
+<h3 id="14-roster-diff-green-exit-criterion">14. Roster-diff green  [EXIT CRITERION]</h3>
+<p><strong>Owner:</strong> Accounting Manager.
+- [ ] Run or wait for the nightly TurnkeyRosterDiff. Confirm the client appears active on no required surface, that any retained reference (a kept-for-history dossier, cheat sheet, or inactive roster entry) is present as an intentional inactive entry rather than an unexplained drift flag, and that there are no offboarding-side drift flags in the errors channel.
+- [ ] A green diff, with the client cleanly inactive or absent everywhere, is the proof of completion. Until then the offboarding is not done. This is the single switch the audit showed we were missing: the diff is what makes "did we get everything" answerable instead of hoped.</p>
+<h2 id="per-client-copy-template">Per-client copy template</h2>
+<pre><code class="language-text">CLIENT OFFBOARDING: &lt;Client legal name&gt;  |  slug: &lt;client-key&gt;  |  end date: &lt;date&gt;
+
+[ ] 1.  CRM status -&gt; former/inactive                 (Accounting Manager; Ricky approves)
+[ ] 2.  Ledger-engine inactive gate set               (Accounting Manager)
+[ ] 3.  Close Command roster removed (both mirrors)    (Accounting Manager)
+[ ] 4.  Time-tracking job gone from picker             (Accounting Manager)
+[ ] 5.  Classifier lane removed (Ramp/QBO/manual)      (Accounting Manager)
+[ ] 6.  Dashboards + reminder engines disabled         (Accounting Manager; Ricky flips off)
+[ ] 7.  Supabase tokens revoked  RICKY EXECUTES        (Ricky)
+[ ] 8.  Reference tab + per-client scripts archived    (Accounting Manager)
+[ ] 9.  SOP dossier retired OR flagged historical      (Accounting Manager)  decision: ____
+[ ] 10. Client Mastery + cheat sheet annotated former  (Accounting Manager)
+[ ] 11. Financial Cents project archived               (AM or Bookkeeper)
+[ ] 12. Access revoked at client institutions          (Accounting Manager; see Offboarding SOP)
+[ ] 13. Shared/stored credentials rotated              (Accounting Manager)
+[ ] 14. Roster-diff GREEN  =  EXIT CRITERION           (Accounting Manager)
+</code></pre>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li><strong>No exit runs on a verbal.</strong> The end date and final close are confirmed in writing before any de-wiring begins.</li>
+<li><strong>The final close ships before de-wiring.</strong> Never remove a client from the close roster or classifier lane before their last close is delivered and locked.</li>
+<li><strong>Every retained reference is flagged, never left ambiguous.</strong> For each reference system, the decision is remove or keep-as-historical, recorded plainly. The audit proved that ambiguity is the failure mode.</li>
+<li><strong>Token revocation is Ricky's to execute.</strong> A dead client row with live tokens is a security gap, not a to-do; it is not optional and not delegable.</li>
+<li><strong>Single-writer systems stay single-writer.</strong> CRM changes go through the maintenance flow; roster blocks are generated then pasted, never diverged between mirrors.</li>
+<li><strong>Nothing is destroyed on judgment.</strong> Dossiers and Drive folders archive; retention and destruction decisions belong to Ricky.</li>
+<li><strong>Green diff is the only proof of completion.</strong> The exit is machine-verified, not remembered.</li>
+<li><strong>Turnkey CFO is a bookkeeping firm.</strong> Any client-facing language in the exit stays in bookkeeping terms; tax and legal questions route to the client's CPA or attorney.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>End date or final close scope is ambiguous</td>
+<td>Stop; get Ricky's written confirmation before removing anything.</td>
+</tr>
+<tr>
+<td>Supabase token revocation not done</td>
+<td>Escalate to Ricky immediately and hold the exit open; treat it as a live security gap.</td>
+</tr>
+<tr>
+<td>A roster block will not parse or the mirrors disagree after removal</td>
+<td>Do not deploy; fix the generator input and re-run; escalate on a self-test failure.</td>
+</tr>
+<tr>
+<td>Unsure whether a reference should be kept or removed</td>
+<td>Default to keep-and-flag-historical, and record the open question for Ricky rather than deleting on a guess.</td>
+</tr>
+<tr>
+<td>Roster-diff will not go green after all steps</td>
+<td>Work each remaining flag as a real leftover; do not declare the exit complete over a red diff.</td>
+</tr>
+<tr>
+<td>A platform will not remove a seat, or the client is unresponsive</td>
+<td>Surface to Ricky within two weeks of the final close; do not mark the exit complete.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/offboarding/">Offboarding and Deprovisioning</a>: the relationship, final-close, farewell, and client-institution access side of the exit</li>
+<li><a href="/team/cfo/master-client-go-live-checklist/">Master Client Go-Live Checklist</a>: the exact wiring this checklist reverses</li>
+<li><a href="/team/cfo/credential-intake-vaulting/">Credential Intake and Vaulting</a>: the rotation-on-exit rule referenced here</li>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close</a>: the quality bar the final close still meets</li>
+<li><a href="/team/cfo/tools-platforms/">Tools and Platforms</a>: the platform map behind every removal</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-18</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-18 -->
+</body>
+</html>

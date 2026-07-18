@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Sales to Service Handoff Brief (Turnkey CFO) · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/sales-to-service-handoff">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">Sales to Service Handoff Brief (Turnkey CFO)</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>Sales to Service Handoff Brief (Turnkey CFO)</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>The handoff brief is the single document that carries everything the delivery team needs to keep the promises the sales conversation made. It exists to close the most expensive gap in the whole engagement: the space between what the prospect was told during discovery and what the delivery team actually knows on day one.</p>
+<p>Without it, promises made in the room evaporate, scope leaks in reactively after signing, and the client's first experience is repeating themselves to a team that was not on the call. With it, onboarding starts from a complete, written picture: why they bought, exactly what we sold and did not sell, every commitment made word for word, the systems and access to collect, the risks to watch, and the first win to land in month one.</p>
+<p>This is an internal document. It carries no fees, no dollar figures, no credentials, and no client PII. Pricing and terms are referenced by pointer, never printed.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Who</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Author</td>
+<td>Deal owner (Ricky today, Vanessa as she ramps)</td>
+<td>Writes the brief the moment the deal is marked won. The person who ran the discovery calls owns the brief; nobody else can reconstruct what was promised.</td>
+</tr>
+<tr>
+<td>Primary consumer</td>
+<td>Accounting Manager (Vanessa / Beth)</td>
+<td>Reads the brief before onboarding starts; runs onboarding from it; raises any gap back to the author before beginning.</td>
+</tr>
+<tr>
+<td>Secondary consumers</td>
+<td>Bookkeeper (Hardik), Admin / VA (Eldine)</td>
+<td>Read the relevant sections (systems, access, cadence) for their part of onboarding.</td>
+</tr>
+<tr>
+<td>Approver of anything ambiguous</td>
+<td>Ricky</td>
+<td>Any scope or promise the brief cannot state cleanly gets confirmed with Ricky before onboarding acts on it.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<ul>
+<li><strong>Trigger:</strong> the deal is marked won (engagement agreed, letter going to signature). The brief is written that same day, while the discovery detail is fresh, not reconstructed a week later.</li>
+<li><strong>Forcing function:</strong> the Master Client Go-Live Checklist step 2 requires the brief's file path before onboarding proceeds. Onboarding does not start against an empty handoff. This is the hard gate.</li>
+<li><strong>Where it lives:</strong> in the client's Google Drive folder under the standard taxonomy, and its path is recorded on the go-live checklist. Drive is the document of record; the brief is not left in an email thread.</li>
+<li><strong>Update trigger:</strong> if anything material changes between "won" and "first close" (a scope adjustment, a new promise, a discovered system), the author updates the brief and notes the change, so the delivery team is never working from a stale version.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="step-1-write-the-brief-the-day-the-deal-is-won">Step 1: Write the brief the day the deal is won</h3>
+<p>The deal owner drafts all nine sections below from the discovery notes and the follow-up thread. Fill every section. If a section is genuinely empty, write "none" rather than leaving it blank, so the reader knows it was considered, not skipped.</p>
+<h3 id="step-2-the-handoff-brief-template">Step 2: The Handoff Brief template</h3>
+<p>Copy this shape for every won deal.</p>
+<pre><code class="language-markdown"># &lt;Client Name&gt; Handoff Brief
+Author: &lt;deal owner&gt;   Date won: &lt;date&gt;   Client type: &lt;church | nonprofit | SMB | multi-entity&gt;
+
+## Why they bought
+&lt;The real reason, in the client's words. What pain pushed them to switch or start,
+ what outcome they are buying, what &quot;success in 90 days&quot; looks like to them.&gt;
+
+## Scope and explicit exclusions
+&lt;What we sold: the tier and the services in it. Then, just as important, what we
+ explicitly did NOT sell: named programs, entities, or services scoped OUT and
+ left as context only. The exclusions prevent the reactive scope leak.&gt;
+
+## Every promise made (verbatim)
+&lt;Every commitment made across the discovery calls and the follow-up, word for word:
+ dates, deliverables, &quot;we'll take the keys and kill the busywork,&quot; cleanup depth,
+ cadence, &quot;no setup or migration cost,&quot; a reference we offered to connect them with.
+ If it was said to the prospect, it goes here exactly as said. This is the section
+ the whole document exists for.&gt;
+
+## Systems and access inventory
+&lt;Every system in their stack and its access status: QBO (invite + OAuth), banks and
+ cards (view-only), payroll provider, AP / bill-pay, AR, card-spend, POS or merchant
+ processor, giving or donor platform, lender portals. Mark each: access granted,
+ requested, or still needed. This is the onboarding access punch list.&gt;
+
+## Risks and sensitivities
+&lt;What could go wrong and what to be careful about: opening-balance condition,
+ cleanup depth, a departing bookkeeper who may be slow or withholding, a payroll
+ cutover date, a fiscal-year quirk, a relationship sensitivity, an audit or board
+ deadline. Anything that would surprise the delivery team if it went unsaid.&gt;
+
+## First 30-day win
+&lt;The one concrete, visible win to land in month one that proves the switch was right:
+ the first clean monthly report, a specific cleanup milestone, the live dashboard in
+ the decision-maker's hands. One win, named, so the team aims at it.&gt;
+
+## Pricing and terms (by pointer, not number)
+&lt;Reference the tier and any sanctioned adjustment by name, pointing to the engagement
+ letter and the pricing ladder (pricing-model/pricing.json, internal). NEVER print a
+ fee or dollar figure in this brief. The letter and the ladder hold the numbers.&gt;
+
+## Key contacts and politics
+&lt;Who signs, who decides, who receives reports, who approves bills, who approves
+ payroll, and the relationship map: who to loop in before whom, any decision gate
+ (board, elders, chairman, partner), and any &quot;handle with care&quot; dynamic. Names and
+ roles only, never personal cell or personal email.&gt;
+</code></pre>
+<h3 id="step-3-hand-it-off-then-confirm-the-read">Step 3: Hand it off, then confirm the read</h3>
+<ul>
+<li>The author saves the brief to the client's Drive folder and records the path on the go-live checklist (step 2).</li>
+<li>The Accounting Manager reads it before onboarding starts and confirms back to the author, raising any gap or ambiguity first.</li>
+<li>Any promise or scope line the delivery team cannot execute cleanly goes back to Ricky before onboarding acts on it, never guessed at.</li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li><strong>No brief, no onboarding.</strong> The go-live checklist step 2 is a hard gate. Onboarding does not start against an empty or missing handoff.</li>
+<li><strong>Promises go in verbatim.</strong> Do not paraphrase a commitment into something softer or vaguer. The delivery team keeps what is written; a summarized promise is a broken one.</li>
+<li><strong>Exclusions are as important as inclusions.</strong> Every service, program, or entity scoped OUT gets named. The unwritten exclusion is where reactive scope leaks in.</li>
+<li><strong>No fees, no dollar figures, no credentials, no PII in the brief.</strong> Pricing and terms are referenced by pointer to the engagement letter and the pricing ladder (pricing-model/pricing.json, internal). Access credentials live in the vault, never in the brief. Client contact names and roles are allowed; personal cell and personal email are not.</li>
+<li><strong>The brief is a living document until first close.</strong> Material change means the author updates it, not a side email the delivery team never sees.</li>
+<li><strong>Turnkey CFO is a bookkeeping firm.</strong> The brief never uses the banned "fractional" phrase; scope language is bookkeeping, payroll, 1099, AP/AR, close, and reporting.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deal marked won but no brief written</td>
+<td>Onboarding blocks at go-live step 2; the Accounting Manager pings the deal owner and Ricky the same day.</td>
+</tr>
+<tr>
+<td>A promise in the brief cannot be executed cleanly</td>
+<td>Back to Ricky before onboarding acts on it; do not silently drop or reinterpret a commitment.</td>
+</tr>
+<tr>
+<td>Scope in the brief conflicts with the signed engagement letter</td>
+<td>Stop; the letter and Ricky resolve it before any work begins.</td>
+</tr>
+<tr>
+<td>A system or access item surfaces that was never in the brief</td>
+<td>Update the brief, flag to the deal owner; do not let it accumulate silently (the exact anti-pattern this document prevents).</td>
+</tr>
+<tr>
+<td>Anything touching pricing, scope, or terms</td>
+<td>Ricky, always.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/discovery-call-runbook/">Discovery Call Runbook</a>: where the promises and scope in this brief are made and captured</li>
+<li><a href="/team/cfo/onboarding/">Client Onboarding</a>: the process this brief feeds; the go-live checklist step 2 requires the brief's path</li>
+<li><a href="/team/cfo/standard-proposal-package/">Standard Proposal Package</a>: the proposal whose commitments carry into the "promises made" section</li>
+<li><a href="/team/cfo/communication/">Client and Team Communication</a>: thread naming, role mailboxes, and the Drive-as-record rule</li>
+<li><a href="/team/cfo/escalation/">Escalation and Attention Rules</a>: the firm-wide escalation ladder</li>
+</ul>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-18</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-18 -->
+</body>
+</html>

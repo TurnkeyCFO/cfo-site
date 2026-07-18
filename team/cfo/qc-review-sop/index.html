@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>QC Review SOP · Turnkey</title>
+<link rel="icon" href="https://turnkeycfo.com/assets/tk-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --accent:#00E676;--deep:#00B050;--dk:#007A33;--ink:#0A3D26;--tint:#CCFFE5;--tintb:#9fe3c1;--cardtint:#F1F4F2;--mut:#586460;--line:#e2e6e3;--txt:#0A0A0A;--page:#f7faf8;--card:#ffffff; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt);background:var(--page);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:var(--deep);font-weight:600;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ===== STICKY TOP BAR ===== */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+          border-bottom:1px solid var(--line);}
+  .topbar .in{max-width:980px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:14px;}
+  .topbar img{height:26px;width:auto;display:block;}
+  .brandlink{flex:0 0 auto;line-height:0;}
+  nav.crumbs{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;min-width:0;}
+  nav.crumbs a{color:var(--mut);font-weight:700;}
+  nav.crumbs a:hover{color:var(--deep);text-decoration:none;}
+  nav.crumbs .sep{color:var(--line);font-weight:700;}
+  nav.crumbs .here{color:var(--ink);font-weight:800;}
+  .prog{display:flex;align-items:center;gap:9px;flex:0 0 auto;}
+  .prog .pbar{width:120px;height:8px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .prog .pbar i{display:block;height:100%;width:0%;border-radius:999px;
+                background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+  .prog .pct{font-size:12px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;min-width:44px;text-align:right;}
+  .logout{flex:0 0 auto;border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+          font-family:inherit;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .logout:hover{background:var(--accent);border-color:var(--accent);color:#04120a;}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--card);border-bottom:1px solid var(--line);padding:32px 0 0 0;}
+  .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:2.4px;color:var(--deep);text-transform:uppercase;}
+  header.hero h1{font-size:clamp(27px,4.6vw,40px);font-weight:800;color:var(--ink);line-height:1.1;
+                 letter-spacing:-.5px;margin-top:10px;}
+  header.hero .sub{font-size:15.5px;color:var(--mut);margin-top:11px;max-width:730px;}
+  .rule{display:flex;height:6px;margin-top:20px;border-radius:2px;overflow:hidden;}
+  .rule i{display:block;height:6px;}
+  .rule .a{background:var(--dk);width:55%;} .rule .b{background:var(--deep);width:25%;} .rule .c{background:var(--accent);width:20%;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 28px 0;}
+  .chip{border:1px solid var(--tintb);background:var(--tint);color:var(--deep);
+        font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;}
+  .chip b{color:var(--ink);}
+  .chip.dark{background:var(--ink);border-color:var(--ink);color:#eafff3;}
+  .chip.dark b{color:#fff;}
+
+  /* ===== TOC NAV ===== */
+  nav.toc{background:var(--ink);padding:13px 0;}
+  nav.toc .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:6px 16px;}
+  nav.toc a{color:#cfe9dd;font-size:12px;font-weight:700;letter-spacing:.3px;padding:2px 0;white-space:nowrap;}
+  nav.toc a:hover{color:#fff;text-decoration:none;}
+  nav.toc a .n{color:var(--accent);margin-right:5px;}
+
+  main{padding:12px 0 60px 0;}
+
+  /* ===== SECTION CARDS ===== */
+  section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin:24px 0;}
+  section.blk > h2{display:flex;align-items:baseline;gap:10px;font-size:21px;font-weight:800;color:var(--ink);
+      border-left:5px solid var(--accent);padding-left:14px;letter-spacing:-.2px;margin:6px 0 12px 0;}
+  section.blk h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin:22px 0 10px 0;}
+  section.blk h4{font-size:14.5px;font-weight:800;color:var(--ink);margin:16px 0 6px 0;}
+  section.blk p{margin:10px 0;}
+  section.blk > p:first-of-type{color:var(--mut);}
+  section.blk ul,section.blk ol{padding-left:22px;margin:10px 0;}
+  section.blk li{margin:5px 0;}
+  section.blk li::marker{color:var(--deep);}
+  strong,b{color:var(--ink);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--cardtint);
+       border:1px solid var(--line);border-radius:5px;padding:1px 6px;}
+  pre{background:var(--ink);color:#eafff3;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:12px 0;}
+  pre code{background:none;border:none;color:inherit;padding:0;font-size:12.5px;}
+  blockquote{border-left:4px solid var(--accent);background:var(--tint);border-radius:0 8px 8px 0;
+             padding:10px 16px;margin:12px 0;color:var(--ink);}
+  hr{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* ===== INTERACTIVE CHECKLIST ===== */
+  ul.cklist{list-style:none;padding-left:0;margin:8px 0;}
+  li.ck{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:9px 11px;border-radius:9px;margin:2px 0;}
+  li.ck:hover{background:var(--tint);}
+  li.ck::marker{content:"";}
+  li.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 20px;width:20px;height:20px;margin-top:2px;
+      cursor:pointer;border:2px solid var(--deep);border-radius:6px;background:#fff;position:relative;transition:all .15s;}
+  li.ck input[type=checkbox]:checked{background:var(--dk);border-color:var(--dk);}
+  li.ck input[type=checkbox]:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  li.ck label{cursor:pointer;flex:1;}
+  li.ck.done label{color:var(--mut);}
+  li.ck.done label strong,li.ck.done label b{color:var(--mut);}
+
+  /* ===== COMPLETION BANNER (manual pages) ===== */
+  .completion{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--tintb);
+      border-left:6px solid var(--accent);border-radius:14px;padding:20px 24px;margin:24px 0;}
+  .cbadge{flex:0 0 auto;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--dk),var(--accent));font-variant-numeric:tabular-nums;}
+  .cmeta{flex:1;min-width:0;}
+  .ctitle{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);}
+  .csub{font-size:13.5px;color:var(--mut);margin:3px 0 9px 0;}
+  .cbar{height:9px;background:#e7ece9;border-radius:999px;overflow:hidden;}
+  .cbar i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--dk),var(--accent));transition:width .35s ease;}
+
+  /* ===== GATED NOTE ===== */
+  .gated{background:var(--ink);color:#eafff3;border-radius:12px;padding:14px 18px;margin:22px 0;font-size:13.5px;}
+  .gated .cap{display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--accent);letter-spacing:1.2px;
+              text-transform:uppercase;font-size:11px;margin-bottom:5px;}
+  .gated .cap svg{width:13px;height:13px;}
+
+  /* ===== TABLES ===== */
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin:12px 0;
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;display:table;}
+  .tblscroll{overflow-x:auto;margin:12px 0;border-radius:10px;}
+  th{background:var(--ink);color:#eafff3;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+     text-transform:uppercase;padding:9px 12px;}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--cardtint);}
+
+  /* ===== HUB / SECTION CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px;margin:6px 0 8px 0;}
+  a.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s,box-shadow .15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 26px rgba(10,10,10,.07);text-decoration:none;}
+  .card .kicker{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);display:flex;align-items:center;gap:7px;}
+  .card .kicker svg{width:12px;height:12px;}
+  .card .ct{font-size:18px;font-weight:800;color:var(--ink);margin:8px 0 6px 0;letter-spacing:-.2px;}
+  .card .cd{font-size:13.5px;color:var(--mut);line-height:1.5;flex:1;}
+  .card .cgo{font-size:12.5px;font-weight:800;color:var(--deep);margin-top:14px;}
+  .card.locked .ct{color:var(--ink);}
+
+  .help{background:var(--tint);border:1px solid var(--tintb);border-radius:14px;padding:20px 24px;margin:24px 0 8px 0;}
+  .help h3{font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--deep);margin-bottom:8px;}
+  .help ul{padding-left:20px;margin:6px 0;}
+  .help li{margin:5px 0;font-size:13.5px;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);background:var(--card);padding:22px 0 34px 0;}
+  footer .in{max-width:980px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+  footer img{height:22px;width:auto;opacity:.9;}
+  footer .t{font-size:11.5px;color:var(--mut);text-align:right;line-height:1.55;}
+
+  @media(max-width:640px){
+    .prog{display:none;}
+    .topbar .in{padding:9px 18px;}
+    .wrap{padding:0 18px;}
+    section.blk{padding:22px 18px;}
+    .completion{flex-direction:column;align-items:flex-start;gap:12px;}
+  }
+
+  /* ===== PRINT ===== */
+  @media print{
+    @page{margin:14mm 13mm;}
+    body{background:#fff;font-size:11.5px;}
+    .topbar,nav.toc,.logout,.card .cgo{display:none;}
+    .wrap{max-width:none;padding:0;}
+    section.blk{border:none;border-radius:0;padding:0;margin:16px 0;}
+    section.blk > h2{break-after:avoid;page-break-after:avoid;}
+    section.blk h3,section.blk h4{break-after:avoid;page-break-after:avoid;}
+    .completion,.gated,li.ck,blockquote,a.card,.help{break-inside:avoid;page-break-inside:avoid;}
+    tr{break-inside:avoid;page-break-inside:avoid;}
+    .tblscroll{overflow:visible;}
+    a{color:var(--txt);text-decoration:none;}
+    header.hero{border:none;}
+  }
+</style>
+</head>
+<body data-page-key="team/cfo/qc-review-sop">
+
+<div class="topbar">
+  <div class="in">
+    <a class="brandlink" href="/team/"><img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey"></a>
+    <nav class="crumbs"><a href="/team/">Hub</a><span class="sep">/</span><a href="/team/cfo/">CFO SOPs</a><span class="sep">/</span><span class="here">QC Review SOP</span></nav>
+    <div class="prog" id="prog" hidden><div class="pbar"><i id="pfill"></i></div><div class="pct" id="ptext">0 / 0</div></div>
+    
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hd">
+      <div class="left">
+        <div class="eyebrow">CFO SOP</div>
+        <h1>QC Review SOP</h1>
+        
+      </div>
+    </div>
+    <div class="rule"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="chips"><span class="chip">CFO SOPs</span></div>
+  </div>
+</header>
+
+<nav class="toc"><div class="in"><a href="#purpose"><span class="n">01</span>Purpose</a><a href="#owner-and-roles"><span class="n">02</span>Owner and roles</a><a href="#cadence-and-triggers"><span class="n">03</span>Cadence and triggers</a><a href="#the-process"><span class="n">04</span>The process</a><a href="#guardrails"><span class="n">05</span>Guardrails</a><a href="#escalation"><span class="n">06</span>Escalation</a><a href="#related-sops"><span class="n">07</span>Related SOPs</a><a href="#appendix-bd6-close-template-change-ricky-decision-not-yet-applied"><span class="n">08</span>Appendix: BD6 close-template change (RICKY DECISION, not yet applied)</a></div></nav>
+
+<main class="wrap">
+<section class="blk">
+<h2 id="purpose">Purpose</h2>
+<p>This SOP defines how Turnkey CFO reviews a client's books before they reach the client, so quality never depends on one person catching everything. It replaces the pattern where Ricky is a hard review gate on every client every month with a three-level pyramid: the preparer self-reviews, a QC reviewer signs off before BD6 delivery, and Ricky samples by exception rather than reviewing all.</p>
+<p>The goal is simple. By BD6, every deliverable that ships has been checked twice (once by the person who built it, once by an independent reviewer) and Ricky only touches the ones that genuinely need him. That is what lets the firm add clients without adding founder review cycles one for one.</p>
+<h2 id="owner-and-roles">Owner and roles</h2>
+<p>The review pyramid has three rungs. Each rung checks a different thing and hands up only what it cannot resolve.</p>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Rung</th>
+<th>Who</th>
+<th>What they own</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Level 1: Preparer self-review</td>
+<td>Hardik (bookkeeper)</td>
+<td>Drafts the books and runs a structured self-check before marking work ready. Catches his own reconciliation gaps, missing memos, and obvious miscodes before anyone else looks</td>
+</tr>
+<tr>
+<td>Level 2: QC reviewer</td>
+<td>Vanessa (US Client Lead)</td>
+<td>Independent review of the full deliverable before it ships. Signs off at BD6. Nothing reaches a client without this pass</td>
+</tr>
+<tr>
+<td>Level 3: Founder sampling</td>
+<td>Ricky (Founder)</td>
+<td>Reviews by exception only: every new client's first two close cycles, plus any item the QC reviewer flags for a second opinion. Not a standing gate on all clients</td>
+</tr>
+</tbody>
+</table></div>
+<p>Beth (Account Manager) can serve as the Level 2 QC reviewer for clients in her lane; the seat, not the person, is what matters. On any client, exactly one named QC reviewer signs off per cycle. See the Vanessa and Beth role charter for who reviews which clients.</p>
+<h2 id="cadence-and-triggers">Cadence and triggers</h2>
+<p>The pyramid is anchored to the monthly close calendar (business days of the new month, closing the prior month).</p>
+<ul>
+<li><strong>BD1 to BD3:</strong> Preparer drafts the books and runs the Level 1 self-review as work completes. The BD3 checkpoint list is a self-review output, not a substitute for it.</li>
+<li><strong>BD3 to BD6:</strong> Preparer marks the deliverable ready for QC. The Level 2 QC reviewer runs the review checklist below and either signs off or returns it with specific corrections.</li>
+<li><strong>BD6:</strong> QC sign-off is the release condition for delivery. A deliverable without QC sign-off does not ship at BD6; it is held and escalated.</li>
+<li><strong>First two cycles of any new client:</strong> Ricky is added as a Level 3 sampler automatically. After two clean cycles, the client moves to exception-only sampling.</li>
+<li><strong>Any cycle:</strong> the QC reviewer can escalate a specific item to Ricky for a second opinion without holding the rest of the deliverable.</li>
+</ul>
+<h2 id="the-process">The process</h2>
+<h3 id="level-1-preparer-self-review">Level 1: preparer self-review</h3>
+<p>Before the preparer marks a client's books ready for QC, they run this self-check. It is the same standard the QC reviewer will apply, so anything caught here is a correction that never becomes a review round.</p>
+<ul class="cklist">
+<li class="ck"><input type="checkbox" id="ck-0" data-idx="0"><label for="ck-0">Every bank and card account reconciles to a zero difference for the month, and any uncleared item is explainable.</label></li>
+<li class="ck"><input type="checkbox" id="ck-1" data-idx="1"><label for="ck-1">Uncategorized accounts (Uncategorized Income, Uncategorized Expense, Ask My Accountant) are worked down to zero, or every remaining item is on the open-items list with a reason.</label></li>
+<li class="ck"><input type="checkbox" id="ck-2" data-idx="2"><label for="ck-2">Every transaction carries a memo sufficient for a reviewer to understand it without asking.</label></li>
+<li class="ck"><input type="checkbox" id="ck-3" data-idx="3"><label for="ck-3">Client-specific coding rules are applied (fund and class tags at churches, job or location tags, revenue sub-accounts, related-party handling per the dossier).</label></li>
+<li class="ck"><input type="checkbox" id="ck-4" data-idx="4"><label for="ck-4">Bank-feed items are matched, never added, so no duplicates poison downstream reports.</label></li>
+<li class="ck"><input type="checkbox" id="ck-5" data-idx="5"><label for="ck-5">No closed period was touched.</label></li>
+<li class="ck"><input type="checkbox" id="ck-6" data-idx="6"><label for="ck-6">The open-items list is current: what is missing, who owes it, what it blocks.</label></li>
+</ul>
+<p>The preparer marks the deliverable ready only when this list is honestly complete. Marking ready with known gaps buried is the one unrecoverable habit here; surface the gap instead.</p>
+<h3 id="level-2-qc-reviewer-sign-off-the-bd6-gate">Level 2: QC reviewer sign-off (the BD6 gate)</h3>
+<p>The QC reviewer runs an independent pass on the finished deliverable. This is not a re-do of the books; it is a targeted check of the places errors actually hide. The checklist below is the standard sign-off.</p>
+<p><strong>Bank reconciliations tie.</strong> Every bank and card account is reconciled to a zero difference for the month. Spot-check the reconciliation report against the statement ending balance. A non-zero or force-balanced reconciliation is an automatic return.</p>
+<p><strong>Uncategorized is zero.</strong> Confirm the Uncategorized and Ask My Accountant accounts carry no balance for the period, or that every remaining line is a flagged open item with a reason, never a silent parking lot.</p>
+<p><strong>P&amp;L sanity versus prior months.</strong> Compare the month's Profit and Loss against the prior two to three months. Revenue and major expense lines should move for explainable reasons. A line that swings hard with no known cause (a doubled expense, a revenue line that vanished, a new account with a large balance) is investigated before sign-off, not after the client asks.</p>
+<p><strong>Balance-sheet anomalies.</strong> Scan the Balance Sheet for the classic tells: negative asset or negative liability balances that should not be negative, an accounts-receivable or accounts-payable balance that looks wrong for the client, a suspense or clearing account that did not clear, undeposited funds carrying stale items, credit-card liability that does not match the reconciled statement.</p>
+<p><strong>Deliverable completeness.</strong> The delivery package is whole: financials read sensibly, the client's dashboard (where they have one) is live and reflects the locked-in-progress numbers, and the open-items list is plain and complete. Nothing in the package references an internal error, a broken link, or failure language.</p>
+<p>The reviewer signs off (deliverable ships at BD6) or returns it with specific, itemized corrections. A return names exactly what to fix; "looks off" is not a return. One-off misses go back to the preparer directly; a pattern across cycles goes to the Monday ops sync or to Ricky with specifics.</p>
+<h3 id="level-3-founder-sampling-by-exception">Level 3: founder sampling by exception</h3>
+<p>Ricky does not review every client every month. He reviews:</p>
+<ul>
+<li><strong>New clients, first two close cycles.</strong> Every deliverable for a client's first two months gets Ricky's eyes in addition to QC, so the firm confirms the client is being handled correctly before trusting the pyramid on them.</li>
+<li><strong>Flagged items only, after that.</strong> Once a client is past their first two cycles, Ricky sees only what the QC reviewer explicitly escalates: an unusual transaction pattern, a judgment call on scope-adjacent coding, a books-level red flag, or anything the reviewer wants a second opinion on.</li>
+</ul>
+<p>Everything else ships on the QC reviewer's sign-off. The point of the pyramid is that a mature client's clean close does not consume a founder review cycle.</p>
+<h3 id="when-a-review-fails">When a review fails</h3>
+<ul>
+<li>A returned deliverable goes back to the preparer with itemized corrections and re-enters QC when fixed. Protect BD6 by starting QC early enough that one return still lands on time.</li>
+<li>A deliverable that cannot reach QC sign-off by BD6 is held, not shipped. The client hears a calm, plain status before the date, never an error or an excuse. The hold is escalated the same day.</li>
+<li>A red flag found in review (possible personal spend, missing deposit, negative cash trend, anything fraud-shaped) escalates to Ricky immediately, independent of the delivery timeline.</li>
+</ul>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>No deliverable ships at BD6 without a named QC reviewer's sign-off. QC is the release condition, not a nice-to-have.</li>
+<li>The QC reviewer is independent of the preparer. The person who drafted the books never signs off on their own work as the Level 2 pass.</li>
+<li>Never sign off on a reconciliation that does not tie to a zero difference, or that was force-balanced.</li>
+<li>Never let failure language, a broken link, or an internal error reference reach a client. Hold and fix first.</li>
+<li>Ricky is a sampler, not a standing gate, once a client is past its first two cycles. Do not route a mature client's clean close to him for routine sign-off; that recreates the bottleneck this SOP exists to remove.</li>
+<li>A material incompleteness is escalated before BD6, never shipped quietly with fingers crossed.</li>
+<li>Never touch a closed period to make a review item tie. Post-lock discoveries are next-cycle adjustments.</li>
+</ul>
+<h2 id="escalation">Escalation</h2>
+<div class="tblscroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What the reviewer does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reconciliation will not tie</td>
+<td>Return to preparer with the specific account and difference; do not sign off</td>
+</tr>
+<tr>
+<td>P&amp;L or balance-sheet anomaly with no explanation</td>
+<td>Investigate; if it points to a books-level red flag, escalate to Ricky immediately</td>
+</tr>
+<tr>
+<td>Deliverable cannot reach sign-off by BD6</td>
+<td>Hold the send, escalate the same day, give the client a calm status before the date</td>
+</tr>
+<tr>
+<td>Judgment call touching scope, pricing, or advisory</td>
+<td>Ricky, always; never resolve it inside the review</td>
+</tr>
+<tr>
+<td>Repeated same-type miss from the preparer across cycles</td>
+<td>Raise the pattern at the Monday ops sync, or to Ricky with specifics if delivery is at risk</td>
+</tr>
+<tr>
+<td>Reviewer wants a second opinion on a specific item</td>
+<td>Escalate that item to Ricky for Level 3 sampling without holding the rest of the deliverable</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="related-sops">Related SOPs</h2>
+<ul>
+<li><a href="/team/cfo/bookkeeping-close/">Monthly Close</a></li>
+<li><a href="/team/cfo/escalation/">Escalation and Attention Rules</a></li>
+<li><a href="/team/cfo/communication/">Client Communication</a></li>
+<li><a href="/team/cfo/classifier-operations-sop/">Classifier Operations</a></li>
+<li><a href="/team/cfo-roles/bookkeeper-manual/">Bookkeeper Role Guide</a></li>
+<li><a href="/team/cfo-roles/account-manager-manual/">Account Manager Role Guide</a></li>
+<li><a href="/team/cfo-roles/role-charter-vanessa-beth/">Vanessa and Beth Role Charter</a></li>
+</ul>
+<h2 id="appendix-bd6-close-template-change-ricky-decision-not-yet-applied">Appendix: BD6 close-template change (RICKY DECISION, not yet applied)</h2>
+<p>The Level 2 QC gate needs a matching task in the live Close Command close template so the pyramid is enforced by the tool, not just by this SOP. This change is prepared but NOT applied, because the close template is a live team tool. Applying it is Ricky's decision.</p>
+<p><strong>Proposed change:</strong> add one task to the standard close template, positioned before the BD6 delivery task.</p>
+<ul>
+<li><strong>New task:</strong> "QC review (Vanessa)"</li>
+<li><strong>Owner:</strong> the client's assigned QC reviewer (Vanessa, or Beth for clients in her lane)</li>
+<li><strong>Due:</strong> BD6, before the existing delivery task</li>
+<li><strong>Gate semantics:</strong> delivery does not proceed until this task is checked complete</li>
+</ul>
+<p><strong>Where it lives:</strong> the <code>WORK</code> task template mirrored in <code>close-calendar/site/index.html</code> and <code>close-insights/tools/close_model.py</code> (the two files that must be edited together per the roster wiring). The current template is 11 tasks (Hardik 7, Eldine 3, Ricky 1 plus meetings); this adds a 12th, owned by the QC reviewer.</p>
+<p><strong>Why it is staged, not applied:</strong> editing the close template changes what every team member sees in the live close tool mid-cadence, and the two mirror files must be edited and deployed together with a verified live check. This SOP documents the intended change so it is ready to apply the moment Ricky approves; the actual edit is a separate, gated step and is not performed here.</p>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey">
+    <div class="t">Turnkey internal · not for client distribution<br>Last built 2026-07-18</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pk = document.body.getAttribute('data-page-key') || 'page';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][data-idx]'));
+  var prog = document.getElementById('prog');
+  var pfill = document.getElementById('pfill'), ptext = document.getElementById('ptext');
+  var mfill = document.getElementById('mfill'), csub = document.getElementById('csub'), cbadge = document.getElementById('cbadge');
+  function keyFor(b){ return 'tk-sop::' + pk + '::' + b.getAttribute('data-idx'); }
+  function update(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    if(prog){ prog.hidden = (boxes.length === 0); }
+    if(pfill) pfill.style.width = pct + '%';
+    if(ptext) ptext.textContent = done + ' / ' + boxes.length;
+    if(mfill) mfill.style.width = pct + '%';
+    if(csub) csub.textContent = done + ' of ' + boxes.length + ' steps complete. Progress saves in this browser.';
+    if(cbadge) cbadge.textContent = pct + '%';
+    boxes.forEach(function(b){ var li = b.closest('li'); if(li) li.classList.toggle('done', b.checked); });
+  }
+  boxes.forEach(function(b){
+    var v = localStorage.getItem(keyFor(b));
+    if(v === '1') b.checked = true; else if(v === '0') b.checked = false;
+    b.addEventListener('change', function(){
+      localStorage.setItem(keyFor(b), b.checked ? '1' : '0');
+      update();
+    });
+  });
+  update();
+  var lo = document.getElementById('logoutBtn');
+  if(lo){ lo.addEventListener('click', function(){
+    // Gated pages are encrypted at rest and unlocked in-browser; "Log out"
+    // clears the cached derived key and reloads to re-lock this page.
+    try { sessionStorage.removeItem('tk-team-key'); } catch(e){}
+    location.reload();
+  }); }
+})();
+</script>
+<!-- built 2026-07-18 -->
+</body>
+</html>
