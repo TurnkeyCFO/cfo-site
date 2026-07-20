@@ -808,6 +808,22 @@
       .stmt-card { padding: 20px 16px; }
     }
   </style>
+  <style id="demo-kpi-variety">
+    /* Demo-only override: give the four KPI cards distinct accents so they
+       don't all share the same top-right glow. Never edited in the shared
+       template — this lives only in the illustrative sample. */
+    .kpi-card::after{transition:none}
+    .kpi-card:nth-of-type(1)::after{background:radial-gradient(circle,rgba(54,213,140,.22),transparent 70%);right:-46px;top:-52px;left:auto;bottom:auto;width:150px;height:150px}
+    .kpi-card:nth-of-type(2)::after{background:radial-gradient(circle,rgba(23,86,123,.18),transparent 72%);left:-54px;bottom:-58px;right:auto;top:auto;width:168px;height:168px}
+    .kpi-card:nth-of-type(3)::after{background:radial-gradient(circle,rgba(103,230,168,.26),transparent 72%);left:-40px;top:-48px;right:auto;bottom:auto;width:132px;height:132px}
+    .kpi-card:nth-of-type(4)::after{background:radial-gradient(circle,rgba(242,169,59,.20),transparent 70%);right:-52px;bottom:-52px;left:auto;top:auto;width:156px;height:156px}
+    .kpi-card::before{content:"";position:absolute;left:0;top:0;height:3px;width:70%;
+      border-top-left-radius:var(--radius-xl);pointer-events:none;z-index:1}
+    .kpi-card:nth-of-type(1)::before{background:linear-gradient(90deg,#36d58c,transparent)}
+    .kpi-card:nth-of-type(2)::before{background:linear-gradient(90deg,#17567b,transparent)}
+    .kpi-card:nth-of-type(3)::before{background:linear-gradient(90deg,#67e6a8,transparent)}
+    .kpi-card:nth-of-type(4)::before{background:linear-gradient(90deg,#f2a93b,transparent)}
+  </style>
 </head>
 <body>
   <!-- The entire page is rendered from DATA. There is NOT a single hardcoded
