@@ -363,7 +363,7 @@ footer ul a:hover{color:var(--emerald)}
   .scue .bar{animation:none}
 }
 </style>
-<style id="tkw-video-rescue-css">video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-overlay-play-button{display:none!important;opacity:0!important}video::-webkit-media-controls,video::-webkit-media-controls-panel{display:none!important}</style>
+<style id="tkw-video-rescue-css" data-v="2">video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-overlay-play-button,video::-webkit-media-controls,video::-webkit-media-controls-panel{display:none!important;opacity:0!important;-webkit-appearance:none!important}video.tkw-vid-blocked{opacity:0!important;visibility:hidden!important}</style>
 </head>
 <body class="locked">
 
@@ -1240,23 +1240,50 @@ if('IntersectionObserver' in window){
 
 })();
 </script>
-<script id="tkw-video-rescue">
+<script id="tkw-video-rescue" data-v="2">
 (function(){
-  function kick(){
-    document.querySelectorAll('video').forEach(function(v){
-      if(v.hasAttribute('controls')) return;
-      v.muted=true; v.setAttribute('muted',''); v.playsInline=true; v.setAttribute('playsinline','');
-      if(v.paused){ var p=v.play(); if(p&&p.catch){ p.catch(function(){}); } }
-    });
+  function fallback(v){
+    if(!v.classList.contains('tkw-vid-blocked')){
+      v.classList.add('tkw-vid-blocked');
+      var host=v.parentElement,p=v.getAttribute('poster');
+      if(host&&p&&!host.getAttribute('data-tkw-poster')){
+        host.setAttribute('data-tkw-poster','1');
+        if(!/url\(/.test(host.style.backgroundImage||'')){
+          host.style.backgroundImage='url("'+p+'")';
+          host.style.backgroundSize='cover';
+          host.style.backgroundPosition='center';
+        }
+      }
+    }
   }
-  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',kick); } else { kick(); }
+  function kick(){
+    var pending=false;
+    document.querySelectorAll('video').forEach(function(v){
+      if(v.hasAttribute('controls'))return;
+      v.muted=true;v.defaultMuted=true;v.setAttribute('muted','');
+      v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');
+      v.autoplay=true;v.setAttribute('autoplay','');
+      if(v.paused){
+        pending=true;
+        try{
+          var p=v.play();
+          if(p&&p.then){p.then(function(){v.classList.remove('tkw-vid-blocked');})
+                         .catch(function(){fallback(v);});}
+        }catch(e){fallback(v);}
+      }else{v.classList.remove('tkw-vid-blocked');}
+    });
+    return pending;
+  }
+  var evs=['pointerdown','touchend','click','keydown','scroll'];
+  function onGesture(){ if(!kick()){ evs.forEach(function(e){window.removeEventListener(e,onGesture,true);}); } }
+  evs.forEach(function(e){window.addEventListener(e,onGesture,true);});
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',kick);}else{kick();}
   window.addEventListener('load',kick);
   window.addEventListener('pageshow',kick);
-  ['touchstart','touchend','click','scroll'].forEach(function(e){
-    window.addEventListener(e,kick,{once:true,passive:true});
-  });
-  document.addEventListener('visibilitychange',function(){ if(!document.hidden) kick(); });
-  var tries=0; var iv=setInterval(function(){ kick(); if(++tries>=5) clearInterval(iv); },2000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)kick();});
+  document.addEventListener('canplay',function(e){if(e.target&&e.target.tagName==='VIDEO')kick();},true);
+  document.addEventListener('loadeddata',function(e){if(e.target&&e.target.tagName==='VIDEO')kick();},true);
+  var tries=0;var iv=setInterval(function(){kick();if(++tries>=20)clearInterval(iv);},1500);
 })();
 </script>
 </body>
