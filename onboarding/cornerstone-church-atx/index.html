@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<!--
+  Turnkey CFO — Onboarding Checklist DRAFT template
+  ==================================================
+  Parameterized version of the Northpoint Church onboarding checklist. It is
+  rendered by `tools/render_checklist.py`, which substitutes the double-brace
+  tokens below. This produces an INTERNAL review draft (a local, self-contained
+  HTML file for Ricky) — NOT the live client-facing Worker+D1 app (that stays the
+  separate `onboarding-checklist-app` skill).
+
+  Substitution scheme (each token is a literal double-brace name, replaced as a
+  plain string by render_checklist.py):
+
+    Cornerstone Church ATX · Onboarding Checklist · Turnkey CFO    <title> text, e.g. "Northpoint Church · Onboarding Checklist · Turnkey CFO"
+    Turnkey CFO × Cornerstone Church ATX     small text brandmark shown in the sticky topbar, e.g. "Turnkey CFO × Northpoint"
+    <div class="masthead"><img class="mh-logo" src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO" /><span class="mh-x">&times;</span><img class="mh-logo mh-client" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAB7AQMAAACSD2wuAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAABONJREFUeNrNmjGy5CgMhk2xtSRT6w0n4xobTJUvNlX4aBzFR/BmBF4zLRBIYOzuN6VgHfTr58YfIH6EEJ6mdP01yV1WkOW8HCvuYigTgxhrjqcYa4lxFTNXjJsQSr1Yu5jpYzyklPpiRSmlAsuLmV7K+DqxgpBS4TqllArXKmZ6GeOrjBJRq0HWIaVUIeOj6UWMX1ACak1K3WXUmkzvnYjxs5NoXYVixrNfaG9ukWnUaqnDig2KxiKGFDknM9tcRmVL6Uatjho5s0HR+JWxTPpElsYR5MbXrJELu2+uLJ0+l1z1jMpamFoNU4hr7w9YobIKY2ZqtdRIxVU8oxkYS6WCLldXZmLfFlSI4S5kwJpSQSxd7inGyiWZn9yfWGfD8qUxG3dCK038vZUKZ0H3FN5vntqY/881LNwdjVhgdo21ZdP/wYVk2FR33B0tSH1ghRQX6sqamZ+NzHZDFsi0aCUTIC6sLHSOgfnvOr5nz3pV7Gc0SDYMinfjzjGQ6VBgN6yNseCRkJqz8XXpYE/5Wxb0D6djlkaKC03HCmS6SLobsHaLBcrcXME2G3faG7HOexaM4YIFsumz0TJLsX5ZvtypYjnOAp06xsK4kLG8yU9Z4DjUvWqm/1GXnsPhPwDAuBBZOvUkV5XGdubzwQ9YkbHQ2RPr9dNyIMu/qvIPLEcOCgBLbjx5OlBIwIIwKOsDa6HJDwAcNmLBorAj6/V5Xt1txyoC2EpcSKzXX4NKBs7PJ5ZtWAbHHW/lGaFJydM/LH7ce9ZMPb9jqYlYf9dd02+wVopbQrMDc+V/YhlS3ZVliaWaaNGCKi8szefrgDXdsRZy15x1fpm1DFnqmXUy1sZZwV5ZE60tjyzdsBywzhErcNa/jLXcs/YRy3Us7z5jzQPWUo2aWem3d6wIrDhibYx1vnT4CWsbsWzLgrjwLUvlLqxvWBAXfsLyI1ZnrzX50TcsiHxL9PswjvCjECut0G9Z0L8Rq9V9Wufe6h5YiuKXm/mYqvo5ntsNa3rPSkPz452fmDNrf/Rff6Yv3z5gkcO/86tM109+lYV4H7Pu/P0Nq107rixYh9ia9p2zjsf1ccjSnlg/eOj5JRau2zut2+6J1cUTFxbEE4HiiWw/x2PE2zjnwgppflKc4x9Z/92zdCrvIou/+LYhXmK5wGO5CysFdmvxTTPtnK6sPl5tWSVe9RSvHpy19qz9mcV2O6UtaszKMXm8YU0s7zTT8zesdt9xYbkry9PWKA8qZ3li7b2zGuyH1ltWu087uozBaJ9Wkya6OhPa664z7R/7dc42O5TCMmMW2J3tRX23ls9sj0xaN2UEriy2R966xLthdmmGYSXvWFmgLU15gFD9dpMHWMl2uJWcBiyoSFF+4uwSSqqZK0y2zNM2LJ7r6PITE/MHczXdmJXTHJHyOV3ehLskU7uLyzlOzsLKZnelnms+x5KrVLW7T6yFWH2eyXR5ItxKHgNWltZSPdQl/6XZ95qXcwV5Xlk4IUd5Oeg/X0rRnmHAylPR5jKjfGFNdGWDnXzZRdPYuh5BQ3BCDvOYiuVa7ReS8aP8qmTe9/+Qj5bMk0vm70XPFSTPOyTPYSTPhyTPrUTP0yTP+STPHyXPRUXPayXPkSXPtyXP3SXfBxB9T0Hy/QnJ9zok3zcRfQ9G8v0ckfeGfgEDjNot7j4KqwAAAABJRU5ErkJggg==" alt="Cornerstone Church ATX" /></div> dual-logo masthead HTML built by render_checklist.py:
+                      Turnkey CFO logo × the CLIENT's own researched logo (solo TK CFO
+                      logo when no client logo was found — never a broken image)
+    Turnkey CFO · New Client Onboarding       hero eyebrow, default "Turnkey CFO · New Client Onboarding"
+    Welcome aboard, Cornerstone Church ATX            hero headline, e.g. "Welcome aboard, Northpoint Church"
+    We are honored to serve Cornerstone Church ATX. This page lays out exactly what we need to get started, what we handle from here, and what the first weeks look like — so nothing falls through the cracks.          hero sub-paragraph (HTML allowed)
+    <b>One account for access:</b> wherever a login or invite is needed, please use <span class="pill">accounting@turnkeycfo.com</span> so everything stays in one secure place.  hero callout HTML (the "one account for access" box)
+    "cornerstone-church-atx-onboarding-progress.json"   download filename for the Export-progress button, e.g. "northpoint-onboarding-progress.json"
+
+    -- brand palette (hex, no leading #) --
+    1A1A1A 000000 ececec   primary accent (clay in Northpoint)
+    22323F 16232E                     headings / section numbers
+    5E8A6E e9f0ec                   "done"/turnkey-owned
+    C98A3C f6ecd9                    date chips / external-owned highlight
+    FBF7F1                                     page background
+
+    -- JS data (already JSON-encoded strings) --
+    "cornerstone-church-atx-onboarding-v1"   localStorage key, e.g. "northpoint-onboarding-v1"
+    [{"label": "Engagement", "value": "Monthly Bookkeeping, Payroll Reconciliation & 1099 Tracking"}, {"label": "One-Time Cleanup", "value": "Jan 1 – Jun 30, 2026 books · $2,500"}, {"label": "Monthly Fee", "value": "$2,000 / month"}, {"label": "Effective Date", "value": "July 23, 2026"}, {"label": "Primary Contact", "value": "Dan Underhill, Lead Pastor"}]     array of {label, value} for the hero meta-row
+    [{"n": "1", "title": "Where we already are", "sub": "Signed and moving — here is the current status.", "numBg": "var(--green)", "blocks": [{"type": "chips", "items": [{"tone": "gold", "label": "CLEANUP BEGINS", "strong": "On access below"}, {"tone": "gold", "label": "MONTHLY BOOKKEEPING", "strong": "From July 2026"}]}, {"type": "checklist", "items": [{"id": "s1-el", "t": "Engagement letter signed", "d": "Terms agreed July 23, 2026 — $2,500 one-time cleanup (Jan 1 – Jun 30, 2026) plus $2,000/month ongoing.", "preset": true}, {"id": "s1-qbo", "t": "QuickBooks Online — access granted", "d": "Access confirmed the week of July 14 — thank you. We are already inside the books.", "preset": true}]}, {"type": "callout", "html": "<b>The cleanup starts the moment the access items in Section 2 are in.</b> The largest task is resolving the 133 Ask-My-Accountant entries ($77,777) — a few of those will need quick answers from your team, and we will batch questions so it never becomes a burden.", "tone": "green"}]}, {"n": "2", "title": "System access we still need", "sub": "Please use accounting@turnkeycfo.com for every invite.", "blocks": [{"type": "checklist", "items": [{"id": "s2-gusto", "t": "Gusto payroll — admin or accountant access", "d": "To reconcile each payroll run (wages, health, retirement, employer taxes) into QuickBooks."}, {"id": "s2-expensify", "t": "Expensify access (or monthly export reports)", "d": "To confirm and reconcile the Chase CC 1826 card activity that flows through Expensify."}, {"id": "s2-bank", "t": "Bank view-only access — Chase Checking 5220, Chase Savings, AMEX 82006, Chase CC 1826", "d": "View-only online banking access so we can pull statements ourselves each month."}, {"id": "s2-ej", "t": "Edward Jones Money Market — statement access", "d": "The account has never been reconciled in QuickBooks. Statements from account opening through June 30, 2026, or advisor contact info."}, {"id": "s2-giving", "t": "Giving platform — view-only access", "d": "[confirm giving platform] — donor-level giving detail lives outside QuickBooks and we need read access for reconciliation and fund tracking."}, {"id": "s2-confirm", "t": "Confirm nothing is missing", "d": "If money moves through any system not listed here, tell us and we will add it."}]}]}, {"n": "3", "title": "Documents for the cleanup", "sub": "These unlock the Jan 1 – Jun 30, 2026 cleanup tasks.", "blocks": [{"type": "checklist", "items": [{"id": "s3-stmts", "t": "Bank statements Jan – Jun 2026", "d": "Chase Checking 5220, Chase Savings, AMEX 82006, and Chase CC 1826 (skip any we can pull once view-only access is granted)."}, {"id": "s3-ejstmts", "t": "Edward Jones statements — opening through Jun 30, 2026", "d": "Needed to set up and reconcile the $817K money market account for the first time."}, {"id": "s3-lcra", "t": "LCRA loan documentation", "d": "Original loan agreement, amortization schedule, and payment history so principal and interest post correctly each month."}, {"id": "s3-cd", "t": "Certificate of Deposit documentation", "d": "Bank or lender paperwork confirming the CD balance and any loan against it — QuickBooks currently shows -$264,640, which we need to correct to the true position."}, {"id": "s3-w9", "t": "W-9s for musicians and security contractors", "d": "Or confirmation of which are already on file — for 1099-NEC tracking across all campuses."}, {"id": "s3-questions", "t": "Answers to our clarification questions", "d": "The proposal lists 14 items (First Fruits designation, Inventory Asset, the Truck account, 30for30, Overseer, and others). We will walk these with you on the kickoff call — no homework needed beforehand."}]}, {"type": "note", "html": "Anything with sensitive detail (W-9s, statements) should go through a secure share we will set up — please do not email attachments."}]}, {"n": "4", "title": "Church specifics", "sub": "Fund accounting and clergy items we want to get right from day one.", "blocks": [{"type": "checklist", "items": [{"id": "s4-funds", "t": "Restricted fund list and rules", "d": "Building Fund, First Fruits Offering, 1231 Ministries, 250 Fund, and any others — which are restricted, and how leadership wants them reported."}, {"id": "s4-housing", "t": "Housing allowance designations", "d": "[confirm applicability] Board-designated housing allowance documentation for pastoral staff, if applicable."}, {"id": "s4-campus", "t": "Campus reporting structure", "d": "Confirm how ATX Main, Spicewood, and Fitzhugh should be segmented in monthly reporting, and who reviews each campus summary."}, {"id": "s4-retirement", "t": "Retirement plan details", "d": "Plan type ([confirm 403(b) or other]) and administrator, so the ~$48K of contributions reconcile cleanly against payroll."}]}]}, {"n": "5", "title": "What we handle from here", "sub": "No action needed — this is us.", "numBg": "var(--green)", "blocks": [{"type": "subhead", "html": "Already in motion <span class=\"accent\">— Turnkey CFO</span>"}, {"type": "arrows", "items": ["<b>Cleanup, Jan 1 – Jun 30, 2026:</b> resolve all 133 Ask-My-Accountant entries, categorize the full period, clear the uncategorized backlog on Chase Checking and AMEX, first-time setup and reconciliation of Chase Savings, Edward Jones, and In-Kind Clearing, correct the CD accounting, build the LCRA amortization schedule, and investigate Opening Balance Equity and the Inventory Asset.", "<b>Then every month:</b> reconcile all six accounts, categorize ~1,026 transactions, reconcile each Gusto payroll run and the Expensify card, track restricted funds and in-kind giving, keep the 1099 running log for musicians and security, and deliver campus-level P&L and Balance Sheet reporting by the 15th of the following month."]}, {"type": "timeline", "items": [{"html": "<b>Now:</b> access + documents above come in; cleanup work begins immediately."}, {"html": "<b>Kickoff call:</b> we walk the clarification questions together and agree the monthly rhythm."}, {"html": "<b>Cleanup complete:</b> clean Jan–Jun 2026 financial statements delivered.", "green": true}, {"html": "<b>Monthly rhythm:</b> reports in your hands by the 15th of each month.", "green": true}]}]}, {"n": "6", "title": "Who does what on your side", "sub": "A name and email for each — first names are fine.", "blocks": [{"type": "roles"}]}] array of section specs (see render_checklist.py docstring)
+    [{"id": "r-contact", "t": "Primary day-to-day contact", "d": "Who we go to with bookkeeping questions and the monthly Ask-My-Accountant items."}, {"id": "r-reports", "t": "Receives monthly financial reports", "d": "P&L, Balance Sheet, and campus expense summaries each month."}, {"id": "r-payroll", "t": "Runs and approves payroll in Gusto", "d": "Payroll stays in your hands — we reconcile each run in QuickBooks."}, {"id": "r-giving", "t": "Giving / donor records owner", "d": "Who manages the giving platform and donor acknowledgments."}, {"id": "r-sensitive", "t": "Authorized for sensitive financial information", "d": "Who may discuss pay, contractor, and donor detail with us."}]    array of {id, t, d} for the roles inputs
+
+  No backend, no server calls: all state (checks, role names, notes) lives in
+  localStorage. Self-contained; safe to open with a double-click.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#FBF7F1" />
+<title>Cornerstone Church ATX · Onboarding Checklist · Turnkey CFO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#22323F;
+    --navy-deep:#16232E;
+    --clay:#1A1A1A;
+    --clay-d:#000000;
+    --clay-soft:#ececec;
+    --green:#5E8A6E;
+    --green-soft:#e9f0ec;
+    --gold:#C98A3C;
+    --amber-soft:#f6ecd9;
+    --ink:#22323F;
+    --muted:#566570;
+    --line:#ECE4D7;
+    --bg:#FBF7F1;
+    --card:#ffffff;
+    --shadow:0 1px 3px rgba(34,50,63,.06),0 8px 28px rgba(34,50,63,.07);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px 80px;}
+
+  /* ---- top bar ---- */
+  .topbar{
+    position:sticky;top:0;z-index:50;background:rgba(251,247,241,.92);
+    backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{max-width:880px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px;}
+  .brandmark{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--navy);}
+  .brandmark .dot{width:9px;height:9px;border-radius:50%;background:var(--clay);flex:none;}
+  .progress-wrap{margin-left:auto;display:flex;align-items:center;gap:10px;min-width:160px;}
+  .progress-track{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden;min-width:90px;}
+  .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--clay),var(--gold));border-radius:99px;transition:width .35s ease;}
+  .progress-label{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;}
+
+  /* ---- hero ---- */
+  header.hero{padding:38px 0 8px;}
+  /* dual masthead: Turnkey CFO logo (guide) × client logo */
+  .masthead{display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+  .masthead .mh-logo{height:38px;width:auto;display:block;}
+  .masthead .mh-x{color:var(--muted);font-size:22px;font-weight:400;line-height:1;opacity:.6;}
+  .masthead .mh-client{max-height:48px;max-width:190px;width:auto;object-fit:contain;}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);margin-bottom:10px;}
+  h1{font-size:clamp(28px,5vw,40px);line-height:1.1;margin:0 0 14px;color:var(--navy);font-weight:800;letter-spacing:-.02em;}
+  .lede{font-size:17px;color:var(--muted);max-width:680px;margin:0 0 20px;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14.5px;padding:14px 0;border-top:2px solid var(--clay);}
+  .meta-row b{color:var(--navy);}
+  .callout{
+    background:var(--clay-soft);border-left:4px solid var(--clay);border-radius:10px;
+    padding:16px 18px;margin:18px 0 6px;font-size:14.5px;color:#3a2b27;
+  }
+  .pill{display:inline-block;background:var(--navy);color:#fff;padding:2px 9px;border-radius:6px;font-weight:600;font-size:13.5px;white-space:nowrap;}
+
+  /* ---- section ---- */
+  section.block{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:24px 26px;margin:18px 0;}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
+  .sec-num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;}
+  .sec-title{font-size:19px;font-weight:700;color:var(--navy);margin:0;}
+  .sec-sub{font-size:14px;color:var(--muted);font-style:italic;margin:4px 0 16px;padding-left:42px;}
+  .body-note{font-size:14.5px;color:#3a4a57;margin:0 0 16px;}
+  .body-note b{color:var(--navy);}
+
+  .subhead{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin:18px 0 8px;}
+  .subhead .accent{color:var(--clay);}
+
+  /* arrow lines (turnkey-handled) */
+  .arrow-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px;}
+  .arrow-item:last-child{border-bottom:none;}
+  .arrow-item .ar{color:var(--clay);font-weight:800;flex:none;}
+  .arrow-item b{color:var(--navy);}
+
+  /* check items */
+  .check-list{margin:6px 0 0;}
+  .check-item{display:flex;gap:13px;padding:13px 0;border-bottom:1px solid var(--line);cursor:pointer;align-items:flex-start;}
+  .check-item:last-child{border-bottom:none;}
+  .box{
+    flex:none;width:22px;height:22px;border:2px solid var(--clay);border-radius:6px;margin-top:1px;
+    display:grid;place-items:center;transition:all .15s ease;background:#fff;
+  }
+  .box svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:all .15s ease;}
+  .check-item.done .box{background:var(--green);border-color:var(--green);}
+  .check-item.done .box svg{opacity:1;transform:scale(1);}
+  .check-item.done .ci-title{color:var(--muted);}
+  .ci-text{flex:1;}
+  .ci-title{font-size:15px;font-weight:700;color:var(--ink);}
+  .ci-desc{font-size:13.5px;color:var(--muted);margin-top:3px;}
+  .badge-done{display:inline-block;background:var(--green-soft);color:var(--green);font-size:10.5px;font-weight:800;letter-spacing:.05em;padding:2px 7px;border-radius:5px;vertical-align:middle;margin-left:6px;}
+  .preset-done .box{background:var(--green);border-color:var(--green);cursor:default;}
+  .preset-done .box svg{opacity:1;transform:scale(1);}
+
+  a{color:var(--clay);font-weight:600;word-break:break-word;}
+
+  /* date chips */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 18px;}
+  .chip{display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:9px;font-size:13px;font-weight:600;color:#fff;}
+  .chip.navy{background:var(--navy);}
+  .chip.green{background:var(--green);}
+  .chip.gold{background:var(--gold);}
+  .chip b{font-weight:800;font-size:14px;}
+
+  /* timeline / schedule table */
+  .tbl{width:100%;border-collapse:collapse;margin:8px 0 6px;font-size:13.5px;overflow:hidden;border-radius:10px;}
+  .tbl thead th{background:var(--navy-deep);color:#fff;text-align:left;padding:11px 12px;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;}
+  .tbl td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .tbl tbody tr:last-child td{border-bottom:none;}
+  .tbl td:first-child{font-weight:700;color:var(--navy);white-space:nowrap;}
+  .tbl .own{font-weight:700;}
+  .tbl .own.el{color:var(--clay);}
+  .tbl .own.tk{color:var(--navy);}
+  .tbl tr.hl-amber td{background:var(--amber-soft);}
+  .tbl tr.hl-green td{background:var(--green-soft);}
+  .tbl tr.hl-green td:first-child{color:var(--green);}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  /* roles table (inputs) */
+  .role{display:grid;grid-template-columns:1fr 230px;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);}
+  .role:last-child{border-bottom:none;}
+  .role .r-title{font-size:15px;font-weight:700;color:var(--ink);}
+  .role .r-desc{font-size:13px;color:var(--muted);margin-top:2px;}
+  .role input{
+    width:100%;border:none;border-bottom:2px solid var(--clay);background:transparent;
+    font-family:inherit;font-size:15px;padding:6px 2px;color:var(--navy);font-weight:600;
+  }
+  .role input:focus{outline:none;border-bottom-color:var(--green);}
+  .role input::placeholder{color:#c2b6a4;font-weight:400;}
+
+  .bullets{margin:0 0 14px;padding-left:4px;list-style:none;}
+  .bullets li{position:relative;padding:5px 0 5px 22px;font-size:14.5px;color:#3a4a57;}
+  .bullets li::before{content:"";position:absolute;left:2px;top:13px;width:8px;height:8px;border-radius:50%;background:var(--clay);}
+  .bullets li b{color:var(--navy);}
+
+  /* timeline dots list */
+  .tl{list-style:none;margin:6px 0 0;padding:0;}
+  .tl li{position:relative;padding:8px 0 8px 28px;font-size:14.5px;border-bottom:1px solid var(--line);}
+  .tl li:last-child{border-bottom:none;}
+  .tl li::before{content:"";position:absolute;left:4px;top:14px;width:11px;height:11px;border-radius:50%;background:var(--clay);box-shadow:0 0 0 3px var(--clay-soft);}
+  .tl li b{color:var(--navy);}
+  .tl li.g::before{background:var(--green);box-shadow:0 0 0 3px var(--green-soft);}
+
+  /* notes */
+  .notes-add{display:flex;gap:10px;margin:6px 0 18px;flex-wrap:wrap;}
+  .notes-add textarea{
+    flex:1;min-width:220px;min-height:72px;resize:vertical;border:1.5px solid var(--line);border-radius:10px;
+    padding:11px 13px;font-family:inherit;font-size:14.5px;color:var(--ink);line-height:1.5;
+  }
+  .notes-add textarea:focus{outline:none;border-color:var(--clay);}
+  .btn{
+    border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;border-radius:10px;
+    padding:11px 20px;background:var(--navy);color:#fff;transition:background .15s ease;align-self:flex-start;
+  }
+  .btn:hover{background:var(--clay);}
+  .btn.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--line);padding:8px 14px;font-size:13px;}
+  .btn.ghost:hover{background:#fff;color:var(--navy);border-color:var(--clay);}
+  .note-card{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:13px 15px;margin-bottom:10px;}
+  .note-card .nc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:10px;}
+  .note-card .nc-time{font-size:12px;color:var(--muted);font-weight:600;}
+  .note-card .nc-del{background:none;border:none;color:#c4ccd4;cursor:pointer;font-size:17px;line-height:1;padding:0 2px;}
+  .note-card .nc-del:hover{color:var(--clay);}
+  .note-card .nc-body{font-size:14.5px;white-space:pre-wrap;color:var(--ink);}
+  .notes-empty{font-size:14px;color:var(--muted);font-style:italic;padding:6px 0;}
+
+  /* footer / utility */
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:26px 0 6px;}
+  .save-flash{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:600;opacity:0;transition:all .3s ease;pointer-events:none;z-index:99;}
+  .save-flash.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .fineprint{text-align:center;font-size:12.5px;color:#a99c89;margin-top:18px;line-height:1.6;}
+
+  @media (max-width:620px){
+    section.block{padding:20px 16px;border-radius:13px;}
+    .role{grid-template-columns:1fr;gap:6px;}
+    .role input{max-width:320px;}
+    .sec-sub{padding-left:0;}
+    .progress-wrap{min-width:120px;}
+  }
+  @media print{
+    .topbar,.toolbar,.notes-add,.nc-del{display:none!important;}
+    body{background:#fff;}
+    section.block{box-shadow:none;break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brandmark"><span class="dot"></span>Turnkey CFO × Cornerstone Church ATX</div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="pfill"></div></div>
+      <span class="progress-label" id="plabel">0 / 0</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="masthead"><img class="mh-logo" src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO" /><span class="mh-x">&times;</span><img class="mh-logo mh-client" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAB7AQMAAACSD2wuAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAABONJREFUeNrNmjGy5CgMhk2xtSRT6w0n4xobTJUvNlX4aBzFR/BmBF4zLRBIYOzuN6VgHfTr58YfIH6EEJ6mdP01yV1WkOW8HCvuYigTgxhrjqcYa4lxFTNXjJsQSr1Yu5jpYzyklPpiRSmlAsuLmV7K+DqxgpBS4TqllArXKmZ6GeOrjBJRq0HWIaVUIeOj6UWMX1ACak1K3WXUmkzvnYjxs5NoXYVixrNfaG9ukWnUaqnDig2KxiKGFDknM9tcRmVL6Uatjho5s0HR+JWxTPpElsYR5MbXrJELu2+uLJ0+l1z1jMpamFoNU4hr7w9YobIKY2ZqtdRIxVU8oxkYS6WCLldXZmLfFlSI4S5kwJpSQSxd7inGyiWZn9yfWGfD8qUxG3dCK038vZUKZ0H3FN5vntqY/881LNwdjVhgdo21ZdP/wYVk2FR33B0tSH1ghRQX6sqamZ+NzHZDFsi0aCUTIC6sLHSOgfnvOr5nz3pV7Gc0SDYMinfjzjGQ6VBgN6yNseCRkJqz8XXpYE/5Wxb0D6djlkaKC03HCmS6SLobsHaLBcrcXME2G3faG7HOexaM4YIFsumz0TJLsX5ZvtypYjnOAp06xsK4kLG8yU9Z4DjUvWqm/1GXnsPhPwDAuBBZOvUkV5XGdubzwQ9YkbHQ2RPr9dNyIMu/qvIPLEcOCgBLbjx5OlBIwIIwKOsDa6HJDwAcNmLBorAj6/V5Xt1txyoC2EpcSKzXX4NKBs7PJ5ZtWAbHHW/lGaFJydM/LH7ce9ZMPb9jqYlYf9dd02+wVopbQrMDc+V/YhlS3ZVliaWaaNGCKi8szefrgDXdsRZy15x1fpm1DFnqmXUy1sZZwV5ZE60tjyzdsBywzhErcNa/jLXcs/YRy3Us7z5jzQPWUo2aWem3d6wIrDhibYx1vnT4CWsbsWzLgrjwLUvlLqxvWBAXfsLyI1ZnrzX50TcsiHxL9PswjvCjECut0G9Z0L8Rq9V9Wufe6h5YiuKXm/mYqvo5ntsNa3rPSkPz452fmDNrf/Rff6Yv3z5gkcO/86tM109+lYV4H7Pu/P0Nq107rixYh9ia9p2zjsf1ccjSnlg/eOj5JRau2zut2+6J1cUTFxbEE4HiiWw/x2PE2zjnwgppflKc4x9Z/92zdCrvIou/+LYhXmK5wGO5CysFdmvxTTPtnK6sPl5tWSVe9RSvHpy19qz9mcV2O6UtaszKMXm8YU0s7zTT8zesdt9xYbkry9PWKA8qZ3li7b2zGuyH1ltWu087uozBaJ9Wkya6OhPa664z7R/7dc42O5TCMmMW2J3tRX23ls9sj0xaN2UEriy2R966xLthdmmGYSXvWFmgLU15gFD9dpMHWMl2uJWcBiyoSFF+4uwSSqqZK0y2zNM2LJ7r6PITE/MHczXdmJXTHJHyOV3ehLskU7uLyzlOzsLKZnelnms+x5KrVLW7T6yFWH2eyXR5ItxKHgNWltZSPdQl/6XZ95qXcwV5Xlk4IUd5Oeg/X0rRnmHAylPR5jKjfGFNdGWDnXzZRdPYuh5BQ3BCDvOYiuVa7ReS8aP8qmTe9/+Qj5bMk0vm70XPFSTPOyTPYSTPhyTPrUTP0yTP+STPHyXPRUXPayXPkSXPtyXP3SXfBxB9T0Hy/QnJ9zok3zcRfQ9G8v0ckfeGfgEDjNot7j4KqwAAAABJRU5ErkJggg==" alt="Cornerstone Church ATX" /></div>
+    <div class="eyebrow">Turnkey CFO · New Client Onboarding</div>
+    <h1>Welcome aboard, Cornerstone Church ATX</h1>
+    <p class="lede">We are honored to serve Cornerstone Church ATX. This page lays out exactly what we need to get started, what we handle from here, and what the first weeks look like — so nothing falls through the cracks.</p>
+    <div class="meta-row" id="meta-row"></div>
+    <div class="callout"><b>One account for access:</b> wherever a login or invite is needed, please use <span class="pill">accounting@turnkeycfo.com</span> so everything stays in one secure place.</div>
+  </header>
+
+  <!-- sections rendered from SECTIONS_JSON -->
+  <div id="sections"></div>
+
+  <!-- NOTES -->
+  <section class="block" id="notes-block">
+    <div class="sec-head"><div class="sec-num" style="background:var(--green);">&#9998;</div><h2 class="sec-title">My notes</h2></div>
+    <p class="sec-sub">Your private working notes for this onboarding. Saved on this device automatically, and they stay put when you leave.</p>
+    <div class="notes-add">
+      <textarea id="note-input" placeholder="Type a note, then click Add note."></textarea>
+    </div>
+    <div style="margin:-10px 0 18px;"><button class="btn" id="note-add-btn">Add note</button></div>
+    <div id="notes-list"></div>
+  </section>
+
+  <div class="toolbar">
+    <button class="btn ghost" onclick="window.print()">Print / Save PDF</button>
+    <button class="btn ghost" id="export-btn">Export progress (.json)</button>
+    <button class="btn ghost" id="reset-btn">Reset all</button>
+  </div>
+  <p class="fineprint">
+    Progress, role names, and notes are saved automatically in this browser on this device.<br>
+    They persist after you close the tab. Clearing this browser's site data will erase them.
+  </p>
+
+</div>
+
+<div class="save-flash" id="flash">Saved</div>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = "cornerstone-church-atx-onboarding-v1";
+  var EXPORT_NAME = "cornerstone-church-atx-onboarding-progress.json";
+
+  // ---- content (injected by render_checklist.py) ----
+  var META = [{"label": "Engagement", "value": "Monthly Bookkeeping, Payroll Reconciliation & 1099 Tracking"}, {"label": "One-Time Cleanup", "value": "Jan 1 – Jun 30, 2026 books · $2,500"}, {"label": "Monthly Fee", "value": "$2,000 / month"}, {"label": "Effective Date", "value": "July 23, 2026"}, {"label": "Primary Contact", "value": "Dan Underhill, Lead Pastor"}];
+  var SECTIONS = [{"n": "1", "title": "Where we already are", "sub": "Signed and moving — here is the current status.", "numBg": "var(--green)", "blocks": [{"type": "chips", "items": [{"tone": "gold", "label": "CLEANUP BEGINS", "strong": "On access below"}, {"tone": "gold", "label": "MONTHLY BOOKKEEPING", "strong": "From July 2026"}]}, {"type": "checklist", "items": [{"id": "s1-el", "t": "Engagement letter signed", "d": "Terms agreed July 23, 2026 — $2,500 one-time cleanup (Jan 1 – Jun 30, 2026) plus $2,000/month ongoing.", "preset": true}, {"id": "s1-qbo", "t": "QuickBooks Online — access granted", "d": "Access confirmed the week of July 14 — thank you. We are already inside the books.", "preset": true}]}, {"type": "callout", "html": "<b>The cleanup starts the moment the access items in Section 2 are in.</b> The largest task is resolving the 133 Ask-My-Accountant entries ($77,777) — a few of those will need quick answers from your team, and we will batch questions so it never becomes a burden.", "tone": "green"}]}, {"n": "2", "title": "System access we still need", "sub": "Please use accounting@turnkeycfo.com for every invite.", "blocks": [{"type": "checklist", "items": [{"id": "s2-gusto", "t": "Gusto payroll — admin or accountant access", "d": "To reconcile each payroll run (wages, health, retirement, employer taxes) into QuickBooks."}, {"id": "s2-expensify", "t": "Expensify access (or monthly export reports)", "d": "To confirm and reconcile the Chase CC 1826 card activity that flows through Expensify."}, {"id": "s2-bank", "t": "Bank view-only access — Chase Checking 5220, Chase Savings, AMEX 82006, Chase CC 1826", "d": "View-only online banking access so we can pull statements ourselves each month."}, {"id": "s2-ej", "t": "Edward Jones Money Market — statement access", "d": "The account has never been reconciled in QuickBooks. Statements from account opening through June 30, 2026, or advisor contact info."}, {"id": "s2-giving", "t": "Giving platform — view-only access", "d": "[confirm giving platform] — donor-level giving detail lives outside QuickBooks and we need read access for reconciliation and fund tracking."}, {"id": "s2-confirm", "t": "Confirm nothing is missing", "d": "If money moves through any system not listed here, tell us and we will add it."}]}]}, {"n": "3", "title": "Documents for the cleanup", "sub": "These unlock the Jan 1 – Jun 30, 2026 cleanup tasks.", "blocks": [{"type": "checklist", "items": [{"id": "s3-stmts", "t": "Bank statements Jan – Jun 2026", "d": "Chase Checking 5220, Chase Savings, AMEX 82006, and Chase CC 1826 (skip any we can pull once view-only access is granted)."}, {"id": "s3-ejstmts", "t": "Edward Jones statements — opening through Jun 30, 2026", "d": "Needed to set up and reconcile the $817K money market account for the first time."}, {"id": "s3-lcra", "t": "LCRA loan documentation", "d": "Original loan agreement, amortization schedule, and payment history so principal and interest post correctly each month."}, {"id": "s3-cd", "t": "Certificate of Deposit documentation", "d": "Bank or lender paperwork confirming the CD balance and any loan against it — QuickBooks currently shows -$264,640, which we need to correct to the true position."}, {"id": "s3-w9", "t": "W-9s for musicians and security contractors", "d": "Or confirmation of which are already on file — for 1099-NEC tracking across all campuses."}, {"id": "s3-questions", "t": "Answers to our clarification questions", "d": "The proposal lists 14 items (First Fruits designation, Inventory Asset, the Truck account, 30for30, Overseer, and others). We will walk these with you on the kickoff call — no homework needed beforehand."}]}, {"type": "note", "html": "Anything with sensitive detail (W-9s, statements) should go through a secure share we will set up — please do not email attachments."}]}, {"n": "4", "title": "Church specifics", "sub": "Fund accounting and clergy items we want to get right from day one.", "blocks": [{"type": "checklist", "items": [{"id": "s4-funds", "t": "Restricted fund list and rules", "d": "Building Fund, First Fruits Offering, 1231 Ministries, 250 Fund, and any others — which are restricted, and how leadership wants them reported."}, {"id": "s4-housing", "t": "Housing allowance designations", "d": "[confirm applicability] Board-designated housing allowance documentation for pastoral staff, if applicable."}, {"id": "s4-campus", "t": "Campus reporting structure", "d": "Confirm how ATX Main, Spicewood, and Fitzhugh should be segmented in monthly reporting, and who reviews each campus summary."}, {"id": "s4-retirement", "t": "Retirement plan details", "d": "Plan type ([confirm 403(b) or other]) and administrator, so the ~$48K of contributions reconcile cleanly against payroll."}]}]}, {"n": "5", "title": "What we handle from here", "sub": "No action needed — this is us.", "numBg": "var(--green)", "blocks": [{"type": "subhead", "html": "Already in motion <span class=\"accent\">— Turnkey CFO</span>"}, {"type": "arrows", "items": ["<b>Cleanup, Jan 1 – Jun 30, 2026:</b> resolve all 133 Ask-My-Accountant entries, categorize the full period, clear the uncategorized backlog on Chase Checking and AMEX, first-time setup and reconciliation of Chase Savings, Edward Jones, and In-Kind Clearing, correct the CD accounting, build the LCRA amortization schedule, and investigate Opening Balance Equity and the Inventory Asset.", "<b>Then every month:</b> reconcile all six accounts, categorize ~1,026 transactions, reconcile each Gusto payroll run and the Expensify card, track restricted funds and in-kind giving, keep the 1099 running log for musicians and security, and deliver campus-level P&L and Balance Sheet reporting by the 15th of the following month."]}, {"type": "timeline", "items": [{"html": "<b>Now:</b> access + documents above come in; cleanup work begins immediately."}, {"html": "<b>Kickoff call:</b> we walk the clarification questions together and agree the monthly rhythm."}, {"html": "<b>Cleanup complete:</b> clean Jan–Jun 2026 financial statements delivered.", "green": true}, {"html": "<b>Monthly rhythm:</b> reports in your hands by the 15th of each month.", "green": true}]}]}, {"n": "6", "title": "Who does what on your side", "sub": "A name and email for each — first names are fine.", "blocks": [{"type": "roles"}]}];
+  var ROLES = [{"id": "r-contact", "t": "Primary day-to-day contact", "d": "Who we go to with bookkeeping questions and the monthly Ask-My-Accountant items."}, {"id": "r-reports", "t": "Receives monthly financial reports", "d": "P&L, Balance Sheet, and campus expense summaries each month."}, {"id": "r-payroll", "t": "Runs and approves payroll in Gusto", "d": "Payroll stays in your hands — we reconcile each run in QuickBooks."}, {"id": "r-giving", "t": "Giving / donor records owner", "d": "Who manages the giving platform and donor acknowledgments."}, {"id": "r-sensitive", "t": "Authorized for sensitive financial information", "d": "Who may discuss pay, contractor, and donor detail with us."}];
+
+  // ---- state ----
+  var state = load();
+  function load(){
+    try{ var s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object") return s; }catch(e){}
+    return {checks:{}, roles:{}, notes:[]};
+  }
+  function save(){
+    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+    flash();
+  }
+  var flashT;
+  function flash(){
+    var f=document.getElementById("flash"); f.classList.add("show");
+    clearTimeout(flashT); flashT=setTimeout(function(){f.classList.remove("show");},1100);
+  }
+
+  var SVG_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 5"></polyline></svg>';
+
+  // ---- hero meta row ----
+  (function(){
+    var mr = document.getElementById("meta-row");
+    (META||[]).forEach(function(m){
+      var s=document.createElement("span");
+      s.innerHTML = '<b>'+m.label+':</b> '+m.value;
+      mr.appendChild(s);
+    });
+  })();
+
+  // ---- checkbox factory (shared by all checklist blocks) ----
+  function buildCheckItem(item){
+    var preset = !!item.preset;
+    var done = preset ? true : !!state.checks[item.id];
+    var el = document.createElement("div");
+    el.className = "check-item" + (done?" done":"") + (preset?" preset-done":"");
+    el.setAttribute("data-id", item.id);
+    var badge = item.badge ? '<span class="badge-done">'+item.badge+'</span>' : '';
+    var desc = item.d ? '<div class="ci-desc">'+item.d+'</div>' : '';
+    el.innerHTML =
+      '<div class="box">'+SVG_CHECK+'</div>'+
+      '<div class="ci-text"><div class="ci-title">'+item.t+badge+'</div>'+desc+'</div>';
+    if(!preset){
+      el.addEventListener("click", function(){
+        var on = !state.checks[item.id];
+        if(on) state.checks[item.id]=true; else delete state.checks[item.id];
+        el.classList.toggle("done", on);
+        save(); updateProgress();
+      });
+    }
+    return el;
+  }
+
+  // ---- block renderers ----
+  function el(tag, cls, html){
+    var e=document.createElement(tag);
+    if(cls) e.className=cls;
+    if(html!=null) e.innerHTML=html;
+    return e;
+  }
+
+  function renderBlock(b, host){
+    switch(b.type){
+      case "note":
+        host.appendChild(el("p","body-note", b.html)); break;
+      case "callout":
+        var c=el("div","callout", b.html);
+        if(b.tone==="green") c.setAttribute("style","background:var(--green-soft);border-left-color:var(--green);");
+        host.appendChild(c); break;
+      case "subhead":
+        host.appendChild(el("div","subhead", b.html)); break;
+      case "chips":
+        var wrap=el("div","chips");
+        (b.items||[]).forEach(function(ch){
+          var strong = ch.strong ? ' <b>'+ch.strong+'</b>' : '';
+          wrap.appendChild(el("span","chip "+(ch.tone||"navy"), ch.label+strong));
+        });
+        host.appendChild(wrap); break;
+      case "arrows":
+        (b.items||[]).forEach(function(a){
+          host.appendChild(el("div","arrow-item", '<span class="ar">&rarr;</span><div>'+a+'</div>'));
+        });
+        break;
+      case "bullets":
+        var ul=el("ul","bullets");
+        (b.items||[]).forEach(function(li){ ul.appendChild(el("li",null, li)); });
+        host.appendChild(ul); break;
+      case "checklist":
+        var list=el("div","check-list");
+        (b.items||[]).forEach(function(it){ list.appendChild(buildCheckItem(it)); });
+        host.appendChild(list); break;
+      case "table":
+        var scroll=el("div","table-scroll");
+        var t=el("table","tbl");
+        var thead="<thead><tr>"+(b.head||[]).map(function(h){return "<th>"+h+"</th>";}).join("")+"</tr></thead>";
+        var body="<tbody>"+(b.rows||[]).map(function(r){
+          var cls = r.cls ? ' class="'+r.cls+'"' : '';
+          return "<tr"+cls+">"+(r.cells||[]).map(function(cell){
+            if(cell && typeof cell==="object") return '<td class="'+(cell.cls||"")+'">'+cell.v+'</td>';
+            return "<td>"+cell+"</td>";
+          }).join("")+"</tr>";
+        }).join("")+"</tbody>";
+        t.innerHTML=thead+body;
+        scroll.appendChild(t); host.appendChild(scroll); break;
+      case "timeline":
+        var tl=el("ul","tl");
+        (b.items||[]).forEach(function(it){
+          tl.appendChild(el("li", it.green?"g":null, it.html));
+        });
+        host.appendChild(tl); break;
+      case "roles":
+        var holder=el("div",null,null);
+        (ROLES||[]).forEach(function(r){
+          var row=el("div","role", '<div><div class="r-title">'+r.t+'</div><div class="r-desc">'+r.d+'</div></div>');
+          var inp=document.createElement("input");
+          inp.type="text"; inp.placeholder="Add a name"; inp.value=state.roles[r.id]||"";
+          inp.addEventListener("input", function(){ state.roles[r.id]=inp.value; });
+          inp.addEventListener("change", function(){ save(); });
+          inp.addEventListener("blur", function(){ save(); });
+          row.appendChild(inp);
+          holder.appendChild(row);
+        });
+        host.appendChild(holder); break;
+    }
+  }
+
+  // ---- render sections ----
+  var secHost = document.getElementById("sections");
+  (SECTIONS||[]).forEach(function(sec){
+    var block=el("section","block");
+    var numBg = sec.numBg ? ' style="background:'+sec.numBg+';"' : '';
+    block.appendChild(el("div","sec-head",
+      '<div class="sec-num"'+numBg+'>'+sec.n+'</div><h2 class="sec-title">'+sec.title+'</h2>'));
+    if(sec.sub) block.appendChild(el("p","sec-sub", sec.sub));
+    (sec.blocks||[]).forEach(function(b){ renderBlock(b, block); });
+    secHost.appendChild(block);
+  });
+
+  // ---- progress ----
+  function allCheckItems(){
+    var out=[];
+    (SECTIONS||[]).forEach(function(sec){
+      (sec.blocks||[]).forEach(function(b){
+        if(b.type==="checklist") (b.items||[]).forEach(function(it){ out.push(it); });
+      });
+    });
+    return out;
+  }
+  function updateProgress(){
+    var items=allCheckItems();
+    var t=0,d=0;
+    items.forEach(function(it){ if(!it.preset){ t++; if(state.checks[it.id]) d++; } });
+    var pct = t? Math.round(d/t*100):0;
+    document.getElementById("pfill").style.width = pct+"%";
+    document.getElementById("plabel").textContent = d+" / "+t;
+  }
+  updateProgress();
+
+  // ---- notes ----
+  var notesList = document.getElementById("notes-list");
+  function fmtTime(ts){
+    try{
+      var dt = new Date(ts);
+      return dt.toLocaleString(undefined,{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"});
+    }catch(e){ return ""; }
+  }
+  function renderNotes(){
+    notesList.innerHTML="";
+    if(!state.notes || !state.notes.length){
+      notesList.innerHTML='<div class="notes-empty">No notes yet. Anything you jot here stays saved on this device.</div>';
+      return;
+    }
+    state.notes.forEach(function(note){
+      var card=el("div","note-card");
+      var top=el("div","nc-top", '<span class="nc-time">'+fmtTime(note.ts)+'</span>');
+      var del=document.createElement("button"); del.className="nc-del"; del.title="Delete note"; del.innerHTML="&times;";
+      del.addEventListener("click", function(){
+        state.notes = state.notes.filter(function(n){return n.id!==note.id;});
+        save(); renderNotes();
+      });
+      top.appendChild(del);
+      var body=el("div","nc-body"); body.textContent=note.text;
+      card.appendChild(top); card.appendChild(body);
+      notesList.appendChild(card);
+    });
+  }
+  function addNote(){
+    var inp=document.getElementById("note-input");
+    var txt=(inp.value||"").trim();
+    if(!txt) return;
+    var id = "n"+(Date.now())+Math.floor(Math.random()*1000);
+    state.notes.unshift({id:id, ts:new Date().toISOString(), text:txt});
+    inp.value="";
+    save(); renderNotes();
+  }
+  document.getElementById("note-add-btn").addEventListener("click", addNote);
+  document.getElementById("note-input").addEventListener("keydown", function(e){
+    if((e.metaKey||e.ctrlKey) && e.key==="Enter") addNote();
+  });
+  renderNotes();
+
+  // ---- toolbar ----
+  document.getElementById("export-btn").addEventListener("click", function(){
+    var blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download=EXPORT_NAME;
+    a.click();
+  });
+  document.getElementById("reset-btn").addEventListener("click", function(){
+    if(confirm("Reset all checkboxes, role names, and notes on this device? This cannot be undone.")){
+      state={checks:{},roles:{},notes:[]};
+      try{ localStorage.removeItem(KEY); }catch(e){}
+      location.reload();
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
