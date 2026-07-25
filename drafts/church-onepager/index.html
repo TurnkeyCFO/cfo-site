@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Turnkey Close for Churches | Turnkey CFO</title>
+<!--
+  ITERATION LOG : The Turnkey Close for Churches one-pager (Advisor leave-behind)
+  Pass 1: Structure. Masthead with real logo, headlights premise hero, 5-stage chevron,
+          church credibility list, 2026 stats block, ratios strip, Books Diagnostic CTA,
+          founder footer. Warm cream base, forest ink, emerald #00E676 accent,
+          Plus Jakarta Sans throughout.
+  Pass 2: The chevron. Built the Diagnose > Clean > Close > Report > Advise process bar
+          as pure CSS clip-path chevrons (no images, no libs), each stage numbered with a
+          one-line descriptor beneath. Emerald gradient ramps darker left to right so the
+          eye lands on Advise, which is the sell.
+  Pass 3: Density + hierarchy tuning for a leave-behind. Two-column credibility/stats band
+          so the page holds to one sheet; stats given oversized numerals (2x, 55%) with
+          source attributions in small caps; ratios strip converted to three compact
+          meter tiles with the healthy band drawn as a range marker. Tightened hero to
+          two lines plus one supporting paragraph in StoryBrand voice: the pastor is the
+          hero, Turnkey is the guide.
+  Pass 4: Print + compliance. @media print: letter size, 12mm margins, banner reduced to a
+          single hairline note, shadows off, exact-color chevron, break-inside avoid on
+          every band, CTA button flattened to a bordered block with the Calendly URL
+          printed in full text (a paper leave-behind needs the visible link). Fits one
+          page at default scale. Verified: no pricing, no banned service phrasing, no em-dashes,
+          no emojis, no AI mentions, real logo, noindex present.
+  Pass 5: Polish. Focus-visible states, chevron responsive stack under 680px with
+          down-pointing connectors, footer credibility line given a subtle emerald tick,
+          demo-free copy check (this page carries no example client data), letterspacing
+          and rhythm pass at 8px baseline.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF8F1;
+    --paper:#FFFFFF;
+    --ink:#22312A;
+    --ink-soft:#54655C;
+    --forest:#1F3D2E;
+    --emerald:#00E676;
+    --emerald-deep:#00B85F;
+    --hairline:rgba(31,61,46,.14);
+    --shadow:0 1px 2px rgba(31,61,46,.05), 0 10px 30px rgba(31,61,46,.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:var(--cream);color:var(--ink);
+    line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:920px;margin:0 auto;padding:0 24px 64px}
+
+  /* Masthead */
+  .masthead{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:26px 0 22px;border-bottom:1px solid var(--hairline);flex-wrap:wrap;
+  }
+  .masthead img{height:34px;width:auto;display:block;background:var(--forest);padding:7px 12px;border-radius:8px}
+  .masthead .tag{
+    font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-soft);font-weight:700;
+  }
+
+  /* Hero */
+  .hero{padding:52px 0 40px}
+  .hero .kicker{
+    font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--emerald-deep);font-weight:800;margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem,5.2vw,3.4rem);font-weight:800;
+    line-height:1.06;letter-spacing:-.025em;color:var(--forest);max-width:18ch;
+  }
+  .hero h1 em{font-style:normal;color:var(--emerald-deep)}
+  .hero p{
+    margin-top:20px;font-size:1.08rem;max-width:60ch;color:var(--ink);
+  }
+
+  /* Chevron */
+  .chevron-band{margin-top:8px}
+  .band-label{
+    font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-soft);font-weight:700;margin-bottom:16px;
+  }
+  .chevrons{display:flex;gap:4px}
+  .chev{
+    flex:1;color:#F4FBF6;padding:16px 10px 16px 22px;position:relative;
+    clip-path:polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%, 16px 50%);
+  }
+  .chev:first-child{clip-path:polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);border-radius:8px 0 0 8px}
+  .chev:last-child{clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%, 16px 50%);border-radius:0 8px 8px 0}
+  .chev .n{font-size:.66rem;font-weight:800;letter-spacing:.16em;opacity:.75}
+  .chev .t{font-size:.98rem;font-weight:800;letter-spacing:-.01em;margin-top:2px}
+  .chev.c1{background:#00E676;color:#123726}
+  .chev.c2{background:#00D46C;color:#123726}
+  .chev.c3{background:#00B85F;color:#0E2C1E}
+  .chev.c4{background:#1F5C3D}
+  .chev.c5{background:#1F3D2E}
+  .chev-desc{display:flex;gap:4px;margin-top:10px}
+  .chev-desc span{flex:1;font-size:.74rem;color:var(--ink-soft);line-height:1.45;padding:0 8px 0 4px}
+
+  /* Two-column band */
+  .band{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;margin-top:44px}
+  .panel{
+    background:var(--paper);border:1px solid var(--hairline);border-radius:14px;
+    padding:28px 30px;box-shadow:var(--shadow);
+  }
+  .panel h2{
+    font-size:1.05rem;font-weight:800;color:var(--forest);letter-spacing:-.01em;margin-bottom:14px;
+  }
+  .cred{list-style:none}
+  .cred li{position:relative;padding:9px 0 9px 30px;font-size:.94rem;border-bottom:1px solid var(--hairline)}
+  .cred li:last-child{border-bottom:none}
+  .cred li::before{
+    content:"";position:absolute;left:2px;top:17px;width:9px;height:5px;
+    border-left:2.5px solid var(--emerald-deep);border-bottom:2.5px solid var(--emerald-deep);
+    transform:rotate(-45deg);
+  }
+  .cred strong{color:var(--forest)}
+
+  .statbig{padding:6px 0 14px;border-bottom:1px solid var(--hairline)}
+  .statbig:last-of-type{border-bottom:none;padding-bottom:0}
+  .statbig .v{font-size:2.5rem;font-weight:800;color:var(--forest);letter-spacing:-.03em;line-height:1}
+  .statbig .v em{font-style:normal;color:var(--emerald-deep)}
+  .statbig .d{font-size:.92rem;color:var(--ink);margin-top:6px;max-width:38ch}
+  .statbig .src{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-top:6px}
+
+  /* Ratios strip */
+  .ratios{margin-top:22px;display:grid;grid-template-columns:auto 1fr 1fr;gap:22px;align-items:center;
+    background:var(--forest);border-radius:14px;padding:24px 30px;color:#DCEBE1;box-shadow:var(--shadow)}
+  .ratios .rl{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--emerald);max-width:12ch;line-height:1.5}
+  .ratio .rv{font-size:1.5rem;font-weight:800;color:#fff;letter-spacing:-.02em}
+  .ratio .rv span{color:var(--emerald)}
+  .ratio .rd{font-size:.8rem;color:#AECBB8;margin-top:2px}
+  .ratio .rtrack{position:relative;height:8px;background:rgba(244,249,245,.14);border-radius:4px;margin-top:10px}
+  .ratio .rband{position:absolute;top:0;height:8px;background:var(--emerald);border-radius:4px;opacity:.9}
+  .ratio.r1 .rband{left:55%;width:22%}
+  .ratio.r2 .rband{left:40%;width:22%}
+
+  /* CTA */
+  .cta{
+    margin-top:22px;background:var(--paper);border:2px solid var(--forest);border-radius:16px;
+    padding:32px 36px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+    box-shadow:var(--shadow);
+  }
+  .cta h2{font-size:1.35rem;font-weight:800;color:var(--forest);letter-spacing:-.015em}
+  .cta p{font-size:.95rem;color:var(--ink-soft);margin-top:8px;max-width:52ch}
+  .btn{
+    display:inline-block;background:var(--emerald);color:#123726;text-decoration:none;
+    font-weight:800;font-size:.95rem;letter-spacing:.02em;
+    padding:15px 30px;border-radius:10px;white-space:nowrap;
+    box-shadow:0 6px 18px rgba(0,230,118,.35);
+  }
+  .btn:hover{background:var(--emerald-deep);color:#fff}
+  .cta .url{display:none}
+
+  /* Footer */
+  .foot{
+    margin-top:36px;padding-top:22px;border-top:1px solid var(--hairline);
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .foot .who{font-size:.9rem;color:var(--ink)}
+  .foot .who strong{color:var(--forest)}
+  .foot .site{font-size:.8rem;color:var(--ink-soft);font-weight:700;letter-spacing:.08em}
+
+  :focus-visible{outline:2px solid var(--emerald-deep);outline-offset:3px}
+
+  @media (max-width:680px){
+    .chevrons{flex-direction:column}
+    .chev, .chev:first-child, .chev:last-child{clip-path:none;border-radius:8px;padding:14px 18px}
+    .chev-desc{display:none}
+    .band,.cta{grid-template-columns:1fr}
+    .ratios{grid-template-columns:1fr}
+  }
+
+  /* Print: one sheet */
+  @media print{
+    @page{size:letter;margin:12mm}
+    body{background:#fff;font-size:9.5pt;line-height:1.45}
+    .page{max-width:none;padding:0}
+    .panel,.ratios,.cta{box-shadow:none}
+    .hero{padding:18pt 0 14pt}
+    .hero p{margin-top:8pt;font-size:10pt}
+    .band{margin-top:16pt;gap:10pt}
+    .panel{padding:12pt 14pt}
+    .ratios{margin-top:10pt;padding:10pt 14pt}
+    .cta{margin-top:10pt;padding:12pt 16pt}
+    .foot{margin-top:12pt;padding-top:8pt}
+    .statbig .v{font-size:20pt}
+    .masthead{padding:0 0 8pt}
+    .masthead img,.chev,.chev-desc,.ratios,.btn,.cred li::before,.rband,.rtrack{
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    }
+    .btn{box-shadow:none;border:2pt solid var(--forest)}
+    .cta .url{display:block;font-size:8pt;color:var(--ink-soft);margin-top:4pt}
+    .hero,.chevron-band,.band,.ratios,.cta,.foot,.panel{break-inside:avoid;page-break-inside:avoid}
+    a{color:inherit;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO">
+    <span class="tag">The Turnkey Close for Churches</span>
+  </header>
+
+  <section class="hero">
+    <p class="kicker">A note for pastors and boards</p>
+    <h1>You can't lead people where you <em>can't see</em>.</h1>
+    <p>Most church finances run on the rearview mirror: last quarter's numbers, arriving late, raising more questions than they answer. Your calling deserves headlights. The Turnkey Close turns your books into a clear view of the road ahead, so every board meeting starts with confidence instead of caveats.</p>
+  </section>
+
+  <section class="chevron-band">
+    <p class="band-label">The five-stage Turnkey Close</p>
+    <div class="chevrons">
+      <div class="chev c1"><span class="n">STAGE 1</span><div class="t">Diagnose</div></div>
+      <div class="chev c2"><span class="n">STAGE 2</span><div class="t">Clean</div></div>
+      <div class="chev c3"><span class="n">STAGE 3</span><div class="t">Close</div></div>
+      <div class="chev c4"><span class="n">STAGE 4</span><div class="t">Report</div></div>
+      <div class="chev c5"><span class="n">STAGE 5</span><div class="t">Advise</div></div>
+    </div>
+    <div class="chev-desc">
+      <span>A free review of your books, funds, and giving flow. You see exactly where you stand.</span>
+      <span>Backlogged months caught up, funds untangled, every account reconciled.</span>
+      <span>Books closed on a fixed monthly rhythm, within days of month end.</span>
+      <span>A board-ready packet in plain English: giving, budget, cash, funds.</span>
+      <span>A standing partner who helps the board read the road ahead.</span>
+    </div>
+  </section>
+
+  <div class="band">
+    <div class="panel">
+      <h2>Built for how churches actually work</h2>
+      <ul class="cred">
+        <li><strong>Designated and restricted funds</strong> tracked in their own ledgers, released only against qualifying spend</li>
+        <li><strong>Clergy housing allowance and SECA</strong> handled correctly in payroll, every run</li>
+        <li><strong>Form 990 posture</strong> maintained so your exempt status is never an open question</li>
+        <li><strong>UBIT awareness</strong> on rentals, cafes, and bookstore income before it becomes a surprise</li>
+        <li><strong>Giving-platform fluency:</strong> Planning Center, Tithely, and Subsplash reconciled to the bank, not just imported</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>What the 2026 data says</h2>
+      <div class="statbig">
+        <p class="v"><em>~2x</em></p>
+        <p class="d">Churches offering digital wallets are about twice as likely to report increased generosity.</p>
+        <p class="src">Ministry Brands, 2026</p>
+      </div>
+      <div class="statbig">
+        <p class="v">55<em>%</em></p>
+        <p class="d">of Protestant churches saw giving increase over the past year. Growth is there for churches that can see it.</p>
+        <p class="src">2026 industry reporting</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ratios">
+    <p class="rl">Ratios we watch for you</p>
+    <div class="ratio r1">
+      <p class="rv">$150<span>-</span>160<span>/mo</span></p>
+      <p class="rd">Healthy giving per household</p>
+      <div class="rtrack"><div class="rband"></div></div>
+    </div>
+    <div class="ratio r2">
+      <p class="rv">40<span>-</span>50<span>%</span></p>
+      <p class="rd">Payroll as a share of giving</p>
+      <div class="rtrack"><div class="rband"></div></div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div>
+      <h2>Start with a free Books Diagnostic</h2>
+      <p>Fifteen minutes. We look at your books together, show you exactly where you stand, and you leave with a clear picture whether we ever work together or not.</p>
+      <p class="url">Book at calendly.com/ricky-turnkeycfo/15min-intro-call</p>
+    </div>
+    <a class="btn" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call">Book the Diagnostic</a>
+  </div>
+
+  <footer class="foot">
+    <p class="who"><strong>Ricky West, Founder</strong> &middot; Director of Stewardship at his home church</p>
+    <p class="site">TURNKEYCFO.COM</p>
+  </footer>
+
+</div>
+</body>
+</html>
