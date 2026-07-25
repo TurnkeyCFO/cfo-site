@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow"><!-- DRAFT: remove noindex when Ricky ratifies public launch -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Turnkey Close | How Your Books Get Done | Turnkey CFO</title>
+<meta name="description" content="The Turnkey Close: your books closed, reconciled, and reported by the sixth business day of every month, explained in plain English, visible on your own live dashboard.">
+<meta property="og:title" content="The Turnkey Close | Turnkey CFO">
+<meta property="og:description" content="Your books closed, reconciled, and reported by the sixth business day of every month. Five stages, one calendar, zero guessing.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://turnkeycfo.com/turnkey-close/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF6EE;
+    --cream-deep:#F1EADB;
+    --ink:#12241B;
+    --ink-soft:#3E5248;
+    --ink-mute:#6E7F76;
+    --emerald:#00E676;
+    --emerald-deep:#00B25C;
+    --evergreen:#0E3B26;
+    --line:#E2DACA;
+    --card:#FFFDF8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  .topbar{border-bottom:1px solid var(--line);background:var(--card);}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:20px 0;}
+  .logo-slot{display:flex;align-items:center;gap:12px;}
+  .logo-slot .wordmark{font-weight:800;font-size:1.05rem;letter-spacing:-0.01em;}
+  .logo-slot .wordmark span{color:var(--emerald-deep);}
+  .top-cta{
+    background:var(--evergreen);color:#fff;text-decoration:none;
+    font-weight:700;font-size:0.85rem;padding:11px 20px;border-radius:100px;
+    transition:background .2s ease;
+  }
+  .top-cta:hover{background:#155235;}
+
+  /* hero */
+  .hero{padding:100px 0 84px;position:relative;overflow:hidden;text-align:center;}
+  .hero::before{
+    content:"";position:absolute;top:-180px;left:50%;transform:translateX(-50%);
+    width:720px;height:520px;
+    background:radial-gradient(closest-side, rgba(0,230,118,0.12), transparent 70%);
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--emerald-deep);margin-bottom:24px;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";width:26px;height:2px;background:var(--emerald);}
+  h1{
+    font-size:clamp(2.6rem,6vw,4.2rem);font-weight:800;line-height:1.02;
+    letter-spacing:-0.035em;max-width:17ch;margin:0 auto;
+  }
+  h1 em{font-style:normal;position:relative;white-space:nowrap;}
+  h1 em::after{
+    content:"";position:absolute;left:0;right:0;bottom:0.08em;height:0.28em;
+    background:rgba(0,230,118,0.35);z-index:-1;border-radius:3px;
+  }
+  .hero p.lede{
+    margin:28px auto 0;font-size:1.16rem;color:var(--ink-soft);max-width:62ch;
+  }
+  .hero .cta-row{margin-top:40px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--evergreen);color:#fff;text-decoration:none;font-weight:800;
+    padding:16px 32px;border-radius:100px;font-size:1rem;
+    box-shadow:0 10px 26px rgba(14,59,38,0.22);
+    transition:transform .15s ease, box-shadow .15s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(14,59,38,0.28);}
+  .btn-ghost{
+    color:var(--evergreen);text-decoration:none;font-weight:700;
+    padding:16px 26px;border-radius:100px;font-size:1rem;
+    border:1.5px solid var(--evergreen);display:inline-block;
+    transition:background .15s ease;
+  }
+  .btn-ghost:hover{background:rgba(14,59,38,0.06);}
+
+  /* chevron diagram */
+  .stages-band{padding:80px 0 30px;}
+  .band-head{text-align:center;margin-bottom:52px;}
+  .band-head h2{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800;letter-spacing:-0.02em;}
+  .band-head p{color:var(--ink-soft);margin-top:12px;max-width:56ch;margin-left:auto;margin-right:auto;}
+  .chevrons{
+    display:flex;justify-content:center;align-items:stretch;
+    max-width:980px;margin:0 auto;
+  }
+  .chev{
+    flex:1;position:relative;min-width:0;
+    padding:22px 10px 22px 30px;
+    background:var(--evergreen);color:#fff;
+    clip-path:polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%, 24px 50%);
+    margin-right:6px;text-align:center;
+  }
+  .chev:first-child{clip-path:polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%);border-radius:10px 0 0 10px;}
+  .chev:last-child{margin-right:0;clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%, 24px 50%);border-radius:0 10px 10px 0;}
+  .chev:nth-child(1){background:#0E3B26;}
+  .chev:nth-child(2){background:#14512F;}
+  .chev:nth-child(3){background:var(--emerald-deep);}
+  .chev:nth-child(4){background:#14512F;}
+  .chev:nth-child(5){background:#0E3B26;}
+  .chev .c-num{font-size:0.66rem;font-weight:700;letter-spacing:0.18em;color:rgba(255,255,255,0.82);}
+  .chev .c-name{font-weight:800;font-size:clamp(0.82rem,1.7vw,1.1rem);letter-spacing:0.01em;margin-top:2px;}
+  @media (max-width:700px){
+    .chevrons{flex-direction:column;max-width:340px;}
+    .chev, .chev:first-child, .chev:last-child{
+      clip-path:polygon(0 0, 50% 18px, 100% 0, 100% calc(100% - 18px), 50% 100%, 0 calc(100% - 18px));
+      margin:0 0 6px 0;padding:26px 20px;border-radius:0;
+    }
+    .chev:first-child{clip-path:polygon(0 0, 100% 0, 100% calc(100% - 18px), 50% 100%, 0 calc(100% - 18px));border-radius:12px 12px 0 0;}
+    .chev:last-child{clip-path:polygon(0 0, 50% 18px, 100% 0, 100% 100%, 0 100%);border-radius:0 0 12px 12px;margin-bottom:0;}
+  }
+
+  /* stage details */
+  .stage-list{padding:50px 0 80px;display:grid;gap:20px;}
+  .stage{
+    display:grid;grid-template-columns:120px 1.1fr 1fr;gap:28px;align-items:start;
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:34px 36px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .stage:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(14,59,38,0.09);}
+  .stage .s-num{
+    font-size:2.6rem;font-weight:800;color:transparent;line-height:1;
+    -webkit-text-stroke:1.5px var(--emerald-deep);
+  }
+  .stage .s-num small{
+    display:block;-webkit-text-stroke:0;color:var(--emerald-deep);
+    font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin-top:10px;
+  }
+  .stage h3{font-size:1.35rem;font-weight:800;letter-spacing:-0.015em;}
+  .stage .s-what{color:var(--ink-soft);font-size:0.98rem;margin-top:10px;}
+  .stage .s-see{
+    border-left:3px solid var(--emerald);padding:4px 0 4px 18px;align-self:center;
+  }
+  .stage .s-see .lbl{
+    font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--emerald-deep);margin-bottom:6px;
+  }
+  .stage .s-see p{color:var(--ink);font-weight:600;font-size:0.97rem;}
+
+  /* why it works */
+  .why{background:var(--cream-deep);padding:84px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .why h2{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800;letter-spacing:-0.02em;text-align:center;}
+  .why .sub{text-align:center;color:var(--ink-soft);margin-top:12px;max-width:54ch;margin-left:auto;margin-right:auto;}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;}
+  .why-card{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;padding:32px 28px;
+  }
+  .why-card .glyph{
+    width:44px;height:44px;border-radius:12px;background:var(--emerald);
+    display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+  }
+  .why-card .glyph svg{width:22px;height:22px;}
+  .why-card h3{font-size:1.1rem;font-weight:800;letter-spacing:-0.01em;}
+  .why-card p{color:var(--ink-soft);font-size:0.95rem;margin-top:10px;}
+
+  /* CTA band */
+  .cta-band{padding:96px 0;}
+  .cta-inner{
+    background:var(--evergreen);border-radius:26px;padding:72px 60px;text-align:center;
+    position:relative;overflow:hidden;
+  }
+  .cta-inner::before{
+    content:"";position:absolute;bottom:-160px;right:-120px;width:420px;height:420px;
+    background:radial-gradient(closest-side, rgba(0,230,118,0.22), transparent 70%);border-radius:50%;
+  }
+  .cta-inner h2{color:#fff;font-size:clamp(1.8rem,3.8vw,2.7rem);font-weight:800;letter-spacing:-0.02em;max-width:22ch;margin:0 auto;}
+  .cta-inner p{color:#BFD9CA;margin:18px auto 0;max-width:54ch;font-size:1.05rem;}
+  .cta-inner .btn-primary{
+    background:var(--emerald);color:var(--evergreen);margin-top:36px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.3);
+  }
+  .cta-inner .fine{margin-top:22px;font-size:0.85rem;color:#8FBBA0;}
+
+  footer{padding:0 0 56px;color:var(--ink-mute);font-size:0.82rem;}
+  footer .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:28px;}
+  footer a{color:var(--ink-soft);text-decoration:none;font-weight:600;}
+
+  @media (max-width:860px){
+    .stage{grid-template-columns:1fr;gap:16px;padding:28px 24px;}
+    .stage .s-num{font-size:2rem;display:flex;align-items:baseline;gap:14px;}
+    .stage .s-num small{margin-top:0;}
+    .why-grid{grid-template-columns:1fr;}
+    .cta-inner{padding:52px 28px;}
+  }
+  @media (max-width:760px){
+    .wrap{padding:0 20px;}
+    .hero{padding:72px 0 60px;}
+  }
+  a:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;border-radius:6px;}
+  #stages,#diagnostic{scroll-margin-top:24px;}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none!important;}
+    .btn-primary:hover,.stage:hover{transform:none;}
+  }
+  @media (max-width:420px){
+    h1{font-size:2.3rem;}
+    .hero p.lede{font-size:1.02rem;}
+    .btn-primary,.btn-ghost{width:100%;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="logo-slot">
+      <!-- TK CFO logo here: TK Brand Files/TK CFO/logos/logo-black.png -->
+      <div class="wordmark">TURNKEY <span>CFO</span></div>
+    </div>
+    <a class="top-cta" href="#diagnostic">Book a Books Diagnostic</a>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Our Methodology</div>
+    <h1>The <em>Turnkey Close</em></h1>
+    <p class="lede">Your books closed, reconciled, and reported by the sixth business day of every month. Explained in plain English. Visible on your own live dashboard. Not a promise taped to a wall. A system that runs the same way every single month.</p>
+    <div class="cta-row">
+      <a class="btn-primary" href="#diagnostic">Book your Books Diagnostic</a>
+      <a class="btn-ghost" href="#stages">See how it works</a>
+    </div>
+  </div>
+</header>
+
+<section class="stages-band" id="stages">
+  <div class="wrap">
+    <div class="band-head">
+      <h2>Five stages. Every client. Every month.</h2>
+      <p>Most bookkeeping fails because it depends on someone remembering. The Turnkey Close is built so the calendar does the remembering for you.</p>
+    </div>
+    <div class="chevrons" role="img" aria-label="The five stages of the Turnkey Close: Diagnose, Clean, Close, Report, Advise">
+      <div class="chev"><div class="c-num">01</div><div class="c-name">Diagnose</div></div>
+      <div class="chev"><div class="c-num">02</div><div class="c-name">Clean</div></div>
+      <div class="chev"><div class="c-num">03</div><div class="c-name">Close</div></div>
+      <div class="chev"><div class="c-num">04</div><div class="c-name">Report</div></div>
+      <div class="chev"><div class="c-num">05</div><div class="c-name">Advise</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage-list-wrap">
+  <div class="wrap stage-list">
+    <div class="stage">
+      <div class="s-num">01<small>Diagnose</small></div>
+      <div>
+        <h3>We look at your real numbers first.</h3>
+        <p class="s-what">Before any engagement begins, we pull your actual books and build a working dashboard on them. Not a slide deck about what we would do. A live view of what your numbers say today.</p>
+      </div>
+      <div class="s-see">
+        <div class="lbl">What you see</div>
+        <p>A live view of your own books, often revealing issues your current setup hides.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="s-num">02<small>Clean</small></div>
+      <div>
+        <h3>Your books reach a defensible baseline.</h3>
+        <p class="s-what">Cleanup and catch-up: accounts reconciled, a chart of accounts that matches how you actually operate, and prior-period issues surfaced honestly instead of buried.</p>
+      </div>
+      <div class="s-see">
+        <div class="lbl">What you see</div>
+        <p>A dated baseline-certified milestone: the day your books became trustworthy.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="s-num">03<small>Close</small></div>
+      <div>
+        <h3>Every month runs on a calendar, not a memory.</h3>
+        <p class="s-what">Transactions coded daily. Questions batched respectfully, never dripped. Reconciliations locked and review passed, all by the sixth business day.</p>
+      </div>
+      <div class="s-see">
+        <div class="lbl">What you see</div>
+        <p>Books that are simply done, on a date you can plan around.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="s-num">04<small>Report</small></div>
+      <div>
+        <h3>Numbers you can hand to anyone.</h3>
+        <p class="s-what">Your dashboard refreshes and a plain-English monthly summary arrives: what changed, what to watch, and what we already handled for you.</p>
+      </div>
+      <div class="s-see">
+        <div class="lbl">What you see</div>
+        <p>Reports you can take to a board, a bank, or a spouse without translating.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="s-num">05<small>Advise</small></div>
+      <div>
+        <h3>A standing rhythm, not a yearly scramble.</h3>
+        <p class="s-what">On our top tier, the numbers turn into direction: budget season, cash runway, and what the figures say to do next, on a standing cadence, all year.</p>
+      </div>
+      <div class="s-see">
+        <div class="lbl">What you see</div>
+        <p>A finance function, not a vendor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <h2>Why it works when others slip</h2>
+    <p class="sub">The deadline is not a hope. It is the way the system is built. Three mechanics make the difference.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="glyph"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6h11M9 12h11M9 18h11" stroke="#0E3B26" stroke-width="2.2" stroke-linecap="round"/><path d="M4 6h.01M4 12h.01M4 18h.01" stroke="#0E3B26" stroke-width="3" stroke-linecap="round"/></svg></div>
+        <h3>One checklist, named owners</h3>
+        <p>Every client has one documented close checklist, run every month by named people, never "whoever gets to it." When a step has an owner, it gets done.</p>
+      </div>
+      <div class="why-card">
+        <div class="glyph"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12l5 5L21 4" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 19l3 3 7-7" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/></svg></div>
+        <h3>Every transaction touched twice</h3>
+        <p>Coded once, then independently reviewed by a second set of eyes before the close locks. Errors get caught inside the system, not by you.</p>
+      </div>
+      <div class="why-card">
+        <div class="glyph"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="3" stroke="#0E3B26" stroke-width="2.2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="#0E3B26" stroke-width="2.2" stroke-linecap="round"/><path d="M8 15l2.5 2.5L16 12" stroke="#0E3B26" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Deadlines are structural</h3>
+        <p>The close calendar is built into our operating system, not into anyone's memory. The date arrives, and the work is already done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="diagnostic">
+  <div class="wrap">
+    <div class="cta-inner">
+      <h2>Start where every engagement starts: a Books Diagnostic.</h2>
+      <p>We pull your real numbers and show you what they say, clearly and honestly, before you commit to anything. If your current setup is hiding problems, you will see them. If it is solid, we will tell you that too.</p>
+      <a class="btn-primary" href="https://turnkeycfo.com/">Book your Books Diagnostic</a>
+      <p class="fine">A working session on your actual books. No obligation.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>Turnkey CFO · Austin, Texas · Bookkeeping, payroll, 1099s, monthly close, and reporting</div>
+    <div><a href="https://turnkeycfo.com/">turnkeycfo.com</a></div>
+  </div>
+</footer>
+
+</body>
+<!-- pass 1: purged seven em-dashes from hero, stages, mechanics, and CTA copy per brand voice rule; sentences recast as clean periods/commas -->
+<!-- pass 2: raised chevron stage-number contrast (0.66 to 0.82 alpha), added hover lift + shadow to stage detail cards for scannable depth -->
+<!-- pass 3: focus-visible outlines on all CTAs, scroll-margin on anchors, prefers-reduced-motion kill-switch, full-width CTAs under 420px -->
+<!-- pass 4: Open Graph metadata added for the eventual turnkeycfo.com/turnkey-close/ URL; verified no pricing, no guarantee, no "fractional CFO" anywhere on the page -->
+</html>
