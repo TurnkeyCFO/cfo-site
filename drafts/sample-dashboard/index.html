@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Sample Owner Dashboard | Turnkey CFO</title>
+<meta name="description" content="A sample of the Owner Dashboard every Turnkey CFO client gets. Example data shown. Yours is built from your real numbers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<!--
+  ITERATION LOG (design passes)
+  Pass 1: Skeleton: sample banner, fictional Hill & Grove Coffee Co. masthead, four KPI cards,
+          6-month revenue vs expenses chart in pure inline SVG (no chart libs), budget-vs-actual
+          rows, commentary block, streak counter, CTA. Warm cream base, emerald accents, Jakarta.
+  Pass 2: Data realism pass: rebuilt the six months (Feb thru Jul) with believable coffee-shop
+          seasonality (spring climb, June dip, July recovery), made every budget row foot to the
+          month, KPI deltas consistent with the chart, and the commentary references the same
+          numbers the visuals show so the whole page reads as one coherent close.
+  Pass 3: Visual craft pass: SVG chart gained gridlines, y-axis labels, rounded revenue bars with
+          a gradient, a dashed expenses line with dot markers and a legend; budget rows became
+          animated meter bars with over/under chips; added the on-time-close streak flame ring
+          (pure CSS conic-gradient); staggered card load-in; paper grain overlay.
+  Pass 4: Compliance + a11y sweep: sample banner made sticky and unmissable, "Example data"
+          watermark chip on every module, verified zero service pricing / zero banned title phrases /
+          zero em-dashes / no tooling mentions, added table semantics + aria labels for the chart,
+          focus-visible states, reduced-motion support, mobile stacking at 880px and 520px,
+          darkened emerald text tokens for contrast on cream (#00A857 text, #00E676 fills only).
+-->
+<style>
+  :root{
+    --cream:#FBF7EF;
+    --cream-2:#F4EDDE;
+    --card:#FFFFFF;
+    --ink:#14201A;
+    --ink-soft:#41544A;
+    --emerald:#00E676;
+    --emerald-deep:#00A857;
+    --emerald-ink:#0C3B26;
+    --amber:#E0A80B;
+    --red:#D9534F;
+    --line:rgba(20,32,26,.10);
+    --radius:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.55;overflow-x:hidden;
+  }
+  ::selection{background:var(--emerald);color:var(--emerald-ink)}
+  a:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;border-radius:6px}
+  img{max-width:100%;display:block}
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.3;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  /* sample banner */
+  .sample-banner{
+    position:sticky;top:0;z-index:40;
+    background:var(--emerald-ink);color:#EAF7EF;text-align:center;
+    padding:11px 18px;font-size:.88rem;font-weight:600;letter-spacing:.01em;
+  }
+  .sample-banner b{color:var(--emerald);font-weight:800}
+
+  header{padding:26px 0 8px}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  header img{height:32px;width:auto}
+  .header-cta{
+    font-size:.85rem;font-weight:700;color:var(--emerald-ink);text-decoration:none;
+    background:var(--emerald);padding:10px 20px;border-radius:999px;
+    box-shadow:0 2px 0 rgba(12,59,38,.25);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .header-cta:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,230,118,.35)}
+
+  /* masthead */
+  .masthead{padding:34px 0 10px}
+  .masthead .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .biz .tag{
+    display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--emerald-deep);border:1.5px dashed var(--emerald-deep);border-radius:8px;
+    padding:5px 12px;margin-bottom:12px;background:#fff;
+  }
+  .biz h1{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+  .biz p{color:var(--ink-soft);margin-top:6px;font-size:.95rem}
+  .period{
+    text-align:right;font-size:.8rem;color:var(--ink-soft);
+  }
+  .period b{display:block;font-size:1.05rem;color:var(--ink);font-weight:800}
+
+  /* module scaffolding */
+  .module{margin:26px 0}
+  .mod-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+  .mod-head h2{font-size:1.15rem;font-weight:800;letter-spacing:-.01em}
+  .chip{
+    font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-soft);background:var(--cream-2);padding:5px 11px;border-radius:999px;
+  }
+
+  /* KPI cards */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .kpi{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;position:relative;overflow:hidden;
+    animation:pop .6s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .kpi:nth-child(2){animation-delay:.08s}
+  .kpi:nth-child(3){animation-delay:.16s}
+  .kpi:nth-child(4){animation-delay:.24s}
+  .kpi::after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--emerald)}
+  .kpi small{font-size:.68rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft)}
+  .kpi .val{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin:6px 0 4px}
+  .delta{font-size:.78rem;font-weight:700;display:inline-flex;align-items:center;gap:5px}
+  .delta.up{color:var(--emerald-deep)}
+  .delta.down{color:var(--red)}
+  .delta.flat{color:var(--ink-soft)}
+  @keyframes pop{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+  /* chart card */
+  .chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+  .legend{display:flex;gap:22px;font-size:.78rem;font-weight:700;color:var(--ink-soft);margin-bottom:14px}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:4px;background:linear-gradient(180deg,#00E676,#7CF7B8);margin-right:7px;vertical-align:-2px}
+  .legend .exp i{background:none;border-top:3px dashed var(--emerald-ink);height:0;border-radius:0;vertical-align:3px}
+  .chart-scroll{overflow-x:auto}
+  .chart-card svg{width:100%;height:auto;min-width:560px}
+
+  /* budget vs actual */
+  .bva{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:8px 26px 18px}
+  .bva-row{display:grid;grid-template-columns:190px 1fr 200px;gap:18px;align-items:center;padding:16px 0;border-bottom:1px solid var(--cream-2)}
+  .bva-row:last-child{border-bottom:none}
+  .bva-row .name{font-size:.92rem;font-weight:700}
+  .bva-row .name small{display:block;font-weight:500;color:var(--ink-soft);font-size:.75rem}
+  .meter{height:12px;background:var(--cream-2);border-radius:999px;position:relative;overflow:visible}
+  .meter .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#00C566,#00E676);animation:grow 1s .2s cubic-bezier(.2,.8,.2,1) both;transform-origin:left}
+  .meter .fill.warn{background:linear-gradient(90deg,#E0A80B,#F2C744)}
+  .meter .fill.hot{background:linear-gradient(90deg,#D9534F,#E8827F)}
+  .meter .mark{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--emerald-ink);opacity:.45}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .bva-num{text-align:right;font-size:.85rem;color:var(--ink-soft)}
+  .bva-num b{color:var(--ink);font-weight:800}
+  .pill{display:inline-block;font-size:.68rem;font-weight:800;padding:3px 10px;border-radius:999px;margin-left:8px}
+  .pill.under{background:rgba(0,230,118,.16);color:var(--emerald-deep)}
+  .pill.watch{background:rgba(224,168,11,.16);color:#8A6A00}
+  .pill.over{background:rgba(217,83,79,.14);color:var(--red)}
+
+  /* commentary + streak split */
+  .split{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}
+  .commentary{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .commentary h2{font-size:1.15rem;font-weight:800;margin-bottom:6px}
+  .commentary .sub{font-size:.78rem;color:var(--ink-soft);margin-bottom:18px}
+  .commentary ul{list-style:none;display:grid;gap:14px}
+  .commentary li{display:flex;gap:12px;font-size:.93rem;color:var(--ink)}
+  .commentary li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--emerald);margin-top:7px}
+  .commentary li b{font-weight:700}
+
+  .streak{
+    background:var(--emerald-ink);color:#EAF7EF;border-radius:var(--radius);
+    padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  }
+  .ring{
+    width:130px;height:130px;border-radius:50%;
+    background:conic-gradient(var(--emerald) 0deg 330deg, rgba(255,255,255,.12) 330deg 360deg);
+    display:grid;place-items:center;margin-bottom:18px;
+  }
+  .ring>div{
+    width:104px;height:104px;border-radius:50%;background:var(--emerald-ink);
+    display:grid;place-items:center;
+  }
+  .ring b{font-size:2.4rem;font-weight:800;color:#fff;line-height:1}
+  .streak h2{font-size:1rem;font-weight:800;color:#fff;letter-spacing:.01em}
+  .streak p{font-size:.82rem;color:rgba(234,247,239,.72);margin-top:6px}
+
+  /* CTA */
+  .cta{
+    margin:56px 0 70px;text-align:center;background:var(--cream-2);border-radius:32px;padding:64px 28px;
+  }
+  .cta .kicker{font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--emerald-deep);margin-bottom:12px}
+  .cta h2{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;letter-spacing:-.02em;max-width:640px;margin:0 auto 14px;line-height:1.15}
+  .cta p{color:var(--ink-soft);max-width:540px;margin:0 auto 32px;font-size:1rem}
+  .btn-primary{
+    display:inline-block;background:var(--emerald);color:var(--emerald-ink);
+    font-weight:800;font-size:1rem;text-decoration:none;padding:16px 34px;border-radius:999px;
+    box-shadow:0 3px 0 rgba(12,59,38,.3);transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,230,118,.4)}
+  .cta .free-note{margin-top:16px;font-size:.82rem;color:var(--ink-soft)}
+  .cta .free-note strong{color:var(--emerald-deep)}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 42px}
+  footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  footer img{height:24px;width:auto}
+  footer p{font-size:.78rem;color:var(--ink-soft)}
+
+  @media (max-width:880px){
+    .kpis{grid-template-columns:1fr 1fr}
+    .split{grid-template-columns:1fr}
+    .bva-row{grid-template-columns:1fr;gap:8px}
+    .bva-num{text-align:left}
+    .period{text-align:left}
+  }
+  @media (max-width:520px){
+    .kpis{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="sample-banner"><b>Sample dashboard with example data.</b> Yours is built from your real numbers.</div>
+
+<header>
+  <div class="wrap">
+    <a href="https://turnkeycfo.com" aria-label="Turnkey CFO home">
+      <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO logo">
+    </a>
+    <a class="header-cta" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call">Book your free diagnostic</a>
+  </div>
+</header>
+
+<main>
+  <div class="masthead">
+    <div class="wrap">
+      <div class="biz">
+        <span class="tag">Fictional example business</span>
+        <h1>Hill &amp; Grove Coffee Co.</h1>
+        <p>Owner Dashboard · The monthly view every Turnkey CFO client receives</p>
+      </div>
+      <div class="period">Reporting period<b>July 2026 · Closed on time</b></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <section class="module" aria-label="Cash position summary">
+      <div class="mod-head">
+        <h2>Cash at a glance</h2>
+        <span class="chip">Example data</span>
+      </div>
+      <div class="kpis">
+        <div class="kpi">
+          <small>Cash on hand</small>
+          <div class="val">$84,210</div>
+          <span class="delta up">&#9650; $6,180 vs June</span>
+        </div>
+        <div class="kpi">
+          <small>Weeks of runway</small>
+          <div class="val">11.4</div>
+          <span class="delta up">&#9650; 0.8 wks vs June</span>
+        </div>
+        <div class="kpi">
+          <small>July revenue</small>
+          <div class="val">$96,400</div>
+          <span class="delta up">&#9650; 7.1% vs June</span>
+        </div>
+        <div class="kpi">
+          <small>July net income</small>
+          <div class="val">$11,760</div>
+          <span class="delta up">&#9650; $3,940 vs June</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="module" aria-label="Six month revenue versus expenses chart">
+      <div class="mod-head">
+        <h2>Revenue vs expenses, last 6 months</h2>
+        <span class="chip">Example data</span>
+      </div>
+      <div class="chart-card">
+        <div class="legend">
+          <span><i></i>Revenue</span>
+          <span class="exp"><i></i>Expenses</span>
+        </div>
+        <div class="chart-scroll">
+        <!-- Pure inline SVG. Scale: y maps $0 to $110k onto 250..20 (2.0909px per $1k). -->
+        <svg viewBox="0 0 720 300" role="img" aria-label="Bar and line chart. Revenue by month: February 78,200 dollars, March 84,900, April 88,300, May 92,750, June 90,010, July 96,400. Expenses by month: February 71,900, March 76,400, April 79,850, May 81,200, June 82,190, July 84,640. Revenue exceeded expenses in every month.">
+          <g stroke="#EAE2D0" stroke-width="1">
+            <line x1="50" y1="250" x2="700" y2="250"/>
+            <line x1="50" y1="192.5" x2="700" y2="192.5"/>
+            <line x1="50" y1="135" x2="700" y2="135"/>
+            <line x1="50" y1="77.5" x2="700" y2="77.5"/>
+            <line x1="50" y1="20" x2="700" y2="20"/>
+          </g>
+          <g font-family="Plus Jakarta Sans, sans-serif" font-size="11" fill="#8A9A90">
+            <text x="42" y="254" text-anchor="end">$0</text>
+            <text x="42" y="196.5" text-anchor="end">$27.5k</text>
+            <text x="42" y="139" text-anchor="end">$55k</text>
+            <text x="42" y="81.5" text-anchor="end">$82.5k</text>
+            <text x="42" y="24" text-anchor="end">$110k</text>
+          </g>
+          <defs>
+            <linearGradient id="rev" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#00E676"/>
+              <stop offset="1" stop-color="#7CF7B8"/>
+            </linearGradient>
+          </defs>
+          <!-- Revenue bars: heights = value * 2.0909 from y=250 -->
+          <g fill="url(#rev)">
+            <rect x="80"  y="86.5" width="46" height="163.5" rx="7"/>
+            <rect x="185" y="72.5" width="46" height="177.5" rx="7"/>
+            <rect x="290" y="65.4" width="46" height="184.6" rx="7"/>
+            <rect x="395" y="56.1" width="46" height="193.9" rx="7"/>
+            <rect x="500" y="61.8" width="46" height="188.2" rx="7"/>
+            <rect x="605" y="48.4" width="46" height="201.6" rx="7"/>
+          </g>
+          <!-- Expenses line: x at bar centers (103,208,313,418,523,628) -->
+          <polyline points="103,99.7 208,90.3 313,83.1 418,80.2 523,78.2 628,73.0"
+                    fill="none" stroke="#0C3B26" stroke-width="2.5" stroke-dasharray="7 6" stroke-linecap="round"/>
+          <g fill="#0C3B26">
+            <circle cx="103" cy="99.7" r="4.5"/>
+            <circle cx="208" cy="90.3" r="4.5"/>
+            <circle cx="313" cy="83.1" r="4.5"/>
+            <circle cx="418" cy="80.2" r="4.5"/>
+            <circle cx="523" cy="78.2" r="4.5"/>
+            <circle cx="628" cy="73.0" r="4.5"/>
+          </g>
+          <g fill="#fff">
+            <circle cx="103" cy="99.7" r="2"/>
+            <circle cx="208" cy="90.3" r="2"/>
+            <circle cx="313" cy="83.1" r="2"/>
+            <circle cx="418" cy="80.2" r="2"/>
+            <circle cx="523" cy="78.2" r="2"/>
+            <circle cx="628" cy="73.0" r="2"/>
+          </g>
+          <g font-family="Plus Jakarta Sans, sans-serif" font-size="12" fill="#41544A" text-anchor="middle" font-weight="600">
+            <text x="103" y="272">Feb</text>
+            <text x="208" y="272">Mar</text>
+            <text x="313" y="272">Apr</text>
+            <text x="418" y="272">May</text>
+            <text x="523" y="272">Jun</text>
+            <text x="628" y="272">Jul</text>
+          </g>
+        </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="module" aria-label="Budget versus actual by category">
+      <div class="mod-head">
+        <h2>Budget vs actual, July</h2>
+        <span class="chip">Example data</span>
+      </div>
+      <div class="bva">
+        <div class="bva-row">
+          <div class="name">Cost of goods<small>Beans, dairy, packaging</small></div>
+          <div class="meter" aria-hidden="true"><div class="fill" style="width:88%"></div><span class="mark" style="left:93%"></span></div>
+          <div class="bva-num"><b>$27,490</b> of $29,300 budget<span class="pill under">6% under</span></div>
+        </div>
+        <div class="bva-row">
+          <div class="name">Payroll and benefits<small>14 team members</small></div>
+          <div class="meter" aria-hidden="true"><div class="fill" style="width:90%"></div><span class="mark" style="left:91%"></span></div>
+          <div class="bva-num"><b>$31,080</b> of $31,500 budget<span class="pill under">1% under</span></div>
+        </div>
+        <div class="bva-row">
+          <div class="name">Rent and utilities<small>Two locations</small></div>
+          <div class="meter" aria-hidden="true"><div class="fill" style="width:86%"></div><span class="mark" style="left:86%"></span></div>
+          <div class="bva-num"><b>$9,940</b> of $9,940 budget<span class="pill under">On budget</span></div>
+        </div>
+        <div class="bva-row">
+          <div class="name">Marketing<small>Local ads, events</small></div>
+          <div class="meter" aria-hidden="true"><div class="fill warn" style="width:96%"></div><span class="mark" style="left:82%"></span></div>
+          <div class="bva-num"><b>$4,310</b> of $3,700 budget<span class="pill watch">16% over</span></div>
+        </div>
+        <div class="bva-row">
+          <div class="name">Equipment and repairs<small>Espresso machine service</small></div>
+          <div class="meter" aria-hidden="true"><div class="fill hot" style="width:98%"></div><span class="mark" style="left:68%"></span></div>
+          <div class="bva-num"><b>$3,120</b> of $2,150 budget<span class="pill over">45% over</span></div>
+        </div>
+        <div class="bva-row">
+          <div class="name">Everything else<small>Insurance, software, misc</small></div>
+          <div class="meter" aria-hidden="true"><div class="fill" style="width:81%"></div><span class="mark" style="left:88%"></span></div>
+          <div class="bva-num"><b>$8,700</b> of $9,800 budget<span class="pill under">11% under</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="module split" aria-label="Monthly commentary and close streak">
+      <div class="commentary">
+        <h2>What changed this month</h2>
+        <p class="sub">Plain English, from your bookkeeping team. No jargon, no spreadsheet homework.</p>
+        <ul>
+          <li><span><b>Revenue hit a six month high.</b> July came in at $96,400, up 7.1% from June. The new catering line drove most of the gain and now makes up about 9% of sales.</span></li>
+          <li><span><b>The June dip was weather, not a trend.</b> Two storm weekends cut foot traffic in June. July's bounce back confirms the underlying trajectory is still up and to the right.</span></li>
+          <li><span><b>Watch equipment costs.</b> The espresso machine at the Lamar location needed a second repair in three months, putting that line 45% over budget. It may be cheaper to replace than keep fixing. Worth a decision before August.</span></li>
+          <li><span><b>Marketing overage looks intentional.</b> The overage traces to the summer event sponsorships you approved in May. If those stay, we suggest raising that budget line rather than flagging it every month.</span></li>
+          <li><span><b>Cash keeps building.</b> Runway grew to 11.4 weeks. You are in a comfortable position to fund the patio buildout from cash if you choose to.</span></li>
+        </ul>
+      </div>
+      <div class="streak">
+        <div class="ring" role="img" aria-label="14 consecutive on-time closes">
+          <div><b>14</b></div>
+        </div>
+        <h2>Consecutive on-time closes</h2>
+        <p>Books closed by the 6th business day, every month, for 14 months straight. That is what boring, reliable bookkeeping looks like.</p>
+      </div>
+    </section>
+
+    <section class="cta">
+      <p class="kicker">This could be your business</p>
+      <h2>Stop guessing. See your own numbers like this.</h2>
+      <p>The free Books Diagnostic builds a view like this one from your real data. One 15-minute call to start, and the insights are yours to keep either way.</p>
+      <a class="btn-primary" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call">Book your free diagnostic</a>
+      <p class="free-note"><strong>Always free.</strong> No card, no contract, no obligation.</p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO logo">
+    <p>Turnkey CFO · Bookkeeping, payroll, and monthly reporting · Austin, TX · Hill &amp; Grove Coffee Co. is a fictional business shown with example data.</p>
+  </div>
+</footer>
+
+</body>
+</html>
