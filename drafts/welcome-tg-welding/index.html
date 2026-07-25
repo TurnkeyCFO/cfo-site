@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Welcome to Turnkey CFO | TG Welding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF6EE;
+    --cream-deep:#F3EDE0;
+    --ink:#12241B;
+    --ink-soft:#3E5248;
+    --ink-mute:#6E7F76;
+    --emerald:#00E676;
+    --emerald-deep:#00B25C;
+    --evergreen:#0E3B26;
+    --line:#E2DACA;
+    --card:#FFFDF8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 32px;}
+
+  .topbar{border-bottom:1px solid var(--line);background:var(--card);}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:20px 0;}
+  .logo-slot{display:flex;align-items:center;gap:12px;}
+  .logo-slot .wordmark{font-weight:800;font-size:1.05rem;letter-spacing:-0.01em;}
+  .logo-slot .wordmark span{color:var(--emerald-deep);}
+  .doc-label{font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);}
+
+  .hero{padding:88px 0 72px;position:relative;overflow:hidden;}
+  .hero::before{
+    content:"";position:absolute;top:-140px;right:-160px;width:460px;height:460px;
+    background:radial-gradient(closest-side, rgba(0,230,118,0.13), transparent 70%);
+    border-radius:50%;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--emerald-deep);margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--emerald);}
+  h1{font-size:clamp(2.4rem,5.5vw,3.6rem);font-weight:800;line-height:1.05;letter-spacing:-0.03em;max-width:15ch;}
+  h1 em{font-style:normal;color:var(--emerald-deep);}
+  .hero p.lede{margin-top:26px;font-size:1.13rem;color:var(--ink-soft);max-width:58ch;}
+  .start-badge{
+    display:inline-block;margin-top:30px;background:var(--evergreen);color:#F4FFF9;
+    font-weight:600;font-size:0.9rem;padding:12px 22px;border-radius:100px;
+    box-shadow:0 0 0 4px rgba(0,230,118,0.18);
+  }
+  .start-badge strong{color:var(--emerald);font-weight:800;}
+
+  section{padding:64px 0;border-top:1px solid var(--line);}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:36px;}
+  .sec-num{font-size:0.78rem;font-weight:800;color:var(--emerald-deep);letter-spacing:0.12em;white-space:nowrap;}
+  h2{font-size:clamp(1.55rem,3vw,2.1rem);font-weight:800;letter-spacing:-0.02em;line-height:1.15;}
+  .sec-intro{color:var(--ink-soft);max-width:62ch;margin:-20px 0 34px;}
+
+  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .team-card{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:30px 28px;position:relative;overflow:hidden;
+  }
+  .team-card::after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--emerald);}
+  .team-card .role{
+    font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--emerald-deep);margin-bottom:8px;
+  }
+  .team-card h3{font-size:1.25rem;font-weight:800;letter-spacing:-0.01em;}
+  .team-card p{margin-top:10px;color:var(--ink-soft);font-size:0.95rem;}
+
+  .timeline{display:grid;gap:0;}
+  .step{display:grid;grid-template-columns:52px 1fr;gap:24px;padding:26px 0;border-bottom:1px dashed var(--line);}
+  .step:last-child{border-bottom:none;}
+  .step-num{
+    width:52px;height:52px;border-radius:50%;background:var(--card);border:2px solid var(--emerald);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem;color:var(--evergreen);
+  }
+  .step h3{font-size:1.12rem;font-weight:800;letter-spacing:-0.01em;}
+  .step .when{
+    font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--emerald-deep);margin-bottom:6px;
+  }
+  .step p{color:var(--ink-soft);font-size:0.97rem;margin-top:6px;max-width:62ch;}
+
+  .rhythm{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;}
+  .rhythm-row{display:grid;grid-template-columns:190px 1fr;gap:20px;padding:22px 28px;border-bottom:1px solid var(--line);}
+  .rhythm-row:last-child{border-bottom:none;}
+  .rhythm-row .r-when{font-weight:800;font-size:0.95rem;color:var(--evergreen);}
+  .rhythm-row .r-what{color:var(--ink-soft);font-size:0.97rem;}
+  .rhythm-note{margin-top:18px;font-size:0.9rem;color:var(--ink-mute);max-width:66ch;}
+
+  .needs{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .need{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;display:flex;gap:14px;align-items:flex-start;
+  }
+  .need .tick{
+    flex:none;width:22px;height:22px;border-radius:6px;background:var(--emerald);
+    display:flex;align-items:center;justify-content:center;margin-top:2px;
+  }
+  .need .tick svg{width:13px;height:13px;}
+  .need p{font-size:0.93rem;color:var(--ink-soft);}
+  .need p strong{color:var(--ink);}
+
+  .contact{
+    background:var(--evergreen);border-radius:22px;color:#EAF7EF;
+    padding:46px 44px;display:grid;grid-template-columns:1.2fr 1fr;gap:36px;
+  }
+  .contact h2{color:#fff;}
+  .contact p{color:#BFD9CA;font-size:0.98rem;max-width:46ch;margin-top:12px;}
+  .contact .lines{display:grid;gap:16px;align-content:center;}
+  .contact .line{border-left:3px solid var(--emerald);padding-left:16px;}
+  .contact .line .lbl{font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8FBBA0;}
+  .contact .line .val{font-weight:700;color:#fff;font-size:1.02rem;word-break:break-word;}
+
+  footer{padding:44px 0 56px;color:var(--ink-mute);font-size:0.82rem;}
+  footer .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:28px;}
+
+  @media (max-width:760px){
+    .wrap{padding:0 20px;}
+    .hero{padding:64px 0 52px;}
+    section{padding:48px 0;}
+    .team-grid,.needs{grid-template-columns:1fr;}
+    .rhythm-row{grid-template-columns:1fr;gap:6px;padding:18px 20px;}
+    .contact{grid-template-columns:1fr;padding:34px 26px;}
+    .step{grid-template-columns:42px 1fr;gap:16px;}
+    .step-num{width:42px;height:42px;font-size:0.95rem;}
+  }
+  a:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;border-radius:4px;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;}}
+  @media (max-width:420px){
+    h1{font-size:2.15rem;}
+    .hero p.lede{font-size:1.02rem;}
+    .contact .line .val{font-size:0.95rem;}
+    .rhythm-row{padding:16px 18px;}
+  }
+  @media print{
+    body{background:#fff;}
+    .hero{padding:36px 0 24px;}
+    .hero::before{display:none;}
+    section{padding:28px 0;}
+    .team-card,.need,.rhythm{break-inside:avoid;}
+    .contact,.start-badge,.tick,.step-num{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="logo-slot">
+      <!-- TK CFO logo here: TK Brand Files/TK CFO/logos/logo-black.png -->
+      <div class="wordmark">TURNKEY <span>CFO</span></div>
+    </div>
+    <div class="doc-label">Client Welcome Pack</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Welcome to Turnkey CFO</div>
+    <h1>Welcome, <em>TG Welding.</em></h1>
+    <p class="lede">Tim, you build things that hold. Your books should too. You run a genuinely profitable fabrication shop, and our job is to make the numbers behind it just as solid: cash you can see coming, invoices that get paid on time, and a monthly picture you can make decisions from. Here is exactly what happens next.</p>
+    <div class="start-badge">Your engagement begins <strong>August 1, 2026</strong></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Your team</h2></div>
+    <p class="sec-intro">Two people own your account. You will never wonder who to call, and everything can run over email the way you already work.</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="role">Founder, Turnkey CFO</div>
+        <h3>Ricky West</h3>
+        <p>Ricky has been in your shop and in your numbers since day one. He leads the relationship, the invoicing and collections push, and the bigger conversations: financing, payroll structure, and where the business goes next.</p>
+      </div>
+      <div class="team-card">
+        <div class="role">Accounting Manager [confirm title]</div>
+        <h3>Vanessa [confirm surname]</h3>
+        <p>Vanessa is your day-to-day contact. She keeps the monthly rhythm on schedule, quality-checks your reports before they reach you, and handles the routine questions so your time stays in the shop, not in email.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Your first 30 days</h2></div>
+    <p class="sec-intro">We have already been working together since July, so August is less about introductions and more about locking the foundation in place.</p>
+    <div class="timeline">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="when">Late July</div>
+          <h3>Engagement letter signed, first invoice on the 1st</h3>
+          <p>Your engagement letter lands this week for signature. Billing starts August 1, as written in the letter. One thing we will confirm together: the exact legal name on your documents, since your invoices read Inc. and your records read LLC. Getting that right protects every filing that follows.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="when">First week of August</div>
+          <h3>Baseline locked</h3>
+          <p>Your books are already reconciled through June. We tie out July as it closes, set a formal closed-books date so history stays put, and confirm every bank and card account is feeding cleanly.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="when">Throughout August</div>
+          <h3>Month-one system build</h3>
+          <p>This is where your margins start reading true. We move material costs into cost of goods sold so every job shows its real profit, clean up the vendor coding behind a large block of unassigned spend, and formalize how your invoicing system and QuickBooks work together so your receivables are always visible in one place.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="when">August into September</div>
+          <h3>Payroll transition and your first close</h3>
+          <p>We coordinate the move to a biweekly pay cadence for the crew and work with your CPA on the contractor-versus-employee review, so the transition is planned rather than forced. Then your August books close on the standing rhythm and your first monthly reports arrive.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>The monthly rhythm</h2></div>
+    <p class="sec-intro">Every month runs on the same calendar of business days. You always know where your books stand, without asking.</p>
+    <div class="rhythm">
+      <div class="rhythm-row">
+        <div class="r-when">First business day</div>
+        <div class="r-what">One short email with anything we need from you to close the prior month. One list, not a drip.</div>
+      </div>
+      <div class="rhythm-row">
+        <div class="r-when">First week</div>
+        <div class="r-what">Transactions coded, all three bank accounts and the card reconciled, questions batched to you in a single email.</div>
+      </div>
+      <div class="rhythm-row">
+        <div class="r-when">Mid-month</div>
+        <div class="r-what">Books finalized and locked, reviewed by a second set of eyes before anything reaches you.</div>
+      </div>
+      <div class="rhythm-row">
+        <div class="r-when">Reports delivered</div>
+        <div class="r-what">Your profit and loss and balance sheet, in plain English: what changed, what to watch, and what we already handled.</div>
+      </div>
+    </div>
+    <p class="rhythm-note">Also on the standing calendar: 1099 preparation each January for your crew and vendors, and sales tax support as we confirm what is taxable across your fabrication and installation work.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>What we need from you</h2></div>
+    <p class="sec-intro">Short list. Everything here can happen over email, and none of it takes you off a job site for long.</p>
+    <div class="needs">
+      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>The signed engagement letter.</strong> Sign and return, and confirm the legal name question (Inc. versus LLC) so your documents all match.</p></div>
+      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Loan and equipment statements.</strong> Statements for the truck loan and any financed equipment, so what you owe shows accurately on the books.</p></div>
+      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>A quick flag on personal spend.</strong> A few purchases look like they may be personal rather than shop. A one-line answer per item keeps your tax picture clean.</p></div>
+      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>W-9s for the crew.</strong> Current W-9 forms for everyone paid as a contractor, so January 1099s are painless.</p></div>
+      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Your CPA's contact.</strong> An introduction to whoever is preparing the 2025 return, so the book-to-tax handoff is seamless in September.</p></div>
+      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Email replies to batched questions.</strong> We know email is how you work. We batch our questions; quick replies keep everything on schedule.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <h2>How to reach us</h2>
+        <p>Everything runs through email, the way you already work. If cash or a customer issue feels urgent, call Ricky directly.</p>
+      </div>
+      <div class="lines">
+        <div class="line">
+          <div class="lbl">Ricky West</div>
+          <div class="val">Ricky@TurnkeyCFO.com</div>
+        </div>
+        <div class="line">
+          <div class="lbl">Your accounting inbox</div>
+          <div class="val">accounting@tgweldingatx.com</div>
+        </div>
+        <div class="line">
+          <div class="lbl">Phone</div>
+          <div class="val">(682) 433-1852</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>Turnkey CFO · Austin, Texas</div>
+    <div>Prepared for TG Welding [confirm Inc. vs LLC] · August 2026</div>
+  </div>
+</footer>
+
+</body>
+<!-- pass 1: title dash swapped for pipe per no-em-dash rule; verified body copy carries zero em/en dashes and no AI-speak -->
+<!-- pass 2: aligned timeline number column to circle width (52px, 42px mobile), added emerald halo ring to the Aug-1 start badge for clearer hierarchy -->
+<!-- pass 3: added focus-visible outlines, prefers-reduced-motion support, and sub-420px tuning (h1 scale, rhythm padding, contact email size) -->
+<!-- pass 4: print stylesheet (break-inside guards, exact-color badges/contact block) for PDF handoff; payroll step retitled client-first -->
+</html>
