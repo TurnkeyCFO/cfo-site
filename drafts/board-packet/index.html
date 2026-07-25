@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Quarterly Board Packet: Grace Fellowship Church | Prepared by Turnkey CFO</title>
+<!--
+  ITERATION LOG — Board Packet in a Link (idea A2 prototype)
+  Pass 1: Structure. Cover block, three-sentence summary, giving summary, BvA table,
+          cash + runway, designated funds, board attention, trust footer. Base palette:
+          warm cream #FAF7F0, ink #22312A, emerald #00E676 accent. Plus Jakarta Sans.
+  Pass 2: Data visualization. Replaced plain stat rows with pure-CSS/inline-SVG:
+          YTD-vs-budget horizontal bar pair, giving-per-household stat tile,
+          digital/in-person split as a two-segment CSS bar with legend dots.
+          No external chart libs. Variance column color-coded (over = amber, under = green).
+  Pass 3: Editorial refinement. Added section numerals (01/02/…) in letterspaced small caps,
+          hairline rules in deep green at 12% alpha, generous 72px section rhythm,
+          fund-movement +/- arrows, one-line variance explanations under the two biggest
+          variances, months-of-runway meter as a 6-notch CSS gauge. Cover got a quarter
+          badge and prepared-by lockup with the real logo (white variant on deep green band).
+  Pass 4: Print + compliance. @media print stylesheet: letter-size margins,
+          break-inside: avoid on every card/table/section, banner and shadows stripped,
+          exact-color adjust for the emerald accents, footer pinned per page flow.
+          Verified: no pricing, no banned service phrasing, no em-dashes, no emojis, no AI mentions.
+          Example-data banner made unmistakable on screen, subtle single line in print.
+  Pass 5: Polish. Tightened table numerals with tabular-nums, added reconciled checkmark
+          ticks (CSS, not emoji glyphs — pure borders), softened cream to #FBF8F1,
+          hover row states screen-only, focus-visible styles, responsive stack under 720px.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF8F1;
+    --paper:#FFFFFF;
+    --ink:#22312A;
+    --ink-soft:#54655C;
+    --forest:#1F3D2E;
+    --emerald:#00E676;
+    --emerald-deep:#00B85F;
+    --amber:#C77B21;
+    --hairline:rgba(31,61,46,.14);
+    --shadow:0 1px 2px rgba(31,61,46,.05), 0 10px 30px rgba(31,61,46,.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .demo-banner{
+    background:var(--forest);
+    color:#EAF6EE;
+    text-align:center;
+    padding:10px 16px;
+    font-size:.8rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-weight:600;
+  }
+  .demo-banner strong{color:var(--emerald);font-weight:700}
+  .sheet{max-width:880px;margin:0 auto;padding:0 24px 80px}
+
+  /* ---------- Cover ---------- */
+  .cover{
+    background:var(--forest);
+    color:#F4F9F5;
+    border-radius:18px;
+    margin-top:36px;
+    padding:56px 56px 48px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .cover::after{
+    content:"";position:absolute;right:-120px;top:-120px;width:340px;height:340px;
+    border-radius:50%;border:1px solid rgba(0,230,118,.25);
+  }
+  .cover::before{
+    content:"";position:absolute;right:-60px;top:-60px;width:340px;height:340px;
+    border-radius:50%;border:1px solid rgba(0,230,118,.12);
+  }
+  .cover .kicker{
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--emerald);font-weight:700;margin-bottom:18px;
+  }
+  .cover h1{
+    font-size:clamp(2rem,5vw,3.1rem);
+    font-weight:800;line-height:1.08;letter-spacing:-.02em;
+    max-width:14ch;
+  }
+  .cover .church{
+    margin-top:14px;font-size:1.15rem;font-weight:500;color:#CFE3D6;
+  }
+  .cover .quarter-badge{
+    display:inline-block;margin-top:26px;
+    border:1px solid rgba(0,230,118,.5);color:var(--emerald);
+    padding:7px 18px;border-radius:999px;
+    font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .prepared{
+    margin-top:44px;padding-top:26px;border-top:1px solid rgba(244,249,245,.18);
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  }
+  .prepared img{height:30px;width:auto;display:block}
+  .prepared span{font-size:.85rem;color:#AECBB8}
+
+  /* ---------- Sections ---------- */
+  section{margin-top:72px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
+  .sec-num{
+    font-size:.72rem;font-weight:700;letter-spacing:.2em;color:var(--emerald-deep);
+  }
+  .sec-head h2{
+    font-size:1.45rem;font-weight:800;letter-spacing:-.01em;color:var(--forest);
+  }
+  .rule{height:1px;background:var(--hairline);flex:1;align-self:center}
+
+  .card{
+    background:var(--paper);border:1px solid var(--hairline);
+    border-radius:14px;padding:32px 36px;box-shadow:var(--shadow);
+  }
+
+  /* Three sentences */
+  .three-sentences p{
+    font-size:1.12rem;line-height:1.75;color:var(--ink);
+  }
+  .three-sentences p + p{margin-top:14px}
+  .three-sentences p::first-letter{font-weight:700;color:var(--forest)}
+
+  /* Giving grid */
+  .giving-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
+  .stat-tile{
+    background:var(--paper);border:1px solid var(--hairline);border-radius:14px;
+    padding:26px 28px;box-shadow:var(--shadow);
+  }
+  .stat-label{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+  .stat-value{font-size:2.3rem;font-weight:800;color:var(--forest);letter-spacing:-.02em;margin-top:6px;font-variant-numeric:tabular-nums}
+  .stat-sub{font-size:.85rem;color:var(--ink-soft);margin-top:4px}
+  .stat-sub .up{color:var(--emerald-deep);font-weight:700}
+
+  .barpair{margin-top:18px}
+  .barrow{display:grid;grid-template-columns:86px 1fr 90px;align-items:center;gap:12px;margin-top:12px}
+  .barrow .blabel{font-size:.78rem;font-weight:600;color:var(--ink-soft)}
+  .barrow .bval{font-size:.85rem;font-weight:700;color:var(--forest);text-align:right;font-variant-numeric:tabular-nums}
+  .track{height:14px;background:rgba(31,61,46,.07);border-radius:7px;overflow:hidden}
+  .fill{height:100%;border-radius:7px}
+  .fill.actual{background:linear-gradient(90deg,var(--emerald-deep),var(--emerald));width:93.4%}
+  .fill.budget{background:rgba(31,61,46,.35);width:100%}
+
+  .split-bar{display:flex;height:18px;border-radius:9px;overflow:hidden;margin-top:16px}
+  .split-bar .digital{background:var(--emerald);flex:0 0 68%}
+  .split-bar .inperson{background:var(--forest);flex:1}
+  .legend{display:flex;gap:22px;margin-top:12px;flex-wrap:wrap}
+  .legend span{font-size:.8rem;color:var(--ink-soft);display:flex;align-items:center;gap:7px;font-weight:600}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .dot.d{background:var(--emerald)}
+  .dot.i{background:var(--forest)}
+
+  .spark{margin-top:14px}
+  .spark svg{display:block;width:100%;height:56px}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  thead th{
+    text-align:left;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-soft);font-weight:700;padding:0 12px 12px;border-bottom:2px solid var(--forest);
+  }
+  thead th.num, td.num{text-align:right;font-variant-numeric:tabular-nums}
+  tbody td{padding:13px 12px;border-bottom:1px solid var(--hairline);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  @media screen{ tbody tr:hover td{background:rgba(0,230,118,.05)} }
+  .pos{color:var(--emerald-deep);font-weight:700}
+  .neg{color:var(--amber);font-weight:700}
+  .rowname{font-weight:600;color:var(--forest)}
+  .explain{
+    font-size:.8rem;color:var(--ink-soft);font-weight:400;margin-top:4px;line-height:1.5;
+    padding-left:14px;border-left:2px solid var(--emerald);
+  }
+  tfoot td{padding:14px 12px 0;font-weight:800;color:var(--forest);border-top:2px solid var(--forest);font-variant-numeric:tabular-nums}
+
+  /* Cash + runway */
+  .cash-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .runway-meter{display:flex;gap:6px;margin-top:16px}
+  .notch{flex:1;height:12px;border-radius:6px;background:rgba(31,61,46,.1)}
+  .notch.on{background:linear-gradient(90deg,var(--emerald-deep),var(--emerald))}
+  .notch.half{background:linear-gradient(90deg,var(--emerald-deep) 50%,rgba(31,61,46,.1) 50%)}
+  .runway-scale{display:flex;justify-content:space-between;font-size:.7rem;color:var(--ink-soft);margin-top:6px;font-weight:600}
+
+  /* Funds movement */
+  .mov{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .mov.in::before{content:"";display:inline-block;width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:6px solid var(--emerald-deep);margin-right:6px;vertical-align:middle}
+  .mov.out::before{content:"";display:inline-block;width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--amber);margin-right:6px;vertical-align:middle}
+  .fund-note{font-size:.82rem;color:var(--ink-soft);margin-top:16px;line-height:1.6}
+
+  /* Attention list */
+  .attn{list-style:none}
+  .attn li{
+    padding:18px 0 18px 34px;position:relative;border-bottom:1px solid var(--hairline);
+    font-size:1rem;line-height:1.65;
+  }
+  .attn li:last-child{border-bottom:none}
+  .attn li::before{
+    content:"";position:absolute;left:0;top:26px;width:14px;height:14px;border-radius:4px;
+    background:var(--emerald);box-shadow:0 0 0 4px rgba(0,230,118,.18);
+  }
+  .attn strong{color:var(--forest)}
+
+  /* Trust footer */
+  .trust{
+    margin-top:72px;background:var(--forest);color:#DCEBE1;border-radius:16px;
+    padding:40px 44px;box-shadow:var(--shadow);
+  }
+  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+  .streak{font-size:2.6rem;font-weight:800;color:var(--emerald);letter-spacing:-.02em;line-height:1}
+  .streak-sub{font-size:.85rem;color:#AECBB8;margin-top:8px}
+  .checks{list-style:none}
+  .checks li{position:relative;padding:7px 0 7px 30px;font-size:.92rem}
+  .checks li::before{
+    content:"";position:absolute;left:2px;top:13px;width:9px;height:5px;
+    border-left:2.5px solid var(--emerald);border-bottom:2.5px solid var(--emerald);
+    transform:rotate(-45deg);
+  }
+  .trust-foot{
+    margin-top:30px;padding-top:22px;border-top:1px solid rgba(244,249,245,.16);
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .trust-foot img{height:26px;width:auto}
+  .trust-foot p{font-size:.8rem;color:#AECBB8}
+
+  :focus-visible{outline:2px solid var(--emerald-deep);outline-offset:3px}
+
+  @media (max-width:720px){
+    .giving-grid,.cash-grid,.trust-grid{grid-template-columns:1fr}
+    .cover{padding:40px 28px}
+    .card{padding:26px 22px}
+    section{margin-top:52px}
+  }
+
+  /* ---------- Print ---------- */
+  @media print{
+    @page{size:letter;margin:16mm 14mm}
+    body{background:#fff;font-size:11pt}
+    .demo-banner{
+      background:none;color:var(--ink-soft);border-bottom:1pt solid var(--hairline);
+      padding:4pt 0;font-size:7.5pt;
+    }
+    .demo-banner strong{color:var(--forest)}
+    .sheet{max-width:none;padding:0}
+    .cover,.card,.stat-tile,.trust{box-shadow:none}
+    .cover{border-radius:0;padding:36pt 30pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .card,.stat-tile{border:1pt solid var(--hairline)}
+    section,.card,.stat-tile,table,.trust,.cover{break-inside:avoid;page-break-inside:avoid}
+    thead{display:table-header-group}
+    tr{break-inside:avoid;page-break-inside:avoid}
+    section{margin-top:28pt}
+    .fill,.split-bar,.notch,.dot,.attn li::before,.checks li::before,.trust,.explain{
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    }
+    @media screen{}
+    a{color:inherit;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">Sample packet with <strong>fictional example data</strong>. “Grace Fellowship Church” is not a real client</div>
+
+<div class="sheet">
+
+  <!-- Cover -->
+  <header class="cover">
+    <p class="kicker">Quarterly Board Packet</p>
+    <h1>Financial Report to the Elders</h1>
+    <p class="church">Grace Fellowship Church &middot; Example City, TX</p>
+    <span class="quarter-badge">Q2 2026 &middot; April to June</span>
+    <div class="prepared">
+      <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO">
+      <span>Prepared by Turnkey CFO &middot; books closed and reconciled July 7, 2026</span>
+    </div>
+  </header>
+
+  <!-- 01 The quarter in three sentences -->
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>The Quarter in Three Sentences</h2><span class="rule"></span></div>
+    <div class="card three-sentences">
+      <p>Giving finished the quarter 6.6% under budget, but June recovered strongly after a soft April, and year-to-date giving remains within a healthy range of plan.</p>
+      <p>Spending stayed disciplined: total expenses came in 2.1% under budget, with the only meaningful overage in Facilities, driven by a one-time HVAC repair.</p>
+      <p>Cash is stable at just over four months of operating runway, and every designated fund is fully tracked, fully funded, and moving in the right direction.</p>
+    </div>
+  </section>
+
+  <!-- 02 Giving summary -->
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Giving Summary</h2><span class="rule"></span></div>
+    <div class="giving-grid">
+      <div class="stat-tile">
+        <p class="stat-label">Year-to-Date Giving vs Budget</p>
+        <p class="stat-value">$487,200</p>
+        <p class="stat-sub">against a YTD budget of $521,500 (93.4% of plan)</p>
+        <div class="barpair">
+          <div class="barrow">
+            <span class="blabel">Actual</span>
+            <div class="track"><div class="fill actual"></div></div>
+            <span class="bval">$487.2k</span>
+          </div>
+          <div class="barrow">
+            <span class="blabel">Budget</span>
+            <div class="track"><div class="fill budget"></div></div>
+            <span class="bval">$521.5k</span>
+          </div>
+        </div>
+        <div class="spark" aria-hidden="true">
+          <svg viewBox="0 0 300 56" preserveAspectRatio="none">
+            <polyline points="0,38 50,42 100,30 150,34 200,26 250,30 300,14"
+              fill="none" stroke="#00B85F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="300" cy="14" r="4" fill="#00E676"/>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <div class="stat-tile">
+          <p class="stat-label">Giving per Household</p>
+          <p class="stat-value">$156<span style="font-size:1rem;font-weight:600;color:var(--ink-soft)">/mo</span></p>
+          <p class="stat-sub"><span class="up">Within the healthy $150 to $160 band</span> across 261 giving households</p>
+        </div>
+        <div class="stat-tile" style="margin-top:20px">
+          <p class="stat-label">Digital vs In-Person Giving</p>
+          <div class="split-bar" role="img" aria-label="68 percent digital, 32 percent in person">
+            <div class="digital"></div><div class="inperson"></div>
+          </div>
+          <div class="legend">
+            <span><i class="dot d"></i>Digital 68%</span>
+            <span><i class="dot i"></i>In person 32%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Budget vs actual -->
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Budget vs Actual by Ministry Area</h2><span class="rule"></span></div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Ministry Area</th><th class="num">Budget</th><th class="num">Actual</th><th class="num">Variance</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rowname">Personnel &amp; Payroll</td>
+            <td class="num">$224,000</td><td class="num">$221,340</td><td class="num pos">-$2,660</td>
+          </tr>
+          <tr>
+            <td class="rowname">Facilities &amp; Utilities
+              <p class="explain">Over budget on a one-time $9,400 HVAC compressor replacement at the main campus. Not a recurring cost; the unit carries a 10-year warranty.</p>
+            </td>
+            <td class="num">$61,500</td><td class="num">$72,180</td><td class="num neg">+$10,680</td>
+          </tr>
+          <tr>
+            <td class="rowname">Missions &amp; Outreach
+              <p class="explain">Under budget because the June mission trip was rescheduled to Q3. The committed funds remain reserved and will land next quarter.</p>
+            </td>
+            <td class="num">$48,000</td><td class="num">$36,900</td><td class="num pos">-$11,100</td>
+          </tr>
+          <tr>
+            <td class="rowname">Children &amp; Youth</td>
+            <td class="num">$27,500</td><td class="num">$26,410</td><td class="num pos">-$1,090</td>
+          </tr>
+          <tr>
+            <td class="rowname">Worship &amp; Production</td>
+            <td class="num">$19,800</td><td class="num">$20,350</td><td class="num neg">+$550</td>
+          </tr>
+          <tr>
+            <td class="rowname">Administration &amp; Insurance</td>
+            <td class="num">$32,400</td><td class="num">$30,880</td><td class="num pos">-$1,520</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr><td>Total Operating Expense</td><td class="num">$413,200</td><td class="num">$408,060</td><td class="num pos">-$5,140</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+
+  <!-- 04 Cash + runway -->
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Cash Position &amp; Runway</h2><span class="rule"></span></div>
+    <div class="cash-grid">
+      <div class="stat-tile">
+        <p class="stat-label">Unrestricted Cash on Hand</p>
+        <p class="stat-value">$286,400</p>
+        <p class="stat-sub">Operating + money market, net of designated fund balances, as of June 30</p>
+      </div>
+      <div class="stat-tile">
+        <p class="stat-label">Months of Operating Runway</p>
+        <p class="stat-value">4.2 <span style="font-size:1rem;font-weight:600;color:var(--ink-soft)">months</span></p>
+        <div class="runway-meter" role="img" aria-label="4.2 of 6 months on the runway meter">
+          <span class="notch on"></span><span class="notch on"></span><span class="notch on"></span><span class="notch on"></span><span class="notch half"></span><span class="notch"></span>
+        </div>
+        <div class="runway-scale"><span>0</span><span>3 mo target floor</span><span>6</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 Designated funds -->
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Designated &amp; Restricted Funds</h2><span class="rule"></span></div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Fund</th><th class="num">Opening</th><th class="num">In</th><th class="num">Out</th><th class="num">Closing</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="rowname">Building Fund</td><td class="num">$142,300</td><td class="num"><span class="mov in">$18,650</span></td><td class="num">$0</td><td class="num">$160,950</td></tr>
+          <tr><td class="rowname">Missions Fund</td><td class="num">$38,750</td><td class="num"><span class="mov in">$9,200</span></td><td class="num"><span class="mov out">$7,400</span></td><td class="num">$40,550</td></tr>
+          <tr><td class="rowname">Benevolence Fund</td><td class="num">$12,180</td><td class="num"><span class="mov in">$3,050</span></td><td class="num"><span class="mov out">$4,320</span></td><td class="num">$10,910</td></tr>
+          <tr><td class="rowname">Youth Camp Scholarships</td><td class="num">$6,400</td><td class="num"><span class="mov in">$2,880</span></td><td class="num"><span class="mov out">$5,150</span></td><td class="num">$4,130</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>Total Designated</td><td class="num">$199,630</td><td class="num">$33,780</td><td class="num">$16,870</td><td class="num">$216,540</td></tr>
+        </tfoot>
+      </table>
+      <p class="fund-note">Every designated dollar is tracked in its own fund ledger and never commingled with operating cash. Restricted gifts are released only against qualifying spend, and each fund reconciles to the balance sheet to the penny.</p>
+    </div>
+  </section>
+
+  <!-- 06 Board attention -->
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>What Deserves the Board's Attention</h2><span class="rule"></span></div>
+    <div class="card">
+      <ul class="attn">
+        <li><strong>Summer giving dip is on the calendar.</strong> July and August historically run 12 to 15% below the monthly average. Runway comfortably absorbs it, but any new spending commitments are best deferred to September.</li>
+        <li><strong>The Building Fund is approaching its first milestone.</strong> At the current pace it crosses $175,000 in early Q3, the threshold the board set for engaging an architect. A decision item should be on the September agenda.</li>
+        <li><strong>Benevolence requests are rising.</strong> Fund outflow ran ahead of inflow this quarter. The fund is healthy today, but the board may want to schedule a special offering this fall to stay ahead of demand.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Trust footer -->
+  <footer class="trust">
+    <div class="trust-grid">
+      <div>
+        <p class="streak">14 quarters</p>
+        <p class="streak-sub">of on-time closes delivered to this board, in a row</p>
+      </div>
+      <ul class="checks">
+        <li>Every bank and giving account reconciled to the statement</li>
+        <li>Every designated fund tied to the balance sheet</li>
+        <li>Every payroll filing submitted on schedule</li>
+        <li>Books closed within 7 days of quarter end</li>
+      </ul>
+    </div>
+    <div class="trust-foot">
+      <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO">
+      <p>Prepared by Turnkey CFO &middot; bookkeeping, payroll, and reporting for churches &middot; turnkeycfo.com</p>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
