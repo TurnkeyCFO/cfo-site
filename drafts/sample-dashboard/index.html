@@ -8,25 +8,36 @@
 <meta name="description" content="A sample of the Owner Dashboard every Turnkey CFO client gets. Example data shown. Yours is built from your real numbers.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <!--
-  ITERATION LOG (design passes)
-  Pass 1: Skeleton: sample banner, fictional Hill & Grove Coffee Co. masthead, four KPI cards,
-          6-month revenue vs expenses chart in pure inline SVG (no chart libs), budget-vs-actual
-          rows, commentary block, streak counter, CTA. Warm cream base, emerald accents, Jakarta.
-  Pass 2: Data realism pass: rebuilt the six months (Feb thru Jul) with believable coffee-shop
-          seasonality (spring climb, June dip, July recovery), made every budget row foot to the
-          month, KPI deltas consistent with the chart, and the commentary references the same
-          numbers the visuals show so the whole page reads as one coherent close.
-  Pass 3: Visual craft pass: SVG chart gained gridlines, y-axis labels, rounded revenue bars with
-          a gradient, a dashed expenses line with dot markers and a legend; budget rows became
-          animated meter bars with over/under chips; added the on-time-close streak flame ring
-          (pure CSS conic-gradient); staggered card load-in; paper grain overlay.
-  Pass 4: Compliance + a11y sweep: sample banner made sticky and unmissable, "Example data"
-          watermark chip on every module, verified zero service pricing / zero banned title phrases /
-          zero em-dashes / no tooling mentions, added table semantics + aria labels for the chart,
-          focus-visible states, reduced-motion support, mobile stacking at 880px and 520px,
-          darkened emerald text tokens for contrast on cream (#00A857 text, #00E676 fills only).
+  ITERATION LOG (10x rebuild)
+  Pass 1: "Live product demo" concept: the page should feel like software running, not a
+          mockup. Added a demo status rail (pulsing live dot, "Books closed on time" state,
+          simulated refresh timestamp labeled as part of the example), KPI values that count
+          up from zero with eased easing and proper $ / decimal formatting, and a chart that
+          draws itself: bars grow from the baseline with stagger, the expense line strokes in
+          via dash-offset, dots pop after the line lands.
+  Pass 2: Hover detail states: every chart month gets an invisible hit column that lifts the
+          bar, brightens it, and raises a floating tooltip with that month's exact revenue and
+          expense figures (also exposed to screen readers via the existing aria chart summary).
+          KPI cards lift with a soft shadow and reveal a one-line "why it moved" detail.
+          Budget rows highlight and their pills pulse on hover.
+  Pass 3: Motion system: GSAP + ScrollTrigger + Lenis (CDN) with hard fallbacks: nothing on
+          the page is hidden without JS, counters render their final values in markup so a
+          failed CDN still shows a complete dashboard, and prefers-reduced-motion disables
+          Lenis, counters, and draw-ins entirely.
+  Pass 4: Editorial typography: Fraunces for the fictional business masthead (product
+          nameplate feel), Jakarta everywhere else, tabular-nums on every figure so counters
+          do not jitter, tightened KPI scale (2.1rem values, 0.66rem letterspaced labels).
+  Pass 5: Data integrity + labeling sweep: every module keeps its "Example data" chip, the
+          sticky sample banner stays unmissable, Hill & Grove remains explicitly fictional in
+          the masthead tag and footer, all six months foot to the same figures used in the
+          aria summary, tooltip numbers match the chart exactly.
+  Pass 6: Conversion + hardening: streak ring animates its conic sweep as the count rises to
+          14; CTA restates "this could be your business" at the moment the demo ends; magnetic
+          primary CTA on fine pointers; 360px pass (KPI single column, chart scrolls in its own
+          container, tooltip clamps inside the card); focus-visible; zero pricing; no banned
+          phrases; no em/en dashes.
 -->
 <style>
   :root{
@@ -42,15 +53,19 @@
     --red:#D9534F;
     --line:rgba(20,32,26,.10);
     --radius:18px;
+    --display:'Fraunces',serif;
+    --sans:'Plus Jakarta Sans',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{
-    font-family:'Plus Jakarta Sans',sans-serif;
+    font-family:var(--sans);
     background:var(--cream);color:var(--ink);line-height:1.55;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
   }
   ::selection{background:var(--emerald);color:var(--emerald-ink)}
   a:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;border-radius:6px}
   img{max-width:100%;display:block}
+  .num{font-variant-numeric:tabular-nums}
   body::before{
     content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.3;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -72,24 +87,39 @@
     font-size:.85rem;font-weight:700;color:var(--emerald-ink);text-decoration:none;
     background:var(--emerald);padding:10px 20px;border-radius:999px;
     box-shadow:0 2px 0 rgba(12,59,38,.25);
-    transition:transform .18s ease, box-shadow .18s ease;
+    transition:transform .18s ease, box-shadow .18s ease;display:inline-block;
   }
-  .header-cta:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,230,118,.35)}
+  .header-cta:hover{box-shadow:0 8px 20px rgba(0,230,118,.35)}
 
   /* masthead */
-  .masthead{padding:34px 0 10px}
+  .masthead{padding:34px 0 6px}
   .masthead .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .biz .tag{
     display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
     color:var(--emerald-deep);border:1.5px dashed var(--emerald-deep);border-radius:8px;
     padding:5px 12px;margin-bottom:12px;background:#fff;
   }
-  .biz h1{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+  .biz h1{font-family:var(--display);font-size:clamp(2rem,4.2vw,3rem);font-weight:600;letter-spacing:-.015em;line-height:1.05;color:var(--emerald-ink)}
   .biz p{color:var(--ink-soft);margin-top:6px;font-size:.95rem}
-  .period{
-    text-align:right;font-size:.8rem;color:var(--ink-soft);
-  }
+  .period{text-align:right;font-size:.8rem;color:var(--ink-soft)}
   .period b{display:block;font-size:1.05rem;color:var(--ink);font-weight:800}
+
+  /* demo status rail */
+  .status-rail{
+    margin:20px 0 6px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 20px;
+    font-size:.8rem;color:var(--ink-soft);
+  }
+  .status-rail .live{display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--emerald-deep)}
+  .status-rail .dot{
+    width:9px;height:9px;border-radius:50%;background:var(--emerald);
+    box-shadow:0 0 0 0 rgba(0,230,118,.5);animation:pulse 2.2s ease-out infinite;
+  }
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,230,118,.45)}70%{box-shadow:0 0 0 9px rgba(0,230,118,0)}100%{box-shadow:0 0 0 0 rgba(0,230,118,0)}}
+  .status-rail .sep{width:1px;height:16px;background:var(--line)}
+  .status-rail .ok{display:inline-flex;align-items:center;gap:7px;font-weight:700;color:var(--ink)}
+  .status-rail .ok svg{flex:none}
+  .status-rail .ex{margin-left:auto;font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);background:var(--cream-2);padding:4px 10px;border-radius:999px}
 
   /* module scaffolding */
   .module{margin:26px 0}
@@ -105,43 +135,59 @@
   .kpi{
     background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
     padding:22px;position:relative;overflow:hidden;
-    animation:pop .6s cubic-bezier(.2,.8,.2,1) both;
+    transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, border-color .22s ease;
   }
-  .kpi:nth-child(2){animation-delay:.08s}
-  .kpi:nth-child(3){animation-delay:.16s}
-  .kpi:nth-child(4){animation-delay:.24s}
+  .kpi:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(20,32,26,.1);border-color:rgba(0,168,87,.35)}
   .kpi::after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--emerald)}
-  .kpi small{font-size:.68rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft)}
-  .kpi .val{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin:6px 0 4px}
+  .kpi small{font-size:.66rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft)}
+  .kpi .val{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;margin:6px 0 4px;font-variant-numeric:tabular-nums}
   .delta{font-size:.78rem;font-weight:700;display:inline-flex;align-items:center;gap:5px}
   .delta.up{color:var(--emerald-deep)}
   .delta.down{color:var(--red)}
-  .delta.flat{color:var(--ink-soft)}
-  @keyframes pop{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .kpi .why{
+    font-size:.74rem;color:var(--ink-soft);margin-top:10px;max-height:0;opacity:0;overflow:hidden;
+    transition:max-height .3s ease, opacity .3s ease;
+  }
+  .kpi:hover .why,.kpi:focus-within .why{max-height:60px;opacity:1}
 
   /* chart card */
-  .chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+  .chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;position:relative}
   .legend{display:flex;gap:22px;font-size:.78rem;font-weight:700;color:var(--ink-soft);margin-bottom:14px}
   .legend i{display:inline-block;width:14px;height:14px;border-radius:4px;background:linear-gradient(180deg,#00E676,#7CF7B8);margin-right:7px;vertical-align:-2px}
   .legend .exp i{background:none;border-top:3px dashed var(--emerald-ink);height:0;border-radius:0;vertical-align:3px}
-  .chart-scroll{overflow-x:auto}
+  .chart-scroll{overflow-x:auto;position:relative}
   .chart-card svg{width:100%;height:auto;min-width:560px}
+  .chart-card svg .bar{transform-box:fill-box;transform-origin:bottom;transition:filter .18s ease}
+  .chart-card svg .hit{fill:transparent;cursor:pointer}
+  .chart-card svg .mcol.hot .bar{filter:brightness(1.12) saturate(1.15)}
+  .tip{
+    position:absolute;pointer-events:none;z-index:5;min-width:158px;
+    background:var(--emerald-ink);color:#EAF7EF;border-radius:12px;padding:12px 14px;
+    font-size:.78rem;line-height:1.5;box-shadow:0 14px 34px rgba(12,59,38,.3);
+    opacity:0;transform:translateY(6px);transition:opacity .18s ease, transform .18s ease;
+  }
+  .tip.on{opacity:1;transform:none}
+  .tip b{display:block;font-size:.84rem;color:#fff;margin-bottom:4px}
+  .tip .r{color:var(--emerald);font-weight:800}
+  .tip .e{color:#BFD9CA;font-weight:700}
+  .tip::after{content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%) rotate(45deg);width:10px;height:10px;background:var(--emerald-ink)}
 
   /* budget vs actual */
   .bva{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:8px 26px 18px}
-  .bva-row{display:grid;grid-template-columns:190px 1fr 200px;gap:18px;align-items:center;padding:16px 0;border-bottom:1px solid var(--cream-2)}
+  .bva-row{display:grid;grid-template-columns:190px 1fr 200px;gap:18px;align-items:center;padding:16px 0;border-bottom:1px solid var(--cream-2);transition:background .18s ease}
+  .bva-row:hover{background:rgba(0,230,118,.045)}
   .bva-row:last-child{border-bottom:none}
   .bva-row .name{font-size:.92rem;font-weight:700}
   .bva-row .name small{display:block;font-weight:500;color:var(--ink-soft);font-size:.75rem}
   .meter{height:12px;background:var(--cream-2);border-radius:999px;position:relative;overflow:visible}
-  .meter .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#00C566,#00E676);animation:grow 1s .2s cubic-bezier(.2,.8,.2,1) both;transform-origin:left}
+  .meter .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#00C566,#00E676);transform-origin:left}
   .meter .fill.warn{background:linear-gradient(90deg,#E0A80B,#F2C744)}
   .meter .fill.hot{background:linear-gradient(90deg,#D9534F,#E8827F)}
   .meter .mark{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--emerald-ink);opacity:.45}
-  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-  .bva-num{text-align:right;font-size:.85rem;color:var(--ink-soft)}
+  .bva-num{text-align:right;font-size:.85rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
   .bva-num b{color:var(--ink);font-weight:800}
-  .pill{display:inline-block;font-size:.68rem;font-weight:800;padding:3px 10px;border-radius:999px;margin-left:8px}
+  .pill{display:inline-block;font-size:.68rem;font-weight:800;padding:3px 10px;border-radius:999px;margin-left:8px;transition:transform .18s ease}
+  .bva-row:hover .pill{transform:scale(1.08)}
   .pill.under{background:rgba(0,230,118,.16);color:var(--emerald-deep)}
   .pill.watch{background:rgba(224,168,11,.16);color:#8A6A00}
   .pill.over{background:rgba(217,83,79,.14);color:var(--red)}
@@ -159,34 +205,45 @@
   .streak{
     background:var(--emerald-ink);color:#EAF7EF;border-radius:var(--radius);
     padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    position:relative;overflow:hidden;
+  }
+  .streak::before{
+    content:"";position:absolute;right:-100px;bottom:-100px;width:260px;height:260px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(0,230,118,.16), transparent 70%);
   }
   .ring{
-    width:130px;height:130px;border-radius:50%;
+    width:134px;height:134px;border-radius:50%;position:relative;z-index:1;
     background:conic-gradient(var(--emerald) 0deg 330deg, rgba(255,255,255,.12) 330deg 360deg);
     display:grid;place-items:center;margin-bottom:18px;
   }
   .ring>div{
-    width:104px;height:104px;border-radius:50%;background:var(--emerald-ink);
+    width:106px;height:106px;border-radius:50%;background:var(--emerald-ink);
     display:grid;place-items:center;
   }
-  .ring b{font-size:2.4rem;font-weight:800;color:#fff;line-height:1}
-  .streak h2{font-size:1rem;font-weight:800;color:#fff;letter-spacing:.01em}
-  .streak p{font-size:.82rem;color:rgba(234,247,239,.72);margin-top:6px}
+  .ring b{font-size:2.5rem;font-weight:800;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+  .streak h2{font-size:1rem;font-weight:800;color:#fff;letter-spacing:.01em;position:relative;z-index:1}
+  .streak p{font-size:.82rem;color:rgba(234,247,239,.72);margin-top:6px;position:relative;z-index:1}
 
   /* CTA */
   .cta{
     margin:56px 0 70px;text-align:center;background:var(--cream-2);border-radius:32px;padding:64px 28px;
+    position:relative;overflow:hidden;
   }
-  .cta .kicker{font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--emerald-deep);margin-bottom:12px}
-  .cta h2{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;letter-spacing:-.02em;max-width:640px;margin:0 auto 14px;line-height:1.15}
-  .cta p{color:var(--ink-soft);max-width:540px;margin:0 auto 32px;font-size:1rem}
+  .cta::before{
+    content:"";position:absolute;left:50%;top:-160px;transform:translateX(-50%);
+    width:560px;height:360px;pointer-events:none;
+    background:radial-gradient(closest-side, rgba(0,230,118,.14), transparent 70%);
+  }
+  .cta .kicker{font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--emerald-deep);margin-bottom:12px;position:relative}
+  .cta h2{font-family:var(--display);font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:600;letter-spacing:-.015em;max-width:660px;margin:0 auto 14px;line-height:1.12;color:var(--emerald-ink);position:relative}
+  .cta p{color:var(--ink-soft);max-width:540px;margin:0 auto 32px;font-size:1rem;position:relative}
   .btn-primary{
-    display:inline-block;background:var(--emerald);color:var(--emerald-ink);
+    display:inline-block;background:var(--emerald);color:var(--emerald-ink);position:relative;
     font-weight:800;font-size:1rem;text-decoration:none;padding:16px 34px;border-radius:999px;
-    box-shadow:0 3px 0 rgba(12,59,38,.3);transition:transform .18s ease, box-shadow .18s ease;
+    box-shadow:0 3px 0 rgba(12,59,38,.3);transition:box-shadow .18s ease;will-change:transform;
   }
-  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,230,118,.4)}
-  .cta .free-note{margin-top:16px;font-size:.82rem;color:var(--ink-soft)}
+  .btn-primary:hover{box-shadow:0 12px 28px rgba(0,230,118,.4)}
+  .cta .free-note{margin-top:16px;font-size:.82rem;color:var(--ink-soft);position:relative}
   .cta .free-note strong{color:var(--emerald-deep)}
 
   footer{border-top:1px solid var(--line);padding:32px 0 42px}
@@ -200,9 +257,12 @@
     .bva-row{grid-template-columns:1fr;gap:8px}
     .bva-num{text-align:left}
     .period{text-align:left}
+    .status-rail .ex{margin-left:0}
   }
   @media (max-width:520px){
     .kpis{grid-template-columns:1fr}
+    .wrap{padding:0 18px}
+    .kpi .why{max-height:none;opacity:1}
   }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
@@ -236,31 +296,44 @@
 
   <div class="wrap">
 
+    <div class="status-rail" aria-label="Dashboard status, example data">
+      <span class="live"><span class="dot" aria-hidden="true"></span>Live view</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span class="ok"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#00E676" opacity=".2"/><path d="M7.5 12.2l2.9 2.9 6.1-6.2" stroke="#00A857" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>July close delivered on business day 6</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span class="num">All 4 accounts reconciled</span>
+      <span class="ex">Example data</span>
+    </div>
+
     <section class="module" aria-label="Cash position summary">
       <div class="mod-head">
         <h2>Cash at a glance</h2>
         <span class="chip">Example data</span>
       </div>
       <div class="kpis">
-        <div class="kpi">
+        <div class="kpi" tabindex="0">
           <small>Cash on hand</small>
-          <div class="val">$84,210</div>
+          <div class="val num" data-count="84210" data-prefix="$">$84,210</div>
           <span class="delta up">&#9650; $6,180 vs June</span>
+          <p class="why">Strong July sales plus the catering deposits landing before month end.</p>
         </div>
-        <div class="kpi">
+        <div class="kpi" tabindex="0">
           <small>Weeks of runway</small>
-          <div class="val">11.4</div>
+          <div class="val num" data-count="11.4" data-decimals="1">11.4</div>
           <span class="delta up">&#9650; 0.8 wks vs June</span>
+          <p class="why">Cash grew faster than the monthly spend baseline.</p>
         </div>
-        <div class="kpi">
+        <div class="kpi" tabindex="0">
           <small>July revenue</small>
-          <div class="val">$96,400</div>
+          <div class="val num" data-count="96400" data-prefix="$">$96,400</div>
           <span class="delta up">&#9650; 7.1% vs June</span>
+          <p class="why">A six month high. Catering is now about 9% of sales.</p>
         </div>
-        <div class="kpi">
+        <div class="kpi" tabindex="0">
           <small>July net income</small>
-          <div class="val">$11,760</div>
+          <div class="val num" data-count="11760" data-prefix="$">$11,760</div>
           <span class="delta up">&#9650; $3,940 vs June</span>
+          <p class="why">Revenue growth outpaced the equipment overage this month.</p>
         </div>
       </div>
     </section>
@@ -275,9 +348,10 @@
           <span><i></i>Revenue</span>
           <span class="exp"><i></i>Expenses</span>
         </div>
-        <div class="chart-scroll">
+        <div class="chart-scroll" id="chartScroll">
+        <div class="tip num" id="chartTip" aria-hidden="true"></div>
         <!-- Pure inline SVG. Scale: y maps $0 to $110k onto 250..20 (2.0909px per $1k). -->
-        <svg viewBox="0 0 720 300" role="img" aria-label="Bar and line chart. Revenue by month: February 78,200 dollars, March 84,900, April 88,300, May 92,750, June 90,010, July 96,400. Expenses by month: February 71,900, March 76,400, April 79,850, May 81,200, June 82,190, July 84,640. Revenue exceeded expenses in every month.">
+        <svg id="chartSvg" viewBox="0 0 720 300" role="img" aria-label="Bar and line chart. Revenue by month: February 78,200 dollars, March 84,900, April 88,300, May 92,750, June 90,010, July 96,400. Expenses by month: February 71,900, March 76,400, April 79,850, May 81,200, June 82,190, July 84,640. Revenue exceeded expenses in every month.">
           <g stroke="#EAE2D0" stroke-width="1">
             <line x1="50" y1="250" x2="700" y2="250"/>
             <line x1="50" y1="192.5" x2="700" y2="192.5"/>
@@ -298,19 +372,35 @@
               <stop offset="1" stop-color="#7CF7B8"/>
             </linearGradient>
           </defs>
-          <!-- Revenue bars: heights = value * 2.0909 from y=250 -->
-          <g fill="url(#rev)">
-            <rect x="80"  y="86.5" width="46" height="163.5" rx="7"/>
-            <rect x="185" y="72.5" width="46" height="177.5" rx="7"/>
-            <rect x="290" y="65.4" width="46" height="184.6" rx="7"/>
-            <rect x="395" y="56.1" width="46" height="193.9" rx="7"/>
-            <rect x="500" y="61.8" width="46" height="188.2" rx="7"/>
-            <rect x="605" y="48.4" width="46" height="201.6" rx="7"/>
+          <!-- Revenue bars + hover hit columns; heights = value * 2.0909 from y=250 -->
+          <g class="mcol" data-m="February" data-r="78,200" data-e="71,900" data-cx="103">
+            <rect class="bar" x="80"  y="86.5" width="46" height="163.5" rx="7" fill="url(#rev)"/>
+            <rect class="hit" x="65" y="20" width="76" height="230"/>
+          </g>
+          <g class="mcol" data-m="March" data-r="84,900" data-e="76,400" data-cx="208">
+            <rect class="bar" x="185" y="72.5" width="46" height="177.5" rx="7" fill="url(#rev)"/>
+            <rect class="hit" x="170" y="20" width="76" height="230"/>
+          </g>
+          <g class="mcol" data-m="April" data-r="88,300" data-e="79,850" data-cx="313">
+            <rect class="bar" x="290" y="65.4" width="46" height="184.6" rx="7" fill="url(#rev)"/>
+            <rect class="hit" x="275" y="20" width="76" height="230"/>
+          </g>
+          <g class="mcol" data-m="May" data-r="92,750" data-e="81,200" data-cx="418">
+            <rect class="bar" x="395" y="56.1" width="46" height="193.9" rx="7" fill="url(#rev)"/>
+            <rect class="hit" x="380" y="20" width="76" height="230"/>
+          </g>
+          <g class="mcol" data-m="June" data-r="90,010" data-e="82,190" data-cx="523">
+            <rect class="bar" x="500" y="61.8" width="46" height="188.2" rx="7" fill="url(#rev)"/>
+            <rect class="hit" x="485" y="20" width="76" height="230"/>
+          </g>
+          <g class="mcol" data-m="July" data-r="96,400" data-e="84,640" data-cx="628">
+            <rect class="bar" x="605" y="48.4" width="46" height="201.6" rx="7" fill="url(#rev)"/>
+            <rect class="hit" x="590" y="20" width="76" height="230"/>
           </g>
           <!-- Expenses line: x at bar centers (103,208,313,418,523,628) -->
-          <polyline points="103,99.7 208,90.3 313,83.1 418,80.2 523,78.2 628,73.0"
+          <polyline id="expLine" points="103,99.7 208,90.3 313,83.1 418,80.2 523,78.2 628,73.0"
                     fill="none" stroke="#0C3B26" stroke-width="2.5" stroke-dasharray="7 6" stroke-linecap="round"/>
-          <g fill="#0C3B26">
+          <g fill="#0C3B26" class="expDots">
             <circle cx="103" cy="99.7" r="4.5"/>
             <circle cx="208" cy="90.3" r="4.5"/>
             <circle cx="313" cy="83.1" r="4.5"/>
@@ -318,7 +408,7 @@
             <circle cx="523" cy="78.2" r="4.5"/>
             <circle cx="628" cy="73.0" r="4.5"/>
           </g>
-          <g fill="#fff">
+          <g fill="#fff" class="expDots2">
             <circle cx="103" cy="99.7" r="2"/>
             <circle cx="208" cy="90.3" r="2"/>
             <circle cx="313" cy="83.1" r="2"/>
@@ -344,7 +434,7 @@
         <h2>Budget vs actual, July</h2>
         <span class="chip">Example data</span>
       </div>
-      <div class="bva">
+      <div class="bva" id="bva">
         <div class="bva-row">
           <div class="name">Cost of goods<small>Beans, dairy, packaging</small></div>
           <div class="meter" aria-hidden="true"><div class="fill" style="width:88%"></div><span class="mark" style="left:93%"></span></div>
@@ -391,8 +481,8 @@
         </ul>
       </div>
       <div class="streak">
-        <div class="ring" role="img" aria-label="14 consecutive on-time closes">
-          <div><b>14</b></div>
+        <div class="ring" id="streakRing" role="img" aria-label="14 consecutive on-time closes">
+          <div><b id="streakNum" class="num">14</b></div>
         </div>
         <h2>Consecutive on-time closes</h2>
         <p>Books closed by the 6th business day, every month, for 14 months straight. That is what boring, reliable bookkeeping looks like.</p>
@@ -417,5 +507,133 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Chart hover tooltips work with or without GSAP ---- */
+  var tip = document.getElementById('chartTip');
+  var scrollBox = document.getElementById('chartScroll');
+  var svg = document.getElementById('chartSvg');
+  if (tip && svg && scrollBox) {
+    svg.querySelectorAll('.mcol').forEach(function(col){
+      col.addEventListener('mouseenter', function(){
+        col.classList.add('hot');
+        tip.innerHTML = '<b>'+col.dataset.m+'</b><span class="r">Revenue $'+col.dataset.r+'</span><br><span class="e">Expenses $'+col.dataset.e+'</span>';
+        var svgRect = svg.getBoundingClientRect();
+        var boxRect = scrollBox.getBoundingClientRect();
+        var scale = svgRect.width / 720;
+        var cx = (parseFloat(col.dataset.cx) * scale) + (svgRect.left - boxRect.left);
+        var left = Math.max(8, Math.min(cx - 79, boxRect.width - 166));
+        tip.style.left = left + 'px';
+        tip.style.top = '34px';
+        tip.classList.add('on');
+      });
+      col.addEventListener('mouseleave', function(){
+        col.classList.remove('hot');
+        tip.classList.remove('on');
+      });
+    });
+  }
+
+  if (reduced || !window.gsap || !window.ScrollTrigger) return; /* full dashboard renders statically without JS */
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (window.Lenis) {
+    var lenis = new Lenis({lerp:0.12});
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t*1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* ---- KPI cards: pop in, then values count up with eased formatting ---- */
+  gsap.from('.kpi', {y:26, opacity:0, duration:0.65, ease:'power3.out', stagger:0.09, delay:0.1});
+  gsap.from('.status-rail', {y:-14, opacity:0, duration:0.6, ease:'power3.out'});
+  document.querySelectorAll('.val[data-count]').forEach(function(el, i){
+    var target = parseFloat(el.dataset.count);
+    var decimals = parseInt(el.dataset.decimals || '0', 10);
+    var prefix = el.dataset.prefix || '';
+    var obj = {v:0};
+    gsap.to(obj, {
+      v:target, duration:1.6, ease:'power3.out', delay:0.25 + i*0.12,
+      onUpdate:function(){
+        var n = decimals ? obj.v.toFixed(decimals) : Math.round(obj.v).toLocaleString('en-US');
+        el.textContent = prefix + n;
+      },
+      onComplete:function(){
+        var n = decimals ? target.toFixed(decimals) : Math.round(target).toLocaleString('en-US');
+        el.textContent = prefix + n;
+      }
+    });
+  });
+
+  /* ---- Chart draw-in: bars rise, expense line strokes in, dots pop ---- */
+  var bars = svg ? svg.querySelectorAll('.bar') : [];
+  gsap.from(bars, {
+    scaleY:0, duration:0.9, ease:'power3.out', stagger:0.1,
+    scrollTrigger:{trigger:'.chart-card', start:'top 82%'}
+  });
+  var line = document.getElementById('expLine');
+  if (line) {
+    var len = line.getTotalLength();
+    gsap.fromTo(line,
+      {strokeDasharray: len + ' ' + len, strokeDashoffset: len},
+      {strokeDashoffset:0, duration:1.4, ease:'power2.inOut', delay:0.5,
+       scrollTrigger:{trigger:'.chart-card', start:'top 82%'},
+       onComplete:function(){ line.setAttribute('stroke-dasharray','7 6'); line.removeAttribute('stroke-dashoffset'); }});
+  }
+  gsap.from('.expDots circle, .expDots2 circle', {
+    scale:0, transformOrigin:'center', duration:0.4, ease:'back.out(2.4)', stagger:0.08, delay:1.15,
+    scrollTrigger:{trigger:'.chart-card', start:'top 82%'}
+  });
+
+  /* ---- Budget meters grow as they enter ---- */
+  gsap.utils.toArray('#bva .fill').forEach(function(f, i){
+    gsap.from(f, {scaleX:0, duration:0.9, ease:'power3.out', delay:i*0.07,
+      scrollTrigger:{trigger:'#bva', start:'top 85%'}});
+  });
+  gsap.from('#bva .pill', {scale:0.4, opacity:0, duration:0.45, ease:'back.out(2)', stagger:0.07, delay:0.5,
+    scrollTrigger:{trigger:'#bva', start:'top 85%'}});
+
+  /* ---- Streak ring: conic sweep + count rise to 14 ---- */
+  var ring = document.getElementById('streakRing');
+  var sn = document.getElementById('streakNum');
+  if (ring && sn) {
+    var st = {deg:0, n:0};
+    gsap.to(st, {
+      deg:330, n:14, duration:1.6, ease:'power2.out',
+      scrollTrigger:{trigger:'.streak', start:'top 80%'},
+      onUpdate:function(){
+        ring.style.background = 'conic-gradient(#00E676 0deg '+st.deg+'deg, rgba(255,255,255,.12) '+st.deg+'deg 360deg)';
+        sn.textContent = Math.round(st.n);
+      },
+      onComplete:function(){ sn.textContent = '14'; }
+    });
+  }
+
+  /* ---- Commentary bullets stagger ---- */
+  gsap.from('.commentary li', {x:-22, opacity:0, duration:0.55, ease:'power3.out', stagger:0.09,
+    scrollTrigger:{trigger:'.commentary', start:'top 82%'}});
+
+  /* ---- CTA reveal + magnetic button ---- */
+  gsap.from('.cta > *', {y:26, opacity:0, duration:0.7, ease:'power3.out', stagger:0.08,
+    scrollTrigger:{trigger:'.cta', start:'top 82%'}});
+  if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    document.querySelectorAll('.btn-primary, .header-cta').forEach(function(btn){
+      var qx = gsap.quickTo(btn, 'x', {duration:0.35, ease:'power3.out'});
+      var qy = gsap.quickTo(btn, 'y', {duration:0.35, ease:'power3.out'});
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        qx((e.clientX - (r.left + r.width/2)) * 0.22);
+        qy((e.clientY - (r.top + r.height/2)) * 0.22);
+      });
+      btn.addEventListener('mouseleave', function(){ qx(0); qy(0); });
+    });
+  }
+})();
+</script>
 </body>
 </html>
