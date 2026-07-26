@@ -18,191 +18,380 @@
     --emerald:#00E676;
     --emerald-deep:#00B25C;
     --evergreen:#0E3B26;
+    --evergreen-2:#123F2B;
     --line:#E2DACA;
+    --line-soft:#EBE4D5;
     --card:#FFFDF8;
+    --shadow-soft:0 1px 2px rgba(18,36,27,.04), 0 10px 30px -12px rgba(18,36,27,.10);
+    --shadow-lift:0 2px 4px rgba(18,36,27,.06), 0 24px 48px -16px rgba(18,36,27,.20);
+    --ease-out:cubic-bezier(.22,1,.36,1);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
+  html.lenis, html.lenis body{height:auto;}
+  .lenis.lenis-smooth{scroll-behavior:auto!important;}
   body{
     font-family:'Plus Jakarta Sans',sans-serif;
     background:var(--cream);
     color:var(--ink);
     line-height:1.65;
     -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    position:relative;
+    overflow-x:hidden;
   }
-  .wrap{max-width:960px;margin:0 auto;padding:0 32px;}
+  /* film grain over the whole document */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-size:140px 140px;
+  }
+  ::selection{background:rgba(0,230,118,.28);}
+  .wrap{max-width:980px;margin:0 auto;padding:0 32px;position:relative;}
+  .num{font-variant-numeric:tabular-nums;}
+
+  /* entrance reveals: CSS transition path (IntersectionObserver fallback) */
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .75s ease, transform .75s var(--ease-out);will-change:opacity,transform;}
+  .rv.in{opacity:1;transform:none;}
+  .rv[data-d="1"]{transition-delay:.08s;}
+  .rv[data-d="2"]{transition-delay:.16s;}
+  .rv[data-d="3"]{transition-delay:.24s;}
+  .rv[data-d="4"]{transition-delay:.32s;}
+  .rv[data-d="5"]{transition-delay:.40s;}
+  /* when GSAP drives, transitions get out of the way */
+  .gs .rv{transition:none;transition-delay:0s;}
 
   /* top bar */
   .topbar{
     border-bottom:1px solid var(--line);
-    background:var(--card);
+    background:rgba(255,253,248,.9);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    position:sticky;top:0;z-index:30;
   }
-  .topbar-inner{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:20px 0;
-  }
-  .logo-slot{display:flex;align-items:center;gap:12px;}
-  .logo-slot .wordmark{font-weight:800;font-size:1.05rem;letter-spacing:-0.01em;}
-  .logo-slot .wordmark span{color:var(--emerald-deep);}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
   .doc-label{
-    font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:0.66rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
     color:var(--ink-mute);
   }
+  .doc-label svg{width:10px;height:10px;display:block;}
 
   /* hero */
-  .hero{
-    padding:88px 0 72px;
-    position:relative;
-    overflow:hidden;
+  .hero{padding:112px 0 96px;position:relative;overflow:hidden;}
+  .glow{position:absolute;border-radius:50%;pointer-events:none;}
+  .glow.g1{
+    top:-200px;right:-220px;width:680px;height:680px;
+    background:radial-gradient(closest-side, rgba(0,230,118,0.16), rgba(0,230,118,0.05) 55%, transparent 72%);
+    animation:drift1 14s ease-in-out infinite alternate;
   }
-  .hero::before{
-    content:"";position:absolute;top:-140px;right:-160px;width:460px;height:460px;
-    background:radial-gradient(closest-side, rgba(0,230,118,0.13), transparent 70%);
-    border-radius:50%;
+  .glow.g2{
+    bottom:-260px;left:-240px;width:560px;height:560px;
+    background:radial-gradient(closest-side, rgba(14,59,38,0.07), transparent 70%);
+    animation:drift2 18s ease-in-out infinite alternate;
   }
+  .glow.g3{
+    top:30%;left:38%;width:420px;height:420px;opacity:.5;
+    background:radial-gradient(closest-side, rgba(0,178,92,0.06), transparent 70%);
+    animation:drift1 22s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes drift1{from{transform:translate(0,0);}to{transform:translate(-34px,26px);}}
+  @keyframes drift2{from{transform:translate(0,0);}to{transform:translate(28px,-22px);}}
+  /* oversized chevron watermark, right edge */
+  .hero-mark{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:320px;height:440px;opacity:.05;pointer-events:none;}
+  .hero .wrap{border-left:1px solid var(--line);padding-left:46px;}
   .eyebrow{
-    display:inline-flex;align-items:center;gap:10px;
-    font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
-    color:var(--emerald-deep);margin-bottom:22px;
+    display:inline-flex;align-items:center;gap:12px;
+    font-size:0.7rem;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;
+    color:var(--emerald-deep);margin-bottom:28px;
   }
-  .eyebrow::before{content:"";width:26px;height:2px;background:var(--emerald);}
+  .eyebrow .chev{display:inline-flex;gap:2px;}
+  .eyebrow .chev svg{width:9px;height:11px;display:block;}
   h1{
-    font-size:clamp(2.4rem,5.5vw,3.6rem);
-    font-weight:800;line-height:1.05;letter-spacing:-0.03em;
-    max-width:15ch;
+    font-size:clamp(2.7rem,6.4vw,4.5rem);
+    font-weight:800;line-height:1.01;letter-spacing:-0.038em;
+    max-width:16ch;text-wrap:balance;
   }
-  h1 em{font-style:normal;color:var(--emerald-deep);}
-  .hero p.lede{
-    margin-top:26px;font-size:1.13rem;color:var(--ink-soft);max-width:58ch;
+  h1 em{font-style:normal;color:var(--emerald-deep);position:relative;white-space:nowrap;}
+  h1 em::after{
+    content:"";position:absolute;left:0;right:.18em;bottom:.05em;height:.15em;
+    background:linear-gradient(90deg, rgba(0,230,118,.42), rgba(0,230,118,.1));
+    z-index:-1;border-radius:2px;
   }
+  /* word-mask reveal scaffolding (activated when GSAP is live) */
+  .gs h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em;}
+  .gs h1 .w>span{display:inline-block;transform:translateY(115%);will-change:transform;}
+  .hero p.lede{margin-top:32px;font-size:1.15rem;line-height:1.78;color:var(--ink-soft);max-width:56ch;}
   .start-badge{
-    display:inline-block;margin-top:30px;
-    background:var(--evergreen);color:#F4FFF9;
-    font-weight:600;font-size:0.9rem;
-    padding:12px 22px;border-radius:100px;
-    box-shadow:0 0 0 4px rgba(0,230,118,0.18);
+    display:inline-flex;align-items:center;gap:14px;margin-top:38px;
+    background:linear-gradient(135deg, var(--evergreen), var(--evergreen-2));
+    color:#F4FFF9;font-weight:600;font-size:0.92rem;letter-spacing:.01em;
+    padding:14px 26px 14px 20px;border-radius:100px;
+    box-shadow:0 0 0 4px rgba(0,230,118,0.16), 0 16px 34px -12px rgba(14,59,38,.45);
+    transition:transform .35s var(--ease-out), box-shadow .35s var(--ease-out);
+  }
+  .start-badge:hover{transform:translateY(-2px);box-shadow:0 0 0 4px rgba(0,230,118,0.22), 0 22px 42px -14px rgba(14,59,38,.5);}
+  .start-badge .dot{
+    flex:none;width:9px;height:9px;border-radius:50%;background:var(--emerald);
+    box-shadow:0 0 0 0 rgba(0,230,118,.5);
+    animation:pulse 2.6s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(0,230,118,.45);}
+    70%{box-shadow:0 0 0 9px rgba(0,230,118,0);}
+    100%{box-shadow:0 0 0 0 rgba(0,230,118,0);}
   }
   .start-badge strong{color:var(--emerald);font-weight:800;}
 
-  /* section scaffolding */
-  section{padding:64px 0;border-top:1px solid var(--line);}
-  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:36px;}
-  .sec-num{
-    font-size:0.78rem;font-weight:800;color:var(--emerald-deep);
-    letter-spacing:0.12em;white-space:nowrap;
+  /* section scaffolding: alternating tints + ghost numerals + chevron dividers */
+  section{padding:92px 0;position:relative;}
+  section.tint{background:linear-gradient(180deg, var(--card), var(--cream) 88%);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
+  .divider{display:flex;align-items:center;gap:0;max-width:980px;margin:0 auto;padding:0 32px;}
+  .divider .rule{flex:1;height:1px;background:var(--line);}
+  .divider svg{flex:none;width:14px;height:14px;margin:0 14px;display:block;opacity:.8;}
+  .ghost{
+    position:absolute;top:44px;right:18px;z-index:0;pointer-events:none;user-select:none;
+    font-size:clamp(6rem,15vw,11.5rem);font-weight:800;line-height:1;letter-spacing:-0.04em;
+    color:transparent;-webkit-text-stroke:1px rgba(18,36,27,.07);
   }
-  h2{font-size:clamp(1.55rem,3vw,2.1rem);font-weight:800;letter-spacing:-0.02em;line-height:1.15;}
-  .sec-intro{color:var(--ink-soft);max-width:62ch;margin:-20px 0 34px;}
+  section.tint .ghost{-webkit-text-stroke:1px rgba(18,36,27,.09);}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:14px;position:relative;z-index:1;}
+  .sec-num{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:0.72rem;font-weight:800;color:var(--emerald-deep);
+    letter-spacing:0.18em;white-space:nowrap;font-variant-numeric:tabular-nums;
+  }
+  .sec-num::after{content:"";width:30px;height:1px;background:var(--emerald-deep);opacity:.5;transform:translateY(-3px);}
+  h2{font-size:clamp(1.75rem,3.5vw,2.45rem);font-weight:800;letter-spacing:-0.026em;line-height:1.1;text-wrap:balance;}
+  .sec-intro{color:var(--ink-soft);max-width:60ch;margin:14px 0 44px;font-size:1.03rem;position:relative;z-index:1;}
 
-  /* team cards */
-  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  /* team cards with offset photo frames */
+  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;z-index:1;}
   .team-card{
     background:var(--card);border:1px solid var(--line);border-radius:18px;
-    padding:30px 28px;position:relative;overflow:hidden;
+    padding:32px 30px;position:relative;overflow:hidden;
+    box-shadow:var(--shadow-soft);
+    transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out), border-color .45s ease;
   }
+  .team-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift);border-color:#D6CDB9;}
   .team-card::after{
-    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--emerald);
+    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+    background:linear-gradient(180deg, var(--emerald), var(--emerald-deep));
   }
+  .team-card::before{
+    content:"";position:absolute;right:-46px;top:-46px;width:130px;height:130px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(0,230,118,.1), transparent 70%);
+    transition:transform .6s var(--ease-out);
+  }
+  .team-card:hover::before{transform:scale(1.5);}
+  .avatar{position:relative;display:inline-block;margin-bottom:16px;}
+  .avatar::after{
+    content:"";position:absolute;inset:-7px -7px auto auto;width:100%;height:100%;
+    border:1px solid rgba(0,178,92,.4);border-radius:50%;
+    transform:translate(7px,7px);transition:transform .45s var(--ease-out);
+  }
+  .team-card:hover .avatar::after{transform:translate(4px,4px);}
+  .team-photo{width:76px;height:76px;border-radius:50%;object-fit:cover;display:block;border:3px solid var(--emerald);position:relative;z-index:1;background:var(--cream-deep);}
   .team-card .role{
-    font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+    font-size:0.66rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
     color:var(--emerald-deep);margin-bottom:8px;
   }
-  .team-card h3{font-size:1.25rem;font-weight:800;letter-spacing:-0.01em;}
-  .team-card p{margin-top:10px;color:var(--ink-soft);font-size:0.95rem;}
+  .team-card h3{font-size:1.3rem;font-weight:800;letter-spacing:-0.015em;}
+  .team-card p{margin-top:10px;color:var(--ink-soft);font-size:0.95rem;line-height:1.68;}
 
-  /* 30-day timeline */
-  .timeline{display:grid;gap:0;}
-  .step{
-    display:grid;grid-template-columns:52px 1fr;gap:24px;
-    padding:26px 0;border-bottom:1px dashed var(--line);
+  .team-figure{margin:32px 0 0;position:relative;z-index:1;}
+  .team-figure .photo-frame{position:relative;}
+  .team-figure .photo-frame::after{
+    content:"";position:absolute;inset:16px -16px -16px 16px;
+    border:1px solid rgba(0,178,92,.35);border-radius:16px;z-index:0;pointer-events:none;
   }
-  .step:last-child{border-bottom:none;}
+  .team-figure .photo-frame{overflow:visible;}
+  .team-figure .photo-clip{overflow:hidden;border-radius:14px;position:relative;z-index:1;box-shadow:var(--shadow-lift);}
+  .team-figure img{width:100%;height:auto;display:block;transform:scale(1.02);}
+  .team-figure figcaption{font-size:0.82rem;letter-spacing:.02em;color:var(--ink-mute);margin-top:24px;display:flex;align-items:center;gap:9px;}
+  .team-figure figcaption svg{width:9px;height:11px;display:block;}
+
+  /* 30-day visual timeline: drawn spine, nodes, date chips */
+  .timeline{position:relative;z-index:1;padding-left:4px;}
+  .spine{
+    position:absolute;left:29px;top:34px;bottom:34px;width:2px;
+    background:linear-gradient(180deg, var(--emerald) 0%, rgba(0,178,92,.35) 60%, rgba(0,178,92,.12) 100%);
+    border-radius:2px;transform-origin:top center;
+  }
+  .step{
+    display:grid;grid-template-columns:52px 1fr;gap:28px;
+    padding:26px 0;position:relative;
+  }
   .step-num{
-    width:52px;height:52px;border-radius:50%;
+    width:52px;height:52px;border-radius:50%;position:relative;z-index:1;
     background:var(--card);border:2px solid var(--emerald);
     display:flex;align-items:center;justify-content:center;
     font-weight:800;font-size:1.05rem;color:var(--evergreen);
+    font-variant-numeric:tabular-nums;
+    box-shadow:0 0 0 6px var(--cream), var(--shadow-soft);
   }
-  .step h3{font-size:1.12rem;font-weight:800;letter-spacing:-0.01em;}
-  .step .when{
-    font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
-    color:var(--emerald-deep);margin-bottom:6px;
+  section.tint .step-num{box-shadow:0 0 0 6px var(--card), var(--shadow-soft);}
+  .step-body{
+    background:var(--card);border:1px solid var(--line-soft);border-radius:16px;
+    padding:24px 28px;box-shadow:var(--shadow-soft);position:relative;
+    transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out);
   }
-  .step p{color:var(--ink-soft);font-size:0.97rem;margin-top:6px;max-width:62ch;}
+  .step-body:hover{transform:translateX(5px);box-shadow:var(--shadow-lift);}
+  .step-body::before{
+    content:"";position:absolute;left:-7px;top:26px;width:12px;height:12px;
+    background:var(--card);border-left:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
+    transform:rotate(45deg);
+  }
+  .step h3{font-size:1.14rem;font-weight:800;letter-spacing:-0.012em;}
+  .when{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:0.66rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--evergreen);margin-bottom:10px;
+    background:rgba(0,230,118,.13);border:1px solid rgba(0,178,92,.25);
+    padding:4px 12px;border-radius:100px;font-variant-numeric:tabular-nums;
+  }
+  .when::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--emerald-deep);}
+  .step p{color:var(--ink-soft);font-size:0.96rem;margin-top:8px;max-width:62ch;line-height:1.7;}
 
-  /* rhythm table */
-  .rhythm{
-    background:var(--card);border:1px solid var(--line);border-radius:18px;
-    overflow:hidden;
+  /* monthly rhythm: calendar strip */
+  .calstrip{position:relative;z-index:1;margin-top:10px;}
+  .cal-track{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-bottom:26px;
   }
-  .rhythm-row{
-    display:grid;grid-template-columns:190px 1fr;gap:20px;
-    padding:22px 28px;border-bottom:1px solid var(--line);
+  .cal-line{
+    position:absolute;left:6%;right:6%;top:10px;height:2px;
+    background:linear-gradient(90deg, var(--emerald), rgba(0,178,92,.25));border-radius:2px;
+    transform-origin:left center;
   }
-  .rhythm-row:last-child{border-bottom:none;}
-  .rhythm-row .r-when{font-weight:800;font-size:0.95rem;color:var(--evergreen);}
-  .rhythm-row .r-what{color:var(--ink-soft);font-size:0.97rem;}
-  .rhythm-note{margin-top:18px;font-size:0.9rem;color:var(--ink-mute);max-width:66ch;}
+  .cal-node{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;}
+  .cal-dot{
+    width:22px;height:22px;border-radius:50%;background:var(--card);
+    border:2px solid var(--emerald);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;
+    box-shadow:0 0 0 5px var(--cream);
+  }
+  section.tint .cal-dot{box-shadow:0 0 0 5px var(--card);}
+  .cal-dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--emerald-deep);}
+  .cal-when{font-size:0.68rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--evergreen);font-variant-numeric:tabular-nums;}
+  .cal-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .cal-card{
+    background:var(--card);border:1px solid var(--line-soft);border-radius:14px;
+    padding:20px 20px 22px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden;
+    transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out);
+  }
+  .cal-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift);}
+  .cal-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--emerald),rgba(0,230,118,.25));}
+  .cal-card p{color:var(--ink-soft);font-size:0.9rem;line-height:1.62;}
+  .rhythm-note{
+    margin-top:26px;font-size:0.92rem;color:var(--ink-soft);max-width:70ch;position:relative;z-index:1;
+    border-left:2px solid var(--emerald);padding:4px 0 4px 18px;
+  }
 
-  /* needs checklist */
-  .needs{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  /* needs: tap-to-check cards */
+  .needs{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;z-index:1;}
   .need{
     background:var(--card);border:1px solid var(--line);border-radius:14px;
-    padding:18px 20px;display:flex;gap:14px;align-items:flex-start;
+    padding:20px 22px;display:flex;gap:15px;align-items:flex-start;cursor:pointer;
+    box-shadow:var(--shadow-soft);
+    transition:transform .35s var(--ease-out), box-shadow .35s var(--ease-out), background .35s ease, border-color .35s ease;
   }
+  .need:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);}
+  .need:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;}
   .need .tick{
-    flex:none;width:22px;height:22px;border-radius:6px;background:var(--emerald);
-    display:flex;align-items:center;justify-content:center;margin-top:2px;
+    flex:none;width:24px;height:24px;border-radius:7px;margin-top:2px;
+    border:2px solid var(--emerald-deep);background:transparent;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .25s ease, border-color .25s ease;
   }
-  .need .tick svg{width:13px;height:13px;}
-  .need p{font-size:0.93rem;color:var(--ink-soft);}
+  .need .tick svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:opacity .25s ease, transform .25s var(--ease-out);}
+  .need.done{background:#F2FBF5;border-color:#BFE8CF;}
+  .need.done .tick{background:var(--emerald);border-color:var(--emerald);}
+  .need.done .tick svg{opacity:1;transform:scale(1);}
+  .need p{font-size:0.93rem;color:var(--ink-soft);line-height:1.62;}
   .need p strong{color:var(--ink);}
+  .needs-hint{margin-top:16px;font-size:0.8rem;color:var(--ink-mute);letter-spacing:.02em;position:relative;z-index:1;}
 
   /* contact */
   .contact{
-    background:var(--evergreen);border-radius:22px;color:#EAF7EF;
-    padding:46px 44px;display:grid;grid-template-columns:1.2fr 1fr;gap:36px;
+    background:linear-gradient(135deg, var(--evergreen) 0%, var(--evergreen-2) 60%, #16492F 100%);
+    border-radius:22px;color:#EAF7EF;position:relative;overflow:hidden;
+    padding:52px 48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;
+    box-shadow:0 34px 66px -26px rgba(14,59,38,.52);
   }
+  .contact::before{
+    content:"";position:absolute;top:-120px;right:-100px;width:400px;height:400px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(0,230,118,.22), transparent 70%);
+  }
+  .contact .cmark{position:absolute;right:22px;bottom:-30px;width:150px;height:200px;opacity:.08;pointer-events:none;}
   .contact h2{color:#fff;}
-  .contact p{color:#BFD9CA;font-size:0.98rem;max-width:46ch;margin-top:12px;}
-  .contact .lines{display:grid;gap:16px;align-content:center;}
-  .contact .line{border-left:3px solid var(--emerald);padding-left:16px;}
-  .contact .line .lbl{
-    font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8FBBA0;
+  .contact p{color:#BFD9CA;font-size:0.98rem;max-width:46ch;margin-top:14px;line-height:1.7;}
+  .contact .lines{display:grid;gap:18px;align-content:center;position:relative;z-index:1;}
+  .contact .line{border-left:3px solid var(--emerald);padding-left:18px;transition:transform .35s var(--ease-out);}
+  .contact .line:hover{transform:translateX(5px);}
+  .contact .line .lbl{font-size:0.64rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#8FBBA0;}
+  .contact .line .val{font-weight:700;color:#fff;font-size:1.04rem;word-break:break-word;font-variant-numeric:tabular-nums;}
+
+  footer{padding:48px 0 60px;color:var(--ink-mute);font-size:0.82rem;}
+  footer .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:30px;align-items:center;}
+  footer .foot-brand{display:flex;align-items:center;gap:10px;}
+  footer .foot-brand svg{width:9px;height:11px;display:block;}
+
+  a:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;border-radius:4px;}
+
+  @media (max-width:820px){
+    .cal-track{display:none;}
+    .cal-cards{grid-template-columns:1fr 1fr;}
+    .cal-card::after{
+      content:attr(data-when);display:block;
+      font-size:0.66rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--evergreen);margin-bottom:8px;
+    }
+    .cal-card{display:flex;flex-direction:column-reverse;justify-content:flex-end;}
   }
-  .contact .line .val{font-weight:700;color:#fff;font-size:1.02rem;word-break:break-word;}
-
-  footer{padding:44px 0 56px;color:var(--ink-mute);font-size:0.82rem;}
-  footer .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:28px;}
-
   @media (max-width:760px){
     .wrap{padding:0 20px;}
-    .hero{padding:64px 0 52px;}
-    section{padding:48px 0;}
+    .hero{padding:76px 0 58px;}
+    .hero .wrap{border-left:none;padding-left:20px;}
+    .hero-mark{display:none;}
+    section{padding:60px 0;}
+    .ghost{font-size:5.4rem;top:26px;right:10px;}
     .team-grid,.needs{grid-template-columns:1fr;}
-    .rhythm-row{grid-template-columns:1fr;gap:6px;padding:18px 20px;}
-    .contact{grid-template-columns:1fr;padding:34px 26px;}
-    .step{grid-template-columns:42px 1fr;gap:16px;}
-    .step-num{width:42px;height:42px;font-size:0.95rem;}
+    .contact{grid-template-columns:1fr;padding:36px 26px;}
+    .spine{left:24px;}
+    .step{grid-template-columns:44px 1fr;gap:18px;}
+    .step-num{width:44px;height:44px;font-size:0.95rem;}
+    .step-body{padding:20px 20px;}
+    .cal-cards{grid-template-columns:1fr;}
   }
-  a:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;border-radius:4px;}
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;}}
   @media (max-width:420px){
-    h1{font-size:2.15rem;}
+    h1{font-size:2.35rem;}
     .hero p.lede{font-size:1.02rem;}
     .contact .line .val{font-size:0.95rem;}
-    .rhythm-row{padding:16px 18px;}
+    .step-body{padding:18px 16px;}
+    .start-badge{font-size:0.84rem;padding:12px 18px 12px 16px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{animation:none!important;transition:none!important;}
+    .rv{opacity:1;transform:none;}
   }
   @media print{
-    body{background:#fff;}
+    body{background:#fff;overflow-x:visible;}
+    body::before,.hero-mark,.needs-hint,.glow{display:none;}
+    .topbar{position:static;background:#fff;}
+    .rv{opacity:1!important;transform:none!important;}
+    h1 .w>span{transform:none!important;}
     .hero{padding:36px 0 24px;}
-    .hero::before{display:none;}
+    .ghost{display:none;}
     section{padding:28px 0;}
-    .team-card,.need,.stage,.rhythm{break-inside:avoid;}
-    .contact,.start-badge,.tick,.step-num{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    section.tint{background:#fff;border:none;}
+    .team-card,.need,.step,.cal-card,.contact{break-inside:avoid;box-shadow:none;}
+    .contact,.start-badge,.tick,.step-num,.when,.cal-dot{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .team-figure .photo-frame::after{display:none;}
+    .spine{transform:none!important;}
+    .cal-line{transform:none!important;}
   }
-.team-photo{width:72px;height:72px;border-radius:50%;object-fit:cover;display:block;margin-bottom:12px;border:3px solid #00E676;}.team-photo-initials{display:flex;align-items:center;justify-content:center;background:#0f2418;color:#fff;font-weight:700;font-size:1.4rem;font-family:'Plus Jakarta Sans',sans-serif;}
 </style>
+<noscript><style>.rv{opacity:1;transform:none;}</style></noscript>
 </head>
 <body>
 
@@ -211,83 +400,93 @@
     <div class="logo-slot">
       <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO" style="height:36px;width:auto;display:block">
     </div>
-    <div class="doc-label">Client Welcome Pack</div>
+    <div class="doc-label"><svg viewBox="0 0 10 12" fill="none"><path d="M2 1l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Client Welcome Pack</div>
   </div>
 </div>
 
 <header class="hero">
+  <div class="glow g1" aria-hidden="true"></div>
+  <div class="glow g2" aria-hidden="true"></div>
+  <div class="glow g3" aria-hidden="true"></div>
+  <svg class="hero-mark" viewBox="0 0 100 140" fill="none" aria-hidden="true"><path d="M10 10l55 60-55 60" stroke="#0E3B26" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M45 10l55 60-55 60" stroke="#00B25C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
   <div class="wrap">
-    <div class="eyebrow">Welcome to Turnkey CFO</div>
-    <h1>Welcome, <em>Cornerstone.</em></h1>
-    <p class="lede">Dan, Adam, and the whole Cornerstone team: we are glad you are here. Your church carries a real ministry across three campuses, and your books should tell that story clearly. That is our job now. This page walks you through exactly what happens next, who is doing it, and what we will need from you along the way.</p>
-    <div class="start-badge">Your engagement begins <strong>August 1, 2026</strong></div>
+    <div class="eyebrow rv"><span class="chev"><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00E676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Welcome to Turnkey CFO</div>
+    <h1 class="rv" data-d="1">Welcome, <em>Cornerstone.</em></h1>
+    <p class="lede rv" data-d="2">Dan, Adam, and the whole Cornerstone team: we are glad you are here. Your church carries a real ministry across three campuses, and your books should tell that story clearly. That is our job now. This page walks you through exactly what happens next, who is doing it, and what we will need from you along the way.</p>
+    <div class="start-badge rv num" data-d="3"><span class="dot"></span>Your engagement begins <strong>August 1, 2026</strong></div>
   </div>
 </header>
 
+<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+
 <section>
+  <div class="ghost num" aria-hidden="true">01</div>
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">01</span><h2>Your team</h2></div>
-    <p class="sec-intro">You will always know who is in your corner. Four people own your account, and you can reach any of them directly.</p>
+    <div class="sec-head rv"><span class="sec-num num">01</span><h2>Your team</h2></div>
+    <p class="sec-intro rv" data-d="1">You will always know who is in your corner. Four people own your account, and you can reach any of them directly.</p>
     <div class="team-grid">
-      <div class="team-card">
-        <img class="team-photo" src="https://turnkeycfo.com/assets/ricky-headshot.webp" alt="Ricky West"><div class="role">Founder, Turnkey CFO</div>
+      <div class="team-card rv">
+        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/ricky-headshot.webp" alt="Ricky West"></div><div class="role">Founder, Turnkey CFO</div>
         <h3>Ricky West</h3>
         <p>Ricky leads your relationship. He ran your diagnosis, built your engagement, and stays personally involved in your cleanup and your first closes. Big-picture questions, scope questions, and anything that keeps you up at night go to him.</p>
       </div>
-      <div class="team-card">
-        <img class="team-photo" src="https://turnkeycfo.com/assets/vanessa-headshot.webp" alt="Vanessa"><div class="role">Lead Accountant</div>
+      <div class="team-card rv" data-d="1">
+        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/vanessa-headshot.webp" alt="Vanessa"></div><div class="role">Lead Accountant</div>
         <h3>Vanessa</h3>
         <p>Vanessa is your day-to-day contact. She runs your onboarding checklist, coordinates access and records, and quality-checks everything before it reaches you. When you have a question about a transaction, a report, or a deadline, Vanessa is your fastest answer.</p>
       </div>
-      <div class="team-card">
-        <img class="team-photo" src="https://turnkeycfo.com/assets/hardik-headshot.webp" alt="Hardik"><div class="role">Onboarding Specialist</div>
+      <div class="team-card rv" data-d="2">
+        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/hardik-headshot.webp" alt="Hardik"></div><div class="role">Onboarding Specialist</div>
         <h3>Hardik</h3>
         <p>Hardik runs your onboarding behind the scenes: access, records, and the daily transaction work that keeps your books current from day one.</p>
       </div>
-      <div class="team-card">
-        <img class="team-photo" src="https://turnkeycfo.com/assets/eldine-headshot.webp" alt="Eldine"><div class="role">Assistant</div>
+      <div class="team-card rv" data-d="3">
+        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/eldine-headshot.webp" alt="Eldine"></div><div class="role">Assistant</div>
         <h3>Eldine</h3>
         <p>Eldine keeps the operational wheels turning: scheduling, invoicing, and making sure nothing falls through the cracks.</p>
       </div>
     </div>
-  
-<figure style="margin:26px 0 0"><img src="https://turnkeycfo.com/assets/turnkey-team.webp" alt="The Turnkey team" style="width:100%;height:auto;border-radius:14px;display:block"><figcaption style="font-size:0.85rem;color:#5a6b60;margin-top:8px">The Turnkey team.</figcaption></figure>
-</div>
+    <figure class="team-figure rv"><div class="photo-frame"><div class="photo-clip"><img id="teamPhoto" src="https://turnkeycfo.com/assets/turnkey-team.webp" alt="The Turnkey team"></div></div><figcaption><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>The Turnkey team.</figcaption></figure>
+  </div>
 </section>
 
-<section>
+<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+
+<section class="tint">
+  <div class="ghost num" aria-hidden="true">02</div>
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">02</span><h2>Your first 30 days</h2></div>
-    <p class="sec-intro">The first month is about three things: getting connected, getting your history cleaned up, and getting your monthly rhythm started. Here is how it unfolds.</p>
+    <div class="sec-head rv"><span class="sec-num num">02</span><h2>Your first 30 days</h2></div>
+    <p class="sec-intro rv" data-d="1">The first month is about three things: getting connected, getting your history cleaned up, and getting your monthly rhythm started. Here is how it unfolds.</p>
     <div class="timeline">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div>
-          <div class="when">Late July</div>
+      <div class="spine" aria-hidden="true"></div>
+      <div class="step rv">
+        <div class="step-num num">1</div>
+        <div class="step-body">
+          <div class="when num">Late July</div>
           <h3>Kickoff</h3>
           <p>Ricky and Vanessa sit down with Dan and your leadership, in person if we can make it work. We will walk the plan for all three campuses, confirm who owns what on your side, and answer every question before a single entry moves.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div>
-          <div class="when">Late July into early August</div>
+      <div class="step rv" data-d="1">
+        <div class="step-num num">2</div>
+        <div class="step-body">
+          <div class="when num">Late July into early August</div>
           <h3>Access and setup</h3>
           <p>We connect to the systems your church already uses: QuickBooks Online, Gusto, Expensify, Planning Center, Overflow, and view-only access to your bank accounts. One click from your side connects QuickBooks to our reporting tools, and Vanessa will send you a short video showing exactly where to click.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div>
-          <div class="when">August</div>
+      <div class="step rv" data-d="2">
+        <div class="step-num num">3</div>
+        <div class="step-body">
+          <div class="when num">August</div>
           <h3>Your January through June books, cleaned up</h3>
           <p>We work through the backlog: the uncategorized entries waiting on answers, first-time reconciliations for accounts that have never been tied out (including your Edward Jones account and LCRA escrow), and clear documentation for your CD position. We will also map the plan to bring the Fitzhugh campus books into QuickBooks Online so all three campuses live in one clean system.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div>
-          <div class="when">September</div>
+      <div class="step rv" data-d="3">
+        <div class="step-num num">4</div>
+        <div class="step-body">
+          <div class="when num">September</div>
           <h3>Your first monthly close</h3>
           <p>Your August books are the first month we close on the standing rhythm. You will receive your profit and loss and balance sheet, with campus-level expense reporting and restricted fund tracking, by September 15. From there it repeats every month, without you having to ask.</p>
         </div>
@@ -296,50 +495,55 @@
   </div>
 </section>
 
+<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+
 <section>
+  <div class="ghost num" aria-hidden="true">03</div>
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">03</span><h2>The monthly rhythm</h2></div>
-    <p class="sec-intro">Every month runs on the same calendar of business days, so you always know where your books stand. In plain English:</p>
-    <div class="rhythm">
-      <div class="rhythm-row">
-        <div class="r-when">First business day</div>
-        <div class="r-what">We send you one short request list: anything we need from your team to close the prior month. One list, not a drip of emails.</div>
+    <div class="sec-head rv"><span class="sec-num num">03</span><h2>The monthly rhythm</h2></div>
+    <p class="sec-intro rv" data-d="1">Every month runs on the same calendar of business days, so you always know where your books stand. In plain English:</p>
+    <div class="calstrip">
+      <div class="cal-track rv" aria-hidden="true">
+        <div class="cal-line"></div>
+        <div class="cal-node"><div class="cal-dot"></div><div class="cal-when num">First business day</div></div>
+        <div class="cal-node"><div class="cal-dot"></div><div class="cal-when num">First week</div></div>
+        <div class="cal-node"><div class="cal-dot"></div><div class="cal-when num">Mid-month</div></div>
+        <div class="cal-node"><div class="cal-dot"></div><div class="cal-when num">By the 15th</div></div>
       </div>
-      <div class="rhythm-row">
-        <div class="r-when">First week</div>
-        <div class="r-what">Transactions coded, accounts reconciled, and any open questions batched back to you respectfully.</div>
-      </div>
-      <div class="rhythm-row">
-        <div class="r-when">Mid-month</div>
-        <div class="r-what">Your books are finalized and locked, reviewed by a second set of eyes before anything reaches you.</div>
-      </div>
-      <div class="rhythm-row">
-        <div class="r-when">By the 15th</div>
-        <div class="r-what">Your reports arrive in your shared drive: profit and loss, balance sheet, campus-level expenses, and restricted funds: Building Fund, First Fruits, 1231 Ministries, and the 250 Fund, each tracked plainly.</div>
+      <div class="cal-cards">
+        <div class="cal-card rv" data-when="First business day"><p>We send you one short request list: anything we need from your team to close the prior month. One list, not a drip of emails.</p></div>
+        <div class="cal-card rv" data-d="1" data-when="First week"><p>Transactions coded, accounts reconciled, and any open questions batched back to you respectfully.</p></div>
+        <div class="cal-card rv" data-d="2" data-when="Mid-month"><p>Your books are finalized and locked, reviewed by a second set of eyes before anything reaches you.</p></div>
+        <div class="cal-card rv" data-d="3" data-when="By the 15th"><p>Your reports arrive in your shared drive: profit and loss, balance sheet, campus-level expenses, and restricted funds: Building Fund, First Fruits, 1231 Ministries, and the 250 Fund, each tracked plainly.</p></div>
       </div>
     </div>
-    <p class="rhythm-note">Also on the standing calendar: payroll reconciliation each month, accounts payable support, sales tax filing, and 1099 preparation each January.</p>
+    <p class="rhythm-note rv">Also on the standing calendar: payroll reconciliation each month, accounts payable support, sales tax filing, and 1099 preparation each January.</p>
   </div>
 </section>
 
-<section>
+<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+
+<section class="tint">
+  <div class="ghost num" aria-hidden="true">04</div>
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">04</span><h2>What we need from you</h2></div>
-    <p class="sec-intro">Your part is small but important. These items unlock the cleanup. The sooner they land, the sooner your books are current.</p>
+    <div class="sec-head rv"><span class="sec-num num">04</span><h2>What we need from you</h2></div>
+    <p class="sec-intro rv" data-d="1">Your part is small but important. These items unlock the cleanup. The sooner they land, the sooner your books are current.</p>
     <div class="needs">
-      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>The QuickBooks connection click.</strong> One consent click from an admin connects your books to our reporting. Vanessa will send the link and a short walkthrough video.</p></div>
-      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>System access.</strong> Admin invitations to Gusto, Expensify, Planning Center, and Overflow, plus view-only bank access for Chase and AMEX.</p></div>
-      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Statements.</strong> Edward Jones statements back to the account opening, LCRA escrow statements, and documentation for the certificate of deposit.</p></div>
-      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>W-9s.</strong> Completed W-9 forms for your musicians and security contractors across all campuses, so January 1099s are painless.</p></div>
-      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>A few answers at kickoff.</strong> Your legal entity name for filings, sales tax history, housing allowance designations, and the restriction rules for your named funds.</p></div>
-      <div class="need"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Answers to our batched questions.</strong> During cleanup we will send question lists in batches. Quick turnarounds keep the cleanup moving.</p></div>
+      <div class="need rv" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>The QuickBooks connection click.</strong> One consent click from an admin connects your books to our reporting. Vanessa will send the link and a short walkthrough video.</p></div>
+      <div class="need rv" data-d="1" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>System access.</strong> Admin invitations to Gusto, Expensify, Planning Center, and Overflow, plus view-only bank access for Chase and AMEX.</p></div>
+      <div class="need rv" data-d="2" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Statements.</strong> Edward Jones statements back to the account opening, LCRA escrow statements, and documentation for the certificate of deposit.</p></div>
+      <div class="need rv" data-d="3" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>W-9s.</strong> Completed W-9 forms for your musicians and security contractors across all campuses, so January 1099s are painless.</p></div>
+      <div class="need rv" data-d="4" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>A few answers at kickoff.</strong> Your legal entity name for filings, sales tax history, housing allowance designations, and the restriction rules for your named funds.</p></div>
+      <div class="need rv" data-d="5" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Answers to our batched questions.</strong> During cleanup we will send question lists in batches. Quick turnarounds keep the cleanup moving.</p></div>
     </div>
+    <p class="needs-hint">Tip: tap any card to mark it handled while you work down the list.</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <div class="contact">
+    <div class="contact rv">
+      <svg class="cmark" viewBox="0 0 100 140" fill="none" aria-hidden="true"><path d="M10 10l55 60-55 60" stroke="#00E676" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div>
         <h2>How to reach us</h2>
         <p>No ticket systems, no phone trees. Email us directly and a person who knows your books answers. If something feels urgent, call.</p>
@@ -351,7 +555,7 @@
         </div>
         <div class="line">
           <div class="lbl">Phone</div>
-          <div class="val">(682) 433-1852</div>
+          <div class="val num">(682) 433-1852</div>
         </div>
         <div class="line">
           <div class="lbl">Vanessa</div>
@@ -364,14 +568,137 @@
 
 <footer>
   <div class="wrap foot-inner">
-    <div>Turnkey CFO · Austin, Texas</div>
-    <div>Prepared for Cornerstone Church ATX [confirm legal name] · August 2026</div>
+    <div class="foot-brand"><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Turnkey CFO · Austin, Texas</div>
+    <div class="num">Prepared for Cornerstone Church ATX [confirm legal name] · August 2026</div>
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* tap-to-check needs cards (all modes) */
+  document.querySelectorAll('.need').forEach(function(card){
+    function toggle(){
+      card.classList.toggle('done');
+      card.setAttribute('aria-pressed', card.classList.contains('done') ? 'true' : 'false');
+    }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function(ev){
+      if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggle();}
+    });
+  });
+
+  var hasGsap = !reduce && window.gsap && window.ScrollTrigger;
+
+  if(!hasGsap){
+    /* graceful fallback: IntersectionObserver-driven CSS reveals */
+    var els=document.querySelectorAll('.rv');
+    if(reduce||!('IntersectionObserver' in window)){
+      els.forEach(function(e){e.classList.add('in');});
+    }else{
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+        });
+      },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+      els.forEach(function(e){io.observe(e);});
+    }
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  document.documentElement.classList.add('gs');
+
+  /* Lenis smooth scroll wired into the GSAP ticker */
+  if(window.Lenis){
+    var lenis=new Lenis({lerp:0.11});
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){lenis.raf(t*1000);});
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* cinematic hero: word-mask headline reveal */
+  var h=document.querySelector('h1');
+  if(h){
+    (function split(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(ch){
+        if(ch.nodeType===3){
+          var frag=document.createDocumentFragment();
+          ch.textContent.split(/(\s+)/).forEach(function(part){
+            if(!part){return;}
+            if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(part));return;}
+            var w=document.createElement('span');w.className='w';
+            var inner=document.createElement('span');inner.textContent=part;
+            w.appendChild(inner);frag.appendChild(w);
+          });
+          node.replaceChild(frag,ch);
+        }else if(ch.nodeType===1&&ch.tagName!=='SPAN'){split(ch);}
+      });
+    })(h);
+  }
+  gsap.set('.hero .rv',{opacity:1,y:0});
+  var intro=gsap.timeline({defaults:{ease:'power3.out'}});
+  intro.from('.eyebrow',{opacity:0,x:-26,duration:.9},0)
+       .to('h1 .w > span',{y:0,duration:1.15,ease:'power4.out',stagger:.07},.15)
+       .from('.hero .lede',{opacity:0,y:26,duration:1},.55)
+       .from('.start-badge',{opacity:0,y:18,scale:.96,duration:.8,ease:'back.out(1.6)'},.8);
+
+  /* scroll-choreographed reveals for everything below the hero */
+  var rvs=gsap.utils.toArray('.rv').filter(function(e){return !e.closest('.hero');});
+  gsap.set(rvs,{opacity:0,y:32});
+  ScrollTrigger.batch(rvs,{
+    start:'top 88%',
+    once:true,
+    onEnter:function(batch){
+      gsap.to(batch,{opacity:1,y:0,duration:.95,ease:'power3.out',stagger:.1,overwrite:true});
+    }
+  });
+
+  /* parallax accents */
+  gsap.utils.toArray('.ghost').forEach(function(g){
+    gsap.fromTo(g,{y:70},{y:-80,ease:'none',
+      scrollTrigger:{trigger:g.parentElement,start:'top bottom',end:'bottom top',scrub:.6}});
+  });
+  gsap.to('.hero-mark',{y:-90,ease:'none',
+    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.6}});
+  gsap.to('.glow.g1',{y:110,x:-40,ease:'none',
+    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
+  gsap.to('.glow.g2',{y:-70,ease:'none',
+    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
+  var tp=document.getElementById('teamPhoto');
+  if(tp){
+    gsap.fromTo(tp,{yPercent:-4,scale:1.08},{yPercent:4,scale:1.08,ease:'none',
+      scrollTrigger:{trigger:tp,start:'top bottom',end:'bottom top',scrub:.5}});
+  }
+
+  /* the 30-day spine draws itself as you travel it */
+  document.querySelectorAll('.spine').forEach(function(s){
+    gsap.fromTo(s,{scaleY:0},{scaleY:1,ease:'none',
+      scrollTrigger:{trigger:s.parentElement,start:'top 78%',end:'bottom 60%',scrub:.5}});
+  });
+
+  /* the month track draws in when the rhythm section arrives */
+  document.querySelectorAll('.cal-line').forEach(function(l){
+    gsap.fromTo(l,{scaleX:0},{scaleX:1,duration:1.3,ease:'power3.inOut',
+      scrollTrigger:{trigger:l.parentElement,start:'top 82%',once:true}});
+  });
+
+  /* contact panel: slow watermark drift */
+  gsap.fromTo('.contact .cmark',{y:20},{y:-16,ease:'none',
+    scrollTrigger:{trigger:'.contact',start:'top bottom',end:'bottom top',scrub:.7}});
+})();
+</script>
+
 </body>
-<!-- pass 1: removed all em-dashes from visible copy and title per brand voice rule; recast restricted-funds list and cleanup intro as plain sentences -->
-<!-- pass 2: aligned timeline number column to circle width (52px, 42px mobile), added emerald halo ring to the Aug-1 start badge for clearer hierarchy -->
-<!-- pass 3: added focus-visible outlines, prefers-reduced-motion support, and sub-420px tuning (h1 scale, rhythm padding, contact email size) -->
-<!-- pass 4: print stylesheet (break-inside guards, exact-color badges/contact block) for PDF handoff; cleanup step retitled client-first -->
+<!-- pass 1: art direction overhaul. Film-grain overlay, three layered drifting emerald glows, oversized chevron watermark, hero keyline column, ghost section numerals, chevron divider language between sections, alternating section tints so the page reads as designed movements rather than stacked blocks -->
+<!-- pass 2: editorial typography. Cinematic hero scale with balanced wrapping and a word-mask reveal, highlight underline on the client name, 0.22em tracked labels, tabular numerals on every date and phone figure, tightened heading letterspacing, refined intro measures -->
+<!-- pass 3: information design. The 30-day plan is now a true visual timeline with a scroll-drawn gradient spine, haloed nodes, date chips, and speech-pointer step cards; the monthly rhythm is a four-node calendar strip whose track draws itself in; the needs list is now tap-to-check cards with animated ticks and keyboard support -->
+<!-- pass 4: purposeful motion at the premium bar. GSAP plus ScrollTrigger scroll-choreographed staggered reveals, Lenis smooth scroll wired into the GSAP ticker, parallax ghost numerals and hero glows, a slow parallax zoom on the team photograph, all degrading to an IntersectionObserver path if the CDN is blocked and fully disabled under prefers-reduced-motion -->
+<!-- pass 5: depth and craft details. Offset keyline frames on avatars and the team photograph, sticky frosted topbar, gradient contact panel with chevron watermark and hover-shift contact lines, card physics with weighted shadow easing and glow blooms on hover, selection color, refined footer brand mark -->
+<!-- pass 6: mobile and print excellence. Flawless at 360px (hero rescale, single-column calendar cards that self-label from data-when, tighter step cards), print stylesheet forces reveals and drawn lines visible, strips grain, glows, and ghosts, guards page breaks, keeps exact colors for badges, ticks, and the contact panel -->
+<!-- pass 7: resilience. noscript reveal fallback, CDN-blocked fallback path verified, focus-visible states on interactive cards, overflow-x guarded against parallax drift -->
 </html>
