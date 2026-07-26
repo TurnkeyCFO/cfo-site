@@ -6,35 +6,34 @@
 <meta name="robots" content="noindex, nofollow">
 <title>The Turnkey Close for Churches | Turnkey CFO</title>
 <!--
-  ITERATION LOG : The Turnkey Close for Churches one-pager (Advisor leave-behind)
-  Pass 1: Structure. Masthead with real logo, headlights premise hero, 5-stage chevron,
-          church credibility list, 2026 stats block, ratios strip, Books Diagnostic CTA,
-          founder footer. Warm cream base, forest ink, emerald #00E676 accent,
-          Plus Jakarta Sans throughout.
-  Pass 2: The chevron. Built the Diagnose > Clean > Close > Report > Advise process bar
-          as pure CSS clip-path chevrons (no images, no libs), each stage numbered with a
-          one-line descriptor beneath. Emerald gradient ramps darker left to right so the
-          eye lands on Advise, which is the sell.
-  Pass 3: Density + hierarchy tuning for a leave-behind. Two-column credibility/stats band
-          so the page holds to one sheet; stats given oversized numerals (2x, 55%) with
-          source attributions in small caps; ratios strip converted to three compact
-          meter tiles with the healthy band drawn as a range marker. Tightened hero to
-          two lines plus one supporting paragraph in StoryBrand voice: the pastor is the
-          hero, Turnkey is the guide.
-  Pass 4: Print + compliance. @media print: letter size, 12mm margins, banner reduced to a
-          single hairline note, shadows off, exact-color chevron, break-inside avoid on
-          every band, CTA button flattened to a bordered block with the Calendly URL
-          printed in full text (a paper leave-behind needs the visible link). Fits one
-          page at default scale. Verified: no pricing, no banned service phrasing, no em-dashes,
-          no emojis, no AI mentions, real logo, noindex present.
-  Pass 5: Polish. Focus-visible states, chevron responsive stack under 680px with
-          down-pointing connectors, footer credibility line given a subtle emerald tick,
-          demo-free copy check (this page carries no example client data), letterspacing
-          and rhythm pass at 8px baseline.
+  ITERATION LOG (10x rebuild of the Advisor leave-behind)
+  Pass 1: Editorial-luxury retune: Fraunces display for the headline, panel heads, and stat
+          numerals (the printed-piece serif voice), Jakarta for body; masthead reset as a
+          letterhead lockup with a hairline and letterspaced tag; 8px baseline rhythm kept.
+  Pass 2: BD6 guarantee added (adopted, Ricky 2026-07-26): a dedicated guarantee band between
+          the chevron and the credibility columns; emerald keyline plaque, oversized "6th"
+          numeral, "or that month is free" carried in bold. It prints as a bordered plate so
+          the paper copy carries the promise with the same weight.
+  Pass 3: Chevron refined: gradient ramp re-tuned so the eye lands on Advise, stage numerals
+          letterspaced, descriptors realigned under their stages, print-exact colors, mobile
+          stack with full-width stage blocks.
+  Pass 4: Screen motion (GSAP + ScrollTrigger + Lenis via CDN, screen only, never printed):
+          masthead and hero settle in, chevrons cascade left to right, the guarantee plaque
+          scales in at its moment, stat numerals count up (~2x and 55% with final values in
+          markup for no-JS and print), ratio bands grow, magnetic CTA on fine pointers.
+          Reduced motion collapses all of it.
+  Pass 5: Print immaculate: one letter sheet at default scale, 12mm margins, break-inside
+          avoided everywhere, banner-free, Calendly URL printed in full text, and a print
+          safety layer (opacity/transform forced final with !important) so a mid-animation
+          print can never capture a half-revealed page.
+  Pass 6: Compliance sweep: Ministry Brands stats kept accurate (~2x digital-wallet
+          generosity; 55% giving increase), no pricing (the guarantee is a promise, not a
+          price), no banned phrasing, no em/en dashes, no emojis, real logo only, noindex
+          kept, 360px verified, focus-visible states.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#FBF8F1;
@@ -42,17 +41,23 @@
     --ink:#22312A;
     --ink-soft:#54655C;
     --forest:#1F3D2E;
+    --forest-deep:#163023;
     --emerald:#00E676;
     --emerald-deep:#00B85F;
     --hairline:rgba(31,61,46,.14);
     --shadow:0 1px 2px rgba(31,61,46,.05), 0 10px 30px rgba(31,61,46,.07);
+    --display:'Fraunces',serif;
+    --sans:'Plus Jakarta Sans',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{
-    font-family:'Plus Jakarta Sans',sans-serif;
+    font-family:var(--sans);
     background:var(--cream);color:var(--ink);
     line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
+  ::selection{background:var(--emerald);color:var(--forest)}
+  .num{font-variant-numeric:tabular-nums}
   .page{max-width:920px;margin:0 auto;padding:0 24px 64px}
 
   /* Masthead */
@@ -62,56 +67,92 @@
   }
   .masthead img{height:34px;width:auto;display:block;background:var(--forest);padding:7px 12px;border-radius:8px}
   .masthead .tag{
-    font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
     color:var(--ink-soft);font-weight:700;
   }
 
   /* Hero */
-  .hero{padding:52px 0 40px}
+  .hero{padding:52px 0 40px;position:relative}
+  .hero::before{
+    content:"";position:absolute;right:-120px;top:-60px;width:380px;height:380px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(0,230,118,.1), transparent 70%);pointer-events:none;
+  }
   .hero .kicker{
-    font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--emerald-deep);font-weight:800;margin-bottom:14px;
+    font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--emerald-deep);font-weight:800;margin-bottom:16px;
+    display:flex;align-items:center;gap:12px;
   }
+  .hero .kicker::after{content:"";width:52px;height:1.5px;background:rgba(0,184,95,.4)}
   .hero h1{
-    font-size:clamp(2.1rem,5.2vw,3.4rem);font-weight:800;
-    line-height:1.06;letter-spacing:-.025em;color:var(--forest);max-width:18ch;
+    font-family:var(--display);
+    font-size:clamp(2.2rem,5.4vw,3.6rem);font-weight:600;
+    line-height:1.05;letter-spacing:-.02em;color:var(--forest);max-width:19ch;
   }
-  .hero h1 em{font-style:normal;color:var(--emerald-deep)}
+  .hero h1 em{font-style:italic;color:var(--emerald-deep)}
   .hero p{
     margin-top:20px;font-size:1.08rem;max-width:60ch;color:var(--ink);
   }
 
   /* Chevron */
-  .chevron-band{margin-top:8px}
+  .chevron-band{margin-top:10px}
   .band-label{
-    font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
     color:var(--ink-soft);font-weight:700;margin-bottom:16px;
   }
   .chevrons{display:flex;gap:4px}
   .chev{
-    flex:1;color:#F4FBF6;padding:16px 10px 16px 22px;position:relative;
+    flex:1;color:#F4FBF6;padding:17px 10px 17px 22px;position:relative;
     clip-path:polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%, 16px 50%);
   }
   .chev:first-child{clip-path:polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);border-radius:8px 0 0 8px}
   .chev:last-child{clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%, 16px 50%);border-radius:0 8px 8px 0}
-  .chev .n{font-size:.66rem;font-weight:800;letter-spacing:.16em;opacity:.75}
+  .chev .n{font-size:.64rem;font-weight:800;letter-spacing:.18em;opacity:.75}
   .chev .t{font-size:.98rem;font-weight:800;letter-spacing:-.01em;margin-top:2px}
-  .chev.c1{background:#00E676;color:#123726}
-  .chev.c2{background:#00D46C;color:#123726}
-  .chev.c3{background:#00B85F;color:#0E2C1E}
-  .chev.c4{background:#1F5C3D}
-  .chev.c5{background:#1F3D2E}
+  .chev.c1{background:linear-gradient(135deg,#00E676,#31eb8d);color:#123726}
+  .chev.c2{background:linear-gradient(135deg,#00D46C,#00e074);color:#123726}
+  .chev.c3{background:linear-gradient(135deg,#00B85F,#00c765);color:#0E2C1E}
+  .chev.c4{background:linear-gradient(135deg,#1F5C3D,#256b48)}
+  .chev.c5{background:linear-gradient(135deg,#1F3D2E,#163023)}
   .chev-desc{display:flex;gap:4px;margin-top:10px}
   .chev-desc span{flex:1;font-size:.74rem;color:var(--ink-soft);line-height:1.45;padding:0 8px 0 4px}
 
+  /* Guarantee band */
+  .guarantee{
+    margin-top:26px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;
+    background:linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 100%);
+    border-radius:14px;padding:26px 32px;color:#DCEBE1;box-shadow:var(--shadow);
+    position:relative;overflow:hidden;
+  }
+  .guarantee::after{
+    content:"";position:absolute;left:0;right:0;top:0;height:3px;
+    background:linear-gradient(90deg,transparent,var(--emerald),transparent);
+  }
+  .guarantee .gn{
+    font-family:var(--display);font-weight:700;color:var(--emerald);line-height:.85;
+    font-size:clamp(3.2rem,7vw,4.6rem);letter-spacing:-.04em;text-align:center;
+  }
+  .guarantee .gn sup{font-size:.3em;font-weight:600;color:rgba(255,255,255,.85);vertical-align:.9em}
+  .guarantee .gn small{display:block;font-family:var(--sans);font-size:.6rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:8px}
+  .guarantee .gk{
+    font-size:.68rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--emerald);margin-bottom:8px;
+  }
+  .guarantee h2{
+    font-family:var(--display);font-weight:600;color:#fff;
+    font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.3;letter-spacing:-.01em;
+  }
+  .guarantee h2 b{color:var(--emerald);font-weight:700}
+  .guarantee p{font-size:.85rem;color:#AECBB8;margin-top:8px;max-width:58ch}
+
   /* Two-column band */
-  .band{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;margin-top:44px}
+  .band{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;margin-top:24px}
   .panel{
     background:var(--paper);border:1px solid var(--hairline);border-radius:14px;
-    padding:28px 30px;box-shadow:var(--shadow);
+    padding:28px 30px;box-shadow:var(--shadow);position:relative;overflow:hidden;
   }
+  .panel::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--emerald-deep),var(--emerald),transparent)}
   .panel h2{
-    font-size:1.05rem;font-weight:800;color:var(--forest);letter-spacing:-.01em;margin-bottom:14px;
+    font-family:var(--display);
+    font-size:1.15rem;font-weight:600;color:var(--forest);letter-spacing:-.01em;margin-bottom:14px;
   }
   .cred{list-style:none}
   .cred li{position:relative;padding:9px 0 9px 30px;font-size:.94rem;border-bottom:1px solid var(--hairline)}
@@ -125,20 +166,20 @@
 
   .statbig{padding:6px 0 14px;border-bottom:1px solid var(--hairline)}
   .statbig:last-of-type{border-bottom:none;padding-bottom:0}
-  .statbig .v{font-size:2.5rem;font-weight:800;color:var(--forest);letter-spacing:-.03em;line-height:1}
+  .statbig .v{font-family:var(--display);font-size:2.7rem;font-weight:600;color:var(--forest);letter-spacing:-.03em;line-height:1}
   .statbig .v em{font-style:normal;color:var(--emerald-deep)}
   .statbig .d{font-size:.92rem;color:var(--ink);margin-top:6px;max-width:38ch}
   .statbig .src{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-top:6px}
 
   /* Ratios strip */
   .ratios{margin-top:22px;display:grid;grid-template-columns:auto 1fr 1fr;gap:22px;align-items:center;
-    background:var(--forest);border-radius:14px;padding:24px 30px;color:#DCEBE1;box-shadow:var(--shadow)}
-  .ratios .rl{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--emerald);max-width:12ch;line-height:1.5}
-  .ratio .rv{font-size:1.5rem;font-weight:800;color:#fff;letter-spacing:-.02em}
-  .ratio .rv span{color:var(--emerald)}
-  .ratio .rd{font-size:.8rem;color:#AECBB8;margin-top:2px}
-  .ratio .rtrack{position:relative;height:8px;background:rgba(244,249,245,.14);border-radius:4px;margin-top:10px}
-  .ratio .rband{position:absolute;top:0;height:8px;background:var(--emerald);border-radius:4px;opacity:.9}
+    background:var(--paper);border:1px solid var(--hairline);border-radius:14px;padding:24px 30px;box-shadow:var(--shadow)}
+  .ratios .rl{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--emerald-deep);max-width:12ch;line-height:1.5}
+  .ratio .rv{font-family:var(--display);font-size:1.6rem;font-weight:600;color:var(--forest);letter-spacing:-.02em}
+  .ratio .rv span{color:var(--emerald-deep)}
+  .ratio .rd{font-size:.8rem;color:var(--ink-soft);margin-top:2px}
+  .ratio .rtrack{position:relative;height:8px;background:rgba(31,61,46,.08);border-radius:4px;margin-top:10px}
+  .ratio .rband{position:absolute;top:0;height:8px;background:linear-gradient(90deg,var(--emerald-deep),var(--emerald));border-radius:4px;opacity:.95;transform-origin:left}
   .ratio.r1 .rband{left:55%;width:22%}
   .ratio.r2 .rband{left:40%;width:22%}
 
@@ -146,15 +187,21 @@
   .cta{
     margin-top:22px;background:var(--paper);border:2px solid var(--forest);border-radius:16px;
     padding:32px 36px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
-    box-shadow:var(--shadow);
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
   }
-  .cta h2{font-size:1.35rem;font-weight:800;color:var(--forest);letter-spacing:-.015em}
+  .cta::before{
+    content:"";position:absolute;right:-80px;top:-80px;width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(0,230,118,.12), transparent 70%);pointer-events:none;
+  }
+  .cta h2{font-family:var(--display);font-size:1.5rem;font-weight:600;color:var(--forest);letter-spacing:-.015em}
   .cta p{font-size:.95rem;color:var(--ink-soft);margin-top:8px;max-width:52ch}
+  .cta .always{font-size:.8rem;font-weight:700;color:var(--emerald-deep);margin-top:10px}
   .btn{
     display:inline-block;background:var(--emerald);color:#123726;text-decoration:none;
     font-weight:800;font-size:.95rem;letter-spacing:.02em;
-    padding:15px 30px;border-radius:10px;white-space:nowrap;
+    padding:16px 32px;border-radius:10px;white-space:nowrap;
     box-shadow:0 6px 18px rgba(0,230,118,.35);
+    transition:background .18s ease, color .18s ease;will-change:transform;
   }
   .btn:hover{background:var(--emerald-deep);color:#fff}
   .cta .url{display:none}
@@ -176,29 +223,45 @@
     .chev-desc{display:none}
     .band,.cta{grid-template-columns:1fr}
     .ratios{grid-template-columns:1fr}
+    .guarantee{grid-template-columns:1fr;text-align:center;padding:26px 22px}
+    .guarantee p{margin-left:auto;margin-right:auto}
+    .btn{width:100%;text-align:center}
+  }
+  @media (max-width:400px){
+    .page{padding:0 16px 48px}
+    .hero h1{font-size:2.1rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
   }
 
   /* Print: one sheet */
   @media print{
     @page{size:letter;margin:12mm}
     body{background:#fff;font-size:9.5pt;line-height:1.45}
+    /* Safety: a print fired mid-animation must capture the finished page */
+    *{opacity:1 !important;transform:none !important;visibility:visible !important}
     .page{max-width:none;padding:0}
-    .panel,.ratios,.cta{box-shadow:none}
-    .hero{padding:18pt 0 14pt}
+    .panel,.ratios,.cta,.guarantee{box-shadow:none}
+    .hero{padding:16pt 0 12pt}
     .hero p{margin-top:8pt;font-size:10pt}
-    .band{margin-top:16pt;gap:10pt}
-    .panel{padding:12pt 14pt}
-    .ratios{margin-top:10pt;padding:10pt 14pt}
-    .cta{margin-top:10pt;padding:12pt 16pt}
-    .foot{margin-top:12pt;padding-top:8pt}
-    .statbig .v{font-size:20pt}
+    .band{margin-top:12pt;gap:10pt}
+    .panel{padding:11pt 13pt}
+    .guarantee{margin-top:10pt;padding:12pt 16pt;gap:14pt;border:2pt solid var(--forest)}
+    .guarantee .gn{font-size:26pt}
+    .guarantee h2{font-size:12pt}
+    .guarantee p{font-size:8pt}
+    .ratios{margin-top:8pt;padding:9pt 13pt}
+    .cta{margin-top:8pt;padding:11pt 15pt}
+    .foot{margin-top:10pt;padding-top:7pt}
+    .statbig .v{font-size:19pt}
     .masthead{padding:0 0 8pt}
-    .masthead img,.chev,.chev-desc,.ratios,.btn,.cred li::before,.rband,.rtrack{
+    .masthead img,.chev,.chev-desc,.ratios,.btn,.cred li::before,.rband,.rtrack,.guarantee,.panel::before{
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
     }
     .btn{box-shadow:none;border:2pt solid var(--forest)}
     .cta .url{display:block;font-size:8pt;color:var(--ink-soft);margin-top:4pt}
-    .hero,.chevron-band,.band,.ratios,.cta,.foot,.panel{break-inside:avoid;page-break-inside:avoid}
+    .hero,.chevron-band,.band,.ratios,.cta,.foot,.panel,.guarantee{break-inside:avoid;page-break-inside:avoid}
     a{color:inherit;text-decoration:none}
   }
 </style>
@@ -219,7 +282,7 @@
 
   <section class="chevron-band">
     <p class="band-label">The five-stage Turnkey Close</p>
-    <div class="chevrons">
+    <div class="chevrons" id="chevrons">
       <div class="chev c1"><span class="n">STAGE 1</span><div class="t">Diagnose</div></div>
       <div class="chev c2"><span class="n">STAGE 2</span><div class="t">Clean</div></div>
       <div class="chev c3"><span class="n">STAGE 3</span><div class="t">Close</div></div>
@@ -235,6 +298,15 @@
     </div>
   </section>
 
+  <div class="guarantee" id="guarantee">
+    <div class="gn num">6<sup>th</sup><small>Business Day</small></div>
+    <div>
+      <p class="gk">The Turnkey Guarantee</p>
+      <h2>Books closed and reported by the <b>6th business day</b>, every month, <b>or that month is free</b>.</h2>
+      <p>The board packet lands on a date you can put on the calendar. If we ever miss it, that month costs your church nothing.</p>
+    </div>
+  </div>
+
   <div class="band">
     <div class="panel">
       <h2>Built for how churches actually work</h2>
@@ -249,12 +321,12 @@
     <div class="panel">
       <h2>What the 2026 data says</h2>
       <div class="statbig">
-        <p class="v"><em>~2x</em></p>
+        <p class="v num"><em>~2x</em></p>
         <p class="d">Churches offering digital wallets are about twice as likely to report increased generosity.</p>
         <p class="src">Ministry Brands, 2026</p>
       </div>
       <div class="statbig">
-        <p class="v">55<em>%</em></p>
+        <p class="v num"><em><span id="stat55" data-count="55">55</span>%</em></p>
         <p class="d">of Protestant churches saw giving increase over the past year. Growth is there for churches that can see it.</p>
         <p class="src">2026 industry reporting</p>
       </div>
@@ -264,12 +336,12 @@
   <div class="ratios">
     <p class="rl">Ratios we watch for you</p>
     <div class="ratio r1">
-      <p class="rv">$150<span>-</span>160<span>/mo</span></p>
+      <p class="rv num">$150<span>-</span>160<span>/mo</span></p>
       <p class="rd">Healthy giving per household</p>
       <div class="rtrack"><div class="rband"></div></div>
     </div>
     <div class="ratio r2">
-      <p class="rv">40<span>-</span>50<span>%</span></p>
+      <p class="rv num">40<span>-</span>50<span>%</span></p>
       <p class="rd">Payroll as a share of giving</p>
       <div class="rtrack"><div class="rband"></div></div>
     </div>
@@ -279,6 +351,7 @@
     <div>
       <h2>Start with a free Books Diagnostic</h2>
       <p>Fifteen minutes. We look at your books together, show you exactly where you stand, and you leave with a clear picture whether we ever work together or not.</p>
+      <p class="always">Always free. No obligation, nothing to buy.</p>
       <p class="url">Book at calendly.com/ricky-turnkeycfo/15min-intro-call</p>
     </div>
     <a class="btn" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call">Book the Diagnostic</a>
@@ -290,5 +363,77 @@
   </footer>
 
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !window.gsap || !window.ScrollTrigger) return; /* full page renders statically without JS */
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (window.Lenis) {
+    var lenis = new Lenis({lerp:0.12});
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t*1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* Masthead + hero settle in */
+  gsap.from('.masthead', {y:-16, opacity:0, duration:0.7, ease:'power3.out'});
+  gsap.from('.hero .kicker, .hero h1, .hero p', {y:24, opacity:0, duration:0.75, ease:'power3.out', stagger:0.12, delay:0.15});
+
+  /* Chevrons cascade left to right */
+  gsap.from('#chevrons .chev', {x:-24, opacity:0, duration:0.55, ease:'power3.out', stagger:0.11,
+    scrollTrigger:{trigger:'#chevrons', start:'top 88%'}});
+  gsap.from('.chev-desc span', {y:12, opacity:0, duration:0.5, ease:'power3.out', stagger:0.09, delay:0.4,
+    scrollTrigger:{trigger:'#chevrons', start:'top 88%'}});
+
+  /* Guarantee plaque: the page's power moment */
+  gsap.from('#guarantee', {y:30, opacity:0, duration:0.8, ease:'power3.out',
+    scrollTrigger:{trigger:'#guarantee', start:'top 88%'}});
+  gsap.from('#guarantee .gn', {scale:0.6, opacity:0, duration:0.9, ease:'back.out(1.7)', delay:0.25,
+    scrollTrigger:{trigger:'#guarantee', start:'top 88%'}});
+
+  /* Panels + stats */
+  gsap.from('.band .panel', {y:28, opacity:0, duration:0.7, ease:'power3.out', stagger:0.14,
+    scrollTrigger:{trigger:'.band', start:'top 86%'}});
+  var s55 = document.getElementById('stat55');
+  if (s55) {
+    var obj = {v:0};
+    gsap.to(obj, {v:55, duration:1.4, ease:'power3.out',
+      scrollTrigger:{trigger:s55, start:'top 90%'},
+      onUpdate:function(){ s55.textContent = Math.round(obj.v); },
+      onComplete:function(){ s55.textContent = '55'; }});
+  }
+
+  /* Ratio bands grow */
+  gsap.from('.ratios', {y:24, opacity:0, duration:0.7, ease:'power3.out',
+    scrollTrigger:{trigger:'.ratios', start:'top 90%'}});
+  gsap.from('.rband', {scaleX:0, duration:0.9, ease:'power3.out', stagger:0.15, delay:0.3,
+    scrollTrigger:{trigger:'.ratios', start:'top 90%'}});
+
+  /* CTA + footer */
+  gsap.from('.cta', {y:26, opacity:0, duration:0.7, ease:'power3.out',
+    scrollTrigger:{trigger:'.cta', start:'top 90%'}});
+  gsap.from('.foot', {opacity:0, duration:0.8, ease:'power2.out',
+    scrollTrigger:{trigger:'.foot', start:'top 95%'}});
+
+  /* Magnetic CTA (fine pointers only) */
+  if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    document.querySelectorAll('.btn').forEach(function(btn){
+      var qx = gsap.quickTo(btn, 'x', {duration:0.35, ease:'power3.out'});
+      var qy = gsap.quickTo(btn, 'y', {duration:0.35, ease:'power3.out'});
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        qx((e.clientX - (r.left + r.width/2)) * 0.22);
+        qy((e.clientY - (r.top + r.height/2)) * 0.22);
+      });
+      btn.addEventListener('mouseleave', function(){ qx(0); qy(0); });
+    });
+  }
+})();
+</script>
 </body>
 </html>
