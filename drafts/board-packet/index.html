@@ -6,31 +6,36 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Quarterly Board Packet: Grace Fellowship Church | Prepared by Turnkey CFO</title>
 <!--
-  ITERATION LOG — Board Packet in a Link (idea A2 prototype)
-  Pass 1: Structure. Cover block, three-sentence summary, giving summary, BvA table,
-          cash + runway, designated funds, board attention, trust footer. Base palette:
-          warm cream #FAF7F0, ink #22312A, emerald #00E676 accent. Plus Jakarta Sans.
-  Pass 2: Data visualization. Replaced plain stat rows with pure-CSS/inline-SVG:
-          YTD-vs-budget horizontal bar pair, giving-per-household stat tile,
-          digital/in-person split as a two-segment CSS bar with legend dots.
-          No external chart libs. Variance column color-coded (over = amber, under = green).
-  Pass 3: Editorial refinement. Added section numerals (01/02/…) in letterspaced small caps,
-          hairline rules in deep green at 12% alpha, generous 72px section rhythm,
-          fund-movement +/- arrows, one-line variance explanations under the two biggest
-          variances, months-of-runway meter as a 6-notch CSS gauge. Cover got a quarter
-          badge and prepared-by lockup with the real logo (white variant on deep green band).
-  Pass 4: Print + compliance. @media print stylesheet: letter-size margins,
-          break-inside: avoid on every card/table/section, banner and shadows stripped,
-          exact-color adjust for the emerald accents, footer pinned per page flow.
-          Verified: no pricing, no banned service phrasing, no em-dashes, no emojis, no AI mentions.
-          Example-data banner made unmistakable on screen, subtle single line in print.
-  Pass 5: Polish. Tightened table numerals with tabular-nums, added reconciled checkmark
-          ticks (CSS, not emoji glyphs — pure borders), softened cream to #FBF8F1,
-          hover row states screen-only, focus-visible styles, responsive stack under 720px.
+  ITERATION LOG (10x rebuild on the A2 prototype)
+  Pass 1: Structure retained (cover, three sentences, giving, BvA, cash, funds, attention,
+          trust footer) with all fictional data intact and labeled. Base: warm cream #FBF8F1,
+          ink #22312A, emerald keyline accent, Plus Jakarta Sans.
+  Pass 2: Editorial-luxury typography: Fraunces display for the cover headline, section heads,
+          and stat numerals (annual-report serif voice), Jakarta for tables and body;
+          tabular-nums throughout; drop-cap first letter on the three-sentence summary;
+          section numerals in letterspaced small caps over hairline rules.
+  Pass 3: Art direction: cover rebuilt as a deep-forest plate with concentric emerald keyline
+          rings, a fine chevron keyline motif running along the cover base, gold-thread accent
+          on the quarter badge, and the prepared-by lockup on a hairline. Stat tiles gained
+          emerald keyline top rules; the trust footer echoes the cover plate for a bound,
+          front-and-back-cover feel.
+  Pass 4: Screen motion (GSAP + ScrollTrigger + Lenis via CDN, screen only): sections rise on
+          scroll, stat values count up with eased formatting (final values live in markup so
+          no-JS and print always show the finished number), the giving sparkline draws itself,
+          bar pairs and the digital split grow from zero, runway notches light in sequence,
+          table rows cascade in. Reduced motion collapses everything to static.
+  Pass 5: Print immaculate: letter @page with 16mm margins, every card/table/section
+          break-inside avoided, banner reduced to a hairline note, shadows stripped, exact
+          color on all fills, and a print-side safety layer (opacity/transform forced to final
+          state with !important) so a mid-animation print can never capture a half-revealed
+          page. Cover prints as a full-bleed plate.
+  Pass 6: Compliance sweep: fictional data labeled on screen and in print, no pricing, no
+          banned phrasing, no em/en dashes, no emojis, real logo only, focus-visible states,
+          responsive stack under 720px, 360px verified.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#FBF8F1;
@@ -38,22 +43,29 @@
     --ink:#22312A;
     --ink-soft:#54655C;
     --forest:#1F3D2E;
+    --forest-deep:#163023;
     --emerald:#00E676;
     --emerald-deep:#00B85F;
+    --gold:#C9A227;
     --amber:#C77B21;
     --hairline:rgba(31,61,46,.14);
     --shadow:0 1px 2px rgba(31,61,46,.05), 0 10px 30px rgba(31,61,46,.07);
+    --display:'Fraunces',serif;
+    --sans:'Plus Jakarta Sans',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    font-family:'Plus Jakarta Sans',sans-serif;
+    font-family:var(--sans);
     background:var(--cream);
     color:var(--ink);
     line-height:1.6;
     font-size:16px;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
+  ::selection{background:var(--emerald);color:var(--forest)}
+  .num{font-variant-numeric:tabular-nums}
   .demo-banner{
     background:var(--forest);
     color:#EAF6EE;
@@ -69,79 +81,93 @@
 
   /* ---------- Cover ---------- */
   .cover{
-    background:var(--forest);
+    background:linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 100%);
     color:#F4F9F5;
     border-radius:18px;
     margin-top:36px;
-    padding:56px 56px 48px;
+    padding:60px 56px 48px;
     position:relative;
     overflow:hidden;
     box-shadow:var(--shadow);
   }
   .cover::after{
-    content:"";position:absolute;right:-120px;top:-120px;width:340px;height:340px;
-    border-radius:50%;border:1px solid rgba(0,230,118,.25);
+    content:"";position:absolute;right:-140px;top:-140px;width:380px;height:380px;
+    border-radius:50%;border:1px solid rgba(0,230,118,.28);
   }
   .cover::before{
-    content:"";position:absolute;right:-60px;top:-60px;width:340px;height:340px;
+    content:"";position:absolute;right:-70px;top:-70px;width:380px;height:380px;
     border-radius:50%;border:1px solid rgba(0,230,118,.12);
   }
-  .cover .kicker{
-    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--emerald);font-weight:700;margin-bottom:18px;
+  .cover .ring3{
+    position:absolute;right:-210px;top:-210px;width:380px;height:380px;
+    border-radius:50%;border:1px solid rgba(0,230,118,.4);pointer-events:none;
   }
+  .cover .chev-motif{position:absolute;left:0;right:0;bottom:0;height:34px;opacity:.5;pointer-events:none}
+  .cover .kicker{
+    font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--emerald);font-weight:700;margin-bottom:20px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .cover .kicker::after{content:"";flex:0 0 64px;height:1px;background:rgba(0,230,118,.45)}
   .cover h1{
-    font-size:clamp(2rem,5vw,3.1rem);
-    font-weight:800;line-height:1.08;letter-spacing:-.02em;
-    max-width:14ch;
+    font-family:var(--display);
+    font-size:clamp(2.2rem,5.4vw,3.5rem);
+    font-weight:600;line-height:1.06;letter-spacing:-.015em;
+    max-width:15ch;
   }
   .cover .church{
-    margin-top:14px;font-size:1.15rem;font-weight:500;color:#CFE3D6;
+    margin-top:16px;font-size:1.15rem;font-weight:500;color:#CFE3D6;
   }
   .cover .quarter-badge{
-    display:inline-block;margin-top:26px;
-    border:1px solid rgba(0,230,118,.5);color:var(--emerald);
+    display:inline-block;margin-top:28px;
+    border:1px solid rgba(201,162,39,.65);color:#E7CF8C;
     padding:7px 18px;border-radius:999px;
-    font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   }
   .prepared{
-    margin-top:44px;padding-top:26px;border-top:1px solid rgba(244,249,245,.18);
-    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    margin-top:46px;padding-top:26px;border-top:1px solid rgba(244,249,245,.18);
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;position:relative;z-index:1;
   }
   .prepared img{height:30px;width:auto;display:block}
   .prepared span{font-size:.85rem;color:#AECBB8}
 
   /* ---------- Sections ---------- */
-  section{margin-top:72px}
+  section{margin-top:76px}
   .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
   .sec-num{
-    font-size:.72rem;font-weight:700;letter-spacing:.2em;color:var(--emerald-deep);
+    font-size:.72rem;font-weight:700;letter-spacing:.24em;color:var(--emerald-deep);
   }
   .sec-head h2{
-    font-size:1.45rem;font-weight:800;letter-spacing:-.01em;color:var(--forest);
+    font-family:var(--display);
+    font-size:1.6rem;font-weight:600;letter-spacing:-.01em;color:var(--forest);
   }
   .rule{height:1px;background:var(--hairline);flex:1;align-self:center}
 
   .card{
     background:var(--paper);border:1px solid var(--hairline);
-    border-radius:14px;padding:32px 36px;box-shadow:var(--shadow);
+    border-radius:14px;padding:34px 38px;box-shadow:var(--shadow);
   }
 
   /* Three sentences */
   .three-sentences p{
-    font-size:1.12rem;line-height:1.75;color:var(--ink);
+    font-size:1.14rem;line-height:1.78;color:var(--ink);
   }
-  .three-sentences p + p{margin-top:14px}
-  .three-sentences p::first-letter{font-weight:700;color:var(--forest)}
+  .three-sentences p + p{margin-top:15px}
+  .three-sentences p:first-child::first-letter{
+    font-family:var(--display);font-weight:600;font-size:3.2em;float:left;
+    line-height:.86;padding:.04em .12em 0 0;color:var(--forest);
+  }
 
   /* Giving grid */
   .giving-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
   .stat-tile{
     background:var(--paper);border:1px solid var(--hairline);border-radius:14px;
-    padding:26px 28px;box-shadow:var(--shadow);
+    padding:26px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden;
   }
+  .stat-tile::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--emerald-deep),var(--emerald),transparent)}
   .stat-label{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
-  .stat-value{font-size:2.3rem;font-weight:800;color:var(--forest);letter-spacing:-.02em;margin-top:6px;font-variant-numeric:tabular-nums}
+  .stat-value{font-family:var(--display);font-size:2.6rem;font-weight:600;color:var(--forest);letter-spacing:-.02em;margin-top:8px;font-variant-numeric:tabular-nums}
+  .stat-value .unit{font-family:var(--sans);font-size:1rem;font-weight:600;color:var(--ink-soft)}
   .stat-sub{font-size:.85rem;color:var(--ink-soft);margin-top:4px}
   .stat-sub .up{color:var(--emerald-deep);font-weight:700}
 
@@ -150,13 +176,13 @@
   .barrow .blabel{font-size:.78rem;font-weight:600;color:var(--ink-soft)}
   .barrow .bval{font-size:.85rem;font-weight:700;color:var(--forest);text-align:right;font-variant-numeric:tabular-nums}
   .track{height:14px;background:rgba(31,61,46,.07);border-radius:7px;overflow:hidden}
-  .fill{height:100%;border-radius:7px}
+  .fill{height:100%;border-radius:7px;transform-origin:left}
   .fill.actual{background:linear-gradient(90deg,var(--emerald-deep),var(--emerald));width:93.4%}
   .fill.budget{background:rgba(31,61,46,.35);width:100%}
 
   .split-bar{display:flex;height:18px;border-radius:9px;overflow:hidden;margin-top:16px}
-  .split-bar .digital{background:var(--emerald);flex:0 0 68%}
-  .split-bar .inperson{background:var(--forest);flex:1}
+  .split-bar .digital{background:var(--emerald);flex:0 0 68%;transform-origin:left}
+  .split-bar .inperson{background:var(--forest);flex:1;transform-origin:right}
   .legend{display:flex;gap:22px;margin-top:12px;flex-wrap:wrap}
   .legend span{font-size:.8rem;color:var(--ink-soft);display:flex;align-items:center;gap:7px;font-weight:600}
   .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
@@ -214,11 +240,16 @@
 
   /* Trust footer */
   .trust{
-    margin-top:72px;background:var(--forest);color:#DCEBE1;border-radius:16px;
-    padding:40px 44px;box-shadow:var(--shadow);
+    margin-top:76px;background:linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 100%);
+    color:#DCEBE1;border-radius:16px;
+    padding:44px 46px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .trust::after{
+    content:"";position:absolute;left:-120px;bottom:-160px;width:320px;height:320px;
+    border-radius:50%;border:1px solid rgba(0,230,118,.22);pointer-events:none;
   }
   .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
-  .streak{font-size:2.6rem;font-weight:800;color:var(--emerald);letter-spacing:-.02em;line-height:1}
+  .streak{font-family:var(--display);font-size:2.9rem;font-weight:600;color:var(--emerald);letter-spacing:-.02em;line-height:1}
   .streak-sub{font-size:.85rem;color:#AECBB8;margin-top:8px}
   .checks{list-style:none}
   .checks li{position:relative;padding:7px 0 7px 30px;font-size:.92rem}
@@ -230,6 +261,7 @@
   .trust-foot{
     margin-top:30px;padding-top:22px;border-top:1px solid rgba(244,249,245,.16);
     display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    position:relative;z-index:1;
   }
   .trust-foot img{height:26px;width:auto}
   .trust-foot p{font-size:.8rem;color:#AECBB8}
@@ -238,15 +270,26 @@
 
   @media (max-width:720px){
     .giving-grid,.cash-grid,.trust-grid{grid-template-columns:1fr}
-    .cover{padding:40px 28px}
-    .card{padding:26px 22px}
+    .cover{padding:42px 26px}
+    .card{padding:26px 20px}
     section{margin-top:52px}
+    .three-sentences p{font-size:1.04rem}
+  }
+  @media (max-width:400px){
+    .sheet{padding:0 14px 60px}
+    .stat-value{font-size:2.1rem}
+    .cover h1{font-size:2rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
   }
 
   /* ---------- Print ---------- */
   @media print{
     @page{size:letter;margin:16mm 14mm}
     body{background:#fff;font-size:11pt}
+    /* Safety: a print fired mid-animation must still capture the finished page */
+    *{opacity:1 !important;transform:none !important;visibility:visible !important}
     .demo-banner{
       background:none;color:var(--ink-soft);border-bottom:1pt solid var(--hairline);
       padding:4pt 0;font-size:7.5pt;
@@ -260,22 +303,24 @@
     thead{display:table-header-group}
     tr{break-inside:avoid;page-break-inside:avoid}
     section{margin-top:28pt}
-    .fill,.split-bar,.notch,.dot,.attn li::before,.checks li::before,.trust,.explain{
+    .fill,.split-bar,.notch,.dot,.attn li::before,.checks li::before,.trust,.explain,.stat-tile::before{
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
     }
-    @media screen{}
+    .fill.actual{width:93.4% !important}
+    .split-bar .digital{flex-basis:68% !important}
     a{color:inherit;text-decoration:none}
   }
 </style>
 </head>
 <body>
 
-<div class="demo-banner">Sample packet with <strong>fictional example data</strong>. “Grace Fellowship Church” is not a real client</div>
+<div class="demo-banner">Sample packet with <strong>fictional example data</strong>. &ldquo;Grace Fellowship Church&rdquo; is not a real client</div>
 
 <div class="sheet">
 
   <!-- Cover -->
   <header class="cover">
+    <span class="ring3" aria-hidden="true"></span>
     <p class="kicker">Quarterly Board Packet</p>
     <h1>Financial Report to the Elders</h1>
     <p class="church">Grace Fellowship Church &middot; Example City, TX</p>
@@ -284,6 +329,17 @@
       <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO">
       <span>Prepared by Turnkey CFO &middot; books closed and reconciled July 7, 2026</span>
     </div>
+    <svg class="chev-motif" viewBox="0 0 880 34" preserveAspectRatio="none" aria-hidden="true">
+      <g stroke="rgba(0,230,118,.35)" stroke-width="1.4" fill="none">
+        <path d="M0 28 L20 8 L40 28"/><path d="M44 28 L64 8 L84 28"/><path d="M88 28 L108 8 L128 28"/>
+        <path d="M132 28 L152 8 L172 28"/><path d="M176 28 L196 8 L216 28"/><path d="M220 28 L240 8 L260 28"/>
+        <path d="M264 28 L284 8 L304 28"/><path d="M308 28 L328 8 L348 28"/><path d="M352 28 L372 8 L392 28"/>
+        <path d="M396 28 L416 8 L436 28"/><path d="M440 28 L460 8 L480 28"/><path d="M484 28 L504 8 L524 28"/>
+        <path d="M528 28 L548 8 L568 28"/><path d="M572 28 L592 8 L612 28"/><path d="M616 28 L636 8 L656 28"/>
+        <path d="M660 28 L680 8 L700 28"/><path d="M704 28 L724 8 L744 28"/><path d="M748 28 L768 8 L788 28"/>
+        <path d="M792 28 L812 8 L832 28"/><path d="M836 28 L856 8 L876 28"/>
+      </g>
+    </svg>
   </header>
 
   <!-- 01 The quarter in three sentences -->
@@ -302,7 +358,7 @@
     <div class="giving-grid">
       <div class="stat-tile">
         <p class="stat-label">Year-to-Date Giving vs Budget</p>
-        <p class="stat-value">$487,200</p>
+        <p class="stat-value num" data-count="487200" data-prefix="$">$487,200</p>
         <p class="stat-sub">against a YTD budget of $521,500 (93.4% of plan)</p>
         <div class="barpair">
           <div class="barrow">
@@ -318,16 +374,16 @@
         </div>
         <div class="spark" aria-hidden="true">
           <svg viewBox="0 0 300 56" preserveAspectRatio="none">
-            <polyline points="0,38 50,42 100,30 150,34 200,26 250,30 300,14"
+            <polyline id="sparkLine" points="0,38 50,42 100,30 150,34 200,26 250,30 300,14"
               fill="none" stroke="#00B85F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="300" cy="14" r="4" fill="#00E676"/>
+            <circle id="sparkDot" cx="300" cy="14" r="4" fill="#00E676"/>
           </svg>
         </div>
       </div>
       <div>
         <div class="stat-tile">
           <p class="stat-label">Giving per Household</p>
-          <p class="stat-value">$156<span style="font-size:1rem;font-weight:600;color:var(--ink-soft)">/mo</span></p>
+          <p class="stat-value num"><span data-count="156" data-prefix="$">$156</span><span class="unit">/mo</span></p>
           <p class="stat-sub"><span class="up">Within the healthy $150 to $160 band</span> across 261 giving households</p>
         </div>
         <div class="stat-tile" style="margin-top:20px">
@@ -395,13 +451,13 @@
     <div class="cash-grid">
       <div class="stat-tile">
         <p class="stat-label">Unrestricted Cash on Hand</p>
-        <p class="stat-value">$286,400</p>
+        <p class="stat-value num" data-count="286400" data-prefix="$">$286,400</p>
         <p class="stat-sub">Operating + money market, net of designated fund balances, as of June 30</p>
       </div>
       <div class="stat-tile">
         <p class="stat-label">Months of Operating Runway</p>
-        <p class="stat-value">4.2 <span style="font-size:1rem;font-weight:600;color:var(--ink-soft)">months</span></p>
-        <div class="runway-meter" role="img" aria-label="4.2 of 6 months on the runway meter">
+        <p class="stat-value num"><span data-count="4.2" data-decimals="1">4.2</span> <span class="unit">months</span></p>
+        <div class="runway-meter" id="runwayMeter" role="img" aria-label="4.2 of 6 months on the runway meter">
           <span class="notch on"></span><span class="notch on"></span><span class="notch on"></span><span class="notch on"></span><span class="notch half"></span><span class="notch"></span>
         </div>
         <div class="runway-scale"><span>0</span><span>3 mo target floor</span><span>6</span></div>
@@ -447,7 +503,7 @@
   <footer class="trust">
     <div class="trust-grid">
       <div>
-        <p class="streak">14 quarters</p>
+        <p class="streak num">14 quarters</p>
         <p class="streak-sub">of on-time closes delivered to this board, in a row</p>
       </div>
       <ul class="checks">
@@ -464,5 +520,86 @@
   </footer>
 
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !window.gsap || !window.ScrollTrigger) return; /* the packet is complete without JS */
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (window.Lenis) {
+    var lenis = new Lenis({lerp:0.12});
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t*1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* Cover: settle in like a bound document being set on the table */
+  gsap.from('.cover', {y:30, opacity:0, duration:0.9, ease:'power3.out'});
+  gsap.from('.cover .kicker, .cover h1, .cover .church, .cover .quarter-badge, .prepared', {
+    y:22, opacity:0, duration:0.7, ease:'power3.out', stagger:0.1, delay:0.25
+  });
+
+  /* Sections rise on scroll */
+  gsap.utils.toArray('section').forEach(function(sec){
+    gsap.from(sec, {y:34, opacity:0, duration:0.75, ease:'power3.out',
+      scrollTrigger:{trigger:sec, start:'top 86%'}});
+  });
+  gsap.from('.trust', {y:34, opacity:0, duration:0.8, ease:'power3.out',
+    scrollTrigger:{trigger:'.trust', start:'top 88%'}});
+
+  /* Stat counters: markup already holds final values, so print/no-JS stay complete */
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var target = parseFloat(el.dataset.count);
+    var decimals = parseInt(el.dataset.decimals || '0', 10);
+    var prefix = el.dataset.prefix || '';
+    var obj = {v:0};
+    gsap.to(obj, {
+      v:target, duration:1.5, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 88%'},
+      onUpdate:function(){
+        var n = decimals ? obj.v.toFixed(decimals) : Math.round(obj.v).toLocaleString('en-US');
+        el.textContent = prefix + n;
+      },
+      onComplete:function(){
+        var n = decimals ? target.toFixed(decimals) : Math.round(target).toLocaleString('en-US');
+        el.textContent = prefix + n;
+      }
+    });
+  });
+
+  /* Giving visuals draw in */
+  gsap.from('.fill.actual, .fill.budget', {scaleX:0, duration:1.0, ease:'power3.out', stagger:0.15,
+    scrollTrigger:{trigger:'.barpair', start:'top 88%'}});
+  gsap.from('.split-bar .digital', {scaleX:0, duration:1.0, ease:'power3.out',
+    scrollTrigger:{trigger:'.split-bar', start:'top 90%'}});
+  var spark = document.getElementById('sparkLine');
+  if (spark) {
+    var len = spark.getTotalLength();
+    gsap.fromTo(spark, {strokeDasharray:len+' '+len, strokeDashoffset:len},
+      {strokeDashoffset:0, duration:1.4, ease:'power2.inOut',
+       scrollTrigger:{trigger:'.spark', start:'top 92%'}});
+    gsap.from('#sparkDot', {scale:0, transformOrigin:'center', duration:0.5, ease:'back.out(2.5)', delay:1.2,
+      scrollTrigger:{trigger:'.spark', start:'top 92%'}});
+  }
+
+  /* Tables: rows cascade */
+  gsap.utils.toArray('tbody').forEach(function(tb){
+    gsap.from(tb.querySelectorAll('tr'), {opacity:0, y:14, duration:0.5, ease:'power3.out', stagger:0.07,
+      scrollTrigger:{trigger:tb, start:'top 88%'}});
+  });
+
+  /* Runway notches light in sequence */
+  gsap.from('#runwayMeter .notch', {scaleX:0, transformOrigin:'left', duration:0.4, ease:'power2.out', stagger:0.1,
+    scrollTrigger:{trigger:'#runwayMeter', start:'top 92%'}});
+
+  /* Attention items */
+  gsap.from('.attn li', {x:-24, opacity:0, duration:0.6, ease:'power3.out', stagger:0.12,
+    scrollTrigger:{trigger:'.attn', start:'top 86%'}});
+})();
+</script>
 </body>
 </html>
