@@ -5,14 +5,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Turnkey Close | How Your Books Get Done | Turnkey CFO</title>
-<meta name="description" content="The Turnkey Close: your books closed, reconciled, and reported by the sixth business day of every month, explained in plain English, visible on your own live dashboard.">
+<meta name="description" content="The Turnkey Close: your books closed, reconciled, and reported by the sixth business day of every month, or that month is free. Five stages, one calendar, zero guessing.">
 <meta property="og:title" content="The Turnkey Close | Turnkey CFO">
-<meta property="og:description" content="Your books closed, reconciled, and reported by the sixth business day of every month. Five stages, one calendar, zero guessing.">
+<meta property="og:description" content="Books closed and reported by the 6th business day, every month, or that month is free. Five stages, one calendar, zero guessing.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://turnkeycfo.com/turnkey-close/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<!--
+  ITERATION LOG (10x rebuild)
+  Pass 1: Guarantee unlock. The BD6 guarantee (adopted by Ricky 2026-07-26) becomes the page's
+          power moment: a full-bleed "monument" band with an oversized Fraunces "6th" numeral,
+          the promise set as the largest type on the page, and "or that month is free" carried
+          on an emerald keyline plaque. Hero rewritten to lead with the guarantee, not the method.
+  Pass 2: Chevron centerpiece rebuilt as a true diagram: five interlocking chevrons on a business
+          day rail (BD1 through BD6 tick marks beneath), emerald ramp toward Close, staggered
+          load-in, per-stage hover lift with descriptor reveal, connective baseline keyline. The
+          old flat clip-path strip is retired.
+  Pass 3: Editorial typography system: Fraunces display for H1/monument numerals, Jakarta for
+          everything else; tabular-nums on all figures; tightened scale rhythm (12.5rem monument,
+          clamp hero, 0.72rem letterspaced eyebrows); optical alignment of the stage numerals
+          hung into the left margin on wide screens.
+  Pass 4: Motion choreography behind prefers-reduced-motion: IntersectionObserver reveal system
+          (fade-rise with 80ms stagger), chevron cascade, guarantee band numeral scale-in, CTA
+          band glow drift. Reduced motion collapses every animation to instant-visible state.
+  Pass 5: Conversion pass: sticky topbar CTA, guarantee band carries its own Calendly CTA at the
+          decision moment, trust row (reconciled, second review, named owners) directly under the
+          guarantee, final CTA band restates the guarantee in the fine print. All primary CTAs
+          point at the Calendly intro call.
+  Pass 6: Compliance + hardening sweep: noindex retained, no pricing, no banned phrases, no
+          em/en dashes, real logo only, 360px layout verified (full-width CTAs, stacked chevrons
+          with down connectors, monument numeral clamps), focus-visible states, aria labels on
+          the diagram, self-contained (inline SVG + Google Fonts only).
+  Pass 7: Cinematic upgrade (Ricky directive, premium-animation tier): GSAP + ScrollTrigger +
+          Lenis smooth scroll wired in via CDN with a no-JS/failed-CDN fallback (hidden states
+          only apply under html.js + gsap present, so content is always visible). Hero words
+          rise with a masked stagger; the "6th" monument numeral scales in with a back ease and
+          drifts on scroll (parallax); BD rail draws with scrub; chevrons cascade with GSAP
+          stagger; magnetic pull on primary CTAs (pointer:fine only); CTA band glow drifts.
+          All of it collapses to instant-visible under prefers-reduced-motion.
+-->
 <style>
   :root{
     --cream:#FAF6EE;
@@ -22,200 +55,339 @@
     --ink-mute:#6E7F76;
     --emerald:#00E676;
     --emerald-deep:#00B25C;
+    --emerald-text:#00A857;
     --evergreen:#0E3B26;
+    --forest:#14512F;
     --line:#E2DACA;
     --card:#FFFDF8;
+    --display:'Fraunces',serif;
+    --sans:'Plus Jakarta Sans',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
-    font-family:'Plus Jakarta Sans',sans-serif;
+    font-family:var(--sans);
     background:var(--cream);
     color:var(--ink);
     line-height:1.65;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
-  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+  ::selection{background:var(--emerald);color:var(--evergreen);}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  img{max-width:100%;}
+  .num{font-variant-numeric:tabular-nums;}
 
-  .topbar{border-bottom:1px solid var(--line);background:var(--card);}
-  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:20px 0;}
-  .logo-slot{display:flex;align-items:center;gap:12px;}
-  .logo-slot .wordmark{font-weight:800;font-size:1.05rem;letter-spacing:-0.01em;}
-  .logo-slot .wordmark span{color:var(--emerald-deep);}
+  /* reveal system (hidden states gated behind html.js so a failed CDN never blanks the page) */
+  html.js .rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1);}
+  html.js .rv.in{opacity:1;transform:none;}
+  html.js .rv.d1{transition-delay:.08s}html.js .rv.d2{transition-delay:.16s}html.js .rv.d3{transition-delay:.24s}html.js .rv.d4{transition-delay:.32s}html.js .rv.d5{transition-delay:.4s}
+  .mag{will-change:transform;display:inline-block;}
+
+  /* topbar */
+  .topbar{position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line);background:rgba(255,253,248,.92);backdrop-filter:blur(10px);}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
   .top-cta{
     background:var(--evergreen);color:#fff;text-decoration:none;
-    font-weight:700;font-size:0.85rem;padding:11px 20px;border-radius:100px;
-    transition:background .2s ease;
+    font-weight:700;font-size:0.85rem;padding:11px 22px;border-radius:100px;
+    transition:background .2s ease, transform .18s ease;
   }
-  .top-cta:hover{background:#155235;}
+  .top-cta:hover{background:#155235;transform:translateY(-1px);}
 
   /* hero */
-  .hero{padding:100px 0 84px;position:relative;overflow:hidden;text-align:center;}
+  .hero{padding:104px 0 70px;position:relative;text-align:center;}
   .hero::before{
-    content:"";position:absolute;top:-180px;left:50%;transform:translateX(-50%);
-    width:720px;height:520px;
-    background:radial-gradient(closest-side, rgba(0,230,118,0.12), transparent 70%);
+    content:"";position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+    width:880px;height:620px;pointer-events:none;
+    background:radial-gradient(closest-side, rgba(0,230,118,0.13), transparent 70%);
   }
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.015 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero .wrap{position:relative;z-index:1;}
   .eyebrow{
     display:inline-flex;align-items:center;gap:10px;
-    font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
-    color:var(--emerald-deep);margin-bottom:24px;
+    font-size:0.72rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--emerald-text);margin-bottom:26px;
   }
-  .eyebrow::before,.eyebrow::after{content:"";width:26px;height:2px;background:var(--emerald);}
+  .eyebrow::before,.eyebrow::after{content:"";width:28px;height:2px;background:var(--emerald);}
   h1{
-    font-size:clamp(2.6rem,6vw,4.2rem);font-weight:800;line-height:1.02;
-    letter-spacing:-0.035em;max-width:17ch;margin:0 auto;
+    font-family:var(--display);
+    font-size:clamp(2.8rem,6.4vw,4.7rem);font-weight:600;line-height:1.0;
+    letter-spacing:-0.02em;max-width:17ch;margin:0 auto;color:var(--evergreen);
   }
   h1 em{font-style:normal;position:relative;white-space:nowrap;}
   h1 em::after{
-    content:"";position:absolute;left:0;right:0;bottom:0.08em;height:0.28em;
-    background:rgba(0,230,118,0.35);z-index:-1;border-radius:3px;
+    content:"";position:absolute;left:0;right:0;bottom:0.06em;height:0.24em;
+    background:rgba(0,230,118,0.4);z-index:-1;border-radius:3px;
   }
   .hero p.lede{
-    margin:28px auto 0;font-size:1.16rem;color:var(--ink-soft);max-width:62ch;
+    margin:26px auto 0;font-size:1.14rem;color:var(--ink-soft);max-width:60ch;
   }
-  .hero .cta-row{margin-top:40px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .hero .guar-chip{
+    margin:34px auto 0;display:inline-flex;align-items:center;gap:12px;
+    background:var(--evergreen);color:#fff;border-radius:14px;
+    padding:14px 26px;font-weight:700;font-size:.98rem;letter-spacing:.005em;
+    box-shadow:0 16px 40px rgba(14,59,38,.24);
+  }
+  .hero .guar-chip svg{flex:none;}
+  .hero .guar-chip b{color:var(--emerald);}
+  .hero .cta-row{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
   .btn-primary{
     background:var(--evergreen);color:#fff;text-decoration:none;font-weight:800;
-    padding:16px 32px;border-radius:100px;font-size:1rem;
+    padding:17px 34px;border-radius:100px;font-size:1rem;
     box-shadow:0 10px 26px rgba(14,59,38,0.22);
     transition:transform .15s ease, box-shadow .15s ease;
     display:inline-block;
   }
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(14,59,38,0.28);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(14,59,38,0.3);}
   .btn-ghost{
     color:var(--evergreen);text-decoration:none;font-weight:700;
-    padding:16px 26px;border-radius:100px;font-size:1rem;
+    padding:17px 28px;border-radius:100px;font-size:1rem;
     border:1.5px solid var(--evergreen);display:inline-block;
     transition:background .15s ease;
   }
   .btn-ghost:hover{background:rgba(14,59,38,0.06);}
 
-  /* chevron diagram */
-  .stages-band{padding:80px 0 30px;}
-  .band-head{text-align:center;margin-bottom:52px;}
-  .band-head h2{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800;letter-spacing:-0.02em;}
-  .band-head p{color:var(--ink-soft);margin-top:12px;max-width:56ch;margin-left:auto;margin-right:auto;}
-  .chevrons{
-    display:flex;justify-content:center;align-items:stretch;
-    max-width:980px;margin:0 auto;
+  /* ===== GUARANTEE MONUMENT ===== */
+  .guarantee{padding:90px 0 96px;position:relative;background:var(--evergreen);overflow:hidden;}
+  .guarantee::before{
+    content:"";position:absolute;top:-180px;right:-160px;width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(0,230,118,.18), transparent 72%);
   }
+  .guarantee::after{
+    content:"";position:absolute;left:0;right:0;top:0;height:4px;
+    background:linear-gradient(90deg,transparent,var(--emerald),transparent);
+  }
+  .g-grid{display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;position:relative;z-index:1;}
+  .g-numwrap{position:relative;line-height:.8;}
+  .g-num{
+    font-family:var(--display);font-weight:700;color:var(--emerald);
+    font-size:clamp(8rem,20vw,15rem);letter-spacing:-0.05em;line-height:.82;
+    display:block;
+  }
+  .g-num sup{font-size:.28em;font-weight:600;color:rgba(255,255,255,.85);letter-spacing:0;vertical-align:.9em;margin-left:.04em;}
+  .g-numsub{
+    display:block;margin-top:14px;text-align:center;
+    font-size:.74rem;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.6);
+  }
+  .g-copy .g-kicker{
+    font-size:.72rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--emerald);margin-bottom:18px;display:flex;align-items:center;gap:12px;
+  }
+  .g-copy .g-kicker::after{content:"";flex:1;max-width:120px;height:1px;background:rgba(0,230,118,.4);}
+  .g-copy h2{
+    font-family:var(--display);color:#fff;font-weight:600;
+    font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.14;letter-spacing:-0.015em;max-width:22ch;
+  }
+  .g-copy h2 b{color:var(--emerald);font-weight:700;}
+  .g-plaque{
+    margin-top:28px;display:inline-flex;align-items:center;gap:16px;
+    border:1.5px solid var(--emerald);border-radius:14px;padding:18px 28px;
+    background:rgba(0,230,118,.07);
+  }
+  .g-plaque svg{flex:none;}
+  .g-plaque span{color:#fff;font-weight:800;font-size:clamp(1.05rem,2vw,1.3rem);letter-spacing:-.01em;}
+  .g-plaque span b{color:var(--emerald);}
+  .g-fine{margin-top:22px;color:#9FC5AE;font-size:.92rem;max-width:56ch;}
+  .g-cta{margin-top:30px;}
+  .g-cta .btn-primary{background:var(--emerald);color:var(--evergreen);box-shadow:0 12px 32px rgba(0,0,0,.32);}
+  .g-trust{
+    margin-top:56px;padding-top:34px;border-top:1px solid rgba(255,255,255,.14);
+    display:grid;grid-template-columns:repeat(3,1fr);gap:26px;position:relative;z-index:1;
+  }
+  .g-trust div{display:flex;gap:14px;align-items:flex-start;}
+  .g-trust svg{flex:none;margin-top:3px;}
+  .g-trust b{display:block;color:#fff;font-weight:800;font-size:.95rem;}
+  .g-trust p{color:#9FC5AE;font-size:.85rem;margin-top:3px;line-height:1.55;}
+
+  /* ===== CHEVRON CENTERPIECE ===== */
+  .stages-band{padding:96px 0 24px;}
+  .band-head{text-align:center;margin-bottom:60px;}
+  .band-head .eyebrow{margin-bottom:16px;}
+  .band-head h2{font-family:var(--display);font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:600;letter-spacing:-0.015em;color:var(--evergreen);}
+  .band-head p{color:var(--ink-soft);margin-top:14px;max-width:56ch;margin-left:auto;margin-right:auto;}
+  .diagram{max-width:1020px;margin:0 auto;}
+  .chevrons{display:flex;align-items:stretch;}
   .chev{
-    flex:1;position:relative;min-width:0;
-    padding:22px 10px 22px 30px;
-    background:var(--evergreen);color:#fff;
-    clip-path:polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%, 24px 50%);
-    margin-right:6px;text-align:center;
+    flex:1;position:relative;min-width:0;cursor:default;
+    padding:26px 12px 24px 34px;color:#fff;text-align:center;
+    clip-path:polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%, 26px 50%);
+    margin-right:7px;
+    transition:transform .22s cubic-bezier(.2,.8,.2,1), filter .22s ease;
   }
-  .chev:first-child{clip-path:polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%);border-radius:10px 0 0 10px;}
-  .chev:last-child{margin-right:0;clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%, 24px 50%);border-radius:0 10px 10px 0;}
-  .chev:nth-child(1){background:#0E3B26;}
-  .chev:nth-child(2){background:#14512F;}
-  .chev:nth-child(3){background:var(--emerald-deep);}
-  .chev:nth-child(4){background:#14512F;}
-  .chev:nth-child(5){background:#0E3B26;}
-  .chev .c-num{font-size:0.66rem;font-weight:700;letter-spacing:0.18em;color:rgba(255,255,255,0.82);}
-  .chev .c-name{font-weight:800;font-size:clamp(0.82rem,1.7vw,1.1rem);letter-spacing:0.01em;margin-top:2px;}
-  @media (max-width:700px){
-    .chevrons{flex-direction:column;max-width:340px;}
-    .chev, .chev:first-child, .chev:last-child{
-      clip-path:polygon(0 0, 50% 18px, 100% 0, 100% calc(100% - 18px), 50% 100%, 0 calc(100% - 18px));
-      margin:0 0 6px 0;padding:26px 20px;border-radius:0;
-    }
-    .chev:first-child{clip-path:polygon(0 0, 100% 0, 100% calc(100% - 18px), 50% 100%, 0 calc(100% - 18px));border-radius:12px 12px 0 0;}
-    .chev:last-child{clip-path:polygon(0 0, 50% 18px, 100% 0, 100% 100%, 0 100%);border-radius:0 0 12px 12px;margin-bottom:0;}
+  html.js .chev{opacity:0;transform:translateX(-18px);}
+  html.js .chevrons.in .chev{opacity:1;transform:none;}
+  .chevrons.in .chev{opacity:1;transform:none;transition:opacity .55s cubic-bezier(.2,.8,.2,1), transform .55s cubic-bezier(.2,.8,.2,1), filter .22s ease;}
+  .chevrons.in .chev:nth-child(1){transition-delay:.05s}
+  .chevrons.in .chev:nth-child(2){transition-delay:.17s}
+  .chevrons.in .chev:nth-child(3){transition-delay:.29s}
+  .chevrons.in .chev:nth-child(4){transition-delay:.41s}
+  .chevrons.in .chev:nth-child(5){transition-delay:.53s}
+  .chev:hover{transform:translateY(-5px);filter:brightness(1.08);}
+  .chev:first-child{clip-path:polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%);border-radius:12px 0 0 12px;padding-left:20px;}
+  .chev:last-child{margin-right:0;clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%, 26px 50%);border-radius:0 12px 12px 0;}
+  .chev:nth-child(1){background:linear-gradient(135deg,#0E3B26,#124a2f);}
+  .chev:nth-child(2){background:linear-gradient(135deg,#14512F,#186039);}
+  .chev:nth-child(3){background:linear-gradient(135deg,#00B25C,#00cf6b);box-shadow:0 14px 34px rgba(0,178,92,.3);}
+  .chev:nth-child(4){background:linear-gradient(135deg,#14512F,#186039);}
+  .chev:nth-child(5){background:linear-gradient(135deg,#0E3B26,#124a2f);}
+  .chev .c-num{font-size:0.64rem;font-weight:800;letter-spacing:0.22em;color:rgba(255,255,255,0.85);}
+  .chev .c-name{font-weight:800;font-size:clamp(0.84rem,1.7vw,1.14rem);letter-spacing:0.005em;margin-top:3px;}
+  .chev-desc{display:flex;margin-top:14px;}
+  .chev-desc span{
+    flex:1;font-size:.76rem;color:var(--ink-mute);line-height:1.5;text-align:center;
+    padding:0 12px;margin-right:7px;
   }
+  .chev-desc span:last-child{margin-right:0;}
+  /* BD rail under chevrons */
+  .bd-rail{margin-top:38px;position:relative;padding-top:22px;}
+  .bd-rail::before{content:"";position:absolute;left:2%;right:2%;top:0;height:2px;background:var(--line);border-radius:2px;}
+  .bd-rail::after{
+    content:"";position:absolute;left:2%;top:0;height:2px;border-radius:2px;width:0;
+    background:linear-gradient(90deg,var(--emerald-deep),var(--emerald));
+    transition:width 1.4s cubic-bezier(.2,.8,.2,1) .5s;
+  }
+  .bd-rail.in::after{width:96%;}
+  .bd-ticks{display:flex;justify-content:space-between;padding:0 2%;}
+  .bd-ticks span{
+    font-size:.68rem;font-weight:800;letter-spacing:.12em;color:var(--ink-mute);position:relative;text-align:center;
+  }
+  .bd-ticks span::before{
+    content:"";position:absolute;left:50%;top:-26px;transform:translateX(-50%);
+    width:8px;height:8px;border-radius:50%;background:var(--cream);border:2px solid var(--ink-mute);
+  }
+  .bd-ticks span:last-child{color:var(--emerald-text);font-weight:800;}
+  .bd-ticks span:last-child::before{background:var(--emerald);border-color:var(--emerald-deep);box-shadow:0 0 0 5px rgba(0,230,118,.22);}
+  .bd-ticks span b{display:block;font-size:.62rem;font-weight:700;letter-spacing:.08em;color:var(--ink-mute);margin-top:2px;text-transform:uppercase;}
+  .bd-ticks span:last-child b{color:var(--emerald-text);}
 
   /* stage details */
-  .stage-list{padding:50px 0 80px;display:grid;gap:20px;}
+  .stage-list{padding:64px 0 84px;display:grid;gap:20px;}
   .stage{
     display:grid;grid-template-columns:120px 1.1fr 1fr;gap:28px;align-items:start;
     background:var(--card);border:1px solid var(--line);border-radius:20px;
-    padding:34px 36px;
-    transition:transform .18s ease, box-shadow .18s ease;
+    padding:36px 38px;position:relative;overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   }
-  .stage:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(14,59,38,0.09);}
+  .stage::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--emerald),var(--emerald-deep));opacity:0;transition:opacity .18s ease;}
+  .stage:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(14,59,38,0.1);border-color:rgba(0,178,92,.35);}
+  .stage:hover::before{opacity:1;}
   .stage .s-num{
-    font-size:2.6rem;font-weight:800;color:transparent;line-height:1;
+    font-family:var(--display);font-size:3rem;font-weight:600;color:transparent;line-height:1;
     -webkit-text-stroke:1.5px var(--emerald-deep);
   }
   .stage .s-num small{
-    display:block;-webkit-text-stroke:0;color:var(--emerald-deep);
-    font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin-top:10px;
+    display:block;-webkit-text-stroke:0;color:var(--emerald-text);font-family:var(--sans);
+    font-size:0.66rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;margin-top:10px;
   }
   .stage h3{font-size:1.35rem;font-weight:800;letter-spacing:-0.015em;}
   .stage .s-what{color:var(--ink-soft);font-size:0.98rem;margin-top:10px;}
-  .stage .s-see{
-    border-left:3px solid var(--emerald);padding:4px 0 4px 18px;align-self:center;
-  }
+  .stage .s-see{border-left:3px solid var(--emerald);padding:4px 0 4px 18px;align-self:center;}
   .stage .s-see .lbl{
-    font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
-    color:var(--emerald-deep);margin-bottom:6px;
+    font-size:0.66rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--emerald-text);margin-bottom:6px;
   }
   .stage .s-see p{color:var(--ink);font-weight:600;font-size:0.97rem;}
 
   /* why it works */
-  .why{background:var(--cream-deep);padding:84px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-  .why h2{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800;letter-spacing:-0.02em;text-align:center;}
+  .why{background:var(--cream-deep);padding:88px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .why h2{font-family:var(--display);font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:600;letter-spacing:-0.015em;text-align:center;color:var(--evergreen);}
   .why .sub{text-align:center;color:var(--ink-soft);margin-top:12px;max-width:54ch;margin-left:auto;margin-right:auto;}
-  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px;}
   .why-card{
-    background:var(--card);border:1px solid var(--line);border-radius:18px;padding:32px 28px;
+    background:var(--card);border:1px solid var(--line);border-radius:18px;padding:34px 28px;
+    transition:transform .18s ease, box-shadow .18s ease;
   }
+  .why-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(14,59,38,.1);}
   .why-card .glyph{
-    width:44px;height:44px;border-radius:12px;background:var(--emerald);
-    display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+    width:46px;height:46px;border-radius:13px;background:var(--emerald);
+    display:flex;align-items:center;justify-content:center;margin-bottom:20px;
   }
   .why-card .glyph svg{width:22px;height:22px;}
   .why-card h3{font-size:1.1rem;font-weight:800;letter-spacing:-0.01em;}
   .why-card p{color:var(--ink-soft);font-size:0.95rem;margin-top:10px;}
 
   /* CTA band */
-  .cta-band{padding:96px 0;}
+  .cta-band{padding:100px 0;}
   .cta-inner{
-    background:var(--evergreen);border-radius:26px;padding:72px 60px;text-align:center;
+    background:var(--evergreen);border-radius:28px;padding:76px 60px;text-align:center;
     position:relative;overflow:hidden;
   }
   .cta-inner::before{
-    content:"";position:absolute;bottom:-160px;right:-120px;width:420px;height:420px;
-    background:radial-gradient(closest-side, rgba(0,230,118,0.22), transparent 70%);border-radius:50%;
+    content:"";position:absolute;bottom:-180px;right:-130px;width:460px;height:460px;
+    background:radial-gradient(closest-side, rgba(0,230,118,0.24), transparent 70%);border-radius:50%;
+    animation:drift 9s ease-in-out infinite alternate;
   }
-  .cta-inner h2{color:#fff;font-size:clamp(1.8rem,3.8vw,2.7rem);font-weight:800;letter-spacing:-0.02em;max-width:22ch;margin:0 auto;}
-  .cta-inner p{color:#BFD9CA;margin:18px auto 0;max-width:54ch;font-size:1.05rem;}
+  @keyframes drift{from{transform:translate(0,0)}to{transform:translate(-50px,-36px)}}
+  .cta-inner h2{font-family:var(--display);color:#fff;font-size:clamp(1.9rem,4vw,2.8rem);font-weight:600;letter-spacing:-0.015em;max-width:22ch;margin:0 auto;position:relative;}
+  .cta-inner p{color:#BFD9CA;margin:18px auto 0;max-width:54ch;font-size:1.05rem;position:relative;}
   .cta-inner .btn-primary{
-    background:var(--emerald);color:var(--evergreen);margin-top:36px;
-    box-shadow:0 12px 30px rgba(0,0,0,0.3);
+    background:var(--emerald);color:var(--evergreen);margin-top:38px;position:relative;
+    box-shadow:0 12px 30px rgba(0,0,0,0.32);
   }
-  .cta-inner .fine{margin-top:22px;font-size:0.85rem;color:#8FBBA0;}
+  .cta-inner .fine{margin-top:22px;font-size:0.87rem;color:#8FBBA0;position:relative;}
+  .cta-inner .fine b{color:var(--emerald);}
 
   footer{padding:0 0 56px;color:var(--ink-mute);font-size:0.82rem;}
   footer .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:28px;}
   footer a{color:var(--ink-soft);text-decoration:none;font-weight:600;}
 
+  @media (max-width:960px){
+    .g-grid{grid-template-columns:1fr;gap:34px;text-align:center;}
+    .g-numwrap{margin:0 auto;}
+    .g-copy h2{margin:0 auto;}
+    .g-copy .g-kicker{justify-content:center;}
+    .g-trust{grid-template-columns:1fr;gap:20px;}
+    .g-plaque{text-align:left;}
+  }
   @media (max-width:860px){
     .stage{grid-template-columns:1fr;gap:16px;padding:28px 24px;}
-    .stage .s-num{font-size:2rem;display:flex;align-items:baseline;gap:14px;}
+    .stage .s-num{font-size:2.2rem;display:flex;align-items:baseline;gap:14px;}
     .stage .s-num small{margin-top:0;}
     .why-grid{grid-template-columns:1fr;}
-    .cta-inner{padding:52px 28px;}
+    .cta-inner{padding:54px 28px;}
+    .chev-desc{display:none;}
   }
   @media (max-width:760px){
     .wrap{padding:0 20px;}
-    .hero{padding:72px 0 60px;}
+    .hero{padding:72px 0 56px;}
+    .bd-ticks span b{display:none;}
+  }
+  @media (max-width:700px){
+    .chevrons{flex-direction:column;max-width:340px;margin:0 auto;}
+    .chev, .chev:first-child, .chev:last-child{
+      clip-path:polygon(0 0, 50% 18px, 100% 0, 100% calc(100% - 18px), 50% 100%, 0 calc(100% - 18px));
+      margin:0 0 7px 0;padding:26px 20px;border-radius:0;
+    }
+    html.js .chev{transform:translateY(14px);}
+    html.js .chevrons.in .chev{transform:none;}
+    .chev:hover{transform:none;}
+    .chev:first-child{clip-path:polygon(0 0, 100% 0, 100% calc(100% - 18px), 50% 100%, 0 calc(100% - 18px));border-radius:12px 12px 0 0;}
+    .chev:last-child{clip-path:polygon(0 0, 50% 18px, 100% 0, 100% 100%, 0 100%);border-radius:0 0 12px 12px;margin-bottom:0;}
+    .bd-ticks span{font-size:.6rem;}
   }
   a:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;border-radius:6px;}
-  #stages,#diagnostic{scroll-margin-top:24px;}
+  #stages,#diagnostic,#guarantee{scroll-margin-top:80px;}
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
-    *{transition:none!important;}
-    .btn-primary:hover,.stage:hover{transform:none;}
+    *,*::before,*::after{transition:none!important;animation:none!important;}
+    .rv,.chev{opacity:1!important;transform:none!important;}
+    .bd-rail::after{width:96%;}
+    .btn-primary:hover,.stage:hover,.why-card:hover{transform:none;}
   }
   @media (max-width:420px){
-    h1{font-size:2.3rem;}
+    h1{font-size:2.35rem;}
     .hero p.lede{font-size:1.02rem;}
     .btn-primary,.btn-ghost{width:100%;text-align:center;}
+    .guar-chip{flex-direction:column;text-align:center;gap:8px;padding:16px 18px;}
+    .g-plaque{flex-direction:column;text-align:center;padding:18px 20px;}
+    .cta-inner{padding:46px 20px;}
+    .wrap{padding:0 16px;}
   }
 </style>
+<script>if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('js');}</script>
 </head>
 <body>
 
@@ -224,41 +396,91 @@
     <div class="logo-slot">
       <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO" style="height:36px;width:auto;display:block">
     </div>
-    <a class="top-cta" href="#diagnostic">Book a Books Diagnostic</a>
+    <a class="top-cta" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call">Book a Books Diagnostic</a>
   </div>
 </div>
 
 <header class="hero">
   <div class="wrap">
-    <div class="eyebrow">Our Methodology</div>
-    <h1>The <em>Turnkey Close</em></h1>
-    <p class="lede">Your books closed, reconciled, and reported by the sixth business day of every month. Explained in plain English. Visible on your own live dashboard. Not a promise taped to a wall. A system that runs the same way every single month.</p>
-    <div class="cta-row">
-      <a class="btn-primary" href="#diagnostic">Book your Books Diagnostic</a>
+    <div class="eyebrow rv">Our Methodology</div>
+    <h1 class="rv d1">The <em>Turnkey Close</em></h1>
+    <p class="lede rv d2">Five stages, one calendar, zero guessing. Your books run on a system that behaves the same way every single month, and the deadline is backed by our word.</p>
+    <div class="guar-chip rv d3">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 3v6c0 5-3.1 8.4-7 11-3.9-2.6-7-6-7-11V5l7-3z" stroke="#00E676" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4L15.5 9.5" stroke="#00E676" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Closed and reported by the <b>6th business day</b>, or that month is free.</span>
+    </div>
+    <div class="cta-row rv d4">
+      <a class="btn-primary" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call">Book your Books Diagnostic</a>
       <a class="btn-ghost" href="#stages">See how it works</a>
     </div>
   </div>
 </header>
 
+<section class="guarantee" id="guarantee" aria-label="The BD6 guarantee">
+  <div class="wrap">
+    <div class="g-grid">
+      <div class="g-numwrap rv">
+        <span class="g-num num">6<sup>th</sup></span>
+        <span class="g-numsub">Business Day</span>
+      </div>
+      <div class="g-copy">
+        <p class="g-kicker rv">The Turnkey Guarantee</p>
+        <h2 class="rv d1">Books closed and reported by the <b>6th business day</b>, every month.</h2>
+        <div class="g-plaque rv d2">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="#00E676" stroke-width="1.6"/><path d="M7.5 12.2l2.9 2.9 6.1-6.2" stroke="#00E676" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Or that month is <b>free</b>. No asterisk, no fine print maze.</span>
+        </div>
+        <p class="g-fine rv d3">Not a goal taped to a wall. A commitment with consequences on our side of the table. If we miss the date, you do not pay for that month. That is how certain we are of the system beneath it.</p>
+        <div class="g-cta rv d4"><a class="btn-primary" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call">Start with a Books Diagnostic</a></div>
+      </div>
+    </div>
+    <div class="g-trust">
+      <div class="rv"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12l5 5L20 6" stroke="#00E676" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Every account reconciled</b><p>Bank, card, and giving accounts tied to the statement before the close locks.</p></div></div>
+      <div class="rv d1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12l5 5L20 6" stroke="#00E676" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Every transaction touched twice</b><p>Coded once, then independently reviewed by a second set of eyes.</p></div></div>
+      <div class="rv d2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12l5 5L20 6" stroke="#00E676" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Every step has a named owner</b><p>One documented checklist per client, never "whoever gets to it."</p></div></div>
+    </div>
+  </div>
+</section>
+
 <section class="stages-band" id="stages">
   <div class="wrap">
     <div class="band-head">
-      <h2>Five stages. Every client. Every month.</h2>
-      <p>Most bookkeeping fails because it depends on someone remembering. The Turnkey Close is built so the calendar does the remembering for you.</p>
+      <div class="eyebrow rv">The System</div>
+      <h2 class="rv d1">Five stages. Every client. Every month.</h2>
+      <p class="rv d2">Most bookkeeping fails because it depends on someone remembering. The Turnkey Close is built so the calendar does the remembering for you.</p>
     </div>
-    <div class="chevrons" role="img" aria-label="The five stages of the Turnkey Close: Diagnose, Clean, Close, Report, Advise">
-      <div class="chev"><div class="c-num">01</div><div class="c-name">Diagnose</div></div>
-      <div class="chev"><div class="c-num">02</div><div class="c-name">Clean</div></div>
-      <div class="chev"><div class="c-num">03</div><div class="c-name">Close</div></div>
-      <div class="chev"><div class="c-num">04</div><div class="c-name">Report</div></div>
-      <div class="chev"><div class="c-num">05</div><div class="c-name">Advise</div></div>
+    <div class="diagram">
+      <div class="chevrons" id="chevrons" role="img" aria-label="The five stages of the Turnkey Close: Diagnose, Clean, Close, Report, Advise">
+        <div class="chev"><div class="c-num">01</div><div class="c-name">Diagnose</div></div>
+        <div class="chev"><div class="c-num">02</div><div class="c-name">Clean</div></div>
+        <div class="chev"><div class="c-num">03</div><div class="c-name">Close</div></div>
+        <div class="chev"><div class="c-num">04</div><div class="c-name">Report</div></div>
+        <div class="chev"><div class="c-num">05</div><div class="c-name">Advise</div></div>
+      </div>
+      <div class="chev-desc" aria-hidden="true">
+        <span>Your real numbers, reviewed first</span>
+        <span>A defensible, reconciled baseline</span>
+        <span>Locked by a fixed monthly rhythm</span>
+        <span>Plain-English, board-ready output</span>
+        <span>A standing cadence of direction</span>
+      </div>
+      <div class="bd-rail" id="bdrail" aria-label="The close runs business day one through business day six">
+        <div class="bd-ticks num">
+          <span>BD1<b>Code</b></span>
+          <span>BD2<b>Code</b></span>
+          <span>BD3<b>Reconcile</b></span>
+          <span>BD4<b>Reconcile</b></span>
+          <span>BD5<b>Review</b></span>
+          <span>BD6<b>Delivered</b></span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="stage-list-wrap">
   <div class="wrap stage-list">
-    <div class="stage">
+    <div class="stage rv">
       <div class="s-num">01<small>Diagnose</small></div>
       <div>
         <h3>We look at your real numbers first.</h3>
@@ -269,7 +491,7 @@
         <p>A live view of your own books, often revealing issues your current setup hides.</p>
       </div>
     </div>
-    <div class="stage">
+    <div class="stage rv">
       <div class="s-num">02<small>Clean</small></div>
       <div>
         <h3>Your books reach a defensible baseline.</h3>
@@ -280,18 +502,18 @@
         <p>A dated baseline-certified milestone: the day your books became trustworthy.</p>
       </div>
     </div>
-    <div class="stage">
+    <div class="stage rv">
       <div class="s-num">03<small>Close</small></div>
       <div>
         <h3>Every month runs on a calendar, not a memory.</h3>
-        <p class="s-what">Transactions coded daily. Questions batched respectfully, never dripped. Reconciliations locked and review passed, all by the sixth business day.</p>
+        <p class="s-what">Transactions coded daily. Questions batched respectfully, never dripped. Reconciliations locked and review passed, all by the sixth business day. If we miss it, that month is free.</p>
       </div>
       <div class="s-see">
         <div class="lbl">What you see</div>
         <p>Books that are simply done, on a date you can plan around.</p>
       </div>
     </div>
-    <div class="stage">
+    <div class="stage rv">
       <div class="s-num">04<small>Report</small></div>
       <div>
         <h3>Numbers you can hand to anyone.</h3>
@@ -302,7 +524,7 @@
         <p>Reports you can take to a board, a bank, or a spouse without translating.</p>
       </div>
     </div>
-    <div class="stage">
+    <div class="stage rv">
       <div class="s-num">05<small>Advise</small></div>
       <div>
         <h3>A standing rhythm, not a yearly scramble.</h3>
@@ -318,20 +540,20 @@
 
 <section class="why">
   <div class="wrap">
-    <h2>Why it works when others slip</h2>
-    <p class="sub">The deadline is not a hope. It is the way the system is built. Three mechanics make the difference.</p>
+    <h2 class="rv">Why the guarantee is safe to make</h2>
+    <p class="sub rv d1">The deadline is not a hope. It is the way the system is built. Three mechanics make the difference.</p>
     <div class="why-grid">
-      <div class="why-card">
+      <div class="why-card rv d1">
         <div class="glyph"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6h11M9 12h11M9 18h11" stroke="#0E3B26" stroke-width="2.2" stroke-linecap="round"/><path d="M4 6h.01M4 12h.01M4 18h.01" stroke="#0E3B26" stroke-width="3" stroke-linecap="round"/></svg></div>
         <h3>One checklist, named owners</h3>
         <p>Every client has one documented close checklist, run every month by named people, never "whoever gets to it." When a step has an owner, it gets done.</p>
       </div>
-      <div class="why-card">
+      <div class="why-card rv d2">
         <div class="glyph"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12l5 5L21 4" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 19l3 3 7-7" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/></svg></div>
         <h3>Every transaction touched twice</h3>
         <p>Coded once, then independently reviewed by a second set of eyes before the close locks. Errors get caught inside the system, not by you.</p>
       </div>
-      <div class="why-card">
+      <div class="why-card rv d3">
         <div class="glyph"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="3" stroke="#0E3B26" stroke-width="2.2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="#0E3B26" stroke-width="2.2" stroke-linecap="round"/><path d="M8 15l2.5 2.5L16 12" stroke="#0E3B26" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Deadlines are structural</h3>
         <p>The close calendar is built into our operating system, not into anyone's memory. The date arrives, and the work is already done.</p>
@@ -343,10 +565,10 @@
 <section class="cta-band" id="diagnostic">
   <div class="wrap">
     <div class="cta-inner">
-      <h2>Start where every engagement starts: a Books Diagnostic.</h2>
-      <p>We pull your real numbers and show you what they say, clearly and honestly, before you commit to anything. If your current setup is hiding problems, you will see them. If it is solid, we will tell you that too.</p>
-      <a class="btn-primary" href="https://turnkeycfo.com/">Book your Books Diagnostic</a>
-      <p class="fine">A working session on your actual books. No obligation.</p>
+      <h2 class="rv">Start where every engagement starts: a Books Diagnostic.</h2>
+      <p class="rv d1">We pull your real numbers and show you what they say, clearly and honestly, before you commit to anything. If your current setup is hiding problems, you will see them. If it is solid, we will tell you that too.</p>
+      <a class="btn-primary rv d2" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call">Book your Books Diagnostic</a>
+      <p class="fine rv d3">A working session on your actual books. No obligation. And once you join: books by the <b>6th business day</b>, or that month is free.</p>
     </div>
   </div>
 </section>
@@ -358,9 +580,92 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rvs = document.querySelectorAll('.rv');
+  var chev = document.getElementById('chevrons');
+  var rail = document.getElementById('bdrail');
+  function showAll(){
+    document.documentElement.classList.remove('js');
+    if (chev) chev.classList.add('in');
+    if (rail) rail.classList.add('in');
+  }
+  if (reduced) { showAll(); return; }
+
+  // IntersectionObserver reveal layer (works even if GSAP CDN fails)
+  if (!('IntersectionObserver' in window)) { showAll(); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+  rvs.forEach(function(el){io.observe(el);});
+  if (chev) io.observe(chev);
+  if (rail) io.observe(rail);
+
+  // Premium layer: Lenis flow + GSAP choreography (graceful if CDNs blocked)
+  if (!(window.gsap && window.ScrollTrigger)) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hand these elements to GSAP: pre-mark them 'in' so the IO/CSS layer stands down
+  document.querySelectorAll('.g-numwrap, .g-plaque').forEach(function(el){ el.classList.add('in'); });
+
+  if (window.Lenis) {
+    var lenis = new Lenis({lerp:0.12, wheelMultiplier:1.0});
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t*1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // Guarantee monument: numeral scales in with a back ease, then drifts on scroll
+  var gnum = document.querySelector('.g-num');
+  if (gnum) {
+    gsap.from(gnum, {
+      scale:0.6, opacity:0, duration:1.1, ease:'back.out(1.6)',
+      scrollTrigger:{trigger:'.guarantee', start:'top 70%'}
+    });
+    gsap.to(gnum, {
+      yPercent:-8, ease:'none',
+      scrollTrigger:{trigger:'.guarantee', start:'top bottom', end:'bottom top', scrub:0.6}
+    });
+  }
+  // Plaque pulse-in at the decision moment
+  gsap.from('.g-plaque', {
+    scale:0.94, opacity:0, duration:0.8, ease:'power3.out',
+    scrollTrigger:{trigger:'.g-plaque', start:'top 82%'}
+  });
+  // Hero content parallax: eases upward slightly faster than the scroll
+  gsap.to('.hero .wrap', {
+    yPercent:-7, opacity:0.35, ease:'none',
+    scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}
+  });
+  // Stage cards: subtle scrub rise as they enter
+  gsap.utils.toArray('.stage').forEach(function(card){
+    gsap.from(card, {
+      y:34, opacity:0, duration:0.7, ease:'power3.out',
+      scrollTrigger:{trigger:card, start:'top 88%'}
+    });
+    card.classList.add('in'); // neutralize the IO layer so GSAP owns this element
+  });
+
+  // Magnetic CTAs (desktop pointers only)
+  if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    document.querySelectorAll('.btn-primary, .top-cta').forEach(function(btn){
+      var qx = gsap.quickTo(btn, 'x', {duration:0.35, ease:'power3.out'});
+      var qy = gsap.quickTo(btn, 'y', {duration:0.35, ease:'power3.out'});
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        qx((e.clientX - (r.left + r.width/2)) * 0.22);
+        qy((e.clientY - (r.top + r.height/2)) * 0.22);
+      });
+      btn.addEventListener('mouseleave', function(){ qx(0); qy(0); });
+    });
+  }
+})();
+</script>
 </body>
-<!-- pass 1: purged seven em-dashes from hero, stages, mechanics, and CTA copy per brand voice rule; sentences recast as clean periods/commas -->
-<!-- pass 2: raised chevron stage-number contrast (0.66 to 0.82 alpha), added hover lift + shadow to stage detail cards for scannable depth -->
-<!-- pass 3: focus-visible outlines on all CTAs, scroll-margin on anchors, prefers-reduced-motion kill-switch, full-width CTAs under 420px -->
-<!-- pass 4: Open Graph metadata added for the eventual turnkeycfo.com/turnkey-close/ URL; verified no pricing, no guarantee, no "fractional CFO" anywhere on the page -->
 </html>
