@@ -4,95 +4,343 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow"><!-- DRAFT: remove noindex when Ricky ratifies for the public site -->
-<title>The Team — Turnkey CFO</title>
+<title>The Team | Turnkey CFO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--emerald:#00E676;--emerald-deep:#0f7a43;--ink:#1a2b22;--ink-deep:#0f2418;--cream:#faf7f1;--card:#ffffff;--muted:#5a6b60;}
+:root{
+  --cream:#FAF6EE;
+  --cream-deep:#F3EDE0;
+  --ink:#12241B;
+  --ink-soft:#3E5248;
+  --ink-mute:#6E7F76;
+  --emerald:#00E676;
+  --emerald-deep:#00B25C;
+  --evergreen:#0E3B26;
+  --evergreen-2:#123F2B;
+  --line:#E2DACA;
+  --line-soft:#EBE4D5;
+  --card:#FFFDF8;
+  --shadow-soft:0 1px 2px rgba(18,36,27,.04), 0 10px 30px -12px rgba(18,36,27,.10);
+  --shadow-lift:0 2px 4px rgba(18,36,27,.06), 0 24px 48px -16px rgba(18,36,27,.20);
+  --ease-out:cubic-bezier(.22,1,.36,1);
+}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;}
-.wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
-.topbar{background:var(--card);border-bottom:1px solid #e8e2d6;padding:16px 0;}
+html{scroll-behavior:smooth;}
+html.lenis, html.lenis body{height:auto;}
+.lenis.lenis-smooth{scroll-behavior:auto!important;}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--cream);color:var(--ink);line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  position:relative;overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size:140px 140px;
+}
+::selection{background:rgba(0,230,118,.28);}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px;position:relative;}
+.num{font-variant-numeric:tabular-nums;}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .75s ease, transform .75s var(--ease-out);will-change:opacity,transform;}
+.rv.in{opacity:1;transform:none;}
+.rv[data-d="1"]{transition-delay:.08s;}
+.rv[data-d="2"]{transition-delay:.16s;}
+.rv[data-d="3"]{transition-delay:.24s;}
+.gs .rv{transition:none;transition-delay:0s;}
+
+.topbar{
+  background:rgba(255,253,248,.9);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  position:sticky;top:0;z-index:30;padding:16px 0;
+}
 .topbar-inner{display:flex;align-items:center;justify-content:space-between;}
-.doc-label{font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--emerald-deep);}
-.hero{padding:64px 0 40px;text-align:center;}
-.hero h1{font-size:clamp(1.9rem,4.5vw,2.9rem);font-weight:800;letter-spacing:-0.02em;color:var(--ink-deep);}
-.hero h1 em{font-style:normal;color:var(--emerald-deep);}
-.hero p{max-width:640px;margin:14px auto 0;font-size:1.05rem;color:var(--muted);}
-.team-photo-band{padding:8px 0 40px;}
-.team-photo-band img{width:100%;height:auto;border-radius:18px;display:block;box-shadow:0 18px 40px rgba(15,36,24,0.12);}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;padding:16px 0 56px;}
-.card{background:var(--card);border:1px solid #eee7da;border-radius:16px;padding:26px 22px;text-align:center;transition:transform .18s ease, box-shadow .18s ease;}
-.card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(15,36,24,0.10);}
-.card img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid var(--emerald);margin-bottom:14px;}
-.card .role{font-size:0.78rem;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;color:var(--emerald-deep);margin-bottom:4px;}
-.card h3{font-size:1.15rem;font-weight:800;color:var(--ink-deep);margin-bottom:8px;}
-.card p{font-size:0.92rem;color:var(--muted);}
-.credo{background:var(--ink-deep);color:#f2efe8;padding:52px 0;text-align:center;}
-.credo .wrap{max-width:760px;}
-.credo h2{font-size:1.35rem;font-weight:800;margin-bottom:10px;color:#fff;}
-.credo p{font-size:1.02rem;color:#cfd8d1;}
-.credo .rule{height:3px;background:var(--emerald);width:64px;margin:0 auto 18px;}
-.cta{padding:56px 0;text-align:center;}
-.cta a{display:inline-block;background:var(--emerald-deep);color:#fff;text-decoration:none;font-weight:700;padding:14px 30px;border-radius:10px;}
-.cta a:focus-visible{outline:3px solid var(--emerald);outline-offset:2px;}
-.cta .sub{margin-top:10px;font-size:0.9rem;color:var(--muted);}
-footer{border-top:1px solid #e8e2d6;padding:22px 0;text-align:center;font-size:0.82rem;color:var(--muted);}
-@media (max-width:480px){.hero{padding:44px 0 28px;}.card img{width:104px;height:104px;}}
-@media print{.cta,.topbar{display:none;}}
+.doc-label{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:0.66rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--emerald-deep);
+}
+.doc-label svg{width:10px;height:10px;display:block;}
+
+.hero{padding:96px 0 48px;text-align:center;position:relative;overflow:hidden;}
+.glow{position:absolute;border-radius:50%;pointer-events:none;}
+.glow.g1{
+  top:-240px;left:50%;margin-left:-340px;width:680px;height:560px;
+  background:radial-gradient(closest-side, rgba(0,230,118,0.13), rgba(0,230,118,0.04) 55%, transparent 72%);
+  animation:drift1 16s ease-in-out infinite alternate;
+}
+.glow.g2{
+  bottom:-200px;right:-180px;width:460px;height:460px;
+  background:radial-gradient(closest-side, rgba(14,59,38,0.06), transparent 70%);
+  animation:drift2 20s ease-in-out infinite alternate;
+}
+@keyframes drift1{from{transform:translate(0,0);}to{transform:translate(26px,20px);}}
+@keyframes drift2{from{transform:translate(0,0);}to{transform:translate(-24px,-18px);}}
+.hero .eyebrow{
+  display:inline-flex;align-items:center;gap:10px;justify-content:center;
+  font-size:0.68rem;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;
+  color:var(--emerald-deep);margin-bottom:24px;
+}
+.hero .eyebrow svg{width:9px;height:11px;display:block;}
+.hero h1{
+  font-size:clamp(2.5rem,6.2vw,4.3rem);font-weight:800;letter-spacing:-0.038em;line-height:1.02;
+  color:var(--ink);text-wrap:balance;
+}
+.hero h1 em{font-style:normal;color:var(--emerald-deep);position:relative;white-space:nowrap;}
+.hero h1 em::after{
+  content:"";position:absolute;left:0;right:.15em;bottom:.05em;height:.15em;
+  background:linear-gradient(90deg, rgba(0,230,118,.42), rgba(0,230,118,.1));
+  z-index:-1;border-radius:2px;
+}
+.gs h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em;}
+.gs h1 .w>span{display:inline-block;transform:translateY(115%);will-change:transform;}
+.hero p{max-width:640px;margin:20px auto 0;font-size:1.08rem;line-height:1.75;color:var(--ink-soft);}
+
+.team-photo-band{padding:26px 0 56px;position:relative;}
+.photo-frame{position:relative;}
+.photo-frame::after{
+  content:"";position:absolute;inset:18px -18px -18px 18px;
+  border:1px solid rgba(0,178,92,.35);border-radius:18px;z-index:0;pointer-events:none;
+}
+.photo-clip{overflow:hidden;border-radius:18px;position:relative;z-index:1;box-shadow:0 28px 60px -20px rgba(15,36,24,.28);}
+.photo-clip img{width:100%;height:auto;display:block;transform:scale(1.03);}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;padding:8px 0 72px;}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:30px 22px;text-align:center;position:relative;overflow:hidden;
+  box-shadow:var(--shadow-soft);
+  transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out), border-color .45s ease;
+}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);border-color:#D6CDB9;}
+.card::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:3px;
+  background:linear-gradient(90deg, var(--emerald), rgba(0,230,118,.2));
+  transform:scaleX(0);transform-origin:left center;transition:transform .5s var(--ease-out);
+}
+.card:hover::before{transform:scaleX(1);}
+.card .avatar{position:relative;display:inline-block;margin-bottom:16px;}
+.card .avatar::after{
+  content:"";position:absolute;inset:-8px -8px auto auto;width:100%;height:100%;
+  border:1px solid rgba(0,178,92,.4);border-radius:50%;transform:translate(8px,8px);
+  transition:transform .45s var(--ease-out);
+}
+.card:hover .avatar::after{transform:translate(4px,4px);}
+.card img{width:124px;height:124px;border-radius:50%;object-fit:cover;border:4px solid var(--emerald);display:block;position:relative;z-index:1;background:var(--cream-deep);transition:transform .5s var(--ease-out);}
+.card:hover img{transform:scale(1.045);}
+.card .role{font-size:0.68rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--emerald-deep);margin-bottom:5px;}
+.card h3{font-size:1.18rem;font-weight:800;color:var(--ink);letter-spacing:-0.012em;margin-bottom:8px;}
+.card p{font-size:0.92rem;color:var(--ink-soft);line-height:1.66;}
+
+.credo{
+  background:linear-gradient(135deg, var(--evergreen) 0%, var(--evergreen-2) 60%, #16492F 100%);
+  color:#f2efe8;padding:76px 0;text-align:center;position:relative;overflow:hidden;
+}
+.credo::before{
+  content:"";position:absolute;top:-140px;right:-120px;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(0,230,118,.2), transparent 70%);
+}
+.credo .cmark{position:absolute;left:26px;bottom:-34px;width:150px;height:200px;opacity:.07;pointer-events:none;}
+.credo .wrap{max-width:780px;}
+.credo .rule{height:3px;background:var(--emerald);width:64px;margin:0 auto 22px;border-radius:2px;transform-origin:center;}
+.credo h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin-bottom:14px;color:#fff;letter-spacing:-0.02em;}
+.credo p{font-size:1.06rem;line-height:1.8;color:#CFDDD3;}
+
+.cta{padding:80px 0;text-align:center;position:relative;}
+.cta a{
+  display:inline-block;background:linear-gradient(135deg, var(--emerald-deep), #009A50);
+  color:#fff;text-decoration:none;font-weight:700;font-size:1rem;letter-spacing:.01em;
+  padding:16px 36px;border-radius:12px;
+  box-shadow:0 14px 30px -10px rgba(0,178,92,.45);
+  transition:transform .35s var(--ease-out), box-shadow .35s var(--ease-out);
+}
+.cta a:hover{transform:translateY(-3px);box-shadow:0 22px 42px -12px rgba(0,178,92,.55);}
+.cta a:focus-visible{outline:3px solid var(--emerald);outline-offset:3px;}
+.cta .sub{margin-top:14px;font-size:0.92rem;color:var(--ink-mute);}
+
+footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-size:0.82rem;color:var(--ink-mute);}
+footer .foot-brand{display:inline-flex;align-items:center;gap:9px;}
+footer .foot-brand svg{width:9px;height:11px;display:block;}
+
+a:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;border-radius:4px;}
+
+@media (max-width:480px){
+  .hero{padding:64px 0 32px;}
+  .card img{width:106px;height:106px;}
+  .photo-frame::after{inset:12px -10px -10px 12px;}
+  .credo{padding:56px 0;}
+  .cta{padding:60px 0;}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation:none!important;transition:none!important;}
+  .rv{opacity:1;transform:none;}
+}
+@media print{
+  body{background:#fff;overflow-x:visible;}
+  body::before,.glow,.cta{display:none;}
+  .topbar{position:static;display:none;}
+  .rv{opacity:1!important;transform:none!important;}
+  h1 .w>span{transform:none!important;}
+  .card,.credo{break-inside:avoid;box-shadow:none;}
+  .credo{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .photo-frame::after{display:none;}
+}
 </style>
+<noscript><style>.rv{opacity:1;transform:none;}</style></noscript>
 </head>
 <body>
 <div class="topbar"><div class="wrap topbar-inner">
   <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO" style="height:36px;width:auto;display:block">
-  <div class="doc-label">Our Team</div>
+  <div class="doc-label"><svg viewBox="0 0 10 12" fill="none"><path d="M2 1l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Our Team</div>
 </div></div>
 
-<header class="hero"><div class="wrap">
-  <h1>Real people. <em>On your books.</em></h1>
-  <p>Turnkey CFO is a small team by design. Every client knows exactly who is in their corner, and every set of books gets the same four sets of eyes.</p>
-</div></header>
+<header class="hero">
+  <div class="glow g1" aria-hidden="true"></div>
+  <div class="glow g2" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="eyebrow rv"><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Turnkey CFO<svg viewBox="0 0 9 11" fill="none"><path d="M7.5 1L3 5.5 7.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h1 class="rv" data-d="1">Real people. <em>On your books.</em></h1>
+    <p class="rv" data-d="2">Turnkey CFO is a small team by design. Every client knows exactly who is in their corner, and every set of books gets the same four sets of eyes.</p>
+  </div>
+</header>
 
 <div class="team-photo-band"><div class="wrap">
-  <img src="https://turnkeycfo.com/assets/turnkey-team.webp" alt="The Turnkey team">
+  <figure class="rv"><div class="photo-frame"><div class="photo-clip"><img id="teamPhoto" src="https://turnkeycfo.com/assets/turnkey-team.webp" alt="The Turnkey team"></div></div></figure>
 </div></div>
 
 <div class="wrap"><div class="grid">
-  <div class="card">
-    <img src="https://turnkeycfo.com/assets/ricky-headshot.webp" alt="Ricky West">
+  <div class="card rv">
+    <div class="avatar"><img src="https://turnkeycfo.com/assets/ricky-headshot.webp" alt="Ricky West"></div>
     <div class="role">Founder</div><h3>Ricky West</h3>
     <p>Ricky leads every relationship. He runs the diagnosis on your books before you ever sign, and stays personally involved from cleanup through your first closes.</p>
   </div>
-  <div class="card">
-    <img src="https://turnkeycfo.com/assets/vanessa-headshot.webp" alt="Vanessa">
+  <div class="card rv" data-d="1">
+    <div class="avatar"><img src="https://turnkeycfo.com/assets/vanessa-headshot.webp" alt="Vanessa"></div>
     <div class="role">Lead Accountant</div><h3>Vanessa</h3>
     <p>Vanessa is your day-to-day contact. She quality-checks every close before it reaches you and keeps your month running on schedule.</p>
   </div>
-  <div class="card">
-    <img src="https://turnkeycfo.com/assets/hardik-headshot.webp" alt="Hardik">
+  <div class="card rv" data-d="2">
+    <div class="avatar"><img src="https://turnkeycfo.com/assets/hardik-headshot.webp" alt="Hardik"></div>
     <div class="role">Onboarding Specialist</div><h3>Hardik</h3>
     <p>Hardik gets new clients from day one to first clean close: access, records, and the daily transaction work that keeps books current.</p>
   </div>
-  <div class="card">
-    <img src="https://turnkeycfo.com/assets/eldine-headshot.webp" alt="Eldine">
+  <div class="card rv" data-d="3">
+    <div class="avatar"><img src="https://turnkeycfo.com/assets/eldine-headshot.webp" alt="Eldine"></div>
     <div class="role">Assistant</div><h3>Eldine</h3>
     <p>Eldine keeps the operational wheels turning: scheduling, invoicing, and making sure nothing falls through the cracks.</p>
   </div>
 </div></div>
 
-<section class="credo"><div class="wrap">
-  <div class="rule"></div>
-  <h2>Our job is simple.</h2>
-  <p>You never think about your books, and your board never has a question we have not already answered. Books closed and reported on a date you can plan around, every single month, explained in plain English.</p>
-</div></section>
+<section class="credo">
+  <svg class="cmark" viewBox="0 0 100 140" fill="none" aria-hidden="true"><path d="M10 10l55 60-55 60" stroke="#00E676" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="wrap">
+    <div class="rule rv"></div>
+    <h2 class="rv" data-d="1">Our job is simple.</h2>
+    <p class="rv" data-d="2">You never think about your books, and your board never has a question we have not already answered. Books closed and reported on a date you can plan around, every single month, explained in plain English.</p>
+  </div>
+</section>
 
 <section class="cta"><div class="wrap">
-  <a href="https://turnkeycfo.com/#contact">Book a conversation</a>
-  <div class="sub">A 30-minute call. We look at your real numbers before we talk about anything else.</div>
+  <a class="rv" href="https://turnkeycfo.com/#contact">Book a conversation</a>
+  <div class="sub rv" data-d="1">A 30-minute call. We look at your real numbers before we talk about anything else.</div>
 </div></section>
 
-<footer><div class="wrap">Turnkey CFO · Austin, Texas</div></footer>
-<!-- pass 1: initial build. pass 2: hover states, focus-visible, print rules. pass 3: credo band contrast + copy tightened, no em-dashes. pass 4: mobile avatar sizing, photo-band shadow softened. -->
+<footer><div class="wrap"><span class="foot-brand"><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Turnkey CFO · Austin, Texas</span></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap=!reduce && window.gsap && window.ScrollTrigger;
+
+  if(!hasGsap){
+    var els=document.querySelectorAll('.rv');
+    if(reduce||!('IntersectionObserver' in window)){
+      els.forEach(function(e){e.classList.add('in');});
+    }else{
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+        });
+      },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+      els.forEach(function(e){io.observe(e);});
+    }
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  document.documentElement.classList.add('gs');
+
+  if(window.Lenis){
+    var lenis=new Lenis({lerp:0.11});
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){lenis.raf(t*1000);});
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* word-mask headline reveal */
+  var h=document.querySelector('h1');
+  if(h){
+    (function split(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(ch){
+        if(ch.nodeType===3){
+          var frag=document.createDocumentFragment();
+          ch.textContent.split(/(\s+)/).forEach(function(part){
+            if(!part){return;}
+            if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(part));return;}
+            var w=document.createElement('span');w.className='w';
+            var inner=document.createElement('span');inner.textContent=part;
+            w.appendChild(inner);frag.appendChild(w);
+          });
+          node.replaceChild(frag,ch);
+        }else if(ch.nodeType===1&&ch.tagName!=='SPAN'){split(ch);}
+      });
+    })(h);
+  }
+  gsap.set('.hero .rv',{opacity:1,y:0});
+  var intro=gsap.timeline({defaults:{ease:'power3.out'}});
+  intro.from('.hero .eyebrow',{opacity:0,y:-16,duration:.8},0)
+       .to('h1 .w > span',{y:0,duration:1.15,ease:'power4.out',stagger:.07},.15)
+       .from('.hero p',{opacity:0,y:24,duration:1},.55);
+
+  var rvs=gsap.utils.toArray('.rv').filter(function(e){return !e.closest('.hero');});
+  gsap.set(rvs,{opacity:0,y:32});
+  ScrollTrigger.batch(rvs,{
+    start:'top 88%',
+    once:true,
+    onEnter:function(batch){
+      gsap.to(batch,{opacity:1,y:0,duration:.95,ease:'power3.out',stagger:.1,overwrite:true});
+    }
+  });
+
+  /* parallax: hero glows + slow zoom drift on the team photograph */
+  gsap.to('.glow.g1',{y:90,ease:'none',
+    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
+  gsap.to('.glow.g2',{y:-60,ease:'none',
+    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
+  var tp=document.getElementById('teamPhoto');
+  if(tp){
+    gsap.fromTo(tp,{yPercent:-4,scale:1.08},{yPercent:4,scale:1.08,ease:'none',
+      scrollTrigger:{trigger:tp,start:'top bottom',end:'bottom top',scrub:.5}});
+  }
+
+  /* credo: emerald rule draws in, watermark drifts */
+  gsap.from('.credo .rule',{scaleX:0,duration:1,ease:'power3.inOut',
+    scrollTrigger:{trigger:'.credo',start:'top 78%',once:true}});
+  gsap.fromTo('.credo .cmark',{y:24},{y:-18,ease:'none',
+    scrollTrigger:{trigger:'.credo',start:'top bottom',end:'bottom top',scrub:.7}});
+})();
+</script>
+<!-- pass 1: art direction. Film-grain overlay, drifting emerald glows, chevron keyline language in the eyebrow, doc label, and footer, offset keyline frames on the team photograph and every avatar, so the page shares the welcome-pack family DNA while keeping its own centered editorial composition -->
+<!-- pass 2: typography. Cinematic hero scale with a word-mask reveal and a highlight underline on the key phrase, 0.22em tracked labels, balanced heading wrap, refined measures on the intro and credo -->
+<!-- pass 3: premium motion. GSAP plus ScrollTrigger staggered scroll reveals, Lenis smooth scroll in the GSAP ticker, parallax zoom drift on the team photograph, the credo rule drawing itself in, glow parallax on scroll, IntersectionObserver fallback when the CDN is blocked, all off under prefers-reduced-motion -->
+<!-- pass 4: card physics. Weighted hover lift with deep easing, avatar ring that tucks in on hover, photo micro-zoom, top keyline that draws across on hover, gradient CTA button with shadow bloom -->
+<!-- pass 5: depth in the credo band. Evergreen gradient with radial glow and a chevron watermark, larger measure and looser leading for the statement, sticky frosted topbar above it all -->
+<!-- pass 6: resilience, mobile, and print. noscript reveal fallback, 360px tuning for avatars and frame offsets, print stylesheet strips motion and chrome, keeps the credo band exact-color, and guards card breaks; title punctuation kept dash-free -->
 </body>
 </html>
