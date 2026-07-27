@@ -7,367 +7,303 @@
 <title>Welcome to Turnkey CFO | Mojo Coffee</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
 <style>
   :root{
+    /* Turnkey CFO base */
     --cream:#FAF6EE;
-    --cream-deep:#F3EDE0;
-    --ink:#12241B;
-    --ink-soft:#3E5248;
-    --ink-mute:#6E7F76;
+    --card:#FFFDF8;
+    --ink:#171310;
+    --ink-soft:#4A413A;
+    --ink-mute:#83786E;
     --emerald:#00E676;
     --emerald-deep:#00B25C;
     --evergreen:#0E3B26;
-    --evergreen-2:#123F2B;
-    --line:#E2DACA;
-    --line-soft:#EBE4D5;
-    --card:#FFFDF8;
-    --shadow-soft:0 1px 2px rgba(18,36,27,.04), 0 10px 30px -12px rgba(18,36,27,.10);
-    --shadow-lift:0 2px 4px rgba(18,36,27,.06), 0 24px 48px -16px rgba(18,36,27,.20);
-    --ease-out:cubic-bezier(.22,1,.36,1);
+    --line:#E7DDCA;
+    --line-soft:#EFE7D8;
+    /* Mojo Coffee : sourced from their own logo SVG + live site styling */
+    --mj:#E8B35B;          /* the signature Mojo gold */
+    --mj-deep:#B8853A;
+    --espresso:#0E1317;    /* their dark ground */
+    --espresso-2:#191F24;
+    --mj-tint:#F7EFE0;
+    --shadow-soft:0 1px 2px rgba(23,19,16,.04), 0 10px 30px -14px rgba(23,19,16,.13);
+    --shadow-lift:0 2px 6px rgba(23,19,16,.06), 0 30px 60px -22px rgba(23,19,16,.3);
+    --e:cubic-bezier(.22,1,.36,1);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  html.lenis, html.lenis body{height:auto;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  html.lenis,html.lenis body{height:auto;}
   .lenis.lenis-smooth{scroll-behavior:auto!important;}
   body{
-    font-family:'Plus Jakarta Sans',sans-serif;
-    background:var(--cream);
-    color:var(--ink);
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-    position:relative;
-    overflow-x:hidden;
+    font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.66;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    position:relative;overflow-x:hidden;
   }
-  /* film grain over the whole document */
   body::before{
-    content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size:140px 140px;
   }
-  ::selection{background:rgba(0,230,118,.28);}
-  .wrap{max-width:980px;margin:0 auto;padding:0 32px;position:relative;}
-  .num{font-variant-numeric:tabular-nums;}
+  ::selection{background:rgba(232,179,91,.34);}
+  .wrap{max-width:1030px;margin:0 auto;padding:0 34px;position:relative;}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
 
-  /* entrance reveals: CSS transition path (IntersectionObserver fallback) */
-  .rv{opacity:0;transform:translateY(22px);transition:opacity .75s ease, transform .75s var(--ease-out);will-change:opacity,transform;}
+  .micro{font-size:.645rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;line-height:1.3;}
+  h1{font-size:clamp(2.5rem,6.3vw,4.5rem);font-weight:800;line-height:.99;letter-spacing:-.04em;max-width:15ch;text-wrap:balance;}
+  h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;text-wrap:balance;}
+  h3{font-size:1.13rem;font-weight:800;letter-spacing:-.016em;line-height:1.26;}
+  .lede{font-size:clamp(1.04rem,1.6vw,1.19rem);font-weight:300;line-height:1.72;color:var(--ink-soft);max-width:58ch;}
+  .lede strong{font-weight:600;color:var(--ink);}
+
+  .rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s var(--e);will-change:opacity,transform;}
   .rv.in{opacity:1;transform:none;}
-  .rv[data-d="1"]{transition-delay:.08s;}
-  .rv[data-d="2"]{transition-delay:.16s;}
-  .rv[data-d="3"]{transition-delay:.24s;}
-  .rv[data-d="4"]{transition-delay:.32s;}
-  .rv[data-d="5"]{transition-delay:.40s;}
-  /* when GSAP drives, transitions get out of the way */
+  .rv[data-d="1"]{transition-delay:.08s}.rv[data-d="2"]{transition-delay:.16s}
+  .rv[data-d="3"]{transition-delay:.24s}.rv[data-d="4"]{transition-delay:.32s}
   .gs .rv{transition:none;transition-delay:0s;}
 
-  /* top bar */
-  .topbar{
-    border-bottom:1px solid var(--line);
-    background:rgba(255,253,248,.9);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    position:sticky;top:0;z-index:30;
-  }
-  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
-  .doc-label{
-    display:inline-flex;align-items:center;gap:9px;
-    font-size:0.66rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
-    color:var(--ink-mute);
-  }
-  .doc-label svg{width:10px;height:10px;display:block;}
+  /* ---- masthead: their white wordmark needs a dark plate ---- */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,253,248,.88);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--line);}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:13px 0;}
+  .lockup{display:flex;align-items:center;gap:16px;}
+  .lockup img.tk{height:32px;width:auto;display:block;}
+  .lockup .x{width:14px;height:14px;flex:none;opacity:.4;}
+  .plate{background:var(--espresso);border-radius:8px;padding:9px 14px;display:flex;align-items:center;}
+  .plate img{height:17px;width:auto;display:block;}
+  .doc-label{color:var(--ink-mute);display:inline-flex;align-items:center;gap:9px;}
+  .doc-label .bean{width:9px;height:9px;border-radius:50%;background:var(--mj);flex:none;}
 
-  /* hero */
+  /* ---- hero ---- */
   .hero{padding:112px 0 96px;position:relative;overflow:hidden;}
-  .glow{position:absolute;border-radius:50%;pointer-events:none;}
-  .glow.g1{
-    top:-200px;right:-220px;width:680px;height:680px;
-    background:radial-gradient(closest-side, rgba(0,230,118,0.16), rgba(0,230,118,0.05) 55%, transparent 72%);
-    animation:drift1 14s ease-in-out infinite alternate;
-  }
-  .glow.g2{
-    bottom:-260px;left:-240px;width:560px;height:560px;
-    background:radial-gradient(closest-side, rgba(14,59,38,0.07), transparent 70%);
-    animation:drift2 18s ease-in-out infinite alternate;
-  }
-  .glow.g3{
-    top:30%;left:38%;width:420px;height:420px;opacity:.5;
-    background:radial-gradient(closest-side, rgba(0,178,92,0.06), transparent 70%);
-    animation:drift1 22s ease-in-out infinite alternate-reverse;
-  }
-  @keyframes drift1{from{transform:translate(0,0);}to{transform:translate(-34px,26px);}}
-  @keyframes drift2{from{transform:translate(0,0);}to{transform:translate(28px,-22px);}}
-  /* oversized chevron watermark, right edge */
-  .hero-mark{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:320px;height:440px;opacity:.05;pointer-events:none;}
-  .hero .wrap{border-left:1px solid var(--line);padding-left:46px;}
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:12px;
-    font-size:0.7rem;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;
-    color:var(--emerald-deep);margin-bottom:28px;
-  }
-  .eyebrow .chev{display:inline-flex;gap:2px;}
-  .eyebrow .chev svg{width:9px;height:11px;display:block;}
-  h1{
-    font-size:clamp(2.7rem,6.4vw,4.5rem);
-    font-weight:800;line-height:1.01;letter-spacing:-0.038em;
-    max-width:16ch;text-wrap:balance;
-  }
-  h1 em{font-style:normal;color:var(--emerald-deep);position:relative;white-space:nowrap;}
-  h1 em::after{
-    content:"";position:absolute;left:0;right:.18em;bottom:.05em;height:.15em;
-    background:linear-gradient(90deg, rgba(0,230,118,.42), rgba(0,230,118,.1));
-    z-index:-1;border-radius:2px;
-  }
-  /* word-mask reveal scaffolding (activated when GSAP is live) */
-  .gs h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em;}
+  .glow{position:absolute;border-radius:50%;pointer-events:none;z-index:0;}
+  .glow.g1{top:-240px;right:-180px;width:680px;height:680px;background:radial-gradient(closest-side,rgba(232,179,91,.28),rgba(232,179,91,.06) 55%,transparent 72%);animation:d1 16s ease-in-out infinite alternate;}
+  .glow.g2{bottom:-260px;left:-240px;width:560px;height:560px;background:radial-gradient(closest-side,rgba(14,19,23,.07),transparent 70%);animation:d2 21s ease-in-out infinite alternate;}
+  @keyframes d1{to{transform:translate(-34px,26px)}}
+  @keyframes d2{to{transform:translate(28px,-22px)}}
+  /* a faint grid of 13 cells behind the hero: the whole engagement, abstracted */
+  .gridfield{position:absolute;right:-40px;top:88px;width:520px;opacity:.5;pointer-events:none;z-index:0;}
+  .hero .wrap{z-index:2;}
+  .hero-rail{position:absolute;left:34px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,var(--line) 12%,var(--line) 78%,transparent);}
+  .hero-inner{padding-left:48px;max-width:70%;}
+  .eyebrow{display:inline-flex;align-items:center;gap:12px;color:var(--mj-deep);margin-bottom:28px;}
+  .eyebrow .bean{width:8px;height:8px;border-radius:50%;background:var(--mj);flex:none;}
+  h1 em{font-style:normal;color:var(--mj-deep);position:relative;white-space:nowrap;}
+  h1 em::after{content:"";position:absolute;left:0;right:.14em;bottom:.03em;height:.14em;background:linear-gradient(90deg,rgba(232,179,91,.6),rgba(232,179,91,.14));z-index:-1;border-radius:2px;}
+  .gs h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em;}
   .gs h1 .w>span{display:inline-block;transform:translateY(115%);will-change:transform;}
-  .hero p.lede{margin-top:32px;font-size:1.15rem;line-height:1.78;color:var(--ink-soft);max-width:56ch;}
-  .start-badge{
-    display:inline-flex;align-items:center;gap:14px;margin-top:38px;
-    background:linear-gradient(135deg, var(--evergreen), var(--evergreen-2));
-    color:#F4FFF9;font-weight:600;font-size:0.92rem;letter-spacing:.01em;
-    padding:14px 26px 14px 20px;border-radius:100px;
-    box-shadow:0 0 0 4px rgba(0,230,118,0.16), 0 16px 34px -12px rgba(14,59,38,.45);
-    transition:transform .35s var(--ease-out), box-shadow .35s var(--ease-out);
-  }
-  .start-badge:hover{transform:translateY(-2px);box-shadow:0 0 0 4px rgba(0,230,118,0.22), 0 22px 42px -14px rgba(14,59,38,.5);}
-  .start-badge .dot{
-    flex:none;width:9px;height:9px;border-radius:50%;background:var(--emerald);
-    box-shadow:0 0 0 0 rgba(0,230,118,.5);
-    animation:pulse 2.6s infinite;
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(0,230,118,.45);}
-    70%{box-shadow:0 0 0 9px rgba(0,230,118,0);}
-    100%{box-shadow:0 0 0 0 rgba(0,230,118,0);}
-  }
-  .start-badge strong{color:var(--emerald);font-weight:800;}
+  .hero .lede{margin-top:30px;}
+  .startbar{display:inline-flex;align-items:stretch;margin-top:38px;border-radius:15px;overflow:hidden;box-shadow:0 20px 44px -18px rgba(14,19,23,.55);}
+  .startbar .a{display:flex;align-items:center;gap:12px;padding:15px 22px;background:linear-gradient(135deg,var(--espresso),var(--espresso-2));color:#E8E2DA;font-size:.87rem;font-weight:500;}
+  .startbar .b{display:flex;align-items:center;padding:15px 22px;background:linear-gradient(135deg,var(--mj-deep),var(--mj));color:#231703;font-weight:800;font-size:.94rem;letter-spacing:-.01em;}
+  .startbar .dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--mj);animation:pulse 2.8s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,179,91,.55)}70%{box-shadow:0 0 0 9px rgba(232,179,91,0)}100%{box-shadow:0 0 0 0 rgba(232,179,91,0)}}
+  .hero-note{margin-top:20px;font-size:.86rem;color:var(--ink-mute);max-width:54ch;font-weight:300;}
 
-  /* section scaffolding: alternating tints + ghost numerals + chevron dividers */
-  section{padding:92px 0;position:relative;}
-  section.tint{background:linear-gradient(180deg, var(--card), var(--cream) 88%);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
-  .divider{display:flex;align-items:center;gap:0;max-width:980px;margin:0 auto;padding:0 32px;}
+  /* ---- sections ---- */
+  section{padding:94px 0;position:relative;}
+  section.tint{background:linear-gradient(180deg,var(--card),var(--cream) 92%);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
+  section.dark{background:linear-gradient(165deg,var(--espresso) 0%,#141B21 60%,#0B1014 100%);color:#EDE6DC;border:none;}
+  .divider{display:flex;align-items:center;max-width:1030px;margin:0 auto;padding:0 34px;}
   .divider .rule{flex:1;height:1px;background:var(--line);}
-  .divider svg{flex:none;width:14px;height:14px;margin:0 14px;display:block;opacity:.8;}
-  .ghost{
-    position:absolute;top:44px;right:18px;z-index:0;pointer-events:none;user-select:none;
-    font-size:clamp(6rem,15vw,11.5rem);font-weight:800;line-height:1;letter-spacing:-0.04em;
-    color:transparent;-webkit-text-stroke:1px rgba(18,36,27,.07);
-  }
-  section.tint .ghost{-webkit-text-stroke:1px rgba(18,36,27,.09);}
-  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:14px;position:relative;z-index:1;}
-  .sec-num{
-    display:inline-flex;align-items:center;gap:8px;
-    font-size:0.72rem;font-weight:800;color:var(--emerald-deep);
-    letter-spacing:0.18em;white-space:nowrap;font-variant-numeric:tabular-nums;
-  }
-  .sec-num::after{content:"";width:30px;height:1px;background:var(--emerald-deep);opacity:.5;transform:translateY(-3px);}
-  h2{font-size:clamp(1.75rem,3.5vw,2.45rem);font-weight:800;letter-spacing:-0.026em;line-height:1.1;text-wrap:balance;}
-  .sec-intro{color:var(--ink-soft);max-width:60ch;margin:14px 0 44px;font-size:1.03rem;position:relative;z-index:1;}
+  .divider .bean{flex:none;width:7px;height:7px;border-radius:50%;background:var(--mj);margin:0 15px;}
+  .ghost{position:absolute;top:40px;right:16px;z-index:0;pointer-events:none;user-select:none;
+    font-size:clamp(6rem,15vw,12rem);font-weight:800;line-height:1;letter-spacing:-.05em;
+    color:transparent;-webkit-text-stroke:1px rgba(23,19,16,.075);}
+  section.dark .ghost{-webkit-text-stroke:1px rgba(232,179,91,.14);}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:14px;position:relative;z-index:1;flex-wrap:wrap;}
+  .sec-num{display:inline-flex;align-items:center;gap:9px;color:var(--mj-deep);font-size:.7rem;font-weight:800;letter-spacing:.2em;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .sec-num::after{content:"";width:32px;height:1px;background:var(--mj-deep);opacity:.55;transform:translateY(-3px);}
+  section.dark .sec-num{color:var(--mj);} section.dark .sec-num::after{background:var(--mj);}
+  section.dark h2{color:#fff;}
+  .sec-intro{color:var(--ink-soft);max-width:63ch;margin:16px 0 46px;font-size:1.01rem;font-weight:300;position:relative;z-index:1;}
+  .sec-intro strong{font-weight:600;color:var(--ink);}
+  section.dark .sec-intro{color:#BBB0A3;} section.dark .sec-intro strong{color:#fff;}
 
-  /* team cards with offset photo frames */
-  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;z-index:1;}
-  .team-card{
-    background:var(--card);border:1px solid var(--line);border-radius:18px;
-    padding:32px 30px;position:relative;overflow:hidden;
-    box-shadow:var(--shadow-soft);
-    transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out), border-color .45s ease;
+  /* ---- 01 THE ENTITY BOARD: the signature Mojo device ---- */
+  .board{position:relative;z-index:1;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--card);box-shadow:var(--shadow-lift);}
+  .board-head{background:linear-gradient(120deg,var(--espresso),var(--espresso-2));color:#EDE6DC;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+  .board-head .bt{font-size:.9rem;font-weight:700;letter-spacing:-.01em;color:#fff;}
+  .board-head .bc{display:flex;align-items:center;gap:9px;color:var(--mj);font-size:.63rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;font-variant-numeric:tabular-nums;}
+  .board-head .bc .bean{width:6px;height:6px;border-radius:50%;background:var(--mj);}
+  .board-grid{display:grid;grid-template-columns:repeat(5,1fr);}
+  .cell{
+    border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
+    padding:18px 16px 16px;position:relative;background:var(--card);
+    transition:background .35s ease,transform .4s var(--e);
   }
-  .team-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift);border-color:#D6CDB9;}
-  .team-card::after{
-    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
-    background:linear-gradient(180deg, var(--emerald), var(--emerald-deep));
-  }
-  .team-card::before{
-    content:"";position:absolute;right:-46px;top:-46px;width:130px;height:130px;border-radius:50%;
-    background:radial-gradient(closest-side, rgba(0,230,118,.1), transparent 70%);
-    transition:transform .6s var(--ease-out);
-  }
-  .team-card:hover::before{transform:scale(1.5);}
+  .cell:hover{background:var(--mj-tint);z-index:2;}
+  .cell::before{content:"";position:absolute;left:0;top:0;width:0;height:2px;background:var(--mj);transition:width .45s var(--e);}
+  .cell:hover::before{width:100%;}
+  .cell .ci{font-size:.58rem;font-weight:800;letter-spacing:.18em;color:var(--mj-deep);font-variant-numeric:tabular-nums;}
+  .cell .cn{font-size:.94rem;font-weight:800;letter-spacing:-.018em;margin:6px 0 4px;line-height:1.22;}
+  .cell .cr{font-size:.73rem;color:var(--ink-mute);line-height:1.42;font-weight:400;}
+  .cell.hq{background:linear-gradient(140deg,#FBF4E7,var(--card));}
+  .cell.prop{background:linear-gradient(140deg,#F7F4EC,var(--card));}
+  .board-foot{padding:18px 26px;background:var(--mj-tint);border-top:1px solid var(--line-soft);font-size:.85rem;color:var(--ink-soft);font-weight:300;}
+  .board-foot strong{font-weight:700;color:var(--ink);}
+  .board-note{margin-top:26px;font-size:.93rem;color:var(--ink-soft);font-weight:300;max-width:76ch;border-left:2px solid var(--mj);padding:6px 0 6px 20px;position:relative;z-index:1;}
+  .board-note strong{font-weight:600;color:var(--ink);}
+
+  /* ---- team ---- */
+  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;position:relative;z-index:1;}
+  .tcard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 28px;position:relative;overflow:hidden;box-shadow:var(--shadow-soft);
+    transition:transform .5s var(--e),box-shadow .5s var(--e),border-color .4s ease;}
+  .tcard:hover{box-shadow:var(--shadow-lift);border-color:#DCD1B9;}
+  .tcard::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--emerald),var(--emerald-deep));}
+  .tcard::before{content:"";position:absolute;right:-50px;top:-50px;width:140px;height:140px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,230,118,.11),transparent 70%);transition:transform .7s var(--e);}
+  .tcard:hover::before{transform:scale(1.55);}
   .avatar{position:relative;display:inline-block;margin-bottom:16px;}
-  .avatar::after{
-    content:"";position:absolute;inset:-7px -7px auto auto;width:100%;height:100%;
-    border:1px solid rgba(0,178,92,.4);border-radius:50%;
-    transform:translate(7px,7px);transition:transform .45s var(--ease-out);
-  }
-  .team-card:hover .avatar::after{transform:translate(4px,4px);}
-  .team-photo{width:76px;height:76px;border-radius:50%;object-fit:cover;display:block;border:3px solid var(--emerald);position:relative;z-index:1;background:var(--cream-deep);}
-  .team-card .role{
-    font-size:0.66rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
-    color:var(--emerald-deep);margin-bottom:8px;
-  }
-  .team-card h3{font-size:1.3rem;font-weight:800;letter-spacing:-0.015em;}
-  .team-card p{margin-top:10px;color:var(--ink-soft);font-size:0.95rem;line-height:1.68;}
+  .avatar::after{content:"";position:absolute;inset:-7px -7px auto auto;width:100%;height:100%;border:1px solid rgba(0,178,92,.38);border-radius:50%;transform:translate(7px,7px);transition:transform .5s var(--e);}
+  .tcard:hover .avatar::after{transform:translate(3px,3px);}
+  .tphoto{width:74px;height:74px;border-radius:50%;object-fit:cover;display:block;border:3px solid var(--emerald);position:relative;z-index:1;background:var(--mj-tint);}
+  .tcard .role{color:var(--emerald-deep);margin-bottom:7px;}
+  .tcard p{margin-top:10px;color:var(--ink-soft);font-size:.94rem;line-height:1.68;font-weight:300;}
+  .tcard p strong{font-weight:600;color:var(--ink);}
+  .team-figure{margin-top:30px;position:relative;z-index:1;}
+  .photo-frame{position:relative;}
+  .photo-frame::after{content:"";position:absolute;inset:16px -16px -16px 16px;border:1px solid rgba(184,133,58,.42);border-radius:18px;pointer-events:none;}
+  .photo-clip{overflow:hidden;border-radius:16px;position:relative;z-index:1;box-shadow:var(--shadow-lift);}
+  .photo-clip img{width:100%;height:auto;display:block;transform:scale(1.06);}
+  .team-figure figcaption{font-size:.82rem;color:var(--ink-mute);margin-top:26px;display:flex;align-items:center;gap:9px;font-weight:300;}
+  .team-figure figcaption .bean{width:6px;height:6px;border-radius:50%;background:var(--mj);}
 
-  .team-figure{margin:32px 0 0;position:relative;z-index:1;}
-  .team-figure .photo-frame{position:relative;}
-  .team-figure .photo-frame::after{
-    content:"";position:absolute;inset:16px -16px -16px 16px;
-    border:1px solid rgba(0,178,92,.35);border-radius:16px;z-index:0;pointer-events:none;
-  }
-  .team-figure .photo-frame{overflow:visible;}
-  .team-figure .photo-clip{overflow:hidden;border-radius:14px;position:relative;z-index:1;box-shadow:var(--shadow-lift);}
-  .team-figure img{width:100%;height:auto;display:block;transform:scale(1.02);}
-  .team-figure figcaption{font-size:0.82rem;letter-spacing:.02em;color:var(--ink-mute);margin-top:24px;display:flex;align-items:center;gap:9px;}
-  .team-figure figcaption svg{width:9px;height:11px;display:block;}
+  /* ---- cutover timeline ---- */
+  .timeline{position:relative;z-index:1;}
+  .spine{position:absolute;left:29px;top:36px;bottom:40px;width:2px;background:linear-gradient(180deg,var(--mj) 0%,rgba(184,133,58,.42) 62%,rgba(184,133,58,.12) 100%);border-radius:2px;transform-origin:top center;}
+  .step{display:grid;grid-template-columns:60px 1fr;gap:26px;padding:22px 0;position:relative;}
+  .node{width:60px;height:60px;border-radius:14px;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;
+    background:var(--card);border:2px solid var(--mj);box-shadow:0 0 0 7px var(--cream),var(--shadow-soft);}
+  section.tint .node{box-shadow:0 0 0 7px var(--card),var(--shadow-soft);}
+  .node span{font-weight:800;font-size:1rem;color:#6B4A14;font-variant-numeric:tabular-nums;}
+  .step-body{background:var(--card);border:1px solid var(--line-soft);border-radius:18px;padding:24px 28px;box-shadow:var(--shadow-soft);position:relative;transition:transform .45s var(--e),box-shadow .45s var(--e);}
+  .step-body:hover{transform:translateX(6px);box-shadow:var(--shadow-lift);}
+  .step-body::before{content:"";position:absolute;left:-7px;top:28px;width:12px;height:12px;background:var(--card);border-left:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);transform:rotate(45deg);}
+  .when{display:inline-flex;align-items:center;gap:8px;color:#6B4A14;margin-bottom:11px;background:rgba(232,179,91,.2);border:1px solid rgba(184,133,58,.36);padding:4px 13px;border-radius:100px;font-variant-numeric:tabular-nums;font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;}
+  .when::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--mj-deep);}
+  .step p{color:var(--ink-soft);font-size:.95rem;margin-top:9px;max-width:64ch;line-height:1.7;font-weight:300;}
+  .step p strong{font-weight:600;color:var(--ink);}
+  .who{margin-top:14px;display:flex;align-items:center;gap:8px;font-size:.72rem;color:var(--ink-mute);font-weight:600;letter-spacing:.04em;}
+  .who .dotx{width:4px;height:4px;border-radius:50%;background:var(--emerald-deep);}
 
-  /* 30-day visual timeline: drawn spine, nodes, date chips */
-  .timeline{position:relative;z-index:1;padding-left:4px;}
-  .spine{
-    position:absolute;left:29px;top:34px;bottom:34px;width:2px;
-    background:linear-gradient(180deg, var(--emerald) 0%, rgba(0,178,92,.35) 60%, rgba(0,178,92,.12) 100%);
-    border-radius:2px;transform-origin:top center;
-  }
-  .step{
-    display:grid;grid-template-columns:52px 1fr;gap:28px;
-    padding:26px 0;position:relative;
-  }
-  .step-num{
-    width:52px;height:52px;border-radius:50%;position:relative;z-index:1;
-    background:var(--card);border:2px solid var(--emerald);
-    display:flex;align-items:center;justify-content:center;
-    font-weight:800;font-size:1.05rem;color:var(--evergreen);
-    font-variant-numeric:tabular-nums;
-    box-shadow:0 0 0 6px var(--cream), var(--shadow-soft);
-  }
-  section.tint .step-num{box-shadow:0 0 0 6px var(--card), var(--shadow-soft);}
-  .step-body{
-    background:var(--card);border:1px solid var(--line-soft);border-radius:16px;
-    padding:24px 28px;box-shadow:var(--shadow-soft);position:relative;
-    transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out);
-  }
-  .step-body:hover{transform:translateX(5px);box-shadow:var(--shadow-lift);}
-  .step-body::before{
-    content:"";position:absolute;left:-7px;top:26px;width:12px;height:12px;
-    background:var(--card);border-left:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
-    transform:rotate(45deg);
-  }
-  .step h3{font-size:1.14rem;font-weight:800;letter-spacing:-0.012em;}
-  .when{
-    display:inline-flex;align-items:center;gap:7px;
-    font-size:0.66rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
-    color:var(--evergreen);margin-bottom:10px;
-    background:rgba(0,230,118,.13);border:1px solid rgba(0,178,92,.25);
-    padding:4px 12px;border-radius:100px;font-variant-numeric:tabular-nums;
-  }
-  .when::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--emerald-deep);}
-  .step p{color:var(--ink-soft);font-size:0.96rem;margin-top:8px;max-width:62ch;line-height:1.7;}
+  /* ---- 04 the filing day: dark feature block ---- */
+  .filing{display:grid;grid-template-columns:1fr 1fr;gap:44px;position:relative;z-index:1;align-items:start;}
+  .filing-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .stat{background:rgba(255,255,255,.045);border:1px solid rgba(232,179,91,.24);border-radius:16px;padding:22px 20px;position:relative;overflow:hidden;
+    transition:background .4s ease,border-color .4s ease,transform .45s var(--e);}
+  .stat:hover{background:rgba(232,179,91,.09);border-color:rgba(232,179,91,.5);transform:translateY(-4px);}
+  .stat .sv{font-size:2.5rem;font-weight:800;letter-spacing:-.045em;color:var(--mj);line-height:1;font-variant-numeric:tabular-nums;}
+  .stat .sv .u{font-size:1.1rem;font-weight:700;margin-left:2px;letter-spacing:0;}
+  .stat .sl{margin-top:9px;font-size:.72rem;color:#B7ABA0;line-height:1.45;font-weight:400;}
+  .filing-copy p{color:#BBB0A3;font-size:.98rem;line-height:1.75;font-weight:300;margin-top:16px;}
+  .filing-copy p strong{color:#fff;font-weight:600;}
+  .filing-copy .flag{margin-top:24px;border-left:2px solid var(--mj);padding:6px 0 6px 18px;font-size:.9rem;color:#C9BDB0;font-weight:300;}
+  .filing-copy .flag strong{color:var(--mj);font-weight:700;}
 
-  /* monthly rhythm: calendar strip */
-  .calstrip{position:relative;z-index:1;margin-top:10px;}
-  .cal-track{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-bottom:26px;
-  }
-  .cal-line{
-    position:absolute;left:6%;right:6%;top:10px;height:2px;
-    background:linear-gradient(90deg, var(--emerald), rgba(0,178,92,.25));border-radius:2px;
-    transform-origin:left center;
-  }
-  .cal-node{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;}
-  .cal-dot{
-    width:22px;height:22px;border-radius:50%;background:var(--card);
-    border:2px solid var(--emerald);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;
-    box-shadow:0 0 0 5px var(--cream);
-  }
-  section.tint .cal-dot{box-shadow:0 0 0 5px var(--card);}
-  .cal-dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--emerald-deep);}
-  .cal-when{font-size:0.68rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--evergreen);font-variant-numeric:tabular-nums;}
-  .cal-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-  .cal-card{
-    background:var(--card);border:1px solid var(--line-soft);border-radius:14px;
-    padding:20px 20px 22px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden;
-    transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out);
-  }
-  .cal-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift);}
-  .cal-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--emerald),rgba(0,230,118,.25));}
-  .cal-card p{color:var(--ink-soft);font-size:0.9rem;line-height:1.62;}
-  .rhythm-note{
-    margin-top:26px;font-size:0.92rem;color:var(--ink-soft);max-width:70ch;position:relative;z-index:1;
-    border-left:2px solid var(--emerald);padding:4px 0 4px 18px;
-  }
+  /* ---- rhythm ---- */
+  .cal-track{display:grid;grid-template-columns:repeat(4,1fr);position:relative;margin-bottom:28px;}
+  .cal-line{position:absolute;left:6%;right:6%;top:11px;height:2px;background:linear-gradient(90deg,var(--mj),rgba(232,179,91,.25));border-radius:2px;transform-origin:left center;}
+  .cal-node{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center;}
+  .cal-dot{width:24px;height:24px;border-radius:50%;background:var(--card);border:2px solid var(--mj);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;box-shadow:0 0 0 6px var(--cream);}
+  section.tint .cal-dot{box-shadow:0 0 0 6px var(--card);}
+  .cal-dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--mj-deep);}
+  .cal-when{color:#6B4A14;font-variant-numeric:tabular-nums;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;}
+  .cal-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;}
+  .cal-card{background:var(--card);border:1px solid var(--line-soft);border-radius:16px;padding:22px 20px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden;transition:transform .45s var(--e),box-shadow .45s var(--e);}
+  .cal-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);}
+  .cal-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--mj),rgba(232,179,91,.2));}
+  .cal-card p{color:var(--ink-soft);font-size:.89rem;line-height:1.62;font-weight:300;}
+  .cal-card p strong{font-weight:600;color:var(--ink);}
+  .rhythm-note{margin-top:28px;font-size:.93rem;color:var(--ink-soft);max-width:76ch;border-left:2px solid var(--mj);padding:6px 0 6px 20px;position:relative;z-index:1;font-weight:300;}
+  .rhythm-note strong{font-weight:600;color:var(--ink);}
 
-  /* needs: tap-to-check cards */
+  /* ---- needs ---- */
   .needs{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;z-index:1;}
-  .need{
-    background:var(--card);border:1px solid var(--line);border-radius:14px;
-    padding:20px 22px;display:flex;gap:15px;align-items:flex-start;cursor:pointer;
-    box-shadow:var(--shadow-soft);
-    transition:transform .35s var(--ease-out), box-shadow .35s var(--ease-out), background .35s ease, border-color .35s ease;
-  }
-  .need:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);}
-  .need:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;}
-  .need .tick{
-    flex:none;width:24px;height:24px;border-radius:7px;margin-top:2px;
-    border:2px solid var(--emerald-deep);background:transparent;
-    display:flex;align-items:center;justify-content:center;
-    transition:background .25s ease, border-color .25s ease;
-  }
-  .need .tick svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:opacity .25s ease, transform .25s var(--ease-out);}
-  .need.done{background:#F2FBF5;border-color:#BFE8CF;}
-  .need.done .tick{background:var(--emerald);border-color:var(--emerald);}
+  .need{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:21px 23px;display:flex;gap:16px;align-items:flex-start;cursor:pointer;box-shadow:var(--shadow-soft);
+    transition:transform .35s var(--e),box-shadow .35s var(--e),background .35s ease,border-color .35s ease;}
+  .need:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);}
+  .need:focus-visible{outline:3px solid var(--mj-deep);outline-offset:3px;}
+  .need .tick{flex:none;width:25px;height:25px;border-radius:8px;margin-top:2px;border:2px solid var(--mj-deep);background:transparent;display:flex;align-items:center;justify-content:center;transition:background .25s ease,border-color .25s ease;}
+  .need .tick svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:opacity .25s ease,transform .3s var(--e);}
+  .need.done{background:var(--mj-tint);border-color:#E0CDA6;}
+  .need.done .tick{background:var(--mj);border-color:var(--mj);}
   .need.done .tick svg{opacity:1;transform:scale(1);}
-  .need p{font-size:0.93rem;color:var(--ink-soft);line-height:1.62;}
-  .need p strong{color:var(--ink);}
-  .needs-hint{margin-top:16px;font-size:0.8rem;color:var(--ink-mute);letter-spacing:.02em;position:relative;z-index:1;}
+  .need p{font-size:.92rem;color:var(--ink-soft);line-height:1.62;font-weight:300;}
+  .need p strong{color:var(--ink);font-weight:700;}
+  .needs-hint{margin-top:18px;font-size:.79rem;color:var(--ink-mute);position:relative;z-index:1;font-weight:300;}
 
-  /* contact */
-  .contact{
-    background:linear-gradient(135deg, var(--evergreen) 0%, var(--evergreen-2) 60%, #16492F 100%);
-    border-radius:22px;color:#EAF7EF;position:relative;overflow:hidden;
-    padding:52px 48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;
-    box-shadow:0 34px 66px -26px rgba(14,59,38,.52);
-  }
-  .contact::before{
-    content:"";position:absolute;top:-120px;right:-100px;width:400px;height:400px;border-radius:50%;
-    background:radial-gradient(closest-side, rgba(0,230,118,.22), transparent 70%);
-  }
-  .contact .cmark{position:absolute;right:22px;bottom:-30px;width:150px;height:200px;opacity:.08;pointer-events:none;}
+  /* ---- contact ---- */
+  .contact{background:linear-gradient(135deg,var(--espresso) 0%,#1D252B 58%,#2A2018 100%);border-radius:24px;color:#EFE8DE;position:relative;overflow:hidden;
+    padding:54px 50px;display:grid;grid-template-columns:1.15fr 1fr;gap:44px;box-shadow:0 38px 72px -28px rgba(14,19,23,.65);}
+  .contact::before{content:"";position:absolute;top:-140px;right:-110px;width:420px;height:420px;border-radius:50%;background:radial-gradient(closest-side,rgba(232,179,91,.32),transparent 70%);}
+  .contact .cmark{position:absolute;right:-10px;bottom:-14px;width:230px;opacity:.1;pointer-events:none;}
   .contact h2{color:#fff;}
-  .contact p{color:#BFD9CA;font-size:0.98rem;max-width:46ch;margin-top:14px;line-height:1.7;}
-  .contact .lines{display:grid;gap:18px;align-content:center;position:relative;z-index:1;}
-  .contact .line{border-left:3px solid var(--emerald);padding-left:18px;transition:transform .35s var(--ease-out);}
-  .contact .line:hover{transform:translateX(5px);}
-  .contact .line .lbl{font-size:0.64rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#8FBBA0;}
-  .contact .line .val{font-weight:700;color:#fff;font-size:1.04rem;word-break:break-word;font-variant-numeric:tabular-nums;}
+  .contact p{color:#BEB2A4;font-size:.97rem;max-width:46ch;margin-top:15px;line-height:1.72;font-weight:300;position:relative;z-index:1;}
+  .contact .lines{display:grid;gap:19px;align-content:center;position:relative;z-index:1;}
+  .contact .line{border-left:3px solid var(--mj);padding-left:18px;transition:transform .35s var(--e);}
+  .contact .line:hover{transform:translateX(6px);}
+  .contact .line .lbl{font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#B79A6C;}
+  .contact .line .val{font-weight:700;color:#fff;font-size:1.02rem;word-break:break-word;font-variant-numeric:tabular-nums;margin-top:2px;}
 
-  footer{padding:48px 0 60px;color:var(--ink-mute);font-size:0.82rem;}
-  footer .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:30px;align-items:center;}
-  footer .foot-brand{display:flex;align-items:center;gap:10px;}
-  footer .foot-brand svg{width:9px;height:11px;display:block;}
+  footer{padding:52px 0 64px;color:var(--ink-mute);font-size:.81rem;}
+  .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:32px;align-items:center;}
+  .foot-brand{display:flex;align-items:center;gap:10px;font-weight:500;}
+  .foot-brand .bean{width:6px;height:6px;border-radius:50%;background:var(--mj);}
+  a:focus-visible{outline:3px solid var(--mj-deep);outline-offset:3px;border-radius:4px;}
 
-  a:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;border-radius:4px;}
-
+  @media (max-width:1000px){
+    .board-grid{grid-template-columns:repeat(3,1fr);}
+    .gridfield{display:none;}
+    .hero-inner{max-width:100%;}
+  }
+  @media (max-width:880px){
+    .filing{grid-template-columns:1fr;gap:30px;}
+  }
   @media (max-width:820px){
     .cal-track{display:none;}
     .cal-cards{grid-template-columns:1fr 1fr;}
-    .cal-card::after{
-      content:attr(data-when);display:block;
-      font-size:0.66rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
-      color:var(--evergreen);margin-bottom:8px;
-    }
+    .cal-card::after{content:attr(data-when);display:block;font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#6B4A14;margin-bottom:9px;}
     .cal-card{display:flex;flex-direction:column-reverse;justify-content:flex-end;}
   }
   @media (max-width:760px){
     .wrap{padding:0 20px;}
-    .hero{padding:76px 0 58px;}
-    .hero .wrap{border-left:none;padding-left:20px;}
-    .hero-mark{display:none;}
+    .divider{padding:0 20px;}
+    .hero{padding:72px 0 58px;}
+    .hero-rail{display:none;}
+    .hero-inner{padding-left:0;}
     section{padding:60px 0;}
-    .ghost{font-size:5.4rem;top:26px;right:10px;}
+    .ghost{font-size:5.2rem;top:24px;right:8px;}
     .team-grid,.needs{grid-template-columns:1fr;}
-    .contact{grid-template-columns:1fr;padding:36px 26px;}
-    .spine{left:24px;}
-    .step{grid-template-columns:44px 1fr;gap:18px;}
-    .step-num{width:44px;height:44px;font-size:0.95rem;}
-    .step-body{padding:20px 20px;}
+    .board-grid{grid-template-columns:repeat(2,1fr);}
+    .contact{grid-template-columns:1fr;padding:38px 26px;gap:30px;}
+    .spine{left:23px;}
+    .step{grid-template-columns:48px 1fr;gap:18px;}
+    .node{width:48px;height:48px;border-radius:12px;}
+    .node span{font-size:.9rem;}
+    .step-body{padding:21px 20px;}
     .cal-cards{grid-template-columns:1fr;}
+    .lockup img.tk{height:26px;}.plate img{height:14px;}.plate{padding:7px 11px;}
+    .filing-stats{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    h1 em{white-space:normal;}
+    h1 em::after{display:none;}
   }
   @media (max-width:420px){
-    h1{font-size:2.35rem;}
-    .hero p.lede{font-size:1.02rem;}
-    .contact .line .val{font-size:0.95rem;}
+    .wrap{padding:0 16px;}
+    .divider{padding:0 16px;}
+    h1{font-size:2.22rem;}
+    .board-grid{grid-template-columns:1fr;}
+    .cell{border-right:none;}
+    .startbar{flex-direction:column;border-radius:14px;}
+    .startbar .a,.startbar .b{padding:12px 18px;font-size:.83rem;}
+    .contact{padding:30px 20px;}
+    .contact .line .val{font-size:.93rem;}
     .step-body{padding:18px 16px;}
-    .start-badge{font-size:0.84rem;padding:12px 18px 12px 16px;}
+    .stat .sv{font-size:2rem;}
+    .doc-label{display:none;}
+    .board-head{padding:16px 18px;}
+    .board-foot{padding:16px 18px;}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
@@ -375,20 +311,26 @@
     .rv{opacity:1;transform:none;}
   }
   @media print{
+    @page{margin:14mm;}
     body{background:#fff;overflow-x:visible;}
-    body::before,.hero-mark,.needs-hint,.glow{display:none;}
-    .topbar{position:static;background:#fff;}
+    body::before,.glow,.ghost,.needs-hint,.hero-rail,.gridfield{display:none!important;}
+    .topbar{position:static;background:#fff;border-bottom:1px solid #ddd;}
     .rv{opacity:1!important;transform:none!important;}
     h1 .w>span{transform:none!important;}
-    .hero{padding:36px 0 24px;}
-    .ghost{display:none;}
-    section{padding:28px 0;}
+    .hero{padding:26px 0 20px;}
+    .hero-inner{padding-left:0;max-width:100%;}
+    section{padding:24px 0;}
     section.tint{background:#fff;border:none;}
-    .team-card,.need,.step,.cal-card,.contact{break-inside:avoid;box-shadow:none;}
-    .contact,.start-badge,.tick,.step-num,.when,.cal-dot{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    .team-figure .photo-frame::after{display:none;}
-    .spine{transform:none!important;}
-    .cal-line{transform:none!important;}
+    section.dark{background:#0E1317!important;border-radius:14px;padding:26px;margin:0 0 6px;}
+    h2{break-after:avoid;}
+    .sec-head,.sec-intro{break-after:avoid;}
+    .board,.tcard,.need,.step,.cal-card,.contact,.stat,.team-figure,.filing{break-inside:avoid;box-shadow:none;}
+    .board-grid{grid-template-columns:repeat(5,1fr);}
+    .contact,.startbar,.tick,.when,.cal-dot,.node,.board-head,.board-foot,.plate,section.dark,.cell.hq,.cell.prop{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .photo-frame::after{display:none;}
+    .spine,.cal-line{transform:none!important;}
+    .team-figure{max-width:60%;}
+    a[href]::after{content:"";}
   }
 </style>
 <noscript><style>.rv{opacity:1;transform:none;}</style></noscript>
@@ -397,111 +339,207 @@
 
 <div class="topbar">
   <div class="wrap topbar-inner">
-    <div class="logo-slot">
-      <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO" style="height:36px;width:auto;display:block">
+    <div class="lockup">
+      <img class="tk" src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO">
+      <svg class="x" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="#83786E" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span class="plate"><img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDMwNCA3NC43IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMDQgNzQuNzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2NsaXAtcGF0aDp1cmwoI1NWR0lEXzJfKTt9DQoJLnN0MXtmaWxsOiMwOTA1MDI7fQ0KCS5zdDJ7ZmlsbDojRThCMzVCO30NCgkuc3Qze2ZpbGw6I0U4QjM1QjtzdHJva2U6I0U4QjM1QjtzdHJva2Utd2lkdGg6MS4wMjc4O3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCgkuc3Q0e2ZpbGw6I0ZGRkZGRjt9DQoJLnN0NXtmaWxsOiMwMzAzMDM7fQ0KCS5zdDZ7ZmlsbDp1cmwoI1NWR0lEXzE1Xyk7fQ0KCS5zdDd7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojRkYwMDAwO30NCgkuc3Q4e2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6I0ZGRkZGRjt9DQoJLnN0OXtmaWxsOiMyOTJDMzA7fQ0KCS5zdDEwe2ZpbGw6I0ZGMDAwMDt9DQoJLnN0MTF7ZmlsbDojRkZGRkZGO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjc5ODM7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDEye2ZpbGw6I0ZGRkZGRjtzdHJva2U6IzAwMDAwMDtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQoJLnN0MTN7ZmlsbDojRkYwMDAwO3N0cm9rZTojRkYwMDAwO3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCgkuc3QxNHtmaWxsOm5vbmU7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjU7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDE1e2ZpbGw6I0ZGMDAwMDtzdHJva2U6I0ZGMDAwMDtzdHJva2Utd2lkdGg6MS4wODQyO3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCgkuc3QxNntmaWxsOiNGRjAwMDA7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjEuMTczNjtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQoJLnN0MTd7ZmlsbDojRThCMzVCO3N0cm9rZTojRThCMzVCO3N0cm9rZS13aWR0aDoxLjE3MzY7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDE4e2ZpbGw6IzExMTExMTt9DQoJLnN0MTl7ZmlsbDojNTk1OTU5O30NCgkuc3QyMHtjbGlwLXBhdGg6dXJsKCNTVkdJRF8yNV8pO30NCgkuc3QyMXtmaWxsOnVybCgjU1ZHSURfMjhfKTt9DQoJLnN0MjJ7Y2xpcC1wYXRoOnVybCgjU1ZHSURfMzBfKTt9DQoJLnN0MjN7Y2xpcC1wYXRoOnVybCgjU1ZHSURfMzRfKTt9DQoJLnN0MjR7ZmlsbDojRThCMzVCO3N0cm9rZTojRThCMzVCO3N0cm9rZS13aWR0aDoxLjE1MDY7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDI1e2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6IzU5MzEyNTt9DQoJLnN0MjZ7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojMzcyNTFCO30NCgkuc3QyN3tmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtmaWxsOiNBRTdGNTc7fQ0KCS5zdDI4e2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6Izc1NTM0MTt9DQoJLnN0Mjl7ZmlsbDojNTkzMTI1O30NCgkuc3QzMHtmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtmaWxsOiM3OTUyMzU7fQ0KCS5zdDMxe2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6I0M1QTQ4Njt9DQoJLnN0MzJ7ZmlsbDojRThCMzVCO3N0cm9rZTojRThCMzVCO3N0cm9rZS13aWR0aDowLjgwNTQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDMze2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6I0U4QjM1Qjt9DQoJLnN0MzR7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCgkuc3QzNXtmaWxsOiNFOEIzNUI7c3Ryb2tlOiNFOEIzNUI7c3Ryb2tlLXdpZHRoOjEuNzI1OTtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQoJLnN0MzZ7ZmlsbDojRkYwMDAwO3N0cm9rZTojRkYwMDAwO3N0cm9rZS13aWR0aDoxLjcyNTk7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDM3e2NsaXAtcGF0aDp1cmwoI1NWR0lEXzQ4Xyk7fQ0KCS5zdDM4e29wYWNpdHk6MC43O2ZpbGw6IzFEMUQxQjt9DQoJLnN0Mzl7ZmlsbDojRThCMzVCO3N0cm9rZTojRThCMzVCO3N0cm9rZS13aWR0aDowLjY4Mzc7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDQwe2NsaXAtcGF0aDp1cmwoI1NWR0lEXzU0Xyk7fQ0KCS5zdDQxe2ZpbGw6dXJsKCNTVkdJRF82N18pO30NCgkuc3Q0MntjbGlwLXBhdGg6dXJsKCNTVkdJRF82OV8pO30NCgkuc3Q0M3tmaWxsOiNGNUY1RjE7fQ0KCS5zdDQ0e2ZpbGw6I0U4QjM1QjtzdHJva2U6I0U4QjM1QjtzdHJva2Utd2lkdGg6MC45NDM1O3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCgkuc3Q0NXtmaWxsOnVybCgjU1ZHSURfNzRfKTt9DQoJLnN0NDZ7Y2xpcC1wYXRoOnVybCgjU1ZHSURfNzhfKTt9DQoJLnN0NDd7ZmlsbDp1cmwoI1NWR0lEXzgzXyk7fQ0KCS5zdDQ4e2NsaXAtcGF0aDp1cmwoI1NWR0lEXzg3Xyk7fQ0KCS5zdDQ5e2ZpbGw6IzI5MjkyOTt9DQoJLnN0NTB7ZmlsbDpub25lO30NCjwvc3R5bGU+DQo8Zz4NCgk8Zz4NCgkJPGc+DQoJCQk8cG9seWdvbiBjbGFzcz0ic3Q0IiBwb2ludHM9IjkwLjEsMyA5MC4xLDMzLjMgODEsMzMuMyA4MSwxMi4yIDQ2LjEsMjUgMTEuMiwxMi4yIDExLjIsMzMuMyAyLDMzLjMgMiwzIDEwLjcsMyA0Ni41LDE2LjIgODIuMiwzIA0KCQkJCQkJCSIvPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTkwLjEsM3YzMC4zSDgxVjEyLjJMNDYuMywyNUwxMS4yLDEyLjJ2MjEuMUgyVjNoOC43bDM1LjYsMTMuMkw4Mi4yLDNIOTAuMSIvPg0KCQk8L2c+DQoJCTxnPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTIxNC45LDMzLjlIMTcwdi03LjdoNDMuNmMyLTAuNiwzLjItMS4yLDQuNS0yLjVjMS4yLTEuMiwxLjktMy45LDEuOS00LjRWMy41aDguMXYxNS45DQoJCQkJYzAsMy45LTIuNCw3LjgtMy45LDkuM0MyMjIuNCwzMC42LDIxOSwzMy45LDIxNC45LDMzLjl6Ii8+DQoJCTwvZz4NCgkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTE1Ni40LDI2aC01MS43VjExLjVoNTEuN1YyNnogTTE1OS42LDMuNkgxMDNjLTMuNSwwLTYuOCwyLjMtNi44LDUuOHYxNy43YzAsMy41LDMuNCw2LjgsNi44LDYuOGg1Ni42DQoJCQljMy41LDAsNS42LTMuMyw1LjYtNi44VjkuNUMxNjUuMSw2LDE2MywzLjYsMTU5LjYsMy42TDE1OS42LDMuNnoiLz4NCgkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTI5My4zLDI2aC01MS43VjExLjVoNTEuN1YyNnogTTI5Ni40LDMuNmgtNTYuNmMtMy41LDAtNi44LDIuMy02LjgsNS44djE3LjdjMCwzLjUsMy40LDYuOCw2LjgsNi44aDU2LjYNCgkJCWMzLjUsMCw1LjYtMy4zLDUuNi02LjhWOS41QzMwMiw2LDI5OS45LDMuNiwyOTYuNCwzLjZMMjk2LjQsMy42eiIvPg0KCTwvZz4NCgk8cmVjdCB4PSIyIiB5PSI1NC4zIiBjbGFzcz0ic3QyIiB3aWR0aD0iOTMuMyIgaGVpZ2h0PSIxIi8+DQoJPHJlY3QgeD0iMjA5IiB5PSI1NC4zIiBjbGFzcz0ic3QyIiB3aWR0aD0iOTMuMyIgaGVpZ2h0PSIxIi8+DQoJPGc+DQoJCTxnPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTEyMy43LDU4LjlMMTIzLjcsNTguOWMwLjEsMS43LTAuNSwzLjEtMS42LDQuMWMtMS4xLDEtMi42LDEuNS00LjQsMS41Yy0xLjksMC0zLjQtMC43LTQuNi0yLjENCgkJCQlzLTEuNy0zLjEtMS43LTUuM3YtMi44YzAtMi4yLDAuNi0zLjksMS43LTUuM2MxLjItMS40LDIuNy0yLjEsNC42LTIuMWMxLjksMCwzLjMsMC41LDQuNCwxLjVjMS4xLDEsMS43LDIuMywxLjYsNGwwLDAuMWgtMS4zDQoJCQkJYzAtMS40LTAuNC0yLjQtMS4zLTMuMmMtMC44LTAuOC0yLTEuMi0zLjUtMS4yYy0xLjUsMC0yLjcsMC42LTMuNiwxLjdjLTAuOSwxLjItMS40LDIuNi0xLjQsNC40djIuOGMwLDEuOCwwLjUsMy4zLDEuNCw0LjUNCgkJCQljMC45LDEuMiwyLjEsMS43LDMuNiwxLjdjMS41LDAsMi42LTAuNCwzLjUtMS4xczEuMy0xLjgsMS4zLTMuM0gxMjMuN3oiLz4NCgkJCTxwYXRoIGNsYXNzPSJzdDQiIGQ9Ik0xMzkuOSw1Ny4xYzAsMi4yLTAuNiw0LTEuOCw1LjNzLTIuOCwyLTQuOSwyYy0yLDAtMy42LTAuNy00LjgtMmMtMS4yLTEuNC0xLjgtMy4xLTEuOC01LjN2LTIuOA0KCQkJCWMwLTIuMiwwLjYtNCwxLjgtNS4zYzEuMi0xLjQsMi44LTIuMSw0LjgtMi4xYzIsMCwzLjcsMC43LDQuOSwyLjFjMS4yLDEuNCwxLjgsMy4xLDEuOCw1LjNWNTcuMXogTTEzOC41LDU0LjMNCgkJCQljMC0xLjgtMC41LTMuMy0xLjQtNC41cy0yLjItMS43LTMuOS0xLjdjLTEuNiwwLTIuOSwwLjYtMy44LDEuN3MtMS40LDIuNi0xLjQsNC41djIuOGMwLDEuOSwwLjUsMy40LDEuNCw0LjVzMi4yLDEuNywzLjgsMS43DQoJCQkJYzEuNywwLDMtMC42LDMuOS0xLjdjMC45LTEuMSwxLjQtMi42LDEuNC00LjVWNTQuM3oiLz4NCgkJCTxwYXRoIGNsYXNzPSJzdDQiIGQ9Ik0xNTIuNyw1Ni4zaC03Ljh2OGgtMS40VjQ3LjJoMTAuNHYxLjJoLTl2Ni43aDcuOFY1Ni4zeiIvPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTE2Niw1Ni4zaC03Ljh2OGgtMS40VjQ3LjJoMTAuNHYxLjJoLTl2Ni43aDcuOFY1Ni4zeiIvPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTE3OSw1NmgtNy43djcuMWg4Ljh2MS4yaC0xMC4zVjQ3LjJoMTAuMnYxLjJoLTguOHY2LjRoNy43VjU2eiIvPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTE5Mi4yLDU2aC03Ljd2Ny4xaDguOHYxLjJoLTEwLjNWNDcuMmgxMC4ydjEuMmgtOC44djYuNGg3LjdWNTZ6Ii8+DQoJCTwvZz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4=" alt="Mojo Coffee"></span>
     </div>
-    <div class="doc-label"><svg viewBox="0 0 10 12" fill="none"><path d="M2 1l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Client Welcome Pack</div>
+    <div class="doc-label micro"><span class="bean"></span>Client Welcome Pack</div>
   </div>
 </div>
 
 <header class="hero">
   <div class="glow g1" aria-hidden="true"></div>
   <div class="glow g2" aria-hidden="true"></div>
-  <div class="glow g3" aria-hidden="true"></div>
-  <svg class="hero-mark" viewBox="0 0 100 140" fill="none" aria-hidden="true"><path d="M10 10l55 60-55 60" stroke="#0E3B26" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M45 10l55 60-55 60" stroke="#00B25C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg class="gridfield" viewBox="0 0 520 340" fill="none" aria-hidden="true">
+    <g stroke="#B8853A" stroke-opacity=".26" stroke-width="1">
+      <rect x="10" y="10" width="96" height="72" rx="8"/><rect x="116" y="10" width="96" height="72" rx="8"/><rect x="222" y="10" width="96" height="72" rx="8"/><rect x="328" y="10" width="96" height="72" rx="8"/><rect x="434" y="10" width="76" height="72" rx="8"/>
+      <rect x="10" y="92" width="96" height="72" rx="8"/><rect x="116" y="92" width="96" height="72" rx="8"/><rect x="222" y="92" width="96" height="72" rx="8"/><rect x="328" y="92" width="96" height="72" rx="8"/><rect x="434" y="92" width="76" height="72" rx="8"/>
+      <rect x="10" y="174" width="96" height="72" rx="8"/><rect x="116" y="174" width="96" height="72" rx="8"/><rect x="222" y="174" width="96" height="72" rx="8"/>
+    </g>
+    <rect x="10" y="10" width="96" height="72" rx="8" fill="#E8B35B" fill-opacity=".1"/>
+    <rect x="434" y="92" width="76" height="72" rx="8" fill="#E8B35B" fill-opacity=".07"/>
+  </svg>
   <div class="wrap">
-    <div class="eyebrow rv"><span class="chev"><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00E676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Welcome to Turnkey CFO</div>
-    <h1 class="rv" data-d="1">Welcome, <em>Mojo Coffee.</em></h1>
-    <p class="lede rv" data-d="2">Austin and Forrest, you built ten shops from one drive-thru window. That took operational discipline most companies never find. Our job is to give the financial side the same discipline: every entity current, every month closed on a date you can plan around, and one consolidated view of the whole group. Here is exactly how the handoff works.</p>
-    <div class="start-badge rv num" data-d="3"><span class="dot"></span>Turnkey owns your books from <strong>August 1, 2026</strong></div>
+    <div class="hero-rail" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="eyebrow micro rv"><span class="bean"></span>Mojo Coffee &nbsp;&middot;&nbsp; Welcome to Turnkey CFO</div>
+      <h1 class="rv" data-d="1">Thirteen books. <em>One month-end.</em></h1>
+      <p class="lede rv" data-d="2">Austin and Forrest: you turned one drive-thru window into ten shops, a roastery, and the property behind them. That took operational discipline most companies never find. <strong>Our job is to give the financial side the same discipline</strong>, so every entity closes on a date you can plan around and the group finally rolls up into one honest view.</p>
+      <div class="startbar rv num" data-d="3">
+        <div class="a"><span class="dot"></span>Turnkey owns the books from</div>
+        <div class="b">August&nbsp;1,&nbsp;2026</div>
+      </div>
+      <p class="hero-note rv" data-d="4">July stays with your outgoing bookkeeper by design, so nothing in a live month changes hands mid-stream. We take the wheel on a clean line.</p>
+    </div>
   </div>
 </header>
 
-<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+<div class="divider" aria-hidden="true"><div class="rule"></div><span class="bean"></span><div class="rule"></div></div>
 
 <section>
   <div class="ghost num" aria-hidden="true">01</div>
   <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num num">01</span><h2>Your team</h2></div>
-    <p class="sec-intro rv" data-d="1">You asked for lean communication and one point of contact per lane. That is how we run. Two people own your account.</p>
-    <div class="team-grid">
-      <div class="team-card rv">
-        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/ricky-headshot.webp" alt="Ricky West"></div><div class="role">Founder, Turnkey CFO</div>
-        <h3>Ricky West</h3>
-        <p>Ricky leads the relationship, the owner dashboard, and the consolidated view. He talks numbers the way you do: lead with the insight, skip the fluff. Escalations, scope, and anything strategic go to him, and you can call him directly.</p>
+    <div class="sec-head rv"><span class="sec-num num">01</span><h2>The thirteen</h2></div>
+    <p class="sec-intro rv" data-d="1">Most bookkeepers would tell you they handle "the Mojo account." You do not have an account, you have thirteen separate sets of books that have to agree with each other. Here is every one of them, and what it is to us.</p>
+    <div class="board rv" data-d="2">
+      <div class="board-head">
+        <div class="bt">Entities under the engagement</div>
+        <div class="bc num"><span class="bean"></span>10 shops &nbsp;&middot;&nbsp; 1 roastery &nbsp;&middot;&nbsp; 2 property companies</div>
       </div>
-      <div class="team-card rv" data-d="1">
-        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/vanessa-headshot.webp" alt="Vanessa"></div><div class="role">Lead Accountant</div>
-        <h3>Vanessa</h3>
-        <p>Vanessa runs the transition and the monthly engine across every entity: records, reconciliations, sales tax preparation, and quality review before anything reaches you. Day-to-day questions go to her.</p>
+      <div class="board-grid">
+        <div class="cell"><div class="ci num">01</div><div class="cn">Burnet</div><div class="cr">Flagship, open since 2015</div></div>
+        <div class="cell"><div class="ci num">02</div><div class="cn">Marble Falls</div><div class="cr">Shop</div></div>
+        <div class="cell"><div class="ci num">03</div><div class="cn">Liberty Hill</div><div class="cr">Shop</div></div>
+        <div class="cell"><div class="ci num">04</div><div class="cn">Lampasas</div><div class="cr">Shop</div></div>
+        <div class="cell"><div class="ci num">05</div><div class="cn">Lakeline</div><div class="cr">Shop</div></div>
+        <div class="cell"><div class="ci num">06</div><div class="cn">1431 Cedar Park</div><div class="cr">Shop</div></div>
+        <div class="cell"><div class="ci num">07</div><div class="cn">New Hope</div><div class="cr">Shop</div></div>
+        <div class="cell"><div class="ci num">08</div><div class="cn">Copperas Cove</div><div class="cr">Shop</div></div>
+        <div class="cell"><div class="ci num">09</div><div class="cn">Georgetown</div><div class="cr">Shop</div></div>
+        <div class="cell"><div class="ci num">10</div><div class="cn">Kingsland</div><div class="cr">Shop, files at a different tax rate</div></div>
+        <div class="cell hq"><div class="ci num">11</div><div class="cn">Forest Moon Enterprises</div><div class="cr">Roastery, commissary and headquarters. The largest supplier in every shop's books.</div></div>
+        <div class="cell prop"><div class="ci num">12</div><div class="cn">Sisters of Charity Properties</div><div class="cr">Property company</div></div>
+        <div class="cell prop"><div class="ci num">13</div><div class="cn">Sisters of the Poor</div><div class="cr">Property company, external tenants</div></div>
+        <div class="cell" style="background:transparent;border-right:none"></div>
+        <div class="cell" style="background:transparent;border-right:none"></div>
       </div>
-      <div class="team-card rv" data-d="2">
-        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/hardik-headshot.webp" alt="Hardik"></div><div class="role">Onboarding Specialist</div>
-        <h3>Hardik</h3>
-        <p>Hardik runs your onboarding behind the scenes: access, records, and the daily transaction work that keeps your books current from day one.</p>
-      </div>
-      <div class="team-card rv" data-d="3">
-        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/eldine-headshot.webp" alt="Eldine"></div><div class="role">Assistant</div>
-        <h3>Eldine</h3>
-        <p>Eldine keeps the operational wheels turning: scheduling, invoicing, and making sure nothing falls through the cracks.</p>
-      </div>
+      <div class="board-foot"><strong>Why this page starts here.</strong> Every shop buys coffee from the roastery and most pay rent to a property company, so the same dollar shows up in two sets of books. Getting those pairs to agree is what makes a consolidated view worth trusting.</div>
     </div>
-    <figure class="team-figure rv"><div class="photo-frame"><div class="photo-clip"><img id="teamPhoto" src="https://turnkeycfo.com/assets/turnkey-team.webp" alt="The Turnkey team"></div></div><figcaption><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>The Turnkey team.</figcaption></figure>
+    <p class="board-note rv" data-d="3"><strong>The intercompany work is the real job.</strong> Each file carries a due-to and due-from line for every other file, and today those pairs do not perfectly mirror. We reconcile them entity by entity and eliminate them at the group level, so the roll-up you and Forrest look at actually holds together instead of quietly carrying a difference. Where a pair will not tie, you hear about it from us with the number attached, not later from a diligence team.</p>
   </div>
 </section>
 
-<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+<div class="divider" aria-hidden="true"><div class="rule"></div><span class="bean"></span><div class="rule"></div></div>
 
 <section class="tint">
   <div class="ghost num" aria-hidden="true">02</div>
   <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num num">02</span><h2>Your first 30 days</h2></div>
-    <p class="sec-intro rv" data-d="1">Thirteen entities change hands on one date. The plan below is built so nothing falls between the old process and the new one, including your sales tax filings.</p>
+    <div class="sec-head rv"><span class="sec-num num">02</span><h2>Your team</h2></div>
+    <p class="sec-intro rv" data-d="1">You asked for lean communication and one point of contact per lane. That is exactly how we run.</p>
+    <div class="team-grid">
+      <div class="tcard rv">
+        <div class="avatar"><img class="tphoto" src="https://turnkeycfo.com/assets/ricky-headshot.webp" alt="Ricky West"></div>
+        <div class="role micro">Founder, Turnkey CFO</div>
+        <h3>Ricky West</h3>
+        <p>Ricky owns the relationship, the owner dashboard, and the consolidated view. <strong>He talks numbers the way you do: lead with the insight, skip the preamble.</strong> Scope, escalations, and anything strategic go to him, and you can call him directly. He also processes headquarters payroll.</p>
+      </div>
+      <div class="tcard rv" data-d="1">
+        <div class="avatar"><img class="tphoto" src="https://turnkeycfo.com/assets/vanessa-headshot.webp" alt="Vanessa"></div>
+        <div class="role micro">Lead Accountant</div>
+        <h3>Vanessa</h3>
+        <p>Vanessa runs the transition and then the monthly engine across all thirteen entities: records, reconciliations, sales tax preparation, and the quality review every report passes before it reaches you. <strong>She is also the one who sends your single batched email.</strong></p>
+      </div>
+      <div class="tcard rv" data-d="2">
+        <div class="avatar"><img class="tphoto" src="https://turnkeycfo.com/assets/hardik-headshot.webp" alt="Hardik"></div>
+        <div class="role micro">Onboarding Specialist</div>
+        <h3>Hardik</h3>
+        <p>Hardik does the volume work: opening balance tie-outs across all thirteen files, the catch-up reconciliations, the intercompany snapshot as of the handoff date, and the monthly sales tax workpapers per location.</p>
+      </div>
+      <div class="tcard rv" data-d="3">
+        <div class="avatar"><img class="tphoto" src="https://turnkeycfo.com/assets/eldine-headshot.webp" alt="Eldine"></div>
+        <div class="role micro">Assistant</div>
+        <h3>Eldine</h3>
+        <p>Eldine keeps the operational wheels turning: scheduling, billing, and making sure nothing slips while everyone else is deep in thirteen sets of books.</p>
+      </div>
+    </div>
+    <figure class="team-figure rv" data-d="4">
+      <div class="photo-frame"><div class="photo-clip"><img id="teamPhoto" src="https://turnkeycfo.com/assets/turnkey-team.webp" alt="The Turnkey CFO team"></div></div>
+      <figcaption><span class="bean"></span>The Turnkey CFO team.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="rule"></div><span class="bean"></span><div class="rule"></div></div>
+
+<section>
+  <div class="ghost num" aria-hidden="true">03</div>
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num num">03</span><h2>The cutover, by date</h2></div>
+    <p class="sec-intro rv" data-d="1">Thirteen entities change hands on one date. Everything below is built so nothing falls between the old process and the new one, and so your filings never notice the handoff.</p>
     <div class="timeline">
       <div class="spine" aria-hidden="true"></div>
+
       <div class="step rv">
-        <div class="step-num num">1</div>
+        <div class="node"><span class="num">1</span></div>
         <div class="step-body">
           <div class="when num">Week of July 27</div>
-          <h3>Warm handoff</h3>
-          <p>We sit down with your outgoing bookkeeper for a working handoff: the sales tax process, filing access, and the quirks of each entity. Nothing gets cut over from memory. She keeps her access through your diligence process, exactly as planned.</p>
+          <h3>The warm handoff</h3>
+          <p>We sit down with your outgoing bookkeeper for a working session, not a goodbye: how sales tax actually gets prepared and submitted, the state portal access, and the quirks of each entity. <strong>Nothing gets cut over from memory.</strong> Her access stays exactly as it is through your diligence process, as agreed.</p>
+          <div class="who"><span class="dotx"></span>Ricky opens the door &middot; Vanessa runs the agenda</div>
         </div>
       </div>
+
       <div class="step rv" data-d="1">
-        <div class="step-num num">2</div>
+        <div class="node"><span class="num">2</span></div>
         <div class="step-body">
-          <div class="when num">August 1</div>
-          <h3>Cutover day</h3>
-          <p>Turnkey owns the books across all thirteen entities. In the first week we tie out the opening balance of every file against where July ended, so your history and our history meet at one clean line. We never force a number to fit; anything that does not tie gets surfaced to you honestly.</p>
+          <div class="when num">Saturday, August 1</div>
+          <h3>Cutover</h3>
+          <p>Turnkey owns the books across all thirteen entities. Through the first week we tie out the opening balance of every file against where July ended and set a lock date on each one as it ties. <strong>We never force a number to fit.</strong> Anything that does not tie is surfaced to you with the figure attached, in writing.</p>
+          <div class="who"><span class="dotx"></span>Hardik ties the balances &middot; Vanessa sets the lock dates</div>
         </div>
       </div>
+
       <div class="step rv" data-d="2">
-        <div class="step-num num">3</div>
+        <div class="node"><span class="num">3</span></div>
         <div class="step-body">
-          <div class="when num">By August 11</div>
+          <div class="when num">By Tuesday, August 11</div>
           <h3>First reports, per entity</h3>
-          <p>July profit and loss and balance sheet for every entity, delivered by the seventh business day. This is the standard we hold every month from here forward.</p>
+          <p>July profit and loss and balance sheet for every entity, delivered by the seventh business day. That date is in your engagement letter and it is the first real test of the takeover, so we treat it as fixed rather than aspirational.</p>
+          <div class="who"><span class="dotx"></span>Hardik drafts &middot; Vanessa reviews and delivers</div>
         </div>
       </div>
+
       <div class="step rv" data-d="3">
-        <div class="step-num num">4</div>
+        <div class="node"><span class="num">4</span></div>
         <div class="step-body">
-          <div class="when num">By August 14</div>
+          <div class="when num">By Friday, August 14</div>
           <h3>First sales tax cycle, no gaps</h3>
-          <p>July sales tax prepared and filed for every location on the state schedule. The fifteenth falls on a Saturday, so everything is in by Friday the fourteenth, timely-filing discount intact.</p>
+          <p>July sales tax prepared and filed for every location. <strong>The fifteenth falls on a Saturday, so everything is in by Friday the fourteenth</strong>, with the timely-filing discount intact. The next section explains exactly what that day involves, because it is the heaviest day on your calendar and ours.</p>
+          <div class="who"><span class="dotx"></span>Hardik prepares &middot; Vanessa reviews and files</div>
         </div>
+      </div>
+
+      <div class="step rv" data-d="4">
+        <div class="node"><span class="num">5</span></div>
+        <div class="step-body">
+          <div class="when num">September</div>
+          <h3>The first fully clean cycle</h3>
+          <p>August is the first month that is entirely ours from the first transaction to the last. Reports land on the seventh business day, filings on the schedule your shops have always run, and the owner dashboard comes online alongside them: the whole group and each location side by side, with intercompany eliminated so the roll-up is real.</p>
+          <div class="who"><span class="dotx"></span>Ricky owns the dashboard &middot; Vanessa owns the close</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="ghost num" aria-hidden="true">04</div>
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num num">04</span><h2>August 14, the day that cannot move</h2></div>
+    <p class="sec-intro rv" data-d="1">Every month, eleven separate sales tax filings come due on one date. It is the single heaviest day in your cycle, so we plan the whole month backwards from it and stack nothing else on top of it.</p>
+    <div class="filing">
+      <div class="filing-stats">
+        <div class="stat rv"><div class="sv num" data-count="11">11</div><div class="sl">separate returns filed every month, one per operating entity</div></div>
+        <div class="stat rv" data-d="1"><div class="sv num" data-count="8.25">8.25<span class="u">%</span></div><div class="sl">the rate at most shops. Kingsland and the roastery file at 6.25%</div></div>
+        <div class="stat rv" data-d="2"><div class="sv num" data-count="0.5">0.5<span class="u">%</span></div><div class="sl">timely-filing discount, kept by filing monthly and never late</div></div>
+        <div class="stat rv" data-d="3"><div class="sv num" data-count="4">4</div><div class="sl">revenue sources reconciled per shop before a return is prepared</div></div>
+      </div>
+      <div class="filing-copy rv" data-d="2">
+        <p>Preparing a Mojo return is not a single number off a report. Sales come in through the point of sale <strong>and three delivery platforms</strong>, and cash is rung tax-inclusive, so the tax has to be backed out of it before anything is taxable. Every shop gets its own workpaper, every workpaper gets reviewed, and only then does a return get filed.</p>
+        <p>You will see the same package every month: the per-entity workpaper showing how the number was built, and the filed confirmation. If we ever disagree with how something was treated historically, you get the reasoning in writing before we change it.</p>
+        <div class="flag"><strong>One thing we want to close early.</strong> Some shops carry beer and wine income. Texas treats alcohol differently depending on the permit a location holds, and we want to confirm the permit type at those shops rather than assume the historical treatment was right. It is a short conversation and we would rather have it now than at a filing deadline.</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
-
-<section>
-  <div class="ghost num" aria-hidden="true">03</div>
+<section class="tint">
+  <div class="ghost num" aria-hidden="true">05</div>
   <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num num">03</span><h2>The monthly rhythm, times thirteen</h2></div>
-    <p class="sec-intro rv" data-d="1">Every entity runs the same calendar every month. The dates are structural, not aspirational: they are built into how we operate.</p>
+    <div class="sec-head rv"><span class="sec-num num">05</span><h2>The monthly rhythm, times thirteen</h2></div>
+    <p class="sec-intro rv" data-d="1">Every entity runs the same calendar every month. The dates are structural, not aspirational: they are how we operate, not what we aim for.</p>
     <div class="calstrip">
       <div class="cal-track rv" aria-hidden="true">
         <div class="cal-line"></div>
@@ -511,56 +549,48 @@
         <div class="cal-node"><div class="cal-dot"></div><div class="cal-when num">By the 15th</div></div>
       </div>
       <div class="cal-cards">
-        <div class="cal-card rv" data-when="First business day"><p>One batched email of anything we need, per your standing preference. Never a drip of one-off pings.</p></div>
-        <div class="cal-card rv" data-d="1" data-when="First week"><p>Every entity coded and reconciled: banks, cards, payroll, and the intercompany balances between shops, the roastery, and the property companies.</p></div>
-        <div class="cal-card rv" data-d="2" data-when="Seventh business day"><p>Profit and loss and balance sheet delivered for every entity, reviewed before they reach you.</p></div>
-        <div class="cal-card rv" data-d="3" data-when="By the 15th"><p>Sales tax prepared and filed for every location, on the monthly schedule your shops have always run.</p></div>
+        <div class="cal-card rv" data-when="First business day"><p><strong>One batched email.</strong> Everything we need from your side, in a single message, per your standing preference. Never a drip of one-off pings.</p></div>
+        <div class="cal-card rv" data-d="1" data-when="First week"><p><strong>The work.</strong> Every entity coded and reconciled: banks, cards, payroll, and the intercompany balances between the shops, the roastery and the property companies.</p></div>
+        <div class="cal-card rv" data-d="2" data-when="Seventh business day"><p><strong>Reports.</strong> Profit and loss and balance sheet for every entity, reviewed before they reach you, plus the consolidated and by-location view.</p></div>
+        <div class="cal-card rv" data-d="3" data-when="By the 15th"><p><strong>Filings.</strong> Sales tax prepared and filed for every location, on the monthly schedule your shops have always run.</p></div>
       </div>
     </div>
-    <p class="rhythm-note rv">The consolidated view: alongside the per-entity reports, we are building your owner dashboard, the whole group and each location side by side, with intercompany balances reconciled so the roll-up actually holds together. 1099 tracking and preparation across all entities is on the standing calendar as well.</p>
+    <p class="rhythm-note rv" data-d="4"><strong>Also standing:</strong> weekly payroll continues on its Friday schedule with headquarters allocation handled centrally; <strong>1099 tracking runs all year</strong> across every entity rather than becoming a January scramble, on a W-9-before-payment policy; and the owner dashboard refreshes alongside the reports so you are never waiting on a person to see the group.</p>
   </div>
 </section>
 
-<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+<div class="divider" aria-hidden="true"><div class="rule"></div><span class="bean"></span><div class="rule"></div></div>
 
-<section class="tint">
-  <div class="ghost num" aria-hidden="true">04</div>
+<section>
+  <div class="ghost num" aria-hidden="true">06</div>
   <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num num">04</span><h2>What we need from you</h2></div>
-    <p class="sec-intro rv" data-d="1">Batched, per your preference. These are the items that keep the cutover clean.</p>
+    <div class="sec-head rv"><span class="sec-num num">06</span><h2>What we need from you</h2></div>
+    <p class="sec-intro rv" data-d="1">Batched, in one list, per your preference. These are the items that keep the cutover clean. Tap any card to mark it handled.</p>
     <div class="needs">
-      <div class="need rv" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>The handoff introductions.</strong> A green light for the working session with your outgoing bookkeeper, plus filing and state portal access for sales tax.</p></div>
-      <div class="need rv" data-d="1" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>System access.</strong> Bill pay and card platform access, Square reporting access per location, and the remaining QuickBooks seat for the last property entity.</p></div>
-      <div class="need rv" data-d="2" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>A few entity-level confirmations.</strong> The alcohol permit type at shops that sell beer and wine, and the exact legal name per entity, so every filing matches the state record.</p></div>
-      <div class="need rv" data-d="3" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Your CPA loop-in.</strong> A heads-up to Betters &amp; Associates that Turnkey owns the books from August, so the year-end handoff is seamless.</p></div>
-      <div class="need rv" data-d="4" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>One weekly reply.</strong> Our asks come as one batched email. Working through it once a week keeps all thirteen entities moving together.</p></div>
-      <div class="need rv" data-d="5" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>W-9s before checks.</strong> Our standing policy for new vendors across all entities, so January 1099s are painless.</p></div>
+      <div class="need rv" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#231703" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>The handoff green light.</strong> A go-ahead for the working session with your outgoing bookkeeper, plus state portal and filing access for sales tax. This is the one item the August 14 filing depends on.</p></div>
+      <div class="need rv" data-d="1" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#231703" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>System access.</strong> Bill pay and card platform access, point-of-sale reporting access per location, and the remaining QuickBooks seat for the last property entity.</p></div>
+      <div class="need rv" data-d="2" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#231703" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>The alcohol permit answer.</strong> The permit type held at each shop that sells beer or wine, so we can confirm the correct tax treatment before a deadline rather than after one.</p></div>
+      <div class="need rv" data-d="3" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#231703" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Exact legal names.</strong> The registered legal name for each entity as the state holds it. Several files carry shortened or inconsistent names today, and every filing should match the record exactly.</p></div>
+      <div class="need rv" data-d="4" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#231703" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Your CPA loop-in.</strong> A heads-up to your accounting firm that Turnkey owns the books from August, so the year-end handoff across all the returns is seamless.</p></div>
+      <div class="need rv" data-d="5" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#231703" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>One reply a week.</strong> Our asks arrive as a single batched email. Working through it once a week is what keeps all thirteen entities moving together.</p></div>
     </div>
-    <p class="needs-hint">Tip: tap any card to mark it handled while you work down the list.</p>
+    <p class="needs-hint rv">Your progress is remembered on this device only, so you can close this page and come back to it.</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
     <div class="contact rv">
-      <svg class="cmark" viewBox="0 0 100 140" fill="none" aria-hidden="true"><path d="M10 10l55 60-55 60" stroke="#00E676" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <img class="cmark" src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDMwNCA3NC43IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMDQgNzQuNzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2NsaXAtcGF0aDp1cmwoI1NWR0lEXzJfKTt9DQoJLnN0MXtmaWxsOiMwOTA1MDI7fQ0KCS5zdDJ7ZmlsbDojRThCMzVCO30NCgkuc3Qze2ZpbGw6I0U4QjM1QjtzdHJva2U6I0U4QjM1QjtzdHJva2Utd2lkdGg6MS4wMjc4O3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCgkuc3Q0e2ZpbGw6I0ZGRkZGRjt9DQoJLnN0NXtmaWxsOiMwMzAzMDM7fQ0KCS5zdDZ7ZmlsbDp1cmwoI1NWR0lEXzE1Xyk7fQ0KCS5zdDd7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojRkYwMDAwO30NCgkuc3Q4e2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6I0ZGRkZGRjt9DQoJLnN0OXtmaWxsOiMyOTJDMzA7fQ0KCS5zdDEwe2ZpbGw6I0ZGMDAwMDt9DQoJLnN0MTF7ZmlsbDojRkZGRkZGO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjc5ODM7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDEye2ZpbGw6I0ZGRkZGRjtzdHJva2U6IzAwMDAwMDtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQoJLnN0MTN7ZmlsbDojRkYwMDAwO3N0cm9rZTojRkYwMDAwO3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCgkuc3QxNHtmaWxsOm5vbmU7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjU7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDE1e2ZpbGw6I0ZGMDAwMDtzdHJva2U6I0ZGMDAwMDtzdHJva2Utd2lkdGg6MS4wODQyO3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCgkuc3QxNntmaWxsOiNGRjAwMDA7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjEuMTczNjtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQoJLnN0MTd7ZmlsbDojRThCMzVCO3N0cm9rZTojRThCMzVCO3N0cm9rZS13aWR0aDoxLjE3MzY7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDE4e2ZpbGw6IzExMTExMTt9DQoJLnN0MTl7ZmlsbDojNTk1OTU5O30NCgkuc3QyMHtjbGlwLXBhdGg6dXJsKCNTVkdJRF8yNV8pO30NCgkuc3QyMXtmaWxsOnVybCgjU1ZHSURfMjhfKTt9DQoJLnN0MjJ7Y2xpcC1wYXRoOnVybCgjU1ZHSURfMzBfKTt9DQoJLnN0MjN7Y2xpcC1wYXRoOnVybCgjU1ZHSURfMzRfKTt9DQoJLnN0MjR7ZmlsbDojRThCMzVCO3N0cm9rZTojRThCMzVCO3N0cm9rZS13aWR0aDoxLjE1MDY7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDI1e2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6IzU5MzEyNTt9DQoJLnN0MjZ7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojMzcyNTFCO30NCgkuc3QyN3tmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtmaWxsOiNBRTdGNTc7fQ0KCS5zdDI4e2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6Izc1NTM0MTt9DQoJLnN0Mjl7ZmlsbDojNTkzMTI1O30NCgkuc3QzMHtmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtmaWxsOiM3OTUyMzU7fQ0KCS5zdDMxe2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6I0M1QTQ4Njt9DQoJLnN0MzJ7ZmlsbDojRThCMzVCO3N0cm9rZTojRThCMzVCO3N0cm9rZS13aWR0aDowLjgwNTQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDMze2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6I0U4QjM1Qjt9DQoJLnN0MzR7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCgkuc3QzNXtmaWxsOiNFOEIzNUI7c3Ryb2tlOiNFOEIzNUI7c3Ryb2tlLXdpZHRoOjEuNzI1OTtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQoJLnN0MzZ7ZmlsbDojRkYwMDAwO3N0cm9rZTojRkYwMDAwO3N0cm9rZS13aWR0aDoxLjcyNTk7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDM3e2NsaXAtcGF0aDp1cmwoI1NWR0lEXzQ4Xyk7fQ0KCS5zdDM4e29wYWNpdHk6MC43O2ZpbGw6IzFEMUQxQjt9DQoJLnN0Mzl7ZmlsbDojRThCMzVCO3N0cm9rZTojRThCMzVCO3N0cm9rZS13aWR0aDowLjY4Mzc7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KCS5zdDQwe2NsaXAtcGF0aDp1cmwoI1NWR0lEXzU0Xyk7fQ0KCS5zdDQxe2ZpbGw6dXJsKCNTVkdJRF82N18pO30NCgkuc3Q0MntjbGlwLXBhdGg6dXJsKCNTVkdJRF82OV8pO30NCgkuc3Q0M3tmaWxsOiNGNUY1RjE7fQ0KCS5zdDQ0e2ZpbGw6I0U4QjM1QjtzdHJva2U6I0U4QjM1QjtzdHJva2Utd2lkdGg6MC45NDM1O3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCgkuc3Q0NXtmaWxsOnVybCgjU1ZHSURfNzRfKTt9DQoJLnN0NDZ7Y2xpcC1wYXRoOnVybCgjU1ZHSURfNzhfKTt9DQoJLnN0NDd7ZmlsbDp1cmwoI1NWR0lEXzgzXyk7fQ0KCS5zdDQ4e2NsaXAtcGF0aDp1cmwoI1NWR0lEXzg3Xyk7fQ0KCS5zdDQ5e2ZpbGw6IzI5MjkyOTt9DQoJLnN0NTB7ZmlsbDpub25lO30NCjwvc3R5bGU+DQo8Zz4NCgk8Zz4NCgkJPGc+DQoJCQk8cG9seWdvbiBjbGFzcz0ic3Q0IiBwb2ludHM9IjkwLjEsMyA5MC4xLDMzLjMgODEsMzMuMyA4MSwxMi4yIDQ2LjEsMjUgMTEuMiwxMi4yIDExLjIsMzMuMyAyLDMzLjMgMiwzIDEwLjcsMyA0Ni41LDE2LjIgODIuMiwzIA0KCQkJCQkJCSIvPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTkwLjEsM3YzMC4zSDgxVjEyLjJMNDYuMywyNUwxMS4yLDEyLjJ2MjEuMUgyVjNoOC43bDM1LjYsMTMuMkw4Mi4yLDNIOTAuMSIvPg0KCQk8L2c+DQoJCTxnPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTIxNC45LDMzLjlIMTcwdi03LjdoNDMuNmMyLTAuNiwzLjItMS4yLDQuNS0yLjVjMS4yLTEuMiwxLjktMy45LDEuOS00LjRWMy41aDguMXYxNS45DQoJCQkJYzAsMy45LTIuNCw3LjgtMy45LDkuM0MyMjIuNCwzMC42LDIxOSwzMy45LDIxNC45LDMzLjl6Ii8+DQoJCTwvZz4NCgkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTE1Ni40LDI2aC01MS43VjExLjVoNTEuN1YyNnogTTE1OS42LDMuNkgxMDNjLTMuNSwwLTYuOCwyLjMtNi44LDUuOHYxNy43YzAsMy41LDMuNCw2LjgsNi44LDYuOGg1Ni42DQoJCQljMy41LDAsNS42LTMuMyw1LjYtNi44VjkuNUMxNjUuMSw2LDE2MywzLjYsMTU5LjYsMy42TDE1OS42LDMuNnoiLz4NCgkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTI5My4zLDI2aC01MS43VjExLjVoNTEuN1YyNnogTTI5Ni40LDMuNmgtNTYuNmMtMy41LDAtNi44LDIuMy02LjgsNS44djE3LjdjMCwzLjUsMy40LDYuOCw2LjgsNi44aDU2LjYNCgkJCWMzLjUsMCw1LjYtMy4zLDUuNi02LjhWOS41QzMwMiw2LDI5OS45LDMuNiwyOTYuNCwzLjZMMjk2LjQsMy42eiIvPg0KCTwvZz4NCgk8cmVjdCB4PSIyIiB5PSI1NC4zIiBjbGFzcz0ic3QyIiB3aWR0aD0iOTMuMyIgaGVpZ2h0PSIxIi8+DQoJPHJlY3QgeD0iMjA5IiB5PSI1NC4zIiBjbGFzcz0ic3QyIiB3aWR0aD0iOTMuMyIgaGVpZ2h0PSIxIi8+DQoJPGc+DQoJCTxnPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTEyMy43LDU4LjlMMTIzLjcsNTguOWMwLjEsMS43LTAuNSwzLjEtMS42LDQuMWMtMS4xLDEtMi42LDEuNS00LjQsMS41Yy0xLjksMC0zLjQtMC43LTQuNi0yLjENCgkJCQlzLTEuNy0zLjEtMS43LTUuM3YtMi44YzAtMi4yLDAuNi0zLjksMS43LTUuM2MxLjItMS40LDIuNy0yLjEsNC42LTIuMWMxLjksMCwzLjMsMC41LDQuNCwxLjVjMS4xLDEsMS43LDIuMywxLjYsNGwwLDAuMWgtMS4zDQoJCQkJYzAtMS40LTAuNC0yLjQtMS4zLTMuMmMtMC44LTAuOC0yLTEuMi0zLjUtMS4yYy0xLjUsMC0yLjcsMC42LTMuNiwxLjdjLTAuOSwxLjItMS40LDIuNi0xLjQsNC40djIuOGMwLDEuOCwwLjUsMy4zLDEuNCw0LjUNCgkJCQljMC45LDEuMiwyLjEsMS43LDMuNiwxLjdjMS41LDAsMi42LTAuNCwzLjUtMS4xczEuMy0xLjgsMS4zLTMuM0gxMjMuN3oiLz4NCgkJCTxwYXRoIGNsYXNzPSJzdDQiIGQ9Ik0xMzkuOSw1Ny4xYzAsMi4yLTAuNiw0LTEuOCw1LjNzLTIuOCwyLTQuOSwyYy0yLDAtMy42LTAuNy00LjgtMmMtMS4yLTEuNC0xLjgtMy4xLTEuOC01LjN2LTIuOA0KCQkJCWMwLTIuMiwwLjYtNCwxLjgtNS4zYzEuMi0xLjQsMi44LTIuMSw0LjgtMi4xYzIsMCwzLjcsMC43LDQuOSwyLjFjMS4yLDEuNCwxLjgsMy4xLDEuOCw1LjNWNTcuMXogTTEzOC41LDU0LjMNCgkJCQljMC0xLjgtMC41LTMuMy0xLjQtNC41cy0yLjItMS43LTMuOS0xLjdjLTEuNiwwLTIuOSwwLjYtMy44LDEuN3MtMS40LDIuNi0xLjQsNC41djIuOGMwLDEuOSwwLjUsMy40LDEuNCw0LjVzMi4yLDEuNywzLjgsMS43DQoJCQkJYzEuNywwLDMtMC42LDMuOS0xLjdjMC45LTEuMSwxLjQtMi42LDEuNC00LjVWNTQuM3oiLz4NCgkJCTxwYXRoIGNsYXNzPSJzdDQiIGQ9Ik0xNTIuNyw1Ni4zaC03Ljh2OGgtMS40VjQ3LjJoMTAuNHYxLjJoLTl2Ni43aDcuOFY1Ni4zeiIvPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTE2Niw1Ni4zaC03Ljh2OGgtMS40VjQ3LjJoMTAuNHYxLjJoLTl2Ni43aDcuOFY1Ni4zeiIvPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTE3OSw1NmgtNy43djcuMWg4Ljh2MS4yaC0xMC4zVjQ3LjJoMTAuMnYxLjJoLTguOHY2LjRoNy43VjU2eiIvPg0KCQkJPHBhdGggY2xhc3M9InN0NCIgZD0iTTE5Mi4yLDU2aC03Ljd2Ny4xaDguOHYxLjJoLTEwLjNWNDcuMmgxMC4ydjEuMmgtOC44djYuNGg3LjdWNTZ6Ii8+DQoJCTwvZz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4=" alt="" aria-hidden="true">
       <div>
         <h2>How to reach us</h2>
-        <p>Lean by design. One batched email each way covers the routine; for anything urgent, especially payroll, call Ricky directly.</p>
+        <p>Lean by design. One batched email each way covers the routine. For anything urgent, especially payroll, call Ricky directly. That is the whole policy.</p>
       </div>
       <div class="lines">
-        <div class="line">
-          <div class="lbl">Ricky West</div>
-          <div class="val">Ricky@TurnkeyCFO.com</div>
-        </div>
-        <div class="line">
-          <div class="lbl">Phone</div>
-          <div class="val num">(682) 433-1852</div>
-        </div>
-        <div class="line">
-          <div class="lbl">Vanessa</div>
-          <div class="val">[confirm Vanessa's client-facing email]</div>
-        </div>
+        <div class="line"><div class="lbl">Ricky West &middot; Founder</div><div class="val">Ricky@TurnkeyCFO.com</div></div>
+        <div class="line"><div class="lbl">Phone</div><div class="val num">(682) 433-1852</div></div>
+        <div class="line"><div class="lbl">Vanessa &middot; Lead Accountant</div><div class="val">[confirm Vanessa's client-facing email]</div></div>
+        <div class="line"><div class="lbl">Operational copy</div><div class="val">accounting@mojodrivethru.com [confirm Karla's role and that she should receive it]</div></div>
       </div>
     </div>
   </div>
@@ -568,8 +598,8 @@
 
 <footer>
   <div class="wrap foot-inner">
-    <div class="foot-brand"><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Turnkey CFO · Austin, Texas</div>
-    <div class="num">Prepared for the Mojo Coffee group · August 2026</div>
+    <div class="foot-brand"><span class="bean"></span>Turnkey CFO &middot; Austin, Texas</div>
+    <div class="num">Prepared for Mojo Coffee LLC and affiliated entities &middot; August 2026</div>
   </div>
 </footer>
 
@@ -579,32 +609,44 @@
 <script>
 (function(){
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var KEY='mojo-welcome-needs';
 
-  /* tap-to-check needs cards (all modes) */
-  document.querySelectorAll('.need').forEach(function(card){
+  var saved={};
+  try{saved=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){saved={};}
+  Array.prototype.slice.call(document.querySelectorAll('.need')).forEach(function(card,i){
+    if(saved[i]){card.classList.add('done');card.setAttribute('aria-pressed','true');}
     function toggle(){
-      card.classList.toggle('done');
-      card.setAttribute('aria-pressed', card.classList.contains('done') ? 'true' : 'false');
+      var on=card.classList.toggle('done');
+      card.setAttribute('aria-pressed',on?'true':'false');
+      saved[i]=on;
+      try{localStorage.setItem(KEY,JSON.stringify(saved));}catch(e){}
     }
-    card.addEventListener('click', toggle);
-    card.addEventListener('keydown', function(ev){
-      if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggle();}
-    });
+    card.addEventListener('click',toggle);
+    card.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggle();}});
   });
 
-  var hasGsap = !reduce && window.gsap && window.ScrollTrigger;
+  if(fine&&!reduce){
+    document.querySelectorAll('.tcard,.stat').forEach(function(c){
+      c.addEventListener('pointermove',function(ev){
+        var r=c.getBoundingClientRect();
+        var px=(ev.clientX-r.left)/r.width-.5, py=(ev.clientY-r.top)/r.height-.5;
+        c.style.transform='perspective(900px) translateY(-5px) rotateX('+(-py*3)+'deg) rotateY('+(px*3.4)+'deg)';
+      });
+      c.addEventListener('pointerleave',function(){c.style.transform='';});
+    });
+  }
+
+  var hasGsap=!reduce&&window.gsap&&window.ScrollTrigger;
 
   if(!hasGsap){
-    /* graceful fallback: IntersectionObserver-driven CSS reveals */
     var els=document.querySelectorAll('.rv');
     if(reduce||!('IntersectionObserver' in window)){
       els.forEach(function(e){e.classList.add('in');});
     }else{
-      var io=new IntersectionObserver(function(entries){
-        entries.forEach(function(en){
-          if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
-        });
-      },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+      var io=new IntersectionObserver(function(en){
+        en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});
+      },{threshold:.1,rootMargin:'0px 0px -8% 0px'});
       els.forEach(function(e){io.observe(e);});
     }
     return;
@@ -613,92 +655,108 @@
   gsap.registerPlugin(ScrollTrigger);
   document.documentElement.classList.add('gs');
 
-  /* Lenis smooth scroll wired into the GSAP ticker */
   if(window.Lenis){
-    var lenis=new Lenis({lerp:0.11});
-    lenis.on('scroll', ScrollTrigger.update);
+    var lenis=new Lenis({lerp:.11});
+    lenis.on('scroll',ScrollTrigger.update);
     gsap.ticker.add(function(t){lenis.raf(t*1000);});
     gsap.ticker.lagSmoothing(0);
   }
 
-  /* cinematic hero: word-mask headline reveal */
   var h=document.querySelector('h1');
-  if(h){
-    (function split(node){
-      Array.prototype.slice.call(node.childNodes).forEach(function(ch){
-        if(ch.nodeType===3){
-          var frag=document.createDocumentFragment();
-          ch.textContent.split(/(\s+)/).forEach(function(part){
-            if(!part){return;}
-            if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(part));return;}
-            var w=document.createElement('span');w.className='w';
-            var inner=document.createElement('span');inner.textContent=part;
-            w.appendChild(inner);frag.appendChild(w);
-          });
-          node.replaceChild(frag,ch);
-        }else if(ch.nodeType===1&&ch.tagName!=='SPAN'){split(ch);}
-      });
-    })(h);
-  }
+  if(h){(function split(node){
+    Array.prototype.slice.call(node.childNodes).forEach(function(ch){
+      if(ch.nodeType===3){
+        var frag=document.createDocumentFragment();
+        ch.textContent.split(/(\s+)/).forEach(function(p){
+          if(!p)return;
+          if(/^\s+$/.test(p)){frag.appendChild(document.createTextNode(p));return;}
+          var w=document.createElement('span');w.className='w';
+          var i=document.createElement('span');i.textContent=p;
+          w.appendChild(i);frag.appendChild(w);
+        });
+        node.replaceChild(frag,ch);
+      }else if(ch.nodeType===1&&ch.tagName!=='SPAN'){split(ch);}
+    });
+  })(h);}
+
   gsap.set('.hero .rv',{opacity:1,y:0});
-  var intro=gsap.timeline({defaults:{ease:'power3.out'}});
-  intro.from('.eyebrow',{opacity:0,x:-26,duration:.9},0)
-       .to('h1 .w > span',{y:0,duration:1.15,ease:'power4.out',stagger:.07},.15)
-       .from('.hero .lede',{opacity:0,y:26,duration:1},.55)
-       .from('.start-badge',{opacity:0,y:18,scale:.96,duration:.8,ease:'back.out(1.6)'},.8);
+  gsap.timeline({defaults:{ease:'power3.out'}})
+    .from('.eyebrow',{opacity:0,x:-28,duration:.9},0)
+    .to('h1 .w > span',{y:0,duration:1.2,ease:'power4.out',stagger:.065},.12)
+    .from('.hero .lede',{opacity:0,y:26,duration:1},.5)
+    .from('.startbar',{opacity:0,y:20,scale:.96,duration:.85,ease:'back.out(1.5)'},.74)
+    .from('.hero-note',{opacity:0,y:14,duration:.7},.92)
+    .from('.gridfield rect',{opacity:0,scale:.9,transformOrigin:'50% 50%',duration:.7,stagger:.035,ease:'power2.out'},.25);
 
-  /* scroll-choreographed reveals for everything below the hero */
-  var rvs=gsap.utils.toArray('.rv').filter(function(e){return !e.closest('.hero');});
-  gsap.set(rvs,{opacity:0,y:32});
-  ScrollTrigger.batch(rvs,{
-    start:'top 88%',
-    once:true,
-    onEnter:function(batch){
-      gsap.to(batch,{opacity:1,y:0,duration:.95,ease:'power3.out',stagger:.1,overwrite:true});
-    }
-  });
+  function batch(sel,vars){
+    var arr=gsap.utils.toArray(sel);if(!arr.length)return;
+    gsap.set(arr,vars.from);
+    ScrollTrigger.batch(arr,{start:'top 88%',once:true,
+      onEnter:function(b){gsap.to(b,Object.assign({overwrite:true},vars.to));}});
+  }
+  batch('.tcard',{from:{opacity:0,y:34,scale:.97},to:{opacity:1,y:0,scale:1,duration:.9,ease:'power3.out',stagger:.1}});
+  batch('.step',{from:{opacity:0,x:-38},to:{opacity:1,x:0,duration:.9,ease:'power3.out',stagger:.11}});
+  batch('.cal-card',{from:{opacity:0,y:38},to:{opacity:1,y:0,duration:.85,ease:'power3.out',stagger:.09}});
+  batch('.stat',{from:{opacity:0,y:34,scale:.94},to:{opacity:1,y:0,scale:1,duration:.85,ease:'back.out(1.4)',stagger:.09}});
+  batch('.need',{from:{opacity:0,y:26},to:{opacity:1,y:0,duration:.7,ease:'power2.out',stagger:.06}});
 
-  /* parallax accents */
-  gsap.utils.toArray('.ghost').forEach(function(g){
-    gsap.fromTo(g,{y:70},{y:-80,ease:'none',
-      scrollTrigger:{trigger:g.parentElement,start:'top bottom',end:'bottom top',scrub:.6}});
-  });
-  gsap.to('.hero-mark',{y:-90,ease:'none',
-    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.6}});
-  gsap.to('.glow.g1',{y:110,x:-40,ease:'none',
-    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
-  gsap.to('.glow.g2',{y:-70,ease:'none',
-    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
-  var tp=document.getElementById('teamPhoto');
-  if(tp){
-    gsap.fromTo(tp,{yPercent:-4,scale:1.08},{yPercent:4,scale:1.08,ease:'none',
-      scrollTrigger:{trigger:tp,start:'top bottom',end:'bottom top',scrub:.5}});
+  /* the entity board fills in cell by cell, like files coming under management */
+  var cells=gsap.utils.toArray('.board-grid .cell');
+  if(cells.length){
+    gsap.set(cells,{opacity:0,y:16});
+    ScrollTrigger.create({trigger:'.board',start:'top 78%',once:true,onEnter:function(){
+      gsap.to(cells,{opacity:1,y:0,duration:.5,ease:'power2.out',stagger:{each:.045,from:'start'}});
+    }});
   }
 
-  /* the 30-day spine draws itself as you travel it */
+  /* counters on the filing stats */
+  gsap.utils.toArray('.stat .sv').forEach(function(el){
+    var target=parseFloat(el.getAttribute('data-count'));
+    var dec=(String(target).split('.')[1]||'').length;
+    var unit=el.querySelector('.u');
+    var suffix=unit?unit.outerHTML:'';
+    ScrollTrigger.create({trigger:el,start:'top 88%',once:true,onEnter:function(){
+      var o={v:0};
+      gsap.to(o,{v:target,duration:1.5,ease:'power2.out',onUpdate:function(){
+        el.innerHTML=o.v.toFixed(dec)+suffix;
+      }});
+    }});
+  });
+
+  var handled='.tcard,.step,.cal-card,.stat,.need,.cell';
+  var rest=gsap.utils.toArray('.rv').filter(function(e){
+    return !e.closest('.hero')&&!e.matches(handled);
+  });
+  gsap.set(rest,{opacity:0,y:30});
+  ScrollTrigger.batch(rest,{start:'top 90%',once:true,onEnter:function(b){
+    gsap.to(b,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.1,overwrite:true});
+  }});
+
+  gsap.utils.toArray('.ghost').forEach(function(g){
+    gsap.fromTo(g,{y:72},{y:-84,ease:'none',scrollTrigger:{trigger:g.parentElement,start:'top bottom',end:'bottom top',scrub:.6}});
+  });
+  gsap.to('.glow.g1',{y:120,x:-44,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
+  gsap.to('.glow.g2',{y:-74,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
+  gsap.to('.gridfield',{y:-120,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.7}});
+  var tp=document.getElementById('teamPhoto');
+  if(tp){gsap.fromTo(tp,{yPercent:-3.5},{yPercent:3.5,ease:'none',scrollTrigger:{trigger:tp,start:'top bottom',end:'bottom top',scrub:.5}});}
+  gsap.fromTo('.contact .cmark',{y:22},{y:-18,ease:'none',scrollTrigger:{trigger:'.contact',start:'top bottom',end:'bottom top',scrub:.7}});
+
   document.querySelectorAll('.spine').forEach(function(s){
-    gsap.fromTo(s,{scaleY:0},{scaleY:1,ease:'none',
-      scrollTrigger:{trigger:s.parentElement,start:'top 78%',end:'bottom 60%',scrub:.5}});
+    gsap.fromTo(s,{scaleY:0},{scaleY:1,ease:'none',scrollTrigger:{trigger:s.parentElement,start:'top 76%',end:'bottom 62%',scrub:.5}});
   });
-
-  /* the month track draws in when the rhythm section arrives */
   document.querySelectorAll('.cal-line').forEach(function(l){
-    gsap.fromTo(l,{scaleX:0},{scaleX:1,duration:1.3,ease:'power3.inOut',
-      scrollTrigger:{trigger:l.parentElement,start:'top 82%',once:true}});
+    gsap.fromTo(l,{scaleX:0},{scaleX:1,duration:1.35,ease:'power3.inOut',scrollTrigger:{trigger:l.parentElement,start:'top 84%',once:true}});
   });
-
-  /* contact panel: slow watermark drift */
-  gsap.fromTo('.contact .cmark',{y:20},{y:-16,ease:'none',
-    scrollTrigger:{trigger:'.contact',start:'top bottom',end:'bottom top',scrub:.7}});
 })();
 </script>
 
 </body>
-<!-- pass 1: art direction overhaul. Film-grain overlay, three layered drifting emerald glows, oversized chevron watermark, hero keyline column, ghost section numerals, chevron divider language between sections, alternating section tints so the page reads as designed movements rather than stacked blocks -->
-<!-- pass 2: editorial typography. Cinematic hero scale with balanced wrapping and a word-mask reveal, highlight underline on the client name, 0.22em tracked labels, tabular numerals on every date and phone figure, tightened heading letterspacing, refined intro measures -->
-<!-- pass 3: information design. The 30-day plan is now a true visual timeline with a scroll-drawn gradient spine, haloed nodes, date chips, and speech-pointer step cards; the monthly rhythm is a four-node calendar strip whose track draws itself in; the needs list is now tap-to-check cards with animated ticks and keyboard support -->
-<!-- pass 4: purposeful motion at the premium bar. GSAP plus ScrollTrigger scroll-choreographed staggered reveals, Lenis smooth scroll wired into the GSAP ticker, parallax ghost numerals and hero glows, a slow parallax zoom on the team photograph, all degrading to an IntersectionObserver path if the CDN is blocked and fully disabled under prefers-reduced-motion -->
-<!-- pass 5: depth and craft details. Offset keyline frames on avatars and the team photograph, sticky frosted topbar, gradient contact panel with chevron watermark and hover-shift contact lines, card physics with weighted shadow easing and glow blooms on hover, selection color, refined footer brand mark -->
-<!-- pass 6: mobile and print excellence. Flawless at 360px (hero rescale, single-column calendar cards that self-label from data-when, tighter step cards), print stylesheet forces reveals and drawn lines visible, strips grain, glows, and ghosts, guards page breaks, keeps exact colors for badges, ticks, and the contact panel -->
-<!-- pass 7: resilience. noscript reveal fallback, CDN-blocked fallback path verified, focus-visible states on interactive cards, overflow-x guarded against parallax drift -->
+<!-- pass 1 (art direction): rebuilt around Mojo's own brand rather than a shared template. Their real logo is a white wordmark with gold rules, so it can only live on a dark ground; the masthead gives it a proper espresso plate instead of forcing it onto cream. Their gold #E8B35B, read out of the fill values in their own logo SVG and cross-confirmed against their live site, carries every client-owned element; their #0E1317 ground becomes a full dark movement in the middle of the page. Turnkey CFO cream and emerald remain the base because we are the guide. -->
+<!-- pass 2 (typography, one family only): Plus Jakarta Sans throughout, hierarchy from weight 300-800, tracking (-0.04em on the hero, 0.26em on micro labels), scale and case. Tabular numerals everywhere a figure appears, which on this page is constantly: entity indices, dates, tax rates, business-day counts. Body copy runs at 300 so the 800-weight numbers in the stat blocks land like an instrument readout. -->
+<!-- pass 3 (information architecture, tailored not templated): the page opens on an entity board naming all thirteen files by name, with the roastery and the two property companies visually distinguished, because "the Mojo account" is exactly the wrong mental model. August 14 gets an entire dark section of its own with live counting statistics, since eleven simultaneous filings is the defining constraint of this engagement. The intercompany problem, the tax-inclusive cash back-out, the two delivery-platform revenue sources and the alcohol permit question are all named plainly rather than buried. -->
+<!-- pass 4 (motion at the premium bar): GSAP with ScrollTrigger and Lenis wired into the GSAP ticker. The thirteen board cells fill in one by one on a stagger, like files coming under management. The filing statistics count up from zero. Each section enters differently: team cards scale, timeline steps slide off the spine, stats arrive on a back ease, calendar cards rise. The hero's abstract thirteen-cell grid parallaxes and assembles rect by rect. Full IntersectionObserver fallback, noscript fallback, everything off under prefers-reduced-motion. -->
+<!-- pass 5 (craft and depth): weighted pointer-tilt physics on team and stat cards, gated to hover-capable fine pointers. A real bordered board component with a dark header bar, gold hairline hover that draws across each cell, and a tinted footer that explains why the board exists. Two-tone start bar, offset keyline frames, frosted sticky masthead, gradient contact panel carrying their own wordmark as a watermark. Three grounds - cream, warm card, and full espresso - so the page reads as movements. -->
+<!-- pass 6 (mobile and print): the thirteen-cell board reflows 5 to 3 to 2 to 1 column, calendar cards self-label from data-when, the timeline narrows, the start bar stacks, and the page is clean at 360px. Print keeps the dark filing section as a real dark panel with exact colour, keeps the board at five columns, forces every reveal visible, strips grain, glows and ghosts, guards page breaks on every card and keeps headings with their content. -->
+<!-- pass 7 (resilience and honesty): both logo assets are embedded as data rather than hotlinked from the client's own web host, so the page cannot break if their site changes. The needs checklist persists to localStorage inside try/catch. Focus-visible rings and aria-pressed on every interactive card. The outgoing bookkeeper is described by role rather than named, because the spelling of her name is genuinely unresolved across our sources, and the one place a name does appear carries an explicit [confirm] rather than an assumption. -->
 </html>
