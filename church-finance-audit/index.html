@@ -45,6 +45,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://calendly.com" crossorigin>
+<link rel="dns-prefetch" href="https://calendly.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/assets/church/worship-warm.webp" fetchpriority="high">
 
@@ -310,9 +312,21 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .calbox .calhead{padding:20px 24px;border-bottom:1px solid var(--line)}
 .calbox .calhead .t{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
 .calbox .calhead .s{font-size:13.5px;color:var(--tx2);margin-top:3px}
-#caly{min-height:660px}
+#caly{min-height:660px;position:relative}
 @media(max-width:640px){#caly{min-height:820px}}
+#caly iframe{display:block;width:100%;height:660px;border:0}
+@media(max-width:640px){#caly iframe{height:820px}}
 .calfall{padding:44px 24px;text-align:center;color:var(--tx2);font-size:14.5px}
+/* skeleton while the calendar comes in */
+.calskel{position:absolute;inset:0;padding:26px 24px;display:flex;flex-direction:column;gap:14px}
+.calskel i{display:block;border-radius:8px;background:linear-gradient(90deg,#efe9dd 25%,#f7f3ea 37%,#efe9dd 63%);background-size:400% 100%;animation:calsh 1.35s ease-in-out infinite}
+.calskel .r1{height:20px;width:52%}
+.calskel .r2{height:13px;width:34%}
+.calskel .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:9px;margin-top:8px}
+.calskel .grid i{height:38px}
+.calskel .r3{height:13px;width:44%;margin-top:6px}
+@keyframes calsh{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media(prefers-reduced-motion:reduce){.calskel i{animation:none}}
 
 /* ---------- ten pillars ---------- */
 .pills{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:44px}
@@ -848,7 +862,8 @@ footer ul a:hover{color:var(--emerald)}
         <div class="s">15 minutes &middot; Video or phone &middot; No sales presentation</div>
       </div>
       <div id="caly" data-url="https://calendly.com/ricky-turnkeycfo/15min-intro-call?hide_gdpr_banner=1&primary_color=00e676">
-        <div class="calfall">Calendar loading&hellip;<br><br><a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener" style="color:var(--deep);font-weight:700">Open the booking page instead</a></div>
+        <div class="calskel" aria-hidden="true"><i class="r1"></i><i class="r2"></i><div class="grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><i class="r3"></i></div>
+        <noscript><div class="calfall"><a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener" style="color:var(--deep);font-weight:700">Open the booking page</a></div></noscript>
       </div>
     </div>
   </div>
@@ -990,30 +1005,43 @@ footer ul a:hover{color:var(--emerald)}
     var loaded = false;
     function load(){
       if(loaded) return; loaded = true;
-      var s = document.createElement('script');
-      s.src = 'https://assets.calendly.com/assets/external/widget.js';
-      s.async = true;
-      s.onload = function(){
-        if(!window.Calendly) return;
-        Calendly.initInlineWidget({url: box.getAttribute('data-url'), parentElement: box});
-        var tries = 0, iv = setInterval(function(){
-          tries++;
-          if(box.querySelector('iframe')){
-            var f = box.querySelector('.calfall');
-            if(f) f.remove();
-            clearInterval(iv);
-          }
-          if(tries > 40) clearInterval(iv);
-        }, 250);
+      // Embed the booking iframe directly. Calendly's widget.js only injects
+      // this same iframe, so skipping it removes a whole script round-trip.
+      var url = box.getAttribute('data-url')
+              + '&embed_domain=' + encodeURIComponent(location.hostname)
+              + '&embed_type=Inline';
+      var f = document.createElement('iframe');
+      f.src = url;
+      f.title = 'Book a 15-minute intro call';
+      f.setAttribute('frameborder','0');
+      f.onload = function(){
+        var sk = box.querySelector('.calskel');
+        if(sk) sk.remove();
       };
-      document.head.appendChild(s);
+      box.appendChild(f);
     }
     if('IntersectionObserver' in window){
       var o = new IntersectionObserver(function(es){
         es.forEach(function(e){ if(e.isIntersecting){ load(); o.disconnect(); } });
-      }, {rootMargin:'400px'});
+      }, {rootMargin:'1600px'});
       o.observe(box);
     } else { load(); }
+
+    // Warm it before they get there: any intent toward booking loads it now.
+    Array.prototype.forEach.call(document.querySelectorAll('a[href="#book"]'), function(a){
+      ['pointerenter','touchstart','focus','click'].forEach(function(ev){
+        a.addEventListener(ev, load, {once:true, passive:true});
+      });
+    });
+
+    // And if they never touch anything, load once the page is idle so it is
+    // already sitting there whenever the scroll reaches it.
+    function idle(){
+      if(window.requestIdleCallback){ requestIdleCallback(load, {timeout:3000}); }
+      else { setTimeout(load, 2000); }
+    }
+    if(document.readyState === 'complete') idle();
+    else window.addEventListener('load', idle);
 
     window.addEventListener('message', function(e){
       if(e.data && e.data.event === 'calendly.event_scheduled'){
