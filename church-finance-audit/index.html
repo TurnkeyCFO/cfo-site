@@ -414,11 +414,44 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 @media(max-width:760px){.critgrid{grid-template-columns:1fr}}
 .critgrid li{list-style:none;display:flex;gap:12px;align-items:flex-start;font-size:14.6px;color:#d9f7e7;line-height:1.5}
 .critgrid .ic{flex:0 0 21px;height:21px;border-radius:50%;background:var(--emerald);color:var(--pine);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-top:2px}
-.enemy{background:var(--pine);color:#eafff3;border-radius:var(--rad);padding:clamp(30px,4vw,54px);box-shadow:0 30px 76px rgba(6,40,26,.28)}
-.enemy h2{color:#fff;font-size:clamp(27px,3.8vw,46px);font-weight:800;letter-spacing:-.035em;max-width:20ch}
-.enemy h2 em{font-style:normal;color:var(--emerald)}
-.enemy p{margin-top:18px;font-size:clamp(15.5px,1.4vw,18px);color:#c6dbcf;max-width:62ch}
+.enemy{position:relative;overflow:hidden;background:var(--pine);color:#eafff3;border-radius:var(--rad);
+  padding:clamp(30px,4vw,58px);box-shadow:0 30px 76px rgba(6,40,26,.28);
+  display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(26px,3.6vw,54px);align-items:center}
+/* A soft emerald bloom and a faint rule grid, so the panel reads as a designed
+   surface rather than a flat box of paragraphs. */
+.enemy::before{content:"";position:absolute;top:-40%;right:-12%;width:58%;height:170%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(0,230,118,.17),transparent 70%)}
+.enemy::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:100% 36px;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 66%);mask-image:linear-gradient(180deg,#000,transparent 66%)}
+.enemy > *{position:relative;z-index:1}
+.enemy h2{color:#fff;font-size:clamp(26px,3.2vw,42px);font-weight:800;letter-spacing:-.035em;max-width:18ch}
+.enemy h2 em:not(.shim){font-style:normal;color:var(--emerald)}
+.enemy h2 em.shim{font-style:normal}
+.enemy p{margin-top:18px;font-size:clamp(15.5px,1.35vw,17.5px);color:#c6dbcf;max-width:52ch}
+.enemy p em{font-style:normal;color:var(--emerald);font-weight:700}
 .enemy p strong{color:#fff}
+.epunch{margin-top:22px;padding-left:20px;border-left:3px solid var(--emerald)}
+.epunch p{margin-top:0;font-size:15px;color:#a9c8b8}
+@media(max-width:940px){.enemy{grid-template-columns:1fr;gap:30px;align-items:start}.enemy h2{max-width:20ch}}
+
+/* The contrast pair: one job versus ten pillars of decisions. */
+.ecards{display:grid;gap:14px}
+.ecard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:20px 22px}
+.ecard .el{font-size:11px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;color:#8fb3a1}
+.ecard .erow{display:flex;align-items:baseline;gap:11px;margin-top:9px}
+.ecard .en{font-size:clamp(34px,4vw,50px);font-weight:800;line-height:1;letter-spacing:-.05em;color:#7e9d8c}
+.ecard .ed{font-size:14.5px;font-weight:700;color:#c6dbcf}
+.ecard .ep{margin-top:9px;font-size:13.8px;color:#9db8aa;max-width:none}
+.ecard.hot{background:linear-gradient(160deg,rgba(0,230,118,.15),rgba(0,230,118,.05));
+  border-color:rgba(0,230,118,.42);box-shadow:0 18px 44px rgba(0,0,0,.22)}
+.ecard.hot .el{color:var(--emerald)}
+.ecard.hot .en{color:var(--emerald)}
+.ecard.hot .ed{color:#fff}
+.elist{list-style:none;margin-top:15px;display:grid;gap:8px;padding-top:14px;border-top:1px solid rgba(0,230,118,.24)}
+.elist li{position:relative;padding-left:22px;font-size:13.6px;line-height:1.45;color:#d3eade}
+.elist li::before{content:"";position:absolute;left:0;top:7px;width:7px;height:7px;border-radius:50%;
+  background:var(--emerald);box-shadow:0 0 0 3px rgba(0,230,118,.16)}
 .clockline{margin-top:14px;font-size:13px;color:var(--tx2);font-style:italic}
 
 /* ---------- live sample dashboard ---------- */
@@ -610,9 +643,33 @@ footer ul a:hover{color:var(--emerald)}
 <section style="padding-top:0">
   <div class="wrap">
     <div class="enemy rv">
-      <h2>You don't have a bookkeeping problem. You have a <em>missing department</em> problem.</h2>
-      <p>A bookkeeper records what already happened. That is one job. A finance function decides who can approve a payment, whether a restricted gift stayed restricted, how a reimbursement gets back to a volunteer, whether your housing allowance was documented before it was paid, and what your board sees before it votes.</p>
-      <p style="margin-top:14px"><strong>Hiring one part time person and expecting all of that was never going to work.</strong> Every church has tried it. The problem is structural, not personal, and it is why the same nine things are broken at almost every church we look at.</p>
+      <div class="ecopy">
+        <div class="eyebrow lt">The real problem</div>
+        <h2>You don't have a bookkeeping problem. You have a <em class="shim lt">missing department</em> problem.</h2>
+        <p>A bookkeeper records what already happened. That is one job, and it matters. A finance function is the set of decisions made <em>before</em> the money moves.</p>
+        <div class="epunch">
+          <p><strong>Hiring one part time person and expecting all of that was never going to work.</strong> Every church has tried it. The problem is structural, not personal, and it is why the same nine things are broken at almost every church we look at.</p>
+        </div>
+      </div>
+
+      <div class="ecards">
+        <div class="ecard">
+          <div class="el">What a bookkeeper is</div>
+          <div class="erow"><span class="en">1</span><span class="ed">job</span></div>
+          <p class="ep">Records what already happened, after it happened.</p>
+        </div>
+        <div class="ecard hot">
+          <div class="el">What a finance function is</div>
+          <div class="erow"><span class="en">10</span><span class="ed">pillars of decisions</span></div>
+          <ul class="elist">
+            <li>Who is allowed to approve a payment</li>
+            <li>Whether a restricted gift stayed restricted</li>
+            <li>How a reimbursement gets back to a volunteer</li>
+            <li>Whether housing allowance was documented before it was paid</li>
+            <li>What your board sees before it votes</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
