@@ -108,6 +108,13 @@ h2.big{font-size:clamp(31px,4.6vw,58px);font-weight:800;max-width:20ch;letter-sp
 .hcta{display:flex;align-items:center;gap:14px}
 .hphone{font-weight:700;font-size:14.5px;color:#eafff3;transition:color .35s}
 #hd.solid .hphone{color:var(--ink)}
+/* Header estimate button. Outlined so it sits beside Book a Call without two
+   solid buttons competing, and it flips to ink once the header goes solid. */
+.btn.hgh{background:transparent;color:#eafff3;border:1.5px solid rgba(234,255,243,.45)}
+.btn.hgh:hover{border-color:var(--emerald);color:var(--emerald);transform:translateY(-2px)}
+#hd.solid .btn.hgh{color:var(--ink);border-color:rgba(13,36,26,.28)}
+#hd.solid .btn.hgh:hover{color:var(--deep);border-color:var(--deep)}
+@media(max-width:620px){.btn.hgh{display:none}}
 .burger{display:none;background:none;border:0;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
 .burger span{width:22px;height:2px;background:#eafff3;border-radius:2px;transition:background .35s}
 #hd.solid .burger span{background:var(--ink)}
@@ -551,6 +558,7 @@ footer ul a:hover{color:var(--emerald)}
   </nav>
   <div class="hcta">
     <a class="hphone" href="tel:+17372481346">(737) 248-1346</a>
+    <a class="btn hgh sm" data-cta="estimate-header" href="https://turnkeycfo.com/instant-estimate/?industry=church">Get an Instant Estimate</a>
     <a class="btn em sm" data-cta="book-call-header" href="#book">Book a Call</a>
     <button class="burger" id="bg" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>

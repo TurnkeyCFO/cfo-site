@@ -382,7 +382,6 @@
        maintainAspectRatio:false lets the canvas fill this height. */
     .chart-card canvas { height: 260px !important; max-height: 260px; }
     .chart-card canvas#totalDonations,
-    .chart-card canvas#mrrWaterfall,
     .chart-card canvas#activeDonors { height: 300px !important; max-height: 300px; }
     /* Twelve horizontal bars need more room than a 12-point line does */
     .chart-card canvas#budgetActual { height: 360px !important; max-height: 360px; }
@@ -511,7 +510,7 @@
       </div>
       <div class="exec-block">
         <h4>🔁 Recurring Health</h4>
-        <p>Recurring MRR reached <strong>$41,500</strong> in March, representing <strong>55.8% of total giving</strong> — a healthy predictability ratio. March saw a slight <span class="warn">dip from February's $45,800 peak</span>, driven by <strong>$8,204 in lost recurring giving</strong> from 12 churned donors. Expansion MRR of <strong>+$1,480</strong> partially offsets, but warrants monitoring into Q2.</p>
+        <p>Recurring giving reached <strong>$41,500</strong> in March, representing <strong>55.8% of total giving</strong> — a healthy predictability ratio. March saw a slight <span class="warn">dip from February's $45,800 peak</span>, driven by <strong>$8,204 in lost recurring giving</strong> from 12 churned donors. Existing givers who increased their gift added back <strong>$1,480</strong>, which partially offsets it, but this warrants watching into Q2.</p>
       </div>
       <div class="exec-block">
         <h4>⚠️ Risks & Priorities</h4>
@@ -536,7 +535,7 @@
       <div class="kpi-sub">All-time high: $712 (Feb '26)</div>
     </div>
     <div class="kpi-card amber">
-      <div class="kpi-label">Recurring MRR</div>
+      <div class="kpi-label">Recurring giving</div>
       <div class="kpi-value">$41,500</div>
       <div class="kpi-badge neutral">↓ Slight dip from Feb</div>
       <div class="kpi-sub">55.8% of total giving</div>
@@ -544,7 +543,7 @@
     <div class="kpi-card red">
       <div class="kpi-label">Donors Lost (MTD)</div>
       <div class="kpi-value">-12</div>
-      <div class="kpi-badge down">$8,204 MRR at risk</div>
+      <div class="kpi-badge down">$8,204/mo at risk</div>
       <div class="kpi-sub">108 total active donors</div>
     </div>
   </div>
@@ -555,7 +554,7 @@
   <div class="chart-grid-full">
     <div class="chart-card" style="animation-delay:0.28s">
       <div class="card-title">Monthly Total Donations</div>
-      <div class="card-sub">Bar = Total Giving · Line = Recurring MRR · Apr 2025 – Mar 2026</div>
+      <div class="card-sub">Bar = Total Giving · Line = Recurring giving · Apr 2025 – Mar 2026</div>
       <canvas id="totalDonations" height="336"></canvas>
     </div>
   </div>
@@ -571,20 +570,6 @@
       <div class="card-sub">Monthly acquisition and churn by donor count</div>
       <canvas id="donorFlow" height="145"></canvas>
     </div>
-  </div>
-
-  <!-- MRR -->
-  <div class="section-label"><span class="s-dot"></span>Monthly Recurring Giving — Waterfall</div>
-  <div class="chart-card" style="animation-delay:0.40s; margin-bottom:20px;">
-    <div class="card-title">MRR Movement</div>
-    <div class="card-sub">12-month cumulative breakdown · New · Expansion · Contraction · Lost</div>
-    <div class="waterfall-grid">
-      <div class="wf-item new"><div class="wf-label">New MRR</div><div class="wf-val">$162,840</div></div>
-      <div class="wf-item exp"><div class="wf-label">Expansion MRR</div><div class="wf-val">$11,250</div></div>
-      <div class="wf-item con"><div class="wf-label">Contraction</div><div class="wf-val">-$9,180</div></div>
-      <div class="wf-item lost"><div class="wf-label">Lost MRR</div><div class="wf-val">-$43,720</div></div>
-    </div>
-    <canvas id="mrrWaterfall" height="312"></canvas>
   </div>
 
   <!-- FUND + SOURCE -->
@@ -631,15 +616,15 @@
   <div class="section-label"><span class="s-dot"></span>Full 12-Month Summary</div>
   <div class="chart-card" style="animation-delay:0.64s">
     <div class="card-title">Monthly Detail Table</div>
-    <div class="card-sub">All figures in USD · Recurring metrics reflect month-over-month MRR changes</div>
+    <div class="card-sub">All figures in USD · Recurring giving is the portion arriving on a standing schedule</div>
     <br>
     <div class="table-scroll">
       <table class="data-table">
         <thead>
           <tr>
-            <th>Month</th><th>Total Giving</th><th>Recurring MRR</th>
-            <th>New MRR</th><th>Expansion</th><th>Contraction</th>
-            <th>Lost MRR</th><th>Active Donors</th><th>Avg Gift</th>
+            <th>Month</th><th>Total Giving</th><th>Recurring Giving</th>
+            <th>% Recurring</th><th>New Givers</th><th>Lapsed Givers</th>
+            <th>Active Donors</th><th>Avg Gift</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
@@ -835,10 +820,10 @@
       <div class="insight-card">
         <div class="insight-icon icon-green">🔁</div>
         <div class="insight-title">Recurring Giving Analysis</div>
-        <div class="insight-verdict">MRR Now Funds 55.8% of Operations</div>
+        <div class="insight-verdict">Recurring Giving Now Funds 55.8% of Operations</div>
         <div class="insight-divider"></div>
         <div class="insight-body">
-          Recurring MRR has grown from <span class="g">$5,200 → $41,500</span>, and now covers more than half of monthly operational needs — a strong financial stability signal. The recurring donor base grew from 8 to 50 donors, meaning the <span class="g">average recurring gift is ~$830/month</span>. The slight March dip from February's $45,800 peak is attributable to churn, not slowing new growth — with 35 new donors added, April recovery looks favorable.
+          Recurring giving has grown from <span class="g">$5,200 → $41,500</span>, and now covers more than half of monthly operational needs — a strong financial stability signal. The recurring donor base grew from 8 to 50 donors, meaning the <span class="g">average recurring gift is ~$830/month</span>. The slight March dip from February's $45,800 peak is attributable to churn, not slowing new growth — with 35 new donors added, April recovery looks favorable.
         </div>
       </div>
 
@@ -848,7 +833,7 @@
         <div class="insight-verdict">9–18 Donors Lost Every Month</div>
         <div class="insight-divider"></div>
         <div class="insight-body">
-          The church has lost donors in <strong>every single month</strong> this year, totaling approximately <span class="r">$43,720 in cumulative lost recurring MRR</span>. While new acquisition has outpaced losses, the September spike of <span class="r">-$15,660 lost MRR</span> in a single month shows concentration risk. A structured lapse-detection and outreach program could recover 20–30% of churned donors, adding an estimated <strong>$8–12K annually</strong> in retained MRR.
+          The church has lost donors in <strong>every single month</strong> this year, totaling approximately <span class="r">$43,720 in cumulative lost recurring giving</span>. While new acquisition has outpaced losses, the September spike of <span class="r">-$15,660 of monthly giving lost</span> in a single month shows concentration risk. A structured lapse-detection and outreach program could recover 20–30% of churned donors, adding an estimated <strong>$8–12K annually</strong> in retained giving.
         </div>
       </div>
 
@@ -878,7 +863,7 @@
         <div class="insight-verdict">~46% Conversion Rate — Room to Grow</div>
         <div class="insight-divider"></div>
         <div class="insight-body">
-          In March, <strong>58 one-time donors gave alongside 50 recurring donors</strong> — a 46% recurring conversion rate. This is the church's single highest-ROI improvement opportunity. If conversion increased to 60% among the same donor base, recurring MRR would grow by an estimated <span class="g">$7,800–$10,000/month</span> at current average gift sizes. A simple 30-day onboarding sequence for new first-time donors could meaningfully close this gap.
+          In March, <strong>58 one-time donors gave alongside 50 recurring donors</strong> — a 46% recurring conversion rate. This is the church's single highest-ROI improvement opportunity. If conversion increased to 60% among the same donor base, recurring giving would grow by an estimated <span class="g">$7,800–$10,000/month</span> at current average gift sizes. A simple 30-day onboarding sequence for new first-time donors could meaningfully close this gap.
         </div>
       </div>
     
@@ -931,8 +916,8 @@
         <h4>CFO Recommended Actions — Q2 2026</h4>
         <p>
           Based on this 12-month review, TurnkeyCFO recommends three priority actions for Q2:
-          <strong>(1) Launch a recurring giving conversion campaign</strong> targeting the ~58 one-time March donors — a 40% conversion rate at the average gift size would add ~$15K in new MRR within 60 days.
-          <strong>(2) Implement a donor lapse alert system</strong> — flag any recurring donor who misses two consecutive months and trigger a personal outreach touchpoint to address the consistent 9–18/month churn rate; even a 30% recovery rate saves ~$13K in annual MRR.
+          <strong>(1) Launch a recurring giving conversion campaign</strong> targeting the ~58 one-time March donors — a 40% conversion rate at the average gift size would add roughly $15K of new recurring giving within 60 days.
+          <strong>(2) Implement a donor lapse alert system</strong> — flag any recurring donor who misses two consecutive months and trigger a personal outreach touchpoint to address the consistent 9–18/month churn rate; even a 30% recovery rate saves roughly $13K of giving a year.
           <strong>(3) Set fund-specific giving goals for FY2026</strong> — particularly for Building and Missions, which are growing but lack structured targets. Goal-based campaigns with visible progress tracking have historically increased designated fund participation by 20–35% in comparable organizations.
         </p>
       </div>
@@ -953,15 +938,11 @@ Chart.register(ChartDataLabels);
 // ── DATA ────────────────────────────────────────────────────────────────
 const months       = ['Apr\'25','May\'25','Jun\'25','Jul\'25','Aug\'25','Sep\'25','Oct\'25','Nov\'25','Dec\'25','Jan\'26','Feb\'26','Mar\'26'];
 const totalGiving  = [9840,13250,16100,19450,27600,18200,29800,33500,48200,36750,62900,74320];
-const recurringMRR = [5200,8100,10400,13800,21500,14300,22600,25900,36400,28700,45800,41500];
+const recurringGiving = [5200,8100,10400,13800,21500,14300,22600,25900,36400,28700,45800,41500];
 const avgGift      = [285,310,328,388,552,315,498,524,712,541,658,688];
 const newDonors    = [22,20,18,24,30,14,22,18,38,20,44,35];
 const lostDonors   = [-5,-12,-14,-8,-11,-10,-13,-15,-18,-14,-9,-12];
 const activeDonors = [26,34,38,54,73,77,86,89,110,116,131,108];
-const newMRR       = [5200,3800,3250,4900,9200,2100,10800,9500,16300,12900,28400,22600];
-const expMRR       = [0,920,740,1100,1820,880,2100,640,1540,1020,3280,1480];
-const conMRR       = [0,-380,-820,-440,-1260,-920,-880,-2100,-2760,-1840,-3100,-2480];
-const lostMRR      = [0,-1440,-2670,-2960,-5340,-15660,-2420,-4760,-9120,-19710,-12210,-8204];
 const externalP    = [1800,2200,3100,4400,5600,3200,8900,16400,9200,14800,38200,42100];
 const internalT    = [8040,11050,13000,15050,22000,15000,20900,17100,39000,21950,24700,32220];
 const generalFund  = [7500,9800,11400,14500,20300,13900,21600,24700,35200,26500,44300,52100];
@@ -1031,7 +1012,7 @@ new Chart(document.getElementById('totalDonations'), {
           formatter:v=>'$'+(v/1000).toFixed(0)+'k' }
       },
       {
-        label:'Recurring MRR', data:recurringMRR, type:'line',
+        label:'Recurring giving', data:recurringGiving, type:'line',
         borderColor:AMBER, backgroundColor:'transparent', borderWidth:2.5,
         pointBackgroundColor:AMBER, pointRadius:4, tension:0.4, order:1,
         datalabels:{display:false}
@@ -1100,30 +1081,6 @@ new Chart(document.getElementById('donorFlow'), {
     ...responsiveOpts(), layout:chartPadding(24),
     plugins:{legend:legendOpts(),tooltip:tip},
     scales:{ x:xScale(), y:yScaleCount() }
-  }
-});
-
-// ── 4. MRR WATERFALL ────────────────────────────────────────────────────
-new Chart(document.getElementById('mrrWaterfall'), {
-  type:'bar',
-  data:{
-    labels:months,
-    datasets:[
-      { label:'New MRR',     data:newMRR,  backgroundColor:'rgba(0,200,90,0.32)',   borderColor:GREEN,borderWidth:1,borderRadius:3,stack:'s',
-        datalabels:{display:ctx=>showDataLabels(Math.abs(ctx.dataset.data[ctx.dataIndex])>3000),anchor:'center',align:'center',color:'rgba(0,38,58,0.8)',font:{size:9,family:"'DM Mono',monospace"},formatter:v=>'$'+(v/1000).toFixed(0)+'k'} },
-      { label:'Expansion',   data:expMRR,  backgroundColor:'rgba(151,163,174,0.32)',borderColor:STEEL,borderWidth:1,borderRadius:3,stack:'s',
-        datalabels:{display:false} },
-      { label:'Contraction', data:conMRR,  backgroundColor:'rgba(232,146,10,0.28)', borderColor:AMBER,borderWidth:1,borderRadius:3,stack:'s',
-        datalabels:{display:false} },
-      { label:'Lost MRR',    data:lostMRR, backgroundColor:'rgba(224,58,82,0.25)',  borderColor:RED,  borderWidth:1,borderRadius:3,stack:'s',
-        datalabels:{display:ctx=>showDataLabels(Math.abs(ctx.dataset.data[ctx.dataIndex])>3000),anchor:'center',align:'center',color:RED,font:{size:9,family:"'DM Mono',monospace"},formatter:v=>'-$'+(Math.abs(v)/1000).toFixed(0)+'k'} },
-    ]
-  },
-    // Full width: without an explicit ratio the plot collapses to the height attr.
-  options:{
-    ...responsiveOpts(), aspectRatio: isMobile ? undefined : 4.2,
-    plugins:{legend:legendOpts(),tooltip:tip},
-    scales:{ x:xScale(true), y:yScaleMoney(true) }
   }
 });
 
@@ -1237,11 +1194,10 @@ months.forEach((m,i) => {
   row.innerHTML = `
     <td class="td-navy">${m}</td>
     <td class="td-green">${fmt(totalGiving[i])}</td>
-    <td>${fmt(recurringMRR[i])}</td>
-    <td class="td-green">+${fmt(newMRR[i])}</td>
-    <td>${expMRR[i]>0?'+'+fmt(expMRR[i]):'—'}</td>
-    <td class="td-amber">${conMRR[i]<0?'-'+fmt(Math.abs(conMRR[i])):'—'}</td>
-    <td class="td-red">${lostMRR[i]<0?'-'+fmt(Math.abs(lostMRR[i])):'—'}</td>
+    <td>${fmt(recurringGiving[i])}</td>
+    <td>${Math.round(recurringGiving[i]/totalGiving[i]*100)}%</td>
+    <td class="td-green">+${newDonors[i]}</td>
+    <td class="td-red">${lostDonors[i]}</td>
     <td>${activeDonors[i]}</td>
     <td>$${avgGift[i]}</td>
   `;
