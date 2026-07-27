@@ -383,6 +383,32 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .pill.one{border-left:4px solid var(--deep);background:var(--mint)}
 .pill.one .pnum{background:var(--deep);color:#fff}
 .pill.one .bk{color:var(--deep);font-style:normal;font-weight:700}
+/* Traffic-light key: how much of each pillar a typical bookkeeper actually carries. */
+.covkey{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;margin-top:36px;padding:14px 20px;
+  background:var(--paper);border:1px solid var(--line);border-radius:14px}
+.covkey .ttl{font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--ink)}
+.covkey .allin{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;
+  color:var(--deep);background:var(--mint);border-radius:999px;padding:7px 15px}
+.covkey .allin::before{content:"✓";font-weight:900}
+@media(max-width:760px){.covkey .allin{margin-left:0}}
+.cov{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--tx2);white-space:nowrap}
+.cov::before{content:"";width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.cov.g::before{background:#12a150;box-shadow:0 0 0 3px rgba(18,161,80,.17)}
+.cov.y::before{background:#d3960a;box-shadow:0 0 0 3px rgba(211,150,10,.2)}
+.cov.r::before{background:#c9432f;box-shadow:0 0 0 3px rgba(201,67,47,.16)}
+.pfoot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:12px;padding-top:11px;
+  border-top:1px dashed var(--line)}
+.pfoot .inc{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;
+  letter-spacing:.02em;color:var(--deep)}
+.pfoot .inc::before{content:"✓";font-weight:900;font-size:12px}
+.pill.one .pfoot{border-top-color:rgba(0,122,51,.28)}
+
+/* "Why would we do this for free?" — copy runs the width of the page with the
+   founder card alongside it, rather than collapsing into one half of a split. */
+.whyfree{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+  gap:clamp(26px,4vw,58px);align-items:center}
+.whyfree .wfcopy .sub{max-width:none}
+@media(max-width:900px){.whyfree{grid-template-columns:1fr;gap:26px}}
 .crit{margin-top:34px;background:var(--pine);color:#eafff3;border-radius:var(--rad);padding:clamp(26px,3.4vw,40px);box-shadow:0 30px 76px rgba(6,40,26,.28)}
 .crit h3{color:#fff;font-size:clamp(20px,2.2vw,27px);font-weight:800;letter-spacing:-.03em}
 .crit .cs{margin-top:10px;font-size:15px;color:#a8c7b6;max-width:64ch}
@@ -756,20 +782,27 @@ footer ul a:hover{color:var(--emerald)}
   <div class="wrap">
     <div class="rv" style="max-width:70ch;margin-bottom:clamp(28px,3.5vw,44px)">
       <div class="eyebrow">What a finance function actually covers</div>
-      <h2 class="big">Ten pillars. A bookkeeper covers one.</h2>
-      <p class="sub">This is what we grade in your audit, and it is the fastest way to see the size of the gap between what you have today and what your church actually needs.</p>
+      <h2 class="big">Ten pillars. A bookkeeper fully covers one.</h2>
+      <p class="sub">This is what we grade in your audit, and it is the fastest way to see the size of the gap between what you have today and what your church actually needs. The marker on each one shows how much of it a typical bookkeeper carries. You get all ten with us.</p>
+    </div>
+    <div class="covkey rv">
+      <span class="ttl">How much of this a typical bookkeeper covers</span>
+      <span class="cov g">Covered</span>
+      <span class="cov y">Partly covered</span>
+      <span class="cov r">Not covered</span>
+      <span class="allin">All ten are included with us</span>
     </div>
     <div class="pills">
-      <div class="pill rv"><div class="pnum">1</div><div><h4>Bill pay and approvals</h4><p>Who is allowed to approve what, and can you prove it later.<span class="bk">Broken: invoices approved by text. Pastor is the bottleneck.</span></p></div></div>
-      <div class="pill rv"><div class="pnum">2</div><div><h4>Reimbursements and expense cards</h4><p>Staff and volunteers made whole quickly, with receipts attached.<span class="bk">Broken: people paying out of pocket and waiting. Card charges with no memo.</span></p></div></div>
-      <div class="pill rv"><div class="pnum">3</div><div><h4>Payroll and clergy compensation</h4><p>Ministers classified correctly and housing allowance documented properly.<span class="bk">Broken: housing allowance never set by board resolution.</span></p></div></div>
-      <div class="pill one rv"><div class="pnum">4</div><div><h4>Bookkeeping and monthly close</h4><p>Books closed on a fixed calendar, not whenever there is time.<span class="bk">This is the one a bookkeeper covers. It is one of ten.</span></p></div></div>
-      <div class="pill rv"><div class="pnum">5</div><div><h4>Software and systems</h4><p>Giving, accounting and payroll actually talking to each other.<span class="bk">Broken: manual re-entry every week between three systems.</span></p></div></div>
-      <div class="pill rv"><div class="pnum">6</div><div><h4>Budget</h4><p>A budget the board can track against through the year.<span class="bk">Broken: approved in January, never opened again in June.</span></p></div></div>
-      <div class="pill rv"><div class="pnum">7</div><div><h4>Forecast and cash runway</h4><p>Knowing how many months of operating cash you are holding.<span class="bk">Broken: nobody has ever calculated it.</span></p></div></div>
-      <div class="pill rv"><div class="pnum">8</div><div><h4>Annual giving statements</h4><p>Accurate, IRS-compliant statements out to every giver in January, reconciled to the books.<span class="bk">Broken: statements that do not tie to deposits, sent late or by hand.</span></p></div></div>
-      <div class="pill rv"><div class="pnum">9</div><div><h4>Financial statements and board reporting</h4><p>Reporting your board can read, with fund detail and context.<span class="bk">Broken: a raw export handed over with no explanation.</span></p></div></div>
-      <div class="pill rv"><div class="pnum">10</div><div><h4>1099s and compliance</h4><p>W-9s collected up front and filings made on time.<span class="bk">Broken: contractors paid with no W-9 on file. Filings late or missed.</span></p></div></div>
+      <div class="pill rv"><div class="pnum">1</div><div><h4>Bill pay and approvals</h4><p>Who is allowed to approve what, and can you prove it later.<span class="bk">Broken: invoices approved by text. Pastor is the bottleneck.</span></p><div class="pfoot"><span class="cov y">Partly covered</span><span class="inc">Included with us</span></div></div></div>
+      <div class="pill rv"><div class="pnum">2</div><div><h4>Reimbursements and expense cards</h4><p>Staff and volunteers made whole quickly, with receipts attached.<span class="bk">Broken: people paying out of pocket and waiting. Card charges with no memo.</span></p><div class="pfoot"><span class="cov y">Partly covered</span><span class="inc">Included with us</span></div></div></div>
+      <div class="pill rv"><div class="pnum">3</div><div><h4>Payroll and clergy compensation</h4><p>Ministers classified correctly and housing allowance documented properly.<span class="bk">Broken: housing allowance never set by board resolution.</span></p><div class="pfoot"><span class="cov y">Partly covered</span><span class="inc">Included with us</span></div></div></div>
+      <div class="pill one rv"><div class="pnum">4</div><div><h4>Bookkeeping and monthly close</h4><p>Books closed on a fixed calendar, not whenever there is time.<span class="bk">This is the one a bookkeeper fully covers. It is one of ten.</span></p><div class="pfoot"><span class="cov g">Covered</span><span class="inc">Included with us</span></div></div></div>
+      <div class="pill rv"><div class="pnum">5</div><div><h4>Software and systems</h4><p>We recommend the right giving, accounting and payroll tools for your size, set them up for you, and connect them so the numbers move between them on their own instead of being keyed in twice.<span class="bk">Broken: manual re-entry every week between three systems that do not talk.</span></p><div class="pfoot"><span class="cov r">Not covered</span><span class="inc">Included with us</span></div></div></div>
+      <div class="pill rv"><div class="pnum">6</div><div><h4>Budget advisory</h4><p>Your leadership writes the budget. That is your call, not ours. We advise on it, pressure test the assumptions against what your books actually show, and give the board something they can track against all year.<span class="bk">Broken: approved in January, never opened again in June.</span></p><div class="pfoot"><span class="cov r">Not covered</span><span class="inc">Included with us</span></div></div></div>
+      <div class="pill rv"><div class="pnum">7</div><div><h4>Forecast and cash runway</h4><p>Knowing how many months of operating cash you are holding.<span class="bk">Broken: nobody has ever calculated it.</span></p><div class="pfoot"><span class="cov r">Not covered</span><span class="inc">Included with us</span></div></div></div>
+      <div class="pill rv"><div class="pnum">8</div><div><h4>Annual giving statements</h4><p>Accurate, IRS-compliant statements out to every giver in January, reconciled to the books.<span class="bk">Broken: statements that do not tie to deposits, sent late or by hand.</span></p><div class="pfoot"><span class="cov y">Partly covered</span><span class="inc">Included with us</span></div></div></div>
+      <div class="pill rv"><div class="pnum">9</div><div><h4>Financial statements and board reporting</h4><p>Reporting your board can read, with fund detail and context.<span class="bk">Broken: a raw export handed over with no explanation.</span></p><div class="pfoot"><span class="cov r">Not covered</span><span class="inc">Included with us</span></div></div></div>
+      <div class="pill rv"><div class="pnum">10</div><div><h4>1099s and compliance</h4><p>W-9s collected up front and filings made on time.<span class="bk">Broken: contractors paid with no W-9 on file. Filings late or missed.</span></p><div class="pfoot"><span class="cov y">Partly covered</span><span class="inc">Included with us</span></div></div></div>
     </div>
 
     <div class="crit rv">
@@ -835,18 +868,18 @@ footer ul a:hover{color:var(--emerald)}
       </figure>
     </div>
 
-    <div class="split rev rv" style="margin-top:clamp(40px,5vw,66px)">
-      <div>
+    <div class="whyfree rv" style="margin-top:clamp(40px,5vw,66px)">
+      <div class="wfcopy">
         <h3 style="font-size:clamp(22px,2.4vw,30px);font-weight:800;letter-spacing:-.03em">Why would we do this for free?</h3>
         <p class="sub" style="margin-top:14px">Because plenty of churches get an audit and never become clients, and we are fine with that. If your systems are in good shape we will tell you so and you will owe us nothing.</p>
         <p class="sub" style="margin-top:12px">The churches that read the assessment and think <em>we are never going to do all this ourselves</em> are the ones who hire us. We would rather be the firm that gave you a straight answer than the firm that sent a proposal in two weeks.</p>
-        <div class="founder">
-          <img src="/assets/ricky-headshot.webp" alt="Ricky West, Founder of Turnkey CFO" loading="lazy">
-          <div>
-            <div class="fn">Ricky West</div>
-            <div class="fr">Founder, Turnkey CFO. Austin, Texas</div>
-            <div class="fq">"I would rather hand a pastor the answer and lose the deal than sell something they did not need."</div>
-          </div>
+      </div>
+      <div class="founder">
+        <img src="/assets/ricky-headshot.webp" alt="Ricky West, Founder of Turnkey CFO" loading="lazy">
+        <div>
+          <div class="fn">Ricky West</div>
+          <div class="fr">Founder, Turnkey CFO. Austin, Texas</div>
+          <div class="fq">"I would rather hand a pastor the answer and lose the deal than sell something they did not need."</div>
         </div>
       </div>
     </div>

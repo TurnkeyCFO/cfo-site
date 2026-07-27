@@ -384,6 +384,8 @@
     .chart-card canvas#totalDonations,
     .chart-card canvas#mrrWaterfall,
     .chart-card canvas#activeDonors { height: 300px !important; max-height: 300px; }
+    /* Twelve horizontal bars need more room than a 12-point line does */
+    .chart-card canvas#budgetActual { height: 360px !important; max-height: 360px; }
 
     /* Keep horizontal scroll on the 12-month table but make each row denser */
     .data-table { min-width: 720px; font-size: 11px; }
@@ -693,7 +695,7 @@
     <div class="chart-card" style="animation-delay:0.78s">
       <div class="card-title">Budget vs. Actual &mdash; March 2026</div>
       <div class="card-sub">Green is what you spent, grey is what you planned. Short of the grey is money kept.</div>
-      <canvas id="budgetActual" height="58"></canvas>
+      <canvas id="budgetActual" height="360"></canvas>
     </div>
   </div>
 
@@ -1418,9 +1420,26 @@ new Chart(document.getElementById('budgetActual'), {
   },
   options: Object.assign({}, responsiveOpts(), {
     indexAxis: 'y',
+    // Six categories x two series needs real vertical room. Without an explicit
+    // ratio the canvas collapses to its height attribute and only the axis draws.
+    aspectRatio: isMobile ? undefined : 3.4,
     layout: chartPadding(14),
-    plugins: { legend: legendOpts(), tooltip: tip, datalabels: { display:false } },
-    scales: { x: yScaleMoney(), y: { grid:{ display:false }, ticks:{ color:TICK, font:{ size: isMobile?9:11 } } } }
+    plugins: {
+      // Left-aligned so the key reads as part of the card header instead of a
+      // block floating over the plot.
+      legend: Object.assign({}, legendOpts(), { align: 'start' }),
+      tooltip: tip,
+      datalabels: {
+        display: showDataLabels(true), anchor:'end', align:'right', offset:4,
+        color: ctx => ctx.datasetIndex === 1 ? 'rgba(0,38,58,0.78)' : 'rgba(151,163,174,0.95)',
+        font:{ size:10, family:"'DM Mono',monospace" },
+        formatter: v => '$' + (v/1000).toFixed(1) + 'k'
+      }
+    },
+    scales: {
+      x: Object.assign(yScaleMoney(), { grace: '8%' }),
+      y: { grid:{ display:false }, ticks:{ color:TICK, font:{ size: isMobile?9:11 } } }
+    }
   })
 });
 
