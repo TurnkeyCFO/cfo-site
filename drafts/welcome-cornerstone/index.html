@@ -7,367 +7,297 @@
 <title>Welcome to Turnkey CFO | Cornerstone Church ATX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
+    /* Turnkey CFO base : we are the guide */
     --cream:#FAF6EE;
-    --cream-deep:#F3EDE0;
-    --ink:#12241B;
-    --ink-soft:#3E5248;
-    --ink-mute:#6E7F76;
+    --cream-deep:#F2ECDE;
+    --card:#FFFDF8;
+    --ink:#16211D;
+    --ink-soft:#3C4C46;
+    --ink-mute:#71817A;
     --emerald:#00E676;
     --emerald-deep:#00B25C;
     --evergreen:#0E3B26;
-    --evergreen-2:#123F2B;
-    --line:#E2DACA;
-    --line-soft:#EBE4D5;
-    --card:#FFFDF8;
-    --shadow-soft:0 1px 2px rgba(18,36,27,.04), 0 10px 30px -12px rgba(18,36,27,.10);
-    --shadow-lift:0 2px 4px rgba(18,36,27,.06), 0 24px 48px -16px rgba(18,36,27,.20);
-    --ease-out:cubic-bezier(.22,1,.36,1);
+    --line:#E4DCCC;
+    --line-soft:#EDE6D8;
+    /* Cornerstone Church ATX : sourced from ccatx.com global colour kit */
+    --cc:#5E89A3;          /* their primary slate blue */
+    --cc-deep:#3F6479;
+    --cc-ink:#263B47;
+    --cc-tint:#EEF3F6;
+    --cc-gold:#FDCF36;     /* their accent gold, used sparingly */
+    --shadow-soft:0 1px 2px rgba(22,33,29,.04), 0 10px 30px -14px rgba(22,33,29,.12);
+    --shadow-lift:0 2px 6px rgba(22,33,29,.06), 0 30px 60px -22px rgba(38,59,71,.28);
+    --e:cubic-bezier(.22,1,.36,1);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  html.lenis, html.lenis body{height:auto;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  html.lenis,html.lenis body{height:auto;}
   .lenis.lenis-smooth{scroll-behavior:auto!important;}
   body{
-    font-family:'Plus Jakarta Sans',sans-serif;
-    background:var(--cream);
-    color:var(--ink);
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-    position:relative;
-    overflow-x:hidden;
+    font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.66;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    position:relative;overflow-x:hidden;
   }
-  /* film grain over the whole document */
   body::before{
-    content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size:140px 140px;
   }
-  ::selection{background:rgba(0,230,118,.28);}
-  .wrap{max-width:980px;margin:0 auto;padding:0 32px;position:relative;}
-  .num{font-variant-numeric:tabular-nums;}
+  ::selection{background:rgba(94,137,163,.26);}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 34px;position:relative;}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
 
-  /* entrance reveals: CSS transition path (IntersectionObserver fallback) */
-  .rv{opacity:0;transform:translateY(22px);transition:opacity .75s ease, transform .75s var(--ease-out);will-change:opacity,transform;}
+  /* ---- typographic system: one family, hierarchy by weight + tracking + scale ---- */
+  .micro{font-size:.645rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;line-height:1.3;}
+  h1{font-size:clamp(2.6rem,6.6vw,4.7rem);font-weight:800;line-height:.98;letter-spacing:-.038em;max-width:14ch;text-wrap:balance;}
+  h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;text-wrap:balance;}
+  h3{font-size:1.14rem;font-weight:800;letter-spacing:-.016em;line-height:1.25;}
+  .lede{font-size:clamp(1.05rem,1.6vw,1.2rem);font-weight:300;line-height:1.72;color:var(--ink-soft);max-width:58ch;}
+  .lede strong{font-weight:600;color:var(--ink);}
+
+  /* ---- reveals ---- */
+  .rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s var(--e);will-change:opacity,transform;}
   .rv.in{opacity:1;transform:none;}
-  .rv[data-d="1"]{transition-delay:.08s;}
-  .rv[data-d="2"]{transition-delay:.16s;}
-  .rv[data-d="3"]{transition-delay:.24s;}
-  .rv[data-d="4"]{transition-delay:.32s;}
-  .rv[data-d="5"]{transition-delay:.40s;}
-  /* when GSAP drives, transitions get out of the way */
+  .rv[data-d="1"]{transition-delay:.08s}.rv[data-d="2"]{transition-delay:.16s}
+  .rv[data-d="3"]{transition-delay:.24s}.rv[data-d="4"]{transition-delay:.32s}
+  .rv[data-d="5"]{transition-delay:.40s}
   .gs .rv{transition:none;transition-delay:0s;}
 
-  /* top bar */
-  .topbar{
-    border-bottom:1px solid var(--line);
-    background:rgba(255,253,248,.9);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    position:sticky;top:0;z-index:30;
-  }
-  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
-  .doc-label{
-    display:inline-flex;align-items:center;gap:9px;
-    font-size:0.66rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
-    color:var(--ink-mute);
-  }
-  .doc-label svg{width:10px;height:10px;display:block;}
+  /* ---- masthead: the co-brand lockup ---- */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,253,248,.86);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--line);}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 0;}
+  .lockup{display:flex;align-items:center;gap:18px;}
+  .lockup img.tk{height:32px;width:auto;display:block;}
+  .lockup img.cl{height:19px;width:auto;display:block;}
+  .lockup .x{width:15px;height:15px;flex:none;opacity:.4;}
+  .doc-label{color:var(--ink-mute);display:inline-flex;align-items:center;gap:9px;}
+  .doc-label .hx{width:11px;height:12px;display:block;}
 
-  /* hero */
-  .hero{padding:112px 0 96px;position:relative;overflow:hidden;}
-  .glow{position:absolute;border-radius:50%;pointer-events:none;}
-  .glow.g1{
-    top:-200px;right:-220px;width:680px;height:680px;
-    background:radial-gradient(closest-side, rgba(0,230,118,0.16), rgba(0,230,118,0.05) 55%, transparent 72%);
-    animation:drift1 14s ease-in-out infinite alternate;
-  }
-  .glow.g2{
-    bottom:-260px;left:-240px;width:560px;height:560px;
-    background:radial-gradient(closest-side, rgba(14,59,38,0.07), transparent 70%);
-    animation:drift2 18s ease-in-out infinite alternate;
-  }
-  .glow.g3{
-    top:30%;left:38%;width:420px;height:420px;opacity:.5;
-    background:radial-gradient(closest-side, rgba(0,178,92,0.06), transparent 70%);
-    animation:drift1 22s ease-in-out infinite alternate-reverse;
-  }
-  @keyframes drift1{from{transform:translate(0,0);}to{transform:translate(-34px,26px);}}
-  @keyframes drift2{from{transform:translate(0,0);}to{transform:translate(28px,-22px);}}
-  /* oversized chevron watermark, right edge */
-  .hero-mark{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:320px;height:440px;opacity:.05;pointer-events:none;}
-  .hero .wrap{border-left:1px solid var(--line);padding-left:46px;}
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:12px;
-    font-size:0.7rem;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;
-    color:var(--emerald-deep);margin-bottom:28px;
-  }
-  .eyebrow .chev{display:inline-flex;gap:2px;}
-  .eyebrow .chev svg{width:9px;height:11px;display:block;}
-  h1{
-    font-size:clamp(2.7rem,6.4vw,4.5rem);
-    font-weight:800;line-height:1.01;letter-spacing:-0.038em;
-    max-width:16ch;text-wrap:balance;
-  }
-  h1 em{font-style:normal;color:var(--emerald-deep);position:relative;white-space:nowrap;}
-  h1 em::after{
-    content:"";position:absolute;left:0;right:.18em;bottom:.05em;height:.15em;
-    background:linear-gradient(90deg, rgba(0,230,118,.42), rgba(0,230,118,.1));
-    z-index:-1;border-radius:2px;
-  }
-  /* word-mask reveal scaffolding (activated when GSAP is live) */
-  .gs h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em;}
+  /* ---- hero ---- */
+  .hero{padding:118px 0 100px;position:relative;overflow:hidden;}
+  .hexfield{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.5;}
+  .glow{position:absolute;border-radius:50%;pointer-events:none;z-index:0;}
+  .glow.g1{top:-230px;right:-200px;width:700px;height:700px;background:radial-gradient(closest-side,rgba(94,137,163,.20),rgba(94,137,163,.05) 55%,transparent 72%);animation:d1 16s ease-in-out infinite alternate;}
+  .glow.g2{bottom:-280px;left:-250px;width:600px;height:600px;background:radial-gradient(closest-side,rgba(0,178,92,.10),transparent 70%);animation:d2 21s ease-in-out infinite alternate;}
+  @keyframes d1{to{transform:translate(-36px,28px)}}
+  @keyframes d2{to{transform:translate(30px,-24px)}}
+  .hero .wrap{z-index:2;}
+  .hero-rail{position:absolute;left:34px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,var(--line) 12%,var(--line) 78%,transparent);}
+  .hero-inner{padding-left:48px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:12px;color:var(--cc-deep);margin-bottom:30px;}
+  .eyebrow .hx{width:12px;height:13.5px;display:block;}
+  h1 em{font-style:normal;color:var(--cc-deep);position:relative;white-space:nowrap;}
+  h1 em::after{content:"";position:absolute;left:0;right:.16em;bottom:.04em;height:.14em;background:linear-gradient(90deg,rgba(94,137,163,.4),rgba(253,207,54,.32));z-index:-1;border-radius:2px;}
+  .gs h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em;}
   .gs h1 .w>span{display:inline-block;transform:translateY(115%);will-change:transform;}
-  .hero p.lede{margin-top:32px;font-size:1.15rem;line-height:1.78;color:var(--ink-soft);max-width:56ch;}
-  .start-badge{
-    display:inline-flex;align-items:center;gap:14px;margin-top:38px;
-    background:linear-gradient(135deg, var(--evergreen), var(--evergreen-2));
-    color:#F4FFF9;font-weight:600;font-size:0.92rem;letter-spacing:.01em;
-    padding:14px 26px 14px 20px;border-radius:100px;
-    box-shadow:0 0 0 4px rgba(0,230,118,0.16), 0 16px 34px -12px rgba(14,59,38,.45);
-    transition:transform .35s var(--ease-out), box-shadow .35s var(--ease-out);
+  .hero .lede{margin-top:30px;}
+  .startbar{
+    display:inline-flex;align-items:stretch;margin-top:40px;border-radius:16px;overflow:hidden;
+    box-shadow:0 20px 44px -18px rgba(38,59,71,.5);background:var(--cc-ink);
   }
-  .start-badge:hover{transform:translateY(-2px);box-shadow:0 0 0 4px rgba(0,230,118,0.22), 0 22px 42px -14px rgba(14,59,38,.5);}
-  .start-badge .dot{
-    flex:none;width:9px;height:9px;border-radius:50%;background:var(--emerald);
-    box-shadow:0 0 0 0 rgba(0,230,118,.5);
-    animation:pulse 2.6s infinite;
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(0,230,118,.45);}
-    70%{box-shadow:0 0 0 9px rgba(0,230,118,0);}
-    100%{box-shadow:0 0 0 0 rgba(0,230,118,0);}
-  }
-  .start-badge strong{color:var(--emerald);font-weight:800;}
+  .startbar .a{display:flex;align-items:center;gap:12px;padding:15px 22px;background:linear-gradient(135deg,var(--cc-ink),#314856);color:#E7F0F5;font-size:.88rem;font-weight:500;}
+  .startbar .b{display:flex;align-items:center;padding:15px 22px;background:linear-gradient(135deg,var(--cc-deep),var(--cc));color:#fff;font-weight:800;font-size:.94rem;letter-spacing:-.01em;}
+  .startbar .dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--cc-gold);animation:pulse 2.8s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(253,207,54,.5)}70%{box-shadow:0 0 0 9px rgba(253,207,54,0)}100%{box-shadow:0 0 0 0 rgba(253,207,54,0)}}
+  .hero-note{margin-top:20px;font-size:.86rem;color:var(--ink-mute);max-width:52ch;font-weight:300;}
 
-  /* section scaffolding: alternating tints + ghost numerals + chevron dividers */
-  section{padding:92px 0;position:relative;}
-  section.tint{background:linear-gradient(180deg, var(--card), var(--cream) 88%);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
-  .divider{display:flex;align-items:center;gap:0;max-width:980px;margin:0 auto;padding:0 32px;}
+  /* ---- section scaffolding ---- */
+  section{padding:96px 0;position:relative;}
+  section.tint{background:linear-gradient(180deg,var(--card),var(--cream) 92%);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
+  section.slate{background:linear-gradient(180deg,var(--cc-tint),#F6F1E6 96%);border-top:1px solid #DCE5EA;border-bottom:1px solid #DCE5EA;}
+  .divider{display:flex;align-items:center;max-width:1000px;margin:0 auto;padding:0 34px;}
   .divider .rule{flex:1;height:1px;background:var(--line);}
-  .divider svg{flex:none;width:14px;height:14px;margin:0 14px;display:block;opacity:.8;}
-  .ghost{
-    position:absolute;top:44px;right:18px;z-index:0;pointer-events:none;user-select:none;
-    font-size:clamp(6rem,15vw,11.5rem);font-weight:800;line-height:1;letter-spacing:-0.04em;
-    color:transparent;-webkit-text-stroke:1px rgba(18,36,27,.07);
-  }
-  section.tint .ghost{-webkit-text-stroke:1px rgba(18,36,27,.09);}
-  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:14px;position:relative;z-index:1;}
-  .sec-num{
-    display:inline-flex;align-items:center;gap:8px;
-    font-size:0.72rem;font-weight:800;color:var(--emerald-deep);
-    letter-spacing:0.18em;white-space:nowrap;font-variant-numeric:tabular-nums;
-  }
-  .sec-num::after{content:"";width:30px;height:1px;background:var(--emerald-deep);opacity:.5;transform:translateY(-3px);}
-  h2{font-size:clamp(1.75rem,3.5vw,2.45rem);font-weight:800;letter-spacing:-0.026em;line-height:1.1;text-wrap:balance;}
-  .sec-intro{color:var(--ink-soft);max-width:60ch;margin:14px 0 44px;font-size:1.03rem;position:relative;z-index:1;}
+  .divider .hx{flex:none;width:13px;height:15px;margin:0 15px;display:block;opacity:.65;}
+  .ghost{position:absolute;top:40px;right:16px;z-index:0;pointer-events:none;user-select:none;
+    font-size:clamp(6rem,15vw,12rem);font-weight:800;line-height:1;letter-spacing:-.05em;
+    color:transparent;-webkit-text-stroke:1px rgba(38,59,71,.075);}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:14px;position:relative;z-index:1;flex-wrap:wrap;}
+  .sec-num{display:inline-flex;align-items:center;gap:9px;color:var(--cc-deep);font-size:.7rem;font-weight:800;letter-spacing:.2em;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .sec-num::after{content:"";width:32px;height:1px;background:var(--cc-deep);opacity:.5;transform:translateY(-3px);}
+  .sec-intro{color:var(--ink-soft);max-width:62ch;margin:16px 0 46px;font-size:1.01rem;font-weight:300;position:relative;z-index:1;}
+  .sec-intro strong{font-weight:600;color:var(--ink);}
 
-  /* team cards with offset photo frames */
-  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;z-index:1;}
-  .team-card{
-    background:var(--card);border:1px solid var(--line);border-radius:18px;
-    padding:32px 30px;position:relative;overflow:hidden;
-    box-shadow:var(--shadow-soft);
-    transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out), border-color .45s ease;
+  /* ---- 01 campuses: the distinctly-Cornerstone opener ---- */
+  .campus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative;z-index:1;}
+  .campus{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 26px 26px;
+    position:relative;overflow:hidden;box-shadow:var(--shadow-soft);
+    transition:transform .5s var(--e),box-shadow .5s var(--e),border-color .4s ease;
   }
-  .team-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift);border-color:#D6CDB9;}
-  .team-card::after{
-    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
-    background:linear-gradient(180deg, var(--emerald), var(--emerald-deep));
+  .campus:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);border-color:#CBD8DF;}
+  .campus::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--cc),rgba(94,137,163,.2));}
+  .campus .hxmark{position:absolute;right:-24px;top:-24px;width:110px;height:124px;opacity:.06;}
+  .campus .cname{font-size:1.22rem;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;}
+  .campus .ctag{color:var(--cc-deep);margin-bottom:18px;}
+  .campus dl{display:grid;gap:12px;}
+  .campus dt{font-size:.6rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);}
+  .campus dd{font-size:.9rem;color:var(--ink-soft);line-height:1.55;margin-top:3px;}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 11px;border-radius:100px;}
+  .pill.live{background:rgba(0,230,118,.15);border:1px solid rgba(0,178,92,.32);color:var(--evergreen);}
+  .pill.move{background:rgba(253,207,54,.22);border:1px solid rgba(212,166,20,.4);color:#7A5E05;}
+  .pill::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;}
+  .campus-note{margin-top:26px;font-size:.93rem;color:var(--ink-soft);font-weight:300;max-width:74ch;border-left:2px solid var(--cc);padding:6px 0 6px 20px;position:relative;z-index:1;}
+  .campus-note strong{font-weight:600;color:var(--ink);}
+
+  /* ---- team ---- */
+  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;position:relative;z-index:1;}
+  .tcard{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 28px;
+    position:relative;overflow:hidden;box-shadow:var(--shadow-soft);
+    transition:transform .5s var(--e),box-shadow .5s var(--e),border-color .4s ease;
+    transform-style:preserve-3d;
   }
-  .team-card::before{
-    content:"";position:absolute;right:-46px;top:-46px;width:130px;height:130px;border-radius:50%;
-    background:radial-gradient(closest-side, rgba(0,230,118,.1), transparent 70%);
-    transition:transform .6s var(--ease-out);
-  }
-  .team-card:hover::before{transform:scale(1.5);}
+  .tcard:hover{box-shadow:var(--shadow-lift);border-color:#D6CDB9;}
+  .tcard::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--emerald),var(--emerald-deep));}
+  .tcard::before{content:"";position:absolute;right:-50px;top:-50px;width:140px;height:140px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,230,118,.11),transparent 70%);transition:transform .7s var(--e);}
+  .tcard:hover::before{transform:scale(1.55);}
   .avatar{position:relative;display:inline-block;margin-bottom:16px;}
-  .avatar::after{
-    content:"";position:absolute;inset:-7px -7px auto auto;width:100%;height:100%;
-    border:1px solid rgba(0,178,92,.4);border-radius:50%;
-    transform:translate(7px,7px);transition:transform .45s var(--ease-out);
-  }
-  .team-card:hover .avatar::after{transform:translate(4px,4px);}
-  .team-photo{width:76px;height:76px;border-radius:50%;object-fit:cover;display:block;border:3px solid var(--emerald);position:relative;z-index:1;background:var(--cream-deep);}
-  .team-card .role{
-    font-size:0.66rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
-    color:var(--emerald-deep);margin-bottom:8px;
-  }
-  .team-card h3{font-size:1.3rem;font-weight:800;letter-spacing:-0.015em;}
-  .team-card p{margin-top:10px;color:var(--ink-soft);font-size:0.95rem;line-height:1.68;}
+  .avatar::after{content:"";position:absolute;inset:-7px -7px auto auto;width:100%;height:100%;border:1px solid rgba(0,178,92,.38);border-radius:50%;transform:translate(7px,7px);transition:transform .5s var(--e);}
+  .tcard:hover .avatar::after{transform:translate(3px,3px);}
+  .tphoto{width:74px;height:74px;border-radius:50%;object-fit:cover;display:block;border:3px solid var(--emerald);position:relative;z-index:1;background:var(--cream-deep);}
+  .tcard .role{color:var(--emerald-deep);margin-bottom:7px;}
+  .tcard p{margin-top:10px;color:var(--ink-soft);font-size:.94rem;line-height:1.68;font-weight:300;}
+  .tcard p strong{font-weight:600;color:var(--ink);}
+  .team-figure{margin-top:30px;position:relative;z-index:1;}
+  .photo-frame{position:relative;}
+  .photo-frame::after{content:"";position:absolute;inset:16px -16px -16px 16px;border:1px solid rgba(94,137,163,.4);border-radius:18px;pointer-events:none;}
+  .photo-clip{overflow:hidden;border-radius:16px;position:relative;z-index:1;box-shadow:var(--shadow-lift);}
+  .photo-clip img{width:100%;height:auto;display:block;transform:scale(1.06);}
+  .team-figure figcaption{font-size:.82rem;color:var(--ink-mute);margin-top:26px;display:flex;align-items:center;gap:9px;font-weight:300;}
+  .team-figure figcaption .hx{width:10px;height:11px;display:block;}
 
-  .team-figure{margin:32px 0 0;position:relative;z-index:1;}
-  .team-figure .photo-frame{position:relative;}
-  .team-figure .photo-frame::after{
-    content:"";position:absolute;inset:16px -16px -16px 16px;
-    border:1px solid rgba(0,178,92,.35);border-radius:16px;z-index:0;pointer-events:none;
-  }
-  .team-figure .photo-frame{overflow:visible;}
-  .team-figure .photo-clip{overflow:hidden;border-radius:14px;position:relative;z-index:1;box-shadow:var(--shadow-lift);}
-  .team-figure img{width:100%;height:auto;display:block;transform:scale(1.02);}
-  .team-figure figcaption{font-size:0.82rem;letter-spacing:.02em;color:var(--ink-mute);margin-top:24px;display:flex;align-items:center;gap:9px;}
-  .team-figure figcaption svg{width:9px;height:11px;display:block;}
+  /* ---- dated timeline ---- */
+  .timeline{position:relative;z-index:1;}
+  .spine{position:absolute;left:31px;top:36px;bottom:40px;width:2px;background:linear-gradient(180deg,var(--cc) 0%,rgba(94,137,163,.4) 62%,rgba(94,137,163,.12) 100%);border-radius:2px;transform-origin:top center;}
+  .step{display:grid;grid-template-columns:64px 1fr;gap:28px;padding:22px 0;position:relative;}
+  .node{width:64px;height:64px;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;}
+  .node svg{position:absolute;inset:0;width:100%;height:100%;}
+  .node span{position:relative;font-weight:800;font-size:.98rem;color:var(--cc-ink);font-variant-numeric:tabular-nums;}
+  .step-body{background:var(--card);border:1px solid var(--line-soft);border-radius:18px;padding:24px 28px;box-shadow:var(--shadow-soft);position:relative;transition:transform .45s var(--e),box-shadow .45s var(--e);}
+  .step-body:hover{transform:translateX(6px);box-shadow:var(--shadow-lift);}
+  .step-body::before{content:"";position:absolute;left:-7px;top:28px;width:12px;height:12px;background:var(--card);border-left:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);transform:rotate(45deg);}
+  .when{display:inline-flex;align-items:center;gap:8px;color:var(--cc-ink);margin-bottom:11px;background:rgba(94,137,163,.15);border:1px solid rgba(94,137,163,.3);padding:4px 13px;border-radius:100px;font-variant-numeric:tabular-nums;font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;}
+  .when::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--cc-deep);}
+  .step p{color:var(--ink-soft);font-size:.95rem;margin-top:9px;max-width:64ch;line-height:1.7;font-weight:300;}
+  .step p strong{font-weight:600;color:var(--ink);}
+  .who{margin-top:14px;display:flex;align-items:center;gap:8px;font-size:.72rem;color:var(--ink-mute);font-weight:600;letter-spacing:.04em;}
+  .who .dotx{width:4px;height:4px;border-radius:50%;background:var(--emerald-deep);}
 
-  /* 30-day visual timeline: drawn spine, nodes, date chips */
-  .timeline{position:relative;z-index:1;padding-left:4px;}
-  .spine{
-    position:absolute;left:29px;top:34px;bottom:34px;width:2px;
-    background:linear-gradient(180deg, var(--emerald) 0%, rgba(0,178,92,.35) 60%, rgba(0,178,92,.12) 100%);
-    border-radius:2px;transform-origin:top center;
-  }
-  .step{
-    display:grid;grid-template-columns:52px 1fr;gap:28px;
-    padding:26px 0;position:relative;
-  }
-  .step-num{
-    width:52px;height:52px;border-radius:50%;position:relative;z-index:1;
-    background:var(--card);border:2px solid var(--emerald);
-    display:flex;align-items:center;justify-content:center;
-    font-weight:800;font-size:1.05rem;color:var(--evergreen);
-    font-variant-numeric:tabular-nums;
-    box-shadow:0 0 0 6px var(--cream), var(--shadow-soft);
-  }
-  section.tint .step-num{box-shadow:0 0 0 6px var(--card), var(--shadow-soft);}
-  .step-body{
-    background:var(--card);border:1px solid var(--line-soft);border-radius:16px;
-    padding:24px 28px;box-shadow:var(--shadow-soft);position:relative;
-    transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out);
-  }
-  .step-body:hover{transform:translateX(5px);box-shadow:var(--shadow-lift);}
-  .step-body::before{
-    content:"";position:absolute;left:-7px;top:26px;width:12px;height:12px;
-    background:var(--card);border-left:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
-    transform:rotate(45deg);
-  }
-  .step h3{font-size:1.14rem;font-weight:800;letter-spacing:-0.012em;}
-  .when{
-    display:inline-flex;align-items:center;gap:7px;
-    font-size:0.66rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
-    color:var(--evergreen);margin-bottom:10px;
-    background:rgba(0,230,118,.13);border:1px solid rgba(0,178,92,.25);
-    padding:4px 12px;border-radius:100px;font-variant-numeric:tabular-nums;
-  }
-  .when::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--emerald-deep);}
-  .step p{color:var(--ink-soft);font-size:0.96rem;margin-top:8px;max-width:62ch;line-height:1.7;}
+  /* ---- calendar strip ---- */
+  .cal-track{display:grid;grid-template-columns:repeat(4,1fr);position:relative;margin-bottom:28px;}
+  .cal-line{position:absolute;left:6%;right:6%;top:11px;height:2px;background:linear-gradient(90deg,var(--cc),rgba(94,137,163,.25));border-radius:2px;transform-origin:left center;}
+  .cal-node{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center;}
+  .cal-dot{width:24px;height:24px;border-radius:50%;background:var(--card);border:2px solid var(--cc);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;box-shadow:0 0 0 6px var(--cream);}
+  section.tint .cal-dot,section.slate .cal-dot{box-shadow:0 0 0 6px var(--card);}
+  .cal-dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--cc-deep);}
+  .cal-when{color:var(--cc-ink);font-variant-numeric:tabular-nums;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;}
+  .cal-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;}
+  .cal-card{background:var(--card);border:1px solid var(--line-soft);border-radius:16px;padding:22px 20px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden;transition:transform .45s var(--e),box-shadow .45s var(--e);}
+  .cal-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);}
+  .cal-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--cc),rgba(94,137,163,.2));}
+  .cal-card p{color:var(--ink-soft);font-size:.89rem;line-height:1.62;font-weight:300;}
+  .cal-card p strong{font-weight:600;color:var(--ink);}
+  .rhythm-note{margin-top:28px;font-size:.93rem;color:var(--ink-soft);max-width:74ch;border-left:2px solid var(--cc);padding:6px 0 6px 20px;position:relative;z-index:1;font-weight:300;}
+  .rhythm-note strong{font-weight:600;color:var(--ink);}
 
-  /* monthly rhythm: calendar strip */
-  .calstrip{position:relative;z-index:1;margin-top:10px;}
-  .cal-track{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-bottom:26px;
+  /* ---- named funds ledger ---- */
+  .funds{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1;}
+  .fund{
+    position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:26px 22px 24px;box-shadow:var(--shadow-soft);overflow:hidden;
+    transition:transform .5s var(--e),box-shadow .5s var(--e);
   }
-  .cal-line{
-    position:absolute;left:6%;right:6%;top:10px;height:2px;
-    background:linear-gradient(90deg, var(--emerald), rgba(0,178,92,.25));border-radius:2px;
-    transform-origin:left center;
-  }
-  .cal-node{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;}
-  .cal-dot{
-    width:22px;height:22px;border-radius:50%;background:var(--card);
-    border:2px solid var(--emerald);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;
-    box-shadow:0 0 0 5px var(--cream);
-  }
-  section.tint .cal-dot{box-shadow:0 0 0 5px var(--card);}
-  .cal-dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--emerald-deep);}
-  .cal-when{font-size:0.68rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--evergreen);font-variant-numeric:tabular-nums;}
-  .cal-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-  .cal-card{
-    background:var(--card);border:1px solid var(--line-soft);border-radius:14px;
-    padding:20px 20px 22px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden;
-    transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out);
-  }
-  .cal-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift);}
-  .cal-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--emerald),rgba(0,230,118,.25));}
-  .cal-card p{color:var(--ink-soft);font-size:0.9rem;line-height:1.62;}
-  .rhythm-note{
-    margin-top:26px;font-size:0.92rem;color:var(--ink-soft);max-width:70ch;position:relative;z-index:1;
-    border-left:2px solid var(--emerald);padding:4px 0 4px 18px;
-  }
+  .fund:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);}
+  .fund .fhx{position:absolute;right:-30px;top:-30px;width:104px;height:118px;opacity:.075;}
+  .fund .fidx{font-size:.6rem;font-weight:800;letter-spacing:.2em;color:var(--cc-deep);font-variant-numeric:tabular-nums;}
+  .fund .fname{font-size:1.02rem;font-weight:800;letter-spacing:-.018em;margin:9px 0 10px;line-height:1.2;}
+  .fund p{font-size:.83rem;color:var(--ink-soft);line-height:1.58;font-weight:300;}
+  .ledger-note{margin-top:30px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--cc-gold);border-radius:14px;padding:22px 26px;position:relative;z-index:1;box-shadow:var(--shadow-soft);}
+  .ledger-note h3{margin-bottom:8px;}
+  .ledger-note p{font-size:.93rem;color:var(--ink-soft);line-height:1.68;font-weight:300;max-width:72ch;}
 
-  /* needs: tap-to-check cards */
+  /* ---- needs ---- */
   .needs{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;z-index:1;}
-  .need{
-    background:var(--card);border:1px solid var(--line);border-radius:14px;
-    padding:20px 22px;display:flex;gap:15px;align-items:flex-start;cursor:pointer;
-    box-shadow:var(--shadow-soft);
-    transition:transform .35s var(--ease-out), box-shadow .35s var(--ease-out), background .35s ease, border-color .35s ease;
-  }
-  .need:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);}
-  .need:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;}
-  .need .tick{
-    flex:none;width:24px;height:24px;border-radius:7px;margin-top:2px;
-    border:2px solid var(--emerald-deep);background:transparent;
-    display:flex;align-items:center;justify-content:center;
-    transition:background .25s ease, border-color .25s ease;
-  }
-  .need .tick svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:opacity .25s ease, transform .25s var(--ease-out);}
-  .need.done{background:#F2FBF5;border-color:#BFE8CF;}
-  .need.done .tick{background:var(--emerald);border-color:var(--emerald);}
+  .need{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:21px 23px;display:flex;gap:16px;align-items:flex-start;cursor:pointer;box-shadow:var(--shadow-soft);
+    transition:transform .35s var(--e),box-shadow .35s var(--e),background .35s ease,border-color .35s ease;}
+  .need:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);}
+  .need:focus-visible{outline:3px solid var(--cc-deep);outline-offset:3px;}
+  .need .tick{flex:none;width:25px;height:25px;border-radius:8px;margin-top:2px;border:2px solid var(--cc-deep);background:transparent;display:flex;align-items:center;justify-content:center;transition:background .25s ease,border-color .25s ease;}
+  .need .tick svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:opacity .25s ease,transform .3s var(--e);}
+  .need.done{background:var(--cc-tint);border-color:#BCD0DB;}
+  .need.done .tick{background:var(--cc);border-color:var(--cc);}
   .need.done .tick svg{opacity:1;transform:scale(1);}
-  .need p{font-size:0.93rem;color:var(--ink-soft);line-height:1.62;}
-  .need p strong{color:var(--ink);}
-  .needs-hint{margin-top:16px;font-size:0.8rem;color:var(--ink-mute);letter-spacing:.02em;position:relative;z-index:1;}
+  .need p{font-size:.92rem;color:var(--ink-soft);line-height:1.62;font-weight:300;}
+  .need p strong{color:var(--ink);font-weight:700;}
+  .needs-hint{margin-top:18px;font-size:.79rem;color:var(--ink-mute);position:relative;z-index:1;font-weight:300;}
 
-  /* contact */
-  .contact{
-    background:linear-gradient(135deg, var(--evergreen) 0%, var(--evergreen-2) 60%, #16492F 100%);
-    border-radius:22px;color:#EAF7EF;position:relative;overflow:hidden;
-    padding:52px 48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;
-    box-shadow:0 34px 66px -26px rgba(14,59,38,.52);
-  }
-  .contact::before{
-    content:"";position:absolute;top:-120px;right:-100px;width:400px;height:400px;border-radius:50%;
-    background:radial-gradient(closest-side, rgba(0,230,118,.22), transparent 70%);
-  }
-  .contact .cmark{position:absolute;right:22px;bottom:-30px;width:150px;height:200px;opacity:.08;pointer-events:none;}
+  /* ---- contact ---- */
+  .contact{background:linear-gradient(135deg,var(--cc-ink) 0%,#314856 55%,var(--cc-deep) 100%);border-radius:24px;color:#EAF2F6;position:relative;overflow:hidden;
+    padding:54px 50px;display:grid;grid-template-columns:1.15fr 1fr;gap:44px;box-shadow:0 38px 72px -28px rgba(38,59,71,.6);}
+  .contact::before{content:"";position:absolute;top:-140px;right:-110px;width:420px;height:420px;border-radius:50%;background:radial-gradient(closest-side,rgba(94,137,163,.5),transparent 70%);}
+  .contact .cmark{position:absolute;right:20px;bottom:-42px;width:172px;height:194px;opacity:.09;pointer-events:none;}
   .contact h2{color:#fff;}
-  .contact p{color:#BFD9CA;font-size:0.98rem;max-width:46ch;margin-top:14px;line-height:1.7;}
-  .contact .lines{display:grid;gap:18px;align-content:center;position:relative;z-index:1;}
-  .contact .line{border-left:3px solid var(--emerald);padding-left:18px;transition:transform .35s var(--ease-out);}
-  .contact .line:hover{transform:translateX(5px);}
-  .contact .line .lbl{font-size:0.64rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#8FBBA0;}
-  .contact .line .val{font-weight:700;color:#fff;font-size:1.04rem;word-break:break-word;font-variant-numeric:tabular-nums;}
+  .contact p{color:#BACEDA;font-size:.97rem;max-width:46ch;margin-top:15px;line-height:1.72;font-weight:300;position:relative;z-index:1;}
+  .contact .lines{display:grid;gap:19px;align-content:center;position:relative;z-index:1;}
+  .contact .line{border-left:3px solid var(--cc-gold);padding-left:18px;transition:transform .35s var(--e);}
+  .contact .line:hover{transform:translateX(6px);}
+  .contact .line .lbl{font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#93B2C3;}
+  .contact .line .val{font-weight:700;color:#fff;font-size:1.02rem;word-break:break-word;font-variant-numeric:tabular-nums;margin-top:2px;}
 
-  footer{padding:48px 0 60px;color:var(--ink-mute);font-size:0.82rem;}
-  footer .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:30px;align-items:center;}
-  footer .foot-brand{display:flex;align-items:center;gap:10px;}
-  footer .foot-brand svg{width:9px;height:11px;display:block;}
+  footer{padding:52px 0 64px;color:var(--ink-mute);font-size:.81rem;}
+  .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:32px;align-items:center;}
+  .foot-brand{display:flex;align-items:center;gap:10px;font-weight:500;}
+  .foot-brand .hx{width:10px;height:11px;display:block;}
+  a:focus-visible{outline:3px solid var(--cc-deep);outline-offset:3px;border-radius:4px;}
 
-  a:focus-visible{outline:3px solid var(--emerald-deep);outline-offset:3px;border-radius:4px;}
-
+  @media (max-width:940px){
+    .campus-grid{grid-template-columns:1fr;}
+    .funds{grid-template-columns:1fr 1fr;}
+  }
   @media (max-width:820px){
     .cal-track{display:none;}
     .cal-cards{grid-template-columns:1fr 1fr;}
-    .cal-card::after{
-      content:attr(data-when);display:block;
-      font-size:0.66rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
-      color:var(--evergreen);margin-bottom:8px;
-    }
+    .cal-card::after{content:attr(data-when);display:block;font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--cc-ink);margin-bottom:9px;}
     .cal-card{display:flex;flex-direction:column-reverse;justify-content:flex-end;}
   }
   @media (max-width:760px){
     .wrap{padding:0 20px;}
-    .hero{padding:76px 0 58px;}
-    .hero .wrap{border-left:none;padding-left:20px;}
-    .hero-mark{display:none;}
-    section{padding:60px 0;}
-    .ghost{font-size:5.4rem;top:26px;right:10px;}
+    .divider{padding:0 20px;}
+    .hero{padding:74px 0 60px;}
+    .hero-rail{display:none;}
+    .hero-inner{padding-left:0;}
+    section{padding:62px 0;}
+    .ghost{font-size:5.2rem;top:24px;right:8px;}
     .team-grid,.needs{grid-template-columns:1fr;}
-    .contact{grid-template-columns:1fr;padding:36px 26px;}
-    .spine{left:24px;}
-    .step{grid-template-columns:44px 1fr;gap:18px;}
-    .step-num{width:44px;height:44px;font-size:0.95rem;}
-    .step-body{padding:20px 20px;}
+    .contact{grid-template-columns:1fr;padding:38px 26px;gap:30px;}
+    .spine{left:25px;}
+    .step{grid-template-columns:52px 1fr;gap:18px;}
+    .node{width:52px;height:52px;}
+    .node span{font-size:.9rem;}
+    .step-body{padding:21px 20px;}
     .cal-cards{grid-template-columns:1fr;}
+    .lockup img.tk{height:27px;}.lockup img.cl{height:16px;}
+  }
+  @media (max-width:560px){
+    h1 em{white-space:normal;}
+    h1 em::after{display:none;}
   }
   @media (max-width:420px){
-    h1{font-size:2.35rem;}
-    .hero p.lede{font-size:1.02rem;}
-    .contact .line .val{font-size:0.95rem;}
+    .wrap{padding:0 16px;}
+    .divider{padding:0 16px;}
+    h1{font-size:2.28rem;}
+    .funds{grid-template-columns:1fr;}
+    .startbar{flex-direction:column;border-radius:14px;}
+    .startbar .a,.startbar .b{padding:12px 18px;font-size:.83rem;}
+    .contact{padding:30px 20px;}
+    .contact .line .val{font-size:.93rem;}
     .step-body{padding:18px 16px;}
-    .start-badge{font-size:0.84rem;padding:12px 18px 12px 16px;}
+    .campus{padding:24px 20px 22px;}
+    .doc-label{display:none;}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
@@ -375,20 +305,25 @@
     .rv{opacity:1;transform:none;}
   }
   @media print{
+    @page{margin:14mm;}
     body{background:#fff;overflow-x:visible;}
-    body::before,.hero-mark,.needs-hint,.glow{display:none;}
-    .topbar{position:static;background:#fff;}
+    body::before,.hexfield,.glow,.ghost,.needs-hint,.hero-rail{display:none!important;}
+    .topbar{position:static;background:#fff;border-bottom:1px solid #ddd;}
     .rv{opacity:1!important;transform:none!important;}
     h1 .w>span{transform:none!important;}
-    .hero{padding:36px 0 24px;}
-    .ghost{display:none;}
-    section{padding:28px 0;}
-    section.tint{background:#fff;border:none;}
-    .team-card,.need,.step,.cal-card,.contact{break-inside:avoid;box-shadow:none;}
-    .contact,.start-badge,.tick,.step-num,.when,.cal-dot{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    .team-figure .photo-frame::after{display:none;}
-    .spine{transform:none!important;}
-    .cal-line{transform:none!important;}
+    .hero{padding:26px 0 20px;}
+    .hero-inner{padding-left:0;}
+    section{padding:24px 0;break-inside:auto;}
+    section.tint,section.slate{background:#fff;border:none;}
+    h2{break-after:avoid;}
+    .sec-head,.sec-intro{break-after:avoid;}
+    .campus,.tcard,.need,.step,.cal-card,.fund,.contact,.ledger-note,.team-figure{break-inside:avoid;box-shadow:none;}
+    .campus-grid{grid-template-columns:1fr 1fr 1fr;}
+    .contact,.startbar,.tick,.when,.cal-dot,.pill,.node{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .photo-frame::after{display:none;}
+    .spine,.cal-line{transform:none!important;}
+    .team-figure{max-width:60%;}
+    a[href]::after{content:"";}
   }
 </style>
 <noscript><style>.rv{opacity:1;transform:none;}</style></noscript>
@@ -397,111 +332,209 @@
 
 <div class="topbar">
   <div class="wrap topbar-inner">
-    <div class="logo-slot">
-      <img src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO" style="height:36px;width:auto;display:block">
+    <div class="lockup">
+      <img class="tk" src="https://turnkeycfo.com/assets/tk-logo.webp" alt="Turnkey CFO">
+      <svg class="x" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="#71817A" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <img class="cl" src="data:image/png;base64,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" alt="Cornerstone Church ATX">
     </div>
-    <div class="doc-label"><svg viewBox="0 0 10 12" fill="none"><path d="M2 1l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Client Welcome Pack</div>
+    <div class="doc-label micro"><svg class="hx" viewBox="0 0 11 12" fill="none" aria-hidden="true"><path d="M5.5.7L10.3 3.4v5.2L5.5 11.3.7 8.6V3.4z" stroke="#5E89A3" stroke-width="1.3" stroke-linejoin="round"/></svg>Client Welcome Pack</div>
   </div>
 </div>
 
 <header class="hero">
   <div class="glow g1" aria-hidden="true"></div>
   <div class="glow g2" aria-hidden="true"></div>
-  <div class="glow g3" aria-hidden="true"></div>
-  <svg class="hero-mark" viewBox="0 0 100 140" fill="none" aria-hidden="true"><path d="M10 10l55 60-55 60" stroke="#0E3B26" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M45 10l55 60-55 60" stroke="#00B25C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg class="hexfield" aria-hidden="true" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <pattern id="hx" width="104" height="120" patternUnits="userSpaceOnUse">
+        <path d="M52 4l44 25v50L52 104 8 79V29z" fill="none" stroke="#5E89A3" stroke-opacity=".16" stroke-width="1"/>
+      </pattern>
+      <linearGradient id="fade" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#FAF6EE" stop-opacity="0"/><stop offset=".58" stop-color="#FAF6EE" stop-opacity=".8"/><stop offset="1" stop-color="#FAF6EE"/>
+      </linearGradient>
+    </defs>
+    <rect width="1200" height="700" fill="url(#hx)"/>
+    <rect width="1200" height="700" fill="url(#fade)"/>
+  </svg>
   <div class="wrap">
-    <div class="eyebrow rv"><span class="chev"><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00E676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Welcome to Turnkey CFO</div>
-    <h1 class="rv" data-d="1">Welcome, <em>Cornerstone.</em></h1>
-    <p class="lede rv" data-d="2">Dan, Adam, and the whole Cornerstone team: we are glad you are here. Your church carries a real ministry across three campuses, and your books should tell that story clearly. That is our job now. This page walks you through exactly what happens next, who is doing it, and what we will need from you along the way.</p>
-    <div class="start-badge rv num" data-d="3"><span class="dot"></span>Your engagement begins <strong>August 1, 2026</strong></div>
+    <div class="hero-rail" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="eyebrow micro rv"><svg class="hx" viewBox="0 0 12 13.5" fill="none" aria-hidden="true"><path d="M6 .8l4.7 2.7v5.3L6 11.5 1.3 8.8V3.5z" stroke="#3F6479" stroke-width="1.4" stroke-linejoin="round"/></svg>Cornerstone Church ATX &nbsp;&middot;&nbsp; Welcome to Turnkey CFO</div>
+      <h1 class="rv" data-d="1">Three campuses. <em>One clean set of books.</em></h1>
+      <p class="lede rv" data-d="2">Dan, Adam, and the Cornerstone team: thank you for trusting us with this. You are stewarding a ministry across three campuses and four named funds, and the people who give to it deserve books that tell that story plainly. <strong>That is our work now.</strong> This page lays out exactly what happens, when, and who is doing it.</p>
+      <div class="startbar rv num" data-d="3">
+        <div class="a"><span class="dot"></span>Your engagement began</div>
+        <div class="b">July&nbsp;23,&nbsp;2026</div>
+      </div>
+      <p class="hero-note rv" data-d="4">Because the engagement started in July, July is in scope. Your first monthly reporting package covers July and reaches you by August&nbsp;15.</p>
+    </div>
   </div>
 </header>
 
-<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+<div class="divider" aria-hidden="true"><div class="rule"></div><svg class="hx" viewBox="0 0 13 15" fill="none"><path d="M6.5 1l5.2 3v6l-5.2 3-5.2-3V4z" stroke="#5E89A3" stroke-width="1.3" stroke-linejoin="round"/></svg><div class="rule"></div></div>
 
 <section>
   <div class="ghost num" aria-hidden="true">01</div>
   <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num num">01</span><h2>Your team</h2></div>
-    <p class="sec-intro rv" data-d="1">You will always know who is in your corner. Four people own your account, and you can reach any of them directly.</p>
-    <div class="team-grid">
-      <div class="team-card rv">
-        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/ricky-headshot.webp" alt="Ricky West"></div><div class="role">Founder, Turnkey CFO</div>
-        <h3>Ricky West</h3>
-        <p>Ricky leads your relationship. He ran your diagnosis, built your engagement, and stays personally involved in your cleanup and your first closes. Big-picture questions, scope questions, and anything that keeps you up at night go to him.</p>
+    <div class="sec-head rv"><span class="sec-num num">01</span><h2>Your three campuses</h2></div>
+    <p class="sec-intro rv" data-d="1">Your reporting is campus-level by design, so we start there. Two campuses already live in QuickBooks Online. The third is on a separate desktop system, and bringing it across is the one move we are deliberately taking slowly.</p>
+    <div class="campus-grid">
+      <div class="campus rv">
+        <svg class="hxmark" viewBox="0 0 110 124" fill="none" aria-hidden="true"><path d="M55 4l47 27v62l-47 27L8 93V31z" stroke="#5E89A3" stroke-width="5" stroke-linejoin="round"/></svg>
+        <div class="cname">ATX Main</div>
+        <div class="ctag micro">Primary campus</div>
+        <dl>
+          <dt>Books</dt><dd><span class="pill live">In QuickBooks Online</span></dd>
+          <dt>Reporting</dt><dd>Campus-level expense detail in your monthly package.</dd>
+          <dt>Status</dt><dd>We already have access and the cleanup starts here.</dd>
+        </dl>
       </div>
-      <div class="team-card rv" data-d="1">
-        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/vanessa-headshot.webp" alt="Vanessa"></div><div class="role">Lead Accountant</div>
-        <h3>Vanessa</h3>
-        <p>Vanessa is your day-to-day contact. She runs your onboarding checklist, coordinates access and records, and quality-checks everything before it reaches you. When you have a question about a transaction, a report, or a deadline, Vanessa is your fastest answer.</p>
+      <div class="campus rv" data-d="1">
+        <svg class="hxmark" viewBox="0 0 110 124" fill="none" aria-hidden="true"><path d="M55 4l47 27v62l-47 27L8 93V31z" stroke="#5E89A3" stroke-width="5" stroke-linejoin="round"/></svg>
+        <div class="cname">Spicewood</div>
+        <div class="ctag micro">Campus</div>
+        <dl>
+          <dt>Books</dt><dd><span class="pill live">In QuickBooks Online</span></dd>
+          <dt>Reporting</dt><dd>Campus-level expense detail in your monthly package.</dd>
+          <dt>Status</dt><dd>Included in the same file, reported separately.</dd>
+        </dl>
       </div>
-      <div class="team-card rv" data-d="2">
-        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/hardik-headshot.webp" alt="Hardik"></div><div class="role">Onboarding Specialist</div>
-        <h3>Hardik</h3>
-        <p>Hardik runs your onboarding behind the scenes: access, records, and the daily transaction work that keeps your books current from day one.</p>
-      </div>
-      <div class="team-card rv" data-d="3">
-        <div class="avatar"><img class="team-photo" src="https://turnkeycfo.com/assets/eldine-headshot.webp" alt="Eldine"></div><div class="role">Assistant</div>
-        <h3>Eldine</h3>
-        <p>Eldine keeps the operational wheels turning: scheduling, invoicing, and making sure nothing falls through the cracks.</p>
+      <div class="campus rv" data-d="2">
+        <svg class="hxmark" viewBox="0 0 110 124" fill="none" aria-hidden="true"><path d="M55 4l47 27v62l-47 27L8 93V31z" stroke="#5E89A3" stroke-width="5" stroke-linejoin="round"/></svg>
+        <div class="cname">Fitzhugh</div>
+        <div class="ctag micro">Campus &middot; migrating</div>
+        <dl>
+          <dt>Books</dt><dd><span class="pill move">QuickBooks Desktop today</span></dd>
+          <dt>Reporting</dt><dd>Reported manually until the migration lands.</dd>
+          <dt>Status</dt><dd>Moving to QuickBooks Online at a month-end, after the cleanup.</dd>
+        </dl>
       </div>
     </div>
-    <figure class="team-figure rv"><div class="photo-frame"><div class="photo-clip"><img id="teamPhoto" src="https://turnkeycfo.com/assets/turnkey-team.webp" alt="The Turnkey team"></div></div><figcaption><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>The Turnkey team.</figcaption></figure>
+    <p class="campus-note rv" data-d="3"><strong>Why Fitzhugh waits.</strong> A desktop-to-online migration does not carry reconciliation history across, so every account looks unreconciled on the other side. Doing that in the same weeks as the January through June cleanup is how opening balances get forced. We will tie the Fitzhugh baseline line for line to its desktop trial balance at a clean month-end instead. Ricky will lead the conversation with Deborah personally before anything changes on her end.</p>
   </div>
 </section>
 
-<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+<div class="divider" aria-hidden="true"><div class="rule"></div><svg class="hx" viewBox="0 0 13 15" fill="none"><path d="M6.5 1l5.2 3v6l-5.2 3-5.2-3V4z" stroke="#5E89A3" stroke-width="1.3" stroke-linejoin="round"/></svg><div class="rule"></div></div>
 
 <section class="tint">
   <div class="ghost num" aria-hidden="true">02</div>
   <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num num">02</span><h2>Your first 30 days</h2></div>
-    <p class="sec-intro rv" data-d="1">The first month is about three things: getting connected, getting your history cleaned up, and getting your monthly rhythm started. Here is how it unfolds.</p>
-    <div class="timeline">
-      <div class="spine" aria-hidden="true"></div>
-      <div class="step rv">
-        <div class="step-num num">1</div>
-        <div class="step-body">
-          <div class="when num">Late July</div>
-          <h3>Kickoff</h3>
-          <p>Ricky and Vanessa sit down with Dan and your leadership, in person if we can make it work. We will walk the plan for all three campuses, confirm who owns what on your side, and answer every question before a single entry moves.</p>
-        </div>
+    <div class="sec-head rv"><span class="sec-num num">02</span><h2>Your team</h2></div>
+    <p class="sec-intro rv" data-d="1">You will always know who is in your corner. Four people own your account, and you can reach any of them directly. No ticket queues.</p>
+    <div class="team-grid">
+      <div class="tcard rv">
+        <div class="avatar"><img class="tphoto" src="https://turnkeycfo.com/assets/ricky-headshot.webp" alt="Ricky West"></div>
+        <div class="role micro">Founder, Turnkey CFO</div>
+        <h3>Ricky West</h3>
+        <p>Ricky owns your relationship. He ran your diagnosis, built your engagement, and stays personally involved through the cleanup and your first closes. <strong>He also leads the Fitzhugh transition conversation with Deborah.</strong> Scope questions, board questions, and anything that keeps you up at night go to him.</p>
       </div>
-      <div class="step rv" data-d="1">
-        <div class="step-num num">2</div>
-        <div class="step-body">
-          <div class="when num">Late July into early August</div>
-          <h3>Access and setup</h3>
-          <p>We connect to the systems your church already uses: QuickBooks Online, Gusto, Expensify, Planning Center, Overflow, and view-only access to your bank accounts. One click from your side connects QuickBooks to our reporting tools, and Vanessa will send you a short video showing exactly where to click.</p>
-        </div>
+      <div class="tcard rv" data-d="1">
+        <div class="avatar"><img class="tphoto" src="https://turnkeycfo.com/assets/vanessa-headshot.webp" alt="Vanessa"></div>
+        <div class="role micro">Lead Accountant</div>
+        <h3>Vanessa</h3>
+        <p>Vanessa is your day-to-day contact. She runs your onboarding checklist, coordinates access and statements, and quality-checks every report before it reaches you. <strong>A question about a transaction, a fund, or a deadline gets its fastest answer from her.</strong></p>
       </div>
-      <div class="step rv" data-d="2">
-        <div class="step-num num">3</div>
-        <div class="step-body">
-          <div class="when num">August</div>
-          <h3>Your January through June books, cleaned up</h3>
-          <p>We work through the backlog: the uncategorized entries waiting on answers, first-time reconciliations for accounts that have never been tied out (including your Edward Jones account and LCRA escrow), and clear documentation for your CD position. We will also map the plan to bring the Fitzhugh campus books into QuickBooks Online so all three campuses live in one clean system.</p>
-        </div>
+      <div class="tcard rv" data-d="2">
+        <div class="avatar"><img class="tphoto" src="https://turnkeycfo.com/assets/hardik-headshot.webp" alt="Hardik"></div>
+        <div class="role micro">Onboarding Specialist</div>
+        <h3>Hardik</h3>
+        <p>Hardik does the deep work behind the scenes: the January through June cleanup, the first-time reconciliations on accounts that have never been tied out, and the daily transaction coding that keeps you current from here on.</p>
       </div>
-      <div class="step rv" data-d="3">
-        <div class="step-num num">4</div>
-        <div class="step-body">
-          <div class="when num">September</div>
-          <h3>Your first monthly close</h3>
-          <p>Your August books are the first month we close on the standing rhythm. You will receive your profit and loss and balance sheet, with campus-level expense reporting and restricted fund tracking, by September 15. From there it repeats every month, without you having to ask.</p>
-        </div>
+      <div class="tcard rv" data-d="3">
+        <div class="avatar"><img class="tphoto" src="https://turnkeycfo.com/assets/eldine-headshot.webp" alt="Eldine"></div>
+        <div class="role micro">Assistant</div>
+        <h3>Eldine</h3>
+        <p>Eldine keeps the operational wheels turning: scheduling, billing, and making sure nothing falls between the cracks while everyone else is heads-down in your books.</p>
       </div>
     </div>
+    <figure class="team-figure rv" data-d="4">
+      <div class="photo-frame"><div class="photo-clip"><img id="teamPhoto" src="https://turnkeycfo.com/assets/turnkey-team.webp" alt="The Turnkey CFO team"></div></div>
+      <figcaption><svg class="hx" viewBox="0 0 10 11" fill="none"><path d="M5 .6l3.9 2.2v4.4L5 9.4 1.1 7.2V2.8z" stroke="#5E89A3" stroke-width="1.2" stroke-linejoin="round"/></svg>The Turnkey CFO team.</figcaption>
+    </figure>
   </div>
 </section>
 
-<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+<div class="divider" aria-hidden="true"><div class="rule"></div><svg class="hx" viewBox="0 0 13 15" fill="none"><path d="M6.5 1l5.2 3v6l-5.2 3-5.2-3V4z" stroke="#5E89A3" stroke-width="1.3" stroke-linejoin="round"/></svg><div class="rule"></div></div>
 
 <section>
   <div class="ghost num" aria-hidden="true">03</div>
   <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num num">03</span><h2>The monthly rhythm</h2></div>
-    <p class="sec-intro rv" data-d="1">Every month runs on the same calendar of business days, so you always know where your books stand. In plain English:</p>
+    <div class="sec-head rv"><span class="sec-num num">03</span><h2>The road from here</h2></div>
+    <p class="sec-intro rv" data-d="1">Real dates, not a vague ramp. August 1 is a Saturday, so your kickoff is the Monday. Everything below is already on our calendar.</p>
+    <div class="timeline">
+      <div class="spine" aria-hidden="true"></div>
+
+      <div class="step rv">
+        <div class="node"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 4l24 14v28L32 60 8 46V18z" fill="#FFFDF8" stroke="#5E89A3" stroke-width="2.4" stroke-linejoin="round"/></svg><span class="num">1</span></div>
+        <div class="step-body">
+          <div class="when num">Now through August 7</div>
+          <h3>Access and records</h3>
+          <p>Vanessa works one short list with you: admin invitations to Gusto, Expensify, Planning Center, and Overflow, view-only access to your Chase and AMEX accounts, and the statements we cannot get any other way. One consent click from a QuickBooks admin connects your books to our reporting tools, and she will send a short walkthrough video showing exactly where to click.</p>
+          <div class="who"><span class="dotx"></span>Vanessa leads &middot; one batched list, not a drip of emails</div>
+        </div>
+      </div>
+
+      <div class="step rv" data-d="1">
+        <div class="node"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 4l24 14v28L32 60 8 46V18z" fill="#FFFDF8" stroke="#5E89A3" stroke-width="2.4" stroke-linejoin="round"/></svg><span class="num">2</span></div>
+        <div class="step-body">
+          <div class="when num">Monday, August 3</div>
+          <h3>Kickoff with your leadership</h3>
+          <p>Ricky and Vanessa sit down with Dan, Adam, and whoever else you want in the room, in person if we can make it work. We walk the plan for all three campuses, confirm who owns what on your side, and settle the open questions: your legal name for filings, your sales tax history, housing allowance designations, and the restriction rules behind your named funds. <strong>Your day-21 check-in gets booked in that same meeting.</strong></p>
+          <div class="who"><span class="dotx"></span>Ricky and Vanessa &middot; in person preferred</div>
+        </div>
+      </div>
+
+      <div class="step rv" data-d="2">
+        <div class="node"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 4l24 14v28L32 60 8 46V18z" fill="#FFFDF8" stroke="#5E89A3" stroke-width="2.4" stroke-linejoin="round"/></svg><span class="num">3</span></div>
+        <div class="step-body">
+          <div class="when num">By Wednesday, August 5</div>
+          <h3>Your books health snapshot</h3>
+          <p>Within forty-eight hours of having access, you get a short, honest read: where things stand, something the prior setup got right, one risk we are watching, and one thing we already fixed before you asked. Five lines. Nothing needed from you.</p>
+          <div class="who"><span class="dotx"></span>Vanessa writes &middot; Ricky reviews</div>
+        </div>
+      </div>
+
+      <div class="step rv" data-d="3">
+        <div class="node"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 4l24 14v28L32 60 8 46V18z" fill="#FFFDF8" stroke="#5E89A3" stroke-width="2.4" stroke-linejoin="round"/></svg><span class="num">4</span></div>
+        <div class="step-body">
+          <div class="when num">By Friday, August 15</div>
+          <h3>Your first reporting package</h3>
+          <p>July is in scope, so July is the first month we report. Profit and loss and balance sheet, with campus-level expense detail and your restricted funds tracked separately, delivered to your secure shared drive. From there it repeats on the same date every month, without you having to ask for it.</p>
+          <div class="who"><span class="dotx"></span>Hardik prepares &middot; Vanessa reviews &middot; delivered by the 15th</div>
+        </div>
+      </div>
+
+      <div class="step rv" data-d="4">
+        <div class="node"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 4l24 14v28L32 60 8 46V18z" fill="#FFFDF8" stroke="#5E89A3" stroke-width="2.4" stroke-linejoin="round"/></svg><span class="num">5</span></div>
+        <div class="step-body">
+          <div class="when num">August through September</div>
+          <h3>January through June, cleaned up</h3>
+          <p>The historical work runs alongside your live months. We clear the <strong>133 open items sitting in Ask My Accountant</strong>, set up and reconcile accounts that have never been tied out in QuickBooks, including your Edward Jones account and the LCRA escrow, and get documentation in place to correct how the certificate of deposit is carried. When it is finished you receive clean statements for the full period.</p>
+          <div class="who"><span class="dotx"></span>Hardik owns the cleanup &middot; questions come to you in batches</div>
+        </div>
+      </div>
+
+      <div class="step rv" data-d="5">
+        <div class="node"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 4l24 14v28L32 60 8 46V18z" fill="#FFFDF8" stroke="#5E89A3" stroke-width="2.4" stroke-linejoin="round"/></svg><span class="num">6</span></div>
+        <div class="step-body">
+          <div class="when num">A month-end, after the cleanup</div>
+          <h3>Fitzhugh moves to QuickBooks Online</h3>
+          <p>Once the cleanup is behind us, we migrate the Fitzhugh campus off desktop and tie its opening balances to a desktop trial balance as of the cutover date. After that, all three campuses live in one system and your campus reporting comes out of one place.</p>
+          <div class="who"><span class="dotx"></span>Vanessa runs the project &middot; Ricky owns the conversation with Deborah</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="rule"></div><svg class="hx" viewBox="0 0 13 15" fill="none"><path d="M6.5 1l5.2 3v6l-5.2 3-5.2-3V4z" stroke="#5E89A3" stroke-width="1.3" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+
+<section class="tint">
+  <div class="ghost num" aria-hidden="true">04</div>
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num num">04</span><h2>The monthly rhythm</h2></div>
+    <p class="sec-intro rv" data-d="1">Every month runs the same way, on the same calendar, so you always know where your books stand. In plain English:</p>
     <div class="calstrip">
       <div class="cal-track rv" aria-hidden="true">
         <div class="cal-line"></div>
@@ -511,56 +544,87 @@
         <div class="cal-node"><div class="cal-dot"></div><div class="cal-when num">By the 15th</div></div>
       </div>
       <div class="cal-cards">
-        <div class="cal-card rv" data-when="First business day"><p>We send you one short request list: anything we need from your team to close the prior month. One list, not a drip of emails.</p></div>
-        <div class="cal-card rv" data-d="1" data-when="First week"><p>Transactions coded, accounts reconciled, and any open questions batched back to you respectfully.</p></div>
-        <div class="cal-card rv" data-d="2" data-when="Mid-month"><p>Your books are finalized and locked, reviewed by a second set of eyes before anything reaches you.</p></div>
-        <div class="cal-card rv" data-d="3" data-when="By the 15th"><p>Your reports arrive in your shared drive: profit and loss, balance sheet, campus-level expenses, and restricted funds: Building Fund, First Fruits, 1231 Ministries, and the 250 Fund, each tracked plainly.</p></div>
+        <div class="cal-card rv" data-when="First business day"><p><strong>One short request list.</strong> Everything we need from your team to close the prior month, in a single email. Not a drip of one-off pings.</p></div>
+        <div class="cal-card rv" data-d="1" data-when="First week"><p><strong>The work.</strong> Transactions coded, every bank, card, and investment account reconciled, payroll runs tied out, and open questions batched back to you.</p></div>
+        <div class="cal-card rv" data-d="2" data-when="Mid-month"><p><strong>Review.</strong> Books finalized and locked, then checked by a second set of eyes before anything reaches you.</p></div>
+        <div class="cal-card rv" data-d="3" data-when="By the 15th"><p><strong>Delivery.</strong> Profit and loss, balance sheet, campus-level expenses, and restricted funds, in your secure shared drive.</p></div>
       </div>
     </div>
-    <p class="rhythm-note rv">Also on the standing calendar: payroll reconciliation each month, accounts payable support, sales tax filing, and 1099 preparation each January.</p>
+    <p class="rhythm-note rv" data-d="4">Also on the standing calendar: <strong>payroll reconciliation</strong> every cycle in QuickBooks, wages, benefits, retirement contributions and employer taxes checked against what was actually run; <strong>accounts payable</strong> support on your approval process, with your team still approving every payment; <strong>sales tax filing</strong>; and <strong>1099 preparation</strong> each January, from a contractor log we keep all year rather than a scramble in December.</p>
   </div>
 </section>
 
-<div class="divider" aria-hidden="true"><div class="rule"></div><svg viewBox="0 0 14 14" fill="none"><path d="M4 2l5 5-5 5" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+<div class="divider" aria-hidden="true"><div class="rule"></div><svg class="hx" viewBox="0 0 13 15" fill="none"><path d="M6.5 1l5.2 3v6l-5.2 3-5.2-3V4z" stroke="#5E89A3" stroke-width="1.3" stroke-linejoin="round"/></svg><div class="rule"></div></div>
 
-<section class="tint">
-  <div class="ghost num" aria-hidden="true">04</div>
+<section class="slate">
+  <div class="ghost num" aria-hidden="true">05</div>
   <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num num">04</span><h2>What we need from you</h2></div>
-    <p class="sec-intro rv" data-d="1">Your part is small but important. These items unlock the cleanup. The sooner they land, the sooner your books are current.</p>
-    <div class="needs">
-      <div class="need rv" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>The QuickBooks connection click.</strong> One consent click from an admin connects your books to our reporting. Vanessa will send the link and a short walkthrough video.</p></div>
-      <div class="need rv" data-d="1" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>System access.</strong> Admin invitations to Gusto, Expensify, Planning Center, and Overflow, plus view-only bank access for Chase and AMEX.</p></div>
-      <div class="need rv" data-d="2" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Statements.</strong> Edward Jones statements back to the account opening, LCRA escrow statements, and documentation for the certificate of deposit.</p></div>
-      <div class="need rv" data-d="3" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>W-9s.</strong> Completed W-9 forms for your musicians and security contractors across all campuses, so January 1099s are painless.</p></div>
-      <div class="need rv" data-d="4" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>A few answers at kickoff.</strong> Your legal entity name for filings, sales tax history, housing allowance designations, and the restriction rules for your named funds.</p></div>
-      <div class="need rv" data-d="5" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#0E3B26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Answers to our batched questions.</strong> During cleanup we will send question lists in batches. Quick turnarounds keep the cleanup moving.</p></div>
+    <div class="sec-head rv"><span class="sec-num num">05</span><h2>Your named funds</h2></div>
+    <p class="sec-intro rv" data-d="1">When someone gives to a purpose, that purpose should be visible on a page. Each of your four named funds is tracked on its own line in your monthly package, so you can answer a giver, a board member, or an elder without going digging.</p>
+    <div class="funds">
+      <div class="fund rv">
+        <svg class="fhx" viewBox="0 0 96 108" fill="none" aria-hidden="true"><path d="M48 4l40 23v54L48 104 8 81V27z" stroke="#3F6479" stroke-width="5" stroke-linejoin="round"/></svg>
+        <div class="fidx num">Fund 01</div>
+        <div class="fname">Building Fund</div>
+        <p>Tracked separately from general operations, with its balance carried forward month to month.</p>
+      </div>
+      <div class="fund rv" data-d="1">
+        <svg class="fhx" viewBox="0 0 96 108" fill="none" aria-hidden="true"><path d="M48 4l40 23v54L48 104 8 81V27z" stroke="#3F6479" stroke-width="5" stroke-linejoin="round"/></svg>
+        <div class="fidx num">Fund 02</div>
+        <div class="fname">First Fruits Offering</div>
+        <p>Given and released according to the rules your leadership sets, reported on its own line.</p>
+      </div>
+      <div class="fund rv" data-d="2">
+        <svg class="fhx" viewBox="0 0 96 108" fill="none" aria-hidden="true"><path d="M48 4l40 23v54L48 104 8 81V27z" stroke="#3F6479" stroke-width="5" stroke-linejoin="round"/></svg>
+        <div class="fidx num">Fund 03</div>
+        <div class="fname">1231 Ministries</div>
+        <p>Restricted activity kept clear of general fund results so both read honestly.</p>
+      </div>
+      <div class="fund rv" data-d="3">
+        <svg class="fhx" viewBox="0 0 96 108" fill="none" aria-hidden="true"><path d="M48 4l40 23v54L48 104 8 81V27z" stroke="#3F6479" stroke-width="5" stroke-linejoin="round"/></svg>
+        <div class="fidx num">Fund 04</div>
+        <div class="fname">250 Fund</div>
+        <p>Same treatment: designated in, designated out, with a balance you can quote from memory.</p>
+      </div>
     </div>
-    <p class="needs-hint">Tip: tap any card to mark it handled while you work down the list.</p>
+    <div class="ledger-note rv" data-d="4">
+      <h3>The one thing we need from you on funds</h3>
+      <p>We can track anything, but we should not invent the rules. At kickoff we will ask your leadership to confirm, in a sentence each, what may be spent from each fund and who decides. Once that is written down it stops being a recurring question and starts being a policy your books simply follow.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="rule"></div><svg class="hx" viewBox="0 0 13 15" fill="none"><path d="M6.5 1l5.2 3v6l-5.2 3-5.2-3V4z" stroke="#5E89A3" stroke-width="1.3" stroke-linejoin="round"/></svg><div class="rule"></div></div>
+
+<section>
+  <div class="ghost num" aria-hidden="true">06</div>
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num num">06</span><h2>What we need from you</h2></div>
+    <p class="sec-intro rv" data-d="1">Your part is short. These items unlock the cleanup, and the sooner they land the sooner your books are current. Tap any card to mark it handled.</p>
+    <div class="needs">
+      <div class="need rv" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>The QuickBooks consent click.</strong> One click from a QuickBooks admin connects your books to our reporting. Vanessa sends the link and a short walkthrough video. Nothing automated can start until this happens.</p></div>
+      <div class="need rv" data-d="1" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>System access.</strong> Admin invitations to Gusto, Expensify, Planning Center, and Overflow, plus view-only bank access for your Chase accounts and AMEX.</p></div>
+      <div class="need rv" data-d="2" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Statements we cannot pull.</strong> Edward Jones statements back to when the account was opened, LCRA escrow statements, and the paperwork behind the certificate of deposit.</p></div>
+      <div class="need rv" data-d="3" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>W-9 forms.</strong> Completed W-9s for your musicians and security contractors across all three campuses, so January 1099s are a non-event.</p></div>
+      <div class="need rv" data-d="4" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>Five answers at kickoff.</strong> Your legal entity name as it should appear on filings, your sales tax history and permit, housing allowance designations, the retirement plan behind your contributions, and the spending rules for each named fund.</p></div>
+      <div class="need rv" data-d="5" role="button" tabindex="0" aria-pressed="false"><div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p><strong>A reply to our batched questions.</strong> During cleanup our questions arrive in lists, not one at a time. A quick turnaround on each list is what keeps January through June moving.</p></div>
+    </div>
+    <p class="needs-hint rv">Your progress is remembered on this device only, so you can close this page and come back to it.</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
     <div class="contact rv">
-      <svg class="cmark" viewBox="0 0 100 140" fill="none" aria-hidden="true"><path d="M10 10l55 60-55 60" stroke="#00E676" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="cmark" viewBox="0 0 172 194" fill="none" aria-hidden="true"><path d="M86 6l72 42v98l-72 42-72-42V48z" stroke="#FDCF36" stroke-width="7" stroke-linejoin="round"/></svg>
       <div>
         <h2>How to reach us</h2>
-        <p>No ticket systems, no phone trees. Email us directly and a person who knows your books answers. If something feels urgent, call.</p>
+        <p>No ticket systems and no phone trees. Email us and a person who already knows your books answers. If something feels urgent, call. That is the whole policy.</p>
       </div>
       <div class="lines">
-        <div class="line">
-          <div class="lbl">Ricky West</div>
-          <div class="val">Ricky@TurnkeyCFO.com</div>
-        </div>
-        <div class="line">
-          <div class="lbl">Phone</div>
-          <div class="val num">(682) 433-1852</div>
-        </div>
-        <div class="line">
-          <div class="lbl">Vanessa</div>
-          <div class="val">[confirm Vanessa's client-facing email]</div>
-        </div>
+        <div class="line"><div class="lbl">Ricky West &middot; Founder</div><div class="val">Ricky@TurnkeyCFO.com</div></div>
+        <div class="line"><div class="lbl">Phone</div><div class="val num">(682) 433-1852</div></div>
+        <div class="line"><div class="lbl">Vanessa &middot; Lead Accountant</div><div class="val">[confirm Vanessa's client-facing email]</div></div>
       </div>
     </div>
   </div>
@@ -568,8 +632,8 @@
 
 <footer>
   <div class="wrap foot-inner">
-    <div class="foot-brand"><svg viewBox="0 0 9 11" fill="none"><path d="M1.5 1l4.5 4.5L1.5 10" stroke="#00B25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Turnkey CFO · Austin, Texas</div>
-    <div class="num">Prepared for Cornerstone Church ATX [confirm legal name] · August 2026</div>
+    <div class="foot-brand"><svg class="hx" viewBox="0 0 10 11" fill="none"><path d="M5 .6l3.9 2.2v4.4L5 9.4 1.1 7.2V2.8z" stroke="#5E89A3" stroke-width="1.2" stroke-linejoin="round"/></svg>Turnkey CFO &middot; Austin, Texas</div>
+    <div class="num">Prepared for Cornerstone Church ATX [confirm legal name] &middot; July 2026</div>
   </div>
 </footer>
 
@@ -579,32 +643,49 @@
 <script>
 (function(){
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var KEY='ccatx-welcome-needs';
 
-  /* tap-to-check needs cards (all modes) */
-  document.querySelectorAll('.need').forEach(function(card){
+  /* tap-to-check, persisted on this device */
+  var saved={};
+  try{saved=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){saved={};}
+  var needs=Array.prototype.slice.call(document.querySelectorAll('.need'));
+  needs.forEach(function(card,i){
+    if(saved[i]){card.classList.add('done');card.setAttribute('aria-pressed','true');}
     function toggle(){
-      card.classList.toggle('done');
-      card.setAttribute('aria-pressed', card.classList.contains('done') ? 'true' : 'false');
+      var on=card.classList.toggle('done');
+      card.setAttribute('aria-pressed',on?'true':'false');
+      saved[i]=on;
+      try{localStorage.setItem(KEY,JSON.stringify(saved));}catch(e){}
     }
-    card.addEventListener('click', toggle);
-    card.addEventListener('keydown', function(ev){
+    card.addEventListener('click',toggle);
+    card.addEventListener('keydown',function(ev){
       if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggle();}
     });
   });
 
-  var hasGsap = !reduce && window.gsap && window.ScrollTrigger;
+  /* weighted card physics: subtle pointer tilt, desktop only */
+  if(fine&&!reduce){
+    document.querySelectorAll('.tcard,.campus,.fund').forEach(function(c){
+      c.addEventListener('pointermove',function(ev){
+        var r=c.getBoundingClientRect();
+        var px=(ev.clientX-r.left)/r.width-.5, py=(ev.clientY-r.top)/r.height-.5;
+        c.style.transform='perspective(900px) translateY(-6px) rotateX('+(-py*3.2)+'deg) rotateY('+(px*3.6)+'deg)';
+      });
+      c.addEventListener('pointerleave',function(){c.style.transform='';});
+    });
+  }
+
+  var hasGsap=!reduce&&window.gsap&&window.ScrollTrigger;
 
   if(!hasGsap){
-    /* graceful fallback: IntersectionObserver-driven CSS reveals */
     var els=document.querySelectorAll('.rv');
     if(reduce||!('IntersectionObserver' in window)){
       els.forEach(function(e){e.classList.add('in');});
     }else{
-      var io=new IntersectionObserver(function(entries){
-        entries.forEach(function(en){
-          if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
-        });
-      },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+      var io=new IntersectionObserver(function(en){
+        en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});
+      },{threshold:.1,rootMargin:'0px 0px -8% 0px'});
       els.forEach(function(e){io.observe(e);});
     }
     return;
@@ -613,92 +694,99 @@
   gsap.registerPlugin(ScrollTrigger);
   document.documentElement.classList.add('gs');
 
-  /* Lenis smooth scroll wired into the GSAP ticker */
   if(window.Lenis){
-    var lenis=new Lenis({lerp:0.11});
-    lenis.on('scroll', ScrollTrigger.update);
+    var lenis=new Lenis({lerp:.11});
+    lenis.on('scroll',ScrollTrigger.update);
     gsap.ticker.add(function(t){lenis.raf(t*1000);});
     gsap.ticker.lagSmoothing(0);
   }
 
-  /* cinematic hero: word-mask headline reveal */
+  /* headline word-mask */
   var h=document.querySelector('h1');
-  if(h){
-    (function split(node){
-      Array.prototype.slice.call(node.childNodes).forEach(function(ch){
-        if(ch.nodeType===3){
-          var frag=document.createDocumentFragment();
-          ch.textContent.split(/(\s+)/).forEach(function(part){
-            if(!part){return;}
-            if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(part));return;}
-            var w=document.createElement('span');w.className='w';
-            var inner=document.createElement('span');inner.textContent=part;
-            w.appendChild(inner);frag.appendChild(w);
-          });
-          node.replaceChild(frag,ch);
-        }else if(ch.nodeType===1&&ch.tagName!=='SPAN'){split(ch);}
-      });
-    })(h);
-  }
+  if(h){(function split(node){
+    Array.prototype.slice.call(node.childNodes).forEach(function(ch){
+      if(ch.nodeType===3){
+        var frag=document.createDocumentFragment();
+        ch.textContent.split(/(\s+)/).forEach(function(p){
+          if(!p)return;
+          if(/^\s+$/.test(p)){frag.appendChild(document.createTextNode(p));return;}
+          var w=document.createElement('span');w.className='w';
+          var i=document.createElement('span');i.textContent=p;
+          w.appendChild(i);frag.appendChild(w);
+        });
+        node.replaceChild(frag,ch);
+      }else if(ch.nodeType===1&&ch.tagName!=='SPAN'){split(ch);}
+    });
+  })(h);}
+
   gsap.set('.hero .rv',{opacity:1,y:0});
-  var intro=gsap.timeline({defaults:{ease:'power3.out'}});
-  intro.from('.eyebrow',{opacity:0,x:-26,duration:.9},0)
-       .to('h1 .w > span',{y:0,duration:1.15,ease:'power4.out',stagger:.07},.15)
-       .from('.hero .lede',{opacity:0,y:26,duration:1},.55)
-       .from('.start-badge',{opacity:0,y:18,scale:.96,duration:.8,ease:'back.out(1.6)'},.8);
+  gsap.timeline({defaults:{ease:'power3.out'}})
+    .from('.eyebrow',{opacity:0,x:-28,duration:.9},0)
+    .to('h1 .w > span',{y:0,duration:1.2,ease:'power4.out',stagger:.065},.12)
+    .from('.hero .lede',{opacity:0,y:26,duration:1},.5)
+    .from('.startbar',{opacity:0,y:20,scale:.96,duration:.85,ease:'back.out(1.5)'},.74)
+    .from('.hero-note',{opacity:0,y:14,duration:.7},.92)
+    .from('.hexfield',{opacity:0,scale:1.06,duration:1.8,ease:'power2.out'},0);
 
-  /* scroll-choreographed reveals for everything below the hero */
-  var rvs=gsap.utils.toArray('.rv').filter(function(e){return !e.closest('.hero');});
-  gsap.set(rvs,{opacity:0,y:32});
-  ScrollTrigger.batch(rvs,{
-    start:'top 88%',
-    once:true,
-    onEnter:function(batch){
-      gsap.to(batch,{opacity:1,y:0,duration:.95,ease:'power3.out',stagger:.1,overwrite:true});
-    }
-  });
-
-  /* parallax accents */
-  gsap.utils.toArray('.ghost').forEach(function(g){
-    gsap.fromTo(g,{y:70},{y:-80,ease:'none',
-      scrollTrigger:{trigger:g.parentElement,start:'top bottom',end:'bottom top',scrub:.6}});
-  });
-  gsap.to('.hero-mark',{y:-90,ease:'none',
-    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.6}});
-  gsap.to('.glow.g1',{y:110,x:-40,ease:'none',
-    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
-  gsap.to('.glow.g2',{y:-70,ease:'none',
-    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
-  var tp=document.getElementById('teamPhoto');
-  if(tp){
-    gsap.fromTo(tp,{yPercent:-4,scale:1.08},{yPercent:4,scale:1.08,ease:'none',
-      scrollTrigger:{trigger:tp,start:'top bottom',end:'bottom top',scrub:.5}});
+  /* section-specific entrances so no two sections arrive the same way */
+  function batch(sel,vars,opts){
+    var arr=gsap.utils.toArray(sel);if(!arr.length)return;
+    gsap.set(arr,vars.from);
+    ScrollTrigger.batch(arr,Object.assign({start:'top 88%',once:true,
+      onEnter:function(b){gsap.to(b,Object.assign({overwrite:true},vars.to));}},opts||{}));
   }
+  batch('.campus',{from:{opacity:0,y:44,rotateX:-6},to:{opacity:1,y:0,rotateX:0,duration:.95,ease:'power3.out',stagger:.12}});
+  batch('.tcard',{from:{opacity:0,y:34,scale:.97},to:{opacity:1,y:0,scale:1,duration:.9,ease:'power3.out',stagger:.1}});
+  batch('.step',{from:{opacity:0,x:-38},to:{opacity:1,x:0,duration:.9,ease:'power3.out',stagger:.11}});
+  batch('.cal-card',{from:{opacity:0,y:38},to:{opacity:1,y:0,duration:.85,ease:'power3.out',stagger:.09}});
+  batch('.fund',{from:{opacity:0,y:40,scale:.95},to:{opacity:1,y:0,scale:1,duration:.9,ease:'back.out(1.3)',stagger:.09}});
+  batch('.need',{from:{opacity:0,y:26},to:{opacity:1,y:0,duration:.7,ease:'power2.out',stagger:.06}});
 
-  /* the 30-day spine draws itself as you travel it */
+  /* everything else */
+  var handled='.campus,.tcard,.step,.cal-card,.fund,.need';
+  var rest=gsap.utils.toArray('.rv').filter(function(e){
+    return !e.closest('.hero')&&!e.matches(handled);
+  });
+  gsap.set(rest,{opacity:0,y:30});
+  ScrollTrigger.batch(rest,{start:'top 90%',once:true,onEnter:function(b){
+    gsap.to(b,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.1,overwrite:true});
+  }});
+
+  /* parallax */
+  gsap.utils.toArray('.ghost').forEach(function(g){
+    gsap.fromTo(g,{y:72},{y:-84,ease:'none',scrollTrigger:{trigger:g.parentElement,start:'top bottom',end:'bottom top',scrub:.6}});
+  });
+  gsap.to('.glow.g1',{y:120,x:-44,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
+  gsap.to('.glow.g2',{y:-74,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.8}});
+  gsap.to('.hexfield',{y:-110,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.7}});
+  var tp=document.getElementById('teamPhoto');
+  if(tp){gsap.fromTo(tp,{yPercent:-3.5},{yPercent:3.5,ease:'none',scrollTrigger:{trigger:tp,start:'top bottom',end:'bottom top',scrub:.5}});}
+  gsap.fromTo('.contact .cmark',{y:24},{y:-20,ease:'none',scrollTrigger:{trigger:'.contact',start:'top bottom',end:'bottom top',scrub:.7}});
+
+  /* drawn lines */
   document.querySelectorAll('.spine').forEach(function(s){
-    gsap.fromTo(s,{scaleY:0},{scaleY:1,ease:'none',
-      scrollTrigger:{trigger:s.parentElement,start:'top 78%',end:'bottom 60%',scrub:.5}});
+    gsap.fromTo(s,{scaleY:0},{scaleY:1,ease:'none',scrollTrigger:{trigger:s.parentElement,start:'top 76%',end:'bottom 62%',scrub:.5}});
   });
-
-  /* the month track draws in when the rhythm section arrives */
   document.querySelectorAll('.cal-line').forEach(function(l){
-    gsap.fromTo(l,{scaleX:0},{scaleX:1,duration:1.3,ease:'power3.inOut',
-      scrollTrigger:{trigger:l.parentElement,start:'top 82%',once:true}});
+    gsap.fromTo(l,{scaleX:0},{scaleX:1,duration:1.35,ease:'power3.inOut',scrollTrigger:{trigger:l.parentElement,start:'top 84%',once:true}});
   });
-
-  /* contact panel: slow watermark drift */
-  gsap.fromTo('.contact .cmark',{y:20},{y:-16,ease:'none',
-    scrollTrigger:{trigger:'.contact',start:'top bottom',end:'bottom top',scrub:.7}});
+  /* hexagon nodes draw themselves */
+  gsap.utils.toArray('.node svg path').forEach(function(p){
+    var len=p.getTotalLength?p.getTotalLength():0;
+    if(!len)return;
+    gsap.fromTo(p,{strokeDasharray:len,strokeDashoffset:len},
+      {strokeDashoffset:0,duration:1.1,ease:'power2.out',
+       scrollTrigger:{trigger:p.closest('.step'),start:'top 84%',once:true}});
+  });
 })();
 </script>
 
 </body>
-<!-- pass 1: art direction overhaul. Film-grain overlay, three layered drifting emerald glows, oversized chevron watermark, hero keyline column, ghost section numerals, chevron divider language between sections, alternating section tints so the page reads as designed movements rather than stacked blocks -->
-<!-- pass 2: editorial typography. Cinematic hero scale with balanced wrapping and a word-mask reveal, highlight underline on the client name, 0.22em tracked labels, tabular numerals on every date and phone figure, tightened heading letterspacing, refined intro measures -->
-<!-- pass 3: information design. The 30-day plan is now a true visual timeline with a scroll-drawn gradient spine, haloed nodes, date chips, and speech-pointer step cards; the monthly rhythm is a four-node calendar strip whose track draws itself in; the needs list is now tap-to-check cards with animated ticks and keyboard support -->
-<!-- pass 4: purposeful motion at the premium bar. GSAP plus ScrollTrigger scroll-choreographed staggered reveals, Lenis smooth scroll wired into the GSAP ticker, parallax ghost numerals and hero glows, a slow parallax zoom on the team photograph, all degrading to an IntersectionObserver path if the CDN is blocked and fully disabled under prefers-reduced-motion -->
-<!-- pass 5: depth and craft details. Offset keyline frames on avatars and the team photograph, sticky frosted topbar, gradient contact panel with chevron watermark and hover-shift contact lines, card physics with weighted shadow easing and glow blooms on hover, selection color, refined footer brand mark -->
-<!-- pass 6: mobile and print excellence. Flawless at 360px (hero rescale, single-column calendar cards that self-label from data-when, tighter step cards), print stylesheet forces reveals and drawn lines visible, strips grain, glows, and ghosts, guards page breaks, keeps exact colors for badges, ticks, and the contact panel -->
-<!-- pass 7: resilience. noscript reveal fallback, CDN-blocked fallback path verified, focus-visible states on interactive cards, overflow-x guarded against parallax drift -->
+<!-- pass 1 (art direction): rebuilt around Cornerstone's own mark. Their hexagon becomes the page's geometric language - a parallaxing hexagon field behind the hero, hexagonal timeline nodes that draw themselves, hexagon watermarks on campus and fund tiles. Turnkey CFO cream/emerald stays the base because we are the guide; their sourced slate blue #5E89A3 carries every client-owned element and their gold #FDCF36 appears only twice, as a highlight. Real co-brand lockup in the masthead: our logo, an x, their real CCATX logo embedded as data so it can never 404. -->
+<!-- pass 2 (typography, one family only): Plus Jakarta Sans across the whole document. Hierarchy comes from weight range 300-800, optical tracking (-0.038em on the hero, 0.26em on micro labels), scale contrast and case - never a second typeface. The lede and all body copy run at 300 for an editorial voice against the 800-weight headlines. Tabular numerals on every date, phone number and fund index. -->
+<!-- pass 3 (information architecture, tailored not templated): the page now opens on Cornerstone's actual structure - three campuses with per-campus book status - instead of a generic team block. A named-funds section gives Building Fund, First Fruits, 1231 Ministries and the 250 Fund a page of their own because restricted-fund visibility is the thing a church board actually asks about. The timeline is six real dated steps drawn from the cutover runbook, and the corrected July 23 start date is stated in the hero with its consequence spelled out: July is in scope and reports land August 15. -->
+<!-- pass 4 (motion at the premium bar): GSAP with ScrollTrigger and Lenis wired into the GSAP ticker. Every section enters differently - campuses tilt up on rotateX, team cards scale, timeline steps slide from the spine, funds arrive on a back ease, needs cards are a quick soft stagger. The hexagon nodes stroke-draw themselves, the timeline spine scrubs as you travel it, the calendar track draws in, and the hexagon field parallaxes behind the hero. Full IntersectionObserver fallback if the CDN is blocked, noscript fallback, and everything disabled under prefers-reduced-motion. -->
+<!-- pass 5 (craft and depth): weighted card physics with a real perspective tilt on pointer, gated to hover-capable fine pointers only. Offset keyline frames on avatars and the team photograph, frosted sticky masthead, a two-tone start bar rather than a pill, speech-pointer step cards, gradient contact panel with a hexagon watermark and hover-shift contact lines. Three background treatments - cream, warm card tint, and a slate tint on the funds section - so the page reads as movements rather than stacked blocks. -->
+<!-- pass 6 (mobile and print): flawless at 360px - calendar cards self-label from data-when, the hero rail drops, the timeline narrows, the start bar stacks, funds go single column. The print stylesheet forces every reveal visible, strips grain, glows, ghosts and the hex field, keeps exact colour on the contact panel and status pills, guards page breaks on every card, keeps headings with their content and constrains the team photograph so the printed kit is genuinely beautiful on paper. -->
+<!-- pass 7 (resilience and honesty): the needs checklist persists to localStorage so the page survives a refresh, with try/catch so private mode cannot break it. Client logo embedded as base64 rather than hotlinked. Focus-visible rings on every interactive card, aria-pressed state, overflow guarded against parallax drift. Every fact traces to the dossier, engagement letter or cutover runbook; the two things we genuinely do not know - the legal name and Vanessa's client-facing address - are left as visible [confirm] placeholders rather than invented. -->
 </html>
