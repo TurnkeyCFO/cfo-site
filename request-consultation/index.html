@@ -575,6 +575,10 @@ function render(){
     A[QS[idx].id] = b.dataset.v; render(); paintInspector(); setTimeout(next, 170);
   });
   $('#qbody').querySelectorAll('.opt[data-sub-v]').forEach(b=>b.onclick=()=>{
+    // Capture the textarea BEFORE re-rendering. Without this, picking an urgency
+    // option repaints the question from state and silently discards whatever the
+    // applicant just typed above it.
+    capture();
     A[QS[idx].sub.id] = b.dataset.subV; render(); paintInspector();
   });
   const cw = $('#consentWrap');
