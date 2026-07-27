@@ -578,6 +578,38 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .enemy p strong{color:#fff}
 .clockline{margin-top:14px;font-size:13px;color:var(--tx2);font-style:italic}
 
+/* ---------- live sample dashboard ---------- */
+.dashsec{margin-top:clamp(48px,6vw,80px)}
+.dashhead{max-width:62ch}
+.dashhead .eyebrow{display:inline-flex;align-items:center;gap:9px}
+.ldot{width:8px;height:8px;border-radius:50%;background:var(--emerald);box-shadow:0 0 0 0 rgba(0,230,118,.6);animation:lpulse 2.2s ease-out infinite}
+@keyframes lpulse{0%{box-shadow:0 0 0 0 rgba(0,230,118,.55)}70%{box-shadow:0 0 0 11px rgba(0,230,118,0)}100%{box-shadow:0 0 0 0 rgba(0,230,118,0)}}
+.dashhead h3{margin-top:14px;font-size:clamp(26px,3.4vw,42px);font-weight:800;letter-spacing:-.035em;color:var(--ink);line-height:1.06}
+.dashhead p{margin-top:14px;font-size:clamp(15px,1.35vw,17px);color:var(--tx2);line-height:1.62}
+
+.dashframe{margin:clamp(26px,3.4vw,42px) 0 0;border-radius:clamp(12px,1.4vw,18px);overflow:hidden;
+  background:var(--pine);box-shadow:0 44px 110px rgba(6,40,26,.30),0 0 0 1px rgba(6,40,26,.10)}
+.dashbar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#08301f;border-bottom:1px solid rgba(255,255,255,.07)}
+.dashbar .dd{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.22);flex:0 0 auto}
+.dashbar .dd:first-child{background:#ff5f57}.dashbar .dd:nth-child(2){background:#febc2e}.dashbar .dd:nth-child(3){background:#28c840}
+.dashurl{flex:1 1 auto;text-align:center;font-size:12.5px;color:#8fb9a3;letter-spacing:.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 10px}
+.dashopen{flex:0 0 auto;font-size:12.5px;font-weight:700;color:var(--emerald);text-decoration:none;white-space:nowrap}
+.dashopen:hover{text-decoration:underline}
+@media(max-width:620px){.dashurl{display:none}}
+
+.dashport{position:relative;background:#0d1b17;aspect-ratio:1500/1150;overflow:hidden}
+.dashport img.dashposter{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.dashport iframe{position:absolute;inset:0;width:1500px;height:1150px;border:0;transform-origin:top left;background:#f1f5f4}
+.dashport.on img.dashposter,.dashport.on .dashplay{display:none}
+.dashplay{position:absolute;inset:0;width:100%;height:100%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,rgba(3,20,12,.10) 0%,rgba(3,20,12,.42) 62%,rgba(3,20,12,.72) 100%);transition:background .3s}
+.dashplay:hover{background:linear-gradient(180deg,rgba(3,20,12,.04) 0%,rgba(3,20,12,.34) 62%,rgba(3,20,12,.66) 100%)}
+.dashplay span{background:var(--emerald);color:var(--pine);font-weight:800;font-size:15px;letter-spacing:-.01em;padding:15px 30px;border-radius:999px;
+  box-shadow:0 16px 40px rgba(0,230,118,.34);transition:transform .3s}
+.dashplay:hover span{transform:translateY(-2px)}
+.dashnote{margin-top:0;padding:15px 20px;background:#08301f;font-size:12.8px;color:#a8c7b6;text-align:center;border-top:1px solid rgba(255,255,255,.07)}
+@media(max-width:760px){.dashport{aspect-ratio:4/3}.dashplay span{font-size:14px;padding:13px 24px}}
+
 /* ---------- atmospheric photo backgrounds ---------- */
 section.hasbg{position:relative;overflow:hidden}
 section.hasbg > .wrap{position:relative;z-index:1}
@@ -790,6 +822,28 @@ footer ul a:hover{color:var(--emerald)}
       </div>
     </div>
     <p class="clockline rv">The clock starts once your submission is in. If something needs a quick clarification we will ask, and we would rather get it right than get it fast.</p>
+
+    <!-- ---- live sample dashboard ---- -->
+    <div class="dashsec rv">
+      <div class="dashhead">
+        <div class="eyebrow"><span class="ldot"></span>The dashboard, live</div>
+        <h3>This is the part nobody else hands you.</h3>
+        <p>Every audit comes with a working dashboard on your own private link. Not a PDF, not a slide. Below is a real one, built for a church the size of yours, with example numbers in place of theirs. Scroll it, click it, and read it the way your board would.</p>
+      </div>
+
+      <figure class="dashframe">
+        <div class="dashbar">
+          <span class="dd"></span><span class="dd"></span><span class="dd"></span>
+          <span class="dashurl">turnkeycfo.com/church-dashboard-example</span>
+          <a class="dashopen" data-cta="dashboard-fullscreen" href="/church-dashboard-example/" target="_blank" rel="noopener">Open full screen &#8599;</a>
+        </div>
+        <div class="dashport" id="dashport" data-src="/church-dashboard-example/">
+          <img class="dashposter" src="/assets/church/abc-dashboard.webp" alt="Sample church financial dashboard showing monthly giving, recurring donor revenue, fund balances and donor retention" width="2000" height="1533" loading="lazy" decoding="async">
+          <button class="dashplay" type="button" aria-label="Load the interactive dashboard"><span>Explore it live</span></button>
+        </div>
+        <figcaption class="dashnote">Example data. Yours is built from your own giving, funds and accounts, and it is yours to keep whether you hire us or not.</figcaption>
+      </figure>
+    </div>
 
     <div class="split rev rv" style="margin-top:clamp(40px,5vw,66px)">
       <div>
@@ -1315,6 +1369,29 @@ footer ul a:hover{color:var(--emerald)}
     else v.addEventListener('loadeddata', attempt, {once:true});
   })();
 
+  /* ---- sample dashboard: poster until asked for, then the real thing ---- */
+  (function(){
+    var port = document.getElementById('dashport'); if(!port) return;
+    var btn = port.querySelector('.dashplay'); if(!btn) return;
+    var loaded = false;
+    function fit(f){
+      var s = port.clientWidth / 1500;
+      f.style.transform = 'scale(' + s + ')';
+      port.style.height = (1150 * s) + 'px';
+      port.style.aspectRatio = 'auto';
+    }
+    btn.addEventListener('click', function(){
+      if(loaded) return; loaded = true;
+      var f = document.createElement('iframe');
+      f.src = port.getAttribute('data-src');
+      f.title = 'Sample church financial dashboard';
+      f.setAttribute('loading','eager');
+      f.addEventListener('load', function(){ port.classList.add('on'); fit(f); });
+      port.appendChild(f); fit(f);
+      addEventListener('resize', function(){ fit(f); });
+    });
+  })();
+
   /* ---- lazy Calendly ---- */
   (function(){
     var box = document.getElementById('caly'); if(!box) return;
@@ -1361,22 +1438,7 @@ footer ul a:hover{color:var(--emerald)}
 
     window.addEventListener('message', function(e){
       if(e.data && e.data.event === 'calendly.event_scheduled'){
-        /* send_to MUST carry the conversion LABEL, not just the account id.
-           This previously read 'AW-17845290805' with no /<label>, so every hit
-           was unattributable and silently dropped — which is why the
-           "Calendly Booking" action recorded 0 despite this listener working.
-           Label below = conversion action 7655853026 (Calendly Booking). */
-        if(window.__tkCalendlyBookingSent) return;
-        window.__tkCalendlyBookingSent = true;
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: 'calendly_booking_complete', lp: 'churches' });
-        if(typeof gtag === 'function'){
-          gtag('event','conversion',{
-            send_to: 'AW-17845290805/txDVCOKXzMIcELWOpr1C',
-            value: 1.0,
-            currency: 'USD'
-          });
-        }
+        if(typeof gtag === 'function'){ gtag('event','conversion',{'send_to':'AW-17845290805'}); }
       }
     });
   })();
