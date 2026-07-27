@@ -267,6 +267,28 @@ h1 { margin:0 auto 10px; max-width:740px; font-size:clamp(34px, 5vw, 56px); line
 .tier-card.custom.recommended { border-style: solid; }
 .tier-badge { position:absolute; top:-12px; left:24px; padding:6px 12px; border-radius:999px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:800; background: linear-gradient(135deg, var(--green), var(--green-deep)); color:#fff; box-shadow: 0 6px 14px rgba(4,120,87,.28); }
 .tier-name { font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--navy-soft); font-weight:800; margin-bottom:8px; }
+.compare { margin:22px 0 0; padding:26px 28px; border-radius:24px; border:1px solid var(--border); background:rgba(255,255,255,.72); }
+.compare .c-eyebrow { letter-spacing:.2em; text-transform:uppercase; font-size:11.5px; font-weight:800; opacity:.6; margin-bottom:6px; }
+.compare h3 { margin:0 0 4px; font-size:clamp(20px,2.3vw,26px); letter-spacing:-.03em; }
+.compare .c-sub { margin:0 0 16px; font-size:14.5px; opacity:.72; line-height:1.5; }
+.compare .c-rows { display:grid; gap:0; margin-bottom:16px; }
+.compare .c-row { display:flex; justify-content:space-between; gap:16px; padding:10px 0; border-bottom:1px dashed rgba(0,38,58,.12); font-size:15px; }
+.compare .c-row b { font-variant-numeric:tabular-nums; }
+.compare .c-vs { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+.compare .c-vs-item { padding:14px 16px; border-radius:14px; background:rgba(0,38,58,.04); }
+.compare .c-vs-item .l { display:block; font-size:12.5px; font-weight:700; opacity:.65; margin-bottom:4px; }
+.compare .c-vs-item .v { font-size:20px; font-weight:800; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.compare .c-vs-item .v em { font-style:normal; font-size:12.5px; font-weight:600; opacity:.6; }
+.compare .c-vs-item:last-child { background:rgba(4,120,87,.08); }
+.compare .c-save { padding:14px 16px; border-radius:14px; background:rgba(4,120,87,.10); border:1px solid rgba(4,120,87,.20); font-size:16px; line-height:1.5; }
+.compare .c-beyond { margin-top:20px; padding-top:18px; border-top:1px dashed rgba(0,38,58,.14); }
+.compare .c-beyond-title { font-size:12.5px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; opacity:.6; margin-bottom:14px; }
+.compare .c-beyond-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.compare .c-b { padding:14px 16px; border-radius:14px; background:rgba(4,120,87,.05); border:1px solid rgba(4,120,87,.14); }
+.compare .c-b h5 { margin:0 0 5px; font-size:14.5px; letter-spacing:-.01em; }
+.compare .c-b p { margin:0; font-size:13.5px; line-height:1.5; opacity:.75; }
+.compare .c-fine { margin:12px 0 0; font-size:12.5px; opacity:.6; line-height:1.5; }
+@media (max-width:620px){ .compare { padding:20px 18px; border-radius:20px; } .compare .c-vs, .compare .c-beyond-grid { grid-template-columns:1fr; } }
 .guarantee { margin:22px 0 0; padding:26px 28px; border-radius:24px; border:1px solid rgba(4,120,87,.22); background:linear-gradient(180deg, rgba(4,120,87,.055), rgba(255,255,255,.72)); }
 .guarantee .g-eyebrow { letter-spacing:.2em; text-transform:uppercase; font-size:11.5px; font-weight:800; color:var(--green); margin-bottom:6px; }
 .guarantee h3 { margin:0 0 4px; font-size:clamp(20px,2.3vw,26px); letter-spacing:-.03em; }
@@ -513,6 +535,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="tier-grid" id="tierGrid"></div>
 
+        <section class="compare" id="compare">
+          <div class="c-eyebrow">What this replaces</div>
+          <h3>Doing this in house</h3>
+          <p class="c-sub">A finance function still costs money when you build it yourself. This is roughly what it runs at your size.</p>
+          <div class="c-rows" id="cRows"></div>
+          <div class="c-vs">
+            <div class="c-vs-item"><span class="l">In house, all in</span><span class="v" id="cInHouse"></span></div>
+            <div class="c-vs-item"><span class="l">The Finance Department</span><span class="v" id="cOurs"></span></div>
+          </div>
+          <div class="c-save" id="cSave"></div>
+          <p class="c-fine">An estimate for comparison, not a quote for a job posting. Salaries vary by market and by how much of the work you keep in house.</p>
+          <div class="c-beyond">
+            <div class="c-beyond-title">And the part the savings does not capture</div>
+            <div class="c-beyond-grid" id="cBeyond"></div>
+          </div>
+        </section>
+
         <section class="guarantee" id="guarantee">
           <div class="g-eyebrow">Our guarantee</div>
           <h3>The 24 Hour Finance Systems Audit</h3>
@@ -719,8 +758,11 @@ function getSoftwareLabel(data) {
    businesses/turnkey/turnkey-cfo/instant-estimate-pricing-archive/2026-07-27-tiered-complexity-model/ */
 const PRICING = {
   booksLow: 0.0110, booksHigh: 0.0130,   /* Tier 1 - Books */
-  repLow:   0.0160, repHigh:   0.0210,   /* Tier 2 - Books + Reporting */
-  minBooks: 300, minReporting: 400, minRevenue: 10000       /* monthly floors */
+  repLow:   0.0175, repHigh:   0.0230,   /* Tier 2 - Books + Reporting */
+  minBooks: 300, minReporting: 400, minRevenue: 10000,
+  /* What the same function costs to staff in house. */
+  inHouseOfRevenue: 0.04,
+  loadBenefits: 0.28, loadLiability: 0.05, loadAdmin: 0.12       /* monthly floors */
 };
 
 /* accepts "1,200,000" / "$1.2m" / "1.2 million" / "850k" / "850000" */
@@ -882,8 +924,10 @@ function renderTierCards(result) {
     'Forecast and cash runway',
     'Board ready financial statements',
     'Live financial dashboard on your own private link',
+    ...(document.querySelector('input[name="industry"]:checked')?.value === 'church' ? ['Weekly giving insights dashboard'] : []),
     'Your systems connected, so nothing is re-entered by hand',
     'File management and document retention',
+    'Sales tax administration (if applicable)',
     '1099s filed on time'
   ];
   const strategicCore = [
@@ -1041,6 +1085,18 @@ function calculateEstimate(data) {
   const floor = PRICING.minBooks;
   const addOnsCost = 0;
 
+  const r100 = (n) => Math.round(n / 100) * 100;
+  const ihBase = revenue * PRICING.inHouseOfRevenue;
+  const inHouse = {
+    base:      r100(ihBase),
+    benefits:  r100(ihBase * PRICING.loadBenefits),
+    liability: r100(ihBase * PRICING.loadLiability),
+    admin:     r100(ihBase * PRICING.loadAdmin)
+  };
+  inHouse.total = inHouse.base + inHouse.benefits + inHouse.liability + inHouse.admin;
+  inHouse.ourAnnual = r100(tiers.reporting.mid * 12);
+  inHouse.savesAnnual = r100(inHouse.total - inHouse.ourAnnual);
+
   // Cleanup estimate anchored to Books+Reporting monthly (standard delivery level)
   let cleanup = 0;
   const monthsBehind = parseInt(data.monthsBehind, 10) || 0;
@@ -1071,7 +1127,7 @@ function calculateEstimate(data) {
 
   return {
     core, floor, tiers, cleanup, flags,
-    cfoInterest, recommended, billPayBlocksBooks,
+    cfoInterest, recommended, billPayBlocksBooks, inHouse,
     addOns: {
       payroll: data.payroll,
       billpay: data.billpay,
@@ -1148,6 +1204,33 @@ form.addEventListener('submit', (e) => {
     strategic: 'You are running more than one entity, so the install gets scoped with you on a call.',
     cfo: 'Because you\u2019re interested in CFO-level services, we\u2019ve surfaced a custom tier as our recommendation.'
   }[result.recommended];
+  (function () {
+    const ih = result.inHouse, cmp = document.getElementById('compare');
+    const fmt = (v) => v.toLocaleString('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+    if (!cmp) return;
+    if (!ih || ih.savesAnnual <= 0) { cmp.style.display = 'none'; return; }
+    cmp.style.display = '';
+    document.getElementById('cRows').innerHTML = [
+      ['Salary for the role', ih.base],
+      ['Benefits and payroll taxes', ih.benefits],
+      ['Liability and insurance', ih.liability],
+      ['Management and administration', ih.admin]
+    ].map(function (r) { return '<div class="c-row"><span>' + r[0] + '</span><b>' + fmt(r[1]) + '</b></div>'; }).join('');
+    document.getElementById('cInHouse').innerHTML = fmt(ih.total) + '<em> / year</em>';
+    document.getElementById('cOurs').innerHTML = fmt(ih.ourAnnual) + '<em> / year</em>';
+    document.getElementById('cSave').innerHTML = 'You keep about <b>' + fmt(ih.savesAnnual) + ' a year</b> and still get the whole function.';
+    document.getElementById('cBeyond').innerHTML = [
+      ['Modern tools your team will actually use',
+       'The spreadsheet and the group text get replaced by systems built for the job.'],
+      ['Vendors paid on time, every time',
+       'Bill pay runs on a real approval chain, so invoices stop sitting in someone\u2019s inbox and vendors stop calling to ask.'],
+      [((result.industry === 'church' || (typeof submissionPayload !== 'undefined' && submissionPayload.industry === 'church')) ? 'Staff and volunteers stop floating money' : 'Your team stops floating money'),
+       'No more paying out of pocket and waiting weeks to be made whole. Reimbursements run on a schedule people can count on.'],
+      ['Software shaped around how you operate',
+       'Where the off the shelf tool does not fit, we build the piece that does.']
+    ].map(function (b) { return '<div class="c-b"><h5>' + b[0] + '</h5><p>' + b[1] + '</p></div>'; }).join('');
+  })();
+
   document.getElementById('narrative').textContent = `Based on your inputs, here's how each plan would look for your business. ${recCopy} You'll see which one is recommended below.`;
   const g2 = document.getElementById('gStep2');
   if (g2) g2.textContent = (result.industry === 'church' || submissionPayload.industry === 'church')
