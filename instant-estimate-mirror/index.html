@@ -522,7 +522,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
               </div>
               <div class="row-2">
-                <div class="field">
+                <div class="field" id="billPayWrap">
                   <label class="title" for="billpay">Bill pay / AP support</label>
                   <select id="billpay" name="billpay" required>
                     <option value="none">No</option>
@@ -687,6 +687,7 @@ const formTopbar = document.getElementById('formTopbar');
 const restartBtn = document.getElementById('restartBtn');
 const industryInputs = document.querySelectorAll('input[name="industry"]');
 const jobCostWrap = document.getElementById('jobCostWrap');
+const billPayWrap = document.getElementById('billPayWrap');
 const otherIndustryWrap = document.getElementById('otherIndustryWrap');
 const cursorGlow = document.getElementById('cursorGlow');
 const submissionStatus = document.getElementById('submissionStatus');
@@ -739,6 +740,17 @@ function updateJobCostVisibility() {
   const isOther = selected && selected.id === 'ind-other';
   jobCostWrap.classList.toggle('hidden', !isConstruction);
   otherIndustryWrap.classList.toggle('hidden', !isOther);
+  /* Churches are never asked about bill pay volume: it is included in every church tier. */
+  const isChurch = selected && selected.value === 'church';
+  if (billPayWrap) {
+    billPayWrap.classList.toggle('hidden', !!isChurch);
+    const bp = document.getElementById('billpay');
+    if (bp) {
+      /* a hidden required control is unfocusable and would block native submit */
+      bp.required = !isChurch;
+      bp.value = isChurch ? '' : (bp.value || 'none');
+    }
+  }
   if (!isConstruction) document.getElementById('jobCosting').value = 'no';
   if (!isOther) document.getElementById('otherIndustryName').value = '';
 }
@@ -887,7 +899,7 @@ function getBillpayLabel(value) {
     lt40: 'Under 40 bills/month',
     '40to100': '40 to 100 bills/month',
     gt100: '100+ bills/month'
-  }[value] || 'Unknown';
+  }[value] || (value == null || value === '' ? 'Not asked' : 'Unknown');
 }
 
 function getCleanupLabel(value) {
@@ -1309,7 +1321,7 @@ function calculateEstimate(data) {
   let recommended;
   const complexOp = parseMoney(data.revenue) >= 3000000;
   const simpleOp = (
-    data.payroll === 'none' && data.billpay === 'none' && data.needs1099 !== 'yes' &&
+    data.payroll === 'none' && (!data.billpay || data.billpay === 'none') && data.needs1099 !== 'yes' &&
     data.inventory !== 'yes' && !(data.industry === 'construction' && data.jobCosting === 'yes')
   );
   if (complexOp) recommended = 'strategic';
@@ -1317,7 +1329,7 @@ function calculateEstimate(data) {
   else recommended = 'reporting';
 
   // Bill pay gates Books tier out of recommendation eligibility
-  const billPayBlocksBooks = data.billpay !== 'none';
+  const billPayBlocksBooks = !!data.billpay && data.billpay !== 'none';
 
   return {
     core, floor, tiers, cleanup, flags,
@@ -1446,7 +1458,7 @@ form.addEventListener('submit', (e) => {
     `Complexity: ${submissionPayload.accountCountLabel}`,
     `Inventory tracking: ${data.inventory === 'yes' ? 'Yes' : 'No'}`,
     `Payroll support: ${payrollLabel}`,
-    `Bill pay / AP: ${billLabel}`,
+    ...(billLabel ? [`Bill pay / AP: ${billLabel}`] : []),
     `1099 contractors: ${data.needs1099 === 'yes' ? 'Yes' : 'No'}`,
     `CFO interest: ${result.cfoInterest ? 'Yes \u2014 custom tier surfaced' : 'No'}`,
     `Add-ons attached: ${attachedAddOns.length ? attachedAddOns.join(', ') : 'None'}`,

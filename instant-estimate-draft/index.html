@@ -866,6 +866,8 @@ const QUESTIONS = [
   },
   {
     id:'billpay', group:'Service level', kicker:'Paying vendors',
+    /* Churches are never asked: bill pay is included in every church tier. */
+    showIf: s => !isChurchy(),
     title:'Want us to run bill pay for you?',
     help:'We receive, code, and schedule vendor bills so payments never depend on your memory.',
     kind:'cards', cols:2,
@@ -1313,7 +1315,7 @@ function calc(s) {
   const complex = (s.entityCount && s.entityCount !== 'one') || revenue >= 3000000;
   const simple = (
     s.goal === 'books' && (s.entityCount === 'one' || !s.entityCount) &&
-    s.payroll === 'none' && s.billpay === 'none' && !needs1099Of(s) &&
+    s.payroll === 'none' && (s.billpay === 'none' || s.billpay == null) && !needs1099Of(s) &&
     s.inventory !== 'yes' && s.jobCosting !== 'yes' && s.funds !== 'yes' && s.campaign !== 'yes'
   );
   if (complex) recommended = 'strategic';
@@ -1822,7 +1824,8 @@ function finish() {
     ['Accounts', payload.accountCountLabel],
     ['Volume', payload.txnVolumeLabel],
     ['Payroll', payload.payrollLabel],
-    ['Bill pay', payload.billpayLabel],
+    ...(payload.billpayLabel ? [['Bill pay', payload.billpayLabel]] : []),
+
     ['1099s', payload.needs1099 ? 'Yes' : 'No'],
     ['Managed by', payload.booksManagedLabel || 'Not specified'],
     ['Books today', payload.monthsBehindLabel],
