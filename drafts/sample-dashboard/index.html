@@ -8,7 +8,7 @@
 <meta name="description" content="A sample of the Owner Dashboard every Turnkey CFO client gets. Example data shown. Yours is built from your real numbers.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <!--
   ITERATION LOG (10x rebuild)
   Pass 1: "Live product demo" concept: the page should feel like software running, not a
@@ -53,7 +53,7 @@
     --red:#D9534F;
     --line:rgba(20,32,26,.10);
     --radius:18px;
-    --display:'Fraunces',serif;
+    --display:'Plus Jakarta Sans',sans-serif; /* Jakarta-only per Ricky 2026-07-26 (brand rule) */
     --sans:'Plus Jakarta Sans',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -267,6 +267,9 @@
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
   }
+
+/* display-tracking-fix: Jakarta-only display type, optically tightened to hold editorial weight */
+h1,h2,.display,.monument,.masthead{letter-spacing:-0.03em;}
 </style>
 </head>
 <body>
