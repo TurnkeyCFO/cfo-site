@@ -556,7 +556,7 @@
     <div class="chart-card" style="animation-delay:0.28s">
       <div class="card-title">Monthly Total Donations</div>
       <div class="card-sub">Bar = Total Giving · Line = Recurring MRR · Apr 2025 – Mar 2026</div>
-      <canvas id="totalDonations" height="90"></canvas>
+      <canvas id="totalDonations" height="336"></canvas>
     </div>
   </div>
 
@@ -584,7 +584,7 @@
       <div class="wf-item con"><div class="wf-label">Contraction</div><div class="wf-val">-$9,180</div></div>
       <div class="wf-item lost"><div class="wf-label">Lost MRR</div><div class="wf-val">-$43,720</div></div>
     </div>
-    <canvas id="mrrWaterfall" height="85"></canvas>
+    <canvas id="mrrWaterfall" height="312"></canvas>
   </div>
 
   <!-- FUND + SOURCE -->
@@ -623,7 +623,7 @@
     <div class="chart-card" style="animation-delay:0.60s">
       <div class="card-title">Active Donor Count — Monthly</div>
       <div class="card-sub">Total unique donors who gave in each calendar month</div>
-      <canvas id="activeDonors" height="70"></canvas>
+      <canvas id="activeDonors" height="298"></canvas>
     </div>
   </div>
 
@@ -1038,8 +1038,9 @@ new Chart(document.getElementById('totalDonations'), {
       }
     ]
   },
+    // Full width: without an explicit ratio the plot collapses to the height attr.
   options:{
-    ...responsiveOpts(), layout:chartPadding(24),
+    ...responsiveOpts(), aspectRatio: isMobile ? undefined : 3.9, layout:chartPadding(24),
     plugins:{ legend:legendOpts(), tooltip:tip },
     scales:{ x:xScale(), y:yScaleMoney() }
   }
@@ -1118,8 +1119,9 @@ new Chart(document.getElementById('mrrWaterfall'), {
         datalabels:{display:ctx=>showDataLabels(Math.abs(ctx.dataset.data[ctx.dataIndex])>3000),anchor:'center',align:'center',color:RED,font:{size:9,family:"'DM Mono',monospace"},formatter:v=>'-$'+(Math.abs(v)/1000).toFixed(0)+'k'} },
     ]
   },
+    // Full width: without an explicit ratio the plot collapses to the height attr.
   options:{
-    ...responsiveOpts(),
+    ...responsiveOpts(), aspectRatio: isMobile ? undefined : 4.2,
     plugins:{legend:legendOpts(),tooltip:tip},
     scales:{ x:xScale(true), y:yScaleMoney(true) }
   }
@@ -1219,8 +1221,9 @@ new Chart(document.getElementById('activeDonors'), {
       }
     }]
   },
+    // Full width: without an explicit ratio the plot collapses to the height attr.
   options:{
-    ...responsiveOpts(), layout:chartPadding(28),
+    ...responsiveOpts(), aspectRatio: isMobile ? undefined : 4.4, layout:chartPadding(28),
     plugins:{legend:{display:false},tooltip:tip},
     scales:{ x:xScale(), y:yScaleCount() }
   }

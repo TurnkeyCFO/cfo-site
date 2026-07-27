@@ -479,15 +479,9 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .dashport{position:relative;background:#0d1b17;aspect-ratio:1500/1150;overflow:hidden}
 .dashport img.dashposter{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .dashport iframe{position:absolute;inset:0;width:1500px;height:1150px;border:0;transform-origin:top left;background:#f1f5f4}
-.dashport.on img.dashposter,.dashport.on .dashplay{display:none}
-.dashplay{position:absolute;inset:0;width:100%;height:100%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,rgba(3,20,12,.10) 0%,rgba(3,20,12,.42) 62%,rgba(3,20,12,.72) 100%);transition:background .3s}
-.dashplay:hover{background:linear-gradient(180deg,rgba(3,20,12,.04) 0%,rgba(3,20,12,.34) 62%,rgba(3,20,12,.66) 100%)}
-.dashplay span{background:var(--emerald);color:var(--pine);font-weight:800;font-size:15px;letter-spacing:-.01em;padding:15px 30px;border-radius:999px;
-  box-shadow:0 16px 40px rgba(0,230,118,.34);transition:transform .3s}
-.dashplay:hover span{transform:translateY(-2px)}
+.dashport.on img.dashposter{display:none}
 .dashnote{margin-top:0;padding:15px 20px;background:#08301f;font-size:12.8px;color:#a8c7b6;text-align:center;border-top:1px solid rgba(255,255,255,.07)}
-@media(max-width:760px){.dashport{aspect-ratio:4/3}.dashplay span{font-size:14px;padding:13px 24px}}
+@media(max-width:760px){.dashport{aspect-ratio:4/3}}
 
 /* ---------- atmospheric photo backgrounds ---------- */
 section.hasbg{position:relative;overflow:hidden}
@@ -763,7 +757,6 @@ footer ul a:hover{color:var(--emerald)}
         </div>
         <div class="dashport" id="dashport" data-src="/church-dashboard-example/">
           <img class="dashposter" src="/assets/church/abc-dashboard.webp" alt="Sample church financial dashboard showing monthly giving, recurring donor revenue, fund balances and donor retention" width="2000" height="1533" loading="lazy" decoding="async">
-          <button class="dashplay" type="button" aria-label="Load the interactive dashboard"><span>Explore it live</span></button>
         </div>
         <figcaption class="dashnote">Example data. Yours is built from your own giving, funds and accounts, and it is yours to keep whether you hire us or not.</figcaption>
       </figure>
@@ -1207,10 +1200,9 @@ footer ul a:hover{color:var(--emerald)}
     else v.addEventListener('loadeddata', attempt, {once:true});
   })();
 
-  /* ---- sample dashboard: poster until asked for, then the real thing ---- */
+  /* ---- sample dashboard: live, loaded as it comes into range ---- */
   (function(){
     var port = document.getElementById('dashport'); if(!port) return;
-    var btn = port.querySelector('.dashplay'); if(!btn) return;
     var loaded = false;
     function fit(f){
       var s = port.clientWidth / 1500;
@@ -1218,7 +1210,7 @@ footer ul a:hover{color:var(--emerald)}
       port.style.height = (1150 * s) + 'px';
       port.style.aspectRatio = 'auto';
     }
-    btn.addEventListener('click', function(){
+    function load(){
       if(loaded) return; loaded = true;
       var f = document.createElement('iframe');
       f.src = port.getAttribute('data-src');
@@ -1227,7 +1219,17 @@ footer ul a:hover{color:var(--emerald)}
       f.addEventListener('load', function(){ port.classList.add('on'); fit(f); });
       port.appendChild(f); fit(f);
       addEventListener('resize', function(){ fit(f); });
-    });
+    }
+    // The poster holds the frame until the real dashboard paints, so nothing
+    // flashes empty, and the fetch starts well before it reaches the viewport.
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){
+        if(es[0].isIntersecting){ io.disconnect(); load(); }
+      }, {rootMargin:'1200px 0px'});
+      io.observe(port);
+    } else {
+      load();
+    }
   })();
 
   /* ---- lazy Calendly ---- */
