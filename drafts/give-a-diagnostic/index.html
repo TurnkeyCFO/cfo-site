@@ -8,7 +8,7 @@
 <meta name="description" content="Someone who trusts us thinks your books deserve better. A free Books Diagnostic, built on your real numbers. No strings, no obligation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <!--
   ITERATION LOG (10x rebuild)
   Pass 1: Concept: "being handed something wrapped." The whole hero is staged as a wrapped
@@ -47,7 +47,7 @@
     --gold:#E0B90B;
     --line:rgba(20,32,26,.12);
     --radius:20px;
-    --display:'Fraunces',serif;
+    --display:'Plus Jakarta Sans',sans-serif; /* Jakarta-only per Ricky 2026-07-26 (brand rule) */
     --sans:'Plus Jakarta Sans',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -311,6 +311,9 @@
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
   }
+
+/* display-tracking-fix: Jakarta-only display type, optically tightened to hold editorial weight */
+h1,h2,.display,.monument,.masthead{letter-spacing:-0.03em;}
 </style>
 </head>
 <body>
