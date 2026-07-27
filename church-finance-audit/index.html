@@ -379,7 +379,7 @@ footer ul a:hover{color:var(--emerald)}
 </head><body>
 
 <div id="abar">
-  <span class="dot"></span>We onboard only a few churches a year <span class="sep">&nbsp;&middot;&nbsp;</span> <b><span class="seats">2</span> onboarding spots open</b><span class="sep">&nbsp;&middot;&nbsp; The systems audit is <b>free</b></span>
+  <span class="dot"></span>Limited number of churches onboarded per year <span class="sep">&nbsp;&middot;&nbsp;</span> <b><span class="seats">2</span> spots remain for <span class="seatyear">2026</span></b><span class="sep">&nbsp;&middot;&nbsp; The systems audit is <b>free</b></span>
 </div>
 
 <header id="hd">
@@ -715,7 +715,7 @@ footer ul a:hover{color:var(--emerald)}
   <div class="wrap">
     <div class="rv">
       <div class="eyebrow">Availability</div>
-      <h2 class="big">We only onboard a few churches per year.</h2>
+      <h2 class="big">Limited number of churches onboarded per year.</h2>
       <p class="sub">That is not a marketing limit. Installing a finance function properly takes real hours from real people, and every church we take on gets a named partner who knows them by name. We would rather do a handful of these properly than a long list of them badly. The audit itself is always free and always available, whether or not there is room to onboard you this year.</p>
     </div>
 
@@ -723,9 +723,9 @@ footer ul a:hover{color:var(--emerald)}
       <div class="seatbox rv">
         <div class="lab">Onboarding status</div>
         <div class="cnt"><b><span class="seats">2</span></b> spots</div>
-        <div class="lab" style="color:var(--tx2);letter-spacing:.1em">open right now</div>
+        <div class="lab" style="color:var(--tx2);letter-spacing:.1em">remain for <span class="seatyear">2026</span></div>
         <div class="statuspill"><span class="sd"></span>Accepting churches</div>
-        <p>All six bonuses are included for the spots that are open. When they fill, the audit stays free and we will tell you honestly when room opens up.</p>
+        <p>All six bonuses are included for the remaining spots. Once they are taken the audit stays free, and we will tell you honestly when the next year opens up.</p>
         <a class="btn em" data-cta="audit-seats" style="margin-top:22px;width:100%" href="#book">Claim a spot</a>
       </div>
 
@@ -842,7 +842,7 @@ footer ul a:hover{color:var(--emerald)}
         <li><span class="ic">&#10003;</span><span>A live dashboard on your own private link, yours to keep</span></li>
         <li><span class="ic">&#10003;</span><span>A prioritized list of what to fix first, in order</span></li>
         <li><span class="ic">&#10003;</span><span>The church specific review: funds, controls, housing allowance, board reporting</span></li>
-        <li><span class="ic">&#10003;</span><span><strong><span class="seats">2</span> onboarding spots open</strong>, and the audit itself costs nothing</span></li>
+        <li><span class="ic">&#10003;</span><span><strong><span class="seats">2</span> spots remain for <span class="seatyear">2026</span></strong>, and the audit itself costs nothing</span></li>
       </ul>
       <p class="hnote" style="margin-top:26px">Prefer the phone? <a href="tel:+17372481346" style="color:var(--emerald);font-weight:700">(737) 248-1346</a></p>
     </div>
@@ -910,8 +910,9 @@ footer ul a:hover{color:var(--emerald)}
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---- ONE place to change remaining seats ---- */
-  var SEATS_LEFT = 2, TOTAL_SEATS = 4;
+  var SEATS_LEFT = 2, TOTAL_SEATS = 4, SEATS_YEAR = 2026;
   Array.prototype.forEach.call(document.querySelectorAll('.seats'), function(el){ el.textContent = SEATS_LEFT; });
+  Array.prototype.forEach.call(document.querySelectorAll('.seatyear'), function(el){ el.textContent = SEATS_YEAR; });
   var pips = document.querySelectorAll('.pips i');
   Array.prototype.forEach.call(pips, function(el,i){
     el.classList.toggle('gone', i < (TOTAL_SEATS - SEATS_LEFT));
