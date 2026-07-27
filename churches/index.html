@@ -1438,7 +1438,22 @@ footer ul a:hover{color:var(--emerald)}
 
     window.addEventListener('message', function(e){
       if(e.data && e.data.event === 'calendly.event_scheduled'){
-        if(typeof gtag === 'function'){ gtag('event','conversion',{'send_to':'AW-17845290805'}); }
+        /* send_to MUST carry the conversion LABEL, not just the account id.
+           Without /<label> the hit is unattributable and Google drops it —
+           which is why "Calendly Booking" (action 7655853026) recorded 0.
+           NOTE: this fix was reverted once by commit 7aac5dc syncing this file
+           from an older copy. If you re-sync this page, keep this block. */
+        if(window.__tkCalendlyBookingSent) return;
+        window.__tkCalendlyBookingSent = true;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event:'calendly_booking_complete', lp:'churches' });
+        if(typeof gtag === 'function'){
+          gtag('event','conversion',{
+            send_to: 'AW-17845290805/txDVCOKXzMIcELWOpr1C',
+            value: 1.0,
+            currency: 'USD'
+          });
+        }
       }
     });
   })();

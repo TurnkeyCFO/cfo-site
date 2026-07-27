@@ -61,7 +61,13 @@
     if (evt === 'estimate_submitted' || evt === 'instant_estimate_submitted') {
       track('estimate_submit_complete', { lp: 'churches', conversion: 1 });
       if (typeof gtag === 'function') {
-        gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXX/YYYYYYYYYYY' });
+        /* conversion action 7698702377 "Instant Estimate - Submitted" (created
+           2026-07-27). This was a placeholder and fired an invalid hit. */
+        gtag('event', 'conversion', {
+          send_to: 'AW-17845290805/e9UlCKnAg9ccELWOpr1C',
+          value: 1.0,
+          currency: 'USD'
+        });
       }
     }
   }, false);

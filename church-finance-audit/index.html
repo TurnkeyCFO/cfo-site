@@ -1278,7 +1278,20 @@ footer ul a:hover{color:var(--emerald)}
 
     window.addEventListener('message', function(e){
       if(e.data && e.data.event === 'calendly.event_scheduled'){
-        if(typeof gtag === 'function'){ gtag('event','conversion',{'send_to':'AW-17845290805'}); }
+        /* send_to MUST carry the conversion LABEL. This read 'AW-17845290805'
+           with no /<label>, so the hit was unattributable and dropped.
+           Label = conversion action 7655853026 "Calendly Booking". */
+        if(window.__tkCalendlyBookingSent) return;
+        window.__tkCalendlyBookingSent = true;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event:'calendly_booking_complete', lp:'church-finance-audit' });
+        if(typeof gtag === 'function'){
+          gtag('event','conversion',{
+            send_to: 'AW-17845290805/txDVCOKXzMIcELWOpr1C',
+            value: 1.0,
+            currency: 'USD'
+          });
+        }
       }
     });
   })();

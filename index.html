@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Ads AW-17845290805 — added 2026-07-27.
+     This page embeds a Calendly widget but carried NO Google tag at all, so
+     neither a Book Call click nor a completed booking could be recorded, and
+     the page built no remarketing audience. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17845290805"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17845290805');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bookkeeping Services for Small Businesses &amp; Churches | Turnkey CFO</title>
@@ -1356,6 +1368,36 @@ if('IntersectionObserver' in window){
   document.addEventListener('canplay',function(e){if(e.target&&e.target.tagName==='VIDEO')kick();},true);
   document.addEventListener('loadeddata',function(e){if(e.target&&e.target.tagName==='VIDEO')kick();},true);
   var tries=0;var iv=setInterval(function(){kick();if(++tries>=20)clearInterval(iv);},1500);
+})();
+</script>
+<!-- Turnkey CFO — Calendly conversion tracking (added 2026-07-27).
+     booking  -> conversion action 7655853026 "Calendly Booking"
+     click    -> conversion action 7618319733 "Outbound click - GTM- Calendly"
+     Only injected on pages with NO GTM container, so the GTM-tagged pages
+     (churches, instant-estimate) keep sole ownership of the click event and
+     nothing is double-counted. send_to MUST include the /<label>. -->
+<script>
+(function(){
+  function fire(sendTo, flag, dlEvent){
+    if (window[flag]) return;
+    window[flag] = true;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: dlEvent });
+    if (typeof gtag === 'function') {
+      gtag('event','conversion',{ send_to: sendTo, value: 1.0, currency: 'USD' });
+    }
+  }
+  /* completed booking — Calendly posts this from inside the embed iframe */
+  window.addEventListener('message', function(e){
+    if (e.data && e.data.event === 'calendly.event_scheduled') {
+      fire('AW-17845290805/txDVCOKXzMIcELWOpr1C', '__tkCalendlyBookingSent', 'calendly_booking_complete');
+    }
+  });
+  /* Book Call click — delegated so it covers buttons rendered later */
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest && e.target.closest('a[href*="calendly.com"], [data-cta*="book"]');
+    if (a) fire('AW-17845290805/87_9CPWq2bAcELWOpr1C', '__tkCalendlyClickSent', 'calendly_click');
+  }, true);
 })();
 </script>
 </body>
