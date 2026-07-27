@@ -714,6 +714,8 @@ const QUESTIONS = [
   },
   {
     id:'entityCount', group:'About you', kicker:'Structure',
+    /* Not asked of churches: revenue alone drives the price. */
+    showIf: s => !isChurchy(),
     title:'How many legal entities need books?',
     help:'Each company gets its own clean set of books, so this shapes the estimate directly.',
     kind:'cards',
@@ -828,6 +830,8 @@ const QUESTIONS = [
   /* ---- complexity ---- */
   {
     id:'accounts', group:'Complexity', kicker:'Accounts',
+    /* Not asked of churches: revenue alone drives the price. */
+    showIf: s => !isChurchy(),
     title:'How many bank and credit card accounts?',
     help:'Count everything we would reconcile monthly, business accounts and cards.',
     kind:'cards',
@@ -839,6 +843,8 @@ const QUESTIONS = [
   },
   {
     id:'txns', group:'Complexity', kicker:'Volume',
+    /* Not asked of churches: revenue alone drives the price. */
+    showIf: s => !isChurchy(),
     title:'Roughly how many transactions a month?',
     help:'Your best guess across all accounts. Deposits, charges, transfers, everything.',
     kind:'cards', cols:2,
@@ -1817,12 +1823,12 @@ function finish() {
 
   const items = [
     ['Organization', `${payload.companyName} (${payload.industryLabel})`],
-    ['Entities', payload.entityCountLabel],
+    ...(S.entityCount ? [['Entities', payload.entityCountLabel]] : []),
+    ...(S.accounts ? [['Accounts', payload.accountCountLabel]] : []),
+    ...(S.txns ? [['Volume', payload.txnVolumeLabel]] : []),
     ['Revenue', payload.revenueLabel],
     ['Software', payload.softwareLabel],
     ['Tools in use', [payload.financialTools, (S.toolsOther && S.toolsOtherNotes ? S.toolsOtherNotes : '')].filter(Boolean).join(', ') || 'None listed'],
-    ['Accounts', payload.accountCountLabel],
-    ['Volume', payload.txnVolumeLabel],
     ['Payroll', payload.payrollLabel],
     ...(payload.billpayLabel ? [['Bill pay', payload.billpayLabel]] : []),
 

@@ -490,7 +490,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <h2>Next, tell us about complexity.</h2>
               <p class="lead">A few simple inputs help us estimate how much hands-on management your books will need each month.</p>
               <div class="row-2">
-                <div class="field">
+                <div class="field" id="acctWrap">
                   <label class="title" for="accountCount">Total bank + credit card accounts</label>
                   <select id="accountCount" name="accountCount" required>
                     <option value="le5">5 or fewer</option>
@@ -688,6 +688,7 @@ const restartBtn = document.getElementById('restartBtn');
 const industryInputs = document.querySelectorAll('input[name="industry"]');
 const jobCostWrap = document.getElementById('jobCostWrap');
 const billPayWrap = document.getElementById('billPayWrap');
+const acctWrap = document.getElementById('acctWrap');
 const otherIndustryWrap = document.getElementById('otherIndustryWrap');
 const cursorGlow = document.getElementById('cursorGlow');
 const submissionStatus = document.getElementById('submissionStatus');
@@ -742,6 +743,11 @@ function updateJobCostVisibility() {
   otherIndustryWrap.classList.toggle('hidden', !isOther);
   /* Churches are never asked about bill pay volume: it is included in every church tier. */
   const isChurch = selected && selected.value === 'church';
+  if (acctWrap) {
+    acctWrap.classList.toggle('hidden', !!isChurch);
+    const ac = document.getElementById('accountCount');
+    if (ac) { ac.required = !isChurch; ac.value = isChurch ? '' : (ac.value || 'le5'); }
+  }
   if (billPayWrap) {
     billPayWrap.classList.toggle('hidden', !!isChurch);
     const bp = document.getElementById('billpay');
@@ -884,6 +890,8 @@ function getRevenueLabel(value) {
 }
 
 function getAccountLabel(value) {
+  /* an unasked question must never read as "11+ accounts" */
+  if (value == null || value === '') return 'Not asked';
   return value === 'le5' ? '5 or fewer financial accounts'
     : value === '6to10' ? '6 to 10 financial accounts'
     : '11+ financial accounts';
@@ -1455,7 +1463,7 @@ form.addEventListener('submit', (e) => {
     `Industry: ${industryLabel}`,
     `Annual revenue: ${submissionPayload.revenueLabel}`,
     `Accounting software: ${submissionPayload.softwareLabel}`,
-    `Complexity: ${submissionPayload.accountCountLabel}`,
+    ...(data.accountCount ? [`Complexity: ${submissionPayload.accountCountLabel}`] : []),
     `Inventory tracking: ${data.inventory === 'yes' ? 'Yes' : 'No'}`,
     `Payroll support: ${payrollLabel}`,
     ...(billLabel ? [`Bill pay / AP: ${billLabel}`] : []),
