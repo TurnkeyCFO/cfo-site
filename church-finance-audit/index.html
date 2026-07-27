@@ -257,6 +257,8 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .seatbox .cnt{font-size:clamp(40px,6vw,70px);font-weight:800;color:var(--ink);letter-spacing:-.05em;line-height:1;margin:14px 0 4px}
 .seatbox .cnt b{color:var(--deep)}
 .pips{display:flex;gap:9px;justify-content:center;margin:20px 0 16px}
+.statuspill{display:inline-flex;align-items:center;gap:9px;margin:18px 0 14px;background:var(--mint);color:var(--deep);font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:9px 16px;border-radius:999px}
+.statuspill .sd{width:8px;height:8px;border-radius:50%;background:var(--deep);animation:pulse 2.2s infinite}
 .pips i{width:38px;height:9px;border-radius:999px;background:var(--deep)}
 .pips i.gone{background:var(--line)}
 .seatbox p{font-size:13.8px;color:var(--tx2)}
@@ -338,6 +340,20 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .enemy p strong{color:#fff}
 .clockline{margin-top:14px;font-size:13px;color:var(--tx2);font-style:italic}
 
+/* ---------- atmospheric photo backgrounds ---------- */
+section.hasbg{position:relative;overflow:hidden}
+section.hasbg > .wrap{position:relative;z-index:1}
+.pbg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.pbg img{width:100%;height:100%;object-fit:cover;opacity:.20;filter:grayscale(.42) contrast(1.03);
+  -webkit-mask-image:radial-gradient(115% 95% at 72% 42%,#000 0%,#000 38%,rgba(0,0,0,.45) 62%,transparent 82%);
+  mask-image:radial-gradient(115% 95% at 72% 42%,#000 0%,#000 38%,rgba(0,0,0,.45) 62%,transparent 82%)}
+.pbg.left img{-webkit-mask-image:radial-gradient(115% 95% at 26% 45%,#000 0%,#000 36%,rgba(0,0,0,.45) 60%,transparent 80%);
+  mask-image:radial-gradient(115% 95% at 26% 45%,#000 0%,#000 36%,rgba(0,0,0,.45) 60%,transparent 80%)}
+.pbg.wide img{opacity:.16;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.8) 24%,rgba(0,0,0,.8) 74%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.8) 24%,rgba(0,0,0,.8) 74%,transparent 100%)}
+@media(max-width:900px){.pbg img{opacity:.13}}
+
 /* ---------- footer ---------- */
 footer{background:#04180f;color:#8fae9d;padding:clamp(60px,7vw,90px) clamp(20px,5vw,60px) 110px}
 .fgrid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:clamp(28px,4vw,60px)}
@@ -363,7 +379,7 @@ footer ul a:hover{color:var(--emerald)}
 </head><body>
 
 <div id="abar">
-  <span class="dot"></span>Summer onboarding <span class="sep">&nbsp;&middot;&nbsp;</span> <b><span class="seats">2</span> of 4 church seats left this quarter</b><span class="sep">&nbsp;&middot;&nbsp; Free cleanup through <b>September 30</b></span>
+  <span class="dot"></span>Now accepting a limited number of churches <span class="sep">&nbsp;&middot;&nbsp;</span> <b><span class="seats">2</span> onboarding spots open</b><span class="sep">&nbsp;&middot;&nbsp; Free cleanup through <b>September 30</b></span>
 </div>
 
 <header id="hd">
@@ -424,26 +440,21 @@ footer ul a:hover{color:var(--emerald)}
 </div>
 
 <!-- ================= RECOGNITION ================= -->
-<section id="tuesday">
-  <div class="wrap split">
-    <div class="rv">
+<section id="tuesday" class="hasbg">
+  <div class="pbg"><img src="/assets/church/welcome-coffee.webp" alt="" aria-hidden="true" loading="lazy"></div>
+  <div class="wrap">
+    <div class="rv" style="max-width:74ch">
       <div class="eyebrow">We know what Tuesday looks like</div>
       <h2 class="big">The books are three weeks behind. Again.</h2>
       <p class="sub">There is an invoice sitting in the pastor's text messages waiting on a yes. Someone on staff paid for something out of pocket in April and is still waiting. A board member asked a straight question last month and nobody in the room could answer it.</p>
       <p class="sub" style="margin-top:14px">None of that means your people are bad at their jobs. It means nobody was ever given a finance function to run. You have been holding it together with a part time bookkeeper, a spreadsheet, and goodwill.</p>
-      <ul class="plist">
+      <ul class="plist" style="max-width:62ch">
         <li>"I don't really know what our giving looks like."</li>
         <li>"I don't have a finance background and I won't pretend I do."</li>
         <li>"I know we need to fix this. I don't know where to start."</li>
         <li>"I don't want to handhold another bookkeeper."</li>
         <li>"I'm going to end up figuring this out myself."</li>
       </ul>
-    </div>
-    <div class="rv">
-      <div class="shot tall">
-        <img src="/assets/church/welcome-coffee.webp" alt="Two people from a church talking over coffee" loading="lazy" style="object-position:60% 50%">
-        <div class="tag">Your people are the point. Not the paperwork.</div>
-      </div>
     </div>
   </div>
 </section>
@@ -460,17 +471,13 @@ footer ul a:hover{color:var(--emerald)}
 </section>
 
 <!-- ================= TEN PILLARS ================= -->
-<section id="pillars" style="background:var(--sand)">
+<section id="pillars" class="hasbg" style="background:var(--sand)">
+  <div class="pbg left"><img src="/assets/church/church-notes.webp" alt="" aria-hidden="true" loading="lazy"></div>
   <div class="wrap">
-    <div class="split rv" style="margin-bottom:clamp(28px,3.5vw,44px)">
-      <div>
-        <div class="eyebrow">What a finance function actually covers</div>
-        <h2 class="big">Ten pillars. A bookkeeper covers one.</h2>
-        <p class="sub">This is what we grade in your audit, and it is the fastest way to see the size of the gap between what you have today and what your church actually needs.</p>
-      </div>
-      <div class="shot wide">
-        <img src="/assets/church/church-notes.webp" alt="People taking notes together during a church gathering" loading="lazy">
-      </div>
+    <div class="rv" style="max-width:70ch;margin-bottom:clamp(28px,3.5vw,44px)">
+      <div class="eyebrow">What a finance function actually covers</div>
+      <h2 class="big">Ten pillars. A bookkeeper covers one.</h2>
+      <p class="sub">This is what we grade in your audit, and it is the fastest way to see the size of the gap between what you have today and what your church actually needs.</p>
     </div>
     <div class="pills">
       <div class="pill rv"><div class="pnum">1</div><div><h4>Bill pay and approvals</h4><p>Who is allowed to approve what, and can you prove it later.<span class="bk">Broken: invoices approved by text. Pastor is the bottleneck.</span></p></div></div>
@@ -501,7 +508,8 @@ footer ul a:hover{color:var(--emerald)}
 </section>
 
 <!-- ================= THE AUDIT ================= -->
-<section id="audit">
+<section id="audit" class="hasbg">
+  <div class="pbg wide"><img src="/assets/church/community-laugh.webp" alt="" aria-hidden="true" loading="lazy"></div>
   <div class="wrap">
     <div class="rv">
       <div class="eyebrow">Step one, and it is free</div>
@@ -519,9 +527,6 @@ footer ul a:hover{color:var(--emerald)}
     <p class="clockline rv">The clock starts once your submission is in. If something needs a quick clarification we will ask, and we would rather get it right than get it fast.</p>
 
     <div class="split rev rv" style="margin-top:clamp(40px,5vw,66px)">
-      <div class="shot wide">
-        <img src="/assets/church/community-laugh.webp" alt="Young adults from a church talking and laughing together" loading="lazy">
-      </div>
       <div>
         <h3 style="font-size:clamp(22px,2.4vw,30px);font-weight:800;letter-spacing:-.03em">Why would we do this for free?</h3>
         <p class="sub" style="margin-top:14px">Because plenty of churches get an audit and never become clients, and we are fine with that. If your systems are in good shape we will tell you so and you will owe us nothing.</p>
@@ -722,18 +727,18 @@ footer ul a:hover{color:var(--emerald)}
   <div class="wrap">
     <div class="rv">
       <div class="eyebrow">Availability</div>
-      <h2 class="big">We onboard four churches a quarter.</h2>
-      <p class="sub">That is not a marketing limit. Installing a finance function properly takes real hours, and we will not do a bad job of it to hit a number. When the quarter's seats are gone, the next opening is the following quarter. The audit itself is always free and always available.</p>
+      <h2 class="big">We only onboard a few churches at a time.</h2>
+      <p class="sub">That is not a marketing limit. Installing a finance function properly takes real hours from real people, and every church we take on gets a named partner who knows them. When we are full, we are full, and the next opening is whenever a spot comes free. The audit itself is always free and always available, whether or not there is room to onboard you today.</p>
     </div>
 
     <div class="seatwrap">
       <div class="seatbox rv">
-        <div class="lab">Summer &middot; Q3</div>
-        <div class="cnt"><b><span class="seats">2</span></b> of 4</div>
-        <div class="lab" style="color:var(--tx2);letter-spacing:.1em">seats remaining</div>
-        <div class="pips"><i class="gone"></i><i class="gone"></i><i></i><i></i></div>
-        <p>Two churches have onboarded this quarter. Free cleanup and all seven bonuses are included for the remaining seats.</p>
-        <a class="btn em" data-cta="audit-seats" style="margin-top:22px;width:100%" href="#book">Claim a seat</a>
+        <div class="lab">Onboarding status</div>
+        <div class="cnt"><b><span class="seats">2</span></b> spots</div>
+        <div class="lab" style="color:var(--tx2);letter-spacing:.1em">open right now</div>
+        <div class="statuspill"><span class="sd"></span>Accepting churches</div>
+        <p>Free cleanup and all seven bonuses are included for the spots that are open. When they fill, the audit stays free and we will tell you honestly when room opens up.</p>
+        <a class="btn em" data-cta="audit-seats" style="margin-top:22px;width:100%" href="#book">Claim a spot</a>
       </div>
 
       <ul class="ulist">
@@ -763,17 +768,13 @@ footer ul a:hover{color:var(--emerald)}
 </section>
 
 <!-- ================= PROCESS ================= -->
-<section style="background:var(--sand)">
+<section class="hasbg" style="background:var(--sand)">
+  <div class="pbg"><img src="/assets/church/group-table.webp" alt="" aria-hidden="true" loading="lazy"></div>
   <div class="wrap">
-    <div class="split rv" style="margin-bottom:clamp(30px,4vw,50px)">
-      <div>
-        <div class="eyebrow">What happens next</div>
-        <h2 class="big">Three steps, and only one of them is yours.</h2>
-        <p class="sub">You spend about ten minutes. We do the rest, and you decide at the end with the whole picture in front of you.</p>
-      </div>
-      <div class="shot wide">
-        <img src="/assets/church/group-table.webp" alt="A church small group meeting around a table" loading="lazy">
-      </div>
+    <div class="rv" style="max-width:66ch;margin-bottom:clamp(30px,4vw,50px)">
+      <div class="eyebrow">What happens next</div>
+      <h2 class="big">Three steps, and only one of them is yours.</h2>
+      <p class="sub">You spend about ten minutes. We do the rest, and you decide at the end with the whole picture in front of you.</p>
     </div>
     <div class="pgrid">
       <div class="pcard rv"><div class="pn">1</div><h3>You tell us what you run on</h3><p>About ten minutes. Your accounting software, giving platform, payroll, how bills get paid, who does the books today. Not sure is a perfectly good answer to any of it.</p><div class="day">Today</div></div>
@@ -853,7 +854,7 @@ footer ul a:hover{color:var(--emerald)}
         <li><span class="ic">&#10003;</span><span>A live dashboard on your own private link, yours to keep</span></li>
         <li><span class="ic">&#10003;</span><span>A prioritized list of what to fix first, in order</span></li>
         <li><span class="ic">&#10003;</span><span>The church specific review: funds, controls, housing allowance, board reporting</span></li>
-        <li><span class="ic">&#10003;</span><span><strong><span class="seats">2</span> of 4 seats left</strong>, and free cleanup through September 30</span></li>
+        <li><span class="ic">&#10003;</span><span><strong><span class="seats">2</span> onboarding spots open</strong>, and free cleanup through September 30</span></li>
       </ul>
       <p class="hnote" style="margin-top:26px">Prefer the phone? <a href="tel:+17372481346" style="color:var(--emerald);font-weight:700">(737) 248-1346</a></p>
     </div>
