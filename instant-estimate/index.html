@@ -318,6 +318,18 @@ body::before {
 .tier .tcta a.alt { color:var(--ink); background:rgba(0,38,58,.06); }
 .tier .tcta a:hover { transform:translateY(-1px); }
 
+.guarantee { margin:22px 0 0; padding:26px 28px; border-radius:24px; border:1px solid rgba(4,120,87,.22); background:linear-gradient(180deg, rgba(4,120,87,.055), rgba(255,255,255,.72)); }
+.guarantee .g-eyebrow { letter-spacing:.2em; text-transform:uppercase; font-size:11.5px; font-weight:800; color:var(--green, #047857); margin-bottom:6px; }
+.guarantee h3 { margin:0 0 4px; font-size:clamp(20px,2.3vw,26px); letter-spacing:-.03em; }
+.guarantee .g-sub { margin:0 0 16px; font-size:14.5px; opacity:.72; }
+.guarantee .g-steps { list-style:none; margin:0 0 16px; padding:0; display:grid; gap:12px; }
+.guarantee .g-steps li { display:flex; gap:12px; align-items:flex-start; }
+.guarantee .g-steps .n { flex:0 0 26px; height:26px; border-radius:50%; background:var(--green, #047857); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+.guarantee .g-steps .t { font-size:15px; line-height:1.5; }
+.guarantee .g-teeth { margin:0 0 10px; padding:14px 16px; border-radius:14px; background:rgba(255,255,255,.78); border:1px solid rgba(4,120,87,.18); font-size:15px; font-weight:700; line-height:1.5; }
+.guarantee .g-fine { margin:0; font-size:13.5px; opacity:.72; line-height:1.55; }
+@media (max-width:620px){ .guarantee { padding:20px 18px; border-radius:20px; } }
+.mods.gaps li.off { opacity:.55; }
 .res-duo { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px; margin:6px 0 18px; }
 @media (max-width:860px){ .res-duo{ grid-template-columns:1fr; } }
 .rcard { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:22px; box-shadow:var(--shadow-sm); }
@@ -356,11 +368,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="hero" id="hero">
     <div>
       <div class="eyebrow"><span class="pulse"></span> Tailored in about a minute</div>
-      <h1>Your books, priced for <em>your</em> business.</h1>
-      <p class="sub">Every organization runs differently. A church with designated funds, a contractor tracking jobs, a shop carrying inventory. Answer a few smart questions and we shape a three-tier estimate around the way you actually operate.</p>
+      <h1>Most organizations do not need a better bookkeeper. They need a <em>finance department</em>.</h1>
+      <p class="sub">Bookkeeping is one part of ten. Bill pay with a real approval chain, reimbursements, payroll, budget, forecast, board ready reporting, file management, 1099s. Answer a few questions and see what it costs to have all of it handled.</p>
     </div>
     <div class="hero-side">
-      <div class="mini"><b>3 tiers</b><span>One clear recommendation, zero pressure</span></div>
+      <div class="mini"><b>10 pillars</b><span>One finance function, priced to your revenue</span></div>
     </div>
   </section>
 
@@ -393,10 +405,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="results" id="results">
     <div class="res-head">
       <div class="eyebrow"><span class="pulse"></span> Your estimate is ready</div>
-      <h2 id="resTitle">Here is where your books land.</h2>
+      <h2 id="resTitle">Here is what your finance function costs.</h2>
       <p id="resNarrative"></p>
     </div>
     <div class="tiers" id="tiers"></div>
+    <section class="guarantee" id="guarantee">
+      <div class="g-head">
+        <div class="g-eyebrow">Our guarantee</div>
+        <h3>The 24 Hour Finance Systems Audit</h3>
+        <p class="g-sub">Here is how it goes.</p>
+      </div>
+      <ol class="g-steps">
+        <li><span class="n">1</span><span class="t">A 15 minute call so we understand how you operate.</span></li>
+        <li><span class="n">2</span><span class="t" id="gStep2">You get us set up in the systems you already run on.</span></li>
+        <li><span class="n">3</span><span class="t">Within 24 hours, your full assessment across all ten pillars and a live dashboard built for your organization on its own private link.</span></li>
+      </ol>
+      <p class="g-teeth">If the assessment does not surface at least one concrete way to save you money, we will send you a $100 gift card.</p>
+      <p class="g-fine">Not a PDF. A working thing you can open. It is yours to keep whether or not you ever hire us.</p>
+    </section>
     <div class="res-duo">
       <div class="rcard">
         <div class="k">Catch-up / setup estimate</div>
@@ -489,12 +515,19 @@ const money = (n) => n.toLocaleString('en-US', { style:'currency', currency:'USD
    Prior complexity-additive model archived at:
    businesses/turnkey/turnkey-cfo/instant-estimate-pricing-archive/2026-07-27-tiered-complexity-model/ */
 const PRICING = {
-  booksLow: 0.0120, booksHigh: 0.0128,   /* Tier 1 - Books */
-  repLow:   0.0140, repHigh:   0.0160,   /* Tier 2 - Books + Reporting */
-  minBooks: 300, minReporting: 400       /* monthly floors, no matter how small the revenue */
+  booksLow: 0.0110, booksHigh: 0.0130,   /* Tier 1 - Books */
+  repLow:   0.0140, repHigh:   0.0180,   /* Tier 2 - Books + Reporting */
+  minBooks: 300, minReporting: 400, minRevenue: 10000       /* monthly floors, no matter how small the revenue */
 };
 
 /* accepts "1,200,000" / "$1.2m" / "1.2 million" / "850k" / "850000" */
+/* Revenue must be entered as a number. digitsOnly strips anything else as it is
+   typed and re-formats with thousands separators, so what they see is what we read. */
+function digitsOnly(raw) {
+  const d = String(raw == null ? '' : raw).replace(/[^0-9]/g, '').replace(/^0+(?=\d)/, '');
+  return d ? Number(d).toLocaleString('en-US') : '';
+}
+
 function parseMoney(raw) {
   if (raw == null) return 0;
   let t = String(raw).toLowerCase().replace(/[$,\s]/g, '');
@@ -558,7 +591,7 @@ const QUESTIONS = [
     titleChurch:'What is your annual giving plus other income?',
     help:'A close estimate is all we need. Nothing here is binding.',
     kind:'text',
-    fields:[ { id:'revenueAmount', label:'Estimated annual revenue', ph:'e.g. 1,200,000', required:true, money:true } ]
+    fields:[ { id:'revenueAmount', label:'Estimated annual revenue', ph:'750,000', required:true, money:true } ]
   },
 
   /* ---- industry branches ---- */
@@ -737,13 +770,13 @@ const QUESTIONS = [
   },
   {
     id:'goal', group:'Service level', kicker:'The finish line',
-    title:'When the books are handled, what do you want most?',
+    title:'When your finances are handled, what do you want most?',
     help:'This shapes which tier we recommend. There is no wrong answer.',
     kind:'cards',
     options:[
-      { v:'books',      t:'Peace of mind', d:'Clean, accurate books I never have to think about.' },
-      { v:'visibility', t:'Real visibility', d:'A live dashboard and reporting I can actually act on.' },
-      { v:'partner',    t:'A partner in the numbers', d:'Someone who interprets the story each month, not just closes it.' }
+      { v:'books',      t:'Clean books', d:'Accurate books and bills paid on time. I have the rest covered.' },
+      { v:'visibility', t:'Numbers I can run on', d:'A budget, a forecast, and reporting my board can actually read.' },
+      { v:'partner',    t:'The whole function off my plate', d:'Someone to run finance operations end to end.' }
     ]
   },
   {
@@ -785,7 +818,7 @@ function renderTrail() {
 
 function answered(q) {
   if (q.kind === 'cards') return !!S[q.id];
-  if (q.kind === 'text') return q.fields.every(f => !f.required || (f.money ? parseMoney(S[f.id]) > 0 : (S[f.id] && S[f.id].trim())));
+  if (q.kind === 'text') return q.fields.every(f => !f.required || (f.money ? parseMoney(S[f.id]) >= PRICING.minRevenue : (S[f.id] && S[f.id].trim())));
   if (q.kind === 'checklist') return (S.tools && S.tools.length > 0) || !!S.toolsOther;
   if (q.kind === 'contact') return !!S.email;
   return false;
@@ -860,7 +893,7 @@ function renderQuestion(dir) {
         <label for="${f.id}">${esc(f.label)}${f.required ? '' : ' <span class="opt-tag">(optional)</span>'}</label>
         <input id="${f.id}" type="text" placeholder="${esc(f.ph || '')}" value="${esc(S[f.id] || '')}" autocomplete="off"${f.money ? ' inputmode="decimal"' : ''} />
         ${f.money ? `<div class="money-echo" id="me-${f.id}"></div>` : ''}
-        <div class="err">${f.money ? 'Enter an approximate annual revenue to continue.' : 'Please fill this in to continue.'}</div>
+        <div class="err">${f.money ? 'Enter your approximate annual revenue as a number, for example 750,000.' : 'Please fill this in to continue.'}</div>
       </div>`).join('') + `</div>`;
   }
 
@@ -918,10 +951,6 @@ function renderQuestion(dir) {
         </select>
       </div>
     </div>
-    <div class="consent ${S.cfoInterest ? 'on' : ''}" id="cfoWrap">
-      <label><input type="checkbox" id="cfoInterest" ${S.cfoInterest ? 'checked' : ''} />
-      I would also like to hear about custom CFO-level services. We are bookkeeping-first; this unlocks a custom-quoted scope for the rare business that needs it.</label>
-    </div>
     <div class="status-line" id="statusLine"></div>`;
   }
 
@@ -939,9 +968,20 @@ function renderQuestion(dir) {
       const inp = $(f.id), echo = $('me-' + f.id);
       if (!inp || !echo) return;
       const paint = () => {
+        const start = inp.selectionStart, before = inp.value;
+        const formatted = digitsOnly(before);
+        if (formatted !== before) {
+          inp.value = formatted;
+          const delta = formatted.length - before.length;
+          const pos = Math.max(0, (start || 0) + delta);
+          try { inp.setSelectionRange(pos, pos); } catch (e) {}
+        }
         const n = parseMoney(inp.value);
-        echo.textContent = n ? `We read that as ${money(n)} per year.` : '';
-        echo.classList.toggle('on', !!n);
+        if (!n) { echo.textContent = ''; echo.classList.remove('on'); return; }
+        echo.textContent = n < PRICING.minRevenue
+          ? `That reads as ${money(n)} per year. Enter your full annual revenue.`
+          : `We read that as ${money(n)} per year.`;
+        echo.classList.add('on');
       };
       inp.addEventListener('input', paint);
       paint();
@@ -970,8 +1010,6 @@ function renderQuestion(dir) {
     if (notesInput) notesInput.addEventListener('input', e => { S.toolsOtherNotes = e.target.value; });
   }
   if (q.kind === 'contact') {
-    const cfo = $('cfoInterest');
-    cfo.addEventListener('change', () => { S.cfoInterest = cfo.checked; $('cfoWrap').classList.toggle('on', cfo.checked); });
     $('software').addEventListener('change', e => { S.software = e.target.value; });
     if (!S.software) S.software = 'quickbooks';
   }
@@ -1005,7 +1043,7 @@ function collectInputs(q) {
       const el = $(f.id); const w = $('fw-' + f.id);
       S[f.id] = el ? el.value : '';
       const bad = f.money
-        ? (f.required && parseMoney(S[f.id]) <= 0)
+        ? (f.required && parseMoney(S[f.id]) < PRICING.minRevenue)
         : (f.required && !S[f.id].trim());
       w.classList.toggle('bad', bad);
       if (bad) ok = false;
@@ -1115,16 +1153,19 @@ function calc(s) {
   if (s.entityCount === '4plus') flags.push('4+ entity group, priced per entity');
 
   const cfoInterest = !!s.cfoInterest;
+  /* The Finance Department (tier 2) is the offer, so it is the default recommendation.
+     Tier 3 is for genuine structural complexity. Tier 1 only for a simple operation
+     that explicitly asked for books alone. */
   let recommended;
-  if (cfoInterest) recommended = 'cfo';
-  else if (s.goal === 'partner') recommended = 'strategic';
-  else if (s.goal === 'visibility') recommended = 'reporting';
-  else {
-    const pushUp = s.billpay !== 'none' || s.entityCount !== 'one' ||
-      revenue >= 3000000 ||
-      s.funds === 'yes' || s.campaign === 'yes' || s.jobCosting === 'yes' || s.inventory === 'yes';
-    recommended = pushUp ? 'reporting' : 'books';
-  }
+  const complex = (s.entityCount && s.entityCount !== 'one') || revenue >= 3000000;
+  const simple = (
+    s.goal === 'books' && (s.entityCount === 'one' || !s.entityCount) &&
+    s.payroll === 'none' && s.billpay === 'none' && !needs1099Of(s) &&
+    s.inventory !== 'yes' && s.jobCosting !== 'yes' && s.funds !== 'yes' && s.campaign !== 'yes'
+  );
+  if (complex) recommended = 'strategic';
+  else if (simple) recommended = 'books';
+  else recommended = 'reporting';
 
   return {
     core, floor, tiers, cleanup, fresh, flags, cfoInterest, recommended,
@@ -1143,7 +1184,7 @@ const BILL_LABEL = { none:'No bill pay support', lt40:'Under 40 bills/month', '4
 const ENTITY_LABEL = { one:'Single entity', '2to3':'2 to 3 entities', '4plus':'4+ entities' };
 const BOOKS_LABEL = { current:'Current / no catch-up', behind1to3:'1 to 3 months behind', behind4to6:'4 to 6 months behind', behind7:'7+ months behind', fresh:'Starting fresh (no books yet)' };
 const GOAL_LABEL = { books:'Peace of mind (clean books)', visibility:'Real visibility (dashboard + reporting)', partner:'A partner in the numbers' };
-const TIER_LABELS = { books:'Books', reporting:'Books + Reporting', strategic:'Strategic Partnership', cfo:'CFO Services' };
+const TIER_LABELS = { books:'Bookkeeping & Bill Pay', reporting:'The Finance Department', strategic:'The Custom Install', cfo:'CFO Services' };
 const SOFT_LABEL = { quickbooks:'QuickBooks', xero:'Xero', zoho:'Zoho Books', none:'None yet', other:'Other' };
 
 /* ---------- financial tech stack (multi-select, tailored by orgType) ---------- */
@@ -1364,28 +1405,29 @@ function renderTiers(r) {
 
   const defs = [
     {
-      key:'books', name:'Books',
-      tag:'Accurate monthly books without added complexity.',
+      key:'books', name:'Bookkeeping & Bill Pay',
+      tag:'The core of the operation, handled accurately every month.',
       range:r.tiers.books,
-      core:['Monthly bookkeeping','Bank & credit card reconciliations','Month-end close','P&L and Balance Sheet delivered'],
-      mods: billLabel ? modsSansBill.concat([{ text:billLabel, off:true, note:'(requires Books + Reporting)' }]) : mods.slice(),
-      cta:'Select Books'
+      core:['Monthly bookkeeping and reconciliations','Month-end close','Bill pay with a real approval chain','P&L and Balance Sheet delivered'],
+      gap:['Budget built and tracked against actuals','Forecast and cash runway','Board ready reporting package','Payroll and contractor compliance','Systems connected, files managed, 1099s filed','A named point of contact with a 24 hour response standard'],
+      mods: mods.slice(),
+      cta:'Select Bookkeeping & Bill Pay'
     },
     {
-      key:'reporting', name:'Books + Reporting',
-      tag:'Accurate books plus live financial visibility each month.',
+      key:'reporting', name:'The Finance Department',
+      tag:'Everything a finance department does, installed and run for you.',
       range:r.tiers.reporting,
-      core:['Everything in Books','Dedicated client portal','Live financial dashboard','Monthly reporting package'],
+      core:['Everything in Bookkeeping & Bill Pay','A named point of contact who answers in 24 hours or less','Reimbursements and expense card oversight','Payroll and contractor compliance','Budget built and tracked against actuals','Forecast and cash runway','Board ready financial statements','Live financial dashboard on your own private link','Your systems connected, so nothing is re-entered by hand','File management and document retention','1099s filed on time'],
       mods: mods.slice(),
-      cta:'Select Books + Reporting'
+      cta:'Select The Finance Department'
     },
     {
-      key:'strategic', name:'Strategic Partnership', customPrice:true,
-      tag:'Our premium engagement, scoped and priced around your business.',
+      key:'strategic', name:'The Custom Install', customPrice:true,
+      tag:'For multi entity groups and complex operations. Scoped with you on a call.',
       range:null,
-      core:['Everything in Books + Reporting','Monthly video breakdown of your numbers','Optional 30-min call each month','Scoped with you on a short call'],
+      core:['Everything in The Finance Department','Every entity with its own clean set of books','Consolidated reporting across the group','Scoped with you on a short call'],
       mods: mods.slice(),
-      cta:'Select Strategic Partnership'
+      cta:'Book a scoping call'
     }
   ];
   if (r.cfoInterest) {
@@ -1408,6 +1450,10 @@ function renderTiers(r) {
     h += `<div class="ttag">${esc(d.tag)}</div>`;
     h += `<div class="sec first">What's included</div><ul>${d.core.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
     if (!d.custom) {
+      if (d.gap && d.gap.length) {
+        h += `<div class="sec">Not included at this level</div>`;
+        h += `<ul class="mods gaps">${d.gap.map(g => `<li class="off">${esc(g)}</li>`).join('')}</ul>`;
+      }
       h += `<div class="sec">Built into your price</div>`;
       h += d.mods.length
         ? `<ul class="mods">${d.mods.map(m => typeof m === 'string'
@@ -1441,11 +1487,15 @@ function finish() {
 
   renderTiers(r);
 
-  $('resTitle').textContent = S.firstName ? `Here is where ${S.companyName || 'your books'} lands, ${S.firstName}.` : 'Here is where your books land.';
+  const g2 = $('gStep2');
+  if (g2) g2.textContent = isChurchy()
+    ? 'You show us where things live.'
+    : 'You get us set up in the systems you already run on.';
+  $('resTitle').textContent = S.firstName ? `Here is where ${S.companyName || 'your finance function'} lands, ${S.firstName}.` : 'Here is what your finance function costs.';
   const recCopy = {
-    books: 'Books keeps it simple and clean, which fits the way you run.',
-    reporting: 'Books + Reporting pairs accurate books with the visibility you asked for.',
-    strategic: 'Strategic Partnership adds a monthly walkthrough of the story behind your numbers.',
+    books: 'Bookkeeping and Bill Pay covers the core, and you told us you have the rest handled.',
+    reporting: 'The Finance Department is the fit. It covers the nine things one bookkeeper was never going to cover.',
+    strategic: 'You are running more than one entity, so the install gets scoped with you on a call.',
     cfo: 'Because you asked about CFO-level services, a custom tier is surfaced as the recommendation.'
   }[r.recommended];
   $('resNarrative').textContent = `Three ways to work together, priced from your answers. ${recCopy}`;

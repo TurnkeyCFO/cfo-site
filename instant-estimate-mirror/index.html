@@ -267,6 +267,18 @@ h1 { margin:0 auto 10px; max-width:740px; font-size:clamp(34px, 5vw, 56px); line
 .tier-card.custom.recommended { border-style: solid; }
 .tier-badge { position:absolute; top:-12px; left:24px; padding:6px 12px; border-radius:999px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:800; background: linear-gradient(135deg, var(--green), var(--green-deep)); color:#fff; box-shadow: 0 6px 14px rgba(4,120,87,.28); }
 .tier-name { font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--navy-soft); font-weight:800; margin-bottom:8px; }
+.guarantee { margin:22px 0 0; padding:26px 28px; border-radius:24px; border:1px solid rgba(4,120,87,.22); background:linear-gradient(180deg, rgba(4,120,87,.055), rgba(255,255,255,.72)); }
+.guarantee .g-eyebrow { letter-spacing:.2em; text-transform:uppercase; font-size:11.5px; font-weight:800; color:var(--green); margin-bottom:6px; }
+.guarantee h3 { margin:0 0 4px; font-size:clamp(20px,2.3vw,26px); letter-spacing:-.03em; }
+.guarantee .g-sub { margin:0 0 16px; font-size:14.5px; opacity:.72; }
+.guarantee .g-steps { list-style:none; margin:0 0 16px; padding:0; display:grid; gap:12px; }
+.guarantee .g-steps li { display:flex; gap:12px; align-items:flex-start; }
+.guarantee .g-steps .n { flex:0 0 26px; height:26px; border-radius:50%; background:var(--green); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+.guarantee .g-steps .t { font-size:15px; line-height:1.5; }
+.guarantee .g-teeth { margin:0 0 10px; padding:14px 16px; border-radius:14px; background:rgba(255,255,255,.78); border:1px solid rgba(4,120,87,.18); font-size:15px; font-weight:700; line-height:1.5; }
+.guarantee .g-fine { margin:0; font-size:13.5px; opacity:.72; line-height:1.55; }
+@media (max-width:620px){ .guarantee { padding:20px 18px; border-radius:20px; } }
+.tier-list.gaps li { opacity:.55; text-decoration:line-through; }
 .money-echo { min-height:18px; margin-top:8px; font-size:13px; font-weight:600; color:var(--navy-soft); opacity:0; transform:translateY(-2px); transition:opacity .22s ease, transform .22s ease; }
 .money-echo.on { opacity:1; transform:none; }
 .tier-price { font-size:clamp(22px,2.6vw,28px); font-weight:800; letter-spacing:-.03em; color:var(--navy); margin-bottom:4px; }
@@ -358,7 +370,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="row-2">
                 <div class="field">
                   <label class="title" for="revenue">Estimated annual revenue</label>
-                  <input id="revenue" name="revenue" type="text" inputmode="decimal" placeholder="e.g. 1,200,000" autocomplete="off" required>
+                  <input id="revenue" name="revenue" type="text" inputmode="decimal" placeholder="750,000" autocomplete="off" required>
                   <div class="money-echo" id="me-revenue"></div>
                 </div>
                 <div class="field">
@@ -502,6 +514,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="tier-grid" id="tierGrid"></div>
 
+        <section class="guarantee" id="guarantee">
+          <div class="g-eyebrow">Our guarantee</div>
+          <h3>The 24 Hour Finance Systems Audit</h3>
+          <p class="g-sub">Here is how it goes.</p>
+          <ol class="g-steps">
+            <li><span class="n">1</span><span class="t">A 15 minute call so we understand how you operate.</span></li>
+            <li><span class="n">2</span><span class="t" id="gStep2">You get us set up in the systems you already run on.</span></li>
+            <li><span class="n">3</span><span class="t">Within 24 hours, your full assessment across all ten pillars and a live dashboard built for your organization on its own private link.</span></li>
+          </ol>
+          <p class="g-teeth">If the assessment does not surface at least one concrete way to save you money, we will send you a $100 gift card.</p>
+          <p class="g-fine">Not a PDF. A working thing you can open. It is yours to keep whether or not you ever hire us.</p>
+        </section>
+
         <div class="result-card-grid secondary">
           <div class="result-card">
             <div class="k">Cleanup estimate</div>
@@ -615,7 +640,7 @@ function validateStep(index) {
       const group = stepList[index].querySelectorAll(`input[name="${field.name}"]`);
       if (![...group].some(el => el.checked)) return false;
     } else if (field.id === 'revenue') {
-      if (parseMoney(field.value) <= 0) return false;
+      if (parseMoney(field.value) < PRICING.minRevenue) return false;
     } else if (field.hasAttribute('required') && !field.value) {
       return false;
     }
@@ -694,12 +719,19 @@ function getSoftwareLabel(data) {
    Prior complexity-additive model archived at:
    businesses/turnkey/turnkey-cfo/instant-estimate-pricing-archive/2026-07-27-tiered-complexity-model/ */
 const PRICING = {
-  booksLow: 0.0120, booksHigh: 0.0128,   /* Tier 1 - Books */
-  repLow:   0.0140, repHigh:   0.0160,   /* Tier 2 - Books + Reporting */
-  minBooks: 300, minReporting: 400       /* monthly floors */
+  booksLow: 0.0110, booksHigh: 0.0130,   /* Tier 1 - Books */
+  repLow:   0.0140, repHigh:   0.0180,   /* Tier 2 - Books + Reporting */
+  minBooks: 300, minReporting: 400, minRevenue: 10000       /* monthly floors */
 };
 
 /* accepts "1,200,000" / "$1.2m" / "1.2 million" / "850k" / "850000" */
+/* Revenue must be entered as a number. digitsOnly strips anything else as it is
+   typed and re-formats with thousands separators, so what they see is what we read. */
+function digitsOnly(raw) {
+  const d = String(raw == null ? '' : raw).replace(/[^0-9]/g, '').replace(/^0+(?=\d)/, '');
+  return d ? Number(d).toLocaleString('en-US') : '';
+}
+
 function parseMoney(raw) {
   if (raw == null) return 0;
   let t = String(raw).toLowerCase().replace(/[$,\s]/g, '');
@@ -760,9 +792,9 @@ function getAttachedAddOns(data) {
 }
 
 const TIER_LABELS = {
-  books: 'Books',
-  reporting: 'Books + Reporting',
-  strategic: 'Strategic Partnership',
+  books: 'Bookkeeping & Bill Pay',
+  reporting: 'The Finance Department',
+  strategic: 'The Custom Install',
   cfo: 'CFO Services'
 };
 
@@ -830,21 +862,36 @@ function renderTierCards(result) {
   const billPayLabel = ({ lt40: 'Bill Pay (under 40/mo)', '40to100': 'Bill Pay (40-100/mo)', gt100: 'Bill Pay (100+/mo)' })[result.addOns.billpay];
 
   const booksCore = [
-    'Monthly bookkeeping',
-    'Bank &amp; credit card reconciliations',
+    'Monthly bookkeeping and reconciliations',
     'Month-end close',
-    'P&amp;L and Balance Sheet PDFs'
+    'Bill pay with a real approval chain',
+    'P&amp;L and Balance Sheet delivered'
+  ];
+  const booksGap = [
+    'Budget built and tracked against actuals',
+    'Forecast and cash runway',
+    'Board ready reporting package',
+    'Payroll and contractor compliance',
+    'Systems connected, files managed, 1099s filed','A named point of contact with a 24 hour response standard'
   ];
   const reportingCore = [
-    'Everything in Books',
-    'Dedicated client portal',
-    'Live financial dashboard',
-    'PDF financials as backup'
+    'Everything in Bookkeeping & Bill Pay',
+    'A named point of contact who answers in 24 hours or less',
+    'Reimbursements and expense card oversight',
+    'Payroll and contractor compliance',
+    'Budget built and tracked against actuals',
+    'Forecast and cash runway',
+    'Board ready financial statements',
+    'Live financial dashboard on your own private link',
+    'Your systems connected, so nothing is re-entered by hand',
+    'File management and document retention',
+    '1099s filed on time'
   ];
   const strategicCore = [
-    'Everything in Books + Reporting',
-    'Monthly Loom video breakdown',
-    '1 optional 30-min call per month'
+    'Everything in The Finance Department',
+    'Every entity with its own clean set of books',
+    'Consolidated reporting across the group',
+    'Scoped with you on a short call'
   ];
   const cfoCore = [
     'Custom-scoped CFO support',
@@ -855,8 +902,9 @@ function renderTierCards(result) {
   const tierDefs = [
     {
       key: 'books',
-      name: 'Books',
-      tagline: 'Accurate monthly books without added complexity.',
+      name: 'Bookkeeping & Bill Pay',
+      gap: booksGap,
+      tagline: 'The core of the operation, handled accurately every month.',
       price: fmtRange(result.tiers.books),
       core: booksCore,
       addOns: (() => {
@@ -864,12 +912,12 @@ function renderTierCards(result) {
         if (billPayLabel) out.push({ text: billPayLabel, disabled: true, note: '(requires Books + Reporting)' });
         return out;
       })(),
-      ctaLabel: 'Select Books'
+      ctaLabel: 'Select Bookkeeping & Bill Pay'
     },
     {
       key: 'reporting',
-      name: 'Books + Reporting',
-      tagline: 'Accurate books plus live financial visibility each month.',
+      name: 'The Finance Department',
+      tagline: 'Everything a finance department does, installed and run for you.',
       price: fmtRange(result.tiers.reporting),
       core: reportingCore,
       addOns: (() => {
@@ -877,12 +925,12 @@ function renderTierCards(result) {
         if (billPayLabel) out.push(billPayLabel);
         return out;
       })(),
-      ctaLabel: 'Select Books + Reporting'
+      ctaLabel: 'Select The Finance Department'
     },
     {
       key: 'strategic',
-      name: 'Strategic Partnership',
-      tagline: 'Our premium engagement, scoped and priced around your business.',
+      name: 'The Custom Install',
+      tagline: 'For multi entity groups and complex operations. Scoped with you on a call.',
       price: null,
       customPrice: true,
       core: strategicCore,
@@ -891,7 +939,7 @@ function renderTierCards(result) {
         if (billPayLabel) out.push(billPayLabel);
         return out;
       })(),
-      ctaLabel: 'Select Strategic Partnership'
+      ctaLabel: 'Book a scoping call'
     }
   ];
 
@@ -922,6 +970,10 @@ function renderTierCards(result) {
     html += `<div class="tier-tagline">${def.tagline}</div>`;
     html += `<div class="tier-section-label">What's included</div>`;
     html += `<ul class="tier-list">${def.core.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    if (def.gap && def.gap.length) {
+      html += `<div class="tier-section-label">Not included at this level</div>`;
+      html += `<ul class="tier-list gaps">${def.gap.map(i => `<li class="disabled">${i}</li>`).join('')}</ul>`;
+    }
 
     if (!def.custom) {
       html += `<div class="tier-section-label">Your add-ons</div>`;
@@ -1004,18 +1056,16 @@ function calculateEstimate(data) {
 
   // Recommendation logic
   const cfoInterest = !!data.cfoInterest;
+  /* The Finance Department (tier 2) is the offer, so it is the default recommendation. */
   let recommended;
-  if (cfoInterest) {
-    recommended = 'cfo';
-  } else {
-    const hasAddOn = data.payroll !== 'none' || data.billpay !== 'none' || data.needs1099 === 'yes';
-    const bigRev = parseMoney(data.revenue) >= 1000000;
-    if (hasAddOn || bigRev || data.inventory === 'yes') {
-      recommended = 'reporting';
-    } else {
-      recommended = 'books';
-    }
-  }
+  const complexOp = parseMoney(data.revenue) >= 3000000;
+  const simpleOp = (
+    data.payroll === 'none' && data.billpay === 'none' && data.needs1099 !== 'yes' &&
+    data.inventory !== 'yes' && !(data.industry === 'construction' && data.jobCosting === 'yes')
+  );
+  if (complexOp) recommended = 'strategic';
+  else if (simpleOp) recommended = 'books';
+  else recommended = 'reporting';
 
   // Bill pay gates Books tier out of recommendation eligibility
   const billPayBlocksBooks = data.billpay !== 'none';
@@ -1036,10 +1086,21 @@ function calculateEstimate(data) {
   const inp = document.getElementById('revenue');
   const out = document.getElementById('me-revenue');
   if (!inp || !out) return;
+  const fmt = (v) => v.toLocaleString('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
   const paint = () => {
+    const start = inp.selectionStart, before = inp.value;
+    const formatted = digitsOnly(before);
+    if (formatted !== before) {
+      inp.value = formatted;
+      const pos = Math.max(0, (start || 0) + (formatted.length - before.length));
+      try { inp.setSelectionRange(pos, pos); } catch (e) {}
+    }
     const n = parseMoney(inp.value);
-    out.textContent = n ? 'We read that as ' + n.toLocaleString('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 }) + ' per year.' : '';
-    out.classList.toggle('on', !!n);
+    if (!n) { out.textContent = ''; out.classList.remove('on'); return; }
+    out.textContent = n < PRICING.minRevenue
+      ? 'That reads as ' + fmt(n) + ' per year. Enter your full annual revenue.'
+      : 'We read that as ' + fmt(n) + ' per year.';
+    out.classList.add('on');
   };
   inp.addEventListener('input', paint);
   paint();
@@ -1083,12 +1144,16 @@ form.addEventListener('submit', (e) => {
   const submissionPayload = buildSubmissionPayload(data, result);
 
   const recCopy = {
-    books: 'Books is the simplest fit for your setup.',
-    reporting: 'Books + Reporting pairs accurate books with live visibility.',
-    strategic: 'Strategic Partnership adds a monthly Loom and optional call on top of full reporting.',
+    books: 'Bookkeeping and Bill Pay covers the core, and you told us you have the rest handled.',
+    reporting: 'The Finance Department is the fit. It covers the nine things one bookkeeper was never going to cover.',
+    strategic: 'You are running more than one entity, so the install gets scoped with you on a call.',
     cfo: 'Because you\u2019re interested in CFO-level services, we\u2019ve surfaced a custom tier as our recommendation.'
   }[result.recommended];
   document.getElementById('narrative').textContent = `Based on your inputs, here's how each plan would look for your business. ${recCopy} You'll see which one is recommended below.`;
+  const g2 = document.getElementById('gStep2');
+  if (g2) g2.textContent = (result.industry === 'church' || submissionPayload.industry === 'church')
+    ? 'You show us where things live.'
+    : 'You get us set up in the systems you already run on.';
 
   const estimateSummary = document.getElementById('estimateSummary');
   const summaryItems = [
