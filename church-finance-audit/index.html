@@ -173,17 +173,25 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 
 /* ---------- audit deliverables ---------- */
 .dtable{margin-top:34px;background:var(--paper);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;box-shadow:0 22px 60px rgba(6,40,26,.07)}
-.drow{display:grid;grid-template-columns:44px 1fr 118px;gap:18px;padding:21px 26px;border-bottom:1px solid var(--line);align-items:start;transition:background .25s}
+.drow{display:grid;grid-template-columns:44px 1fr 128px;gap:18px;padding:21px 26px;border-bottom:1px solid var(--line);align-items:start;transition:background .25s}
 .drow:hover{background:var(--cream)}
 .drow:last-of-type{border-bottom:0}
 .drow .dn{width:30px;height:30px;border-radius:9px;background:var(--mint);color:var(--deep);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13.5px}
 .drow h4{font-size:16.5px;font-weight:800;margin-bottom:5px;letter-spacing:-.02em}
 .drow p{font-size:14px;color:var(--tx2)}
-.drow .v{font-size:15px;font-weight:800;color:var(--deep);text-align:right;white-space:nowrap}
-.dtot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;background:var(--pine);color:#eafff3;padding:23px 26px}
-.dtot .t{font-size:16.5px;font-weight:800;color:#fff}
-.dtot .p{font-size:clamp(21px,2.4vw,29px);font-weight:800;color:var(--emerald);letter-spacing:-.03em}
-.dtot .p s{color:#8fae9d;font-weight:600;font-size:.6em;margin-right:12px}
+.drow .v{text-align:right;white-space:nowrap}
+.drow .v .a{display:block;font-size:19px;font-weight:800;letter-spacing:-.025em;line-height:1.05}
+.drow .v .u{display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tx2);margin-top:2px}
+.dtot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;background:var(--pine);color:#eafff3;padding:clamp(24px,3vw,34px) 26px}
+.dtot .t{font-size:16.5px;font-weight:800;color:#fff;max-width:34ch}
+.dtot .t .ts{display:block;font-size:13.5px;font-weight:500;color:#a8c7b6;margin-top:6px}
+.dtot .pwrap{text-align:right;margin-left:auto}
+.dtot .plab{font-size:11px;font-weight:800;letter-spacing:.19em;text-transform:uppercase;color:#8fb9a3}
+.dtot .pstrike{margin-top:5px;font-size:clamp(22px,2.6vw,30px);font-weight:700;letter-spacing:-.035em;line-height:1}
+.dtot .pstrike s{color:#7fa891;text-decoration:none;position:relative;display:inline-block;padding:0 6px}
+.dtot .pstrike s::after{content:"";position:absolute;left:0;right:0;top:52%;height:3px;border-radius:3px;background:var(--emerald);transform:rotate(-4deg);box-shadow:0 0 18px rgba(0,230,118,.5)}
+.dtot .p{font-size:clamp(56px,8.4vw,104px);font-weight:800;letter-spacing:-.055em;line-height:.96;margin-top:2px}
+@media(max-width:640px){.dtot{justify-content:center;text-align:center}.dtot .t{max-width:none}.dtot .pwrap{margin-left:0;text-align:center;width:100%}}
 @media(max-width:640px){.drow{grid-template-columns:34px 1fr;}.drow .v{grid-column:2;text-align:left;margin-top:4px}}
 
 /* ---------- THE guarantee ---------- */
@@ -608,11 +616,18 @@ footer ul a:hover{color:var(--emerald)}
     </div>
 
     <div class="dtable rv">
-      <div class="drow"><div class="dn">1</div><div><h4>A graded assessment across all ten pillars</h4><p>Where you are strong, where you are exposed, and what a real finance function would be doing that nobody is doing at your church today.</p></div><div class="v">Included</div></div>
-      <div class="drow"><div class="dn">2</div><div><h4>A live dashboard on your own private link</h4><p>Not a PDF and not a slide deck. A working dashboard built for your church, so you can see your operation the way it is supposed to look. Yours to keep.</p></div><div class="v">Included</div></div>
-      <div class="drow"><div class="dn">3</div><div><h4>A prioritized list of what to fix first</h4><p>In order, with the reasoning. Named tools, what to keep, what to cut, what to switch.</p></div><div class="v">Included</div></div>
-      <div class="drow"><div class="dn">4</div><div><h4>The church specific review</h4><p>Restricted funds, counting controls, giving reconciliation, housing allowance, benevolence and board reporting, checked against how churches are actually supposed to run.</p></div><div class="v">Included</div></div>
-      <div class="dtot"><div class="t">Back to you within about 24 hours of your submission</div><div class="p">Free</div></div>
+      <div class="drow"><div class="dn">1</div><div><h4>A graded assessment across all ten pillars</h4><p>Where you are strong, where you are exposed, and what a real finance function would be doing that nobody is doing at your church today.</p></div><div class="v"><span class="a shim">$1,500</span><span class="u">value</span></div></div>
+      <div class="drow"><div class="dn">2</div><div><h4>A live dashboard on your own private link</h4><p>Not a PDF and not a slide deck. A working dashboard built for your church, so you can see your operation the way it is supposed to look. Yours to keep.</p></div><div class="v"><span class="a shim">$2,400</span><span class="u">value</span></div></div>
+      <div class="drow"><div class="dn">3</div><div><h4>A prioritized list of what to fix first</h4><p>In order, with the reasoning. Named tools, what to keep, what to cut, what to switch.</p></div><div class="v"><span class="a shim">$1,200</span><span class="u">value</span></div></div>
+      <div class="drow"><div class="dn">4</div><div><h4>The church specific review</h4><p>Restricted funds, counting controls, giving reconciliation, housing allowance, benevolence and board reporting, checked against how churches are actually supposed to run.</p></div><div class="v"><span class="a shim">$1,800</span><span class="u">value</span></div></div>
+      <div class="dtot">
+        <div class="t">Back to you within about 24 hours of your submission<span class="ts">Yours to keep, whether you ever hire us or not.</span></div>
+        <div class="pwrap">
+          <div class="plab">Total value</div>
+          <div class="pstrike"><s>$6,900</s></div>
+          <div class="p shim lt">FREE</div>
+        </div>
+      </div>
     </div>
     <p class="clockline rv">The clock starts once your submission is in. If something needs a quick clarification we will ask, and we would rather get it right than get it fast.</p>
 

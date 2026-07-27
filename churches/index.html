@@ -333,17 +333,25 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 
 /* ---------- audit deliverables ---------- */
 .dtable{margin-top:34px;background:var(--paper);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;box-shadow:0 22px 60px rgba(6,40,26,.07)}
-.drow{display:grid;grid-template-columns:44px 1fr 118px;gap:18px;padding:21px 26px;border-bottom:1px solid var(--line);align-items:start;transition:background .25s}
+.drow{display:grid;grid-template-columns:44px 1fr 128px;gap:18px;padding:21px 26px;border-bottom:1px solid var(--line);align-items:start;transition:background .25s}
 .drow:hover{background:var(--cream)}
 .drow:last-of-type{border-bottom:0}
 .drow .dn{width:30px;height:30px;border-radius:9px;background:var(--mint);color:var(--deep);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13.5px}
 .drow h4{font-size:16.5px;font-weight:800;margin-bottom:5px;letter-spacing:-.02em}
 .drow p{font-size:14px;color:var(--tx2)}
-.drow .v{font-size:15px;font-weight:800;color:var(--deep);text-align:right;white-space:nowrap}
-.dtot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;background:var(--pine);color:#eafff3;padding:23px 26px}
-.dtot .t{font-size:16.5px;font-weight:800;color:#fff}
-.dtot .p{font-size:clamp(21px,2.4vw,29px);font-weight:800;color:var(--emerald);letter-spacing:-.03em}
-.dtot .p s{color:#8fae9d;font-weight:600;font-size:.6em;margin-right:12px}
+.drow .v{text-align:right;white-space:nowrap}
+.drow .v .a{display:block;font-size:19px;font-weight:800;letter-spacing:-.025em;line-height:1.05}
+.drow .v .u{display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tx2);margin-top:2px}
+.dtot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;background:var(--pine);color:#eafff3;padding:clamp(24px,3vw,34px) 26px}
+.dtot .t{font-size:16.5px;font-weight:800;color:#fff;max-width:34ch}
+.dtot .t .ts{display:block;font-size:13.5px;font-weight:500;color:#a8c7b6;margin-top:6px}
+.dtot .pwrap{text-align:right;margin-left:auto}
+.dtot .plab{font-size:11px;font-weight:800;letter-spacing:.19em;text-transform:uppercase;color:#8fb9a3}
+.dtot .pstrike{margin-top:5px;font-size:clamp(22px,2.6vw,30px);font-weight:700;letter-spacing:-.035em;line-height:1}
+.dtot .pstrike s{color:#7fa891;text-decoration:none;position:relative;display:inline-block;padding:0 6px}
+.dtot .pstrike s::after{content:"";position:absolute;left:0;right:0;top:52%;height:3px;border-radius:3px;background:var(--emerald);transform:rotate(-4deg);box-shadow:0 0 18px rgba(0,230,118,.5)}
+.dtot .p{font-size:clamp(56px,8.4vw,104px);font-weight:800;letter-spacing:-.055em;line-height:.96;margin-top:2px}
+@media(max-width:640px){.dtot{justify-content:center;text-align:center}.dtot .t{max-width:none}.dtot .pwrap{margin-left:0;text-align:center;width:100%}}
 @media(max-width:640px){.drow{grid-template-columns:34px 1fr;}.drow .v{grid-column:2;text-align:left;margin-top:4px}}
 
 /* ---------- THE guarantee ---------- */
@@ -393,9 +401,9 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .bonus h3{margin-top:11px;font-size:19.5px;font-weight:800;letter-spacing:-.025em}
 .bhead{margin-top:11px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
 .bhead h3{margin-top:0;flex:1 1 auto}
-.bonus .val{flex:0 0 auto;margin-top:2px;font-size:13px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;text-align:right}
-.bonus .val .v{font-size:16.5px;display:block;line-height:1.1}
-.bonus .val .u{display:block;font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--tx2);margin-top:2px}
+.bonus .val{flex:0 0 auto;margin-top:3px;white-space:nowrap;text-align:right}
+.bonus .val .v{font-size:13px;font-weight:800;color:var(--deep);display:block;line-height:1.1;letter-spacing:-.01em}
+.bonus .val .u{display:block;font-size:9.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--tx2);margin-top:1px}
 @media(max-width:420px){.bhead{flex-direction:column;gap:6px}.bonus .val{text-align:left}}
 
 /* gradient shimmer — used on the value figures and the FREE reveal */
@@ -418,11 +426,7 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .bonus .kills b{color:var(--ink)}
 .bonus.sum{grid-column:1/-1;background:var(--pine);border-color:transparent;color:#eafff3;justify-content:center;text-align:center;box-shadow:0 34px 84px rgba(6,40,26,.3)}
 .bonus.sum h3{color:#fff;margin-top:0}
-.bonus.sum .totlab{margin-top:20px;font-size:11.5px;font-weight:800;letter-spacing:.19em;text-transform:uppercase;color:#8fb9a3}
-.bonus.sum .strike{margin-top:8px;font-size:clamp(26px,3.2vw,38px);font-weight:700;letter-spacing:-.035em;line-height:1}
-.bonus.sum .strike s{color:#7fa891;text-decoration:none;position:relative;display:inline-block;padding:0 6px}
-.bonus.sum .strike s::after{content:"";position:absolute;left:0;right:0;top:52%;height:3px;border-radius:3px;background:var(--emerald);transform:rotate(-4deg);box-shadow:0 0 18px rgba(0,230,118,.5)}
-.bonus.sum .tot{font-size:clamp(58px,9vw,116px);font-weight:800;letter-spacing:-.055em;margin-top:6px;line-height:.98}
+.bonus.sum .tot{font-size:clamp(34px,4.4vw,52px);font-weight:800;color:var(--emerald);letter-spacing:-.045em;margin-top:16px;line-height:1}
 .bonus.sum .totsub{font-size:13.5px;font-weight:700;color:#cdebdb;margin-top:8px;letter-spacing:.01em}
 .bonus.sum p{font-size:14.5px;color:#a8c7b6;margin-top:14px;max-width:56ch;margin-left:auto;margin-right:auto}
 
@@ -772,11 +776,18 @@ footer ul a:hover{color:var(--emerald)}
     </div>
 
     <div class="dtable rv">
-      <div class="drow"><div class="dn">1</div><div><h4>A graded assessment across all ten pillars</h4><p>Where you are strong, where you are exposed, and what a real finance function would be doing that nobody is doing at your church today.</p></div><div class="v">Included</div></div>
-      <div class="drow"><div class="dn">2</div><div><h4>A live dashboard on your own private link</h4><p>Not a PDF and not a slide deck. A working dashboard built for your church, so you can see your operation the way it is supposed to look. Yours to keep.</p></div><div class="v">Included</div></div>
-      <div class="drow"><div class="dn">3</div><div><h4>A prioritized list of what to fix first</h4><p>In order, with the reasoning. Named tools, what to keep, what to cut, what to switch.</p></div><div class="v">Included</div></div>
-      <div class="drow"><div class="dn">4</div><div><h4>The church specific review</h4><p>Restricted funds, counting controls, giving reconciliation, housing allowance, benevolence and board reporting, checked against how churches are actually supposed to run.</p></div><div class="v">Included</div></div>
-      <div class="dtot"><div class="t">Back to you within about 24 hours of your submission</div><div class="p">Free</div></div>
+      <div class="drow"><div class="dn">1</div><div><h4>A graded assessment across all ten pillars</h4><p>Where you are strong, where you are exposed, and what a real finance function would be doing that nobody is doing at your church today.</p></div><div class="v"><span class="a shim">$1,500</span><span class="u">value</span></div></div>
+      <div class="drow"><div class="dn">2</div><div><h4>A live dashboard on your own private link</h4><p>Not a PDF and not a slide deck. A working dashboard built for your church, so you can see your operation the way it is supposed to look. Yours to keep.</p></div><div class="v"><span class="a shim">$2,400</span><span class="u">value</span></div></div>
+      <div class="drow"><div class="dn">3</div><div><h4>A prioritized list of what to fix first</h4><p>In order, with the reasoning. Named tools, what to keep, what to cut, what to switch.</p></div><div class="v"><span class="a shim">$1,200</span><span class="u">value</span></div></div>
+      <div class="drow"><div class="dn">4</div><div><h4>The church specific review</h4><p>Restricted funds, counting controls, giving reconciliation, housing allowance, benevolence and board reporting, checked against how churches are actually supposed to run.</p></div><div class="v"><span class="a shim">$1,800</span><span class="u">value</span></div></div>
+      <div class="dtot">
+        <div class="t">Back to you within about 24 hours of your submission<span class="ts">Yours to keep, whether you ever hire us or not.</span></div>
+        <div class="pwrap">
+          <div class="plab">Total value</div>
+          <div class="pstrike"><s>$6,900</s></div>
+          <div class="p shim lt">FREE</div>
+        </div>
+      </div>
     </div>
     <p class="clockline rv">The clock starts once your submission is in. If something needs a quick clarification we will ask, and we would rather get it right than get it fast.</p>
 
@@ -896,7 +907,7 @@ footer ul a:hover{color:var(--emerald)}
 
       <div class="bonus rv">
         <div class="bn">Bonus 01</div>
-        <div class="bhead"><h3>Your Stewardship Partner</h3><div class="val"><span class="v shim">$6,000</span><span class="u">value / year</span></div></div>
+        <div class="bhead"><h3>Your Stewardship Partner</h3><div class="val"><span class="v">$6,000</span><span class="u">a year, included</span></div></div>
         <ul>
           <li>One named person who knows your church, your funds and your people. Not a shared inbox, not a ticket queue.</li>
           <li>Every message gets a real human answer the same day, seven days a week.</li>
@@ -908,7 +919,7 @@ footer ul a:hover{color:var(--emerald)}
 
       <div class="bonus rv">
         <div class="bn">Bonus 02</div>
-        <div class="bhead"><h3>The White-Glove Transition</h3><div class="val"><span class="v shim">$2,500</span><span class="u">value</span></div></div>
+        <div class="bhead"><h3>The White-Glove Transition</h3><div class="val"><span class="v">$2,500</span><span class="u">included</span></div></div>
         <ul>
           <li>We contact your current bookkeeper, request the files and handle the entire handoff conversation.</li>
           <li>You are never the person stuck in the middle of an awkward exchange.</li>
@@ -920,7 +931,7 @@ footer ul a:hover{color:var(--emerald)}
 
       <div class="bonus rv">
         <div class="bn">Bonus 03</div>
-        <div class="bhead"><h3>Church Finance for Non-Finance Pastors</h3><div class="val"><span class="v shim">$1,200</span><span class="u">value</span></div></div>
+        <div class="bhead"><h3>Church Finance for Non-Finance Pastors</h3><div class="val"><span class="v">$1,200</span><span class="u">included</span></div></div>
         <ul>
           <li>A short, plain English course delivered during onboarding. No jargon, no accounting theory.</li>
           <li>How to read your own statements in five minutes and know when something is wrong.</li>
@@ -932,7 +943,7 @@ footer ul a:hover{color:var(--emerald)}
 
       <div class="bonus rv">
         <div class="bn">Bonus 04</div>
-        <div class="bhead"><h3>Monthly Giving Intelligence</h3><div class="val"><span class="v shim">$3,600</span><span class="u">value / year</span></div></div>
+        <div class="bhead"><h3>Monthly Giving Intelligence</h3><div class="val"><span class="v">$3,600</span><span class="u">a year, included</span></div></div>
         <ul>
           <li>Who gave for the first time this month, so you can thank them while it still means something.</li>
           <li>Who has quietly stopped, before it becomes a trend you notice in the spring.</li>
@@ -944,7 +955,7 @@ footer ul a:hover{color:var(--emerald)}
 
       <div class="bonus rv">
         <div class="bn">Bonus 05</div>
-        <div class="bhead"><h3>Giving Statement Season, Handled</h3><div class="val"><span class="v shim">$1,800</span><span class="u">value / year</span></div></div>
+        <div class="bhead"><h3>Giving Statement Season, Handled</h3><div class="val"><span class="v">$1,800</span><span class="u">a year, included</span></div></div>
         <ul>
           <li>We produce and send your annual contribution statements before the January 31 deadline.</li>
           <li>Accurate and reconciled against the books, not exported and hoped for.</li>
@@ -956,7 +967,7 @@ footer ul a:hover{color:var(--emerald)}
 
       <div class="bonus rv">
         <div class="bn">Bonus 06</div>
-        <div class="bhead"><h3>The Systems Blueprint, Implemented</h3><div class="val"><span class="v shim">$4,500</span><span class="u">value</span></div></div>
+        <div class="bhead"><h3>The Systems Blueprint, Implemented</h3><div class="val"><span class="v">$4,500</span><span class="u">included</span></div></div>
         <ul>
           <li>The recommendations from your audit do not just get handed over. We implement them.</li>
           <li>Right payroll processor, right bill pay, right giving integration, right chart of accounts.</li>
@@ -968,10 +979,8 @@ footer ul a:hover{color:var(--emerald)}
 
       <div class="bonus sum rv">
         <h3>All six, every church</h3>
-        <div class="totlab">Total first-year value</div>
-        <div class="strike"><s>$19,600</s></div>
-        <div class="tot shim lt">FREE</div>
-        <div class="totsub">Included with every engagement, at no additional cost.</div>
+        <div class="tot">6 of 6</div>
+        <div class="totsub">Every one included, at no additional cost.</div>
         <p>No tiers, no add-ons, no upsells, and nothing here is sold separately. Every church we onboard gets all six, on top of the ten pillars themselves.</p>
         <a class="btn em" data-cta="audit-bonus" style="margin-top:26px" href="#book">Start with the free audit</a>
       </div>
