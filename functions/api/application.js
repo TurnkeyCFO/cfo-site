@@ -45,10 +45,28 @@ var W = {
 };
 var TH = { green:55, amber:25 };
 
+// Annual income arrives as a real number. The score works off bands, so the
+// band is derived HERE from the number rather than trusting what the browser
+// sent alongside it.
+var REV_BANDS = [
+  [250000,   "under-250k"],
+  [1000000,  "250k-1m"   ],
+  [3000000,  "1m-3m"     ],
+  [10000000, "3m-10m"    ],
+];
+function revBand(n) {
+  if (!(typeof n === "number" && isFinite(n) && n > 0)) return "";
+  for (var i = 0; i < REV_BANDS.length; i++) if (n < REV_BANDS[i][0]) return REV_BANDS[i][1];
+  return "over-10m";
+}
+function money(n) {
+  return "$" + Math.round(n).toLocaleString("en-US");
+}
+
 function scoreOf(a) {
   var t = 0;
   t += W.entity[a.entity] || 0;
-  t += W.revenue[a.revenue] || 0;
+  t += W.revenue[revBand(a.revenue_amount)] || 0;
   t += W.behind[a.behind] || 0;
   t += W.who[a.who] || 0;
   t += W.urgency[a.urgency] || 0;
@@ -59,7 +77,7 @@ function scoreOf(a) {
   var lane = t >= TH.green ? "green" : t >= TH.amber ? "amber" : "red";
   var reason = "score";
   if (referred && lane !== "green") { lane = "green"; reason = "override: referral"; }
-  if (a.entity === "soleprop" && a.revenue === "under-250k") {
+  if (a.entity === "soleprop" && revBand(a.revenue_amount) === "under-250k") {
     lane = "red"; reason = "override: no entity + under $250K";
   }
   return { total: t, lane: lane, reason: reason };
@@ -102,7 +120,9 @@ export async function onRequestPost(context) {
   var rec = {
     name: clean(a.name, 120), org: clean(a.org, 160), email: clean(a.email, 160),
     phone: clean(a.phone, 60), referral: clean(a.referral, 160),
-    entity: clean(a.entity, 40), revenue: clean(a.revenue, 40),
+    entity: clean(a.entity, 40),
+    revenue_amount: (typeof a.revenue_amount === "number" && isFinite(a.revenue_amount) && a.revenue_amount > 0)
+      ? Math.round(a.revenue_amount) : null,
     behind: clean(a.behind, 40), who: clean(a.who, 40), urgency: clean(a.urgency, 40),
     pain: clean(a.pain, 2000), trigger: clean(a.trigger, 2000),
     ctx: clean(a.ctx, 40) || "general",
@@ -110,6 +130,8 @@ export async function onRequestPost(context) {
     ua: clean(context.request.headers.get("user-agent"), 300),
     ts: new Date().toISOString(),
   };
+
+  rec.revenue_band = revBand(rec.revenue_amount);
 
   var s = scoreOf(rec);
   rec.score = s.total; rec.lane = s.lane; rec.lane_reason = s.reason;
@@ -133,7 +155,8 @@ export async function onRequestPost(context) {
       "<mailto:" + rec.email + "|" + rec.email + ">" + (rec.phone ? " · " + rec.phone : ""),
       "",
       "*Score* " + rec.score + " (" + rec.lane_reason + ")" + (rec.ctx !== "general" ? " · via " + rec.ctx : ""),
-      lab("entity", rec.entity) + " · " + lab("revenue", rec.revenue) +
+      lab("entity", rec.entity) +
+        " · " + (rec.revenue_amount ? money(rec.revenue_amount) + "/yr" : "income not given") +
         " · books " + lab("behind", rec.behind).toLowerCase() +
         " · " + lab("who", rec.who) + " · " + lab("urgency", rec.urgency),
     ];

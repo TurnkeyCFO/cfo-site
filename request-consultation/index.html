@@ -139,6 +139,11 @@ body::before{
 .f input,.f select,.f textarea{width:100%;appearance:none;font-family:inherit;font-size:15px;color:var(--ink);border:1.5px solid var(--line);border-radius:var(--r-sm);background:#fff;padding:15px;outline:none;transition:.16s ease}
 .f textarea{min-height:118px;resize:vertical;line-height:1.6}
 .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--emerald);box-shadow:0 0 0 4px rgba(4,120,87,.10)}
+.moneywrap{position:relative}
+.moneywrap .cur{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:16px;font-weight:800;color:var(--ink-faint);pointer-events:none}
+.f.money input{padding-left:34px;font-size:19px;font-weight:800;letter-spacing:-.01em}
+.money-echo{min-height:18px;margin-top:8px;font-size:13px;font-weight:700;color:var(--emerald-ink);opacity:0;transform:translateY(-2px);transition:opacity .22s ease,transform .22s ease}
+.money-echo.on{opacity:1;transform:none}
 .f .err{display:none;margin-top:6px;font-size:12.5px;color:#B91C1C;font-weight:600}
 .f.bad input,.f.bad textarea{border-color:#DC2626}
 .f.bad .err{display:block}
@@ -335,7 +340,7 @@ const CONFIG = {
    ========================================================================== */
 const QUESTIONS = [
   {
-    id:'entity', type:'choice', kicker:'Your organization',
+    id:'entity', rail:'Organization', type:'choice', kicker:'Your organization',
     title:'What kind of organization are you?',
     help:'This shapes everything downstream, from the chart of accounts to who signs off on what.',
     cols:2,
@@ -348,20 +353,12 @@ const QUESTIONS = [
     ]
   },
   {
-    id:'revenue', type:'choice', kicker:'Scale',
-    title:'Roughly what does the organization bring in a year?',
-    help:'A range is fine. It tells us the volume of transactions behind the work.',
-    cols:2,
-    options:[
-      {v:'under-250k', t:'Under $250K'},
-      {v:'250k-1m',    t:'$250K – $1M'},
-      {v:'1m-3m',      t:'$1M – $3M'},
-      {v:'3m-10m',     t:'$3M – $10M'},
-      {v:'over-10m',   t:'Over $10M'}
-    ]
+    id:'revenue', rail:'Scale', type:'money', kicker:'Scale',
+    title:'What does the organization bring in a year?',
+    help:'Your best estimate is fine, and a round number is expected. This tells us the volume of transactions behind the work.'
   },
   {
-    id:'behind', type:'choice', kicker:'Current state',
+    id:'behind', rail:'Current state', type:'choice', kicker:'Current state',
     title:'How far behind are the books right now?',
     help:'Straight answers only help you here. Cleanup is normal and we quote it separately.',
     cols:2,
@@ -373,7 +370,7 @@ const QUESTIONS = [
     ]
   },
   {
-    id:'who', type:'choice', kicker:'Today',
+    id:'who', rail:'Today', type:'choice', kicker:'Today',
     title:'Who handles the books today?',
     help:'',
     cols:2,
@@ -386,14 +383,14 @@ const QUESTIONS = [
     ]
   },
   {
-    id:'pain', type:'text', kicker:'The real problem',
+    id:'pain', rail:'The problem', type:'text', kicker:'The real problem',
     title:'What is not working right now?',
     help:'In your own words. One or two sentences is plenty. This is the most useful thing on the form.',
     field:{ kind:'textarea', placeholder:'Example: We never know our cash position until the 20th, and the board keeps asking for numbers I do not have.' },
     required:true, minLen:12
   },
   {
-    id:'trigger', type:'compound', kicker:'Timing',
+    id:'trigger', rail:'Timing', type:'compound', kicker:'Timing',
     title:'What made you start looking this month?',
     help:'Something usually changes right before someone reaches out. Knowing what it was helps us start in the right place.',
     field:{ kind:'textarea', placeholder:'Example: Our bookkeeper gave notice, and we have an audit in the fall.' },
@@ -407,11 +404,20 @@ const QUESTIONS = [
     }
   },
   {
-    id:'contact', type:'contact', kicker:'Last step',
+    id:'contact', rail:'Contact', type:'contact', kicker:'Last step',
     title:'Where do we send our answer?',
     help:'One business day, either way. If we are not the right fit we will tell you that plainly and point you somewhere better.'
   }
 ];
+
+/* --------------------------------------------------------------------------
+   Which questions this visitor actually sees. The churches page already knows
+   they are a church, so that question is DROPPED rather than pre-filled — one
+   less click, and the counter reads "of 6" instead of "of 7".
+   -------------------------------------------------------------------------- */
+const CTX = new URLSearchParams(location.search).get('ctx') || 'general';
+const IS_CHURCH = CTX === 'church';
+const QS = QUESTIONS.filter(q => !(IS_CHURCH && q.id === 'entity'));
 
 /* ==========================================================================
    ENGINE
@@ -421,6 +427,22 @@ let idx = 0;
 let forcedLane = null;
 
 const $ = s => document.querySelector(s);
+/* Annual income is captured as a real number now, not a bucket. The score
+   still works off bands, so one function owns that mapping. */
+const REV_BANDS = [
+  [250000,    'under-250k'],
+  [1000000,   '250k-1m'   ],
+  [3000000,   '1m-3m'     ],
+  [10000000,  '3m-10m'    ],
+  [Infinity,  'over-10m'  ],
+];
+const revBand = n => (REV_BANDS.find(([cap]) => n < cap) || REV_BANDS[REV_BANDS.length-1])[1];
+const revNum  = v => { const n = parseFloat(String(v==null?'':v).replace(/[^0-9.]/g,'')); return isFinite(n) ? n : NaN; };
+const revFmt  = n => '$' + Math.round(n).toLocaleString('en-US');
+/* Churches say "income"; businesses say "revenue". */
+const revLabel = () => (IS_CHURCH || A.entity === 'church' || A.entity === 'nonprofit')
+  ? 'Total annual income' : 'Annual revenue';
+
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 /* ---------- scoring ---------- */
@@ -430,7 +452,10 @@ function score(){
   const add = (label, pts) => { if(pts){ rows.push([label, pts]); total += pts; } };
 
   if(A.entity)  add('Organization type: ' + A.entity,      w.entity[A.entity]   || 0);
-  if(A.revenue) add('Revenue band: '      + A.revenue,     w.revenue[A.revenue] || 0);
+  if(typeof A.revenue === 'number' && A.revenue > 0){
+    const band = revBand(A.revenue);
+    add(revLabel() + ': ' + revFmt(A.revenue), w.revenue[band] || 0);
+  }
   if(A.behind)  add('Months behind: '     + A.behind,      w.behind[A.behind]   || 0);
   if(A.who)     add('Books handled by: '  + A.who,         w.who[A.who]         || 0);
   if(A.urgency) add('Urgency: '           + A.urgency,     w.urgency[A.urgency] || 0);
@@ -445,7 +470,7 @@ function score(){
   if(CONFIG.overrides.referralIsAlwaysGreen && A.referral && A.referral.trim().length > 1){
     if(lane !== 'green'){ lane = 'green'; reason = 'override: referral'; }
   }
-  if(CONFIG.overrides.noEntityNoRevenueIsRed && A.entity === 'soleprop' && A.revenue === 'under-250k'){
+  if(CONFIG.overrides.noEntityNoRevenueIsRed && A.entity === 'soleprop' && typeof A.revenue === 'number' && A.revenue > 0 && revBand(A.revenue) === 'under-250k'){
     lane = 'red'; reason = 'override: no entity + under $250K';
   }
   if(forcedLane){ lane = forcedLane; reason = 'forced in inspector'; }
@@ -455,11 +480,11 @@ function score(){
 
 /* ---------- rail ---------- */
 function paintRail(){
-  const labels = ['Organization','Scale','Current state','Today','The problem','Timing','Contact'];
+  const labels = QS.map(q => q.rail);
   $('#trail').innerHTML = labels.map((l,i) =>
     `<div class="trail-item ${i<idx?'done':i===idx?'now':''}">${esc(l)}</div>`).join('');
-  $('#dots').innerHTML = QUESTIONS.map((_,i)=>`<i class="${i<idx?'on':''}"></i>`).join('');
-  const done = idx, tot = QUESTIONS.length;
+  $('#dots').innerHTML = QS.map((_,i)=>`<i class="${i<idx?'on':''}"></i>`).join('');
+  const done = idx, tot = QS.length;
   $('#capLine').innerHTML = done === 0
     ? 'Not yet submitted'
     : `<b>${done}</b> of ${tot} answered`;
@@ -470,7 +495,7 @@ function paintRail(){
 
 /* ---------- render ---------- */
 function render(){
-  const q = QUESTIONS[idx];
+  const q = QS[idx];
   let body = `<div class="question"><div class="qkicker">${esc(q.kicker)}</div>
     <h2 class="qtitle">${esc(q.title)}</h2>`;
   if(q.help) body += `<p class="qhelp">${esc(q.help)}</p>`;
@@ -482,6 +507,19 @@ function render(){
         <strong>${esc(o.t)}</strong>
         ${o.d ? `<span class="d">${esc(o.d)}</span>` : ''}
       </button>`).join('') + `</div>`;
+  }
+
+  if(q.type === 'money'){
+    body += `<div class="fields"><div class="f money" id="f-${q.id}">
+      <label>${esc(revLabel())}</label>
+      <div class="moneywrap">
+        <span class="cur">$</span>
+        <input id="in-${q.id}" type="text" inputmode="numeric" autocomplete="off"
+               placeholder="1,250,000" value="${A[q.id]!=null&&A[q.id]!=='' ? esc(Number(A[q.id]).toLocaleString('en-US')) : ''}" />
+      </div>
+      <div class="money-echo" id="echo-${q.id}"></div>
+      <div class="err">Please enter your best estimate as a number.</div>
+    </div></div>`;
   }
 
   if(q.type === 'text'){
@@ -529,18 +567,41 @@ function render(){
 
   body += `</div>`;
   $('#qbody').innerHTML = body;
-  $('#nextBtn').textContent = (idx === QUESTIONS.length-1) ? 'Submit application' : 'Continue';
-  $('#nextBtn').classList.toggle('reveal', idx === QUESTIONS.length-1);
+  $('#nextBtn').textContent = (idx === QS.length-1) ? 'Submit application' : 'Continue';
+  $('#nextBtn').classList.toggle('reveal', idx === QS.length-1);
 
   // wiring
   $('#qbody').querySelectorAll('.opt[data-v]').forEach(b=>b.onclick=()=>{
-    A[QUESTIONS[idx].id] = b.dataset.v; render(); paintInspector(); setTimeout(next, 170);
+    A[QS[idx].id] = b.dataset.v; render(); paintInspector(); setTimeout(next, 170);
   });
   $('#qbody').querySelectorAll('.opt[data-sub-v]').forEach(b=>b.onclick=()=>{
-    A[QUESTIONS[idx].sub.id] = b.dataset.subV; render(); paintInspector();
+    A[QS[idx].sub.id] = b.dataset.subV; render(); paintInspector();
   });
   const cw = $('#consentWrap');
   if(cw) $('#in-consent').onchange = e => { A.consent = e.target.checked; cw.classList.toggle('on', A.consent); };
+  const money = $('#qbody').querySelector('.f.money input');
+  if(money){
+    const echo = $('#qbody').querySelector('.money-echo');
+    const paint = () => {
+      const n = revNum(money.value);
+      if(isFinite(n) && n > 0){
+        money.value = Math.round(n).toLocaleString('en-US');
+        echo.textContent = revFmt(n) + ' a year';
+        echo.classList.add('on');
+      } else {
+        echo.classList.remove('on');
+      }
+    };
+    money.addEventListener('input', () => {
+      const raw = money.value.replace(/[^0-9]/g,'');
+      money.value = raw ? Number(raw).toLocaleString('en-US') : '';
+      const n = revNum(money.value);
+      if(isFinite(n) && n > 0){ echo.textContent = revFmt(n) + ' a year'; echo.classList.add('on'); }
+      else { echo.classList.remove('on'); }
+    });
+    paint();
+  }
+
   const firstInput = $('#qbody').querySelector('textarea, input[type=text]');
   if(firstInput) setTimeout(()=>firstInput.focus(), 60);
 
@@ -549,7 +610,11 @@ function render(){
 
 /* ---------- capture + validate ---------- */
 function capture(){
-  const q = QUESTIONS[idx];
+  const q = QS[idx];
+  if(q.type === 'money'){
+    const n = revNum(($('#in-'+q.id)||{}).value);
+    A[q.id] = isFinite(n) && n > 0 ? n : '';
+  }
   if(q.type === 'text' || q.type === 'compound') A[q.id] = ($('#in-'+q.id)||{}).value || '';
   if(q.type === 'contact'){
     ['name','org','email','phone','referral'].forEach(k=>{
@@ -559,8 +624,12 @@ function capture(){
   }
 }
 function valid(){
-  const q = QUESTIONS[idx];
+  const q = QS[idx];
   if(q.type === 'choice')  return !!A[q.id];
+  if(q.type === 'money'){
+    const ok = typeof A[q.id] === 'number' && A[q.id] > 0;
+    $('#f-'+q.id).classList.toggle('bad', !ok); return ok;
+  }
   if(q.type === 'text'){
     const ok = (A[q.id]||'').trim().length >= (q.minLen||1);
     $('#f-'+q.id).classList.toggle('bad', !ok); return ok;
@@ -583,7 +652,7 @@ function next(){
   capture();
   if(!valid()) return;
   paintInspector();
-  if(idx === QUESTIONS.length-1){ submit(); return; }
+  if(idx === QS.length-1){ submit(); return; }
   idx++; render();
 }
 function back(){ capture(); if(idx>0){ idx--; render(); } }
@@ -591,14 +660,20 @@ function back(){ capture(); if(idx>0){ idx--; render(); } }
 /* ---------- submit + outcome ---------- */
 async function submit(){
   const s = score();
-  const payload = { ...A, ctx:CTX, _score:s.total, _lane:s.lane, _reason:s.reason, _ts:new Date().toISOString() };
+  const payload = { ...A, ctx:CTX, revenue_amount:(typeof A.revenue==='number'?A.revenue:null), revenue:(typeof A.revenue==='number'?revBand(A.revenue):''), _score:s.total, _lane:s.lane, _reason:s.reason, _ts:new Date().toISOString() };
   const dbg = $('#tpPayload'); if(dbg) dbg.textContent = JSON.stringify(payload, null, 2);
 
   if(CONFIG.endpoint){
     try{
-      await fetch(CONFIG.endpoint, { method:'POST', mode:'no-cors',
-        headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) });
-    }catch(e){ /* preview build: never block the applicant on a transport error */ }
+      const res = await fetch(CONFIG.endpoint, { method:'POST',
+        headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+      const out = await res.json();
+      // The server re-scores independently and is authoritative. If the two
+      // ever disagree, the applicant sees the server's answer, not ours.
+      if(out && out.ok && out.lane && out.lane !== s.lane){
+        s.lane = out.lane; s.reason = 'server';
+      }
+    }catch(e){ /* transport failure must never strand the applicant */ }
   }
   if(window.__tkApplicationSubmitted) window.__tkApplicationSubmitted(s.lane, CTX);
   showOutcome(s);
@@ -700,19 +775,18 @@ function reset(){
 
 function fillSample(){
   Object.assign(A, {
-    entity:'church', revenue:'1m-3m', behind:'4-12', who:'leaving',
+    entity:'church', revenue:2000000, behind:'4-12', who:'leaving',
     pain:'Our bookkeeper is leaving and the board keeps asking for numbers nobody can produce on time.',
     trigger:'She gave notice two weeks ago and we have an audit in the fall.',
     urgency:'asap', name:'Jane Whitfield', org:'Northpoint Church',
     email:'jane@northpointexample.org', phone:'(512) 555-0134', referral:'', consent:true
   });
-  idx = QUESTIONS.length - 1; render(); paintInspector();
+  idx = QS.length - 1; render(); paintInspector();
 }
 
 /* ---------- context overlay (churches page sends ?ctx=church) ---------- */
-const CTX = new URLSearchParams(location.search).get('ctx') || 'general';
-if(CTX === 'church'){
-  A.entity = 'church';                       // pre-selected; they just confirm
+if(IS_CHURCH){
+  A.entity = 'church';        // the question is skipped, so set it for scoring
   document.querySelector('.hero h1').innerHTML =
     'Request your free<br><em>Church Finance Systems Audit.</em>';
   document.querySelector('.hero .sub').textContent =
@@ -725,7 +799,17 @@ if(CTX === 'church'){
 /* ---------- boot ---------- */
 $('#capacityEyebrow').textContent = CONFIG.capacity.eyebrow;
 $('#capacityNum').textContent = CONFIG.capacity.number;
-// (scoring inspector lives only in the preview build)
+
+$('#nextBtn').onclick = next;
+$('#backBtn').onclick = back;
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Enter' && !e.shiftKey && document.activeElement.tagName !== 'TEXTAREA'){ e.preventDefault(); next(); }
+  const q = QS[idx];
+  if(q && q.type === 'choice' && /^[1-9]$/.test(e.key)){
+    const o = q.options[+e.key-1];
+    if(o){ A[q.id] = o.v; render(); setTimeout(next,170); }
+  }
+});
 
 /* ---------- conversion tracking ----------------------------------------
    Mirrors the homepage: the "booking complete" conversion is fired by
