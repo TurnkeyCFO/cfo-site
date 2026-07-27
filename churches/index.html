@@ -284,6 +284,7 @@ body.navopen #mnav{display:flex}
 /* hero video: sits over the poster still, fades in once it can actually play */
 #hero video.bg{object-position:58% 50%;filter:saturate(.92) brightness(.88);opacity:0;transition:opacity 1.1s ease;animation:none;transform:scale(1.04)}
 #hero video.bg.on{opacity:1}
+@media(max-width:900px){#hero video.bg{object-position:52% 46%;transform:scale(1.02)}}
 @media(prefers-reduced-motion:reduce){#hero video.bg{display:none}}
 #hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(100deg,rgba(3,20,12,.94) 0%,rgba(3,20,12,.86) 38%,rgba(3,20,12,.6) 66%,rgba(3,20,12,.4) 100%),
@@ -625,7 +626,8 @@ footer ul a:hover{color:var(--emerald)}
   <!-- To go back to the still image: delete the <video> below and point this src
        at /assets/church/worship-warm.webp. Nothing else needs to change. -->
   <img class="bg" src="/assets/church/hero-lobby-poster.webp" alt="" aria-hidden="true" fetchpriority="high">
-  <video class="bg vid" id="herovid" muted loop playsinline disablepictureinpicture preload="none"
+  <video class="bg vid" id="herovid" autoplay muted loop playsinline webkit-playsinline
+         disablepictureinpicture preload="none"
          poster="/assets/church/hero-lobby-poster.webp" aria-hidden="true" tabindex="-1"></video>
   <div class="wrap">
     <div class="kick">The Church Finance Systems Audit &nbsp;&middot;&nbsp; Austin, TX &amp; Nationwide</div>
@@ -1246,18 +1248,36 @@ footer ul a:hover{color:var(--emerald)}
   /* ---- hero video ---- */
   (function(){
     var v = document.getElementById('herovid'); if(!v) return;
-    // Phones keep the still: it is the same frame, so nobody sees a downgrade,
-    // and we never spend a visitor's cellular data on a decorative loop.
-    if (reduce || window.innerWidth < 900) { v.remove(); return; }
+    if (reduce) { v.remove(); return; }
     var c = navigator.connection || {};
     if (c.saveData || /^(slow-)?2g$/.test(c.effectiveType || '')) { v.remove(); return; }
-    v.addEventListener('canplay', function(){ v.classList.add('on'); }, {once:true});
+
+    // Phones get a 0.5MB 1080-wide cut; desktop gets the full 1920.
+    var small = Math.min(window.innerWidth, window.innerHeight) < 820 ||
+                (window.devicePixelRatio > 1 && window.innerWidth < 1000);
+    v.src = small ? '/assets/church/hero-lobby-sm.mp4' : '/assets/church/hero-lobby.mp4';
+    v.preload = 'auto';
+    v.addEventListener('playing', function(){ v.classList.add('on'); });
     v.addEventListener('error', function(){ v.remove(); }, {once:true});
-    var s = document.createElement('source');
-    s.src = '/assets/church/hero-lobby.mp4'; s.type = 'video/mp4';
-    v.appendChild(s); v.preload = 'auto'; v.load();
-    var p = v.play();
-    if (p && p.catch) p.catch(function(){ v.remove(); });   // autoplay blocked -> still image stays
+    v.load();
+
+    // iOS wants the play() call attached to a real readiness signal, and it can
+    // still refuse in Low Power Mode. Retry once on the first touch/scroll, then
+    // give up quietly and leave the poster frame showing.
+    function attempt(){
+      var p = v.play();
+      if (p && p.catch) p.catch(function(){
+        ['touchstart','pointerdown','scroll'].forEach(function(ev){
+          window.addEventListener(ev, retry, {once:true, passive:true});
+        });
+      });
+    }
+    function retry(){
+      var p = v.play();
+      if (p && p.catch) p.catch(function(){});
+    }
+    if (v.readyState >= 2) attempt();
+    else v.addEventListener('loadeddata', attempt, {once:true});
   })();
 
   /* ---- lazy Calendly ---- */
