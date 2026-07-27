@@ -121,6 +121,10 @@ body.navopen #mnav{display:flex}
 #hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:64% 50%;z-index:0;animation:kb 26s ease-in-out infinite alternate}
 @keyframes kb{from{transform:scale(1.06)}to{transform:scale(1.14)}}
 @media(prefers-reduced-motion:reduce){#hero .bg{animation:none;transform:scale(1.06)}}
+/* hero video: sits over the poster still, fades in once it can actually play */
+#hero video.bg{object-position:58% 50%;filter:saturate(.92) brightness(.88);opacity:0;transition:opacity 1.1s ease;animation:none;transform:scale(1.04)}
+#hero video.bg.on{opacity:1}
+@media(prefers-reduced-motion:reduce){#hero video.bg{display:none}}
 #hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(100deg,rgba(3,20,12,.94) 0%,rgba(3,20,12,.86) 38%,rgba(3,20,12,.6) 66%,rgba(3,20,12,.4) 100%),
              linear-gradient(180deg,rgba(3,20,12,.7) 0%,transparent 26%,transparent 62%,rgba(3,20,12,.75) 100%)}
@@ -457,7 +461,11 @@ footer ul a:hover{color:var(--emerald)}
 
 <!-- ================= HERO ================= -->
 <section id="hero">
-  <img class="bg" src="/assets/church/worship-warm.webp" alt="" aria-hidden="true" fetchpriority="high">
+  <!-- To go back to the still image: delete the <video> below and point this src
+       at /assets/church/worship-warm.webp. Nothing else needs to change. -->
+  <img class="bg" src="/assets/church/hero-lobby-poster.webp" alt="" aria-hidden="true" fetchpriority="high">
+  <video class="bg vid" id="herovid" muted loop playsinline disablepictureinpicture preload="none"
+         poster="/assets/church/hero-lobby-poster.webp" aria-hidden="true" tabindex="-1"></video>
   <div class="wrap">
     <div class="kick">The Church Finance Systems Audit &nbsp;&middot;&nbsp; Austin, TX &amp; Nationwide</div>
     <h1 class="disp" id="h1">You don't need a better bookkeeper. You need a <em>finance department</em>.</h1>

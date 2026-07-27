@@ -341,6 +341,65 @@ body::before {
 @media (max-width:620px){ .compare .c-beyond-grid { grid-template-columns:1fr; } }
 .compare .c-fine { margin:12px 0 0; font-size:12.5px; opacity:.6; line-height:1.5; }
 @media (max-width:620px){ .compare { padding:20px 18px; border-radius:20px; } .compare .c-vs { grid-template-columns:1fr; } }
+.proof { margin:22px 0 0; padding:26px 28px; border-radius:24px; border:1px solid var(--border); background:rgba(255,255,255,.72); }
+.proof .p-eyebrow { letter-spacing:.2em; text-transform:uppercase; font-size:11.5px; font-weight:800; opacity:.6; margin-bottom:6px; }
+.proof h3 { margin:0 0 18px; font-size:clamp(20px,2.3vw,26px); letter-spacing:-.03em; }
+.proof .p-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.proof .p-card { padding:18px 20px; border-radius:16px; background:rgba(4,120,87,.05); border:1px solid rgba(4,120,87,.14); display:flex; flex-direction:column; gap:12px; }
+.proof .p-stars { color:#047857; font-size:12px; letter-spacing:3px; }
+.proof blockquote { margin:0; font-size:15.5px; font-weight:600; line-height:1.5; letter-spacing:-.01em; }
+.proof .p-who { display:flex; align-items:center; gap:11px; margin-top:auto; }
+.proof .p-av { width:38px; height:38px; border-radius:50%; background:#04324a; color:#34d399; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; flex:0 0 38px; }
+.proof .p-n { font-weight:800; font-size:14px; }
+.proof .p-r { font-size:12.5px; opacity:.7; }
+.proof .p-fine { margin:16px 0 0; font-size:12.5px; opacity:.6; line-height:1.5; }
+@media (max-width:620px){ .proof { padding:20px 18px; border-radius:20px; } .proof .p-grid { grid-template-columns:1fr; } }
+
+/* ---------- premium reveal ---------- */
+.rv { position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:0; transition:opacity .38s ease; }
+.rv.on { opacity:1; pointer-events:auto; }
+.rv-half { position:absolute; left:0; right:0; height:50.5%; background:
+    radial-gradient(120% 140% at 50% 50%, #06405C 0%, #00263A 55%, #001C2B 100%);
+  transition:transform .82s cubic-bezier(.76,0,.18,1); will-change:transform; }
+.rv-top { top:0; }
+.rv-bot { bottom:0; }
+.rv.split .rv-top { transform:translateY(-100%); }
+.rv.split .rv-bot { transform:translateY(100%); }
+.rv-core { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:26px; padding:24px; text-align:center; transition:opacity .3s ease, transform .5s cubic-bezier(.16,1,.3,1); }
+.rv.split .rv-core { opacity:0; transform:scale(1.04); }
+.rv-ring { position:relative; width:104px; height:104px; display:flex; align-items:center; justify-content:center; }
+.rv-ring::before { content:''; position:absolute; inset:0; border-radius:50%;
+  background:conic-gradient(from 0deg, rgba(16,185,129,0) 0deg, rgba(16,185,129,.95) 90deg, rgba(16,185,129,0) 200deg);
+  -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2.5px));
+  mask:radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2.5px));
+  animation:rvspin 1.15s linear infinite; }
+.rv-ring::after { content:''; position:absolute; inset:-14px; border-radius:50%;
+  background:radial-gradient(circle, rgba(16,185,129,.22), transparent 68%); animation:rvpulse 2.1s ease-in-out infinite; }
+@keyframes rvspin { to { transform:rotate(360deg); } }
+@keyframes rvpulse { 0%,100% { opacity:.45; transform:scale(.94); } 50% { opacity:1; transform:scale(1.06); } }
+.rv-mark { width:56px; height:56px; object-fit:contain; filter:brightness(0) invert(1); opacity:.96; }
+.rv-lines { display:flex; flex-direction:column; gap:11px; min-height:132px; }
+.rv-line { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,.62); font-size:15px; font-weight:600;
+  letter-spacing:-.01em; opacity:0; transform:translateY(9px); transition:opacity .4s ease, transform .5s cubic-bezier(.16,1,.3,1), color .3s ease; }
+.rv-line.show { opacity:1; transform:none; }
+.rv-line.done { color:#fff; }
+.rv-tick { width:19px; height:19px; border-radius:50%; border:1.5px solid rgba(255,255,255,.28); flex:0 0 19px;
+  display:flex; align-items:center; justify-content:center; font-size:11px; color:#0B1F2A; transition:all .3s ease; }
+.rv-line.done .rv-tick { background:var(--emerald-bright); border-color:var(--emerald-bright); }
+.rv-meter { width:min(280px,62vw); height:3px; border-radius:99px; background:rgba(255,255,255,.14); overflow:hidden; }
+.rv-meter i { display:block; height:100%; width:0; border-radius:99px;
+  background:linear-gradient(90deg, var(--emerald), var(--emerald-bright)); transition:width .3s linear; }
+.rv-skip { position:absolute; bottom:26px; left:0; right:0; color:rgba(255,255,255,.34); font-size:12.5px; letter-spacing:.04em; }
+.rvq { opacity:0; transform:translateY(20px) scale(.988); filter:blur(7px); }
+.rvq.go { opacity:1; transform:none; filter:none;
+  transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .78s cubic-bezier(.16,1,.3,1), filter .6s cubic-bezier(.16,1,.3,1); }
+.tier.rv-pop { animation:rvpop .85s cubic-bezier(.16,1,.3,1); }
+@keyframes rvpop { 0% { box-shadow:0 0 0 0 rgba(16,185,129,.5); } 100% { box-shadow:0 0 0 22px rgba(16,185,129,0); } }
+@media (prefers-reduced-motion:reduce) {
+  .rv, .rv-half, .rv-core, .rv-line, .rvq { transition:none !important; animation:none !important; }
+  .rvq { opacity:1 !important; transform:none !important; filter:none !important; }
+}
 .guarantee { margin:22px 0 0; padding:26px 28px; border-radius:24px; border:1px solid rgba(4,120,87,.22); background:linear-gradient(180deg, rgba(4,120,87,.055), rgba(255,255,255,.72)); }
 .guarantee .g-eyebrow { letter-spacing:.2em; text-transform:uppercase; font-size:11.5px; font-weight:800; color:var(--green, #047857); margin-bottom:6px; }
 .guarantee h3 { margin:0 0 4px; font-size:clamp(20px,2.3vw,26px); letter-spacing:-.03em; }
@@ -377,6 +436,17 @@ body::before {
 </style>
 </head>
 <body>
+  <div class="rv" id="rv" aria-hidden="true">
+    <div class="rv-half rv-top"></div>
+    <div class="rv-half rv-bot"></div>
+    <div class="rv-core">
+      <div class="rv-ring"><img class="rv-mark" src="./assets/tk-logo.png" alt="" /></div>
+      <div class="rv-lines" id="rvLines"></div>
+      <div class="rv-meter"><i id="rvBar"></i></div>
+      <div class="rv-skip">Click anywhere to skip</div>
+    </div>
+  </div>
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPBL5MRZ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -449,6 +519,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="c-beyond-title">And the part the savings does not capture</div>
         <div class="c-beyond-grid" id="cBeyond"></div>
       </div>
+    </section>
+    <section class="proof" id="proof">
+      <div class="p-eyebrow">Client results</div>
+      <h3 id="pTitle"></h3>
+      <div class="p-grid" id="pGrid"></div>
+      <p class="p-fine">Austin, Texas. Churches, nonprofits, and small businesses nationwide.</p>
     </section>
     <section class="guarantee" id="guarantee">
       <div class="g-head">
@@ -594,6 +670,22 @@ function roundClean(n) {
   return Math.round(n / 100) * 100;
 }
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const PROOF_CHURCH = [
+      ['Phenomenal working with Turnkey CFO. Our finances have never been clearer.', 'Dakota', 'Lead Pastor, Heirloom Church', 'D'],
+      ['You have LITERALLY changed my life… there is Jesus, then my wife, then you!!', 'Blake', 'Lead Pastor, Kingdom City Church', 'B']
+    ];
+  const PROOF_BIZ = [
+      ['THANK YOU SO MUCH!! I have been looking for a true finance partner like this!', 'Lauren', 'CEO, The Harbour Company', 'L'],
+      ['I didn\u2019t know bookkeepers could be this awesome!', 'Jake', 'Founder, Build AI', 'J']
+    ];
+  function proofCards(list) {
+    return list.map(function (t) {
+      return '<div class="p-card"><div class="p-stars">\u2605\u2605\u2605\u2605\u2605</div>' +
+        '<blockquote>\u201c' + t[0] + '\u201d</blockquote>' +
+        '<div class="p-who"><div class="p-av">' + t[3] + '</div>' +
+        '<div><div class="p-n">' + t[1] + '</div><div class="p-r">' + t[2] + '</div></div></div></div>';
+    }).join('');
+  }
 const isChurchy = () => S.orgType === 'church' || S.orgType === 'nonprofit';
 
 /* ---------- adaptive question definitions ---------- */
@@ -1433,6 +1525,109 @@ function setStatus(msg, tone) {
   el.className = 'status-line' + (tone ? ' ' + tone : '');
 }
 
+
+/* ---------------- premium reveal sequence ----------------
+   Results are made visible BEFORE the curtain goes up, and a hard
+   failsafe tears the curtain down no matter what. A broken animation
+   can never hide the price. */
+const RV_STEPS = [
+  'Reading your answers',
+  'Sizing your finance function',
+  'Pricing against your revenue',
+  'Building your estimate'
+];
+
+function rvCountUp(el, dur) {
+  const finalHTML = el.innerHTML;
+  const nums = [];
+  const tmpl = finalHTML.replace(/\d[\d,]*/g, m => { nums.push(Number(m.replace(/,/g, ''))); return '\u0001'; });
+  if (!nums.length) return;
+  const t0 = performance.now();
+  (function tick(now) {
+    const p = Math.min(1, (now - t0) / dur);
+    const e = 1 - Math.pow(1 - p, 3);
+    let i = 0;
+    el.innerHTML = tmpl.replace(/\u0001/g, () => Math.round(nums[i++] * e).toLocaleString('en-US'));
+    if (p < 1) requestAnimationFrame(tick); else el.innerHTML = finalHTML;
+  })(t0);
+}
+
+function rvCascade() {
+  const groups = [
+    ['resTitle', 'resNarrative'],
+    ['tiers'],
+    ['compare'],
+    ['proof'],
+    ['guarantee']
+  ];
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  groups.forEach((ids, gi) => {
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.add('rvq');
+      setTimeout(() => el.classList.add('go'), reduce ? 0 : 90 + gi * 130);
+    });
+  });
+  const cards = Array.from(document.querySelectorAll('#tiers .tier'));
+  cards.forEach((c, i) => {
+    c.classList.add('rvq');
+    setTimeout(() => c.classList.add('go'), reduce ? 0 : 240 + i * 120);
+  });
+  const rec = document.querySelector('#tiers .tier.rec');
+  if (rec && !reduce) setTimeout(() => rec.classList.add('rv-pop'), 240 + cards.length * 120 + 120);
+  if (!reduce) {
+    setTimeout(() => {
+      document.querySelectorAll('#tiers .tprice').forEach(el => rvCountUp(el, 900));
+    }, 300 + cards.length * 120);
+  }
+}
+
+function runReveal(done) {
+  const rv = document.getElementById('rv');
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!rv || reduce) { done(); return; }
+
+  let finished = false;
+  const timers = [];
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+
+  function finish() {
+    if (finished) return;
+    finished = true;
+    timers.forEach(clearTimeout);
+    rv.classList.add('split');
+    setTimeout(() => { rv.classList.remove('on', 'split'); rv.style.display = ''; }, 900);
+    document.removeEventListener('click', skip, true);
+    done();
+  }
+  function skip() { finish(); }
+
+  const lines = document.getElementById('rvLines');
+  const bar = document.getElementById('rvBar');
+  lines.innerHTML = RV_STEPS.map(s =>
+    `<div class="rv-line"><span class="rv-tick">\u2713</span><span>${s}</span></div>`).join('');
+  const els = Array.from(lines.children);
+  bar.style.width = '0';
+
+  rv.style.display = 'block';
+  requestAnimationFrame(() => rv.classList.add('on'));
+  document.addEventListener('click', skip, true);
+
+  els.forEach((el, i) => {
+    at(300 + i * 430, () => {
+      el.classList.add('show');
+      bar.style.width = ((i + 1) / els.length * 92) + '%';
+    });
+    at(300 + i * 430 + 340, () => el.classList.add('done'));
+  });
+
+  at(300 + els.length * 430 + 120, () => { bar.style.width = '100%'; });
+  at(300 + els.length * 430 + 320, finish);
+  /* hard failsafe: the curtain always comes down */
+  at(6000, finish);
+}
+
 async function submitLead(payload) {
   setStatus('Saving your estimate details...', 'warn');
   const res = await fetch(WEBHOOK_URL, {
@@ -1580,6 +1775,12 @@ function finish() {
     ].map(([h, d]) => `<div class="c-b"><h5>${esc(h)}</h5><p>${d}</p></div>`).join('');
   }
 
+
+  const pT = isChurchy() ? 'Pastors don\u2019t usually talk about their bookkeeper like this.' : 'Owners don\u2019t usually talk about their bookkeeper like this.';
+  const pTitleEl = document.getElementById('pTitle'), pGridEl = document.getElementById('pGrid');
+  if (pTitleEl) pTitleEl.textContent = pT;
+  if (pGridEl) pGridEl.innerHTML = proofCards(isChurchy() ? PROOF_CHURCH : PROOF_BIZ);
+
   const g2 = $('gStep2');
   if (g2) g2.textContent = isChurchy()
     ? 'You show us where things live.'
@@ -1637,7 +1838,8 @@ function finish() {
   $('stage').style.display = 'none';
   $('hero').style.display = 'none';
   $('results').classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'auto' });
+  runReveal(rvCascade);
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
