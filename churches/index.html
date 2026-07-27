@@ -417,7 +417,10 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .critgrid li{list-style:none;display:flex;gap:12px;align-items:flex-start;font-size:14.6px;color:#d9f7e7;line-height:1.5}
 .critgrid .ic{flex:0 0 21px;height:21px;border-radius:50%;background:var(--emerald);color:var(--pine);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-top:2px}
 .enemy{position:relative;overflow:hidden;background:var(--pine);color:#eafff3;border-radius:var(--rad);
-  padding:clamp(30px,4vw,58px);box-shadow:0 30px 76px rgba(6,40,26,.28);
+  padding:clamp(30px,4vw,58px);
+  /* Floats in the middle of its own section rather than butting against the
+     section above it, so the drop shadow reads all the way around. */
+  box-shadow:0 44px 96px -18px rgba(6,40,26,.42),0 12px 30px -10px rgba(6,40,26,.24);
   display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(26px,3.6vw,54px);align-items:center}
 /* A soft emerald bloom and a faint rule grid, so the panel reads as a designed
    surface rather than a flat box of paragraphs. */
@@ -799,7 +802,7 @@ footer ul a:hover{color:var(--emerald)}
 </section>
 
 <!-- ================= THE ENEMY ================= -->
-<section style="padding-top:0">
+<section id="missing">
   <div class="wrap">
     <div class="enemy rv">
       <div class="ecopy">
