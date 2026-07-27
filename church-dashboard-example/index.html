@@ -1392,6 +1392,9 @@ new Chart(document.getElementById('expenseMix'), {
   data: { labels: expenseCats, datasets: [{ data: expenseYr, backgroundColor: CAT_COLORS, borderColor:'#fff', borderWidth:2 }] },
   options: Object.assign({}, responsiveOpts(), {
     cutout: '58%',
+    // Chart.js forces aspectRatio 1 on doughnuts, which makes the canvas as tall
+    // as the card is wide. Pin it so it sits at the same height as its neighbour.
+    aspectRatio: isMobile ? undefined : 2.2,
     layout: chartPadding(10),
     plugins: {
       legend: Object.assign({}, legendOpts(), { position: isMobile ? 'bottom' : 'right' }),
@@ -1429,6 +1432,7 @@ new Chart(document.getElementById('concentration'), {
   },
   options: Object.assign({}, responsiveOpts(), {
     cutout: '58%',
+    aspectRatio: isMobile ? undefined : 2.2,
     layout: chartPadding(10),
     plugins: {
       legend: Object.assign({}, legendOpts(), { position: isMobile ? 'bottom' : 'right' }),
