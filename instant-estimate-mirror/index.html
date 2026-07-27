@@ -267,6 +267,8 @@ h1 { margin:0 auto 10px; max-width:740px; font-size:clamp(34px, 5vw, 56px); line
 .tier-card.custom.recommended { border-style: solid; }
 .tier-badge { position:absolute; top:-12px; left:24px; padding:6px 12px; border-radius:999px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:800; background: linear-gradient(135deg, var(--green), var(--green-deep)); color:#fff; box-shadow: 0 6px 14px rgba(4,120,87,.28); }
 .tier-name { font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--navy-soft); font-weight:800; margin-bottom:8px; }
+.money-echo { min-height:18px; margin-top:8px; font-size:13px; font-weight:600; color:var(--navy-soft); opacity:0; transform:translateY(-2px); transition:opacity .22s ease, transform .22s ease; }
+.money-echo.on { opacity:1; transform:none; }
 .tier-price { font-size:clamp(22px,2.6vw,28px); font-weight:800; letter-spacing:-.03em; color:var(--navy); margin-bottom:4px; }
 .tier-price .per { font-size:13px; font-weight:600; color:var(--navy-soft); letter-spacing:0; margin-left:4px; }
 .tier-price.custom-price { font-size:22px; color: var(--green); letter-spacing:-.02em; }
@@ -355,14 +357,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
               <div class="row-2">
                 <div class="field">
-                  <label class="title" for="revenue">Annual revenue</label>
-                  <select id="revenue" name="revenue" required>
-                    <option value="" disabled selected>Select a range</option>
-                    <option value="lt250">Under $250k</option>
-                    <option value="250to1m">$250k - $1M</option>
-                    <option value="1to3m">$1M - $3M</option>
-                    <option value="gt3m">$3M+</option>
-                  </select>
+                  <label class="title" for="revenue">Estimated annual revenue</label>
+                  <input id="revenue" name="revenue" type="text" inputmode="decimal" placeholder="e.g. 1,200,000" autocomplete="off" required>
+                  <div class="money-echo" id="me-revenue"></div>
                 </div>
                 <div class="field">
                   <label class="title" for="software">Accounting software</label>
@@ -617,6 +614,8 @@ function validateStep(index) {
     if (field.type === 'radio') {
       const group = stepList[index].querySelectorAll(`input[name="${field.name}"]`);
       if (![...group].some(el => el.checked)) return false;
+    } else if (field.id === 'revenue') {
+      if (parseMoney(field.value) <= 0) return false;
     } else if (field.hasAttribute('required') && !field.value) {
       return false;
     }
@@ -690,11 +689,38 @@ function getSoftwareLabel(data) {
   return data.otherSoftwareName?.trim() || 'Other';
 }
 
+/* ---------- revenue-percentage pricing model (2026-07-27) ----------
+   Price is a percentage of ANNUAL revenue, billed monthly (revenue x pct / 12).
+   Prior complexity-additive model archived at:
+   businesses/turnkey/turnkey-cfo/instant-estimate-pricing-archive/2026-07-27-tiered-complexity-model/ */
+const PRICING = {
+  booksLow: 0.0120, booksHigh: 0.0128,   /* Tier 1 - Books */
+  repLow:   0.0140, repHigh:   0.0160,   /* Tier 2 - Books + Reporting */
+  minBooks: 300, minReporting: 400       /* monthly floors */
+};
+
+/* accepts "1,200,000" / "$1.2m" / "1.2 million" / "850k" / "850000" */
+function parseMoney(raw) {
+  if (raw == null) return 0;
+  let t = String(raw).toLowerCase().replace(/[$,\s]/g, '');
+  let mult = 1;
+  if (/(m|mm|million)$/.test(t)) { mult = 1e6; t = t.replace(/(mm|million|m)$/, ''); }
+  else if (/(k|thousand)$/.test(t)) { mult = 1e3; t = t.replace(/(thousand|k)$/, ''); }
+  else if (/(b|billion)$/.test(t)) { mult = 1e9; t = t.replace(/(billion|b)$/, ''); }
+  const n = parseFloat(t);
+  if (!isFinite(n) || n <= 0) return 0;
+  return Math.round(n * mult);
+}
+
+function roundClean(n) {
+  if (n < 5000)  return Math.round(n / 25) * 25;
+  if (n < 20000) return Math.round(n / 50) * 50;
+  return Math.round(n / 100) * 100;
+}
+
 function getRevenueLabel(value) {
-  return value === 'lt250' ? 'Under $250k'
-    : value === '250to1m' ? '$250k to $1M'
-    : value === '1to3m' ? '$1M to $3M'
-    : '$3M+';
+  const n = parseMoney(value);
+  return n ? n.toLocaleString('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 }) : '';
 }
 
 function getAccountLabel(value) {
@@ -771,7 +797,7 @@ function buildSubmissionPayload(data, result) {
     attachedAddOns: attachedAddOns.join(', '),
     booksRange: fmtRange(result.tiers.books),
     reportingRange: fmtRange(result.tiers.reporting),
-    strategicRange: fmtRange(result.tiers.strategic),
+    strategicRange: 'Custom quote',
     cfoTierPrice: result.cfoInterest ? 'Custom quote' : '',
     tierCoreMonthly: result.core,
     tierFloor: result.floor,
@@ -856,8 +882,9 @@ function renderTierCards(result) {
     {
       key: 'strategic',
       name: 'Strategic Partnership',
-      tagline: 'Premium bookkeeping with Ricky\u2019s interpretation each month.',
-      price: fmtRange(result.tiers.strategic),
+      tagline: 'Our premium engagement, scoped and priced around your business.',
+      price: null,
+      customPrice: true,
       core: strategicCore,
       addOns: (() => {
         const out = attachedAddOns.slice();
@@ -943,55 +970,25 @@ async function submitLead(payload) {
 function calculateEstimate(data) {
   const flags = [];
 
-  // Core bookkeeping price (non-add-on complexity only)
-  let core = 300;
-  core += { lt250: -50, '250to1m': 0, '1to3m': 150, gt3m: 300 }[data.revenue] || 0;
-  core += { le5: 0, '6to10': 50, gt10: 100 }[data.accountCount] || 0;
-  core += { other: 0, church: -100, construction: 100 }[data.industry] || 0;
-  if (data.industry === 'construction' && data.jobCosting === 'yes') core += 50;
-  core += 50; // base workflow overhead
+  // Revenue is the sole price driver. Every other question is still captured for the
+  // sales conversation, but it no longer moves the number.
+  const revenue = parseMoney(data.revenue);
+  const perMonth = (pct) => (revenue * pct) / 12;
 
-  // Add-on effort folded into tier price (not shown as line items)
-  const payrollAdj = { none: 0, simple: 100, complex: 300 }[data.payroll] || 0;
-  const billAdj = { none: 0, lt40: 100, '40to100': 250, gt100: 350 }[data.billpay] || 0;
-  const tenNinetyNineAdj = data.needs1099 === 'yes' ? 25 : 0;
-  const addOnsCost = payrollAdj + billAdj + tenNinetyNineAdj;
+  const bLow  = Math.max(PRICING.minBooks, roundClean(perMonth(PRICING.booksLow)));
+  const bHigh = Math.max(bLow + 25, roundClean(perMonth(PRICING.booksHigh)));
+  const rLow  = Math.max(PRICING.minReporting, bHigh + 25, roundClean(perMonth(PRICING.repLow)));
+  const rHigh = Math.max(rLow + 50, roundClean(perMonth(PRICING.repHigh)));
 
-  // Absolute price floor: $300/mo is the lowest price we will EVER show — for any
-  // business, including a church (the -$100 church discount and the minimal-client
-  // path reduce price toward this floor but can never cross it). Standard (non-minimal)
-  // clients floor higher at $350.
-  const ABS_MIN = 300;
-  const isMinimalClient = (
-    data.revenue === 'lt250' &&
-    data.accountCount === 'le5' &&
-    data.payroll === 'none' &&
-    data.billpay === 'none' &&
-    data.needs1099 !== 'yes' &&
-    data.inventory !== 'yes' &&
-    !(data.industry === 'construction' && data.jobCosting === 'yes')
-  );
-  const floor = Math.max(ABS_MIN, isMinimalClient ? ABS_MIN : 350); // $300 absolute floor — never lower, even churches
-
-  // Input-driven tier deltas (scale with core complexity)
-  const brDelta  = core <= 450 ? 125 : core <= 700 ? 175 : 250;
-  const spDelta  = core <= 450 ? 350 : core <= 700 ? 500 : 700;
-
-  const books     = Math.max(floor, core + addOnsCost);
-  const reporting = books + brDelta;
-  const strategic = reporting + spDelta;
-
-  const rangeOf = (mid) => {
-    const low = Math.max(floor, mid - 75);
-    const high = Math.max(mid + 75, low + 150);
-    return { mid, low, high };
-  };
-
+  const bandOf = (low, high) => ({ low, high, mid: Math.round((low + high) / 2) });
   const tiers = {
-    books:     rangeOf(books),
-    reporting: rangeOf(reporting),
-    strategic: rangeOf(strategic)
+    books:     bandOf(bLow, bHigh),
+    reporting: bandOf(rLow, rHigh),
+    strategic: null   // custom quote — priced after a call
   };
+  const core = tiers.books.mid;
+  const floor = PRICING.minBooks;
+  const addOnsCost = 0;
 
   // Cleanup estimate anchored to Books+Reporting monthly (standard delivery level)
   let cleanup = 0;
@@ -1012,7 +1009,7 @@ function calculateEstimate(data) {
     recommended = 'cfo';
   } else {
     const hasAddOn = data.payroll !== 'none' || data.billpay !== 'none' || data.needs1099 === 'yes';
-    const bigRev = data.revenue === '1to3m' || data.revenue === 'gt3m';
+    const bigRev = parseMoney(data.revenue) >= 1000000;
     if (hasAddOn || bigRev || data.inventory === 'yes') {
       recommended = 'reporting';
     } else {
@@ -1033,6 +1030,20 @@ function calculateEstimate(data) {
     }
   };
 }
+
+/* live confirmation of the typed revenue */
+(function () {
+  const inp = document.getElementById('revenue');
+  const out = document.getElementById('me-revenue');
+  if (!inp || !out) return;
+  const paint = () => {
+    const n = parseMoney(inp.value);
+    out.textContent = n ? 'We read that as ' + n.toLocaleString('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 }) + ' per year.' : '';
+    out.classList.toggle('on', !!n);
+  };
+  inp.addEventListener('input', paint);
+  paint();
+})();
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();

@@ -207,6 +207,8 @@ body::before {
   padding:15px 15px; outline:none; transition:.16s ease;
 }
 .f input:focus, .f select:focus { border-color:var(--emerald); box-shadow:0 0 0 4px rgba(4,120,87,.10); }
+.f .money-echo { min-height:18px; margin-top:8px; font-size:13px; font-weight:600; color:var(--ink-faint); opacity:0; transform:translateY(-2px); transition:opacity .22s ease, transform .22s ease; }
+.f .money-echo.on { opacity:1; transform:none; }
 .f .err { display:none; margin-top:6px; font-size:12.5px; color:#B91C1C; font-weight:600; }
 .f.bad input { border-color:#DC2626; }
 .f.bad .err { display:block; }
@@ -481,6 +483,37 @@ if (PRESET_ORG) { S.orgType = PRESET_ORG; S._orgPreset = true; }
 /* ---------- helpers ---------- */
 const $ = (id) => document.getElementById(id);
 const money = (n) => n.toLocaleString('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 });
+
+/* ---------- revenue-percentage pricing model (2026-07-27) ----------
+   Price is a percentage of ANNUAL revenue, billed monthly (revenue x pct / 12).
+   Prior complexity-additive model archived at:
+   businesses/turnkey/turnkey-cfo/instant-estimate-pricing-archive/2026-07-27-tiered-complexity-model/ */
+const PRICING = {
+  booksLow: 0.0120, booksHigh: 0.0128,   /* Tier 1 - Books */
+  repLow:   0.0140, repHigh:   0.0160,   /* Tier 2 - Books + Reporting */
+  minBooks: 300, minReporting: 400       /* monthly floors, no matter how small the revenue */
+};
+
+/* accepts "1,200,000" / "$1.2m" / "1.2 million" / "850k" / "850000" */
+function parseMoney(raw) {
+  if (raw == null) return 0;
+  let t = String(raw).toLowerCase().replace(/[$,\s]/g, '');
+  let mult = 1;
+  if (/(m|mm|million)$/.test(t)) { mult = 1e6; t = t.replace(/(mm|million|m)$/, ''); }
+  else if (/(k|thousand)$/.test(t)) { mult = 1e3; t = t.replace(/(thousand|k)$/, ''); }
+  else if (/(b|billion)$/.test(t)) { mult = 1e9; t = t.replace(/(billion|b)$/, ''); }
+  const n = parseFloat(t);
+  if (!isFinite(n) || n <= 0) return 0;
+  return Math.round(n * mult);
+}
+const revenueOf = (s) => parseMoney((s || {}).revenueAmount);
+
+/* round to a figure that reads clean on a quote */
+function roundClean(n) {
+  if (n < 5000)  return Math.round(n / 25) * 25;
+  if (n < 20000) return Math.round(n / 50) * 50;
+  return Math.round(n / 100) * 100;
+}
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const isChurchy = () => S.orgType === 'church' || S.orgType === 'nonprofit';
 
@@ -523,15 +556,9 @@ const QUESTIONS = [
     id:'revenue', group:'About you', kicker:'Scale',
     title:'What is your annual revenue?',
     titleChurch:'What is your annual giving plus other income?',
-    help:'A range is all we need. Nothing here is binding.',
-    kind:'cards',
-    options:[
-      { v:'lt250',   t:'Under $250k' },
-      { v:'250to1m', t:'$250k to $1M' },
-      { v:'1to3m',   t:'$1M to $3M' },
-      { v:'3to10m',  t:'$3M to $10M' },
-      { v:'gt10m',   t:'$10M+' }
-    ]
+    help:'A close estimate is all we need. Nothing here is binding.',
+    kind:'text',
+    fields:[ { id:'revenueAmount', label:'Estimated annual revenue', ph:'e.g. 1,200,000', required:true, money:true } ]
   },
 
   /* ---- industry branches ---- */
@@ -758,7 +785,7 @@ function renderTrail() {
 
 function answered(q) {
   if (q.kind === 'cards') return !!S[q.id];
-  if (q.kind === 'text') return q.fields.every(f => !f.required || (S[f.id] && S[f.id].trim()));
+  if (q.kind === 'text') return q.fields.every(f => !f.required || (f.money ? parseMoney(S[f.id]) > 0 : (S[f.id] && S[f.id].trim())));
   if (q.kind === 'checklist') return (S.tools && S.tools.length > 0) || !!S.toolsOther;
   if (q.kind === 'contact') return !!S.email;
   return false;
@@ -831,8 +858,9 @@ function renderQuestion(dir) {
     html += `<div class="fields">` + q.fields.map(f =>
       `<div class="f" id="fw-${f.id}">
         <label for="${f.id}">${esc(f.label)}${f.required ? '' : ' <span class="opt-tag">(optional)</span>'}</label>
-        <input id="${f.id}" type="text" placeholder="${esc(f.ph || '')}" value="${esc(S[f.id] || '')}" autocomplete="off" />
-        <div class="err">Please fill this in to continue.</div>
+        <input id="${f.id}" type="text" placeholder="${esc(f.ph || '')}" value="${esc(S[f.id] || '')}" autocomplete="off"${f.money ? ' inputmode="decimal"' : ''} />
+        ${f.money ? `<div class="money-echo" id="me-${f.id}"></div>` : ''}
+        <div class="err">${f.money ? 'Enter an approximate annual revenue to continue.' : 'Please fill this in to continue.'}</div>
       </div>`).join('') + `</div>`;
   }
 
@@ -906,6 +934,19 @@ function renderQuestion(dir) {
   });
   const writeIn = $('writeInNote');
   if (writeIn) writeIn.addEventListener('input', e => { S[q.id + 'Other'] = e.target.value; });
+  if (q.kind === 'text') {
+    q.fields.filter(f => f.money).forEach(f => {
+      const inp = $(f.id), echo = $('me-' + f.id);
+      if (!inp || !echo) return;
+      const paint = () => {
+        const n = parseMoney(inp.value);
+        echo.textContent = n ? `We read that as ${money(n)} per year.` : '';
+        echo.classList.toggle('on', !!n);
+      };
+      inp.addEventListener('input', paint);
+      paint();
+    });
+  }
   if (q.kind === 'checklist') {
     if (!S.tools) S.tools = [];
     qbody.querySelectorAll('.tool').forEach(btn => {
@@ -963,7 +1004,9 @@ function collectInputs(q) {
     q.fields.forEach(f => {
       const el = $(f.id); const w = $('fw-' + f.id);
       S[f.id] = el ? el.value : '';
-      const bad = f.required && !S[f.id].trim();
+      const bad = f.money
+        ? (f.required && parseMoney(S[f.id]) <= 0)
+        : (f.required && !S[f.id].trim());
       w.classList.toggle('bad', bad);
       if (bad) ok = false;
     });
@@ -1038,52 +1081,26 @@ function needs1099Of(s) {
 function calc(s) {
   const flags = [];
 
-  let core = 350; /* base + workflow overhead */
-  core += { lt250:-50, '250to1m':0, '1to3m':150, '3to10m':300, gt10m:450 }[s.revenue] || 0;
-  core += { le5:0, '6to10':50, gt10:100 }[s.accounts] || 0;
-  core += { lt100:0, '100to300':40, '300to750':110, gt750:190 }[s.txns] || 0;
+  /* Revenue is the sole price driver. Every other question is still asked and still
+     captured for the sales conversation, but it no longer moves the number. */
+  const revenue = revenueOf(s);
+  const perMonth = (pct) => (revenue * pct) / 12;
 
-  if (isChurchy()) core -= 100;
-  if (s.orgType === 'contractor') core += 100;
-  if (s.orgType === 'ecommerce') core += 50;
-  if (s.orgType === 'realestate') core += { u1to3:0, u4to10:75, u11:150 }[s.units] || 0;
+  let bLow  = Math.max(PRICING.minBooks, roundClean(perMonth(PRICING.booksLow)));
+  let bHigh = Math.max(bLow + 25, roundClean(perMonth(PRICING.booksHigh)));
 
-  if (s.funds === 'yes') core += 75;
-  if (s.campaign === 'yes') core += 50;
-  if (s.jobCosting === 'yes') core += 75;
-  if (s.inventory === 'yes') core += 75;
-  if (s.channels === '2to3') core += 25;
-  if (s.channels === '4plus') core += 60;
+  let rLow  = Math.max(PRICING.minReporting, bHigh + 25, roundClean(perMonth(PRICING.repLow)));
+  let rHigh = Math.max(rLow + 50, roundClean(perMonth(PRICING.repHigh)));
 
-  const entMult = { one:1, '2to3':1.8, '4plus':2.6 }[s.entityCount] || 1;
-  core = Math.round((core * entMult) / 5) * 5;
-
-  const payrollAdj = { none:0, simple:100, complex:300 }[s.payroll] || 0;
-  const billAdj = { none:0, lt40:100, '40to100':250, gt100:350 }[s.billpay] || 0;
-  const n99 = needs1099Of(s) ? 25 : 0;
-  const addOnsCost = payrollAdj + billAdj + n99;
-
-  const ABS_MIN = 300;
-  const minimal = (
-    s.revenue === 'lt250' && s.accounts === 'le5' && (s.txns === 'lt100' || !s.txns) &&
-    s.payroll === 'none' && s.billpay === 'none' && !needs1099Of(s) &&
-    s.inventory !== 'yes' && s.jobCosting !== 'yes' && (s.entityCount === 'one' || !s.entityCount)
-  );
-  const floor = minimal ? ABS_MIN : 350;
-
-  const brDelta = core <= 450 ? 125 : core <= 700 ? 175 : 250;
-  const spDelta = core <= 450 ? 350 : core <= 700 ? 500 : 700;
-
-  const books = Math.max(floor, core + addOnsCost);
-  const reporting = books + brDelta;
-  const strategic = reporting + spDelta;
-
-  const rangeOf = (mid) => {
-    const low = Math.max(floor, mid - 75);
-    const high = Math.max(mid + 75, low + 150);
-    return { mid, low, high };
+  const bandOf = (low, high) => ({ low, high, mid: Math.round((low + high) / 2) });
+  const tiers = {
+    books:     bandOf(bLow, bHigh),
+    reporting: bandOf(rLow, rHigh),
+    strategic: null            /* custom quote — priced after a call */
   };
-  const tiers = { books: rangeOf(books), reporting: rangeOf(reporting), strategic: rangeOf(strategic) };
+  const core = tiers.books.mid;
+  const floor = PRICING.minBooks;
+  const addOnsCost = 0;
 
   let cleanup = 0;
   const mb = monthsBehindOf(s);
@@ -1104,7 +1121,7 @@ function calc(s) {
   else if (s.goal === 'visibility') recommended = 'reporting';
   else {
     const pushUp = s.billpay !== 'none' || s.entityCount !== 'one' ||
-      s.revenue === '3to10m' || s.revenue === 'gt10m' ||
+      revenue >= 3000000 ||
       s.funds === 'yes' || s.campaign === 'yes' || s.jobCosting === 'yes' || s.inventory === 'yes';
     recommended = pushUp ? 'reporting' : 'books';
   }
@@ -1118,7 +1135,7 @@ function calc(s) {
 
 /* ---------- labels for payload + summary ---------- */
 const ORG_LABEL = { church:'Church or Ministry', nonprofit:'Nonprofit', contractor:'Construction / Trades', ecommerce:'Ecommerce / Retail', services:'Professional Services', realestate:'Real Estate / Property', other:'Other' };
-const REV_LABEL = { lt250:'Under $250k', '250to1m':'$250k to $1M', '1to3m':'$1M to $3M', '3to10m':'$3M to $10M', gt10m:'$10M+' };
+const revenueLabelOf = () => { const n = revenueOf(S); return n ? money(n) : ''; };
 const ACCT_LABEL = { le5:'5 or fewer financial accounts', '6to10':'6 to 10 financial accounts', gt10:'11+ financial accounts' };
 const TXN_LABEL = { lt100:'Under 100 transactions/mo', '100to300':'100 to 300 transactions/mo', '300to750':'300 to 750 transactions/mo', gt750:'750+ transactions/mo' };
 const PAY_LABEL = { none:'No payroll', simple:'Simple payroll', complex:'Payroll +' };
@@ -1256,8 +1273,8 @@ function buildPayload(r) {
     otherIndustryName: (S.otherIndustryName || '').trim(),
     entityCount: S.entityCount || 'one',
     entityCountLabel: ENTITY_LABEL[S.entityCount] || 'Single entity',
-    revenue: S.revenue || '',
-    revenueLabel: REV_LABEL[S.revenue] || '',
+    revenue: revenueOf(S) || '',
+    revenueLabel: revenueLabelOf(),
     software: S.software || '',
     softwareLabel: SOFT_LABEL[S.software] || 'Other',
     otherSoftwareName: '',
@@ -1290,7 +1307,7 @@ function buildPayload(r) {
     attachedAddOns: attachedAddOns(r).join(', '),
     booksRange: fmtRange(r.tiers.books),
     reportingRange: fmtRange(r.tiers.reporting),
-    strategicRange: fmtRange(r.tiers.strategic),
+    strategicRange: 'Custom quote',
     cfoTierPrice: r.cfoInterest ? 'Custom quote' : '',
     tierCoreMonthly: r.core,
     tierFloor: r.floor,
@@ -1363,10 +1380,10 @@ function renderTiers(r) {
       cta:'Select Books + Reporting'
     },
     {
-      key:'strategic', name:'Strategic Partnership',
-      tag:'Premium bookkeeping with a walkthrough of the story each month.',
-      range:r.tiers.strategic,
-      core:['Everything in Books + Reporting','Monthly video breakdown of your numbers','Optional 30-min call each month'],
+      key:'strategic', name:'Strategic Partnership', customPrice:true,
+      tag:'Our premium engagement, scoped and priced around your business.',
+      range:null,
+      core:['Everything in Books + Reporting','Monthly video breakdown of your numbers','Optional 30-min call each month','Scoped with you on a short call'],
       mods: mods.slice(),
       cta:'Select Strategic Partnership'
     }
