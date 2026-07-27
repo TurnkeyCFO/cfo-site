@@ -144,6 +144,8 @@ export async function onRequestPost(context) {
 
   // ---- Slack ------------------------------------------------------------
   var channel = env.APPLICATION_CHANNEL || env.SLACK_CHANNEL_ASSISTANTBOT;
+  var diag = { has_token: !!env.SLACK_BOT_TOKEN, token_len: (env.SLACK_BOT_TOKEN||"").length,
+               channel: channel || null, kv: !!env.ONBOARDING_KV, slack: null };
   if (env.SLACK_BOT_TOKEN && channel) {
     var head = { green: ":white_check_mark: GREEN — booking now",
                  amber: ":large_orange_diamond: AMBER — needs your review within 24h",
@@ -165,7 +167,7 @@ export async function onRequestPost(context) {
     if (rec.trigger) lines.push("*Why now*\n>" + rec.trigger.replace(/\n/g, "\n>"));
 
     try {
-      await fetch("https://slack.com/api/chat.postMessage", {
+      var sraw = await fetch("https://slack.com/api/chat.postMessage", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
@@ -173,10 +175,12 @@ export async function onRequestPost(context) {
         },
         body: JSON.stringify({ channel: channel, text: lines.join("\n"), unfurl_links: false }),
       });
-    } catch (e) { /* applicant already has their answer; do not fail the request */ }
+      var sres = await sraw.json();
+      diag.slack = (sres && sres.ok) ? "ok" : ("error:" + (sres && sres.error));
+    } catch (e) { diag.slack = "throw:" + (e && e.message); }
   }
 
   // The browser decides what to render from its own scoring; this confirms the
   // authoritative lane so the two can never silently disagree.
-  return json({ ok: true, lane: rec.lane, score: rec.score });
+  return json({ ok: true, lane: rec.lane, score: rec.score, _diag: diag });
 }
