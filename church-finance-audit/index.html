@@ -231,7 +231,24 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .bonus:hover{transform:translateY(-5px);box-shadow:0 26px 60px rgba(6,40,26,.11)}
 .bonus .bn{position:absolute;top:-13px;left:28px;background:var(--pine);color:var(--emerald);font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:6px 14px;border-radius:999px}
 .bonus h3{margin-top:11px;font-size:19.5px;font-weight:800;letter-spacing:-.025em}
-.bonus .val{display:inline-block;margin-top:9px;font-size:12.5px;font-weight:800;color:var(--deep);background:var(--mint);padding:5px 12px;border-radius:999px;letter-spacing:.02em}
+.bhead{margin-top:11px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.bhead h3{margin-top:0;flex:1 1 auto}
+.bonus .val{flex:0 0 auto;margin-top:2px;font-size:13px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;text-align:right}
+.bonus .val .v{font-size:16.5px;display:block;line-height:1.1}
+.bonus .val .u{display:block;font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--tx2);margin-top:2px}
+@media(max-width:420px){.bhead{flex-direction:column;gap:6px}.bonus .val{text-align:left}}
+
+/* gradient shimmer — used on the value figures and the FREE reveal */
+.shim{background:linear-gradient(100deg,var(--deep) 0%,var(--deep) 14%,var(--sea) 32%,#7dffc0 46%,var(--sea) 60%,var(--deep) 82%,var(--deep) 100%);
+  background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  animation:shim 4.2s linear infinite}
+.shim.lt{background-image:linear-gradient(100deg,var(--emerald) 0%,var(--emerald) 14%,#b9ffdb 34%,#fff 47%,#b9ffdb 60%,var(--emerald) 82%,var(--emerald) 100%)}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-60% 0}}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .shim{background:none;color:var(--deep);-webkit-text-fill-color:currentColor}
+  .shim.lt{color:var(--emerald)}
+}
+@media(prefers-reduced-motion:reduce){.shim{animation:none;background-position:38% 0}}
 .bonus ul{list-style:none;margin-top:17px;display:grid;gap:9px}
 .bonus li{font-size:14.4px;color:var(--tx2);padding-left:27px;position:relative;line-height:1.52}
 .bonus li strong{color:var(--ink)}
@@ -241,8 +258,13 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .bonus .kills b{color:var(--ink)}
 .bonus.sum{grid-column:1/-1;background:var(--pine);border-color:transparent;color:#eafff3;justify-content:center;text-align:center;box-shadow:0 34px 84px rgba(6,40,26,.3)}
 .bonus.sum h3{color:#fff;margin-top:0}
-.bonus.sum .tot{font-size:clamp(34px,4.4vw,52px);font-weight:800;color:var(--emerald);letter-spacing:-.045em;margin-top:16px;line-height:1}
-.bonus.sum p{font-size:14.5px;color:#a8c7b6;margin-top:10px}
+.bonus.sum .totlab{margin-top:20px;font-size:11.5px;font-weight:800;letter-spacing:.19em;text-transform:uppercase;color:#8fb9a3}
+.bonus.sum .strike{margin-top:8px;font-size:clamp(26px,3.2vw,38px);font-weight:700;letter-spacing:-.035em;line-height:1}
+.bonus.sum .strike s{color:#7fa891;text-decoration:none;position:relative;display:inline-block;padding:0 6px}
+.bonus.sum .strike s::after{content:"";position:absolute;left:0;right:0;top:52%;height:3px;border-radius:3px;background:var(--emerald);transform:rotate(-4deg);box-shadow:0 0 18px rgba(0,230,118,.5)}
+.bonus.sum .tot{font-size:clamp(58px,9vw,116px);font-weight:800;letter-spacing:-.055em;margin-top:6px;line-height:.98}
+.bonus.sum .totsub{font-size:13.5px;font-weight:700;color:#cdebdb;margin-top:8px;letter-spacing:.01em}
+.bonus.sum p{font-size:14.5px;color:#a8c7b6;margin-top:14px;max-width:56ch;margin-left:auto;margin-right:auto}
 
 /* ---------- stats band ---------- */
 .band{position:relative;overflow:hidden;background:var(--pine);color:#eafff3;padding:clamp(60px,7vw,96px) 0}
@@ -673,115 +695,6 @@ footer ul a:hover{color:var(--emerald)}
   </div>
 </section>
 
-<!-- ================= INCLUDED / BONUSES ================= -->
-<section id="included" style="background:var(--sand)">
-  <div class="wrap">
-    <div class="rv">
-      <div class="eyebrow">Included with every engagement</div>
-      <h2 class="big">Six things nobody else will give you.</h2>
-      <p class="sub">Not upsells and not premium tiers. Every church we onboard gets all six, and each one removes a specific reason churches stay stuck with a setup they have outgrown.</p>
-    </div>
-
-    <div class="bgrid">
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 01</div>
-        <h3>Your Stewardship Partner</h3>
-        <ul>
-          <li>One named person who knows your church, your funds and your people. Not a shared inbox, not a ticket queue.</li>
-          <li>Every message gets a real human answer the same day, seven days a week.</li>
-          <li><strong>We answer on Sundays.</strong> Because Sunday is your Monday, and no other bookkeeper is reachable that day.</li>
-          <li>You will never re-explain your church to somebody you were handed off to.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> "Long response times." "I need someone I can trust."</div>
-      </div>
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 02</div>
-        <h3>The White-Glove Transition</h3>
-        <ul>
-          <li>We contact your current bookkeeper, request the files and handle the entire handoff conversation.</li>
-          <li>You are never the person stuck in the middle of an awkward exchange.</li>
-          <li>No gap in the books. The month you switch closes on time like every other month.</li>
-          <li>Under three hours of your time across the first 60 days, and we track it and show you the log.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> "Transition will take too long." "I don't want to handhold someone."</div>
-      </div>
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 03</div>
-        <h3>Church Finance for Non-Finance Pastors</h3>
-        <ul>
-          <li>A short, plain English course delivered during onboarding. No jargon, no accounting theory.</li>
-          <li>How to read your own statements in five minutes and know when something is wrong.</li>
-          <li>What to actually say when a board member asks a financial question in a meeting.</li>
-          <li>What your CPA does versus what we do, so you stop paying twice for the same thing.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> "I don't have a finance background."</div>
-      </div>
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 04</div>
-        <h3>Monthly Giving Intelligence</h3>
-        <ul>
-          <li>Who gave for the first time this month, so you can thank them while it still means something.</li>
-          <li>Who has quietly stopped, before it becomes a trend you notice in the spring.</li>
-          <li>Giving cadence, fund trends, and how concentrated your general fund really is.</li>
-          <li>Your giving platform tells you what came in. This tells you what it means.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> "I don't know what our giving looks like."</div>
-      </div>
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 05</div>
-        <h3>Giving Statement Season, Handled</h3>
-        <ul>
-          <li>We produce and send your annual contribution statements before the January 31 deadline.</li>
-          <li>Accurate and reconciled against the books, not exported and hoped for.</li>
-          <li>1099s for guest speakers and contractors filed on the same deadline.</li>
-          <li>The most stressful week of your financial year stops being your problem.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> The January panic.</div>
-      </div>
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 06</div>
-        <h3>The Systems Blueprint, Implemented</h3>
-        <ul>
-          <li>The recommendations from your audit do not just get handed over. We implement them.</li>
-          <li>Right payroll processor, right bill pay, right giving integration, right chart of accounts.</li>
-          <li>An approval chain so no single person can move money alone, which protects everyone.</li>
-          <li>You never research a tool, run a trial, or migrate anything yourself.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> "I'd have to research the tools." "I'll figure it out myself."</div>
-      </div>
-
-      <div class="bonus sum rv">
-        <h3>All six, every church</h3>
-        <div class="tot">6 of 6</div>
-        <p>No tiers, no add-ons, no upsells. Every church we onboard gets the full set, on top of the ten pillars themselves.</p>
-        <a class="btn em" data-cta="audit-bonus" style="margin-top:26px" href="#book">Start with the free audit</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ================= STATS BAND ================= -->
-<section class="band">
-  <img class="bg" src="/assets/church/crowd-blue.webp" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="eyebrow lt rv">Built for how churches actually work</div>
-    <h2 class="big rv" style="color:#fff;max-width:22ch">Fund accounting that keeps trust easy.</h2>
-    <div class="stgrid">
-      <div class="st rv"><div class="n" data-count="10">0</div><div class="l">Pillars covered, not just the books</div></div>
-      <div class="st rv"><div class="n" data-count="5">0</div><div class="l">Days before your meeting the board packet lands</div></div>
-      <div class="st rv"><div class="n" data-count="7">0</div><div class="l">Days a week your Stewardship Partner answers</div></div>
-      <div class="st rv"><div class="n" data-count="100" data-suffix="%">0</div><div class="l">Money back if you don't have clarity in 30 days</div></div>
-    </div>
-  </div>
-</section>
-
 <!-- ================= TESTIMONIALS ================= -->
 <section class="tst" id="proof">
   <div class="wrap">
@@ -809,6 +722,119 @@ footer ul a:hover{color:var(--emerald)}
     </div>
   </div>
 </section>
+
+<!-- ================= INCLUDED / BONUSES ================= -->
+<section id="included" style="background:var(--sand)">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">Included with every engagement</div>
+      <h2 class="big">Six things nobody else will give you, at no additional cost.</h2>
+      <p class="sub">Every one of these is sold as a separate line item somewhere else, and most churches never get offered them at all. We do not charge for a single one. Every church we onboard gets all six, and each one removes a specific reason churches stay stuck with a setup they have outgrown.</p>
+    </div>
+
+    <div class="bgrid">
+
+      <div class="bonus rv">
+        <div class="bn">Bonus 01</div>
+        <div class="bhead"><h3>Your Stewardship Partner</h3><div class="val"><span class="v shim">$6,000</span><span class="u">value / year</span></div></div>
+        <ul>
+          <li>One named person who knows your church, your funds and your people. Not a shared inbox, not a ticket queue.</li>
+          <li>Every message gets a real human answer the same day, seven days a week.</li>
+          <li><strong>We answer on Sundays.</strong> Because Sunday is your Monday, and no other bookkeeper is reachable that day.</li>
+          <li>You will never re-explain your church to somebody you were handed off to.</li>
+        </ul>
+        <div class="kills"><b>Removes:</b> "Long response times." "I need someone I can trust."</div>
+      </div>
+
+      <div class="bonus rv">
+        <div class="bn">Bonus 02</div>
+        <div class="bhead"><h3>The White-Glove Transition</h3><div class="val"><span class="v shim">$2,500</span><span class="u">value</span></div></div>
+        <ul>
+          <li>We contact your current bookkeeper, request the files and handle the entire handoff conversation.</li>
+          <li>You are never the person stuck in the middle of an awkward exchange.</li>
+          <li>No gap in the books. The month you switch closes on time like every other month.</li>
+          <li>Under three hours of your time across the first 60 days, and we track it and show you the log.</li>
+        </ul>
+        <div class="kills"><b>Removes:</b> "Transition will take too long." "I don't want to handhold someone."</div>
+      </div>
+
+      <div class="bonus rv">
+        <div class="bn">Bonus 03</div>
+        <div class="bhead"><h3>Church Finance for Non-Finance Pastors</h3><div class="val"><span class="v shim">$1,200</span><span class="u">value</span></div></div>
+        <ul>
+          <li>A short, plain English course delivered during onboarding. No jargon, no accounting theory.</li>
+          <li>How to read your own statements in five minutes and know when something is wrong.</li>
+          <li>What to actually say when a board member asks a financial question in a meeting.</li>
+          <li>What your CPA does versus what we do, so you stop paying twice for the same thing.</li>
+        </ul>
+        <div class="kills"><b>Removes:</b> "I don't have a finance background."</div>
+      </div>
+
+      <div class="bonus rv">
+        <div class="bn">Bonus 04</div>
+        <div class="bhead"><h3>Monthly Giving Intelligence</h3><div class="val"><span class="v shim">$3,600</span><span class="u">value / year</span></div></div>
+        <ul>
+          <li>Who gave for the first time this month, so you can thank them while it still means something.</li>
+          <li>Who has quietly stopped, before it becomes a trend you notice in the spring.</li>
+          <li>Giving cadence, fund trends, and how concentrated your general fund really is.</li>
+          <li>Your giving platform tells you what came in. This tells you what it means.</li>
+        </ul>
+        <div class="kills"><b>Removes:</b> "I don't know what our giving looks like."</div>
+      </div>
+
+      <div class="bonus rv">
+        <div class="bn">Bonus 05</div>
+        <div class="bhead"><h3>Giving Statement Season, Handled</h3><div class="val"><span class="v shim">$1,800</span><span class="u">value / year</span></div></div>
+        <ul>
+          <li>We produce and send your annual contribution statements before the January 31 deadline.</li>
+          <li>Accurate and reconciled against the books, not exported and hoped for.</li>
+          <li>1099s for guest speakers and contractors filed on the same deadline.</li>
+          <li>The most stressful week of your financial year stops being your problem.</li>
+        </ul>
+        <div class="kills"><b>Removes:</b> The January panic.</div>
+      </div>
+
+      <div class="bonus rv">
+        <div class="bn">Bonus 06</div>
+        <div class="bhead"><h3>The Systems Blueprint, Implemented</h3><div class="val"><span class="v shim">$4,500</span><span class="u">value</span></div></div>
+        <ul>
+          <li>The recommendations from your audit do not just get handed over. We implement them.</li>
+          <li>Right payroll processor, right bill pay, right giving integration, right chart of accounts.</li>
+          <li>An approval chain so no single person can move money alone, which protects everyone.</li>
+          <li>You never research a tool, run a trial, or migrate anything yourself.</li>
+        </ul>
+        <div class="kills"><b>Removes:</b> "I'd have to research the tools." "I'll figure it out myself."</div>
+      </div>
+
+      <div class="bonus sum rv">
+        <h3>All six, every church</h3>
+        <div class="totlab">Total first-year value</div>
+        <div class="strike"><s>$19,600</s></div>
+        <div class="tot shim lt">FREE</div>
+        <div class="totsub">Included with every engagement, at no additional cost.</div>
+        <p>No tiers, no add-ons, no upsells, and nothing here is sold separately. Every church we onboard gets all six, on top of the ten pillars themselves.</p>
+        <a class="btn em" data-cta="audit-bonus" style="margin-top:26px" href="#book">Start with the free audit</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS BAND ================= -->
+<section class="band">
+  <img class="bg" src="/assets/church/crowd-blue.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="wrap">
+    <div class="eyebrow lt rv">Built for how churches actually work</div>
+    <h2 class="big rv" style="color:#fff;max-width:22ch">Fund accounting that keeps trust easy.</h2>
+    <div class="stgrid">
+      <div class="st rv"><div class="n" data-count="10">0</div><div class="l">Pillars covered, not just the books</div></div>
+      <div class="st rv"><div class="n" data-count="5">0</div><div class="l">Days before your meeting the board packet lands</div></div>
+      <div class="st rv"><div class="n" data-count="7">0</div><div class="l">Days a week your Stewardship Partner answers</div></div>
+      <div class="st rv"><div class="n" data-count="100" data-suffix="%">0</div><div class="l">Money back if you don't have clarity in 30 days</div></div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ================= SEATS / URGENCY ================= -->
 <section id="seats">
