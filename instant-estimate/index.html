@@ -18,6 +18,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-NPBL5MRZ');</script>
 <!-- End Google Tag Manager -->
+<!-- Google Ads gtag — conversion "Instant Estimate - Submitted" (action 7698702377).
+     Loaded alongside GTM on purpose: this conversion label is NOT configured in
+     the GTM container, so firing it here is the only path and cannot double-count.
+     send_page_view:false so we do not duplicate the remarketing pageview hit that
+     GTM's own Google Ads tag already sends. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17845290805"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17845290805', { send_page_view: false });
+</script>
 <title>Instant Bookkeeping Estimate | Turnkey CFO</title>
   <meta name="description" content="Get an instant, no-obligation bookkeeping estimate for your small business. Answer a few quick questions and see your monthly bookkeeping price in seconds.">
   <meta name="robots" content="index, follow">
@@ -1857,9 +1869,33 @@ function finish() {
     page_title: 'Instant Estimate - Result'
   });
 
-  submitLead(payload).catch(err => {
-    console.error('Instant Estimate webhook submission failed.', err);
-  });
+  submitLead(payload)
+    .then(() => {
+      /* Google Ads conversion "Instant Estimate - Submitted".
+         Fires only AFTER the webhook resolves, so the conversion means a lead
+         actually reached the sheet — not merely that the reveal animation ran.
+         Guarded so Start over -> re-reveal cannot fire it twice in one session
+         (the action is also ONE_PER_CLICK server-side, this is belt and braces). */
+      if (window.__tkEstimateConversionSent) return;
+      window.__tkEstimateConversionSent = true;
+
+      window.dataLayer.push({
+        event: 'instant_estimate_submitted',
+        page_path: '/instant-estimate/result',
+        page_title: 'Instant Estimate - Result'
+      });
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+          send_to: 'AW-17845290805/e9UlCKnAg9ccELWOpr1C',
+          value: 1.0,
+          currency: 'USD'
+        });
+      }
+    })
+    .catch(err => {
+      console.error('Instant Estimate webhook submission failed.', err);
+    });
 }
 
 $('btnRestart').addEventListener('click', () => {
