@@ -132,8 +132,11 @@ body.navopen #mnav{display:flex}
 #hero .wrap{position:relative;z-index:2}
 .kick{display:inline-flex;align-items:center;gap:12px;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--emerald);margin-bottom:24px}
 .kick::before{content:"";width:34px;height:1.5px;background:var(--emerald)}
-h1.disp{font-size:clamp(40px,7vw,98px);line-height:1.01;font-weight:800;letter-spacing:-.04em;max-width:15ch;color:#fff}
-h1.disp em{font-style:normal;color:var(--emerald)}
+h1.disp{font-size:clamp(37px,5.9vw,82px);line-height:1.02;font-weight:800;letter-spacing:-.04em;max-width:16ch;color:#fff}
+h1.disp em:not(.shim){font-style:normal;color:var(--emerald)}
+h1.disp em.shim{font-style:normal}
+h1.disp .lead{display:block}
+h1.disp .tail{display:block;margin-top:.11em;font-size:.42em;font-weight:700;line-height:1.08;letter-spacing:-.025em;color:#c8e7d6}
 h1.disp .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.09em;margin-bottom:-.09em}
 h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .95s cubic-bezier(.16,.9,.24,1) forwards}
 @keyframes rise{to{transform:none}}
@@ -232,21 +235,7 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .cmpcard.good .ic{background:var(--emerald);color:var(--pine)}
 .cmpcard.good li strong{color:#fff}
 
-/* ---------- bonuses ---------- */
-.bgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;row-gap:34px;margin-top:50px}
-@media(max-width:900px){.bgrid{grid-template-columns:1fr}}
-.bonus{background:var(--paper);border:1px solid var(--line);border-radius:var(--rad);padding:28px;position:relative;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
-.bonus:hover{transform:translateY(-5px);box-shadow:0 26px 60px rgba(6,40,26,.11)}
-.bonus .bn{position:absolute;top:-13px;left:28px;background:var(--pine);color:var(--emerald);font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:6px 14px;border-radius:999px}
-.bonus h3{margin-top:11px;font-size:19.5px;font-weight:800;letter-spacing:-.025em}
-.bhead{margin-top:11px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
-.bhead h3{margin-top:0;flex:1 1 auto}
-.bonus .val{flex:0 0 auto;margin-top:3px;white-space:nowrap;text-align:right}
-.bonus .val .v{font-size:13px;font-weight:800;color:var(--deep);display:block;line-height:1.1;letter-spacing:-.01em}
-.bonus .val .u{display:block;font-size:9.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--tx2);margin-top:1px}
-@media(max-width:420px){.bhead{flex-direction:column;gap:6px}.bonus .val{text-align:left}}
-
-/* gradient shimmer — used on the value figures and the FREE reveal */
+/* gradient shimmer — the hero phrase, the audit value figures, the FREE reveal */
 .shim{background:linear-gradient(100deg,var(--deep) 0%,var(--deep) 14%,var(--sea) 32%,#7dffc0 46%,var(--sea) 60%,var(--deep) 82%,var(--deep) 100%);
   background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
   animation:shim 4.2s linear infinite}
@@ -257,18 +246,6 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
   .shim.lt{color:var(--emerald)}
 }
 @media(prefers-reduced-motion:reduce){.shim{animation:none;background-position:38% 0}}
-.bonus ul{list-style:none;margin-top:17px;display:grid;gap:9px}
-.bonus li{font-size:14.4px;color:var(--tx2);padding-left:27px;position:relative;line-height:1.52}
-.bonus li strong{color:var(--ink)}
-.bonus li::before{content:"";position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;background:var(--mint);border:1.5px solid var(--sea)}
-.bonus li::after{content:"";position:absolute;left:5px;top:10px;width:5px;height:8px;border:solid var(--deep);border-width:0 2px 2px 0;transform:rotate(42deg)}
-.bonus .kills{margin-top:auto;padding-top:16px;margin-top:18px;border-top:1px dashed var(--line);font-size:12.8px;color:var(--tx2)}
-.bonus .kills b{color:var(--ink)}
-.bonus.sum{grid-column:1/-1;background:var(--pine);border-color:transparent;color:#eafff3;justify-content:center;text-align:center;box-shadow:0 34px 84px rgba(6,40,26,.3)}
-.bonus.sum h3{color:#fff;margin-top:0}
-.bonus.sum .tot{font-size:clamp(34px,4.4vw,52px);font-weight:800;color:var(--emerald);letter-spacing:-.045em;margin-top:16px;line-height:1}
-.bonus.sum .totsub{font-size:13.5px;font-weight:700;color:#cdebdb;margin-top:8px;letter-spacing:.01em}
-.bonus.sum p{font-size:14.5px;color:#a8c7b6;margin-top:14px;max-width:56ch;margin-left:auto;margin-right:auto}
 
 /* ---------- stats band ---------- */
 .band{position:relative;overflow:hidden;background:var(--pine);color:#eafff3;padding:clamp(60px,7vw,96px) 0}
@@ -366,14 +343,14 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .lwall img{width:auto;opacity:.5;transition:opacity .35s,transform .35s;flex:0 0 auto}
 .lwall a:hover img,.lwall img:hover{opacity:.9;transform:translateY(-2px)}
 .lwall .l-heirloom{height:46px}
-.lwall .l-voh{height:48px}
+.lwall .l-newhope{height:30px}
 .lwall .l-epic{height:42px}
 .lwall .l-northpoint{height:27px}
 .lwall .l-cornerstone{height:25px}
 .lwall .l-kingdom{height:27px}
 @media(max-width:640px){
   .lwall .row{gap:24px 30px}
-  .lwall .l-heirloom{height:36px}.lwall .l-voh{height:38px}.lwall .l-epic{height:34px}
+  .lwall .l-heirloom{height:36px}.lwall .l-newhope{height:24px}.lwall .l-epic{height:34px}
   .lwall .l-northpoint{height:21px}.lwall .l-cornerstone{height:19px}.lwall .l-kingdom{height:21px}
 }
 
@@ -452,6 +429,19 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 
 /* ---------- atmospheric photo backgrounds ---------- */
 section.hasbg{position:relative;overflow:hidden}
+/* The Tuesday recognition section runs dark. The photograph sits heavier behind it
+   and a scrim lands on top, so the copy reads at full contrast instead of competing
+   with a busy light image. */
+#tuesday{background:var(--pine)}
+#tuesday .pbg img{opacity:.62;filter:grayscale(.3) contrast(1.05) brightness(.62)}
+#tuesday::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(100deg,rgba(3,20,12,.88) 0%,rgba(3,20,12,.74) 42%,rgba(3,20,12,.34) 100%)}
+#tuesday .eyebrow{color:var(--emerald)}
+#tuesday .eyebrow::before{background:var(--emerald)}
+#tuesday h2.big{color:#fff}
+#tuesday .sub{color:#b8d8c7}
+#tuesday .plist li{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);
+  border-left-color:#e06b53;color:#eafff3}
 section.hasbg > .wrap{position:relative;z-index:1}
 .pbg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .pbg img{width:100%;height:100%;object-fit:cover;opacity:.20;filter:grayscale(.42) contrast(1.03);
@@ -529,11 +519,12 @@ footer ul a:hover{color:var(--emerald)}
          poster="/assets/church/hero-lobby-poster.webp" aria-hidden="true" tabindex="-1"></video>
   <div class="wrap">
     <div class="kick">The Church Finance Systems Audit &nbsp;&middot;&nbsp; Austin, TX &amp; Nationwide</div>
-    <h1 class="disp" id="h1">You don't need a better bookkeeper. You need a <em>finance department</em>.</h1>
+    <h1 class="disp" id="h1"><span class="lead">You don't need a better bookkeeper. You need a <em class="shim lt">finance department</em></span><span class="tail">without breaking the bank.</span></h1>
     <p class="hsub">Most churches hire one part time person and hope a whole finance function arrives with them. It never does, and that is not your fault. <strong>We install the whole function.</strong> Start with a free Church Finance Systems Audit: tell us what you run on today, and we send back a graded assessment and a live dashboard built for your church.</p>
     <div class="hctas">
       <a class="btn em" data-cta="audit-hero" href="#book">Get my free audit</a>
-      <a class="btn gh" href="#pillars">See the ten pillars</a>
+      <a class="btn gh" data-cta="estimate-hero" href="https://turnkeycfo.com/instant-estimate/?industry=church">Get an instant estimate</a>
+      <a class="btn gh" data-cta="book-call-hero" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener">Book a call</a>
     </div>
     <p class="hnote">Free, and yours to keep. <b>No obligation, and no sales presentation to sit through.</b></p>
     <div class="hstats">
@@ -564,7 +555,7 @@ footer ul a:hover{color:var(--emerald)}
       <img class="l-kingdom"     src="/assets/church/logos/kingdom-city.webp" alt="Kingdom City Church" width="913" height="128" loading="lazy" decoding="async">
       <img class="l-cornerstone" src="/assets/church/logos/cornerstone.webp"  alt="Cornerstone Community Church ATX" width="603" height="128" loading="lazy" decoding="async">
       <img class="l-epic"        src="/assets/church/logos/epic-life.webp"    alt="Epic Life Church" width="128" height="128" loading="lazy" decoding="async">
-      <img class="l-voh"         src="/assets/church/logos/voh.webp"          alt="Village of Hope Maui" width="389" height="128" loading="lazy" decoding="async">
+      <img class="l-newhope"     src="/assets/church/logos/new-hope-maui.webp" alt="New Hope Maui" width="790" height="128" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -788,101 +779,6 @@ footer ul a:hover{color:var(--emerald)}
   </div>
 </section>
 
-<!-- ================= INCLUDED / BONUSES ================= -->
-<section id="included" style="background:var(--sand)">
-  <div class="wrap">
-    <div class="rv">
-      <div class="eyebrow">Included with every engagement</div>
-      <h2 class="big">Six things nobody else will give you, at no additional cost.</h2>
-      <p class="sub">Every one of these is sold as a separate line item somewhere else, and most churches never get offered them at all. We do not charge for a single one. Every church we onboard gets all six, and each one removes a specific reason churches stay stuck with a setup they have outgrown.</p>
-    </div>
-
-    <div class="bgrid">
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 01</div>
-        <div class="bhead"><h3>Your Stewardship Partner</h3><div class="val"><span class="v">$6,000</span><span class="u">a year, included</span></div></div>
-        <ul>
-          <li>One named person who knows your church, your funds and your people. Not a shared inbox, not a ticket queue.</li>
-          <li>Every message gets a real human answer the same day, seven days a week.</li>
-          <li><strong>We answer on Sundays.</strong> Because Sunday is your Monday, and no other bookkeeper is reachable that day.</li>
-          <li>You will never re-explain your church to somebody you were handed off to.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> "Long response times." "I need someone I can trust."</div>
-      </div>
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 02</div>
-        <div class="bhead"><h3>The White-Glove Transition</h3><div class="val"><span class="v">$2,500</span><span class="u">included</span></div></div>
-        <ul>
-          <li>We contact your current bookkeeper, request the files and handle the entire handoff conversation.</li>
-          <li>You are never the person stuck in the middle of an awkward exchange.</li>
-          <li>No gap in the books. The month you switch closes on time like every other month.</li>
-          <li>Under three hours of your time across the first 60 days, and we track it and show you the log.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> "Transition will take too long." "I don't want to handhold someone."</div>
-      </div>
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 03</div>
-        <div class="bhead"><h3>Church Finance for Non-Finance Pastors</h3><div class="val"><span class="v">$1,200</span><span class="u">included</span></div></div>
-        <ul>
-          <li>A short, plain English course delivered during onboarding. No jargon, no accounting theory.</li>
-          <li>How to read your own statements in five minutes and know when something is wrong.</li>
-          <li>What to actually say when a board member asks a financial question in a meeting.</li>
-          <li>What your CPA does versus what we do, so you stop paying twice for the same thing.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> "I don't have a finance background."</div>
-      </div>
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 04</div>
-        <div class="bhead"><h3>Monthly Giving Intelligence</h3><div class="val"><span class="v">$3,600</span><span class="u">a year, included</span></div></div>
-        <ul>
-          <li>Who gave for the first time this month, so you can thank them while it still means something.</li>
-          <li>Who has quietly stopped, before it becomes a trend you notice in the spring.</li>
-          <li>Giving cadence, fund trends, and how concentrated your general fund really is.</li>
-          <li>Your giving platform tells you what came in. This tells you what it means.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> "I don't know what our giving looks like."</div>
-      </div>
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 05</div>
-        <div class="bhead"><h3>Giving Statement Season, Handled</h3><div class="val"><span class="v">$1,800</span><span class="u">a year, included</span></div></div>
-        <ul>
-          <li>We produce and send your annual contribution statements before the January 31 deadline.</li>
-          <li>Accurate and reconciled against the books, not exported and hoped for.</li>
-          <li>1099s for guest speakers and contractors filed on the same deadline.</li>
-          <li>The most stressful week of your financial year stops being your problem.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> The January panic.</div>
-      </div>
-
-      <div class="bonus rv">
-        <div class="bn">Bonus 06</div>
-        <div class="bhead"><h3>The Systems Blueprint, Implemented</h3><div class="val"><span class="v">$4,500</span><span class="u">included</span></div></div>
-        <ul>
-          <li>The recommendations from your audit do not just get handed over. We implement them.</li>
-          <li>Right payroll processor, right bill pay, right giving integration, right chart of accounts.</li>
-          <li>An approval chain so no single person can move money alone, which protects everyone.</li>
-          <li>You never research a tool, run a trial, or migrate anything yourself.</li>
-        </ul>
-        <div class="kills"><b>Removes:</b> "I'd have to research the tools." "I'll figure it out myself."</div>
-      </div>
-
-      <div class="bonus sum rv">
-        <h3>All six, every church</h3>
-        <div class="tot">6 of 6</div>
-        <div class="totsub">Every one included, at no additional cost.</div>
-        <p>No tiers, no add-ons, no upsells, and nothing here is sold separately. Every church we onboard gets all six, on top of the ten pillars themselves.</p>
-        <a class="btn em" data-cta="audit-bonus" style="margin-top:26px" href="#book">Start with the free audit</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- ================= STATS BAND ================= -->
 <section class="band">
   <img class="bg" src="/assets/church/crowd-blue.webp" alt="" aria-hidden="true" loading="lazy">
@@ -914,7 +810,7 @@ footer ul a:hover{color:var(--emerald)}
         <div class="cnt"><b><span class="seats">2</span></b> spots</div>
         <div class="lab" style="color:var(--tx2);letter-spacing:.1em">remain for <span class="seatyear">2026</span></div>
         <div class="statuspill"><span class="sd"></span>Accepting churches</div>
-        <p>All six bonuses are included for the remaining spots. Once they are taken the audit stays free, and we will tell you honestly when the next year opens up.</p>
+        <p>Every spot comes with the full install, not a trimmed down version of it. Once they are taken the audit stays free, and we will tell you honestly when the next year opens up.</p>
         <a class="btn em" data-cta="audit-seats" style="margin-top:22px;width:100%" href="#book">Claim a spot</a>
       </div>
 
@@ -1028,7 +924,8 @@ footer ul a:hover{color:var(--emerald)}
         <li><span class="ic">&#10003;</span><span>The church specific review: funds, controls, housing allowance, board reporting</span></li>
         <li><span class="ic">&#10003;</span><span><strong><span class="seats">2</span> spots remain for <span class="seatyear">2026</span></strong>, and the audit itself costs nothing</span></li>
       </ul>
-      <p class="hnote" style="margin-top:26px">Prefer the phone? <a href="tel:+17372481346" style="color:var(--emerald);font-weight:700">(737) 248-1346</a></p>
+      <p class="hnote" style="margin-top:26px">Not ready for a call? <a data-cta="estimate-book" href="https://turnkeycfo.com/instant-estimate/?industry=church" style="color:var(--emerald);font-weight:700">Get an instant estimate</a> in about a minute instead.</p>
+      <p class="hnote" style="margin-top:10px">Prefer the phone? <a href="tel:+17372481346" style="color:var(--emerald);font-weight:700">(737) 248-1346</a></p>
     </div>
 
     <div class="calbox rv">
@@ -1118,14 +1015,22 @@ footer ul a:hover{color:var(--emerald)}
   /* ---- hero word reveal ---- */
   (function(){
     var h = document.getElementById('h1'); if(!h || reduce) return;
-    var em = h.querySelector('em'), emWords = em ? em.textContent.trim().split(/\s+/) : [];
-    var words = h.textContent.trim().split(/\s+/);
-    h.innerHTML = words.map(function(w,i){
-      var isEm = emWords.indexOf(w) > -1;
-      return '<span class="w"><span style="animation-delay:' + (0.05 + i*0.04).toFixed(3) + 's"' +
-             (isEm ? ' class="hi"' : '') + '>' + w + '</span></span>';
-    }).join(' ');
-    Array.prototype.forEach.call(h.querySelectorAll('.hi'), function(s){ s.style.color = 'var(--emerald)'; });
+    var lead = h.querySelector('.lead'); if(!lead) return;
+    // Word-split the plain text, but keep the shimmering <em> intact as one unit so
+    // the gradient sweeps the whole phrase instead of restarting on each word.
+    var i = 0, out = [];
+    function cell(inner){
+      return '<span class="w"><span style="animation-delay:' +
+             (0.05 + (i++) * 0.04).toFixed(3) + 's">' + inner + '</span></span>';
+    }
+    Array.prototype.forEach.call(lead.childNodes, function(node){
+      if (node.nodeType === 3) {
+        node.textContent.split(/\s+/).forEach(function(w){ if(w) out.push(cell(w)); });
+      } else if (node.nodeType === 1) {
+        out.push(cell('<em class="' + node.className + '">' + node.textContent + '</em>'));
+      }
+    });
+    lead.innerHTML = out.join(' ');
   })();
 
   /* ---- scroll reveals ---- */

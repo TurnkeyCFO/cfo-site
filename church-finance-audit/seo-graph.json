@@ -1,0 +1,155 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AccountingService",
+      "@id": "https://turnkeycfo.com/churches/#service",
+      "name": "Turnkey CFO — Church Bookkeeping Services",
+      "description": "Expert church bookkeeping: clergy housing allowance, designated and donor-restricted fund accounting, 1099s for speakers and musicians, bill pay, nonprofit bookkeeping, and live fund-level dashboards. We coordinate with your CPA on Form 990 and tax filings.",
+      "url": "https://turnkeycfo.com/churches/",
+      "telephone": "+1-737-248-1346",
+      "email": "Ricky@turnkeycfo.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Austin",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Austin"
+        },
+        {
+          "@type": "State",
+          "name": "Texas"
+        },
+        {
+          "@type": "Country",
+          "name": "United States"
+        }
+      ],
+      "openingHours": "Mo-Fr 09:00-17:00",
+      "priceRange": "$$",
+      "founder": {
+        "@type": "Person",
+        "name": "Ricky West"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Turnkey CFO",
+        "url": "https://turnkeycfo.com"
+      },
+      "knowsAbout": [
+        "Church bookkeeping",
+        "Nonprofit bookkeeping services",
+        "Clergy housing allowance",
+        "Designated and donor-restricted fund accounting",
+        "ASU 2016-14 fund accounting",
+        "Payroll for churches",
+        "1099-NEC for guest speakers and musicians",
+        "Form 990 coordination",
+        "Outsourced church bookkeeping"
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Church Bookkeeping Services",
+      "serviceType": "Church and nonprofit bookkeeping",
+      "provider": {
+        "@id": "https://turnkeycfo.com/churches/#service"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United States"
+      },
+      "description": "Clergy housing allowance payroll, designated and donor-restricted fund accounting, 1099s for guest speakers and musicians, bill pay, and live fund-level dashboards for churches and nonprofits."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://turnkeycfo.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Churches",
+          "item": "https://turnkeycfo.com/churches/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "We already have a bookkeeper.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Good, and we are not trying to take anything from them. The audit will show you what your bookkeeper does not cover, and most of the ten pillars sit outside that job by design. Plenty of churches keep their bookkeeper and have us install everything around them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, and there is no obligation attached to it. Here is what we get out of it: some churches read the assessment and hire us, most do not, and we would rather be the firm that gave you a straight answer. You keep the assessment and the dashboard either way."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can you assess us that quickly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because we have built the finance function for churches enough times to know exactly what to look for, and we have a system for assembling it. The speed is the point. If a firm takes two weeks to send you a proposal, that is a preview of how quickly they will move once you are a client."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "We are too small for this.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The smaller the staff, the more of the finance work the pastor is personally doing, and the more this matters. Small churches are not a lighter version of this problem. They are usually the sharpest version of it, because one person is doing six jobs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you replace our staff?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. We install the function around the people you already have. In most cases your staff end up doing less finance work and more of what you actually hired them for."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you do our taxes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. We work alongside your CPA and hand them clean books. Tax and legal questions go to your CPA or attorney, and we are happy to talk to them directly so you are not the messenger."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can you guarantee clarity? That sounds subjective.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It would be, which is why we defined it as four things you can check yourself on day 30: your books are current and reconciled, your giving and funds and budget versus actual live on one dashboard, your systems are consolidated with a written blueprint, and you can answer any board question from that dashboard in under five minutes. If any one of those is not true, you get a full refund."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Our books are badly behind. Is that a problem?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is the normal starting point. We have begun with churches two years behind, and nothing you tell us is going to shock us. Catch-up work is quoted separately based on how far behind the books actually are, and the audit tells you exactly where that stands before you commit to anything."
+          }
+        }
+      ]
+    }
+  ]
+}
