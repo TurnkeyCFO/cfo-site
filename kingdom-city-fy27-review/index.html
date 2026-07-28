@@ -250,7 +250,7 @@ details .body{padding:0 20px 8px}
    <div class="kpi"><div class="k">Total Income</div><div class="n">$348.4k</div><div class="sub">all giving, incl. Vision Fund</div></div>
    <div class="kpi tan"><div class="k">Total Expenses</div><div class="n">$325.2k</div><div class="sub">fully loaded, incl. rent</div></div>
    <div class="kpi esp"><div class="k">Net Surplus</div><div class="n">+$23.2k</div><div class="sub">surplus, leanest year</div></div>
-   <div class="kpi"><div class="k">Internal Giving</div><div class="n">$120.0k</div><div class="sub">tithes &amp; offerings</div></div>
+   <div class="kpi"><div class="k">Internal Giving</div><div class="n">$159.7k</div><div class="sub">tithes + Vision Fund</div></div>
    <div class="kpi tan"><div class="k">External Dependency</div><div class="n">54%</div><div class="sub">falls to 21% by FY29</div></div>
    <div class="kpi olive"><div class="k">Vision Fund</div><div class="n">$39.7k</div><div class="sub">designated giving</div></div>
   </div>
@@ -262,7 +262,7 @@ details .body{padding:0 20px 8px}
  <div class="wrap">
   <div class="sec-label">02 — How the church is funded</div>
   <h2 class="big">More than half of FY27 income still comes from outside.</h2>
-  <p class="intro">Kingdom City is funded by member giving, a schedule of partner churches, and the Vision Fund's designated giving. The plan deliberately lets that outside support fall away as member giving climbs — so each year the church stands more firmly on its own. Today <strong>54% of income is external</strong>; by FY29 that is 21%.</p>
+  <p class="intro">Kingdom City is funded by its own people — tithes plus the Vision Fund's designated giving — and by a schedule of partner churches. The plan deliberately lets that outside support fall away as member giving climbs — so each year the church stands more firmly on its own. Today <strong>internal giving is 46% of income and external support 54%</strong>; by FY29 external is just 21%.</p>
 
   <div class="grid2" style="margin-top:30px">
    <div class="chart-box"><div class="ct">FY27 income mix — $348,395</div><div class="canvas-h tall"><canvas id="incomeDonut"></canvas></div></div>
@@ -271,13 +271,12 @@ details .body{padding:0 20px 8px}
      <thead><tr><th>Source</th><th class="num">FY27</th><th class="num">% of income</th></tr></thead>
      <tbody>
       <tr><td><span class="dot" style="background:var(--rust)"></span>Tithes &amp; Offerings <small style="color:var(--muted)">(internal)</small></td><td class="num">$119,985</td><td class="num">34.4%</td></tr>
-      <tr><td><span class="dot" style="background:var(--tan)"></span>External Support</td><td class="num">$125,378</td><td class="num">36.0%</td></tr>
-      <tr><td><span class="dot" style="background:#4A3428"></span>Partnership Support</td><td class="num">$63,322</td><td class="num">18.2%</td></tr>
-      <tr><td><span class="dot" style="background:var(--olive)"></span>Vision Fund <small style="color:var(--muted)">(designated)</small></td><td class="num">$39,710</td><td class="num">11.4%</td></tr>
+      <tr><td><span class="dot" style="background:var(--olive)"></span>Vision Fund <small style="color:var(--muted)">(internal, designated)</small></td><td class="num">$39,710</td><td class="num">11.4%</td></tr>
+      <tr><td><span class="dot" style="background:var(--tan)"></span>External Support <small style="color:var(--muted)">(partner churches &amp; supporters)</small></td><td class="num">$188,700</td><td class="num">54.2%</td></tr>
       <tr class="tot"><td>Total Income</td><td class="num">$348,395</td><td class="num">100%</td></tr>
      </tbody>
     </table>
-    <p class="note">External + Partnership together make up the <strong>$188,700 externally-funded share</strong> — 54% of total income in FY27. Both are modeled to decline about 25% per year as church-plant partners sunset.</p>
+    <p class="note">Internal giving — tithes plus the Vision Fund — is <strong>$159,695, or 46% of FY27 income</strong>. External Support (former external + partnership giving, now one line) is the <strong>$188,700 externally-funded share</strong> — 54% of income — modeled to decline about 25% per year as church-plant partners sunset.</p>
    </div>
   </div>
 
@@ -286,10 +285,10 @@ details .body{padding:0 20px 8px}
    <div class="chart-box"><div class="ct">External dependency falls year over year</div><div class="canvas-h"><canvas id="dependencyLine"></canvas></div></div>
   </div>
 
-  <div class="chart-box chart-full"><div class="ct">FY27 income by month — all four streams, giving climbs as partner support tapers</div><div class="canvas-h tall"><canvas id="incomeMonthly"></canvas></div></div>
+  <div class="chart-box chart-full"><div class="ct">FY27 income by month — three streams, internal giving climbs as external support tapers</div><div class="canvas-h tall"><canvas id="incomeMonthly"></canvas></div></div>
 
-  <p class="lead-in" style="margin-top:24px">The crossover the whole plan is built toward: internal tithes climb month over month while outside support tapers, and the two lines meet by June — with tithes overtaking outside support in FY28.</p>
-  <div class="chart-box chart-full"><div class="ct">Internal tithes vs. outside support — FY27, the lines converge by June</div><div class="canvas-h tall"><canvas id="crossoverLine"></canvas></div></div>
+  <p class="lead-in" style="margin-top:24px">The crossover the whole plan is built toward: internal giving — tithes plus the Vision Fund — climbs month over month while external support tapers, and the two lines cross in <strong>February 2027</strong>, the first month the church's own people fund more than outside support.</p>
+  <div class="chart-box chart-full"><div class="ct">Internal giving vs. External Support — FY27, the lines cross in February</div><div class="canvas-h tall"><canvas id="crossoverLine"></canvas></div></div>
 
   <div class="grid2" style="margin-top:26px">
    <div>
@@ -412,7 +411,7 @@ details .body{padding:0 20px 8px}
    <div class="assum"><div class="al">Attendance</div><div class="av">140 → 162</div><div class="ad">Average Sunday attendance grows about 2 per month across FY27 (avg 151), toward a three-year target of 210 by June 2029. No second service is assumed in the plan horizon.</div></div>
    <div class="assum"><div class="al">Giving glide</div><div class="av">$45 → $90 / mo</div><div class="ad">Giving per attendee per month glides from $45 (Jul 2026) to $90 by Jul 2027, then to $160 by Jun 2029 — per Blake, calls of 7/8/2026. Calibrated from stable QuickBooks tithes.</div></div>
    <div class="assum"><div class="al">Vision Fund</div><div class="av">$4,180 / mo</div><div class="ad">55 donors at $76/month, ramping over six months to a full $4,180/month run-rate by December 2026. Treated as designated, non-operating giving.</div></div>
-   <div class="assum"><div class="al">External decline</div><div class="av">−25% / yr</div><div class="ad">External Support ($11,880/mo baseline) and Partnership Support ($6,000/mo baseline) each decline 25% per year as church-plant partners sunset over two to three years. No growth assumed.</div></div>
+   <div class="assum"><div class="al">External decline</div><div class="av">−25% / yr</div><div class="ad">External support — the combined giving of partner churches and outside supporters, about $17,880/month at baseline — declines 25% per year as church-plant partners sunset over two to three years. No growth assumed.</div></div>
    <div class="assum"><div class="al">Expense inflation</div><div class="av">~2% / yr</div><div class="ad">Historical run-rates are carried forward at about 2% annual inflation (Blake directive), with per-line overrides where a real cost is known.</div></div>
    <div class="assum"><div class="al">Facility rent</div><div class="av">$3,102 / mo</div><div class="ad">St. Pius facility rent of $3,102/month — $37,224/year — a confirmed real cost added in this model version. The prior model omitted it entirely.</div></div>
    <div class="assum"><div class="al">Benevolence</div><div class="av">1% of tithes</div><div class="ad">Benevolence is budgeted at one percent of each month's tithes, so it scales automatically with internal giving through the year.</div></div>
@@ -492,95 +491,102 @@ details .body{padding:0 20px 8px}
     <div class="kc">Kingdom City Church<small>Atlanta, Georgia</small></div>
    </div>
    <div class="eyebrow" style="color:var(--tan-l)">One-Year Anniversary · Sunday, September 14, 2026</div>
-   <h1>Telling the<br><em>money story</em>.</h1>
-   <p class="lede">Two clear chapters for the anniversary — the year behind us (<strong style="color:var(--tan)">FY26, actuals</strong>) and the year ahead (<strong style="color:var(--tan)">FY27, budget</strong>) — each chart labeled with the exact period it covers, threaded on one theme: a church learning to stand on its own. A working view for Ricky and Blake; nothing is locked in yet.</p>
+   <h1>Opening the<br><em>books</em>.</h1>
+   <p class="lede">The congregation's first-ever look at the church's finances — laid out as <strong style="color:var(--tan)">four levels of openness</strong>, from a single Sunday slide to the full open book. Each level includes everything in the levels before it, so Blake can pick exactly how much to show and where. A working view for Ricky and Blake; nothing is locked in yet.</p>
   </div>
  </header>
 
  <section>
   <div class="wrap">
    <div class="sec-label">Working session — for Ricky &amp; Blake</div>
-   <h2 class="big">Two ways to walk the money — the year behind us, and the year ahead.</h2>
-   <p class="cong-lead">Pick a chapter below. Every chart carries a period chip so the room always knows whether it is looking at what already happened (<strong>FY26 actuals</strong>) or the plan for the coming year (<strong>FY27 budget</strong>). Both chapters tell the same story — a church steadily standing more on its own — and both land on the same ask: moving giving from <strong>$45 to $90 per person, per month</strong>.</p>
+   <h2 class="big">How much do we show? Four levels of openness.</h2>
+   <p class="cong-lead">This is the congregation's first-ever look at the church's finances, so the question is how much to put on screen. Below are four levels, shallowest to deepest — <strong>each one includes everything in the levels before it</strong>. Every chart carries a period chip so the room always knows whether it is looking at what already happened (<strong>FY26 actuals</strong>) or the plan for the year ahead (<strong>FY27 budget</strong>). Whatever the level, we always land on the same ask: moving giving from <strong>$45 to $90 per person, per month</strong>.</p>
 
    <div class="subnav">
-    <button id="cong-pill-hist" class="active" type="button">Year One — The Historical Story</button>
-    <button id="cong-pill-fy27" type="button">FY27 — The Year Ahead</button>
+    <button id="lvl-pill-1" class="active" type="button">Level 1 · The Sunday Slide</button>
+    <button id="lvl-pill-2" type="button">Level 2 · The Magazine Page</button>
+    <button id="lvl-pill-3" type="button">Level 3 · The Annual Report</button>
+    <button id="lvl-pill-4" type="button">Level 4 · The Open Book</button>
    </div>
 
-   <!-- ============ SET 1 — HISTORICAL FY26 ============ -->
-   <div id="congset-hist">
+   <!-- ============ LEVEL 1 — THE SUNDAY SLIDE ============ -->
+   <div id="level-1">
     <div class="pbanner">
-     <div class="pk">Chapter one · Actuals</div>
-     <h3>Year One — The Historical Story</h3>
-     <div class="pd"><strong>FY26 · July 2025 – June 2026</strong>, the church's first full year. QuickBooks actuals run through <strong>March 2026</strong>, so every month-by-month chart below plots July 2025 – March 2026 (9 months), and the annual totals are the book totals to date.</div>
+     <div class="pk">Level 1 · Shallowest — percentages only</div>
+     <h3>The Sunday Slide</h3>
+     <div class="pd">One slide's worth of story, <strong>no dollar amounts anywhere</strong>: who funds the church today, and the one number we are asking everyone to move. The only figures on screen are the per-person gift — because that is a personal invitation, not a church total.</div>
     </div>
-
-    <div class="pgroup">How year one was funded</div>
-    <div class="charts2">
-     <div class="chart-box"><div class="pchip">FY26 · BOOK TOTALS THRU MAR 2026 · ACTUAL</div><div class="ct">How year one was funded</div><div class="canvas-h tall"><canvas id="h1"></canvas></div></div>
-     <div class="chart-box"><div class="pchip">FY25 → FY26 · ACTUAL</div><div class="ct">The arc begins — our giving as a share of income</div><div class="canvas-h tall"><canvas id="h3"></canvas></div></div>
+    <div class="charts2" style="margin-top:22px">
+     <div class="chart-box"><div class="pchip">FY27 · BUDGET</div><div class="ct">Who funds Kingdom City today</div><div class="canvas-h tall"><canvas id="l1_donut"></canvas></div></div>
+     <div class="chart-box" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="pchip">PER PERSON / MONTH</div>
+      <div class="ct">The one number we are asking to move</div>
+      <div style="display:flex;align-items:center;gap:20px;justify-content:center;margin-top:14px">
+       <div style="text-align:center"><div class="serif" style="font-size:2.9rem;font-weight:600;color:var(--tan)">$45</div><div style="font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase">Today</div></div>
+       <div class="serif" style="font-size:2rem;color:var(--rust)">→</div>
+       <div style="text-align:center"><div class="serif" style="font-size:2.9rem;font-weight:600;color:var(--rust)">$90</div><div style="font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase">By next year</div></div>
+      </div>
+      <p style="text-align:center;font-size:.92rem;color:var(--muted);margin:16px auto 0;max-width:380px">The average gift per person, per month today — and where we believe God is calling us by this time next year.</p>
+     </div>
     </div>
-    <div class="chart-box chart-full"><div class="pchip">JUL 2025 – MAR 2026 · ACTUALS TO DATE</div><div class="ct">Steady vs. lumpy — the giving base that formed</div><div class="canvas-h tall"><canvas id="h2"></canvas></div></div>
-    <p class="note">Outside support arrives in lumps — a $23k partner gift in December, $22k of external support in January — while internal tithes settled into a steady $6.2–7.2k every month from September on. Steady internal giving is what a church can build a budget on. <em>FY25 was a partial launch year</em>, which is why its internal share starts low at 17%.</p>
-
-    <div class="mini four" style="margin-top:22px">
-     <div class="m"><div class="mn">+64%</div><div class="ml">Tithes grew — $30,693 (FY25) to $50,395 (FY26 to date)</div></div>
-     <div class="m"><div class="mn">~50</div><div class="ml">Giving households by early 2026</div></div>
-     <div class="m"><div class="mn">$6,450</div><div class="ml">Steady monthly tithes base, Oct 2025 – Mar 2026</div></div>
-     <div class="m"><div class="mn pos">+$13,693</div><div class="ml">Year-one operating surplus to date</div></div>
+    <div class="callout" style="margin-top:22px;padding:26px 32px">
+     <p style="font-family:'Fraunces',serif;font-size:1.5rem;color:#fff;line-height:1.3;position:relative;font-weight:500">Partner churches planted us. Year by year, we stand on our own feet.</p>
     </div>
+   </div><!-- /level-1 -->
 
-    <div class="pgroup">Where year one's money went — two lenses on the same year</div>
-    <div class="charts2">
-     <div class="chart-box"><div class="pchip">FY26 · SHARE OF EVERY EXPENSE DOLLAR · ACTUAL</div><div class="ct">Where the pot went — % of every dollar spent</div><div class="canvas-h tall"><canvas id="h5"></canvas></div></div>
-     <div class="chart-box"><div class="pchip">FY26 · OUT OF EVERY INCOME DOLLAR · ACTUAL</div><div class="ct">Out of every dollar that came in</div><div class="canvas-h tall"><canvas id="h6"></canvas></div></div>
-    </div>
-    <p class="note">Two denominators, one year: the left chart divides spending by the total pot; the right divides it by every dollar of income. <strong>94 cents of every income dollar was deployed into ministry; 6 cents was kept</strong>, building the reserve.</p>
-
-    <div class="pchip" style="margin-top:22px">FY26 · BOTH LENSES · ACTUAL (THRU MAR 2026)</div>
-    <table>
-     <thead><tr><th>Spending group</th><th class="num">FY26 $</th><th class="num">% of expenses</th><th class="num">% of income</th></tr></thead>
-     <tbody>
-      <tr><td><span class="dot" style="background:var(--rust)"></span>Personnel</td><td class="num">$112,825</td><td class="num">53.0%</td><td class="num">49.8%</td></tr>
-      <tr><td><span class="dot" style="background:var(--tan)"></span>Building &amp; Admin</td><td class="num">$26,709</td><td class="num">12.6%</td><td class="num">11.8%</td></tr>
-      <tr><td><span class="dot" style="background:#9C6B3F"></span>Ministry &amp; Programs</td><td class="num">$46,468</td><td class="num">21.8%</td><td class="num">20.5%</td></tr>
-      <tr><td><span class="dot" style="background:var(--olive)"></span>Outreach &amp; Events</td><td class="num">$22,501</td><td class="num">10.6%</td><td class="num">9.9%</td></tr>
-      <tr><td><span class="dot" style="background:var(--gold)"></span>Missions &amp; Benevolence</td><td class="num">$4,241</td><td class="num">2.0%</td><td class="num">1.9%</td></tr>
-      <tr class="tot"><td>Total expenses</td><td class="num">$212,745</td><td class="num">100%</td><td class="num">93.9%</td></tr>
-     </tbody>
-    </table>
-    <p class="note">The gap between 100% and 93.9% — about six cents on the dollar — is what the church kept as surplus in year one.</p>
-   </div><!-- /set1 -->
-
-   <!-- ============ SET 2 — FY27 BUDGET ============ -->
-   <div id="congset-fy27" hidden>
+   <!-- ============ LEVEL 2 — THE MAGAZINE PAGE ============ -->
+   <div id="level-2" hidden>
     <div class="pbanner">
-     <div class="pk">Chapter two · Budget</div>
-     <h3>FY27 — The Year Ahead</h3>
-     <div class="pd"><strong>FY27 · July 2026 – June 2027</strong>, the coming year's plan. Every figure here is budget, built on the giving base year one established — the same story, one year forward.</div>
+     <div class="pk">Level 2 · The format our sending church used</div>
+     <h3>The Magazine Page</h3>
+     <div class="pd">Percentages plus the story arc — <strong>still no church dollar totals</strong>. This is the clean, magazine-style format Westridge, our sending church, used to tell its own money story. Everything in Level 1, with the arc behind it.</div>
     </div>
 
-    <div class="pgroup">How FY27 is funded — and the road to standing on our own</div>
+    <div class="pgroup">Our share of the funding doubled in one year</div>
     <div class="charts2">
-     <div class="chart-box"><div class="pchip">FY27 · JUL 2026 – JUN 2027 · BUDGET</div><div class="ct">How FY27 is funded</div><div class="canvas-h tall"><canvas id="f1"></canvas></div></div>
-     <div class="chart-box"><div class="pchip">FY26 → FY27 · ACTUAL → BUDGET</div><div class="ct">Our giving as a share of income — climbing</div><div class="canvas-h tall"><canvas id="f3"></canvas></div></div>
+     <div class="chart-box"><div class="pchip">FY26 · JUL 2025 – MAR 2026 · ACTUALS TO DATE</div><div class="ct">Year one — who funded us</div><div class="canvas-h tall"><canvas id="l2_d26"></canvas></div></div>
+     <div class="chart-box"><div class="pchip">FY27 · JUL 2026 – JUN 2027 · BUDGET</div><div class="ct">This year — who funds us</div><div class="canvas-h tall"><canvas id="l2_d27"></canvas></div></div>
     </div>
-    <div class="chart-box chart-full"><div class="pchip">FY27 · JUL 2026 – JUN 2027 · BUDGET</div><div class="ct">The crossover — the month our giving catches outside support</div><div class="canvas-h tall"><canvas id="f2"></canvas></div></div>
-    <p class="note">By June 2027 monthly tithes are budgeted to pass outside support for the first time — the moment the church begins carrying itself.</p>
-    <div class="charts2">
-     <div class="chart-box"><div class="pchip">FY25–FY26 ACTUAL · FY27–FY29 PLAN</div><div class="ct">The road to self-sustaining — outside support as a share of income</div><div class="canvas-h tall"><canvas id="f4"></canvas></div></div>
-     <div class="chart-box"><div class="pchip">PER PERSON / MONTH · TODAY → JUN 2029</div><div class="ct">The per-person vision — the ask that makes the arc real</div><div class="canvas-h tall"><canvas id="f5"></canvas></div></div>
-    </div>
-    <p class="note">Outside dependency falls every single year — 83% to 21% — as our own giving rises. The one move that carries it: <strong>$45 to $90 per person, per month</strong>.</p>
+    <p class="note">In one year, our church family's share of the funding <strong>doubled — from 22% to 46%</strong>.</p>
 
-    <div class="pgroup">Where FY27's money goes — two lenses on the plan</div>
-    <div class="charts2">
-     <div class="chart-box"><div class="pchip">FY27 · SHARE OF EVERY EXPENSE DOLLAR · BUDGET</div><div class="ct">Where the pot goes — % of every dollar spent</div><div class="canvas-h tall"><canvas id="f6"></canvas></div></div>
-     <div class="chart-box"><div class="pchip">FY27 · OUT OF EVERY INCOME DOLLAR · BUDGET</div><div class="ct">Out of every dollar that comes in</div><div class="canvas-h tall"><canvas id="f7"></canvas></div></div>
-    </div>
-    <p class="note"><strong>93 cents of every dollar is deployed; 7 cents is kept</strong> — the budget plans a surplus even in the leanest year of the five-year arc.</p>
+    <div class="pgroup">The self-sustaining staircase</div>
+    <div class="chart-box chart-full"><div class="pchip">FY25–FY26 ACTUAL · FY27–FY29 PLAN</div><div class="ct">Our giving as a share of income — climbing every year</div><div class="canvas-h tall"><canvas id="l2_stair"></canvas></div></div>
+    <p class="note">Each year, more of the church is funded by the people who call it home — <strong>17% to 79% across five years</strong>.</p>
 
+    <div class="pgroup">Where every dollar goes — and the ask that carries the arc</div>
+    <div class="charts2">
+     <div class="chart-box"><div class="pchip">FY27 · SHARE OF EVERY DOLLAR SPENT · BUDGET</div><div class="ct">Where the money goes</div><div class="canvas-h tall"><canvas id="l2_exp"></canvas></div></div>
+     <div class="chart-box"><div class="pchip">PER PERSON / MONTH · TODAY → JUN 2029</div><div class="ct">The per-person vision</div><div class="canvas-h tall"><canvas id="l2_vision"></canvas></div></div>
+    </div>
+    <p class="note">Every gift is deployed into ministry and the people who lead it. The one move that carries the whole arc: <strong>$45 to $90 per person, per month</strong>.</p>
+   </div><!-- /level-2 -->
+
+   <!-- ============ LEVEL 3 — THE ANNUAL REPORT ============ -->
+   <div id="level-3" hidden>
+    <div class="pbanner">
+     <div class="pk">Level 3 · What most healthy churches share annually</div>
+     <h3>The Annual Report</h3>
+     <div class="pd">Real dollars at the category level, both years, both lenses — the level <strong>most healthy churches share in an annual report</strong>. Everything in Levels 1 and 2, now with the numbers behind the percentages.</div>
+    </div>
+
+    <div class="pgroup">How we are funded — in real dollars</div>
+    <div class="charts2">
+     <div class="chart-box"><div class="pchip">FY26 · BOOK TOTALS THRU MAR 2026 · ACTUAL</div><div class="ct">Year one funding</div><div class="canvas-h tall"><canvas id="l3_f26"></canvas></div></div>
+     <div class="chart-box"><div class="pchip">FY27 · JUL 2026 – JUN 2027 · BUDGET</div><div class="ct">This year — our giving split into tithes &amp; the Vision Fund</div><div class="canvas-h tall"><canvas id="l3_f27"></canvas></div></div>
+    </div>
+    <p class="note">Our own giving — tithes plus the Vision Fund — reaches <strong>$159,695</strong> in FY27, against <strong>$188,700</strong> of external support that is set to taper each year.</p>
+
+    <div class="pgroup">Steady vs. lumpy — and the month we cross over</div>
+    <div class="chart-box chart-full"><div class="pchip">FY26 · JUL 2025 – MAR 2026 · ACTUALS TO DATE</div><div class="ct">Year one — steady internal giving vs. lumpy outside gifts</div><div class="canvas-h tall"><canvas id="l3_steady"></canvas></div></div>
+    <div class="chart-box chart-full"><div class="pchip">FY27 · JUL 2026 – JUN 2027 · BUDGET</div><div class="ct">The crossover — the month our giving passes external support</div><div class="canvas-h tall"><canvas id="l3_cross"></canvas></div></div>
+    <p class="note"><strong>In February 2027 — for the first time ever — our own giving passes outside support.</strong></p>
+    <div class="chart-box chart-full"><div class="pchip">FY25–FY26 ACTUAL · FY27–FY29 PLAN</div><div class="ct">The road to standing on our own — external support as a share of income</div><div class="canvas-h tall"><canvas id="l3_road"></canvas></div></div>
+
+    <div class="pgroup">Where FY27's money goes — two lenses</div>
+    <div class="charts2">
+     <div class="chart-box"><div class="pchip">FY27 · SHARE OF EVERY EXPENSE DOLLAR · BUDGET</div><div class="ct">Of the $325,178 spent</div><div class="canvas-h tall"><canvas id="l3_expD"></canvas></div></div>
+     <div class="chart-box"><div class="pchip">FY27 · OUT OF EVERY INCOME DOLLAR · BUDGET</div><div class="ct">Of every dollar that comes in</div><div class="canvas-h tall"><canvas id="l3_expBar"></canvas></div></div>
+    </div>
     <div class="pchip" style="margin-top:22px">FY27 · BOTH LENSES · BUDGET</div>
     <table>
      <thead><tr><th>Spending group</th><th class="num">FY27 $</th><th class="num">% of expenses</th><th class="num">% of income</th></tr></thead>
@@ -593,14 +599,100 @@ details .body{padding:0 20px 8px}
       <tr class="tot"><td>Total expenses</td><td class="num">$325,178</td><td class="num">100%</td><td class="num">93.3%</td></tr>
      </tbody>
     </table>
-    <p class="note">Personnel eases from 53% of the pot in year one to 40% in FY27 as the church invests more broadly — while still planning to keep about seven cents of every dollar.</p>
-   </div><!-- /set2 -->
+    <p class="note">Two denominators, one plan: the doughnut divides spending by the total pot; the bars divide it by every dollar of income. <strong>93 cents of every income dollar is deployed; about 7 cents is kept</strong> as reserve.</p>
+   </div><!-- /level-3 -->
+
+   <!-- ============ LEVEL 4 — THE OPEN BOOK ============ -->
+   <div id="level-4" hidden>
+    <div class="pbanner">
+     <div class="pk">Level 4 · Deepest — full transparency</div>
+     <h3>The Open Book</h3>
+     <div class="pd">The whole story: history, monthly rhythm, milestones, reserves, and policy. Everything in Level 3, plus the deeper record — for a church ready for full transparency, or for the Heart &amp; Soul room. Best handed out printed, not projected.</div>
+    </div>
+
+    <div class="pgroup">Year one, in full</div>
+    <div class="mini four">
+     <div class="m"><div class="mn">+64%</div><div class="ml">Tithes grew — $30,693 (FY25) to $50,395 (FY26 to date)</div></div>
+     <div class="m"><div class="mn">~50</div><div class="ml">Giving households by early 2026</div></div>
+     <div class="m"><div class="mn">$6,450</div><div class="ml">Steady monthly tithes base, Oct 2025 – Mar 2026</div></div>
+     <div class="m"><div class="mn pos">+$13,693</div><div class="ml">Year-one operating surplus to date</div></div>
+    </div>
+
+    <div class="pgroup">How we are funded — both years, in real dollars</div>
+    <div class="charts2">
+     <div class="chart-box"><div class="pchip">FY26 · BOOK TOTALS THRU MAR 2026 · ACTUAL</div><div class="ct">Year one funding</div><div class="canvas-h tall"><canvas id="l4_f26"></canvas></div></div>
+     <div class="chart-box"><div class="pchip">FY27 · JUL 2026 – JUN 2027 · BUDGET</div><div class="ct">This year — tithes &amp; the Vision Fund split out</div><div class="canvas-h tall"><canvas id="l4_f27"></canvas></div></div>
+    </div>
+
+    <div class="pgroup">The monthly rhythm</div>
+    <div class="chart-box chart-full"><div class="pchip">FY27 · JUL 2026 – JUN 2027 · BUDGET</div><div class="ct">The crossover — our giving passes external support in February</div><div class="canvas-h tall"><canvas id="l4_cross"></canvas></div></div>
+    <div class="chart-box chart-full"><div class="pchip">FY27 · JUL 2026 – JUN 2027 · BUDGET</div><div class="ct">Monthly net — we plan the fall dip on purpose</div><div class="canvas-h tall"><canvas id="l4_noi"></canvas></div></div>
+    <p class="note">September runs a planned deficit as the fall ministry season lands all at once — and the year still ends <strong>+$23,217</strong>.</p>
+
+    <div class="pgroup">The road to standing on our own</div>
+    <div class="chart-box chart-full"><div class="pchip">FY25–FY26 ACTUAL · FY27–FY29 PLAN</div><div class="ct">External support as a share of income — falling every year</div><div class="canvas-h tall"><canvas id="l4_road"></canvas></div></div>
+
+    <div class="pgroup">Where the money goes — both years, both lenses</div>
+    <div class="charts2">
+     <div class="chart-box"><div class="pchip">FY27 · SHARE OF EVERY EXPENSE DOLLAR · BUDGET</div><div class="ct">FY27 — of the $325,178 spent</div><div class="canvas-h tall"><canvas id="l4_expD27"></canvas></div></div>
+     <div class="chart-box"><div class="pchip">FY27 · OUT OF EVERY INCOME DOLLAR · BUDGET</div><div class="ct">FY27 — of every dollar in</div><div class="canvas-h tall"><canvas id="l4_expBar27"></canvas></div></div>
+    </div>
+    <div class="charts2">
+     <div class="chart-box"><div class="pchip">FY26 · SHARE OF EVERY EXPENSE DOLLAR · ACTUAL</div><div class="ct">FY26 — of the $212,745 spent</div><div class="canvas-h tall"><canvas id="l4_expD26"></canvas></div></div>
+     <div class="chart-box"><div class="pchip">FY26 · OUT OF EVERY INCOME DOLLAR · ACTUAL</div><div class="ct">FY26 — of every dollar in</div><div class="canvas-h tall"><canvas id="l4_expBar26"></canvas></div></div>
+    </div>
+    <div class="pchip" style="margin-top:22px">BOTH YEARS · BOTH LENSES</div>
+    <table>
+     <thead><tr><th>Spending group</th><th class="num">FY26 $</th><th class="num">FY26 % inc</th><th class="num">FY27 $</th><th class="num">FY27 % inc</th></tr></thead>
+     <tbody>
+      <tr><td><span class="dot" style="background:var(--rust)"></span>Personnel</td><td class="num">$112,825</td><td class="num">49.8%</td><td class="num">$129,907</td><td class="num">37.3%</td></tr>
+      <tr><td><span class="dot" style="background:var(--tan)"></span>Building &amp; Admin</td><td class="num">$26,709</td><td class="num">11.8%</td><td class="num">$73,756</td><td class="num">21.2%</td></tr>
+      <tr><td><span class="dot" style="background:#9C6B3F"></span>Ministry &amp; Programs</td><td class="num">$46,468</td><td class="num">20.5%</td><td class="num">$66,073</td><td class="num">19.0%</td></tr>
+      <tr><td><span class="dot" style="background:var(--olive)"></span>Outreach &amp; Events</td><td class="num">$22,501</td><td class="num">9.9%</td><td class="num">$51,200</td><td class="num">14.7%</td></tr>
+      <tr><td><span class="dot" style="background:var(--gold)"></span>Missions &amp; Benevolence</td><td class="num">$4,241</td><td class="num">1.9%</td><td class="num">$4,242</td><td class="num">1.2%</td></tr>
+      <tr class="tot"><td>Total expenses</td><td class="num">$212,745</td><td class="num">93.9%</td><td class="num">$325,178</td><td class="num">93.3%</td></tr>
+     </tbody>
+    </table>
+
+    <div class="pgroup">Reserves &amp; policy</div>
+    <div class="grid2">
+     <div class="reserve-card" style="margin-top:0">
+      <div><div class="rtag">Projected · per leadership planning</div><div class="rn">~$123k</div></div>
+      <div class="rl">Cash reserves projected by fiscal year-end — a cushion of roughly four months of operating expense. This is a leadership planning figure, not a booked balance.</div>
+     </div>
+     <div class="reserve-card" style="margin-top:0">
+      <div><div class="rtag">Being formalized</div><div class="rn">2–5%</div></div>
+      <div class="rl">Benevolence — helping people in genuine need — is being formalized as policy at 2 to 5 percent of the budget, so caring for our neighbors is planned, not incidental.</div>
+     </div>
+    </div>
+   </div><!-- /level-4 -->
 
    <!-- CLOSING RECOMMENDATION -->
-   <div class="callout" style="margin-top:36px">
-    <div class="lab">For September 14</div>
-    <h3>Match the view to the room — and always land on the vision.</h3>
-    <p>Bring the <strong>full-dollar views</strong> — income by source, the two-lens spending tables — to <strong>Heart &amp; Soul Night</strong>, where staff and ministry partners have earned the whole picture. Keep the <strong>percentage views</strong> — the funding pies, "out of every dollar," and the road to self-sustaining — for <strong>Sunday morning</strong>, celebratory and clean. Whichever room you're in, close the same way — casting the move from <span class="big-n" style="font-size:1.15rem">$45 to $90 per person, per month</span>, the one step that carries the church to standing fully on its own.</p>
+   <div class="concept rec" style="margin-top:40px">
+    <div class="rec-ribbon">Recommendation · for Blake &amp; Ricky</div>
+    <div class="concept-head">
+     <div class="opt-letter">★</div>
+     <div><h3>How much to show — and where</h3><div class="opt-desc">A guide to matching the level to the room. This panel is leadership-facing framing; it is not part of what the congregation sees.</div></div>
+    </div>
+    <table style="margin-top:20px">
+     <thead><tr><th>Level</th><th>What's shown</th><th>What's held back</th><th>Best fit</th></tr></thead>
+     <tbody>
+      <tr><td><strong>1 · Sunday Slide</strong></td><td>One funding pie + the $45 → $90 ask — percentages only</td><td>Every church dollar total</td><td>Sunday morning, quickest read</td></tr>
+      <tr><td><strong>2 · Magazine Page</strong></td><td>The full percentage arc + where every dollar goes</td><td>Every church dollar total</td><td>Sunday morning — Westridge precedent</td></tr>
+      <tr><td><strong>3 · Annual Report</strong></td><td>Real dollars by category, both years, both lenses</td><td>Line-item detail, monthly net, reserves</td><td>Heart &amp; Soul Night</td></tr>
+      <tr><td><strong>4 · Open Book</strong></td><td>Everything — history, monthly rhythm, milestones, reserves, policy</td><td>Nothing</td><td>Heart &amp; Soul (printed) / on request</td></tr>
+     </tbody>
+    </table>
+    <div class="callout" style="margin-top:22px">
+     <div class="lab">The guidance</div>
+     <h3>A sane first-ever reveal.</h3>
+     <ol>
+      <li><strong>Sunday morning, Sep 14 → Level 1 or 2.</strong> Percentages tell the self-sustaining story without a single church dollar figure on screen. Westridge's own precedent is Level 2.</li>
+      <li><strong>Heart &amp; Soul Night → Level 3 or 4.</strong> This room — staff and ministry partners — funds the budget and has earned the dollars.</li>
+      <li><strong>The recommended pairing:</strong> Level 2 on Sunday, Level 3 at Heart &amp; Soul, with Level 4 available on request — printed, not projected.</li>
+      <li><strong>Whatever the level, always land on the same ask:</strong> <span class="big-n" style="font-size:1.15rem">$45 → $90 per person, per month</span> — the one step that carries the church to standing fully on its own.</li>
+     </ol>
+    </div>
    </div>
   </div>
  </section>
@@ -632,25 +724,24 @@ const selB=[0,2,4,6,8,10,11]; // every-other bar labels
 
 // ---------- 02 FUNDING ----------
 new Chart($('incomeDonut'),{type:'doughnut',
- data:{labels:['Tithes & Offerings','External Support','Partnership Support','Vision Fund'],
-  datasets:[{data:[119985,125378,63322,39710],backgroundColor:[KC.rust,KC.tan,KC.brown,KC.olive],borderColor:KC.cream,borderWidth:3}]},
+ data:{labels:['Tithes & Offerings','External Support','Vision Fund'],
+  datasets:[{data:[119985,188700,39710],backgroundColor:[KC.rust,KC.tan,KC.olive],borderColor:KC.cream,borderWidth:3}]},
  options:{responsive:true,maintainAspectRatio:false,cutout:'56%',
   plugins:{legend:{position:'bottom',labels:{padding:14,usePointStyle:true,pointStyle:'circle',font:{size:11}}},
    tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return ' '+c.label+': '+usd(c.parsed)+' ('+Math.round(c.parsed/t*100)+'%)'}}},datalabels:dlDonutBoth}}});
 
-// independence: internal vs external+partnership vs vision, % stacked
-const indInternalP=[34.4,54.0,68.7],indExtP=[54.2,34.0,21.3],indVisP=[11.4,12.0,10.0];
-const indInternal$=[119985,225023,342977],indExt$=[188700,141525,106144],indVis$=[39710,50160,50160];
-const dlSeg=(pArr,$arr)=>({display:c=>pArr[c.dataIndex]>=6,color:'#fff',font:{weight:700,size:11},formatter:v=>Math.round(v)+'%'});
+// independence: internal (tithes + Vision Fund) vs external, % stacked
+const indInternalP=[46,66,79],indExtP=[54,34,21];
+const indInternal$=[159695,275183,393137],indExt$=[188700,141525,106144];
+const dlSeg=(pArr)=>({display:c=>pArr[c.dataIndex]>=6,color:'#fff',font:{weight:700,size:12},formatter:v=>Math.round(v)+'%'});
 new Chart($('independenceBar'),{type:'bar',
  data:{labels:['FY27','FY28','FY29'],datasets:[
-  {label:'Internal giving',data:indInternalP,ext:indInternal$,backgroundColor:KC.rust,stack:'s',borderRadius:{topLeft:0},datalabels:dlSeg(indInternalP)},
-  {label:'External + Partnership',data:indExtP,ext:indExt$,backgroundColor:KC.tan,stack:'s',datalabels:dlSeg(indExtP)},
-  {label:'Vision Fund',data:indVisP,ext:indVis$,backgroundColor:KC.olive,stack:'s',datalabels:dlSeg(indVisP)}
+  {label:'Internal giving (tithes + Vision Fund)',data:indInternalP,ext:indInternal$,backgroundColor:KC.rust,stack:'s',datalabels:dlSeg(indInternalP)},
+  {label:'External Support',data:indExtP,ext:indExt$,backgroundColor:KC.tan,stack:'s',datalabels:dlSeg(indExtP)}
  ]},
  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
   plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:12,font:{size:10.5}}},
-   tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+usd(c.dataset.ext[c.dataIndex])+' ('+c.parsed.x.toFixed(1)+'%)'}}},
+   tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+usd(c.dataset.ext[c.dataIndex])+' ('+c.parsed.x.toFixed(0)+'%)'}}},
   scales:{x:{stacked:true,max:100,grid:{color:gridC},ticks:{callback:v=>v+'%'}},y:{stacked:true,grid:{display:false}}}}});
 
 new Chart($('dependencyLine'),{type:'line',
@@ -660,18 +751,19 @@ new Chart($('dependencyLine'),{type:'line',
    tooltip:{callbacks:{label:c=>' '+c.parsed.y+'% of income from external sources'}}},
   scales:{x:{grid:{display:false}},y:{grid:{color:gridC},grace:'22%',ticks:{callback:v=>v+'%'}}}}});
 
-// monthly income stacked (4 streams)
+// monthly income stacked (3 streams — external + partnership combined)
 const tithesM=[6300,6922,7560,8212,8880,9562,10260,10972,11700,12442,13200,13972];
 const extM=[11880,11599,11324,11056,10794,10538,10288,10045,9807,9574,9348,9126];
 const partM=[6000,5858,5719,5584,5451,5322,5196,5073,4953,4836,4721,4609];
+const extCombM=extM.map((v,i)=>v+partM[i]);
 const visM=[697,1393,2090,2787,3483,4180,4180,4180,4180,4180,4180,4180];
+const internalM=tithesM.map((v,i)=>v+visM[i]);
 const incTotM=[24877,25772,26693,27638,28608,29603,29925,30270,30640,31032,31449,31888];
 new Chart($('incomeMonthly'),{type:'bar',
  data:{labels:months,datasets:[
   {label:'Tithes & Offerings',data:tithesM,backgroundColor:KC.rust,stack:'s',borderRadius:2},
-  {label:'External Support',data:extM,backgroundColor:KC.tan,stack:'s',borderRadius:2},
-  {label:'Partnership Support',data:partM,backgroundColor:KC.brown,stack:'s',borderRadius:2},
-  {label:'Vision Fund',data:visM,backgroundColor:KC.olive,stack:'s',borderRadius:2,
+  {label:'Vision Fund',data:visM,backgroundColor:KC.olive,stack:'s',borderRadius:2},
+  {label:'External Support',data:extCombM,backgroundColor:KC.tan,stack:'s',borderRadius:2,
    datalabels:{display:c=>selB.includes(c.dataIndex),anchor:'end',align:'top',offset:2,color:KC.esp,font:{weight:600,size:9.5},formatter:(v,c)=>usdk(incTotM[c.dataIndex])}}
  ]},
  options:{responsive:true,maintainAspectRatio:false,
@@ -689,7 +781,7 @@ const partners=[
 ];
 $('partnerTable').innerHTML=partners.map(p=>{
  const sun=p[3]!=='Ongoing';
- return `<tr><td>${p[0]}</td><td><span class="dot" style="background:${p[1]==='Partnership'?'#4A3428':'var(--tan)'}"></span>${p[1]}</td><td class="num">${p[2]}</td><td><span class="badge ${sun?'b-below':'b-in'}">${p[3]}</span></td></tr>`;
+ return `<tr><td>${p[0]}</td><td><span class="dot" style="background:var(--tan)"></span>${p[1]}</td><td class="num">${p[2]}</td><td><span class="badge ${sun?'b-below':'b-in'}">${p[3]}</span></td></tr>`;
 }).join('');
 
 // ---------- 03 GIVING ENGINE ----------
@@ -906,12 +998,12 @@ new Chart($('bridgeChart'),{type:'bar',
    tooltip:{callbacks:{title:it=>it[0].label.replace('\n',' '),label:c=>' '+wfLab[c.dataIndex]}}},
   scales:{x:{grid:{display:false},ticks:{callback:function(v){return this.getLabelForValue(v).split('\n')}}},y:{grid:{color:gridC},grace:'16%',ticks:{callback:usdk0}}}}});
 
-// crossover — internal tithes vs outside support (External + Partnership), monthly FY27
+// crossover — internal giving (tithes + Vision Fund) vs External Support, monthly FY27; cross in Feb (idx 7)
 const outsideM=[17880,17457,17043,16640,16245,15860,15484,15118,14760,14410,14069,13735];
 new Chart($('crossoverLine'),{type:'line',
  data:{labels:months,datasets:[
-  {label:'Internal tithes',data:tithesM,borderColor:KC.rust,backgroundColor:'transparent',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,11].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.rust,datalabels:{display:c=>[0,11].includes(c.dataIndex),align:'top',offset:8,color:KC.esp,font:{weight:700,size:11},formatter:usdk}},
-  {label:'Outside support (External + Partnership)',data:outsideM,borderColor:KC.tan,backgroundColor:'transparent',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,11].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.tan,datalabels:{display:c=>[0,11].includes(c.dataIndex),align:'bottom',offset:8,color:KC.esp,font:{weight:700,size:11},formatter:usdk}}
+  {label:'Internal giving (tithes + Vision Fund)',data:internalM,borderColor:KC.rust,backgroundColor:'transparent',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,7,11].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.rust,datalabels:{display:c=>[0,7,11].includes(c.dataIndex),align:'top',offset:8,color:KC.esp,font:{weight:700,size:11},formatter:usdk}},
+  {label:'External Support',data:outsideM,borderColor:KC.tan,backgroundColor:'transparent',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,7,11].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.tan,datalabels:{display:c=>[0,11].includes(c.dataIndex),align:'bottom',offset:8,color:KC.esp,font:{weight:700,size:11},formatter:usdk}}
  ]},
  options:{responsive:true,maintainAspectRatio:false,layout:{padding:{right:38}},
   plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:14,font:{size:11}}},
@@ -943,18 +1035,40 @@ new Chart($('personnelMix'),{type:'doughnut',
   plugins:{legend:{position:'bottom',labels:{padding:12,usePointStyle:true,pointStyle:'circle',font:{size:10.5}}},
    tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return ' '+usd(c.parsed)+' ('+Math.round(c.parsed/t*100)+'%)'}}},datalabels:dlDonutBoth}}});
 
-// ===================== CONGREGATION VIEW =====================
+// ===================== CONGREGATION VIEW — FOUR TRANSPARENCY LEVELS =====================
 // datalabel helpers for presentation-scale (big, back-of-room) labels
 const dlPctBig=(min=0.035)=>({display:c=>{const d=c.dataset.data,t=d.reduce((a,b)=>a+b,0);return d[c.dataIndex]/t>=min},color:'#fff',textAlign:'center',font:{weight:800,size:15},formatter:(v,c)=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return Math.round(v/t*100)+'%'}});
 const dlPctK=(min=0.035)=>({display:c=>{const d=c.dataset.data,t=d.reduce((a,b)=>a+b,0);return d[c.dataIndex]/t>=min},color:'#fff',textAlign:'center',font:{weight:700,size:11.5},formatter:(v,c)=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return [Math.round(v/t*100)+'%',usdk0(v)]}});
-const dlBarTopNZ=(fmt)=>({display:c=>c.dataset.data[c.dataIndex]>0,anchor:'end',align:'top',offset:2,color:KC.esp,font:{weight:600,size:9.5},formatter:fmt});
 
-// consistent expense-group order + entity colors across BOTH sets
+// consistent expense-group order + entity colors
 const EXP_ORDER=['Personnel','Building & Admin','Ministry & Programs','Outreach & Events','Missions & Benevolence'];
 const EXP_COL=[KC.rust,KC.tan,KC.clay,KC.olive,KC.gold];
 const months9=['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
 
-// horizontal "% of every income dollar" builder (shared by h6 + f7)
+// reclassified congregation series — internal = tithes + Vision Fund; external = combined support
+const cInt26=[2693,2910,6098,6476,6216,6426,7211,6188,6178];        // FY26 had no Vision Fund → internal = tithes
+const cOut26=[25065,6988,13868,12832,12012,32980,29602,15486,21957];
+const cInt27=[6997,8315,9650,10999,12363,13742,14440,15152,15880,16622,17380,18152]; // tithes + vision
+const cOut27=[17880,17457,17043,16640,16245,15860,15484,15118,14760,14410,14069,13735];
+
+// ---- shared congregation builders ----
+function fundingDonut(cid,data,labels,cols,dl){
+ new Chart($(cid),{type:'doughnut',
+  data:{labels,datasets:[{data,backgroundColor:cols,borderColor:KC.cream,borderWidth:3}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'54%',
+   plugins:{legend:{position:'bottom',labels:{padding:10,usePointStyle:true,pointStyle:'circle',font:{size:10.5}}},
+    tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return ' '+c.label+': '+usd(c.parsed)+' ('+Math.round(c.parsed/t*100)+'%)'}}},datalabels:dl}}});
+}
+function twoSliceDonut(cid,intVal,extVal,withDollars){
+ fundingDonut(cid,[intVal,extVal],['Our church family','Partner churches & supporters'],[KC.rust,KC.tan],withDollars?dlPctK():dlPctBig());
+}
+function expDoughnutPct(cid,data,withDollars){
+ new Chart($(cid),{type:'doughnut',
+  data:{labels:EXP_ORDER,datasets:[{data,backgroundColor:EXP_COL,borderColor:KC.cream,borderWidth:3}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'52%',
+   plugins:{legend:{position:'bottom',labels:{padding:9,usePointStyle:true,pointStyle:'circle',font:{size:10}}},
+    tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return ' '+c.label+': '+usd(c.parsed)+' ('+Math.round(c.parsed/t*100)+'%)'}}},datalabels:withDollars?dlPctK():dlPctBig()}}});
+}
 function pctRevBar(cid,pcts,kept){
  const labels=[...EXP_ORDER,'Kept as reserve'];
  const cols=[...EXP_COL,KC.pos];
@@ -967,124 +1081,107 @@ function pctRevBar(cid,pcts,kept){
     tooltip:{callbacks:{label:c=>' '+c.parsed.x+'% — about '+Math.round(c.parsed.x)+' cents of every income dollar'}}},
   scales:{x:{grid:{color:gridC},grace:'16%',ticks:{callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:10.5},crossAlign:'far'}}}}});
 }
-
-// --- SET 1 — HISTORICAL FY26 (actuals) ---
-let histBuilt=false;
-function buildHist(){
- if(histBuilt)return; histBuilt=true;
-
- // h1 — how year one was funded
- new Chart($('h1'),{type:'doughnut',
-  data:{labels:['Tithes & Offerings (internal)','External Support','Partnership Support'],
-   datasets:[{data:[50395,111265,64778],backgroundColor:[KC.rust,KC.tan,KC.brown],borderColor:KC.cream,borderWidth:3}]},
-  options:{responsive:true,maintainAspectRatio:false,cutout:'52%',
-   plugins:{legend:{position:'bottom',labels:{padding:10,usePointStyle:true,pointStyle:'circle',font:{size:10.5}}},
-    tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return ' '+c.label+': '+usd(c.parsed)+' ('+Math.round(c.parsed/t*100)+'%)'}}},datalabels:dlPctK()}}});
-
- // h3 — internal share of income FY25 vs FY26 (100% stacked)
- new Chart($('h3'),{type:'bar',
-  data:{labels:['FY25','FY26'],datasets:[
-   {label:'Our giving',data:[17,22],backgroundColor:KC.rust,stack:'s',datalabels:{display:true,color:'#fff',textAlign:'center',font:{weight:800,size:14},formatter:v=>v+'%'}},
-   {label:'Outside support',data:[83,78],backgroundColor:KC.tan,stack:'s',datalabels:{display:true,color:'#fff',textAlign:'center',font:{weight:800,size:14},formatter:v=>v+'%'}}
+function stairChart(cid){
+ new Chart($(cid),{type:'bar',
+  data:{labels:['FY25','FY26','FY27','FY28','FY29'],datasets:[
+   {label:'Our giving',data:[17,22,46,66,79],backgroundColor:KC.rust,stack:'s',datalabels:{display:true,color:'#fff',textAlign:'center',font:{weight:800,size:13},formatter:v=>v+'%'}},
+   {label:'External support',data:[83,78,54,34,21],backgroundColor:KC.tan,stack:'s',datalabels:{display:true,color:'#fff',textAlign:'center',font:{weight:800,size:13},formatter:v=>v+'%'}}
   ]},
   options:{responsive:true,maintainAspectRatio:false,
    plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:12,font:{size:10.5}}},
-    tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+c.parsed.y+'%'}}},
+    tooltip:{callbacks:{title:it=>it[0].label+(it[0].dataIndex<2?' · actual':' · plan'),label:c=>' '+c.dataset.label+': '+c.parsed.y+'%'}}},
    scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,max:100,grid:{color:gridC},ticks:{callback:v=>v+'%'}}}}});
-
- // h2 — steady vs lumpy, Jul25-Mar26 (9 points, 2 series)
- const hInt=[2693,2910,6098,6476,6216,6426,7211,6188,6178];
- const hOut=[25065,6988,13868,12832,12012,32980,29602,15486,21957];
- new Chart($('h2'),{type:'line',
+}
+function visionBars(cid){
+ new Chart($(cid),{type:'bar',
+  data:{labels:['Today','Jul 2027','Jun 2029'],datasets:[{data:[45,90,160],backgroundColor:[KC.tan,KC.rust,KC.gold],borderRadius:6,barPercentage:.56,
+   datalabels:{display:true,anchor:'end',align:'top',offset:2,color:KC.esp,font:{weight:800,size:15},formatter:v=>'$'+v}}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+    tooltip:{callbacks:{label:c=>' $'+c.parsed.y+' per person / month'}}},
+   scales:{x:{grid:{display:false}},y:{grid:{color:gridC},grace:'20%',ticks:{callback:v=>'$'+v}}}}});
+}
+function steadyChart(cid){
+ new Chart($(cid),{type:'line',
   data:{labels:months9,datasets:[
-   {label:'Internal tithes',data:hInt,borderColor:KC.rust,backgroundColor:'rgba(176,84,46,.08)',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,8].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.rust,
+   {label:'Our giving',data:cInt26,borderColor:KC.rust,backgroundColor:'rgba(176,84,46,.08)',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,8].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.rust,
     datalabels:{display:c=>[0,8].includes(c.dataIndex),align:'bottom',offset:8,color:KC.esp,font:{weight:700,size:10.5},formatter:usdk}},
-   {label:'Outside support',data:hOut,borderColor:KC.tan,backgroundColor:'rgba(201,138,84,.10)',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,5,6,8].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.tan,
+   {label:'External support',data:cOut26,borderColor:KC.tan,backgroundColor:'rgba(201,138,84,.10)',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,5,6,8].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.tan,
     datalabels:{display:c=>[0,5,6,8].includes(c.dataIndex),align:'top',offset:8,color:KC.esp,font:{weight:700,size:10.5},formatter:usdk}}
   ]},
   options:{responsive:true,maintainAspectRatio:false,layout:{padding:{right:20}},
    plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:14,font:{size:11}}},
     tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+usd(c.parsed.y)}}},
    scales:{x:{grid:{display:false}},y:{grid:{color:gridC},grace:'16%',ticks:{callback:usdk0}}}}});
-
- // h5 — where the pot went (% of expenses)
- new Chart($('h5'),{type:'doughnut',
-  data:{labels:EXP_ORDER,datasets:[{data:[112825,26709,46468,22501,4241],backgroundColor:EXP_COL,borderColor:KC.cream,borderWidth:3}]},
-  options:{responsive:true,maintainAspectRatio:false,cutout:'52%',
-   plugins:{legend:{position:'bottom',labels:{padding:9,usePointStyle:true,pointStyle:'circle',font:{size:10}}},
-    tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return ' '+c.label+': '+usd(c.parsed)+' ('+Math.round(c.parsed/t*100)+'%)'}}},datalabels:dlPctK()}}});
-
- // h6 — out of every income dollar (% of revenue) + kept
- pctRevBar('h6',[49.8,11.8,20.5,9.9,1.9],6.0);
 }
-
-// --- SET 2 — FY27 (budget) ---
-let fy27Built=false;
-function buildFy27(){
- if(fy27Built)return; fy27Built=true;
-
- // f1 — how FY27 is funded
- new Chart($('f1'),{type:'doughnut',
-  data:{labels:['Tithes & Offerings (internal)','External Support','Partnership Support','Vision Fund (designated)'],
-   datasets:[{data:[119985,125378,63322,39710],backgroundColor:[KC.rust,KC.tan,KC.brown,KC.olive],borderColor:KC.cream,borderWidth:3}]},
-  options:{responsive:true,maintainAspectRatio:false,cutout:'52%',
-   plugins:{legend:{position:'bottom',labels:{padding:9,usePointStyle:true,pointStyle:'circle',font:{size:10}}},
-    tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return ' '+c.label+': '+usd(c.parsed)+' ('+Math.round(c.parsed/t*100)+'%)'}}},datalabels:dlPctK()}}});
-
- // f3 — our share of income FY26 -> FY27 (100% stacked)
- new Chart($('f3'),{type:'bar',
-  data:{labels:['FY26','FY27'],datasets:[
-   {label:'Our giving',data:[22,34],backgroundColor:KC.rust,stack:'s',datalabels:{display:true,color:'#fff',textAlign:'center',font:{weight:800,size:14},formatter:v=>v+'%'}},
-   {label:'Outside support (incl. Vision Fund)',data:[78,66],backgroundColor:KC.tan,stack:'s',datalabels:{display:true,color:'#fff',textAlign:'center',font:{weight:800,size:14},formatter:v=>v+'%'}}
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,
-   plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:12,font:{size:10}}},
-    tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+c.parsed.y+'%'}}},
-   scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,max:100,grid:{color:gridC},ticks:{callback:v=>v+'%'}}}}});
-
- // f2 — the crossover (reuse leadership monthly series)
- new Chart($('f2'),{type:'line',
+function crossoverChart(cid){
+ new Chart($(cid),{type:'line',
   data:{labels:months,datasets:[
-   {label:'Internal tithes',data:tithesM,borderColor:KC.rust,backgroundColor:'transparent',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,11].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.rust,datalabels:{display:c=>[0,11].includes(c.dataIndex),align:'top',offset:8,color:KC.esp,font:{weight:700,size:11},formatter:usdk}},
-   {label:'Outside support (External + Partnership)',data:outsideM,borderColor:KC.tan,backgroundColor:'transparent',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,11].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.tan,datalabels:{display:c=>[0,11].includes(c.dataIndex),align:'bottom',offset:8,color:KC.esp,font:{weight:700,size:11},formatter:usdk}}
+   {label:'Our giving (tithes + Vision Fund)',data:cInt27,borderColor:KC.rust,backgroundColor:'transparent',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,7,11].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.rust,datalabels:{display:c=>[0,7,11].includes(c.dataIndex),align:'top',offset:8,color:KC.esp,font:{weight:700,size:11},formatter:usdk}},
+   {label:'External Support',data:cOut27,borderColor:KC.tan,backgroundColor:'transparent',fill:false,tension:.3,borderWidth:3,pointRadius:c=>[0,7,11].includes(c.dataIndex)?5:2.5,pointBackgroundColor:KC.tan,datalabels:{display:c=>[0,11].includes(c.dataIndex),align:'bottom',offset:8,color:KC.esp,font:{weight:700,size:11},formatter:usdk}}
   ]},
   options:{responsive:true,maintainAspectRatio:false,layout:{padding:{right:38}},
    plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:14,font:{size:11}}},
     tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+usd(c.parsed.y)}}},
-   scales:{x:{grid:{display:false}},y:{grid:{color:gridC},grace:'14%',ticks:{callback:usdk0}}}}});
-
- // f4 — road to self-sustaining (FY25-FY29 dependency)
- new Chart($('f4'),{type:'line',
+   scales:{x:{grid:{display:false}},y:{grid:{color:gridC},grace:'16%',ticks:{callback:usdk0}}}}});
+}
+function roadChart(cid){
+ new Chart($(cid),{type:'line',
   data:{labels:['FY25','FY26','FY27','FY28','FY29'],datasets:[{data:[83,78,54,34,21],borderColor:KC.tan,backgroundColor:'rgba(201,138,84,.14)',fill:true,tension:.3,borderWidth:3,pointRadius:5,pointBackgroundColor:KC.tan,
    datalabels:{display:true,align:'top',offset:8,color:KC.esp,font:{weight:800,size:13},formatter:v=>v+'%'}}]},
   options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
     tooltip:{callbacks:{title:it=>it[0].label+(it[0].dataIndex<2?' · actual':' · plan'),label:c=>' '+c.parsed.y+'% of income from outside the church'}}},
    scales:{x:{grid:{display:false}},y:{grid:{color:gridC},grace:'18%',ticks:{callback:v=>v+'%'}}}}});
-
- // f5 — the per-person vision
- new Chart($('f5'),{type:'bar',
-  data:{labels:['Today','Jul 2027','Jun 2029'],datasets:[{data:[45,90,160],backgroundColor:[KC.tan,KC.rust,KC.gold],borderRadius:6,barPercentage:.56,
-   datalabels:{display:true,anchor:'end',align:'top',offset:2,color:KC.esp,font:{weight:800,size:15},formatter:v=>'$'+v}}]},
+}
+function noiStrip(cid){
+ const noiM=[1307,3747,-10643,-651,6484,-325,2081,5962,1843,1986,4290,7136];
+ new Chart($(cid),{type:'bar',
+  data:{labels:months,datasets:[{data:noiM,backgroundColor:noiM.map(v=>v>=0?KC.pos:KC.rust),borderRadius:3,barPercentage:.66,
+   datalabels:{display:c=>selB.includes(c.dataIndex),anchor:c=>c.dataset.data[c.dataIndex]>=0?'end':'start',align:c=>c.dataset.data[c.dataIndex]>=0?'top':'bottom',offset:2,color:c=>c.dataset.data[c.dataIndex]>=0?KC.pos:KC.neg,font:{weight:600,size:9.5},formatter:v=>(v>=0?'+':'-')+'$'+Math.abs(v/1000).toFixed(1)+'k'}}]},
   options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
-    tooltip:{callbacks:{label:c=>' $'+c.parsed.y+' per person / month'}}},
-   scales:{x:{grid:{display:false}},y:{grid:{color:gridC},grace:'20%',ticks:{callback:v=>'$'+v}}}}});
-
- // f6 — where the FY27 pot goes (% of expenses)
- new Chart($('f6'),{type:'doughnut',
-  data:{labels:EXP_ORDER,datasets:[{data:[129907,73756,66073,51200,4242],backgroundColor:EXP_COL,borderColor:KC.cream,borderWidth:3}]},
-  options:{responsive:true,maintainAspectRatio:false,cutout:'52%',
-   plugins:{legend:{position:'bottom',labels:{padding:9,usePointStyle:true,pointStyle:'circle',font:{size:10}}},
-    tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return ' '+c.label+': '+usd(c.parsed)+' ('+Math.round(c.parsed/t*100)+'%)'}}},datalabels:dlPctK()}}});
-
- // f7 — out of every income dollar (% of revenue) + kept
- pctRevBar('f7',[37.3,21.2,19.0,14.7,1.2],6.7);
+    tooltip:{callbacks:{label:c=>' '+(c.parsed.y>=0?'+':'-')+usd(Math.abs(c.parsed.y))+' net'}}},
+  scales:{x:{grid:{display:false}},y:{grid:{color:gridC},grace:'22%',ticks:{callback:usdk0}}}}});
 }
 
-function buildCongregation(){ buildHist(); }
-function showCongSet(name){
- const H=$('congset-hist'),F=$('congset-fy27'),bh=$('cong-pill-hist'),bf=$('cong-pill-fy27');
- if(name==='fy27'){H.hidden=true;F.hidden=false;bh.classList.remove('active');bf.classList.add('active');buildFy27();requestAnimationFrame(()=>resizeAll(F));}
- else{F.hidden=true;H.hidden=false;bf.classList.remove('active');bh.classList.add('active');requestAnimationFrame(()=>resizeAll(H));}
+// ---- LEVEL BUILDERS (lazy, once) ----
+let l1Built=false;function buildL1(){if(l1Built)return;l1Built=true;
+ twoSliceDonut('l1_donut',159695,188700,false);
+}
+let l2Built=false;function buildL2(){if(l2Built)return;l2Built=true;
+ twoSliceDonut('l2_d26',50395,176043,false);
+ twoSliceDonut('l2_d27',159695,188700,false);
+ stairChart('l2_stair');
+ expDoughnutPct('l2_exp',[129907,73756,66073,51200,4242],false);
+ visionBars('l2_vision');
+}
+let l3Built=false;function buildL3(){if(l3Built)return;l3Built=true;
+ fundingDonut('l3_f26',[50395,176043],['Our giving (tithes)','External Support'],[KC.rust,KC.tan],dlPctK());
+ fundingDonut('l3_f27',[119985,188700,39710],['Tithes & Offerings','External Support','Vision Fund'],[KC.rust,KC.tan,KC.olive],dlPctK());
+ steadyChart('l3_steady');
+ crossoverChart('l3_cross');
+ roadChart('l3_road');
+ expDoughnutPct('l3_expD',[129907,73756,66073,51200,4242],true);
+ pctRevBar('l3_expBar',[37.3,21.2,19.0,14.7,1.2],6.7);
+}
+let l4Built=false;function buildL4(){if(l4Built)return;l4Built=true;
+ fundingDonut('l4_f26',[50395,176043],['Our giving (tithes)','External Support'],[KC.rust,KC.tan],dlPctK());
+ fundingDonut('l4_f27',[119985,188700,39710],['Tithes & Offerings','External Support','Vision Fund'],[KC.rust,KC.tan,KC.olive],dlPctK());
+ crossoverChart('l4_cross');
+ noiStrip('l4_noi');
+ roadChart('l4_road');
+ expDoughnutPct('l4_expD27',[129907,73756,66073,51200,4242],true);
+ pctRevBar('l4_expBar27',[37.3,21.2,19.0,14.7,1.2],6.7);
+ expDoughnutPct('l4_expD26',[112825,26709,46468,22501,4241],true);
+ pctRevBar('l4_expBar26',[49.8,11.8,20.5,9.9,1.9],6.0);
+}
+
+const LVL_BUILD={1:buildL1,2:buildL2,3:buildL3,4:buildL4};
+function buildCongregation(){ buildL1(); }
+function showLevel(n){
+ const panes={1:$('level-1'),2:$('level-2'),3:$('level-3'),4:$('level-4')};
+ const pills={1:$('lvl-pill-1'),2:$('lvl-pill-2'),3:$('lvl-pill-3'),4:$('lvl-pill-4')};
+ [1,2,3,4].forEach(k=>{panes[k].hidden=(k!==n);pills[k].classList.toggle('active',k===n);});
+ LVL_BUILD[n]();
+ requestAnimationFrame(()=>resizeAll(panes[n]));
 }
 
 // ---------- TAB SYSTEM ----------
@@ -1102,8 +1199,10 @@ function showTab(name){
   requestAnimationFrame(()=>resizeAll(lead));
  }
 }
-$('cong-pill-hist').addEventListener('click',()=>showCongSet('hist'));
-$('cong-pill-fy27').addEventListener('click',()=>showCongSet('fy27'));
+$('lvl-pill-1').addEventListener('click',()=>showLevel(1));
+$('lvl-pill-2').addEventListener('click',()=>showLevel(2));
+$('lvl-pill-3').addEventListener('click',()=>showLevel(3));
+$('lvl-pill-4').addEventListener('click',()=>showLevel(4));
 $('tabbtn-lead').addEventListener('click',()=>{showTab('leadership');history.replaceState(null,'','#leadership');window.scrollTo(0,0);});
 $('tabbtn-cong').addEventListener('click',()=>{showTab('congregation');history.replaceState(null,'','#congregation');window.scrollTo(0,0);});
 window.addEventListener('hashchange',()=>{const h=(location.hash||'').replace('#','');if(h==='congregation'||h==='leadership')showTab(h);});
