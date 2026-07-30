@@ -10,6 +10,7 @@
   --shadow:0 1px 2px rgba(28,39,51,.04),0 10px 30px rgba(28,39,51,.07);
 }
 *{box-sizing:border-box}
+html,body{overflow-x:hidden}
 body{margin:0;background:var(--page);color:var(--ink);
  font-family:"Plus Jakarta Sans","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
  font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
@@ -35,11 +36,12 @@ h2{font-size:30px;margin-bottom:12px}
 h2+.sub{color:var(--mut);font-size:17px;max-width:66ch;margin-bottom:30px}
 h3{font-size:19px}
 .grid{display:grid;gap:20px}
+.grid>*{min-width:0}
 .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.g23{grid-template-columns:1.15fr .85fr}
-@media(max-width:900px){.g2,.g3,.g4,.g23{grid-template-columns:1fr}}
+.g23{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+@media(max-width:900px){.g2,.g3,.g4,.g23{grid-template-columns:minmax(0,1fr)}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:26px;
  box-shadow:var(--shadow)}
 .card.tight{padding:20px 22px}
@@ -83,11 +85,17 @@ td{padding:11px 12px;border-bottom:1px solid #F3F0EB;vertical-align:top}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 tr.tot td{font-weight:800;background:#FAF8F5;border-top:2px solid var(--line)}
 tr.win td{background:#F1F8F4}
-.tblwrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.tblwrap{border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);
+ overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tblwrap table{min-width:520px}
 .tblwrap table td:first-child,.tblwrap table th:first-child{padding-left:19px}
 .tblwrap table td:last-child,.tblwrap table th:last-child{padding-right:19px}
-.chartbox{width:100%;overflow-x:auto}
+.chartbox{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 svg{display:block;max-width:100%;height:auto}
+/* a phone-width Gantt shrinks to illegibility, so let it scroll instead */
+.chartbox.wide svg{min-width:780px;max-width:none}
+.scrollhint{display:none;font-size:11.5px;color:var(--mut);font-weight:700;margin-top:8px}
+@media(max-width:780px){.scrollhint{display:block}}
 .note{border-left:4px solid var(--navy2);background:#F2F5F8;border-radius:0 12px 12px 0;
  padding:16px 20px;margin:22px 0}
 .note b{font-weight:800}.note p{margin:5px 0 0;font-size:14.3px}
@@ -241,12 +249,13 @@ input[type=range]{width:100%;accent-color:#D97A5F;margin:2px 0 20px}
         <td class="n">$850 &ndash; $2,650</td><td class="n">$13,950 &ndash; $39,300</td></tr>
       <tr class="win"><td><b>The Everything Package</b></td><td class="n"><b>$2,995 &ndash; $5,995</b></td>
         <td class="n"><b>$750 &ndash; $2,250</b></td><td class="n"><b>$11,245 &ndash; $30,745</b></td></tr>
-      <tr class="tot"><td>You keep</td><td class="n">$755 &ndash; $1,505</td>
+      <tr class="tot"><td>What bundling saves you</td><td class="n">$755 &ndash; $1,505</td>
         <td class="n">$100 &ndash; $400</td><td class="n">$2,705 &ndash; $8,555</td></tr>
     </tbody>
   </table></div>
-  <p class="small" style="margin:-6px 0 26px">First month waived on the package. First-year figures
-    include the build and eleven monthly payments.</p>
+  <p class="small" style="margin:-6px 0 26px">Read the bottom row as the discount for taking all three
+    together rather than one at a time. The first month is waived on the package, so the first-year
+    figures are the build plus eleven monthly payments.</p>
 
   <h3 style="margin-bottom:6px">Three worked examples, so the range is not a mystery</h3>
   <p class="small" style="max-width:70ch">Same three tracks. What moves is how far the site rebuild
@@ -326,41 +335,50 @@ input[type=range]{width:100%;accent-color:#D97A5F;margin:2px 0 20px}
 
 <section><div class="wrap">
   <div class="eyebrow">The honest arithmetic</div>
-  <h2>What would this have to do to be worth it?</h2>
-  <div class="sub">We will not pretend to know your numbers better than you do. So set them yourself and
-    watch what happens. Move the sliders.</div>
+  <h2>What is a new giving unit actually worth?</h2>
+  <div class="sub">We will not pretend to know your numbers better than you do, so set them yourself.
+    The point of the engagement work is not a tidier spreadsheet. It is more people giving, serving and
+    staying, and that compounds well past the year you pay for it.</div>
 
   <div class="roi">
-    <h3>Your break-even, in your own numbers</h3>
-    <div class="cap">Two inputs. What an engaged household gives in a year, and how many families this
-      work helps you keep or add each month. Everything else is arithmetic.</div>
+    <h3>What one new giving unit is worth, over three years</h3>
+    <div class="cap">Two dials. What a giving unit gives in a year, and how many new giving units
+      this work helps you add each month. The rest is arithmetic, and it runs for three years because
+      a household you bring in this autumn is still giving in 2028.</div>
     <div class="grid g2" style="gap:26px">
       <div>
-        <label class="slab">Annual giving of one engaged household &nbsp; <b id="gv">$2,400</b></label>
-        <input type="range" id="give" min="600" max="8000" step="100" value="2400">
-        <label class="slab">Families kept or added each month because you could see them &nbsp;
-          <b id="fv">2</b></label>
-        <input type="range" id="fam" min="0" max="12" step="1" value="2">
+        <label class="slab">Annual giving of one giving unit &nbsp; <b id="gv">$1,000</b></label>
+        <input type="range" id="give" min="250" max="5000" step="50" value="1000">
+        <label class="slab">New giving units added each month &nbsp; <b id="fv">2</b></label>
+        <input type="range" id="fam" min="0" max="15" step="1" value="2">
       </div>
       <div>
         <label class="slab">Which package &nbsp; <b id="pv">Standard</b></label>
         <input type="range" id="pkg" min="0" max="2" step="1" value="1">
-        <p class="small" style="color:rgba(255,255,255,.6);margin:0">
+        <p class="small" style="color:rgba(255,255,255,.6);margin:0 0 14px">
           Lean $2,995 + $750/mo &nbsp;&middot;&nbsp; Standard $4,495 + $1,250/mo &nbsp;&middot;&nbsp;
           Full $5,995 + $2,250/mo</p>
+        <label class="slab">Of those, still giving a year later &nbsp; <b id="rv">80%</b></label>
+        <input type="range" id="ret" min="40" max="100" step="5" value="80">
       </div>
     </div>
-    <div class="roiout">
-      <div class="roibox"><div class="l">First year cost</div><div class="v" id="cost">&ndash;</div></div>
-      <div class="roibox good"><div class="l">First year value</div><div class="v" id="val">&ndash;</div></div>
+
+    <div class="chartbox wide" style="margin-top:8px"><div id="chart"></div></div>
+    <div class="scrollhint" style="color:rgba(255,255,255,.55)">Scroll sideways to see year three
+      &rarr;</div>
+
+    <div class="roiout" style="margin-top:18px">
+      <div class="roibox"><div class="l">Three year cost</div><div class="v" id="cost">&ndash;</div></div>
+      <div class="roibox good"><div class="l">Three year giving</div><div class="v" id="val">&ndash;</div></div>
       <div class="roibox good"><div class="l">Return</div><div class="v" id="roi">&ndash;</div></div>
     </div>
     <div class="roiverdict" id="verdict">&nbsp;</div>
-    <p class="small" style="color:rgba(255,255,255,.5);margin:16px 0 0">Value counts only the giving of
-      households retained or added, and only in the first year, at a flat rate. It ignores the staff
-      hours returned, everything those families give in year two and beyond, and every person who
-      serves rather than gives. It is deliberately the most conservative version of this calculation
-      we could build.</p>
+    <p class="small" style="color:rgba(255,255,255,.5);margin:16px 0 0">New units are assumed to arrive
+      evenly through the year, so each one gives for half of its first year. After that they give a
+      full year, reduced by the retention dial. Nothing here counts the staff hours returned, anyone
+      who serves rather than gives, or a single dollar from the people you already have. It is the
+      most conservative version of this we could build, and we would rather set the giving dial to
+      your real figure on the call than guess at it here.</p>
   </div>
 
   <div class="grid g3" style="margin-top:24px">
@@ -382,7 +400,7 @@ input[type=range]{width:100%;accent-color:#D97A5F;margin:2px 0 20px}
   <div class="sub">Thirteen weeks from the first Monday in August to the end of October, which is the
     end of your ninety day window. The three tracks run in parallel with different people, so the
     website deadline never slows the dashboard down.</div>
-  <div class="card"><div class="chartbox"><svg viewBox="0 0 1000 392" width="1000" height="392" role="img" aria-label="Project timeline from August to October 2026"><line x1="186.0" y1="32" x2="186.0" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="216.7" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 4</text><line x1="247.4" y1="32" x2="247.4" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="278.1" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 11</text><line x1="308.8" y1="32" x2="308.8" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="339.5" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 18</text><line x1="370.2" y1="32" x2="370.2" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="400.8" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 25</text><line x1="431.5" y1="32" x2="431.5" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="462.2" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 1</text><line x1="492.9" y1="32" x2="492.9" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="523.6" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 8</text><line x1="554.3" y1="32" x2="554.3" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="585.0" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 15</text><line x1="615.7" y1="32" x2="615.7" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="646.4" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 22</text><line x1="677.1" y1="32" x2="677.1" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="707.8" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 29</text><line x1="738.5" y1="32" x2="738.5" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="769.2" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 6</text><line x1="799.8" y1="32" x2="799.8" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="830.5" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 13</text><line x1="861.2" y1="32" x2="861.2" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="891.9" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 20</text><line x1="922.6" y1="32" x2="922.6" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="953.3" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 27</text><line x1="431.5" y1="14" x2="431.5" y2="366" stroke="#C74C33" stroke-width="2" stroke-dasharray="5 4"/><text x="437.5" y="12" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="800" fill="#C74C33" text-anchor="start">Sep 1 &ndash; site live</text><text x="0" y="56" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="800" fill="#1C2733" text-anchor="start">Dashboard &amp; Engagement</text><rect x="186.0" y="62" width="122.8" height="17" rx="4.5" fill="#C74C33"/><text x="176" y="74.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Dashboard live on a link</text><rect x="308.8" y="92" width="245.5" height="17" rx="4.5" fill="#D97A5F"/><text x="176" y="104.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Connections feeding it nightly</text><rect x="554.3" y="122" width="306.9" height="17" rx="4.5" fill="#233343"/><text x="176" y="134.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Engagement engine: Engaged 1, 2, 3</text><rect x="738.5" y="152" width="245.5" height="17" rx="4.5" fill="#4A6076"/><text x="176" y="164.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Cohorts, drift list, movement</text><text x="0" y="197" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="800" fill="#1C2733" text-anchor="start">The For Austin Site</text><rect x="186.0" y="203" width="122.8" height="17" rx="4.5" fill="#C8922E"/><text x="176" y="215.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Scope + your content</text><rect x="247.4" y="233" width="184.2" height="17" rx="4.5" fill="#C74C33"/><text x="176" y="245.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Build</text><rect x="431.5" y="263" width="245.5" height="17" rx="4.5" fill="#D97A5F"/><text x="176" y="275.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">For Weekend pages</text><text x="0" y="308" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="800" fill="#1C2733" text-anchor="start">Growth &amp; Awareness</text><rect x="308.8" y="314" width="184.2" height="17" rx="4.5" fill="#2C5F91"/><text x="176" y="326.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Landing pages + tracking</text><rect x="492.9" y="344" width="491.1" height="17" rx="4.5" fill="#2F7D5B"/><text x="176" y="356.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Campaign live and measured weekly</text></svg></div></div>
+  <div class="card"><div class="chartbox wide"><svg viewBox="0 0 1000 392" width="1000" height="392" role="img" aria-label="Project timeline from August to October 2026"><line x1="186.0" y1="32" x2="186.0" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="216.7" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 4</text><line x1="247.4" y1="32" x2="247.4" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="278.1" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 11</text><line x1="308.8" y1="32" x2="308.8" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="339.5" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 18</text><line x1="370.2" y1="32" x2="370.2" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="400.8" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 25</text><line x1="431.5" y1="32" x2="431.5" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="462.2" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 1</text><line x1="492.9" y1="32" x2="492.9" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="523.6" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 8</text><line x1="554.3" y1="32" x2="554.3" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="585.0" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 15</text><line x1="615.7" y1="32" x2="615.7" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="646.4" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 22</text><line x1="677.1" y1="32" x2="677.1" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="707.8" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 29</text><line x1="738.5" y1="32" x2="738.5" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="769.2" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 6</text><line x1="799.8" y1="32" x2="799.8" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="830.5" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 13</text><line x1="861.2" y1="32" x2="861.2" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="891.9" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 20</text><line x1="922.6" y1="32" x2="922.6" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="953.3" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 27</text><line x1="431.5" y1="14" x2="431.5" y2="366" stroke="#C74C33" stroke-width="2" stroke-dasharray="5 4"/><text x="437.5" y="12" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="800" fill="#C74C33" text-anchor="start">Sep 1 &ndash; site live</text><text x="0" y="56" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="800" fill="#1C2733" text-anchor="start">Dashboard &amp; Engagement</text><rect x="186.0" y="62" width="122.8" height="17" rx="4.5" fill="#C74C33"/><text x="176" y="74.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Dashboard live on a link</text><rect x="308.8" y="92" width="245.5" height="17" rx="4.5" fill="#D97A5F"/><text x="176" y="104.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Connections feeding it nightly</text><rect x="554.3" y="122" width="306.9" height="17" rx="4.5" fill="#233343"/><text x="176" y="134.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Engagement engine: Engaged 1, 2, 3</text><rect x="738.5" y="152" width="245.5" height="17" rx="4.5" fill="#4A6076"/><text x="176" y="164.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Cohorts, drift list, movement</text><text x="0" y="197" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="800" fill="#1C2733" text-anchor="start">The For Austin Site</text><rect x="186.0" y="203" width="122.8" height="17" rx="4.5" fill="#C8922E"/><text x="176" y="215.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Scope + your content</text><rect x="247.4" y="233" width="184.2" height="17" rx="4.5" fill="#C74C33"/><text x="176" y="245.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Build</text><rect x="431.5" y="263" width="245.5" height="17" rx="4.5" fill="#D97A5F"/><text x="176" y="275.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">For Weekend pages</text><text x="0" y="308" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="800" fill="#1C2733" text-anchor="start">Growth &amp; Awareness</text><rect x="308.8" y="314" width="184.2" height="17" rx="4.5" fill="#2C5F91"/><text x="176" y="326.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Landing pages + tracking</text><rect x="492.9" y="344" width="491.1" height="17" rx="4.5" fill="#2F7D5B"/><text x="176" y="356.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Campaign live and measured weekly</text></svg></div><div class="scrollhint">Scroll the timeline sideways to see October &rarr;</div></div>
 
   <div class="grid g4" style="margin-top:20px">
     <div class="card tight"><div class="eyebrow" style="margin-bottom:5px">By Aug 18</div>
@@ -563,37 +581,119 @@ Pricing assumes the scope described above. The questions in this document are th
 <script>
 (function(){
   var PKG=[{n:"Lean",b:2995,m:750},{n:"Standard",b:4495,m:1250},{n:"Full",b:5995,m:2250}];
-  var g=document.getElementById("give"), f=document.getElementById("fam"), p=document.getElementById("pkg");
+  var $=function(id){return document.getElementById(id);};
   var money=function(v){return "$"+Math.round(v).toLocaleString();};
+  var kd=function(v){var a=Math.abs(v);
+    if(a>=1e6)return (v<0?"-$":"$")+(a/1e6).toFixed(a/1e6>=10?1:2)+"M";
+    if(a>=1000)return (v<0?"-$":"$")+Math.round(a/1000)+"k";
+    return (v<0?"-$":"$")+Math.round(a);};
+
+  function model(){
+    var G=+$("give").value, f=+$("fam").value, pk=PKG[+$("pkg").value], r=+$("ret").value/100;
+    var perYear=f*12;                      /* new giving units added in a year   */
+    var cohort=perYear*G;                  /* their full-year giving             */
+    /* value: this year's cohort gives half a year, older cohorts give a full
+       year reduced by retention each time round */
+    var val=[], cost=[], cum=[], run=0;
+    for(var y=0;y<3;y++){
+      var v=cohort*0.5;                                     /* this year's intake */
+      for(var k=1;k<=y;k++) v+=cohort*Math.pow(r,k);        /* everyone before it */
+      val.push(v);
+      cost.push(y===0 ? pk.b+pk.m*11 : pk.m*12);            /* first month waived */
+      run+=v-cost[y]; cum.push(run);
+    }
+    return {G:G,f:f,pk:pk,r:r,val:val,cost:cost,cum:cum,
+            tv:val.reduce(function(a,b){return a+b;},0),
+            tc:cost.reduce(function(a,b){return a+b;},0)};
+  }
+
+  function chart(m){
+    var W=860,H=290,PL=62,PR=14,PT=30,PB=54;
+    var iw=W-PL-PR, ih=H-PT-PB;
+    var hi=0; m.val.concat(m.cost,m.cum).forEach(function(v){if(v>hi)hi=v;});
+    var lo=0; m.cum.forEach(function(v){if(v<lo)lo=v;});
+    var top=Math.max(1,hi*1.16), bot=lo<0?lo*1.2:0, span=top-bot;
+    var Y=function(v){return PT+ih*((top-v)/span);};
+    var F='font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif"';
+    var o=['<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img">'];
+    for(var t=0;t<=4;t++){var v=bot+span*t/4,y=Y(v);
+      o.push('<line x1="'+PL+'" y1="'+y.toFixed(1)+'" x2="'+(W-PR)+'" y2="'+y.toFixed(1)+
+        '" stroke="'+(Math.abs(v)<1?"rgba(255,255,255,.35)":"rgba(255,255,255,.10)")+'"/>');
+      o.push('<text x="'+(PL-9)+'" y="'+(y+3.5).toFixed(1)+'" '+F+' font-size="10" font-weight="600" '+
+        'fill="rgba(255,255,255,.55)" text-anchor="end">'+kd(v)+'</text>');}
+    var gw=iw/3, bw=Math.min(52,gw*0.24);
+    for(var i=0;i<3;i++){
+      var cx=PL+gw*i+gw/2;
+      [[m.cost[i],"#D97A5F",-1.08],[m.val[i],"#67B08F",0.08]].forEach(function(pair){
+        var v=pair[0],col=pair[1],off=pair[2];
+        var x=cx+off*bw, yT=Y(Math.max(v,0)), h=Math.abs(Y(v)-Y(0));
+        o.push('<rect x="'+x.toFixed(1)+'" y="'+yT.toFixed(1)+'" width="'+bw+'" height="'+
+          Math.max(2,h).toFixed(1)+'" rx="4" fill="'+col+'"/>');
+        o.push('<text x="'+(x+bw/2).toFixed(1)+'" y="'+(yT-7).toFixed(1)+'" '+F+
+          ' font-size="11" font-weight="800" fill="#fff" text-anchor="middle">'+kd(v)+'</text>');
+      });
+      o.push('<text x="'+cx.toFixed(1)+'" y="'+(H-PB+20)+'" '+F+' font-size="11.5" font-weight="800" '+
+        'fill="rgba(255,255,255,.85)" text-anchor="middle">Year '+(i+1)+'</text>');
+      o.push('<text x="'+cx.toFixed(1)+'" y="'+(H-PB+36)+'" '+F+' font-size="10.5" font-weight="700" '+
+        'fill="'+(m.cum[i]>=0?"#8FD9B4":"#E39A88")+'" text-anchor="middle">cumulative '+
+        kd(m.cum[i])+'</text>');
+    }
+    /* cumulative line across the three years */
+    var pts=m.cum.map(function(v,i){return [PL+gw*i+gw/2, Y(v)];});
+    o.push('<path d="M'+pts.map(function(p){return p[0].toFixed(1)+","+p[1].toFixed(1);}).join(" L")+
+      '" fill="none" stroke="#F0C9A0" stroke-width="2.4" stroke-dasharray="6 4"/>');
+    pts.forEach(function(p){o.push('<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+
+      '" r="4" fill="#233343" stroke="#F0C9A0" stroke-width="2.4"/>');});
+    /* legend */
+    o.push('<rect x="'+PL+'" y="6" width="10" height="10" rx="2.5" fill="#D97A5F"/>');
+    o.push('<text x="'+(PL+15)+'" y="15" '+F+' font-size="10.5" font-weight="700" '+
+      'fill="rgba(255,255,255,.75)" text-anchor="start">What you pay</text>');
+    o.push('<rect x="'+(PL+118)+'" y="6" width="10" height="10" rx="2.5" fill="#67B08F"/>');
+    o.push('<text x="'+(PL+133)+'" y="15" '+F+' font-size="10.5" font-weight="700" '+
+      'fill="rgba(255,255,255,.75)" text-anchor="start">Giving it brings in</text>');
+    o.push('<line x1="'+(PL+262)+'" y1="11" x2="'+(PL+284)+'" y2="11" stroke="#F0C9A0" '+
+      'stroke-width="2.4" stroke-dasharray="6 4"/>');
+    o.push('<text x="'+(PL+290)+'" y="15" '+F+' font-size="10.5" font-weight="700" '+
+      'fill="rgba(255,255,255,.75)" text-anchor="start">Cumulative, net of cost</text>');
+    o.push('</svg>');
+    return o.join("");
+  }
+
   function draw(){
-    var give=+g.value, fam=+f.value, pk=PKG[+p.value];
-    document.getElementById("gv").textContent=money(give);
-    document.getElementById("fv").textContent=fam;
-    document.getElementById("pv").textContent=pk.n;
-    /* families arrive through the year, so on average they give for half of it */
-    var added=fam*12, value=added*give*0.5;
-    var cost=pk.b+pk.m*11;                       /* first month waived */
-    document.getElementById("cost").textContent=money(cost);
-    document.getElementById("val").textContent=money(value);
-    var v=document.getElementById("verdict");
-    if(value<=0){
-      document.getElementById("roi").textContent="–";
-      v.innerHTML="Move the second slider. If this work helps you keep <b>nobody at all</b>, it is not worth doing and we would rather you did not buy it.";
+    var m=model();
+    $("gv").textContent=money(m.G);
+    $("fv").textContent=m.f;
+    $("pv").textContent=m.pk.n;
+    $("rv").textContent=Math.round(m.r*100)+"%";
+    $("chart").innerHTML=chart(m);
+    $("cost").textContent=money(m.tc);
+    $("val").textContent=money(m.tv);
+    var v=$("verdict");
+    if(m.tv<=0){
+      $("roi").textContent="\u2013";
+      v.innerHTML="Move the second dial. If this work brings in <b>nobody at all</b>, it is not worth "+
+        "doing and we would rather you did not buy it.";
       return;
     }
-    var mult=value/cost;
-    document.getElementById("roi").textContent=(mult>=1? mult.toFixed(1)+"x" : Math.round(mult*100)+"%");
-    /* how many families a month just to break even */
-    var be=cost/(12*give*0.5);
-    v.innerHTML="At these numbers you break even by helping keep or add <b>"+
-      (be<1? "fewer than one family a month" : be.toFixed(1)+" families a month")+
-      "</b>. You have set it at <b>"+fam+"</b>, which returns <b>"+
+    var mult=m.tv/m.tc;
+    $("roi").textContent=(mult>=1? mult.toFixed(1)+"x" : Math.round(mult*100)+"%");
+    /* new units a month needed just to cover three years of cost */
+    var perUnit=m.G*(0.5 + (0.5+Math.pow(m.r,1)) + (0.5+Math.pow(m.r,1)+Math.pow(m.r,2)))/3;
+    var be=m.tc/(12*3*(m.G*(1.5+2*m.r+Math.pow(m.r,2))/3))*3;
+    be=m.tc/((m.G*(1.5+2*m.r+Math.pow(m.r,2)))*12);
+    var payback=null, run=0;
+    for(var i=0;i<3;i++){ run=m.cum[i]; if(run>=0){payback=i+1;break;} }
+    v.innerHTML="You break even by adding <b>"+
+      (be<1? "fewer than one new giving unit a month" : be.toFixed(1)+" new giving units a month")+
+      "</b>. At <b>"+m.f+"</b> a month it returns <b>"+
       (mult>=1? mult.toFixed(1)+" times" : Math.round(mult*100)+" percent of")+
-      "</b> what you spend, in the first year alone.";
+      "</b> what you spend across three years"+
+      (payback? ", and it is in the black by <b>year "+payback+"</b>." : ".");
   }
-  [g,f,p].forEach(function(el){el.addEventListener("input",draw);});
+  ["give","fam","pkg","ret"].forEach(function(id){
+    document.getElementById(id).addEventListener("input",draw);});
   draw();
 })();
 </script>
 
-<!-- build:1a78d2e49ce2 -->
+<!-- build:8d6af188f537 -->
