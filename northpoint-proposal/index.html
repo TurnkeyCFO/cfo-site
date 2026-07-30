@@ -1,0 +1,459 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Northpoint Church &middot; Roadmap &amp; Proposal &middot; Turnkey</title>
+<style>
+:root{
+  --page:#F8F6F3; --card:#FFFFFF; --ink:#1C2733; --mut:#657482; --line:#E7E2DB;
+  --terra:#C74C33; --terra2:#D97A5F; --navy:#233343; --navy2:#3A5064;
+  --grn:#2F7D5B; --grn2:#EAF4EE; --gold:#C8922E; --goldbg:#FDF7EA;
+  --shadow:0 1px 2px rgba(28,39,51,.04),0 10px 30px rgba(28,39,51,.07);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);
+ font-family:"Plus Jakarta Sans","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+ font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;font-weight:800;letter-spacing:-.018em;line-height:1.2}
+p{margin:0 0 14px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+/* hero */
+header{background:linear-gradient(155deg,#18232E 0%,#233343 46%,#8E3A28 100%);color:#fff;
+ padding:66px 0 58px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-140px;top:-140px;width:460px;height:460px;
+ border-radius:50%;background:rgba(255,255,255,.045)}
+header .eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
+ opacity:.8;margin-bottom:16px}
+header h1{font-size:44px;max-width:20ch}
+header .lede{font-size:18px;opacity:.9;margin-top:18px;max-width:60ch}
+.heropills{display:flex;gap:9px;flex-wrap:wrap;margin-top:26px;position:relative}
+.heropills span{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.26);
+ padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:700}
+
+section{padding:52px 0}
+section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.eyebrow{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:800;
+ color:var(--terra);margin-bottom:11px}
+h2{font-size:30px;margin-bottom:12px}
+h2+.sub{color:var(--mut);font-size:17px;max-width:66ch;margin-bottom:32px}
+h3{font-size:19px}
+
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:26px;
+ box-shadow:var(--shadow)}
+.card.tight{padding:20px 22px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;
+ box-shadow:var(--shadow)}
+.stat .n{font-size:34px;font-weight:800;color:var(--terra);letter-spacing:-.03em;line-height:1.05}
+.stat .l{font-size:13px;color:var(--mut);margin-top:7px}
+
+.pricecard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:0;
+ box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.pricecard .top{background:var(--navy);color:#fff;padding:20px 24px}
+.pricecard.hi .top{background:linear-gradient(135deg,#233343,#A8402C)}
+.pricecard .top .t{font-size:12px;letter-spacing:.11em;text-transform:uppercase;font-weight:800;opacity:.78}
+.pricecard .top h3{font-size:21px;margin-top:5px}
+.pricecard .body{padding:22px 24px 24px;flex:1;display:flex;flex-direction:column}
+.price{font-size:34px;font-weight:800;letter-spacing:-.03em}
+.price small{font-size:14px;font-weight:700;color:var(--mut);letter-spacing:0}
+.was{color:var(--mut);text-decoration:line-through;font-size:15px;font-weight:700;margin-right:9px}
+ul.ticks{list-style:none;padding:0;margin:16px 0 0;font-size:14.5px}
+ul.ticks li{padding:7px 0 7px 27px;position:relative;border-bottom:1px solid #F3F0EB}
+ul.ticks li:last-child{border-bottom:0}
+ul.ticks li::before{content:"";position:absolute;left:2px;top:14px;width:13px;height:7px;
+ border-left:2.4px solid var(--grn);border-bottom:2.4px solid var(--grn);transform:rotate(-45deg)}
+ul.ticks li.no::before{border:0;content:"";left:5px;top:17px;width:9px;height:2.4px;background:#CBD2D8;transform:none}
+ul.ticks li.no{color:var(--mut)}
+
+.guar{background:var(--grn2);border:1px solid #C6E3D3;border-radius:15px;padding:24px;position:relative}
+.guar h3{color:#1E6547;font-size:18px;margin-bottom:8px}
+.guar p{margin:0;font-size:14.5px;color:#2B4A3C}
+.guar .badge{display:inline-block;background:var(--grn);color:#fff;font-size:10.5px;font-weight:800;
+ letter-spacing:.09em;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:12px}
+
+.q{background:var(--goldbg);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;
+ padding:16px 20px;margin:0 0 12px}
+.q b{display:block;font-size:15px;margin-bottom:3px}
+.q span{font-size:13.5px;color:var(--mut)}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px;background:#fff}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);
+ font-weight:800;padding:11px 12px;border-bottom:2px solid var(--line);white-space:nowrap}
+td{padding:11px 12px;border-bottom:1px solid #F3F0EB;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.tot td{font-weight:800;background:#FAF8F5;border-top:2px solid var(--line)}
+.tblwrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.tblwrap table td:first-child,.tblwrap table th:first-child{padding-left:20px}
+.tblwrap table td:last-child,.tblwrap table th:last-child{padding-right:20px}
+
+/* timeline */
+.tl{position:relative;padding-left:34px}
+.tl::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tlrow{position:relative;padding:0 0 26px}
+.tlrow::before{content:"";position:absolute;left:-29px;top:5px;width:14px;height:14px;border-radius:50%;
+ background:#fff;border:3px solid var(--terra)}
+.tlrow.soft::before{border-color:#C3CCD4}
+.tlrow .when{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--terra)}
+.tlrow.soft .when{color:var(--mut)}
+.tlrow h4{font-size:17px;margin:4px 0 5px}
+.tlrow p{font-size:14.5px;color:var(--mut);margin:0}
+
+.note{border-left:4px solid var(--navy2);background:#F2F5F8;border-radius:0 12px 12px 0;padding:16px 20px;margin:22px 0}
+.note b{font-weight:800}
+.note p{margin:5px 0 0;font-size:14.5px}
+
+.cta{background:linear-gradient(150deg,#233343,#8E3A28);color:#fff;border-radius:18px;padding:40px 38px;text-align:center}
+.cta h2{color:#fff;font-size:29px}
+.cta p{opacity:.9;max-width:56ch;margin:12px auto 0}
+.btn{display:inline-block;background:#fff;color:#233343;font-weight:800;font-size:15px;
+ padding:14px 30px;border-radius:11px;text-decoration:none;margin-top:24px}
+a{color:var(--terra)}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:34px 0 46px}
+.small{font-size:13px;color:var(--mut)}
+.kicker{font-weight:800;color:var(--terra)}
+</style>
+
+<header><div class="wrap">
+  <div class="eyebrow">Prepared for Buck Giebelhaus &middot; Northpoint Church</div>
+  <h1>Know who is coming in, who is drifting out, and what to do about it.</h1>
+  <div class="lede">A roadmap for the four things you put in front of us: the weekly dashboard,
+    engagement tracking, the For Austin site, and growing awareness over the next ninety days.</div>
+  <div class="heropills">
+    <span>Prepared 30 July 2026</span><span>Turnkey</span><span>Valid for 30 days</span>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <div class="eyebrow">Before we talk about the work</div>
+  <h2>We already built the first piece.</h2>
+  <div class="sub">Rather than describe what a live dashboard could look like, we built one from the
+    workbook you sent and put it on a link. Twelve tabs, thirty weeks of 2026 against the same weeks
+    of 2025, on top of fourteen years of history. It took one download of your file.</div>
+
+  <div class="card" style="margin-bottom:26px">
+    <h3 style="margin-bottom:9px">What it found in your own numbers</h3>
+    <div class="grid g4" style="margin:20px 0 6px">
+      <div class="stat"><div class="n">80</div><div class="l">columns on the weekly sheet
+        that have never been filled in once during 2026</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">weeks of Engaged 2 and Engaged 3 data,
+        the exact numbers you asked to track</div></div>
+      <div class="stat"><div class="n">25</div><div class="l">weeks where Connection and Guest Services
+        submitted no ministry score at all</div></div>
+      <div class="stat"><div class="n">+25.5%</div><div class="l">giving ahead of the same weeks last
+        year, after 2025 closed down 13.3%</div></div>
+    </div>
+    <p class="small" style="margin:16px 0 0">The last one is worth sitting with. 2025 was the first real
+      decline in your history. 2026 has already turned it around, and nothing in the current reporting
+      says so clearly enough for anyone to celebrate it.</p>
+  </div>
+
+  <div class="note"><b>See it for yourself.</b>
+    <p>turnkeycfo.com/northpoint-weekly &nbsp;&middot;&nbsp; passcode 7893. It is a snapshot built from one
+    download, not a live service, so it will go stale the moment the sheet changes. That is precisely the
+    problem this proposal solves.</p></div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <div class="eyebrow">The three tracks</div>
+  <h2>What we are proposing.</h2>
+  <div class="sub">Three separate pieces of work. They are better together, but each stands on its own
+    and you can take one, two, or all three.</div>
+
+  <div class="grid g3">
+
+    <div class="pricecard hi">
+      <div class="top"><div class="t">Track one</div><h3>Dashboard &amp; Engagement Engine</h3></div>
+      <div class="body">
+        <div class="price"><span class="was">$14,500</span>$0 <small>build</small></div>
+        <div class="price" style="font-size:22px;margin-top:2px">$850 <small>/ month</small></div>
+        <p class="small" style="margin-top:10px">Founding church pricing. You are the first church on
+          this system, we get a reference, you get the build at cost.</p>
+        <ul class="ticks">
+          <li>29 of the 45 columns you type every week fill themselves</li>
+          <li>Planning Center, YouTube, Meta, Google Analytics and QuickBooks feed it nightly</li>
+          <li><b>Engaged 1, 2 and 3</b> become real numbers for the first time</li>
+          <li>Front door tracked as monthly cohorts, not a headcount</li>
+          <li>Back door: a named list of who is drifting</li>
+          <li>Movement up and down, month over month</li>
+          <li>A phone form per ministry leader, with a Sunday reminder</li>
+          <li>One link, same every week, works on a phone</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pricecard">
+      <div class="top"><div class="t">Track two</div><h3>The For Austin Site</h3></div>
+      <div class="body">
+        <div class="price">$7,500<small> &ndash; $11,500</small></div>
+        <div class="price" style="font-size:22px;margin-top:2px">$147 <small>/ month care</small></div>
+        <p class="small" style="margin-top:10px">The range is one question wide. See the scoping
+          section below.</p>
+        <ul class="ticks">
+          <li>Rebuilt around the strategy, not the building campaign</li>
+          <li>For Weekend: golf, concert, For Day, Sunday</li>
+          <li>Live before September</li>
+          <li>Your team can edit content without a developer</li>
+          <li>Faster: the current homepage loads 12.6 MB</li>
+          <li>Search basics fixed: sitemap, headings, alt text</li>
+          <li class="no">Ticketing and payment only in the higher tier</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pricecard">
+      <div class="top"><div class="t">Track three</div><h3>Growth &amp; Awareness</h3></div>
+      <div class="body">
+        <div class="price">$2,500 <small>foundation</small></div>
+        <div class="price" style="font-size:22px;margin-top:2px">+$750 <small>/ mo if managed</small></div>
+        <p class="small" style="margin-top:10px">Plus ad spend, paid directly by you to the platform.
+          We never mark up media.</p>
+        <ul class="ticks">
+          <li>Landing pages built to convert a click into a visit</li>
+          <li>Tracking that ties an ad to a person who actually showed up</li>
+          <li>The 90-day goal measured weekly, on the dashboard</li>
+          <li>Campaign build and management, if you want it</li>
+          <li class="no">We do not produce video or photography</li>
+          <li class="no">We will refer creative rather than fake it</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:26px;background:#FBF9F6">
+    <div class="grid g2" style="align-items:center">
+      <div>
+        <div class="eyebrow" style="margin-bottom:7px">Take all three</div>
+        <h3 style="font-size:24px">The Everything Package</h3>
+        <p class="small" style="margin-top:9px">Dashboard and Engagement Engine, the For Austin site at
+          the Essential tier, and the Growth foundation. One agreement, one invoice, one team.</p>
+      </div>
+      <div>
+        <div class="tblwrap"><table>
+          <tr><td>Separately</td><td class="n">$10,000 &nbsp;+&nbsp; $997/mo</td></tr>
+          <tr class="tot"><td>Together</td><td class="n">$8,500 &nbsp;+&nbsp; $897/mo</td></tr>
+          <tr><td colspan="2" class="small" style="padding-top:12px">First month waived.
+            Saves about $3,600 across year one.</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">Risk reversal</div>
+  <h2>Four guarantees, in writing.</h2>
+  <div class="sub">You should not have to trust us. You should be able to hold us to something specific.
+    Every one of these is in the agreement, not just on this page.</div>
+
+  <div class="grid g2">
+    <div class="guar">
+      <div class="badge">Speed</div>
+      <h3>Live in 14 days or three months free</h3>
+      <p>Your dashboard is live, on a link, and refreshing on its own within fourteen days of us getting
+      access. If it is not, the first three months cost you nothing and we keep working.</p>
+    </div>
+    <div class="guar">
+      <div class="badge">Outcome</div>
+      <h3>Half the work, or we work free</h3>
+      <p>Within sixty days of the automation going live, the numbers your team types every week drop by at
+      least half. If they have not, we keep building at no charge until they do.</p>
+    </div>
+    <div class="guar">
+      <div class="badge">Deadline</div>
+      <h3>Live before September, or half the build is free</h3>
+      <p>If your content reaches us by 15 August and the site is not live by 1 September, we cut the build
+      fee in half. We are putting our fee on your deadline, not just our calendar.</p>
+    </div>
+    <div class="guar">
+      <div class="badge">No lock-in</div>
+      <h3>Thirty days to change your mind</h3>
+      <p>If you are not glad you did this in the first thirty days, tell us and we refund the month. No
+      reason required, no conversation to endure, and you keep everything we built.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <div class="eyebrow">Speed to value</div>
+  <h2>What actually happens, and when.</h2>
+  <div class="sub">We front-load the visible wins. You should see something real in the first two weeks,
+    not the first two months.</div>
+
+  <div class="grid g2">
+    <div>
+      <div class="tl">
+        <div class="tlrow"><div class="when">Days 1 &ndash; 14</div>
+          <h4>The dashboard goes live</h4>
+          <p>We connect to your sheet, publish the page, and put it on a schedule. Nothing changes for your
+          staff. The dashboard simply stops being a file someone has to open and becomes a link that is
+          always current.</p></div>
+        <div class="tlrow"><div class="when">Days 15 &ndash; 45</div>
+          <h4>The typing starts disappearing</h4>
+          <p>Planning Center, YouTube, Google Analytics and QuickBooks begin feeding it nightly. Twenty six
+          of the twenty nine automatable columns come online here. Meta follows once their app review
+          clears, which is on their timeline, not ours.</p></div>
+        <div class="tlrow"><div class="when">Days 30 &ndash; 60</div>
+          <h4>The website, if you want it</h4>
+          <p>Runs in parallel with a different set of people, so it does not slow the dashboard down.
+          Content from you by 15 August, live before 1 September.</p></div>
+        <div class="tlrow"><div class="when">Days 45 &ndash; 90</div>
+          <h4>Engagement gets real</h4>
+          <p>Engaged 1, 2 and 3. The first monthly cohort report. The first drift list. This is the part
+          nobody else can sell you, and it is the reason to do any of this.</p></div>
+        <div class="tlrow soft"><div class="when">Ongoing</div>
+          <h4>It keeps working</h4>
+          <p>We monitor it, re-authorize what expires, add fields when a ministry asks, and tell you when
+          something breaks before you notice.</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3 style="margin-bottom:14px">Where your week goes today, and after</h3>
+        <div class="tblwrap"><table>
+          <thead><tr><th>Weekly data entry</th><th class="n">Now</th><th class="n">After</th></tr></thead>
+          <tbody>
+            <tr><td>Values typed by hand each week</td><td class="n">~36</td><td class="n">~10</td></tr>
+            <tr><td>Over a year</td><td class="n">~1,850</td><td class="n">~520</td></tr>
+            <tr><td>Columns that fill themselves</td><td class="n">0</td><td class="n">29</td></tr>
+            <tr class="tot"><td>Reduction</td><td class="n" colspan="2">72%</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small" style="margin-top:16px">Nine of the ten values still asked of a person are the
+        Sunday scores and the week note. Those are judgment and context. They should stay human, and they
+        are the most valuable rows on the sheet.</p>
+        <p class="small" style="margin:0">The eighty empty columns come free. Filling those by hand would
+        roughly double the work. Through the connections, they simply arrive.</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">Honesty about the number</div>
+  <h2>What we need to know to lock the price.</h2>
+  <div class="sub">The ranges above are ranges because we have not seen inside everything yet. We would
+    rather show you the questions than pad the number to cover what we do not know. Answer these and the
+    price becomes fixed.</div>
+
+  <div class="grid g3">
+    <div>
+      <h3 style="margin-bottom:14px">Dashboard &amp; engagement</h3>
+      <div class="q"><b>Is your Instagram a Business account linked to your Facebook Page?</b>
+        <span>If not, three columns wait until it is. It does not hold up the other twenty six.</span></div>
+      <div class="q"><b>Who can grant access to the YouTube channel and Google Analytics?</b>
+        <span>Two clicks from the right person. Weeks of waiting from the wrong one.</span></div>
+      <div class="q"><b>You run two Google Analytics properties. Which one is the real one?</b>
+        <span>Determines what "web visits" has actually meant on the sheet.</span></div>
+      <div class="q"><b>Will the Sunday team start entering the adult headcount in Planning Center?</b>
+        <span>The feature is switched on and unused. Same count, different box.</span></div>
+      <div class="q"><b>Which ministries need their own input form?</b>
+        <span>Drives how many forms we build and who gets the Sunday reminder.</span></div>
+      <div class="q"><b>Should engagement be measured on a 90 day window?</b>
+        <span>It is the standard. Yours may be different and we would rather use yours.</span></div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:14px">The website</h3>
+      <div class="q"><b>Are you selling golf and concert tickets on the site, or linking out?</b>
+        <span>This is the single question that moves the price $4,000. Everything else is detail.</span></div>
+      <div class="q"><b>Where do registrations need to land?</b>
+        <span>Planning Center Registrations, a spreadsheet, or somewhere else.</span></div>
+      <div class="q"><b>Who writes the copy, and by when?</b>
+        <span>The build is not the risk. Waiting on words is the risk.</span></div>
+      <div class="q"><b>Do you have photography for For Day, the golf tournament and the concert?</b>
+        <span>If not, we plan around it rather than discovering it in week three.</span></div>
+      <div class="q"><b>Is npaustin.com in scope, or For Austin only?</b>
+        <span>We have assumed For Austin only.</span></div>
+      <div class="q"><b>Does the building campaign content stay, move, or get archived?</b>
+        <span>It is most of the current site.</span></div>
+      <div class="q"><b>Who is supporting the site today, and are they staying involved?</b>
+        <span>We would rather work alongside people than around them.</span></div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:14px">Growth &amp; awareness</h3>
+      <div class="q"><b>What is the actual monthly ad budget?</b>
+        <span>Below a floor, paid awareness does not move a number you can see.</span></div>
+      <div class="q"><b>What counts as success?</b>
+        <span>A form, a first visit, a check-in. Pick one and we will measure it honestly.</span></div>
+      <div class="q"><b>Who makes the creative?</b>
+        <span>Your comms team already does. We would rather amplify them than replace them.</span></div>
+      <div class="q"><b>Is there an existing Meta ad account and pixel?</b>
+        <span>Determines whether we start from history or from zero.</span></div>
+      <div class="q"><b>What geography?</b>
+        <span>Leander, Cedar Park and Georgetown behave very differently.</span></div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:30px"><b>One honest word about the ninety day goal.</b>
+    <p>Growing 20 to 30 percent in ninety days on your current attendance means finding several hundred new
+    people by late October. Awareness advertising alone will not do that, and anyone who tells you it will
+    is selling. What paid awareness does well is fill the top of the funnel. What actually converts a
+    visitor into a person who stays is the second and third visit, and that is an engagement problem, which
+    is exactly what Track One measures. We would rather tell you that now than explain it in November.</p></div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <div class="eyebrow">Fit</div>
+  <h2>Where we are the wrong choice.</h2>
+  <div class="sub">Worth saying plainly, because it will save both of us a conversation later.</div>
+  <div class="grid g3">
+    <div class="card tight"><h3 style="font-size:17px">Video and photography</h3>
+      <p class="small" style="margin:8px 0 0">We do not produce them. Your comms team is better at this
+      than we would be, and we will say so rather than bill for it.</p></div>
+    <div class="card tight"><h3 style="font-size:17px">Full service ad agency</h3>
+      <p class="small" style="margin:8px 0 0">If you want a team writing hooks and cutting reels weekly,
+      hire that team. We build the destination and the measurement, and we will happily point you to
+      people who do the rest well.</p></div>
+    <div class="card tight"><h3 style="font-size:17px">Fixing culture with software</h3>
+      <p class="small" style="margin:8px 0 0">A form does not make a ministry submit a score. A leader
+      does. We will build the easiest possible form and tell you honestly when the gap is not technical.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">Why us for this</div>
+  <h2>We are already inside the numbers.</h2>
+  <div class="grid g2" style="margin-top:8px">
+    <div class="card">
+      <h3>The unfair advantage</h3>
+      <p class="small" style="margin-top:10px">We are already your bookkeeping team. That means we do not
+      have to be onboarded, we do not have to be explained to, and the financial half of this dashboard is
+      data we are already reconciling every month. Any other vendor starts by asking for access we already
+      have.</p>
+      <p class="small" style="margin:0">It also means the Center revenue on your dashboard will agree with
+      your financial statements by construction, rather than by somebody retyping it and hoping.</p>
+    </div>
+    <div class="card">
+      <h3>How we work</h3>
+      <ul class="ticks" style="margin-top:6px">
+        <li>Read only. We never write to Planning Center or your books from the dashboard</li>
+        <li>You own everything. The data, the pages, the accounts, on day one</li>
+        <li>No long lock-in, no auto-escalating fee, no surprise invoices</li>
+        <li>If it breaks, we know before you do</li>
+        <li>One person you call, not a ticket queue</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="cta">
+    <h2>The next step is a 30 minute call.</h2>
+    <p>Bring the answers to the questions above, or bring none of them and we will work through them
+    together. We will leave that call with a fixed price, a start date, and the guarantees in writing.</p>
+    <a class="btn" href="mailto:Ricky@TurnkeyCFO.com?subject=Northpoint%20roadmap">Ricky@TurnkeyCFO.com</a>
+    <p class="small" style="color:rgba(255,255,255,.75);margin-top:20px">One build slot is held for
+      September. We would rather tell you that now than in three weeks.</p>
+  </div>
+</div></section>
+
+<footer>Prepared by Turnkey for Northpoint Church &middot; 30 July 2026 &middot; valid 30 days<br>
+Pricing assumes the scope described above. The questions in this document are the ones that change it.</footer>
+
+<!-- build:ade66d674946 -->
