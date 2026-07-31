@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Northpoint Church &middot; Roadmap &amp; Proposal &middot; Turnkey</title>
+<title>Northpoint Church &middot; Where we would start &middot; Turnkey</title>
 <style>
 :root{
   --page:#F8F6F3; --card:#FFFFFF; --ink:#1C2733; --mut:#657482; --line:#E7E2DB;
@@ -16,549 +16,264 @@ body{margin:0;background:var(--page);color:var(--ink);
  font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
 h1,h2,h3,h4{margin:0;font-weight:800;letter-spacing:-.018em;line-height:1.2}
 p{margin:0 0 14px}
-.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
 header{background:linear-gradient(155deg,#18232E 0%,#233343 46%,#8E3A28 100%);color:#fff;
- padding:62px 0 54px;position:relative;overflow:hidden}
+ padding:58px 0 50px;position:relative;overflow:hidden}
 header::after{content:"";position:absolute;right:-140px;top:-140px;width:460px;height:460px;
  border-radius:50%;background:rgba(255,255,255,.045)}
 header .eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
  opacity:.8;margin-bottom:15px}
-header h1{font-size:43px;max-width:20ch}
-header .lede{font-size:18px;opacity:.9;margin-top:17px;max-width:60ch}
-.heropills{display:flex;gap:9px;flex-wrap:wrap;margin-top:25px;position:relative}
-.heropills span{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.26);
- padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:700}
-section{padding:50px 0}
+header h1{font-size:41px;max-width:21ch}
+header .lede{font-size:18px;opacity:.9;margin-top:17px;max-width:62ch}
+section{padding:48px 0}
 section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .eyebrow{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:800;
  color:var(--terra);margin-bottom:11px}
-h2{font-size:30px;margin-bottom:12px}
-h2+.sub{color:var(--mut);font-size:17px;max-width:66ch;margin-bottom:30px}
+h2{font-size:29px;margin-bottom:12px}
+h2+.sub{color:var(--mut);font-size:17px;max-width:68ch;margin-bottom:28px}
 h3{font-size:19px}
 .grid{display:grid;gap:20px}
 .grid>*{min-width:0}
-.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
 .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.g23{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
-@media(max-width:900px){.g2,.g3,.g4,.g23{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:900px){.g2,.g3{grid-template-columns:minmax(0,1fr)}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:26px;
  box-shadow:var(--shadow)}
-.card.tight{padding:20px 22px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:19px;
- box-shadow:var(--shadow)}
-.stat .n{font-size:33px;font-weight:800;color:var(--terra);letter-spacing:-.03em;line-height:1.05}
-.stat .l{font-size:13px;color:var(--mut);margin-top:7px}
-.pricecard{background:var(--card);border:1px solid var(--line);border-radius:16px;
- box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
-.pricecard .top{background:var(--navy);color:#fff;padding:19px 23px}
-.pricecard.hi{border-color:var(--terra);box-shadow:0 0 0 3px rgba(199,76,51,.1),var(--shadow)}
-.pricecard.hi .top{background:linear-gradient(135deg,#233343,#A8402C)}
-.pricecard .top .t{font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:800;opacity:.78}
-.pricecard .top h3{font-size:20px;margin-top:5px}
-.pricecard .body{padding:21px 23px 23px;flex:1;display:flex;flex-direction:column}
-.pr{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.pr .v{font-size:29px;font-weight:800;letter-spacing:-.03em}
-.pr .u{font-size:13px;font-weight:700;color:var(--mut)}
-.prline{padding:11px 0;border-bottom:1px solid #F3F0EB}
-.prline:first-of-type{padding-top:0}
-ul.ticks{list-style:none;padding:0;margin:15px 0 0;font-size:14.3px}
-ul.ticks li{padding:7px 0 7px 26px;position:relative;border-bottom:1px solid #F3F0EB}
+.card.tight{padding:21px 23px}
+/* the preview, as one big clickable surface */
+a.preview{display:block;text-decoration:none;color:inherit;background:var(--card);
+ border:1px solid var(--line);border-radius:18px;padding:18px 18px 0;box-shadow:var(--shadow);
+ overflow:hidden;position:relative;transition:transform .16s ease,box-shadow .16s ease}
+a.preview:hover{transform:translateY(-3px);
+ box-shadow:0 2px 4px rgba(28,39,51,.05),0 18px 44px rgba(28,39,51,.14)}
+a.preview .shot{border-radius:12px;overflow:hidden;background:#FBFAF8}
+a.preview .shot svg{width:100%}
+a.preview .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+ padding:17px 6px 19px;flex-wrap:wrap}
+a.preview .bar .t{font-size:17px;font-weight:800}
+a.preview .bar .s{font-size:13.5px;color:var(--mut)}
+.opencta{background:var(--terra);color:#fff;font-weight:800;font-size:14.5px;padding:12px 24px;
+ border-radius:11px;white-space:nowrap}
+.pinpill{display:inline-block;background:#F2EEE9;color:var(--navy);font-weight:800;font-size:12px;
+ padding:5px 11px;border-radius:999px;margin-left:9px;letter-spacing:.03em}
+.badge2{position:absolute;top:0;right:0;background:var(--navy);color:#fff;font-size:10.5px;
+ font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:7px 15px;border-radius:0 18px 0 12px}
+ul.ticks{list-style:none;padding:0;margin:14px 0 0;font-size:14.6px}
+ul.ticks li{padding:8px 0 8px 26px;position:relative;border-bottom:1px solid #F3F0EB}
 ul.ticks li:last-child{border-bottom:0}
-ul.ticks li::before{content:"";position:absolute;left:2px;top:14px;width:12px;height:6.5px;
+ul.ticks li::before{content:"";position:absolute;left:2px;top:15px;width:12px;height:6.5px;
  border-left:2.4px solid var(--grn);border-bottom:2.4px solid var(--grn);transform:rotate(-45deg)}
-ul.ticks li.no::before{border:0;left:5px;top:17px;width:9px;height:2.4px;background:#CBD2D8;transform:none}
+ul.ticks li.no::before{border:0;left:5px;top:18px;width:9px;height:2.4px;background:#CBD2D8;transform:none}
 ul.ticks li.no{color:var(--mut)}
-.guar{background:var(--grn2);border:1px solid #C6E3D3;border-radius:15px;padding:23px}
-.guar h3{color:#1E6547;font-size:18px;margin-bottom:8px}
-.guar p{margin:0;font-size:14.3px;color:#2B4A3C}
-.guar .badge{display:inline-block;background:var(--grn);color:#fff;font-size:10.5px;font-weight:800;
- letter-spacing:.09em;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:11px}
 .q{background:var(--goldbg);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;
- padding:15px 19px;margin:0 0 11px}
-.q b{display:block;font-size:14.8px;margin-bottom:3px}
+ padding:14px 18px;margin:0 0 10px}
+.q b{display:block;font-size:14.8px;margin-bottom:2px}
 .q span{font-size:13.3px;color:var(--mut)}
-table{width:100%;border-collapse:collapse;font-size:14.3px;background:#fff}
-th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);
- font-weight:800;padding:11px 12px;border-bottom:2px solid var(--line)}
-td{padding:11px 12px;border-bottom:1px solid #F3F0EB;vertical-align:top}
-td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-tr.tot td{font-weight:800;background:#FAF8F5;border-top:2px solid var(--line)}
-tr.win td{background:#F1F8F4}
-.tblwrap{border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);
- overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tblwrap table{min-width:520px}
-.tblwrap table td:first-child,.tblwrap table th:first-child{padding-left:19px}
-.tblwrap table td:last-child,.tblwrap table th:last-child{padding-right:19px}
 .chartbox{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 svg{display:block;max-width:100%;height:auto}
-/* a phone-width Gantt shrinks to illegibility, so let it scroll instead */
-.chartbox.wide svg{min-width:780px;max-width:none}
+.chartbox.wide svg{min-width:760px;max-width:none}
 .scrollhint{display:none;font-size:11.5px;color:var(--mut);font-weight:700;margin-top:8px}
 @media(max-width:780px){.scrollhint{display:block}}
 .note{border-left:4px solid var(--navy2);background:#F2F5F8;border-radius:0 12px 12px 0;
  padding:16px 20px;margin:22px 0}
-.note b{font-weight:800}.note p{margin:5px 0 0;font-size:14.3px}
+.note b{font-weight:800}.note p{margin:5px 0 0;font-size:14.4px}
+.phase{display:flex;gap:15px;align-items:flex-start}
+.phase .num{flex:0 0 34px;height:34px;border-radius:10px;background:var(--navy);color:#fff;
+ font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center}
+.phase.p1 .num{background:var(--gold)}
+.phase.p2 .num{background:var(--terra)}
+.phase.p3 .num{background:var(--grn)}
 .cta{background:linear-gradient(150deg,#233343,#8E3A28);color:#fff;border-radius:18px;
  padding:40px 38px;text-align:center}
-.cta h2{color:#fff;font-size:29px}
-.cta p{opacity:.9;max-width:56ch;margin:12px auto 0}
+.cta h2{color:#fff;font-size:28px}
+.cta p{opacity:.9;max-width:58ch;margin:12px auto 0}
 .btn{display:inline-block;background:#fff;color:#233343;font-weight:800;font-size:15px;
  padding:14px 30px;border-radius:11px;text-decoration:none;margin-top:22px}
+.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:26px}
+@media(max-width:820px){.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.four div{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:12px;
+ padding:14px 8px;font-weight:800;font-size:14px}
 a{color:var(--terra)}
 footer{text-align:center;color:var(--mut);font-size:13px;padding:32px 0 44px}
-.small{font-size:13px;color:var(--mut)}
-/* roi calculator */
-.roi{background:var(--navy);color:#fff;border-radius:16px;padding:28px 30px}
-.roi h3{color:#fff;font-size:21px;margin-bottom:6px}
-.roi .cap{color:rgba(255,255,255,.68);font-size:13.5px;margin-bottom:22px;max-width:62ch}
-.slab{display:block;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.8);margin-bottom:6px}
-.slab b{color:#fff;font-size:15px}
-input[type=range]{width:100%;accent-color:#D97A5F;margin:2px 0 20px}
-.roiout{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px}
-@media(max-width:700px){.roiout{grid-template-columns:1fr}}
-.roibox{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
- border-radius:12px;padding:15px 17px}
-.roibox .l{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;
- color:rgba(255,255,255,.6)}
-.roibox .v{font-size:26px;font-weight:800;margin-top:4px;letter-spacing:-.02em}
-.roibox.good .v{color:#8FD9B4}
-.roiverdict{margin-top:20px;background:rgba(143,217,180,.13);border:1px solid rgba(143,217,180,.34);
- border-radius:12px;padding:15px 18px;font-size:14.5px}
-.roiverdict b{color:#8FD9B4}
+.small{font-size:13.2px;color:var(--mut)}
 </style>
 
 <header><div class="wrap">
   <div class="eyebrow">Prepared for Buck Giebelhaus &middot; Northpoint Church</div>
-  <h1>Know who is coming in, who is drifting out, and what to do about it.</h1>
-  <div class="lede">A roadmap and a price for the four things you put in front of us: the weekly
-    dashboard, engagement tracking, the For Austin site, and growing awareness over the next
-    ninety days.</div>
-  <div class="heropills"><span>Prepared 30 July 2026</span><span>Turnkey</span>
-    <span>Valid for 30 days</span></div>
+  <h1>All four of these are possible. Here is where we would start.</h1>
+  <div class="lede">You asked about the weekly dashboard, engagement tracking, the For Austin site,
+    and growing awareness. Rather than write about the first two, we built them. Have a look, then
+    let us put thirty minutes on the calendar for the rest.</div>
 </div></header>
 
 <section><div class="wrap">
-  <div class="eyebrow">Before we talk about the work</div>
-  <h2>We already built the first piece.</h2>
-  <div class="sub">Rather than describe what a live dashboard could look like, we built one from the
-    workbook you sent and put it on a link. Twelve tabs, thirty weeks of 2026 against the same weeks
-    of 2025, on top of fourteen years of history. It took one download of your file.</div>
+  <div class="eyebrow">Projects one and two</div>
+  <h2>The dashboard and the engagement tracking are built.</h2>
+  <div class="sub">One download of your workbook, turned into a live page. Twelve tabs, this year
+    against the same week of last year, on top of fourteen years of history. Open it and click
+    through it before we talk.</div>
 
-  <div class="card" style="margin-bottom:24px">
-    <h3 style="margin-bottom:5px">What it found in your own reporting</h3>
-    <div class="grid g4" style="margin:20px 0 4px">
-      <div class="stat"><div class="n">265</div><div class="l">columns across the nine tabs of the
-        weekly sheet</div></div>
-      <div class="stat"><div class="n">80</div><div class="l">of them have never been filled in once
-        during 2026</div></div>
-      <div class="stat"><div class="n">0</div><div class="l">weeks of Engaged 2 and Engaged 3 data,
-        the exact numbers you asked to track</div></div>
-      <div class="stat"><div class="n">25</div><div class="l">weeks where Connection and Guest
-        Services submitted no score at all</div></div>
+  <a class="preview" href="https://turnkeycfo.com/northpoint-weekly/" target="_blank" rel="noopener">
+    <div class="badge2">Live now</div>
+    <div class="shot"><svg viewBox="0 0 900 470" width="900" height="470" role="img" aria-label="Preview of the Northpoint weekly dashboard"><rect x="0" y="0" width="900" height="470" rx="14" fill="#FFFFFF" stroke="#E7E2DB"/><rect x="0" y="0" width="900" height="74" rx="14" fill="#233343"/><rect x="0" y="56" width="900" height="18" fill="#233343"/><text x="26" y="34" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="16" font-weight="800" fill="#fff">Northpoint &#183; Weekly Dashboard</text><text x="26" y="54" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,.6)">2026 against the same week of 2025, on fourteen years of history</text><circle cx="870" cy="30" r="5.5" fill="#C74C33" opacity=".7"/><circle cx="850" cy="30" r="5.5" fill="#E0A96D" opacity=".7"/><circle cx="830" cy="30" r="5.5" fill="#67B08F" opacity=".7"/><rect x="22" y="90" width="75" height="27" rx="7" fill="#C74C33"/><text x="59" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">This Week</text><rect x="104" y="90" width="82" height="27" rx="7" fill="#F2EEE9"/><text x="145" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Attendance</text><rect x="193" y="90" width="82" height="27" rx="7" fill="#F2EEE9"/><text x="234" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Engagement</text><rect x="282" y="90" width="54" height="27" rx="7" fill="#F2EEE9"/><text x="309" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Groups</text><rect x="342" y="90" width="39" height="27" rx="7" fill="#F2EEE9"/><text x="362" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Kids</text><rect x="389" y="90" width="68" height="27" rx="7" fill="#F2EEE9"/><text x="423" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Students</text><rect x="464" y="90" width="54" height="27" rx="7" fill="#F2EEE9"/><text x="490" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Giving</text><rect x="524" y="90" width="61" height="27" rx="7" fill="#F2EEE9"/><text x="555" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Digital</text><rect x="592" y="90" width="82" height="27" rx="7" fill="#F2EEE9"/><text x="633" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">The Center</text><rect x="681" y="90" width="75" height="27" rx="7" fill="#F2EEE9"/><text x="718" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Scorecard</text><rect x="763" y="90" width="61" height="27" rx="7" fill="#F2EEE9"/><text x="793" y="108" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">History</text><rect x="22" y="134" width="200" height="78" rx="10" fill="#FBFAF8" stroke="#E7E2DB"/><rect x="37" y="152" width="86" height="20" rx="4" fill="#C74C33" opacity=".82"/><rect x="37" y="180" width="140" height="7" rx="3.5" fill="#E9E4DD"/><rect x="37" y="192" width="96" height="7" rx="3.5" fill="#EFEBE5"/><text x="37" y="147" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="8.5" font-weight="800" fill="#657482" letter-spacing=".08em">WEEKEND ATTENDANCE</text><rect x="237" y="134" width="200" height="78" rx="10" fill="#FBFAF8" stroke="#E7E2DB"/><rect x="252" y="152" width="86" height="20" rx="4" fill="#233343" opacity=".82"/><rect x="252" y="180" width="140" height="7" rx="3.5" fill="#E9E4DD"/><rect x="252" y="192" width="96" height="7" rx="3.5" fill="#EFEBE5"/><text x="252" y="147" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="8.5" font-weight="800" fill="#657482" letter-spacing=".08em">NEW THIS WEEK</text><rect x="452" y="134" width="200" height="78" rx="10" fill="#FBFAF8" stroke="#E7E2DB"/><rect x="467" y="152" width="86" height="20" rx="4" fill="#2F7D5B" opacity=".82"/><rect x="467" y="180" width="140" height="7" rx="3.5" fill="#E9E4DD"/><rect x="467" y="192" width="96" height="7" rx="3.5" fill="#EFEBE5"/><text x="467" y="147" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="8.5" font-weight="800" fill="#657482" letter-spacing=".08em">ENGAGED, 90 DAYS</text><rect x="667" y="134" width="200" height="78" rx="10" fill="#FBFAF8" stroke="#E7E2DB"/><rect x="682" y="152" width="86" height="20" rx="4" fill="#2C5F91" opacity=".82"/><rect x="682" y="180" width="140" height="7" rx="3.5" fill="#E9E4DD"/><rect x="682" y="192" width="96" height="7" rx="3.5" fill="#EFEBE5"/><text x="682" y="147" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="8.5" font-weight="800" fill="#657482" letter-spacing=".08em">GIVING UNITS</text><rect x="22" y="228" width="530" height="222" rx="10" fill="#FBFAF8" stroke="#E7E2DB"/><text x="40" y="254" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11.5" font-weight="800" fill="#1C2733">This year against last year, week by week</text><rect x="44" y="386" width="15" height="44" rx="3" fill="#C74C33" opacity=".85"/><rect x="61" y="399" width="15" height="31" rx="3" fill="#D9D2C9"/><rect x="85" y="374" width="15" height="56" rx="3" fill="#C74C33" opacity=".85"/><rect x="102" y="387" width="15" height="43" rx="3" fill="#D9D2C9"/><rect x="126" y="381" width="15" height="49" rx="3" fill="#C74C33" opacity=".85"/><rect x="143" y="390" width="15" height="40" rx="3" fill="#D9D2C9"/><rect x="167" y="361" width="15" height="69" rx="3" fill="#C74C33" opacity=".85"/><rect x="184" y="370" width="15" height="60" rx="3" fill="#D9D2C9"/><rect x="208" y="368" width="15" height="62" rx="3" fill="#C74C33" opacity=".85"/><rect x="225" y="386" width="15" height="44" rx="3" fill="#D9D2C9"/><rect x="249" y="355" width="15" height="75" rx="3" fill="#C74C33" opacity=".85"/><rect x="266" y="372" width="15" height="58" rx="3" fill="#D9D2C9"/><rect x="290" y="364" width="15" height="66" rx="3" fill="#C74C33" opacity=".85"/><rect x="307" y="376" width="15" height="54" rx="3" fill="#D9D2C9"/><rect x="331" y="349" width="15" height="81" rx="3" fill="#C74C33" opacity=".85"/><rect x="348" y="359" width="15" height="71" rx="3" fill="#D9D2C9"/><rect x="372" y="358" width="15" height="72" rx="3" fill="#C74C33" opacity=".85"/><rect x="389" y="378" width="15" height="52" rx="3" fill="#D9D2C9"/><rect x="413" y="343" width="15" height="87" rx="3" fill="#C74C33" opacity=".85"/><rect x="430" y="363" width="15" height="67" rx="3" fill="#D9D2C9"/><rect x="454" y="351" width="15" height="79" rx="3" fill="#C74C33" opacity=".85"/><rect x="471" y="365" width="15" height="65" rx="3" fill="#D9D2C9"/><rect x="495" y="338" width="15" height="92" rx="3" fill="#C74C33" opacity=".85"/><rect x="512" y="350" width="15" height="80" rx="3" fill="#D9D2C9"/><line x1="40" y1="431" x2="536" y2="431" stroke="#E7E2DB" stroke-width="1.5"/><rect x="566" y="228" width="312" height="222" rx="10" fill="#FBFAF8" stroke="#E7E2DB"/><text x="584" y="254" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11.5" font-weight="800" fill="#1C2733">Who has drifted in the last 90 days</text><circle cx="596" cy="279" r="9" fill="#EDE7DF"/><rect x="614" y="272" width="136" height="7.5" rx="3.75" fill="#DED7CE"/><rect x="614" y="284" width="92" height="6" rx="3" fill="#EAE4DC"/><rect x="810" y="273" width="52" height="17" rx="8.5" fill="#C74C33" opacity=".2"/><circle cx="596" cy="308" r="9" fill="#EDE7DF"/><rect x="614" y="301" width="114" height="7.5" rx="3.75" fill="#DED7CE"/><rect x="614" y="313" width="74" height="6" rx="3" fill="#EAE4DC"/><rect x="810" y="302" width="52" height="17" rx="8.5" fill="#C8922E" opacity=".2"/><circle cx="596" cy="337" r="9" fill="#EDE7DF"/><rect x="614" y="330" width="92" height="7.5" rx="3.75" fill="#DED7CE"/><rect x="614" y="342" width="92" height="6" rx="3" fill="#EAE4DC"/><rect x="810" y="331" width="52" height="17" rx="8.5" fill="#C8922E" opacity=".2"/><circle cx="596" cy="366" r="9" fill="#EDE7DF"/><rect x="614" y="359" width="136" height="7.5" rx="3.75" fill="#DED7CE"/><rect x="614" y="371" width="74" height="6" rx="3" fill="#EAE4DC"/><rect x="810" y="360" width="52" height="17" rx="8.5" fill="#C74C33" opacity=".2"/><circle cx="596" cy="395" r="9" fill="#EDE7DF"/><rect x="614" y="388" width="114" height="7.5" rx="3.75" fill="#DED7CE"/><rect x="614" y="400" width="92" height="6" rx="3" fill="#EAE4DC"/><rect x="810" y="389" width="52" height="17" rx="8.5" fill="#C8922E" opacity=".2"/><circle cx="596" cy="424" r="9" fill="#EDE7DF"/><rect x="614" y="417" width="92" height="7.5" rx="3.75" fill="#DED7CE"/><rect x="614" y="429" width="74" height="6" rx="3" fill="#EAE4DC"/><rect x="810" y="418" width="52" height="17" rx="8.5" fill="#C8922E" opacity=".2"/></svg></div>
+    <div class="bar">
+      <div>
+        <div class="t">Open your dashboard <span class="pinpill">Passcode 7893</span></div>
+        <div class="s">turnkeycfo.com/northpoint-weekly</div>
+      </div>
+      <span class="opencta">Open it &rarr;</span>
     </div>
-    <p class="small" style="margin:17px 0 0">None of that is a discipline problem. It is what happens
-      when the only way to fill a box is for a person to go and look something up. Every one of those
-      eighty columns is available from a system you already pay for.</p>
+  </a>
+
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card tight"><h3 style="font-size:17px">What is in it today</h3>
+      <p class="small" style="margin:9px 0 0">Attendance, engagement, groups, kids, students, giving,
+      digital reach, the Center and the ministry scorecard. Every year-over-year comparison is
+      like-for-like, so a ministry that has not reported yet does not read as a collapse.</p></div>
+    <div class="card tight"><h3 style="font-size:17px">What it already told us</h3>
+      <p class="small" style="margin:9px 0 0">Engaged 2 and Engaged 3 have no data at all this year.
+      Eighty columns of that sheet have never been filled in once. That is not a discipline problem,
+      it is what happens when a person has to go and look every number up.</p></div>
+    <div class="card tight"><h3 style="font-size:17px">Where it goes next</h3>
+      <p class="small" style="margin:9px 0 0">Connected to Planning Center, YouTube, your analytics
+      and your books, it fills itself in overnight. Engaged 1, 2 and 3 become real numbers, and
+      "attendance feels flat" becomes a list of names who were engaged ninety days ago.</p></div>
   </div>
 
-  <div class="note"><b>See it for yourself.</b>
-    <p>turnkeycfo.com/northpoint-weekly &nbsp;&middot;&nbsp; passcode 7893. It is a snapshot built from
-    one download, not a live service, so it goes stale the moment the sheet changes. That is precisely
-    the problem this proposal solves.</p></div>
+  <div class="note"><b>One thing to know before you click.</b>
+    <p>What you are opening is a snapshot built from a single download, so it goes stale the moment
+    the sheet changes. Making it refresh on its own is the actual work, and it is the smallest and
+    fastest piece of everything below.</p></div>
 </div></section>
 
 <section class="alt"><div class="wrap">
-  <div class="eyebrow">The three tracks</div>
-  <h2>What we are proposing, and what it costs.</h2>
-  <div class="sub">Three separate pieces of work. Each stands on its own and you can take one, two, or
-    all three. Where you see a range, the scoping questions further down are what decide it.</div>
+  <div class="eyebrow">Project three</div>
+  <h2>The For Austin site.</h2>
+  <div class="sub">Yes, and it is well within reach before the fall. The honest answer is that the
+    price and the schedule both hinge on one decision: whether we refresh what is there or rebuild
+    the structure around where the church is going now.</div>
 
-  <div class="grid g3">
-    <div class="pricecard hi">
-      <div class="top"><div class="t">Track one</div><h3>Dashboard &amp; Engagement Engine</h3></div>
-      <div class="body">
-        <div class="prline"><div class="pr"><span class="v">$1,500</span><span class="u">one time build</span></div></div>
-        <div class="prline"><div class="pr"><span class="v">$250</span><span class="u">per month to run and maintain</span></div></div>
-        <p class="small" style="margin:13px 0 0">Fixed. No range, because we have already been inside
-          your data and we know what this takes.</p>
-        <ul class="ticks">
-          <li>29 of the 45 columns you type each week fill themselves</li>
-          <li>Planning Center, YouTube, Meta, Google Analytics and QuickBooks feed it nightly</li>
-          <li><b>Engaged 1, 2 and 3</b> become real numbers for the first time</li>
-          <li>Front door tracked as monthly cohorts, not a headcount</li>
-          <li>Back door: a named list of who is drifting</li>
-          <li>Movement up and down, month over month</li>
-          <li>A phone form per ministry leader, with a Sunday reminder</li>
-          <li>One link, same every week, always current</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="pricecard">
-      <div class="top"><div class="t">Track two</div><h3>The For Austin Site</h3></div>
-      <div class="body">
-        <div class="prline"><div class="pr"><span class="v">$1,250</span><span class="u">&ndash; $3,000 build</span></div></div>
-        <div class="prline"><div class="pr"><span class="v">$100</span><span class="u">&ndash; $400 per month</span></div></div>
-        <p class="small" style="margin:13px 0 0">Range depends on how far the rebuild goes. Six
-          questions below settle it.</p>
-        <ul class="ticks">
-          <li>Rebuilt around the strategy, not the building campaign</li>
-          <li>For Weekend: golf, concert, For Day, Sunday</li>
-          <li>Live before September</li>
-          <li>Your team edits content without a developer</li>
-          <li>Faster: the current homepage loads 12.6 MB</li>
-          <li>Search basics fixed: sitemap, headings, alt text</li>
-          <li><b>Replaces your current hosting bill</b></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="pricecard">
-      <div class="top"><div class="t">Track three</div><h3>Growth &amp; Awareness</h3></div>
-      <div class="body">
-        <div class="prline"><div class="pr"><span class="v">$1,000</span><span class="u">&ndash; $3,000 build</span></div></div>
-        <div class="prline"><div class="pr"><span class="v">$500</span><span class="u">&ndash; $2,000 per month</span></div></div>
-        <p class="small" style="margin:13px 0 0">Scales with budget and how much we manage. Ad spend is
-          paid by you directly to the platform. We never mark up media.</p>
-        <ul class="ticks">
-          <li>Landing pages built to convert a click into a visit</li>
-          <li>Tracking that ties an ad to a person who actually showed up</li>
-          <li>The 90 day goal measured weekly, on the dashboard</li>
-          <li>Campaign build, management and weekly reporting</li>
-          <li class="no">We do not produce video or photography</li>
-          <li class="no">We refer creative rather than fake it</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div></section>
-
-<section><div class="wrap">
-  <div class="eyebrow">Take all three</div>
-  <h2>The Everything Package.</h2>
-  <div class="sub">One agreement, one invoice, one team. The three tracks share the same tracking, the
-    same dashboard and the same people, so bundling them genuinely costs us less to deliver and we pass
-    that on.</div>
-
-  <div class="tblwrap" style="margin-bottom:22px"><table>
-    <thead><tr><th>&nbsp;</th><th class="n">Build</th><th class="n">Per month</th>
-      <th class="n">First year, all in</th></tr></thead>
-    <tbody>
-      <tr><td>Three tracks bought separately</td><td class="n">$3,750 &ndash; $7,500</td>
-        <td class="n">$850 &ndash; $2,650</td><td class="n">$13,950 &ndash; $39,300</td></tr>
-      <tr class="win"><td><b>The Everything Package</b></td><td class="n"><b>$2,995 &ndash; $5,995</b></td>
-        <td class="n"><b>$750 &ndash; $2,250</b></td><td class="n"><b>$11,245 &ndash; $30,745</b></td></tr>
-      <tr class="tot"><td>What bundling saves you</td><td class="n">$755 &ndash; $1,505</td>
-        <td class="n">$100 &ndash; $400</td><td class="n">$2,705 &ndash; $8,555</td></tr>
-    </tbody>
-  </table></div>
-  <p class="small" style="margin:-6px 0 26px">Read the bottom row as the discount for taking all three
-    together rather than one at a time. The first month is waived on the package, so the first-year
-    figures are the build plus eleven monthly payments.</p>
-
-  <h3 style="margin-bottom:6px">Three worked examples, so the range is not a mystery</h3>
-  <p class="small" style="max-width:70ch">Same three tracks. What moves is how far the site rebuild
-    goes and how much of the advertising we run.</p>
-  <div class="grid g3" style="margin-top:18px">
-    <div class="pricecard">
-      <div class="top" style="background:#3A5064"><div class="t">Example one</div><h3>Lean</h3></div>
-      <div class="body">
-        <div class="prline"><div class="pr"><span class="v">$2,995</span><span class="u">build</span></div></div>
-        <div class="prline"><div class="pr"><span class="v">$750</span><span class="u">per month</span></div></div>
-        <ul class="ticks">
-          <li>Full dashboard and engagement engine</li>
-          <li>Site refresh on the existing structure</li>
-          <li>Landing pages and tracking built</li>
-          <li class="no">You run the advertising yourselves</li>
-        </ul>
-      </div>
-    </div>
-    <div class="pricecard hi">
-      <div class="top"><div class="t">Example two</div><h3>Standard</h3></div>
-      <div class="body">
-        <div class="prline"><div class="pr"><span class="v">$4,495</span><span class="u">build</span></div></div>
-        <div class="prline"><div class="pr"><span class="v">$1,250</span><span class="u">per month</span></div></div>
-        <ul class="ticks">
-          <li>Full dashboard and engagement engine</li>
-          <li>Full site rebuild, new structure and copy</li>
-          <li>For Weekend pages, registration links out</li>
-          <li>We build and manage the campaign</li>
-        </ul>
-      </div>
-    </div>
-    <div class="pricecard">
-      <div class="top" style="background:#3A5064"><div class="t">Example three</div><h3>Full</h3></div>
-      <div class="body">
-        <div class="prline"><div class="pr"><span class="v">$5,995</span><span class="u">build</span></div></div>
-        <div class="prline"><div class="pr"><span class="v">$2,250</span><span class="u">per month</span></div></div>
-        <ul class="ticks">
-          <li>Everything in Standard</li>
-          <li>Ticketing and payment on the site</li>
-          <li>Registrations flowing into Planning Center</li>
-          <li>Full campaign management across platforms</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div></section>
-
-<section class="alt"><div class="wrap">
-  <div class="eyebrow">What it replaces</div>
-  <h2>The site maintenance is close to free.</h2>
-  <div class="sub">You are already paying to host and maintain these sites. At the lower tier, this is
-    not a new cost. It is the same cost, doing considerably more.</div>
-  <div class="grid g23">
+  <div class="grid g2">
     <div class="card">
-      <div class="chartbox"><svg viewBox="0 0 660 196" width="660" height="196" role="img"><rect x="236" y="14" width="103.4" height="26" rx="4" fill="#9AA7B2"/><text x="226" y="27" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="700" fill="#1C2733" text-anchor="end">Site hosting and platform today</text><text x="226" y="39" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="9.5" font-weight="600" fill="#9AA7B2" text-anchor="end">per month, roughly</text><text x="347.4" y="32" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="13" font-weight="800" fill="#1C2733" text-anchor="start">$130</text><rect x="236" y="72" width="79.5" height="26" rx="4" fill="#2F7D5B"/><text x="226" y="85" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="700" fill="#1C2733" text-anchor="end">Our lowest maintenance tier</text><text x="226" y="97" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="9.5" font-weight="600" fill="#9AA7B2" text-anchor="end">and it includes the work</text><text x="323.5" y="90" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="13" font-weight="800" fill="#1C2733" text-anchor="start">$100</text><rect x="236" y="130" width="318.2" height="26" rx="4" fill="#C74C33"/><text x="226" y="143" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="700" fill="#1C2733" text-anchor="end">Our highest maintenance tier</text><text x="226" y="155" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="9.5" font-weight="600" fill="#9AA7B2" text-anchor="end">full site plus content changes</text><text x="562.2" y="148" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="13" font-weight="800" fill="#1C2733" text-anchor="start">$400</text></svg></div>
-      <p class="small" style="margin:14px 0 0">Hosting moves to infrastructure that is free at your
-        traffic level. What you pay us is for the work, not the servers.</p>
+      <h3>What we would do</h3>
+      <ul class="ticks">
+        <li>Rebuild it around the strategy rather than the building campaign</li>
+        <li>Real pages for For Weekend: golf, the concert, For Day, Sunday</li>
+        <li>Your team edits content without waiting on a developer</li>
+        <li>Considerably faster, and the search basics fixed properly</li>
+        <li>It replaces what you pay to host and maintain the site today</li>
+        <li>Live before the fall push, with the deadline agreed up front</li>
+      </ul>
     </div>
     <div>
-      <div class="tblwrap"><table>
-        <thead><tr><th>Line you pay today</th><th class="n">Replaced</th></tr></thead>
-        <tbody>
-          <tr><td>Website platform subscription</td><td class="n">Yes</td></tr>
-          <tr><td>Current site hosting</td><td class="n">Yes</td></tr>
-          <tr><td>DNS subscription</td><td class="n">Optional</td></tr>
-          <tr><td>Camp 75 site platform</td><td class="n">If in scope</td></tr>
-          <tr><td>Domain registrations</td><td class="n">No, you keep them</td></tr>
-          <tr class="tot"><td>Your email</td><td class="n">Never touched</td></tr>
-        </tbody>
-      </table></div>
-      <p class="small" style="margin-top:14px">Your email runs on records that are completely separate
-        from your website. We do not go near them, and nothing about this work can interrupt a single
-        message.</p>
+      <h3 style="margin-bottom:13px">What we need to settle first</h3>
+      <div class="q"><b>Refresh, or rebuild?</b>
+        <span>A refresh keeps the layout and changes the message. A rebuild rethinks which pages
+        exist at all. This is most of the difference in both time and cost.</span></div>
+      <div class="q"><b>Ticketing on the site, or linking out?</b>
+        <span>Selling golf and concert tickets on your own site is a different piece of work from
+        pointing at an existing registration page. Nothing else moves the number as much.</span></div>
+      <div class="q"><b>Who writes the words, and where are the photos?</b>
+        <span>If you have them, we move fast. If we write them, that is time worth planning for
+        rather than discovering in week three.</span></div>
+      <div class="q"><b>Does Camp 75 come along?</b>
+        <span>It is on its own platform with its own bill. Bringing it in means one less
+        subscription and one less place to log in.</span></div>
     </div>
   </div>
+
+  <div class="note"><b>Your email is never touched.</b>
+    <p>Email runs on records that are entirely separate from a website. We do not go near them, and
+    nothing in this work can interrupt a single message.</p></div>
 </div></section>
 
 <section><div class="wrap">
-  <div class="eyebrow">The honest arithmetic</div>
-  <h2>What is a new giving unit actually worth?</h2>
-  <div class="sub">We will not pretend to know your numbers better than you do, so set them yourself.
-    The point of the engagement work is not a tidier spreadsheet. It is more people giving, serving and
-    staying, and that compounds well past the year you pay for it.</div>
+  <div class="eyebrow">Project four</div>
+  <h2>Growing awareness in the next ninety days.</h2>
+  <div class="sub">Also possible, and the piece where we would rather be straight with you than
+    impressive. Paid awareness fills the top of the funnel well. What turns a visitor into someone
+    who stays is the second and third visit, which is exactly what the engagement work measures.
+    The two belong together.</div>
 
-  <div class="roi">
-    <h3>What one new giving unit is worth, over three years</h3>
-    <div class="cap">Two dials. What a giving unit gives in a year, and how many new giving units
-      this work helps you add each month. The rest is arithmetic, and it runs for three years because
-      a household you bring in this autumn is still giving in 2028.</div>
-    <div class="grid g2" style="gap:26px">
-      <div>
-        <label class="slab">Annual giving of one giving unit &nbsp; <b id="gv">$1,000</b></label>
-        <input type="range" id="give" min="250" max="5000" step="50" value="1000">
-        <label class="slab">New giving units added each month &nbsp; <b id="fv">2</b></label>
-        <input type="range" id="fam" min="0" max="15" step="1" value="2">
-      </div>
-      <div>
-        <label class="slab">Which package &nbsp; <b id="pv">Standard</b></label>
-        <input type="range" id="pkg" min="0" max="2" step="1" value="1">
-        <p class="small" style="color:rgba(255,255,255,.6);margin:0 0 14px">
-          Lean $2,995 + $750/mo &nbsp;&middot;&nbsp; Standard $4,495 + $1,250/mo &nbsp;&middot;&nbsp;
-          Full $5,995 + $2,250/mo</p>
-        <label class="slab">Of those, still giving a year later &nbsp; <b id="rv">80%</b></label>
-        <input type="range" id="ret" min="40" max="100" step="5" value="80">
-      </div>
+  <div class="grid g2">
+    <div class="card">
+      <h3>What we would run</h3>
+      <ul class="ticks">
+        <li>Landing pages built to turn a click into an actual visit</li>
+        <li>Tracking that ties an ad to a person who showed up, not to a click</li>
+        <li>Campaign build, management, and a weekly read on the dashboard</li>
+        <li>The ninety day goal measured honestly, in the open, every week</li>
+        <li class="no">We do not produce video or photography</li>
+        <li class="no">Your comms team is better at creative than we would be</li>
+      </ul>
+      <p class="small" style="margin:14px 0 0">Ad spend is paid by you directly to the platform. We
+        never mark up media, and you own every account.</p>
     </div>
-
-    <div class="chartbox wide" style="margin-top:8px"><div id="chart"></div></div>
-    <div class="scrollhint" style="color:rgba(255,255,255,.55)">Scroll sideways to see year three
-      &rarr;</div>
-
-    <div class="roiout" style="margin-top:18px">
-      <div class="roibox"><div class="l">Three year cost</div><div class="v" id="cost">&ndash;</div></div>
-      <div class="roibox good"><div class="l">Three year giving</div><div class="v" id="val">&ndash;</div></div>
-      <div class="roibox good"><div class="l">Return</div><div class="v" id="roi">&ndash;</div></div>
+    <div>
+      <h3 style="margin-bottom:13px">What we need to settle first</h3>
+      <div class="q"><b>What is the monthly budget?</b>
+        <span>Below a floor, paid awareness does not move a number anyone can see. Above it, this
+        gets interesting quickly.</span></div>
+      <div class="q"><b>What counts as a win?</b>
+        <span>A form, a first visit, a check-in. Pick one and we will measure it honestly, including
+        the weeks it does not work.</span></div>
+      <div class="q"><b>Where, exactly?</b>
+        <span>Leander, Cedar Park and Georgetown behave very differently, and the money should
+        follow that.</span></div>
+      <div class="q"><b>Is there an ad account and pixel already?</b>
+        <span>It decides whether we start from your own history or from zero.</span></div>
     </div>
-    <div class="roiverdict" id="verdict">&nbsp;</div>
-    <p class="small" style="color:rgba(255,255,255,.5);margin:16px 0 0">New units are assumed to arrive
-      evenly through the year, so each one gives for half of its first year. After that they give a
-      full year, reduced by the retention dial. Nothing here counts the staff hours returned, anyone
-      who serves rather than gives, or a single dollar from the people you already have. It is the
-      most conservative version of this we could build, and we would rather set the giving dial to
-      your real figure on the call than guess at it here.</p>
   </div>
 
-  <div class="grid g3" style="margin-top:24px">
-    <div class="card tight"><h3 style="font-size:17px">1,326 fewer numbers a year</h3>
-      <p class="small" style="margin:8px 0 0">Your team types about 36 values into that sheet every
-      week. Afterwards it is about 10, and nine of those ten are judgment calls worth keeping.</p></div>
-    <div class="card tight"><h3 style="font-size:17px">80 columns arrive for free</h3>
-      <p class="small" style="margin:8px 0 0">The ones nobody has ever had time to fill. Doing them by
-      hand would roughly double the work. Through the connections they simply appear.</p></div>
-    <div class="card tight"><h3 style="font-size:17px">A list, not a feeling</h3>
-      <p class="small" style="margin:8px 0 0">"Attendance feels flat" becomes fourteen names of people
-      who were engaged ninety days ago and are not now. That is the whole product.</p></div>
-  </div>
+  <div class="note"><b>One honest word on the ninety day goal.</b>
+    <p>Growing twenty to thirty percent by late October means finding several hundred new people.
+    Advertising alone will not do that, and anyone who says otherwise is selling. What it can do is
+    put far more people in front of the invitation, and then the engagement work tells you which
+    of them stayed. We would rather say that now than explain it in November.</p></div>
 </div></section>
 
 <section class="alt"><div class="wrap">
-  <div class="eyebrow">Timing</div>
-  <h2>The roadmap, on real dates.</h2>
-  <div class="sub">Thirteen weeks from the first Monday in August to the end of October, which is the
-    end of your ninety day window. The three tracks run in parallel with different people, so the
-    website deadline never slows the dashboard down.</div>
-  <div class="card"><div class="chartbox wide"><svg viewBox="0 0 1000 392" width="1000" height="392" role="img" aria-label="Project timeline from August to October 2026"><line x1="186.0" y1="32" x2="186.0" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="216.7" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 4</text><line x1="247.4" y1="32" x2="247.4" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="278.1" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 11</text><line x1="308.8" y1="32" x2="308.8" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="339.5" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 18</text><line x1="370.2" y1="32" x2="370.2" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="400.8" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Aug 25</text><line x1="431.5" y1="32" x2="431.5" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="462.2" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 1</text><line x1="492.9" y1="32" x2="492.9" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="523.6" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 8</text><line x1="554.3" y1="32" x2="554.3" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="585.0" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 15</text><line x1="615.7" y1="32" x2="615.7" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="646.4" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 22</text><line x1="677.1" y1="32" x2="677.1" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="707.8" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Sep 29</text><line x1="738.5" y1="32" x2="738.5" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="769.2" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 6</text><line x1="799.8" y1="32" x2="799.8" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="830.5" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 13</text><line x1="861.2" y1="32" x2="861.2" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="891.9" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 20</text><line x1="922.6" y1="32" x2="922.6" y2="366" stroke="#EFEBE4" stroke-width="1"/><text x="953.3" y="24" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="700" fill="#657482" text-anchor="middle">Oct 27</text><line x1="431.5" y1="14" x2="431.5" y2="366" stroke="#C74C33" stroke-width="2" stroke-dasharray="5 4"/><text x="437.5" y="12" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="800" fill="#C74C33" text-anchor="start">Sep 1 &ndash; site live</text><text x="0" y="56" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="800" fill="#1C2733" text-anchor="start">Dashboard &amp; Engagement</text><rect x="186.0" y="62" width="122.8" height="17" rx="4.5" fill="#C74C33"/><text x="176" y="74.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Dashboard live on a link</text><rect x="308.8" y="92" width="245.5" height="17" rx="4.5" fill="#D97A5F"/><text x="176" y="104.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Connections feeding it nightly</text><rect x="554.3" y="122" width="306.9" height="17" rx="4.5" fill="#233343"/><text x="176" y="134.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Engagement engine: Engaged 1, 2, 3</text><rect x="738.5" y="152" width="245.5" height="17" rx="4.5" fill="#4A6076"/><text x="176" y="164.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Cohorts, drift list, movement</text><text x="0" y="197" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="800" fill="#1C2733" text-anchor="start">The For Austin Site</text><rect x="186.0" y="203" width="122.8" height="17" rx="4.5" fill="#C8922E"/><text x="176" y="215.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Scope + your content</text><rect x="247.4" y="233" width="184.2" height="17" rx="4.5" fill="#C74C33"/><text x="176" y="245.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Build</text><rect x="431.5" y="263" width="245.5" height="17" rx="4.5" fill="#D97A5F"/><text x="176" y="275.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">For Weekend pages</text><text x="0" y="308" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="800" fill="#1C2733" text-anchor="start">Growth &amp; Awareness</text><rect x="308.8" y="314" width="184.2" height="17" rx="4.5" fill="#2C5F91"/><text x="176" y="326.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Landing pages + tracking</text><rect x="492.9" y="344" width="491.1" height="17" rx="4.5" fill="#2F7D5B"/><text x="176" y="356.5" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="10.5" font-weight="600" fill="#657482" text-anchor="end">Campaign live and measured weekly</text></svg></div><div class="scrollhint">Scroll the timeline sideways to see October &rarr;</div></div>
+  <div class="eyebrow">How the work runs</div>
+  <h2>Scope it, build it, then run it.</h2>
+  <div class="sub">The same shape whichever pieces you pick. Two weeks of getting it right, a couple
+    of weeks of building, a launch, and then a rhythm that keeps going. We would set the real dates
+    with you on the call.</div>
 
-  <div class="grid g4" style="margin-top:20px">
-    <div class="card tight"><div class="eyebrow" style="margin-bottom:5px">By Aug 18</div>
-      <h3 style="font-size:16px">Dashboard live</h3>
-      <p class="small" style="margin:7px 0 0">On a link, refreshing on its own. Nothing changes for
-      your staff yet.</p></div>
-    <div class="card tight"><div class="eyebrow" style="margin-bottom:5px">Sep 1</div>
-      <h3 style="font-size:16px">Site live</h3>
-      <p class="small" style="margin:7px 0 0">Provided your content reaches us by 15 August. That date
-      is the whole risk.</p></div>
-    <div class="card tight"><div class="eyebrow" style="margin-bottom:5px">By Sep 15</div>
-      <h3 style="font-size:16px">Typing disappears</h3>
-      <p class="small" style="margin:7px 0 0">Twenty six of the twenty nine automated columns are
-      live. Meta follows on their review timeline.</p></div>
-    <div class="card tight"><div class="eyebrow" style="margin-bottom:5px">By Oct 20</div>
-      <h3 style="font-size:16px">Engagement is real</h3>
-      <p class="small" style="margin:7px 0 0">Engaged 1, 2 and 3. First cohort report. First drift
-      list, in time to act before Christmas.</p></div>
+  <div class="card"><div class="chartbox wide"><svg viewBox="0 0 1000 324" width="1000" height="324" role="img" aria-label="Timeline: scope, build, launch, run"><line x1="226.0" y1="34" x2="226.0" y2="302" stroke="#EFEBE4" stroke-width="1"/><text x="277.1" y="26" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="700" fill="#657482" text-anchor="middle">Week 1</text><line x1="328.3" y1="34" x2="328.3" y2="302" stroke="#EFEBE4" stroke-width="1"/><text x="379.4" y="26" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="700" fill="#657482" text-anchor="middle">Week 2</text><line x1="430.6" y1="34" x2="430.6" y2="302" stroke="#EFEBE4" stroke-width="1"/><text x="481.7" y="26" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="700" fill="#657482" text-anchor="middle">Week 3</text><line x1="532.9" y1="34" x2="532.9" y2="302" stroke="#EFEBE4" stroke-width="1"/><text x="584.0" y="26" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="700" fill="#657482" text-anchor="middle">Week 4</text><line x1="635.1" y1="34" x2="635.1" y2="302" stroke="#EFEBE4" stroke-width="1"/><text x="686.3" y="26" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="700" fill="#657482" text-anchor="middle">Week 5</text><line x1="737.4" y1="34" x2="737.4" y2="302" stroke="#EFEBE4" stroke-width="1"/><text x="788.6" y="26" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="700" fill="#657482" text-anchor="middle">Week 6</text><line x1="839.7" y1="34" x2="839.7" y2="302" stroke="#EFEBE4" stroke-width="1"/><text x="890.9" y="26" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="700" fill="#657482" text-anchor="middle">Ongoing</text><line x1="635.1" y1="14" x2="635.1" y2="302" stroke="#233343" stroke-width="2.4" stroke-dasharray="6 4"/><text x="643.1" y="12" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="12" font-weight="800" fill="#233343" text-anchor="start">Launch</text><text x="0" y="59" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="12" font-weight="800" fill="#1C2733" text-anchor="start">Phase 1 &#183; Scope it</text><rect x="226.0" y="66" width="102.3" height="19" rx="5" fill="#C8922E"/><text x="214" y="80" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="600" fill="#657482" text-anchor="end">Working session: what we are building</text><rect x="277.1" y="98" width="153.4" height="19" rx="5" fill="#DCA94E"/><text x="214" y="112" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="600" fill="#657482" text-anchor="end">Access, decisions, content list</text><text x="0" y="150" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="12" font-weight="800" fill="#1C2733" text-anchor="start">Phase 2 &#183; Build it</text><rect x="389.7" y="157" width="204.6" height="19" rx="5" fill="#C74C33"/><text x="214" y="171" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="600" fill="#657482" text-anchor="end">Build</text><rect x="553.3" y="189" width="81.8" height="19" rx="5" fill="#D97A5F"/><text x="214" y="203" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="600" fill="#657482" text-anchor="end">Your review, revisions, sign off</text><text x="0" y="241" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="12" font-weight="800" fill="#1C2733" text-anchor="start">Phase 3 &#183; Run it</text><rect x="635.1" y="248" width="306.9" height="19" rx="5" fill="#2F7D5B"/><text x="214" y="262" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="600" fill="#657482" text-anchor="end">Live, measured every week</text><rect x="696.5" y="280" width="245.5" height="19" rx="5" fill="#67B08F"/><text x="214" y="294" font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif" font-size="11" font-weight="600" fill="#657482" text-anchor="end">Monthly review: what moved, what is next</text></svg></div>
+    <div class="scrollhint">Scroll the timeline sideways &rarr;</div></div>
+
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card tight phase p1"><div class="num">1</div>
+      <div><h3 style="font-size:17px">Scope &middot; 5 to 10 business days</h3>
+      <p class="small" style="margin:7px 0 0">One working session to decide what we are actually
+      building, then a short list of access, decisions and content we need from you. This is where
+      the price stops being a range and becomes a number.</p></div></div>
+    <div class="card tight phase p2"><div class="num">2</div>
+      <div><h3 style="font-size:17px">Build &middot; 1 to 2 weeks</h3>
+      <p class="small" style="margin:7px 0 0">We build, you review, we revise, you sign off. You see
+      it in progress rather than at the end, so nothing is a surprise in the final week.</p></div></div>
+    <div class="card tight phase p3"><div class="num">3</div>
+      <div><h3 style="font-size:17px">Launch, then run it</h3>
+      <p class="small" style="margin:7px 0 0">Live on an agreed date. From there it is measured every
+      week and reviewed with you every month: what moved, what did not, what we change next.</p></div></div>
   </div>
 </div></section>
 
 <section><div class="wrap">
-  <div class="eyebrow">Risk reversal</div>
-  <h2>Four guarantees, in writing.</h2>
-  <div class="sub">You should not have to trust us. You should be able to hold us to something
-    specific. Every one of these goes in the agreement, not just on this page.</div>
   <div class="grid g2">
-    <div class="guar"><div class="badge">Speed</div>
-      <h3>Live in 14 days or the build is free</h3>
-      <p>Your dashboard is live, on a link, and refreshing on its own within fourteen days of us getting
-      access. If it is not, the $1,500 build fee is waived and we keep working.</p></div>
-    <div class="guar"><div class="badge">Outcome</div>
-      <h3>Half the work, or we work free</h3>
-      <p>Within sixty days of the connections going live, the numbers your team types every week drop by
-      at least half. If they have not, we keep building at no charge until they do.</p></div>
-    <div class="guar"><div class="badge">Deadline</div>
-      <h3>Live before September, or half the build is free</h3>
-      <p>If your content reaches us by 15 August and the site is not live by 1 September, we cut the site
-      build fee in half. We are putting our fee on your deadline, not just our calendar.</p></div>
-    <div class="guar"><div class="badge">No lock-in</div>
-      <h3>Thirty days to change your mind</h3>
-      <p>If you are not glad you did this in the first thirty days, tell us and we refund the month. No
-      reason required, no conversation to endure, and you keep everything we have built.</p></div>
-  </div>
-</div></section>
-
-<section class="alt"><div class="wrap">
-  <div class="eyebrow">Honesty about the number</div>
-  <h2>What we need to know to lock the price.</h2>
-  <div class="sub">The ranges are ranges because we have not seen inside everything yet. We would rather
-    show you the questions than pad the number to cover what we do not know. Answer these and the price
-    becomes fixed.</div>
-
-  <div class="card" style="margin-bottom:26px;background:#FFFBF2;border-color:#EDDCB8">
-    <h3 style="margin-bottom:6px">How far does the site rebuild go?</h3>
-    <p class="small" style="max-width:74ch;margin-bottom:18px">This is the single question behind the
-      $1,250 to $3,000 range. Answering it takes about five minutes and fixes the number on the spot.</p>
-    <div class="grid g2" style="gap:14px">
-      <div>
-        <div class="q"><b>Refresh the existing pages, or rebuild the structure?</b>
-          <span>A refresh keeps the current layout and swaps the message. A rebuild rethinks what pages
-          exist at all. That is most of the difference in price.</span></div>
-        <div class="q"><b>How many pages, and which ones survive?</b>
-          <span>There are fourteen live today, including one left over from an old template.</span></div>
-        <div class="q"><b>New copy, or reuse what is written?</b>
-          <span>If we write it, that is time. If you write it, that is your deadline.</span></div>
-        <div class="q"><b>New photography or video?</b>
-          <span>We do not shoot it, but we plan around what exists rather than discovering the gap in
-          week three.</span></div>
-      </div>
-      <div>
-        <div class="q"><b>Are you selling golf and concert tickets on the site, or linking out?</b>
-          <span>Linking out is the low end of the range. Real ticketing, payment and registration is the
-          high end. Nothing else moves the number this much.</span></div>
-        <div class="q"><b>Is Camp 75 in scope?</b>
-          <span>It runs on a separate platform with its own subscription. Bringing it in means one less
-          bill and one less place to log in.</span></div>
-        <div class="q"><b>Which pages must your team be able to edit themselves?</b>
-          <span>Editable pages take longer to build and save you far more later.</span></div>
-        <div class="q"><b>Does the building campaign content stay, move, or get archived?</b>
-          <span>It is most of the current site.</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="grid g2">
-    <div>
-      <h3 style="margin-bottom:13px">Dashboard &amp; engagement</h3>
-      <div class="q"><b>Is your Instagram a Business account linked to your Facebook Page?</b>
-        <span>If not, three columns wait until it is. It does not hold up the other twenty six.</span></div>
-      <div class="q"><b>Who can grant access to the YouTube channel and Google Analytics?</b>
-        <span>Two clicks from the right person. Weeks of waiting from the wrong one.</span></div>
-      <div class="q"><b>You run two Google Analytics properties. Which is the real one?</b>
-        <span>Determines what "web visits" has actually meant on the sheet.</span></div>
-      <div class="q"><b>Will the Sunday team start entering the adult headcount in Planning Center?</b>
-        <span>The feature is switched on and unused. Same count, different box.</span></div>
-      <div class="q"><b>Which ministries need their own input form?</b>
-        <span>Drives how many forms we build and who gets the Sunday reminder.</span></div>
-      <div class="q"><b>Should engagement be measured on a 90 day window?</b>
-        <span>It is the standard. Yours may be different and we would rather use yours.</span></div>
-    </div>
-    <div>
-      <h3 style="margin-bottom:13px">Growth &amp; awareness</h3>
-      <div class="q"><b>What is the actual monthly ad budget?</b>
-        <span>This sets where in the $500 to $2,000 management range you land, and below a floor paid
-        awareness does not move a number you can see.</span></div>
-      <div class="q"><b>What counts as success?</b>
-        <span>A form, a first visit, a check-in. Pick one and we measure it honestly.</span></div>
-      <div class="q"><b>Who makes the creative?</b>
-        <span>Your comms team already does. We would rather amplify them than replace them.</span></div>
-      <div class="q"><b>Is there an existing Meta ad account and pixel?</b>
-        <span>Determines whether we start from history or from zero.</span></div>
-      <div class="q"><b>What geography?</b>
-        <span>Leander, Cedar Park and Georgetown behave very differently.</span></div>
-      <div class="q"><b>Who is supporting the sites today, and are they staying involved?</b>
-        <span>We would rather work alongside people than around them.</span></div>
-    </div>
-  </div>
-
-  <div class="note" style="margin-top:28px"><b>One honest word about the ninety day goal.</b>
-    <p>Growing 20 to 30 percent in ninety days means finding several hundred new people by late October.
-    Awareness advertising alone will not do that, and anyone who tells you it will is selling. What paid
-    awareness does well is fill the top of the funnel. What converts a visitor into a person who stays is
-    the second and third visit, and that is an engagement problem, which is exactly what Track One
-    measures. We would rather tell you that now than explain it in November.</p></div>
-</div></section>
-
-<section><div class="wrap">
-  <div class="eyebrow">Fit</div>
-  <h2>Where we are the wrong choice.</h2>
-  <div class="sub">Worth saying plainly, because it saves both of us a conversation later.</div>
-  <div class="grid g3">
-    <div class="card tight"><h3 style="font-size:17px">Video and photography</h3>
-      <p class="small" style="margin:8px 0 0">We do not produce them. Your comms team is better at this
-      than we would be, and we will say so rather than bill for it.</p></div>
-    <div class="card tight"><h3 style="font-size:17px">A full service ad agency</h3>
-      <p class="small" style="margin:8px 0 0">If you want a team writing hooks and cutting reels every
-      week, hire that team. We build the destination and the measurement, and we will point you to
-      people who do the rest well.</p></div>
-    <div class="card tight"><h3 style="font-size:17px">Fixing culture with software</h3>
-      <p class="small" style="margin:8px 0 0">A form does not make a ministry submit a score. A leader
-      does. We build the easiest possible form and tell you honestly when the gap is not technical.</p></div>
-  </div>
-
-  <div class="grid g2" style="margin-top:24px">
-    <div class="card"><h3>The unfair advantage</h3>
-      <p class="small" style="margin-top:10px">We are already your bookkeeping team. We do not need to be
-      onboarded, we do not need it explained, and the financial half of this dashboard is data we are
-      already reconciling every month. Any other vendor starts by asking for access we already have.</p>
-      <p class="small" style="margin:0">It also means the Center revenue on your dashboard will agree
-      with your financial statements by construction, rather than because somebody retyped it and
-      hoped.</p></div>
+    <div class="card"><h3>Why us for this</h3>
+      <p class="small" style="margin-top:10px">We are already your bookkeeping team. There is nothing
+      to onboard, nothing to explain, and the financial half of that dashboard is data we reconcile
+      every month anyway. Any other vendor starts by asking for access we already have.</p>
+      <p class="small" style="margin:0">It also means the Center revenue on your dashboard agrees
+      with your financial statements because of how it is built, not because somebody retyped it
+      and hoped.</p></div>
     <div class="card"><h3>How we work</h3>
       <ul class="ticks" style="margin-top:6px">
-        <li>Read only. We never write to Planning Center or your books from the dashboard</li>
-        <li>You own everything. The data, the pages, the accounts, from day one</li>
+        <li>Read only. We never write to Planning Center or your books</li>
+        <li>You own everything from day one: the data, the pages, the accounts</li>
         <li>No long lock-in, no escalating fee, no surprise invoices</li>
-        <li>If it breaks, we know before you do</li>
+        <li>If something breaks, we know before you do</li>
         <li>One person you call, not a ticket queue</li>
       </ul></div>
   </div>
@@ -566,134 +281,16 @@ input[type=range]{width:100%;accent-color:#D97A5F;margin:2px 0 20px}
 
 <section><div class="wrap">
   <div class="cta">
-    <h2>The next step is a 30 minute call.</h2>
-    <p>Bring the answers to the questions above, or bring none of them and we will work through them
-    together. We will leave that call with a fixed price, a start date, and the guarantees in writing.</p>
-    <a class="btn" href="mailto:Ricky@TurnkeyCFO.com?subject=Northpoint%20roadmap">Ricky@TurnkeyCFO.com</a>
-    <p class="small" style="color:rgba(255,255,255,.75);margin-top:18px">One September build slot is
-      held. We would rather tell you that now than in three weeks.</p>
+    <h2>Thirty minutes, and four things to agree.</h2>
+    <p>Open the dashboard first. Then let us get on a call and settle the parts a document cannot.</p>
+    <div class="four"><div>Scoping</div><div>Timeline</div><div>Deliverables</div><div>Budget</div></div>
+    <a class="btn" href="mailto:Ricky@TurnkeyCFO.com?subject=Northpoint%20-%20next%20steps">Ricky@TurnkeyCFO.com</a>
+    <p class="small" style="color:rgba(255,255,255,.75);margin-top:18px">Bring whoever should be in
+      the room. The more of the questions above we answer together, the faster the rest of this
+      becomes a fixed number and a real date.</p>
   </div>
 </div></section>
 
-<footer>Prepared by Turnkey for Northpoint Church &middot; 30 July 2026 &middot; valid 30 days<br>
-Pricing assumes the scope described above. The questions in this document are the ones that change it.</footer>
+<footer>Prepared by Turnkey for Northpoint Church &middot; July 2026</footer>
 
-<script>
-(function(){
-  var PKG=[{n:"Lean",b:2995,m:750},{n:"Standard",b:4495,m:1250},{n:"Full",b:5995,m:2250}];
-  var $=function(id){return document.getElementById(id);};
-  var money=function(v){return "$"+Math.round(v).toLocaleString();};
-  var kd=function(v){var a=Math.abs(v);
-    if(a>=1e6)return (v<0?"-$":"$")+(a/1e6).toFixed(a/1e6>=10?1:2)+"M";
-    if(a>=1000)return (v<0?"-$":"$")+Math.round(a/1000)+"k";
-    return (v<0?"-$":"$")+Math.round(a);};
-
-  function model(){
-    var G=+$("give").value, f=+$("fam").value, pk=PKG[+$("pkg").value], r=+$("ret").value/100;
-    var perYear=f*12;                      /* new giving units added in a year   */
-    var cohort=perYear*G;                  /* their full-year giving             */
-    /* value: this year's cohort gives half a year, older cohorts give a full
-       year reduced by retention each time round */
-    var val=[], cost=[], cum=[], run=0;
-    for(var y=0;y<3;y++){
-      var v=cohort*0.5;                                     /* this year's intake */
-      for(var k=1;k<=y;k++) v+=cohort*Math.pow(r,k);        /* everyone before it */
-      val.push(v);
-      cost.push(y===0 ? pk.b+pk.m*11 : pk.m*12);            /* first month waived */
-      run+=v-cost[y]; cum.push(run);
-    }
-    return {G:G,f:f,pk:pk,r:r,val:val,cost:cost,cum:cum,
-            tv:val.reduce(function(a,b){return a+b;},0),
-            tc:cost.reduce(function(a,b){return a+b;},0)};
-  }
-
-  function chart(m){
-    var W=860,H=290,PL=62,PR=14,PT=30,PB=54;
-    var iw=W-PL-PR, ih=H-PT-PB;
-    var hi=0; m.val.concat(m.cost,m.cum).forEach(function(v){if(v>hi)hi=v;});
-    var lo=0; m.cum.forEach(function(v){if(v<lo)lo=v;});
-    var top=Math.max(1,hi*1.16), bot=lo<0?lo*1.2:0, span=top-bot;
-    var Y=function(v){return PT+ih*((top-v)/span);};
-    var F='font-family="Plus Jakarta Sans,Segoe UI,system-ui,sans-serif"';
-    var o=['<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img">'];
-    for(var t=0;t<=4;t++){var v=bot+span*t/4,y=Y(v);
-      o.push('<line x1="'+PL+'" y1="'+y.toFixed(1)+'" x2="'+(W-PR)+'" y2="'+y.toFixed(1)+
-        '" stroke="'+(Math.abs(v)<1?"rgba(255,255,255,.35)":"rgba(255,255,255,.10)")+'"/>');
-      o.push('<text x="'+(PL-9)+'" y="'+(y+3.5).toFixed(1)+'" '+F+' font-size="10" font-weight="600" '+
-        'fill="rgba(255,255,255,.55)" text-anchor="end">'+kd(v)+'</text>');}
-    var gw=iw/3, bw=Math.min(52,gw*0.24);
-    for(var i=0;i<3;i++){
-      var cx=PL+gw*i+gw/2;
-      [[m.cost[i],"#D97A5F",-1.08],[m.val[i],"#67B08F",0.08]].forEach(function(pair){
-        var v=pair[0],col=pair[1],off=pair[2];
-        var x=cx+off*bw, yT=Y(Math.max(v,0)), h=Math.abs(Y(v)-Y(0));
-        o.push('<rect x="'+x.toFixed(1)+'" y="'+yT.toFixed(1)+'" width="'+bw+'" height="'+
-          Math.max(2,h).toFixed(1)+'" rx="4" fill="'+col+'"/>');
-        o.push('<text x="'+(x+bw/2).toFixed(1)+'" y="'+(yT-7).toFixed(1)+'" '+F+
-          ' font-size="11" font-weight="800" fill="#fff" text-anchor="middle">'+kd(v)+'</text>');
-      });
-      o.push('<text x="'+cx.toFixed(1)+'" y="'+(H-PB+20)+'" '+F+' font-size="11.5" font-weight="800" '+
-        'fill="rgba(255,255,255,.85)" text-anchor="middle">Year '+(i+1)+'</text>');
-      o.push('<text x="'+cx.toFixed(1)+'" y="'+(H-PB+36)+'" '+F+' font-size="10.5" font-weight="700" '+
-        'fill="'+(m.cum[i]>=0?"#8FD9B4":"#E39A88")+'" text-anchor="middle">cumulative '+
-        kd(m.cum[i])+'</text>');
-    }
-    /* cumulative line across the three years */
-    var pts=m.cum.map(function(v,i){return [PL+gw*i+gw/2, Y(v)];});
-    o.push('<path d="M'+pts.map(function(p){return p[0].toFixed(1)+","+p[1].toFixed(1);}).join(" L")+
-      '" fill="none" stroke="#F0C9A0" stroke-width="2.4" stroke-dasharray="6 4"/>');
-    pts.forEach(function(p){o.push('<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+
-      '" r="4" fill="#233343" stroke="#F0C9A0" stroke-width="2.4"/>');});
-    /* legend */
-    o.push('<rect x="'+PL+'" y="6" width="10" height="10" rx="2.5" fill="#D97A5F"/>');
-    o.push('<text x="'+(PL+15)+'" y="15" '+F+' font-size="10.5" font-weight="700" '+
-      'fill="rgba(255,255,255,.75)" text-anchor="start">What you pay</text>');
-    o.push('<rect x="'+(PL+118)+'" y="6" width="10" height="10" rx="2.5" fill="#67B08F"/>');
-    o.push('<text x="'+(PL+133)+'" y="15" '+F+' font-size="10.5" font-weight="700" '+
-      'fill="rgba(255,255,255,.75)" text-anchor="start">Giving it brings in</text>');
-    o.push('<line x1="'+(PL+262)+'" y1="11" x2="'+(PL+284)+'" y2="11" stroke="#F0C9A0" '+
-      'stroke-width="2.4" stroke-dasharray="6 4"/>');
-    o.push('<text x="'+(PL+290)+'" y="15" '+F+' font-size="10.5" font-weight="700" '+
-      'fill="rgba(255,255,255,.75)" text-anchor="start">Cumulative, net of cost</text>');
-    o.push('</svg>');
-    return o.join("");
-  }
-
-  function draw(){
-    var m=model();
-    $("gv").textContent=money(m.G);
-    $("fv").textContent=m.f;
-    $("pv").textContent=m.pk.n;
-    $("rv").textContent=Math.round(m.r*100)+"%";
-    $("chart").innerHTML=chart(m);
-    $("cost").textContent=money(m.tc);
-    $("val").textContent=money(m.tv);
-    var v=$("verdict");
-    if(m.tv<=0){
-      $("roi").textContent="\u2013";
-      v.innerHTML="Move the second dial. If this work brings in <b>nobody at all</b>, it is not worth "+
-        "doing and we would rather you did not buy it.";
-      return;
-    }
-    var mult=m.tv/m.tc;
-    $("roi").textContent=(mult>=1? mult.toFixed(1)+"x" : Math.round(mult*100)+"%");
-    /* new units a month needed just to cover three years of cost */
-    var perUnit=m.G*(0.5 + (0.5+Math.pow(m.r,1)) + (0.5+Math.pow(m.r,1)+Math.pow(m.r,2)))/3;
-    var be=m.tc/(12*3*(m.G*(1.5+2*m.r+Math.pow(m.r,2))/3))*3;
-    be=m.tc/((m.G*(1.5+2*m.r+Math.pow(m.r,2)))*12);
-    var payback=null, run=0;
-    for(var i=0;i<3;i++){ run=m.cum[i]; if(run>=0){payback=i+1;break;} }
-    v.innerHTML="You break even by adding <b>"+
-      (be<1? "fewer than one new giving unit a month" : be.toFixed(1)+" new giving units a month")+
-      "</b>. At <b>"+m.f+"</b> a month it returns <b>"+
-      (mult>=1? mult.toFixed(1)+" times" : Math.round(mult*100)+" percent of")+
-      "</b> what you spend across three years"+
-      (payback? ", and it is in the black by <b>year "+payback+"</b>." : ".");
-  }
-  ["give","fam","pkg","ret"].forEach(function(id){
-    document.getElementById(id).addEventListener("input",draw);});
-  draw();
-})();
-</script>
-
-<!-- build:8d6af188f537 -->
+<!-- build:dfbe22b30255 -->
