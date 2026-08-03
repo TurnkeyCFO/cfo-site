@@ -254,6 +254,9 @@ h1 { margin:0 auto 10px; max-width:740px; font-size:clamp(34px, 5vw, 56px); line
 .note ul { padding-left:18px; }
 .cta-row { display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
 .footer-mini { text-align:center; color: rgba(0,38,58,.58); font-size:12px; padding:18px 12px 0; }
+.nego-banner { display:flex; align-items:center; gap:14px; margin:26px 0 6px; padding:14px 18px; border:1px solid rgba(4,120,87,.25); border-radius:14px; background:linear-gradient(135deg, rgba(4,120,87,.07), rgba(4,120,87,.03)); font-size:14px; line-height:1.5; color:#33525f; }
+.nego-banner b { color:#00263A; }
+.nego-banner .nb-ic { flex:0 0 auto; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; background:linear-gradient(135deg, #047857, #059669); font-size:14px; }
 .tier-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px; margin:22px 0 26px; align-items: stretch; }
 .tier-grid.four { grid-template-columns: repeat(4, minmax(0,1fr)); }
 .tier-grid.five { grid-template-columns: repeat(3, minmax(0,1fr)); }
@@ -603,6 +606,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
+        <div class="nego-banner" id="negoBanner">
+          <span class="nb-ic">%</span>
+          <div><b>These are estimates, not fixed prices.</b> Every engagement is scoped to your organization on the intro call, and pricing is negotiable.</div>
+        </div>
         <div class="tier-grid" id="tierGrid"></div>
 
         <section class="compare" id="compare">
@@ -933,8 +940,7 @@ const TIER_LABELS = {
   booksOnly: 'The Bookkeeper',
   books: 'The Back Office',
   reporting: 'The Finance Department',
-  strategic: 'The Custom Install',
-  cfo: 'CFO Services'
+  strategic: 'CFO Services'
 };
 
 function fmtRange(r) { return `${money(r.low)} - ${money(r.high)}`; }
@@ -1034,6 +1040,7 @@ function rvCountUp(el, dur) {
 function rvCascade() {
   const groups = [
     ['narrative'],
+    ['negoBanner'],
     ['tierGrid'],
     ['compare'],
     ['proof'],
@@ -1111,8 +1118,7 @@ function runReveal(done) {
 function renderTierCards(result) {
   const grid = document.getElementById('tierGrid');
   const showCfo = result.cfoInterest;
-  grid.classList.add('four');                       /* four tiers is now the base */
-  grid.classList.toggle('five', showCfo);
+  grid.classList.add('four');                       /* four tiers is the base */
   grid.innerHTML = '';
 
   const attachedAddOns = [];
@@ -1164,14 +1170,9 @@ function renderTierCards(result) {
   ];
   const strategicCore = [
     'Everything in The Finance Department',
-    'Every entity with its own clean set of books',
-    'Consolidated reporting across the group',
-    'Scoped with you on a short call'
-  ];
-  const cfoCore = [
-    'Custom-scoped CFO support',
-    'Tailored to your business after a discovery call',
-    'Pricing set based on scope'
+    'CFO level strategy, forecasting and board support',
+    'Every entity with its own clean set of books, consolidated',
+    'Scoped and priced with you on a short call'
   ];
 
   const tierDefs = [
@@ -1215,8 +1216,8 @@ function renderTierCards(result) {
     },
     {
       key: 'strategic',
-      name: 'The Custom Install',
-      tagline: 'For multi entity groups and complex operations. Scoped with you on a call.',
+      name: 'CFO Services',
+      tagline: 'CFO level support for complex operations and multi entity groups. Scoped with you on a call.',
       price: null,
       customPrice: true,
       core: strategicCore,
@@ -1225,22 +1226,9 @@ function renderTierCards(result) {
         if (billPayLabel) out.push(billPayLabel);
         return out;
       })(),
-      ctaLabel: 'Book a scoping call'
+      ctaLabel: 'Book a discovery call'
     }
   ];
-
-  if (showCfo) {
-    tierDefs.push({
-      key: 'cfo',
-      name: 'CFO Services',
-      tagline: 'Custom-scoped CFO support for businesses that need strategic finance.',
-      price: null,
-      core: cfoCore,
-      addOns: [],
-      ctaLabel: 'Book a discovery call',
-      custom: true
-    });
-  }
 
   tierDefs.forEach(def => {
     const isRec = def.key === result.recommended;
@@ -1448,8 +1436,7 @@ form.addEventListener('submit', (e) => {
     booksOnly: 'The Bookkeeper keeps it to the essentials, and you told us you have the rest handled.',
     books: 'The Back Office covers the core, and you told us you have the rest handled.',
     reporting: 'The Finance Department is the fit. It covers the nine things one bookkeeper was never going to cover.',
-    strategic: 'You are running more than one entity, so the install gets scoped with you on a call.',
-    cfo: 'Because you\u2019re interested in CFO-level services, we\u2019ve surfaced a custom tier as our recommendation.'
+    strategic: 'Your operation calls for CFO level support, so it gets scoped and priced with you on a call.'
   }[result.recommended];
   (function () {
     const ih = result.inHouse, cmp = document.getElementById('compare');

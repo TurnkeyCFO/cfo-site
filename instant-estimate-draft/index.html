@@ -273,6 +273,9 @@ body::before {
 .res-head .eyebrow { display:inline-flex; align-items:center; gap:9px; font-size:11.5px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; color:var(--emerald-ink); background:rgba(4,120,87,.08); border:1px solid rgba(4,120,87,.16); padding:8px 14px; border-radius:999px; margin-bottom:16px; }
 .res-head h2 { margin:0 0 12px; font-size:clamp(30px, 4vw, 46px); letter-spacing:-.045em; line-height:1.04; }
 .res-head p { margin:0 auto; max-width:640px; color:var(--ink-faint); font-size:16px; line-height:1.65; }
+.nego-banner { display:flex; align-items:center; gap:14px; margin:26px 0 6px; padding:14px 18px; border:1px solid rgba(4,120,87,.25); border-radius:14px; background:linear-gradient(135deg, rgba(4,120,87,.07), rgba(4,120,87,.03)); font-size:14px; line-height:1.5; color:#33525f; }
+.nego-banner b { color:#00263A; }
+.nego-banner .nb-ic { flex:0 0 auto; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; background:linear-gradient(135deg, #047857, #059669); font-size:14px; }
 .tiers { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; margin:34px 0 20px; align-items:stretch; }
 .tiers.four { grid-template-columns:repeat(4, minmax(0,1fr)); }
 .tiers.five { grid-template-columns:repeat(3, minmax(0,1fr)); }
@@ -502,6 +505,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="eyebrow"><span class="pulse"></span> Your estimate is ready</div>
       <h2 id="resTitle">Here is what your finance function costs.</h2>
       <p id="resNarrative"></p>
+    </div>
+    <div class="nego-banner" id="negoBanner">
+      <span class="nb-ic">%</span>
+      <div><b>These are estimates, not fixed prices.</b> Every engagement is scoped to your organization on the intro call, and pricing is negotiable.</div>
     </div>
     <div class="tiers" id="tiers"></div>
     <section class="compare" id="compare">
@@ -1352,7 +1359,7 @@ const BILL_LABEL = { none:'No bill pay support', lt40:'Under 40 bills/month', '4
 const ENTITY_LABEL = { one:'Single entity', '2to3':'2 to 3 entities', '4plus':'4+ entities' };
 const BOOKS_LABEL = { current:'Current / no catch-up', behind1to3:'1 to 3 months behind', behind4to6:'4 to 6 months behind', behind7:'7+ months behind', fresh:'Starting fresh (no books yet)' };
 const GOAL_LABEL = { books:'Peace of mind (clean books)', visibility:'Real visibility (dashboard + reporting)', partner:'A partner in the numbers' };
-const TIER_LABELS = { booksOnly:'The Bookkeeper', books:'The Back Office', reporting:'The Finance Department', strategic:'The Custom Install', cfo:'CFO Services' };
+const TIER_LABELS = { booksOnly:'The Bookkeeper', books:'The Back Office', reporting:'The Finance Department', strategic:'CFO Services' };
 const SOFT_LABEL = { quickbooks:'QuickBooks', xero:'Xero', zoho:'Zoho Books', none:'None yet', other:'Other' };
 
 /* ---------- financial tech stack (multi-select, tailored by orgType) ---------- */
@@ -1571,6 +1578,7 @@ function rvCountUp(el, dur) {
 function rvCascade() {
   const groups = [
     ['resTitle', 'resNarrative'],
+    ['negoBanner'],
     ['tiers'],
     ['compare'],
     ['proof'],
@@ -1670,8 +1678,7 @@ function countUp(el, from, to, prefix, suffixHtml) {
 
 function renderTiers(r) {
   const grid = $('tiers');
-  grid.classList.add('four');
-  grid.classList.toggle('five', r.cfoInterest);
+  grid.classList.add('four');                       /* four tiers is the base */
   const mods = attachedAddOns(r);
   const billLabel = ({ lt40:'Bill Pay (under 40/mo)', '40to100':'Bill Pay (40-100/mo)', gt100:'Bill Pay (100+/mo)' })[r.addOns.billpay];
   const modsSansBill = mods.filter(m => !m.startsWith('Bill Pay'));
@@ -1704,22 +1711,14 @@ function renderTiers(r) {
       cta:'Select The Finance Department'
     },
     {
-      key:'strategic', name:'The Custom Install', customPrice:true,
-      tag:'For multi entity groups and complex operations. Scoped with you on a call.',
+      key:'strategic', name:'CFO Services', customPrice:true,
+      tag:'CFO level support for complex operations and multi entity groups. Scoped with you on a call.',
       range:null,
-      core:['Everything in The Finance Department','Every entity with its own clean set of books','Consolidated reporting across the group','Scoped with you on a short call'],
+      core:['Everything in The Finance Department','CFO level strategy, forecasting and board support','Every entity with its own clean set of books, consolidated','Scoped and priced with you on a short call'],
       mods: mods.slice(),
-      cta:'Book a scoping call'
+      cta:'Book a discovery call'
     }
   ];
-  if (r.cfoInterest) {
-    defs.push({
-      key:'cfo', name:'CFO Services', custom:true,
-      tag:'Custom-scoped support for the business that needs strategic finance.',
-      core:['Custom-scoped engagement','Tailored after a discovery call','Pricing set by scope'],
-      mods:[], cta:'Book a discovery call'
-    });
-  }
 
   grid.innerHTML = defs.map(d => {
     const isRec = d.key === r.recommended;
@@ -1818,8 +1817,7 @@ function finish() {
     booksOnly: 'The Bookkeeper keeps it to the essentials, and you told us you have the rest handled.',
     books: 'The Back Office covers the core, and you told us you have the rest handled.',
     reporting: 'The Finance Department is the fit. It covers the nine things one bookkeeper was never going to cover.',
-    strategic: 'You are running more than one entity, so the install gets scoped with you on a call.',
-    cfo: 'Because you asked about CFO-level services, a custom tier is surfaced as the recommendation.'
+    strategic: 'Your operation calls for CFO level support, so it gets scoped and priced with you on a call.'
   }[r.recommended];
   $('resNarrative').textContent = `Four ways to work together, priced from your answers. ${recCopy}`;
 
