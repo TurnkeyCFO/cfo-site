@@ -19,7 +19,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NPBL5MRZ');</script>
 <!-- End Google Tag Manager -->
 <title>Instant Estimate | Turnkey CFO</title>
-  <meta name="description" content="Answer a few smart questions about your organization and see a tailored three-tier bookkeeping estimate in about a minute.">
+  <meta name="description" content="Answer a few smart questions about your organization and see a tailored four-tier bookkeeping estimate in about a minute.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="canonical" href="https://turnkeycfo.com/instant-estimate/">
   <meta property="og:title" content="Instant Bookkeeping Estimate | Turnkey CFO">
@@ -275,8 +275,9 @@ body::before {
 .res-head p { margin:0 auto; max-width:640px; color:var(--ink-faint); font-size:16px; line-height:1.65; }
 .tiers { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; margin:34px 0 20px; align-items:stretch; }
 .tiers.four { grid-template-columns:repeat(4, minmax(0,1fr)); }
-@media (max-width:1040px){ .tiers, .tiers.four { grid-template-columns:repeat(2, minmax(0,1fr)); } }
-@media (max-width:640px){ .tiers, .tiers.four { grid-template-columns:1fr; } }
+.tiers.five { grid-template-columns:repeat(3, minmax(0,1fr)); }
+@media (max-width:1040px){ .tiers, .tiers.four, .tiers.five { grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media (max-width:640px){ .tiers, .tiers.four, .tiers.five { grid-template-columns:1fr; } }
 .tier {
   position:relative; display:flex; flex-direction:column;
   background:var(--card); border:1px solid var(--line); border-radius:24px; padding:26px 24px;
@@ -288,6 +289,7 @@ body::before {
 .results.active .tier:nth-child(2){ animation-delay:.2s; }
 .results.active .tier:nth-child(3){ animation-delay:.32s; }
 .results.active .tier:nth-child(4){ animation-delay:.44s; }
+.results.active .tier:nth-child(5){ animation-delay:.56s; }
 @keyframes tin { to{ opacity:1; transform:none; } }
 .tier.rec {
   border-color:rgba(4,120,87,.55);
@@ -632,9 +634,10 @@ const money = (n) => n.toLocaleString('en-US', { style:'currency', currency:'USD
    Prior complexity-additive model archived at:
    businesses/turnkey/turnkey-cfo/instant-estimate-pricing-archive/2026-07-27-tiered-complexity-model/ */
 const PRICING = {
+  booksOnlyLow: 0.0090, booksOnlyHigh: 0.0110,   /* Tier 0 - Books Only (bookkeeping alone, ~1% of revenue) */
   booksLow: 0.0110, booksHigh: 0.0130,   /* Tier 1 - Books */
   repLow:   0.0175, repHigh:   0.0230,   /* Tier 2 - Books + Reporting */
-  minBooks: 300, minReporting: 400, minRevenue: 10000,
+  minBooksOnly: 250, minBooks: 300, minReporting: 400, minRevenue: 10000,
   /* What the same function costs to staff in house. Base pay runs about 4% of
      revenue; benefits, payroll taxes, liability cover and the management and
      admin time to run the function sit on top of it. */
@@ -928,7 +931,7 @@ const QUESTIONS = [
   {
     id:'contact', group:'Your estimate', kicker:'Last step',
     title:'Where should we anchor your estimate?',
-    help:'Your three-tier estimate appears immediately on the next screen. We also keep a copy tied to your details for the follow-up conversation.',
+    help:'Your four-tier estimate appears immediately on the next screen. We also keep a copy tied to your details for the follow-up conversation.',
     kind:'contact'
   }
 ];
@@ -984,7 +987,7 @@ function renderForming() {
     $('formingNote').textContent = 'Your estimate takes shape as you go. The numbers reveal on the last step.';
   } else if (doneCount >= act.length - 1) {
     band.textContent = 'Ready to reveal';
-    $('formingNote').textContent = 'Add your details on the last step to unlock your three-tier estimate.';
+    $('formingNote').textContent = 'Add your details on the last step to unlock your four-tier estimate.';
   } else {
     band.textContent = 'Estimate forming…';
     $('formingNote').textContent = 'Keep going — your tailored estimate unlocks once you add your details.';
@@ -1270,7 +1273,10 @@ function calc(s) {
   const revenue = revenueOf(s);
   const perMonth = (pct) => (revenue * pct) / 12;
 
-  let bLow  = Math.max(PRICING.minBooks, roundClean(perMonth(PRICING.booksLow)));
+  let oLow  = Math.max(PRICING.minBooksOnly, roundClean(perMonth(PRICING.booksOnlyLow)));
+  let oHigh = Math.max(oLow + 25, roundClean(perMonth(PRICING.booksOnlyHigh)));
+
+  let bLow  = Math.max(PRICING.minBooks, oHigh + 25, roundClean(perMonth(PRICING.booksLow)));
   let bHigh = Math.max(bLow + 25, roundClean(perMonth(PRICING.booksHigh)));
 
   let rLow  = Math.max(PRICING.minReporting, bHigh + 25, roundClean(perMonth(PRICING.repLow)));
@@ -1278,6 +1284,7 @@ function calc(s) {
 
   const bandOf = (low, high) => ({ low, high, mid: Math.round((low + high) / 2) });
   const tiers = {
+    booksOnly: bandOf(oLow, oHigh),
     books:     bandOf(bLow, bHigh),
     reporting: bandOf(rLow, rHigh),
     strategic: null            /* custom quote — priced after a call */
@@ -1325,7 +1332,7 @@ function calc(s) {
     s.inventory !== 'yes' && s.jobCosting !== 'yes' && s.funds !== 'yes' && s.campaign !== 'yes'
   );
   if (complex) recommended = 'strategic';
-  else if (simple) recommended = 'books';
+  else if (simple) recommended = 'booksOnly';
   else recommended = 'reporting';
 
   return {
@@ -1345,7 +1352,7 @@ const BILL_LABEL = { none:'No bill pay support', lt40:'Under 40 bills/month', '4
 const ENTITY_LABEL = { one:'Single entity', '2to3':'2 to 3 entities', '4plus':'4+ entities' };
 const BOOKS_LABEL = { current:'Current / no catch-up', behind1to3:'1 to 3 months behind', behind4to6:'4 to 6 months behind', behind7:'7+ months behind', fresh:'Starting fresh (no books yet)' };
 const GOAL_LABEL = { books:'Peace of mind (clean books)', visibility:'Real visibility (dashboard + reporting)', partner:'A partner in the numbers' };
-const TIER_LABELS = { books:'Bookkeeping & Bill Pay', reporting:'The Finance Department', strategic:'The Custom Install', cfo:'CFO Services' };
+const TIER_LABELS = { booksOnly:'Books Only', books:'Bookkeeping & Bill Pay', reporting:'The Finance Department', strategic:'The Custom Install', cfo:'CFO Services' };
 const SOFT_LABEL = { quickbooks:'QuickBooks', xero:'Xero', zoho:'Zoho Books', none:'None yet', other:'Other' };
 
 /* ---------- financial tech stack (multi-select, tailored by orgType) ---------- */
@@ -1507,6 +1514,7 @@ function buildPayload(r) {
     cfoInterest: !!r.cfoInterest,
     recommendedTier: TIER_LABELS[r.recommended],
     attachedAddOns: attachedAddOns(r).join(', '),
+    booksOnlyRange: fmtRange(r.tiers.booksOnly),
     booksRange: fmtRange(r.tiers.books),
     reportingRange: fmtRange(r.tiers.reporting),
     strategicRange: 'Custom quote',
@@ -1662,12 +1670,22 @@ function countUp(el, from, to, prefix, suffixHtml) {
 
 function renderTiers(r) {
   const grid = $('tiers');
-  grid.classList.toggle('four', r.cfoInterest);
+  grid.classList.add('four');
+  grid.classList.toggle('five', r.cfoInterest);
   const mods = attachedAddOns(r);
   const billLabel = ({ lt40:'Bill Pay (under 40/mo)', '40to100':'Bill Pay (40-100/mo)', gt100:'Bill Pay (100+/mo)' })[r.addOns.billpay];
   const modsSansBill = mods.filter(m => !m.startsWith('Bill Pay'));
 
   const defs = [
+    {
+      key:'booksOnly', name:'Books Only', skipMods:true,
+      tag:'The essentials and nothing else. Clean, reconciled books every month.',
+      range:r.tiers.booksOnly,
+      core:['Monthly bookkeeping and reconciliations','Month-end close','P&L and Balance Sheet delivered'],
+      gap:['Bill pay','Invoicing and receivables','Payroll and contractor compliance','1099 filings','Budget, forecast and board ready reporting','A named point of contact with a 24 hour response standard'],
+      mods: [],
+      cta:'Select Books Only'
+    },
     {
       key:'books', name:'Bookkeeping & Bill Pay',
       tag:'The core of the operation, handled accurately every month.',
@@ -1718,12 +1736,14 @@ function renderTiers(r) {
         h += `<div class="sec">Not included at this level</div>`;
         h += `<ul class="mods gaps">${d.gap.map(g => `<li class="off">${esc(g)}</li>`).join('')}</ul>`;
       }
+      if (!d.skipMods) {
       h += `<div class="sec">Built into your price</div>`;
       h += d.mods.length
         ? `<ul class="mods">${d.mods.map(m => typeof m === 'string'
             ? `<li>${esc(m)}</li>`
             : `<li class="off">${esc(m.text)} <em style="font-style:italic;font-size:12px;">${esc(m.note || '')}</em></li>`).join('')}</ul>`
         : `<div class="none-mods">No add-ons selected</div>`;
+      }
     }
     h += `<div class="tcta"><a class="${isRec ? 'main' : 'alt'}" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener noreferrer">${esc(d.cta)}</a></div>`;
     h += `</div>`;
@@ -1795,12 +1815,13 @@ function finish() {
     : 'You get us set up in the systems you already run on.';
   $('resTitle').textContent = S.firstName ? `Here is where ${S.companyName || 'your finance function'} lands, ${S.firstName}.` : 'Here is what your finance function costs.';
   const recCopy = {
+    booksOnly: 'Books Only keeps it to the essentials, and you told us you have the rest handled.',
     books: 'Bookkeeping and Bill Pay covers the core, and you told us you have the rest handled.',
     reporting: 'The Finance Department is the fit. It covers the nine things one bookkeeper was never going to cover.',
     strategic: 'You are running more than one entity, so the install gets scoped with you on a call.',
     cfo: 'Because you asked about CFO-level services, a custom tier is surfaced as the recommendation.'
   }[r.recommended];
-  $('resNarrative').textContent = `Three ways to work together, priced from your answers. ${recCopy}`;
+  $('resNarrative').textContent = `Four ways to work together, priced from your answers. ${recCopy}`;
 
   if (r.fresh) {
     $('cleanupV').textContent = 'Custom setup quote';

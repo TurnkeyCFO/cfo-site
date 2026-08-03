@@ -256,6 +256,7 @@ h1 { margin:0 auto 10px; max-width:740px; font-size:clamp(34px, 5vw, 56px); line
 .footer-mini { text-align:center; color: rgba(0,38,58,.58); font-size:12px; padding:18px 12px 0; }
 .tier-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px; margin:22px 0 26px; align-items: stretch; }
 .tier-grid.four { grid-template-columns: repeat(4, minmax(0,1fr)); }
+.tier-grid.five { grid-template-columns: repeat(3, minmax(0,1fr)); }
 .tier-card { position:relative; display:flex; flex-direction:column; padding:24px; border-radius:24px; background:#fff; border:1px solid rgba(0,38,58,.10); box-shadow:0 10px 24px rgba(4,47,69,.06); transition: transform .18s ease, box-shadow .18s ease; }
 .tier-card.recommended {
   border-color: rgba(4,120,87,.55);
@@ -381,10 +382,10 @@ h1 { margin:0 auto 10px; max-width:740px; font-size:clamp(34px, 5vw, 56px); line
 .tier-no-addons { font-size:12.5px; color:rgba(0,38,58,.50); font-style:italic; padding:4px 0; }
 .result-card-grid.secondary { grid-template-columns: repeat(2, minmax(0,1fr)); }
 @media (max-width: 1040px) {
-  .tier-grid, .tier-grid.four { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .tier-grid, .tier-grid.four, .tier-grid.five { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 @media (max-width: 640px) {
-  .tier-grid, .tier-grid.four, .result-card-grid.secondary { grid-template-columns: 1fr; }
+  .tier-grid, .tier-grid.four, .tier-grid.five, .result-card-grid.secondary { grid-template-columns: 1fr; }
 }
 @media (max-width: 860px) {
   .note-box, .result-card-grid { grid-template-columns: 1fr; }
@@ -850,9 +851,10 @@ function getSoftwareLabel(data) {
    Prior complexity-additive model archived at:
    businesses/turnkey/turnkey-cfo/instant-estimate-pricing-archive/2026-07-27-tiered-complexity-model/ */
 const PRICING = {
+  booksOnlyLow: 0.0090, booksOnlyHigh: 0.0110,   /* Tier 0 - Books Only (bookkeeping alone, ~1% of revenue) */
   booksLow: 0.0110, booksHigh: 0.0130,   /* Tier 1 - Books */
   repLow:   0.0175, repHigh:   0.0230,   /* Tier 2 - Books + Reporting */
-  minBooks: 300, minReporting: 400, minRevenue: 10000,
+  minBooksOnly: 250, minBooks: 300, minReporting: 400, minRevenue: 10000,
   /* What the same function costs to staff in house. */
   inHouseOfRevenue: 0.04,
   loadBenefits: 0.28, loadLiability: 0.05, loadAdmin: 0.12       /* monthly floors */
@@ -928,6 +930,7 @@ function getAttachedAddOns(data) {
 }
 
 const TIER_LABELS = {
+  booksOnly: 'Books Only',
   books: 'Bookkeeping & Bill Pay',
   reporting: 'The Finance Department',
   strategic: 'The Custom Install',
@@ -963,6 +966,7 @@ function buildSubmissionPayload(data, result) {
     cfoInterest: !!result.cfoInterest,
     recommendedTier: TIER_LABELS[result.recommended],
     attachedAddOns: attachedAddOns.join(', '),
+    booksOnlyRange: fmtRange(result.tiers.booksOnly),
     booksRange: fmtRange(result.tiers.books),
     reportingRange: fmtRange(result.tiers.reporting),
     strategicRange: 'Custom quote',
@@ -1107,7 +1111,8 @@ function runReveal(done) {
 function renderTierCards(result) {
   const grid = document.getElementById('tierGrid');
   const showCfo = result.cfoInterest;
-  grid.classList.toggle('four', showCfo);
+  grid.classList.add('four');                       /* four tiers is now the base */
+  grid.classList.toggle('five', showCfo);
   grid.innerHTML = '';
 
   const attachedAddOns = [];
@@ -1116,6 +1121,19 @@ function renderTierCards(result) {
   if (result.addOns.needs1099) attachedAddOns.push('1099 Module');
   const billPayLabel = ({ lt40: 'Bill Pay (under 40/mo)', '40to100': 'Bill Pay (40-100/mo)', gt100: 'Bill Pay (100+/mo)' })[result.addOns.billpay];
 
+  const booksOnlyCore = [
+    'Monthly bookkeeping and reconciliations',
+    'Month-end close',
+    'P&amp;L and Balance Sheet delivered'
+  ];
+  const booksOnlyGap = [
+    'Bill pay',
+    'Invoicing and receivables',
+    'Payroll and contractor compliance',
+    '1099 filings',
+    'Budget, forecast and board ready reporting',
+    'A named point of contact with a 24 hour response standard'
+  ];
   const booksCore = [
     'Monthly bookkeeping and reconciliations',
     'Month-end close',
@@ -1157,6 +1175,17 @@ function renderTierCards(result) {
   ];
 
   const tierDefs = [
+    {
+      key: 'booksOnly',
+      name: 'Books Only',
+      skipAddOns: true,
+      gap: booksOnlyGap,
+      tagline: 'The essentials and nothing else. Clean, reconciled books every month.',
+      price: fmtRange(result.tiers.booksOnly),
+      core: booksOnlyCore,
+      addOns: [],
+      ctaLabel: 'Select Books Only'
+    },
     {
       key: 'books',
       name: 'Bookkeeping & Bill Pay',
@@ -1232,7 +1261,7 @@ function renderTierCards(result) {
       html += `<ul class="tier-list gaps">${def.gap.map(i => `<li class="disabled">${i}</li>`).join('')}</ul>`;
     }
 
-    if (!def.custom) {
+    if (!def.custom && !def.skipAddOns) {
       html += `<div class="tier-section-label">Your add-ons</div>`;
       if (def.addOns.length) {
         html += `<ul class="tier-list addons">` + def.addOns.map(a => {
@@ -1284,13 +1313,16 @@ function calculateEstimate(data) {
   const revenue = parseMoney(data.revenue);
   const perMonth = (pct) => (revenue * pct) / 12;
 
-  const bLow  = Math.max(PRICING.minBooks, roundClean(perMonth(PRICING.booksLow)));
+  const oLow  = Math.max(PRICING.minBooksOnly, roundClean(perMonth(PRICING.booksOnlyLow)));
+  const oHigh = Math.max(oLow + 25, roundClean(perMonth(PRICING.booksOnlyHigh)));
+  const bLow  = Math.max(PRICING.minBooks, oHigh + 25, roundClean(perMonth(PRICING.booksLow)));
   const bHigh = Math.max(bLow + 25, roundClean(perMonth(PRICING.booksHigh)));
   const rLow  = Math.max(PRICING.minReporting, bHigh + 25, roundClean(perMonth(PRICING.repLow)));
   const rHigh = Math.max(rLow + 50, roundClean(perMonth(PRICING.repHigh)));
 
   const bandOf = (low, high) => ({ low, high, mid: Math.round((low + high) / 2) });
   const tiers = {
+    booksOnly: bandOf(oLow, oHigh),
     books:     bandOf(bLow, bHigh),
     reporting: bandOf(rLow, rHigh),
     strategic: null   // custom quote — priced after a call
@@ -1333,7 +1365,7 @@ function calculateEstimate(data) {
     data.inventory !== 'yes' && !(data.industry === 'construction' && data.jobCosting === 'yes')
   );
   if (complexOp) recommended = 'strategic';
-  else if (simpleOp) recommended = 'books';
+  else if (simpleOp) recommended = 'booksOnly';
   else recommended = 'reporting';
 
   // Bill pay gates Books tier out of recommendation eligibility
@@ -1413,6 +1445,7 @@ form.addEventListener('submit', (e) => {
   const submissionPayload = buildSubmissionPayload(data, result);
 
   const recCopy = {
+    booksOnly: 'Books Only keeps it to the essentials, and you told us you have the rest handled.',
     books: 'Bookkeeping and Bill Pay covers the core, and you told us you have the rest handled.',
     reporting: 'The Finance Department is the fit. It covers the nine things one bookkeeper was never going to cover.',
     strategic: 'You are running more than one entity, so the install gets scoped with you on a call.',
