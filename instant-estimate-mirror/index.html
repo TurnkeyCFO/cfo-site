@@ -851,7 +851,7 @@ function getSoftwareLabel(data) {
    Prior complexity-additive model archived at:
    businesses/turnkey/turnkey-cfo/instant-estimate-pricing-archive/2026-07-27-tiered-complexity-model/ */
 const PRICING = {
-  booksOnlyLow: 0.0090, booksOnlyHigh: 0.0110,   /* Tier 0 - Books Only (bookkeeping alone, ~1% of revenue) */
+  booksOnlyLow: 0.0045, booksOnlyHigh: 0.0055,   /* Tier 0 - The Bookkeeper (bookkeeping alone, ~0.5% of revenue) */
   booksLow: 0.0110, booksHigh: 0.0130,   /* Tier 1 - Books */
   repLow:   0.0175, repHigh:   0.0230,   /* Tier 2 - Books + Reporting */
   minBooksOnly: 350, minBooks: 300, minReporting: 400, minRevenue: 10000,
@@ -930,8 +930,8 @@ function getAttachedAddOns(data) {
 }
 
 const TIER_LABELS = {
-  booksOnly: 'Books Only',
-  books: 'Bookkeeping & Bill Pay',
+  booksOnly: 'The Bookkeeper',
+  books: 'The Back Office',
   reporting: 'The Finance Department',
   strategic: 'The Custom Install',
   cfo: 'CFO Services'
@@ -1148,7 +1148,7 @@ function renderTierCards(result) {
     'Systems connected, files managed, 1099s filed','A named point of contact with a 24 hour response standard'
   ];
   const reportingCore = [
-    'Everything in Bookkeeping & Bill Pay',
+    'Everything in The Back Office',
     'A named point of contact who answers in 24 hours or less',
     'Reimbursements and expense card oversight',
     'Payroll and contractor compliance',
@@ -1177,18 +1177,18 @@ function renderTierCards(result) {
   const tierDefs = [
     {
       key: 'booksOnly',
-      name: 'Books Only',
+      name: 'The Bookkeeper',
       skipAddOns: true,
       gap: booksOnlyGap,
       tagline: 'The essentials and nothing else. Clean, reconciled books every month.',
       price: fmtRange(result.tiers.booksOnly),
       core: booksOnlyCore,
       addOns: [],
-      ctaLabel: 'Select Books Only'
+      ctaLabel: 'Select The Bookkeeper'
     },
     {
       key: 'books',
-      name: 'Bookkeeping & Bill Pay',
+      name: 'The Back Office',
       gap: booksGap,
       tagline: 'The core of the operation, handled accurately every month.',
       price: fmtRange(result.tiers.books),
@@ -1198,7 +1198,7 @@ function renderTierCards(result) {
         if (billPayLabel) out.push({ text: billPayLabel, disabled: true, note: '(requires Books + Reporting)' });
         return out;
       })(),
-      ctaLabel: 'Select Bookkeeping & Bill Pay'
+      ctaLabel: 'Select The Back Office'
     },
     {
       key: 'reporting',
@@ -1445,8 +1445,8 @@ form.addEventListener('submit', (e) => {
   const submissionPayload = buildSubmissionPayload(data, result);
 
   const recCopy = {
-    booksOnly: 'Books Only keeps it to the essentials, and you told us you have the rest handled.',
-    books: 'Bookkeeping and Bill Pay covers the core, and you told us you have the rest handled.',
+    booksOnly: 'The Bookkeeper keeps it to the essentials, and you told us you have the rest handled.',
+    books: 'The Back Office covers the core, and you told us you have the rest handled.',
     reporting: 'The Finance Department is the fit. It covers the nine things one bookkeeper was never going to cover.',
     strategic: 'You are running more than one entity, so the install gets scoped with you on a call.',
     cfo: 'Because you\u2019re interested in CFO-level services, we\u2019ve surfaced a custom tier as our recommendation.'

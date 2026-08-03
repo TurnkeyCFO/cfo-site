@@ -646,7 +646,7 @@ const money = (n) => n.toLocaleString('en-US', { style:'currency', currency:'USD
    Prior complexity-additive model archived at:
    businesses/turnkey/turnkey-cfo/instant-estimate-pricing-archive/2026-07-27-tiered-complexity-model/ */
 const PRICING = {
-  booksOnlyLow: 0.0090, booksOnlyHigh: 0.0110,   /* Tier 0 - Books Only (bookkeeping alone, ~1% of revenue) */
+  booksOnlyLow: 0.0045, booksOnlyHigh: 0.0055,   /* Tier 0 - The Bookkeeper (bookkeeping alone, ~0.5% of revenue) */
   booksLow: 0.0110, booksHigh: 0.0130,   /* Tier 1 - Books */
   repLow:   0.0175, repHigh:   0.0230,   /* Tier 2 - Books + Reporting */
   minBooksOnly: 350, minBooks: 300, minReporting: 400, minRevenue: 10000,
@@ -1334,7 +1334,7 @@ function calc(s) {
 
   const cfoInterest = !!s.cfoInterest;
   /* The Finance Department (tier 2) is the offer, so it is the default recommendation.
-     The Custom Install is for genuine structural complexity. Books Only is surfaced as
+     The Custom Install is for genuine structural complexity. The Bookkeeper is surfaced as
      the recommendation only for a simple operation that explicitly asked for books
      alone — no payroll, no bill pay, no 1099s. */
   let recommended;
@@ -1365,7 +1365,7 @@ const BILL_LABEL = { none:'No bill pay support', lt40:'Under 40 bills/month', '4
 const ENTITY_LABEL = { one:'Single entity', '2to3':'2 to 3 entities', '4plus':'4+ entities' };
 const BOOKS_LABEL = { current:'Current / no catch-up', behind1to3:'1 to 3 months behind', behind4to6:'4 to 6 months behind', behind7:'7+ months behind', fresh:'Starting fresh (no books yet)' };
 const GOAL_LABEL = { books:'Peace of mind (clean books)', visibility:'Real visibility (dashboard + reporting)', partner:'A partner in the numbers' };
-const TIER_LABELS = { booksOnly:'Books Only', books:'Bookkeeping & Bill Pay', reporting:'The Finance Department', strategic:'The Custom Install', cfo:'CFO Services' };
+const TIER_LABELS = { booksOnly:'The Bookkeeper', books:'The Back Office', reporting:'The Finance Department', strategic:'The Custom Install', cfo:'CFO Services' };
 const SOFT_LABEL = { quickbooks:'QuickBooks', xero:'Xero', zoho:'Zoho Books', none:'None yet', other:'Other' };
 
 /* ---------- financial tech stack (multi-select, tailored by orgType) ---------- */
@@ -1691,28 +1691,28 @@ function renderTiers(r) {
 
   const defs = [
     {
-      key:'booksOnly', name:'Books Only', skipMods:true,
+      key:'booksOnly', name:'The Bookkeeper', skipMods:true,
       tag:'The essentials and nothing else. Clean, reconciled books every month.',
       range:r.tiers.booksOnly,
       core:['Monthly bookkeeping and reconciliations','Month-end close','P&L and Balance Sheet delivered'],
       gap:['Bill pay','Invoicing and receivables','Payroll and contractor compliance','1099 filings','Budget, forecast and board ready reporting','A named point of contact with a 24 hour response standard'],
       mods: [],
-      cta:'Select Books Only'
+      cta:'Select The Bookkeeper'
     },
     {
-      key:'books', name:'Bookkeeping & Bill Pay',
+      key:'books', name:'The Back Office',
       tag:'The core of the operation, handled accurately every month.',
       range:r.tiers.books,
       core:['Monthly bookkeeping and reconciliations','Month-end close','Bill pay with a real approval chain','P&L and Balance Sheet delivered'],
       gap:['Budget built and tracked against actuals','Forecast and cash runway','Board ready reporting package','Payroll and contractor compliance','Systems connected, files managed, 1099s filed','A named point of contact with a 24 hour response standard'],
       mods: mods.slice(),
-      cta:'Select Bookkeeping & Bill Pay'
+      cta:'Select The Back Office'
     },
     {
       key:'reporting', name:'The Finance Department',
       tag:'Everything a finance department does, installed and run for you.',
       range:r.tiers.reporting,
-      core:['Everything in Bookkeeping & Bill Pay','A named point of contact who answers in 24 hours or less','Reimbursements and expense card oversight','Payroll and contractor compliance','Budget built and tracked against actuals','Forecast and cash runway','Board ready financial statements','Live financial dashboard on your own private link'].concat(isChurchy() ? ['Weekly giving insights dashboard','Annual giving statements prepared and sent'] : []).concat(['Your systems connected, so nothing is re-entered by hand','File management and document retention','Sales tax administration (if applicable)','1099s filed on time']),
+      core:['Everything in The Back Office','A named point of contact who answers in 24 hours or less','Reimbursements and expense card oversight','Payroll and contractor compliance','Budget built and tracked against actuals','Forecast and cash runway','Board ready financial statements','Live financial dashboard on your own private link'].concat(isChurchy() ? ['Weekly giving insights dashboard','Annual giving statements prepared and sent'] : []).concat(['Your systems connected, so nothing is re-entered by hand','File management and document retention','Sales tax administration (if applicable)','1099s filed on time']),
       mods: mods.slice(),
       cta:'Select The Finance Department'
     },
@@ -1828,8 +1828,8 @@ function finish() {
     : 'You get us set up in the systems you already run on.';
   $('resTitle').textContent = S.firstName ? `Here is where ${S.companyName || 'your finance function'} lands, ${S.firstName}.` : 'Here is what your finance function costs.';
   const recCopy = {
-    booksOnly: 'Books Only keeps it to the essentials, and you told us you have the rest handled.',
-    books: 'Bookkeeping and Bill Pay covers the core, and you told us you have the rest handled.',
+    booksOnly: 'The Bookkeeper keeps it to the essentials, and you told us you have the rest handled.',
+    books: 'The Back Office covers the core, and you told us you have the rest handled.',
     reporting: 'The Finance Department is the fit. It covers the nine things one bookkeeper was never going to cover.',
     strategic: 'You are running more than one entity, so the install gets scoped with you on a call.',
     cfo: 'Because you asked about CFO-level services, a custom tier is surfaced as the recommendation.'
