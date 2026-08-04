@@ -657,6 +657,10 @@ const PRICING = {
   booksLow: 0.0110, booksHigh: 0.0130,   /* Tier 1 - Books */
   repLow:   0.0175, repHigh:   0.0230,   /* Tier 2 - Books + Reporting */
   minBooksOnly: 350, minBooks: 300, minReporting: 400, minRevenue: 10000,
+  /* Tier spreads (Ricky 2026-08-03): never underprice by leaning on the revenue
+     percentages alone. The Back Office low is always >= Bookkeeper low + 200;
+     The Finance Department low is always >= Back Office low + 300. */
+  spreadBooks: 200, spreadReporting: 300,
   /* What the same function costs to staff in house. Base pay runs about 4% of
      revenue; benefits, payroll taxes, liability cover and the management and
      admin time to run the function sit on top of it. */
@@ -1295,10 +1299,10 @@ function calc(s) {
   let oLow  = Math.max(PRICING.minBooksOnly, roundClean(perMonth(PRICING.booksOnlyLow)));
   let oHigh = Math.max(oLow + 25, roundClean(perMonth(PRICING.booksOnlyHigh)));
 
-  let bLow  = Math.max(PRICING.minBooks, oHigh + 25, roundClean(perMonth(PRICING.booksLow)));
+  let bLow  = Math.max(PRICING.minBooks, oLow + PRICING.spreadBooks, oHigh + 25, roundClean(perMonth(PRICING.booksLow)));
   let bHigh = Math.max(bLow + 25, roundClean(perMonth(PRICING.booksHigh)));
 
-  let rLow  = Math.max(PRICING.minReporting, bHigh + 25, roundClean(perMonth(PRICING.repLow)));
+  let rLow  = Math.max(PRICING.minReporting, bLow + PRICING.spreadReporting, bHigh + 25, roundClean(perMonth(PRICING.repLow)));
   let rHigh = Math.max(rLow + 50, roundClean(perMonth(PRICING.repHigh)));
 
   const bandOf = (low, high) => ({ low, high, mid: Math.round((low + high) / 2) });
