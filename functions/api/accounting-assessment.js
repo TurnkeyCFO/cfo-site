@@ -16,7 +16,7 @@ var KEY = {
   A1:"c", A2:"b", A3:"c", A4:"c",
   B1:"b", B2:"b", B3:"b", B4:"b", B5:"b",
   C1:"b", C2:"b", C3:"b", C4:"b",
-  D1:"b", D2:"c", D3:"a", D4:"c",
+  D1:"b", D2:"c", D3:"b", D4:"c",
   E1:"b", E2:"b", E3:"b", E4:"b", E5:"a",
   F1:"a", F2:"b",
   G1:"b", G2:"b", G3:"b", G4:"b"
@@ -42,7 +42,7 @@ var META = {
   C4:["Deposits 'added' not matched","Income overstated / double-counted"],
   D1:["Withheld taxes not yet remitted","A payroll liability"],
   D2:["Who needs a 1099-NEC","Unincorporated contractor, services, non-card"],
-  D3:["IRS 1099-NEC threshold","$600"],
+  D3:["IRS 1099-NEC threshold","$2,000"],
   D4:["Sales tax collected not remitted","A liability owed to the state"],
   E1:["$5k earmarked for building fund","Revenue with donor restriction"],
   E2:["Designated offering when spent","Released from restriction"],
