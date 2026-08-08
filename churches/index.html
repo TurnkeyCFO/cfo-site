@@ -47,6 +47,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://calendly.com" crossorigin>
+<link rel="dns-prefetch" href="https://calendly.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/assets/church/worship-warm.webp" fetchpriority="high">
 
@@ -327,14 +329,6 @@ h1.disp .w>span{display:inline-block;transform:translateY(105%);animation:rise .
 .calbox .calhead{padding:20px 24px;border-bottom:1px solid var(--line)}
 .calbox .calhead .t{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
 .calbox .calhead .s{font-size:13.5px;color:var(--tx2);margin-top:3px}
-.appbox{padding:32px 28px 26px}
-.appsteps{list-style:none;margin:0 0 26px;padding:0;counter-reset:s}
-.appsteps li{position:relative;padding:0 0 22px 48px;counter-increment:s}
-.appsteps li::before{content:counter(s);position:absolute;left:0;top:0;width:31px;height:31px;border-radius:50%;background:var(--deep);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
-.appsteps li:not(:last-child)::after{content:"";position:absolute;left:15px;top:35px;bottom:5px;width:1.5px;background:var(--line)}
-.appsteps li b{display:block;color:var(--ink);font-size:15.5px;font-weight:800;margin-bottom:4px}
-.appsteps li span{display:block;color:var(--tx2);font-size:13.5px;line-height:1.6}
-.appnote{margin:14px 0 0;text-align:center;color:var(--tx2);font-size:12.5px;line-height:1.5}
 #caly{min-height:660px;position:relative}
 @media(max-width:640px){#caly{min-height:820px}}
 #caly iframe{display:block;width:100%;height:660px;border:0}
@@ -707,7 +701,7 @@ footer ul a:hover{color:var(--emerald)}
 </head><body>
 
 <div id="abar">
-  <span class="dot"></span>Limited number of churches onboarded per year <span class="sep">&nbsp;&middot;&nbsp;</span> <b>Now accepting applications</b><span class="sep">&nbsp;&middot;&nbsp; The systems audit is <b>free</b></span>
+  <span class="dot"></span>Limited number of churches onboarded per year <span class="sep">&nbsp;&middot;&nbsp;</span> <b>Now booking free audits</b><span class="sep">&nbsp;&middot;&nbsp; The systems audit is <b>free</b></span>
 </div>
 
 <header id="hd">
@@ -724,7 +718,7 @@ footer ul a:hover{color:var(--emerald)}
   <div class="hcta">
     <a class="hphone" href="tel:+17372481346">(737) 248-1346</a>
     <a class="btn hgh sm" data-cta="estimate-header" href="https://turnkeycfo.com/instant-estimate/?industry=church">Get an Instant Estimate</a>
-    <a class="btn em sm" data-cta="book-call-header" href="#book">Request Your Audit</a>
+    <a class="btn em sm" data-cta="book-call-header" href="#book">Book a Call</a>
     <button class="burger" id="bg" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -753,7 +747,7 @@ footer ul a:hover{color:var(--emerald)}
     <div class="hctas">
       <a class="btn em" data-cta="audit-hero" href="#book">Get my free audit</a>
       <a class="btn gh" data-cta="estimate-hero" href="https://turnkeycfo.com/instant-estimate/?industry=church">Get an instant estimate</a>
-      <a class="btn gh" data-cta="book-call-hero" href="/request-consultation/?ctx=church">Request a consultation</a>
+      <a class="btn gh" data-cta="book-call-hero" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener">Book a call</a>
     </div>
     <p class="hnote">Free, and yours to keep. <b>No obligation, and no sales presentation to sit through.</b></p>
     <div class="hstats">
@@ -1070,7 +1064,7 @@ footer ul a:hover{color:var(--emerald)}
         <div class="lab" style="color:var(--tx2);letter-spacing:.1em">availability this year</div>
         <div class="statuspill"><span class="sd"></span>Accepting churches</div>
         <p>Every church we onboard gets the full install, not a trimmed down version of it. When we are at capacity the audit stays free, and we will tell you honestly when room opens up.</p>
-        <a class="btn em" data-cta="audit-seats" style="margin-top:22px;width:100%" href="#book">Request your audit</a>
+        <a class="btn em" data-cta="audit-seats" style="margin-top:22px;width:100%" href="#book">Book my free audit</a>
       </div>
 
       <ul class="ulist">
@@ -1175,7 +1169,7 @@ footer ul a:hover{color:var(--emerald)}
     <div class="rv">
       <div class="eyebrow lt">Get your free audit</div>
       <h2>Find out what a real finance function would look like at <em>your church</em>.</h2>
-      <p class="gsub">Tell us what you run on today. If we have room we will get you on the calendar, and your assessment and live dashboard follow shortly after.</p>
+      <p class="gsub">Pick a time that works. We will walk through what you run on today, and your assessment and live dashboard follow shortly after.</p>
       <ul class="finlist">
         <li><span class="ic">&#10003;</span><span>A graded assessment across all ten pillars</span></li>
         <li><span class="ic">&#10003;</span><span>A live dashboard on your own private link, yours to keep</span></li>
@@ -1189,17 +1183,12 @@ footer ul a:hover{color:var(--emerald)}
 
     <div class="calbox rv">
       <div class="calhead">
-        <div class="t">Request your free Church Finance Systems Audit</div>
-        <div class="s">About two minutes &middot; An answer within one business day</div>
+        <div class="t">Book your free Church Finance Systems Audit</div>
+        <div class="s">15 minutes &middot; Video or phone &middot; No sales presentation</div>
       </div>
-      <div class="appbox">
-        <ol class="appsteps">
-          <li><b>Seven questions</b><span>About two minutes. What your church runs on today and what is actually going wrong.</span></li>
-          <li><b>We read it</b><span>Every application is reviewed against what we can genuinely take on right now.</span></li>
-          <li><b>An answer within one business day</b><span>If we have room you will get a booking link on the spot, and your graded assessment and live dashboard follow shortly after.</span></li>
-        </ol>
-        <a class="btn em" data-cta="book-panel" href="/request-consultation/?ctx=church" style="width:100%;justify-content:center">Request your free audit</a>
-        <p class="appnote">Free, and yours to keep. No obligation, and no sales presentation to sit through.</p>
+      <div id="caly" data-url="https://calendly.com/ricky-turnkeycfo/15min-intro-call?hide_gdpr_banner=1&primary_color=00e676">
+        <div class="calskel" aria-hidden="true"><i class="r1"></i><i class="r2"></i><div class="grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><i class="r3"></i></div>
+        <noscript><div class="calfall"><a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener" style="color:var(--deep);font-weight:700">Open the booking page</a></div></noscript>
       </div>
     </div>
   </div>
@@ -1247,7 +1236,7 @@ footer ul a:hover{color:var(--emerald)}
 
 <div id="mbar">
   <a class="b" data-cta="estimate-sticky" href="https://turnkeycfo.com/instant-estimate/?industry=church">Instant Estimate</a>
-  <a class="a" data-cta="book-call-sticky" href="/request-consultation/?ctx=church">Request Audit</a>
+  <a class="a" data-cta="book-call-sticky" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener">Book Call</a>
 </div>
 
 <script>

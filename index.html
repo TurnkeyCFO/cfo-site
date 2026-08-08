@@ -384,14 +384,6 @@ details .fa a{color:var(--deep);font-weight:700}
 #caly{height:680px}
 @media(max-width:960px){#caly{height:960px}.calbox{min-height:0}}
 .calfall{padding:40px 26px;text-align:center;color:var(--tx2);font-size:14.5px}
-.appbox{padding:30px 26px 26px}
-.appsteps{list-style:none;margin:0 0 26px;padding:0;counter-reset:s}
-.appsteps li{position:relative;padding:0 0 20px 46px;counter-increment:s}
-.appsteps li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--emerald,#00e676);color:#04231a;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
-.appsteps li:not(:last-child)::after{content:"";position:absolute;left:14.5px;top:34px;bottom:4px;width:1.5px;background:var(--line,rgba(0,0,0,.12))}
-.appsteps li b{display:block;color:var(--ink);font-size:15px;font-weight:800;margin-bottom:3px}
-.appsteps li span{display:block;color:var(--tx2);font-size:13.5px;line-height:1.55}
-.appnote{margin:14px 0 0;text-align:center;color:var(--tx2);font-size:12.5px}
 
 /* ============ footer ============ */
 footer{background:var(--pine3);color:#8fae9d;padding:clamp(64px,7vw,96px) clamp(20px,5vw,64px) 130px;overflow:hidden;position:relative}
@@ -470,7 +462,7 @@ footer ul a:hover{color:var(--emerald)}
   </nav>
   <div class="hcta">
     <a class="hphone" href="tel:+17372481346">(737) 248-1346</a>
-    <a class="btn em sm mag" data-cta="book-header" href="/request-consultation/">Request a Consultation</a>
+    <a class="btn em sm mag" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener">Book a Call</a>
     <button class="burger" id="bg" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -502,7 +494,7 @@ footer ul a:hover{color:var(--emerald)}
     <h1 class="disp" id="h1">Your books, finally working <em class="sf">for</em> you.</h1>
     <p class="hsub rv">Most owners get a stale PDF a month late and still guess what to do next. Turnkey CFO gives you <strong>clean books, a monthly close with commentary, payroll, 1099s, and a live dashboard</strong> that shows where the money went and what it means.</p>
     <div class="hctas rv">
-      <a class="btn em mag" data-cta="book-hero" href="/request-consultation/">Request a Consultation <span class="ar">→</span></a>
+      <a class="btn em mag" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener">Book Your 15-Min Intro Call <span class="ar">→</span></a>
       <a class="btn gh mag" href="https://turnkeycfo.com/instant-estimate/" target="_blank" rel="noopener">Get Instant Pricing</a>
     </div>
     <p class="hnote rv">Free intro call. Instant estimate in about two minutes. No pressure, no spam.</p>
@@ -917,28 +909,22 @@ footer ul a:hover{color:var(--emerald)}
         <h2 class="big">Fifteen minutes to know exactly <em class="sf" style="color:var(--emerald)">where you stand.</em></h2>
         <p class="sub">Bring your messiest question. You'll leave the call knowing what your books need, what it costs to fix, and whether we're the right fit.</p>
         <ul class="finlist">
-          <li><span class="ic">✓</span>Free 15-minute call once your application is accepted</li>
+          <li><span class="ic">✓</span>Free 15-minute call, straight answers</li>
           <li><span class="ic">✓</span>Instant estimate available before you ever talk to us</li>
           <li><span class="ic">✓</span>For tax or legal questions, talk to your CPA or attorney</li>
         </ul>
         <div class="hctas">
-          <a class="btn em mag" data-cta="book-final" href="/request-consultation/">Request a Consultation <span class="ar">→</span></a>
+          <a class="btn em mag" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener">Book Your 15-Min Intro Call <span class="ar">→</span></a>
           <a class="btn gh mag" href="https://turnkeycfo.com/instant-estimate/" target="_blank" rel="noopener">Get Instant Pricing</a>
         </div>
       </div>
       <div class="calbox rv">
         <div class="calhead">
-          <div class="t">How the application works</div>
-          <div class="s">Because we onboard a limited number of clients, we start here.</div>
+          <div class="t">Book your 15-minute intro call</div>
+          <div class="s">Pick a time that works. It really is 15 minutes.</div>
         </div>
-        <div class="appbox">
-          <ol class="appsteps">
-            <li><b>Seven questions</b><span>About two minutes. Your books, your numbers, what is actually going wrong.</span></li>
-            <li><b>We read it</b><span>Every application is reviewed against what we can genuinely take on right now.</span></li>
-            <li><b>An answer within one business day</b><span>If we have room you will get a booking link on the spot. If we are not the right fit we will say so plainly.</span></li>
-          </ol>
-          <a class="btn em mag" data-cta="book-panel" href="/request-consultation/" style="width:100%;justify-content:center">Start your application <span class="ar">→</span></a>
-          <p class="appnote">No obligation. We do not add you to a mailing list.</p>
+        <div id="caly" data-url="https://calendly.com/ricky-turnkeycfo/15min-intro-call?hide_gdpr_banner=1&primary_color=00e676">
+          <div class="calfall">Calendar loading… <br><br><a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener" style="color:var(--deep);font-weight:700">Open the booking page instead</a></div>
         </div>
       </div>
     </div>
@@ -965,7 +951,7 @@ footer ul a:hover{color:var(--emerald)}
       <ul>
         <li><a href="https://turnkeycfo.com/blog/">Blog</a></li>
         <li><a href="https://turnkeycfo.com/instant-estimate/">Instant estimate</a></li>
-        <li><a href="/request-consultation/">Request a consultation</a></li>
+        <li><a href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener">Book a call</a></li>
       </ul>
     </div>
     <div>
@@ -985,7 +971,7 @@ footer ul a:hover{color:var(--emerald)}
 </footer>
 
 <div id="mbar">
-  <a class="a" data-cta="book-sticky" href="/request-consultation/">Request a Call</a>
+  <a class="a" href="https://calendly.com/ricky-turnkeycfo/15min-intro-call" target="_blank" rel="noopener">Book a Call</a>
   <a class="b" href="tel:+17372481346">Call Now</a>
 </div>
 
@@ -1317,7 +1303,24 @@ function initStackingStickyCardsBounce(){
   }, { passive: true });
 })();
 
-/* (calendly embed removed — booking now happens on /request-consultation/) */
+/* ---------- calendly lazy load ---------- */
+var calyDone = false;
+function loadCal(){
+  if(calyDone) return; calyDone = true;
+  var el = document.getElementById('caly');
+  var s = document.createElement('script'); s.src = 'https://assets.calendly.com/assets/external/widget.js';
+  s.onload = function(){
+    if(window.Calendly){
+      el.innerHTML = '';
+      Calendly.initInlineWidget({ url: el.getAttribute('data-url'), parentElement: el });
+    }
+  };
+  document.body.appendChild(s);
+}
+if('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ loadCal(); io.disconnect(); } }); }, { rootMargin: '600px' });
+  io.observe(document.getElementById('book'));
+} else { loadCal(); }
 
 })();
 </script>
